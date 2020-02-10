@@ -1,0 +1,13 @@
+diff --git a/templates/question/show.html.twig b/templates/question/show.html.twig
+index f17723a..126618e 100644
+--- a/templates/question/show.html.twig
++++ b/templates/question/show.html.twig
+@@ -4,7 +4,7 @@
+     TODO - better example structure
+ </div>
+ 
+-<h2>Answers</h2>
++<h2>Answers {{ answers|length }}</h2>
+ 
+ <ul>
+     {% for answer in answers %}
