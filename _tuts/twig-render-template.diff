@@ -1,0 +1,30 @@
+diff --git a/src/Controller/QuestionController.php b/src/Controller/QuestionController.php
+index 306a742..37b8326 100644
+--- a/src/Controller/QuestionController.php
++++ b/src/Controller/QuestionController.php
+@@ -2,10 +2,11 @@
+ 
+ namespace App\Controller;
+ 
++use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+ use Symfony\Component\HttpFoundation\Response;
+ use Symfony\Component\Routing\Annotation\Route;
+ 
+-class QuestionController
++class QuestionController extends AbstractController
+ {
+     /**
+      * @Route("/")
+@@ -20,9 +21,8 @@ class QuestionController
+      */
+     public function show($slug)
+     {
+-        return new Response(sprintf(
+-            'Future page to show the question "%s"!',
+-            ucwords(str_replace('-', ' ', $slug))
+-        ));
++        return $this->render('question/show.html.twig', [
++            'question' => ucwords(str_replace('-', ' ', $slug))
++        ]);
+     }
+ }
