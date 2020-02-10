@@ -14,4 +14,12 @@ class QuestionController
     {
         return new Response('OMG! My first page already! WOOO!');
     }
+
+    /**
+     * @Route("/questions/how-to-tie-my-shoes")
+     */
+    public function show()
+    {
+        return new Response('Future page to show a question!');
+    }
 }
