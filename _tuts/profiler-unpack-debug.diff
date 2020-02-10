@@ -1,0 +1,73 @@
+diff --git a/composer.json b/composer.json
+index cfaea8a..c62bc55 100644
+--- a/composer.json
++++ b/composer.json
+@@ -5,13 +5,17 @@
+         "php": "^7.2.5",
+         "ext-ctype": "*",
+         "ext-iconv": "*",
++        "easycorp/easy-log-handler": "^1.0.7",
+         "sensio/framework-extra-bundle": "^5.5",
+         "symfony/console": "5.0.*",
+-        "symfony/debug-pack": "^1.0",
++        "symfony/debug-bundle": "5.0.*",
+         "symfony/dotenv": "5.0.*",
+         "symfony/flex": "^1.3.1",
+         "symfony/framework-bundle": "5.0.*",
++        "symfony/monolog-bundle": "^3.0",
++        "symfony/profiler-pack": "*",
+         "symfony/twig-pack": "^1.0",
++        "symfony/var-dumper": "5.0.*",
+         "symfony/yaml": "5.0.*"
+     },
+     "require-dev": {
+diff --git a/composer.lock b/composer.lock
+index 43ba430..ae1adc4 100644
+--- a/composer.lock
++++ b/composer.lock
+@@ -4,7 +4,7 @@
+         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
+         "This file is @generated automatically"
+     ],
+-    "content-hash": "362a322289c519a6c0ac87df98414406",
++    "content-hash": "d454c5a3afb3eb11d12ec6603deb3b03",
+     "packages": [
+         {
+             "name": "doctrine/annotations",
+@@ -876,36 +876,6 @@
+             "homepage": "https://symfony.com",
+             "time": "2020-01-04T14:08:26+00:00"
+         },
+-        {
+-            "name": "symfony/debug-pack",
+-            "version": "v1.0.7",
+-            "source": {
+-                "type": "git",
+-                "url": "https://github.com/symfony/debug-pack.git",
+-                "reference": "09a4a1e9bf2465987d4f79db0ad6c11cc632bc79"
+-            },
+-            "dist": {
+-                "type": "zip",
+-                "url": "https://api.github.com/repos/symfony/debug-pack/zipball/09a4a1e9bf2465987d4f79db0ad6c11cc632bc79",
+-                "reference": "09a4a1e9bf2465987d4f79db0ad6c11cc632bc79",
+-                "shasum": ""
+-            },
+-            "require": {
+-                "easycorp/easy-log-handler": "^1.0.7",
+-                "php": "^7.0",
+-                "symfony/debug-bundle": "*",
+-                "symfony/monolog-bundle": "^3.0",
+-                "symfony/profiler-pack": "*",
+-                "symfony/var-dumper": "*"
+-            },
+-            "type": "symfony-pack",
+-            "notification-url": "https://packagist.org/downloads/",
+-            "license": [
+-                "MIT"
+-            ],
+-            "description": "A debug pack for Symfony projects",
+-            "time": "2018-12-10T12:11:11+00:00"
+-        },
+         {
+             "name": "symfony/dependency-injection",
+             "version": "v5.0.4",
