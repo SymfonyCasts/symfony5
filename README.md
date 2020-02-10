@@ -1,7 +1,7 @@
-# Joyful Development in Symfony5
+# Tutorials, Friendship & Symfony5
 
 Well hi there! This repository holds the code and script
-for the [Joyful Development in Symfony5](https://symfonycasts.com/screencast/symfony5) course on SymfonyCasts.
+for the [Symfony5 Tutorials](https://symfonycasts.com/tracks/symfony) on SymfonyCasts.
 
 ## Have Ideas, Feedback or an Issue?
 
