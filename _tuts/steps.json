@@ -1,0 +1,130 @@
+{
+    "steps": [
+        {
+            "id": "start",
+            "name": "start",
+            "description": null
+        },
+        {
+            "id": "setup-set-platform-version",
+            "name": "Setup: set platform version",
+            "description": null
+        },
+        {
+            "id": "pages-create-yaml-page",
+            "name": "Pages: Create YAML page",
+            "description": null
+        },
+        {
+            "id": "pages-install-annotations",
+            "name": "Pages: Install annotations",
+            "description": null
+        },
+        {
+            "id": "pages-convert-route-to-annotation",
+            "name": "Pages: Convert route to annotation",
+            "description": null
+        },
+        {
+            "id": "pages-add-show-page-hardcoded",
+            "name": "Pages: Add show page hardcoded",
+            "description": null
+        },
+        {
+            "id": "pages-use-a-wildcard-route",
+            "name": "Pages: Use a wildcard route",
+            "description": null
+        },
+        {
+            "id": "pages-fancier-slug",
+            "name": "Pages: fancier slug",
+            "description": null
+        },
+        {
+            "id": "recipes-install-sec-checker",
+            "name": "Recipes: Install sec-checker",
+            "description": null
+        },
+        {
+            "id": "recipes-remove-sec-checker",
+            "name": "Recipes: remove sec-checker",
+            "description": null
+        },
+        {
+            "id": "twig-install-twig",
+            "name": "Twig: Install twig",
+            "description": null
+        },
+        {
+            "id": "twig-render-template",
+            "name": "Twig: Render template",
+            "description": null
+        },
+        {
+            "id": "twig-add-template",
+            "name": "Twig: add template",
+            "description": null
+        },
+        {
+            "id": "twig-loop-over-answers",
+            "name": "Twig: Loop over answers",
+            "description": null
+        },
+        {
+            "id": "twig-use-length-filter",
+            "name": "Twig: Use length filter",
+            "description": null
+        },
+        {
+            "id": "twig-extends-but-no-block",
+            "name": "Twig: Extends but no block",
+            "description": null
+        },
+        {
+            "id": "twig-add-body-block",
+            "name": "Twig: Add body block",
+            "description": null
+        },
+        {
+            "id": "twig-add-title-block",
+            "name": "Twig: Add title block",
+            "description": null
+        },
+        {
+            "id": "profiler-install-profiler",
+            "name": "Profiler: Install profiler",
+            "description": null
+        },
+        {
+            "id": "profiler-use-dump",
+            "name": "Profiler: Use dump()",
+            "description": null
+        },
+        {
+            "id": "profiler-install-debug",
+            "name": "Profiler: install debug",
+            "description": null
+        },
+        {
+            "id": "profiler-remove-dump",
+            "name": "Profiler: Remove dump()",
+            "description": null
+        },
+        {
+            "id": "profiler-unpack-debug",
+            "name": "Profiler: unpack debug",
+            "description": null
+        },
+        {
+            "id": "profiler-remove-re-org-packages",
+            "name": "Profiler: remove \/ re-org packages",
+            "description": null
+        },
+        {
+            "id": "assets-copy-in-layout",
+            "name": "Assets: Copy in layout",
+            "description": null
+        }
+    ],
+    "sha": "89b52ff213f37900b1dc58c5029f6b5e83471e50"
+}
