@@ -8,7 +8,7 @@ use Symfony\Component\Routing\Annotation\Route;
 class QuestionController
 {
     /**
-     * @Route()
+     * @Route("/")
      */
     public function homepage()
     {
