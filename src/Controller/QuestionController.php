@@ -22,7 +22,7 @@ class QuestionController
     {
         return new Response(sprintf(
             'Future page to show the question "%s"!',
-            $slug
+            ucwords(str_replace('-', ' ', $slug))
         ));
     }
 }
