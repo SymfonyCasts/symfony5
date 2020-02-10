@@ -1,0 +1,37 @@
+diff --git a/src/Controller/QuestionController.php b/src/Controller/QuestionController.php
+index 37b8326..27794da 100644
+--- a/src/Controller/QuestionController.php
++++ b/src/Controller/QuestionController.php
+@@ -21,8 +21,15 @@ class QuestionController extends AbstractController
+      */
+     public function show($slug)
+     {
++        $answers = [
++            'Answer1',
++            'Answer2',
++            'Answer3',
++        ];
++
+         return $this->render('question/show.html.twig', [
+-            'question' => ucwords(str_replace('-', ' ', $slug))
++            'question' => ucwords(str_replace('-', ' ', $slug)),
++            'answers' => $answers,
+         ]);
+     }
+ }
+diff --git a/templates/question/show.html.twig b/templates/question/show.html.twig
+index 9cbbb26..f17723a 100644
+--- a/templates/question/show.html.twig
++++ b/templates/question/show.html.twig
+@@ -3,3 +3,11 @@
+ <div>
+     TODO - better example structure
+ </div>
++
++<h2>Answers</h2>
++
++<ul>
++    {% for answer in answers %}
++        <li>{{ answer }}</li>
++    {% endfor %}
++</ul>
