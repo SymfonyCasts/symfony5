@@ -1,0 +1,17 @@
+diff --git a/src/Controller/QuestionController.php b/src/Controller/QuestionController.php
+index dd7e46c..d94335c 100644
+--- a/src/Controller/QuestionController.php
++++ b/src/Controller/QuestionController.php
+@@ -14,4 +14,12 @@ class QuestionController
+     {
+         return new Response('OMG! My first page already! WOOO!');
+     }
++
++    /**
++     * @Route("/questions/how-to-tie-my-shoes")
++     */
++    public function show()
++    {
++        return new Response('Future page to show a question!');
++    }
+ }
