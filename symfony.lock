@@ -15,7 +15,7 @@
         "version": "1.2.0"
     },
     "php": {
-        "version": "7.3"
+        "version": "7.2.5"
     },
     "psr/cache": {
         "version": "1.0.1"
