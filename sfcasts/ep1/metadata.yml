@@ -1,6 +1,6 @@
 chapters:
     - setup
-    - dirs-server      #raw
+    - dirs-server
     - route-controller #raw
     - annotations      #raw
     - flex-recipes     #raw
