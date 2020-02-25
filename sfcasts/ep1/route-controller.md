@@ -12,41 +12,41 @@ it be HTML or JSON. At this point, our application is actually so small that pre
 much all Symfony's giving us is that route and controller system. Later when we need
 more features, we're going to install them, which is actually going to be awesome.
 
-Open up config routes.yaml. When Symfony loads up the system it when Symfony loads,
+Open up `config/routes.yaml`. When Symfony loads up the system it when Symfony loads,
 it gets it loads routes from this file. I'm going to uncomment this route here. If
-you're not familiar with the AML, it is a key value based system separated by colons
+you're not familiar with the YAML, it is a key value based system separated by colons
 where indentation is important. So this is a single route where the path that you
-were out will be slashed at the home page. And the controller actually points to a
-class whose name is spaces app controller, default controller. So when we go to the
-homepage, it's going to execute in index method on this default controller class.
+were out will be `/` at the home page. And the controller actually points to a
+class whose name is spaces `App\Controller\DefaultController`. So when we go to the
+homepage, it's going to execute in `index` method on this `DefaultController` class.
 
 And for now you can ignore this index key up here. That's just the internal name of
 the route. And right now it's meaningless. Now remember our application is all about
 allowing, which is in wizards to ask questions about different spells that they're
 doing. And in the homepage we're going to show some of the most popular questions. So
-I'm gonna change the controller here to question controller and the method to
-homepage. And that's it. That is a route we've defined the URL and we've defined the
+I'm gonna change the controller here to `QuestionController` and the method to
+`homepage`. And that's it. That is a route we've defined the URL and we've defined the
 controller function that should, that will build the page. Now this controller class
-doesn't exist yet. We're looking at source. There is a controller directory, but
-there's nothing in it. So I'm going to right click on this. Go to new Petri class.
-You can also do command N and type in question controller, but wait, check this out.
+doesn't exist yet. We're looking at `src/`. There is a `Controller/` directory, but
+there's nothing in it. So I'm going to right click on this. Go to new PHP class.
+You can also do command + N and type in `QuestionController`, but wait, check this out.
 It free filled the namespace. That's awesome. This was thanks to that setup we did
 with composer.
 
 Every file that we create in the source directory is going to need a namespace and
-the name of space always needs to be app followed by whatever directory you're at. So
-we're in the controller directory. It's in the controller namespace if you like PHP
+the name of space always needs to be `App\` followed by whatever directory you're at. So
+we're in the `Controller/` directory. It's in the `Controller\` namespace if you like PHP
 storm and create the piece. But that's for you. It's going to guess it right every
-time. Perfect. All right. Now because in our roster at Yammer, we call the method
-homepage. Let's go inside of here and create a new public function homepage.
+time. Perfect. All right. Now because in our `routes.yaml`, we call the method
+`homepage`. Let's go inside of here and create a new `public function homepage()`.
 Congratulations. We are now inside of our controller function. Sometimes also call an
 action. Our job here is simple to build the page and we can do anything inside of
 this function. We can make database queries, cache queries, API calls, whatever we
-need to do to build the page. The only rule is that we must return a Symfony response
+need to do to build the page. The only rule is that we must return a Symfony `Response`
 object from a controller.
 
-So check this out. Say return new response. Then notice there are multiple response
-objects in our project. Use the one from Symfony component HTTP foundation. That's a
+So check this out. Say `return new Response()`. Then notice there are multiple response
+objects in our project. Use the one from `Symfony\Component\HttpFoundation`. That's a
 part of Symfony that gives you um, and uh, choose that one and hit tab to auto
 complete it. Now stop right there. That was super important because we led PHP storm
 auto complete that for us, it added the use David to the class on the top of the

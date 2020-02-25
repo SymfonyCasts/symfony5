@@ -1,7 +1,7 @@
 chapters:
     - setup
     - dirs-server
-    - route-controller #raw
+    - route-controller
     - annotations      #raw
     - flex-recipes     #raw
     - twig-recipe      #raw
