@@ -1,5 +1,5 @@
 chapters:
-    - setup            #raw
+    - setup
     - dirs-server      #raw
     - route-controller #raw
     - annotations      #raw
