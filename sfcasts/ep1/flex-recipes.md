@@ -1,104 +1,118 @@
-# Flex Recipes
+# Flex, Recipes & Aliases
 
-Coming soon...
+We're going to install a *totally* new package into our app called the
+"security checker". The security checker is a tool that will look at our
+application's dependencies and tell us if any of them have known security
+vulnerabilities. But, full disclosure, as *cool* as that is...  the *real*
+reason I want to install this library is because it's a *great* way to look at
+Symfony's super-important "recipe" system.
 
-Let's commit our progress so far. I'll clear the screen and run, get status. There
-may be more files here. Then you expect like a couple of new Yammel files down there.
-Don't worry. I'm explaining where those came from soon for now, just do get added
-and.now normally get at.as a little dangerous because you could commit files that you
-don't want to, but one of the great things about the project is that it came with a
-dot get ignore file, which are ignores things like the vendor directory and other
-files. Other paths that we'll talk about little by little like you VAR directory,
-which you don't really need to worry about, but the VAR directory contains some cache
-files that Symfony crates that you also want to ignore. So Symfony is watching our
-back by creating the doc. Get ignore file. So let's commit, get commit dash M we are
-rocking this Symfony thing.
+At your terminal, run:
 
-All right, I want to talk about the recipe system first. I want to show you a really
-cool feature that we haven't looked at yet, which is that you can interact with your
-simply application in two different ways by loading a page in your browser, of
-course, but simply also has a little command line script you can run by saying PHP
-bin slash. Console. This is loaded with tons of useful debugging commands in our
-application. Now just to demystify this a little bit, there is literally a bin
-directory with a console file inside. So this bin console thing is not some global
-command we installed on our system. We're just literally executing a PHP file, which
-boots up our application and gives us a bunch of commands that we can run inside of
-it. So for example, one of the cool ones is debug router. This is going to give you a
-list of all the routes in your application. So I run PHP bin console, debug router to
-see our two pages /in slash. Questions /curly brace, slug this preview air thing. You
-can ignore this as a way to help you, um, build your 400, four, four and 500 pate
-style pages and it's added an automatic device Symfony in the development mode only.
-All right, so I want to install a totally new package into our system called the
-security checker.
+```terminal
+composer require sec-checker
+```
 
-The point of the security checker is it will actually check our applications
-composer.json and composed about lock files and tell us if we're using any
-dependencies that have security vulnerabilities. But full disclosure, we're going to
-install this library because it's going to be a great way to look at the recipe
-system. So run composer require sec checker. You could use dash dash dev. Now if you
-know composer, you know that sec checker is not a real package name. All packaged
-names must be something /something else. So what the heck is going on?
+For the Composer pros out, in a real app, you *should* probably pass `--dev`
+to add this to your *dev* dependencies... but it won't matter for us.
 
-Move over and check out the composer dot and JSON filer. When we started our project,
-we started with very few dependencies, but one of the dependencies that we started
-with was something called Symfony. Slash. Flex. This is a composer plugin so it adds
-more features to composer itself and specifically adds to amazing features to
-composer. The first one is called aliases, so go to your browser and open up
-flex.Symfony.com to find and search up here for security. In fact, let's look for it.
-Sec checker. Boom. Here we go. So you can see where it says right here. It says that
-there is a package called Sensi labs /security checker and it has aliases of sec,
-check, sec checker, security dash checker, any of these things. So the ileus system
-is very useful but very simple thanks to having Symfony flex installed. We can say
-composer, applier, security checker and internally that will be shortcuts to download
-Sensio labs /security checker.
+## Flex Aliases
 
-You can see over here in our terminal we said sec checker, but ultimately it
-downloaded Sensio labs /security checker and that's what went into our actual
-composer, that JSON file. So this is just a nice little shortcut feature and it's
-really cool because you know if you need, for example, a logger, I'll search for
-logger. You can say composer require logger. And they'll give you the recommended
-logging library. Need a to do emails you can do a composer require mailer or composer
-require mail and it's going to give you Symfony's official mailer library or composer
-require cookies. A man cake,
+But there *is* something weird about this command. Specifically... `sec-checker`
+is an *invalid* package name! In the Composer world, *every* package *must* be
+`something/something-else`: it can't just be `sec-checker`. So what the heck
+is going on?
 
-nothing.
+Back in PhpStorm, open up `composer.json`. When we started the project, we
+had just a *few* dependencies in this file. One of them is `symfony/flex`.
+This is a composer *plugin* that adds *two* special features to Composer itself.
+The first is called "aliases".
 
-Okay, well there's not an alias for grit for delicious food.
+At your browser, go to http://flex.symfony.com to find and big page full of packages.
+Search for `security`. Better, search for `sec-checker`. Boom! This says that there
+is a package called `sensiolabs/security-checker` and it has aliases of
+`sec-check`, `sec-checker`, `security-checker` and some more.
 
-Okay?
+The alias system is simple: because Symfony Flex is in our app, we can say
+`composer require security-checker`, and it will *really* download
+`sensiolabs/security-checker`.
 
-The second super power of the system, and this is really the most important one, is
-the recipe system. So if I move back to my terminal here, you'll see that after
-installed the package, it says simply operations one recipe configuring sends you lab
-/security checker. Now check this out. Run, get status. Whoa. We expected composed of
-JSON and composer that lock to be modified. That's how composer works. But there's
-also it also modify that sip and have that locked file in added a new configuration
-file. All right, so first sip of that lock is something that is managed by flex and
-you don't need to worry about it and you should commit it. It just keeps a big list
-of all of the recipes that it has installed. The other mysterious files, config
-packages, security checker..yaml. So config packages, security checker. Dot. Yammel.
-This was created by Symfony flex when we installed the recipe. And I don't want you
-to worry about the specifics of what's in this file. That's something we're going to
-be talking about over the next, uh, uh, little by little, but thanks to this file.
+You can see this in our terminal: we said `sec-checker`, but ultimately it
+downloaded `sensiolabs/security-checker`. That's also what was eventually put
+into `composer.json` file. So... aliases are just a nice shortcut feature... but
+it's kinda cool! You can almost *guess* an alias when you want to install something.
+Want a logger? Run `composer require logger` to get the recommended logger.
+Need to mail something, `composer require mailer`. Need to eat a cake?
+`composer require cake`! Oh... I *wish* that worked.
 
-Yeah,
+## Flex Recipes
 
-we now have a new bin console command. That's actually the whole point of this
-library watch I run PHP bin slash. Console. You can see in here there's one called
-security check that wasn't there a second ago, but they see didn't configuration
-file.
+The *second* feature that Flex adds to Composer is the *really* important one.
+It's the recipe system.
 
-All right,
+Back at my terminal, after installing the package, it says:
 
-but thanks to this new, there's a new configuration file, gave Symfony all the
-configuration that needed to add this new command to our application so we can try
-it. Been counseled security call on check and beautiful no package, no packages have
-known vulnerabilities. So very simply, whenever you install a package, there may be a
-recipe for it and recipes can do lots of things that can add files, it can add
-directories or they can even modify files like a recipe can modify your get dot. Get
-ignore file and add more contents to it. I love Symfony flex because anytime that I
-install a third party package, all I had to do is install it. I don't need to add
-configuration files or modify anything else because the recipe is going to add all
+> Symfony operations: 1 recipe
+> configuring sensiolabs/security-checker.
+
+Interesting. Run:
+
+```terminal
+git status
+```
+
+Whoa! We expected `composer.json` and `composer.lock` to be modified... that's
+how composer works. But something *also* modified some `symfony.lock` and added
+a totally *new* `security_checker.yaml` file.
+
+Ok, first, `symfony.lock` is a file that's managed by Flex. You don't need to
+worry about it, but you *should* commit it. It keeps a big list of which "recipes"
+have been installed.
+
+So, who created the other file? Open it up: `config/packages/security_checker.yaml`.
+Every package you install *may* have a Flex "recipe". The idea is *beautifully*
+simple. Instead of telling people to install a package and *then* create some
+configuration file so the package works, with Flex, the recipe adds any files you
+need automatically! This file was added by the `sensiolabs/security-checker` recipe!
+
+You don't need to worry about the specifics of what's *inside* this file right
+now: that's something we'll explain later. The point is, *thanks* to this file,
+we have a new `bin/console` command. Run:
+
+```terminal
+php bin/console
+```
+
+See that `security:check` command? That wasn't there a second ago. It's there
+*now* thanks to the new YAML file. Try it:
+
+```terminal
+php bin/console security:check
+```
+
+No packages have known vulnerabilities! Awesome!
+
+## How Recipes Work
+
+Here is the *big* picture: thanks to the recipe system, whenever you install a
+package, Flex will check to see if that package has a recipe and, if it does,
+will install it. A recipe can do many things, like add files, create directories
+or even *modify* a few files, like adding new lines to your `.gitignore` file.
+
+The recipe system is a *game-changer*. I *love* it because anytime I need a
+new package, all I need to do is install it. I don't need to add configuration
+files or modify anything because the recipe will do all that boring work for me.
+
+## Recipes can Modify Files
+
+In fact, this recipe did something *else* we didn't notice. At the terminal, run:
+
+```terminal
+git diff composer.json
+```
+
+HERE
+
 things form all those things for me. In fact, if I go back, I'll run and get status
 again and I'm going to get diff composer.json as expected when we install this
 package, added the sensory lab security checker to our composer JSON file. But check
@@ -150,4 +164,3 @@ cleaned up our composer, that JSON file, the script section has gone from here a
 deleted the extra configuration file. All right, next let's install a temp bunny
 engine called twig doing. That's going to be super easy because the twig recipe is
 going to configure everything we need automatically.
-
