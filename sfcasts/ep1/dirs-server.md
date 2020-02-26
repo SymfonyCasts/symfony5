@@ -1,114 +1,112 @@
-# Dirs Server
+# Meet our Tiny App + PhpStorm Setup
 
-Coming soon...
+One of my *main* goals in these tutorials will be to help you *really* understand
+how Symfony - how your *application* works.
 
-I really want you to understand the magic behind Symfony, how your application really
-works. So let's look at the directory structure very quickly. In our, in our small
-project, there's actually only three directories that you even need to think about.
-The first one is this `public/` directory. It is the document root, so that's where we
-point our web server app and that's, which means that if you, any public files like
-images or CSS files will go inside the `public/` directory. This `index.php` file here
-is called the front controller. This is the actual file that your web server is
-executing. When you go to the site, you'll probably never need to touch anything in
-this file. In fact, you almost, in reality, you almost never need to think about the
-public directory at all. The reality is that there are only two directories that you
-really need to think about. `config/` and `src/`. The, the `config/` directory is for well
-configuration. You're going to see YAML files in here that control how your
-application works and we'll talk a lot more about this later. The `src/` directory is
-for your PHP files and there's only one right now, but every time we build a PHP
-file, it's going to go into the `src/` directory and that's it. Config goes in,
-`config/` PHP class classes go into `src/`.
+To start with that, let's take a quick look at the directory structure.
 
-Our project also has a `composer.json` file, which specifies our dependencies when we
-originally created the project, that command use composer to install these
-dependencies into the `vendor/` directory including Symfony itself. Okay, so we got our
-application running by using the nice built into PHP web server here to start a local
-development server pointing at the `public/` directory. That's cool, but I'm going to
-hit control + C to stop that because there's a much better way to do that because we
-have that Symfony CLI installed. We can say 
+## The public/ Directory
+
+There are only three directories you need to think about. First, `public/` is
+the document root: so it will hold all files that need to be accessible by a
+browser. And... there's only one right now: `index.php`. This is called the
+"front controller": a fancy word that programmers invented to mean that this
+is the file that's executed by your web server.
+
+But really, other than putting CSS or image files into `public/`, you'll almost
+never need to think about it.
+
+## src/ and config/
+
+So... I kinda lied. There are *truly* only *two* directories that you need to
+think about: `config/` and `src/`. `config/` holds... um... puppies? No, `config/`
+holds config files and `src/` is where all your PHP code will go. It's just that
+simple.
+
+So... where is Symfony? Our project *started* with a `composer.json` file, which
+lists all the third-party libraries that our app *requires*. Behind the scenes,
+that `symfony new` command used composer to install this... which is a *fancy*
+way of saying that Composer downloaded a bunch of libraries into the `vendor/`
+directory... including Symfony itself.
+
+We'll talk more about the other files and directories along the way... but they're
+just not important yet.
+
+## Using the symfony Local Web Server
+
+A few minutes ago, we used PHP itself to start a local development web server.
+Cool. But hit Ctrl+C to quit that. Why? Because that handy symfony binary tool we
+installed comes with a more *powerful* local server. Run:
 
 ```terminal
 symfony serve
 ```
 
-and that's it. The first
-time you run this, it may ask you about installing a certificate and that is
-actually, that's optional, but if you say yes, it actually starts the web server up
-with HTTPS. Yes, we get local HTTPS functional.
+That's it. The first time you run this, it may ask you about installing a
+certificate. That's optional. If you *do* install it - I did - it will start
+the web server with https. Yep, you get https locally with zero config.
 
-It's not, if I go over and refresh, you'll see that see the little lock icon. There.
-We are actually seeing this at HTTPS which is awesome. When you want to stop the
-web server, you can hit control + C, you see it streams the logs to stop that and there
-are number of other options you can pass on any of these commands. You can pass `--help`
+Anyways, once it's running, move over to your browser and refresh. It works!
+And the little lock icon prove that we're now using https.
+
+To stop the web server, just hit Control + C. You can see all of this command's
+options by running:
 
 ```terminal-silent
 symfony serve --help
 ```
 
-it's can tie to a different document route or a different port if that's
-what you want. Or yeah, no TLS. If you want to disable the HTTPS for some reason. Now
-when you actually use the Symfony command, I actually do Symfony colon start. I
-actually run Symfony. It's server colon start.
-
-No I don't.
-
-I actually do Symfony server colon run.
-
-Oh I know, I do.
-
-I actually do 
+Like ways to control the port number. When *I* use this command, I usually run:
 
 ```terminal
 symfony serve -d
 ```
 
-`-d` means to run as Damon. It does the exact
-same thing except that did just running in the background and um, and when you
-refresh everything still works. You can say 
+The `-d` means to run as a daemon. It does the exact same thing except that now
+it runs in the background... which means I can still use this terminal. Running:
 
 ```terminal
 symfony server:status
 ```
 
-to see
-where that server is running. And you can say 
+Shows me the server is running and:
 
 ```terminal
 symfony server:stop
 ```
 
-if you want to stop it. And then down here we will start it again.
- 
+Will stop it. Let's start it again:
+
 ```terminal-silent
 symfony serve -d
 ```
- 
-That's simply serve, serve command has
-other super powers like the ability to attach a domain, but we'll leave all that
-stuff related. Okay. The last thing I want to do before we start coding, let's make
-sure that our editor is set up. Now look, you can use whatever editor you want with
-Symfony, but developing and Symfony with PHP storm, which is what you see here is an
-absolute delight, so I highly recommend giving it a try. Now to really make it
-awesome. There are two things that you need to know, so I'm going to go to Petri
-[inaudible] preferences and the first thing to do is go to plugins and then
-marketplace and search for Symfony.
 
-Really, I just want to hear these Symfonys support and this thing is awesome. It's
-been downloaded almost 4 million times because it is incredible. I'll click into it.
-If you don't have this installed, go ahead and install it. The other thing there, the
-other two other plugins, we want to get our PHP annotations and PHP toolbox, so I
-have to say I searched for TG box here. It's a piece we toolbox peach. Meditation's
-simply support. These are the three that you're going to want. Stop after you install
-them in piece storm. We'll need you to restart.
+## Installing PhpStorm Plugins
 
-And then once you've restarted, actually wants you to come right back to preferences
-and then search the top box for Symfony. Once you have that simply plugin installed,
-you actually need to enable it on a project by project basis and make sure you hit
-that. Enable up there in the hip. Fly down there. It does, says they this change
-needs a restart, but I don't think that's true. The second thing to really make this
-work well for you is search for composer and you'll find a little languages,
-frameworks, PHP composer section. It makes you have the synchronized IDE settings
-with `composer.json`, that's just going to make your life a lot nicer. All right,
-I'll hit okay and we are ready. So let's dive in. Let's start creating some pages and
-see what Symfony is all about.
+Ok: we're about to start doing a *lot* of coding... so I want to make sure your
+editor is setup. And, yea, you can use *whatever* your want. But I *highly*
+recommend PhpStorm! Seriously, it makes developing in Symfony a *dream*! And no,
+the nice people at PhpStorm aren't paying me to say this... though... they *do*
+actually sponsor several open source PHP devs... which is kinda better.
 
+To *really* make PhpStorm awesome, you need to do two things. First, open the
+Preferences, select "Plugins" and click "Marketplace". Search this for Symfony.
+
+This plugin is *awesome*... proven by the nearly 4 million downloads it has.
+This will give us all *kinds* of extra auto-completion & intelligence while
+we're working. If you don't have it already, install it. You should *also*
+install the  "PHP Annotations" and "PHP toolbox" plugins. If you searched for
+"php toolbar"... you can see all three of them. Install them and restart PhpStorm.
+
+Once you've restarted, go *back* to Preferences and Search for Symfony. In
+addition to installing the plugin, you *also* need to enable it on a
+project-by-project basis. Check Enable and then apply. It says you need to
+restart PhpStorm... but I don't think that's true.
+
+The *second* thing you need to do in PhpStorm to make it shine is to search
+for Composer and find the "Languages and Frameworks", "PHP", "Composer" section.
+Make sure the "Synchronize IDE settings with composer.json" box is checked...
+which automatically configures a few useful things.
+
+Hit "Ok" and... we are ready! Let's create our very first page and see what
+Symfony is all about.

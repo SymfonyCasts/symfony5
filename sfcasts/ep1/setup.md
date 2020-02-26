@@ -1,118 +1,150 @@
-# Setup
+# Creating a new Symfony 5 Project
 
-Coming soon...
+Hey friends! And *welcome* to the world of Symfony 5... which just *happens* to
+be my favorite world! Ok, maybe Disney World is my *favorite* world... but
+programming in Symfony 5 is a *close* second.
 
-Hey friends. Oh and welcome to our tutorial about Symfony 5. I am so excited that
-you're here. I love nothing more.
+Symfony 5 is lean and mean: it's lightning fast, starts tiny, but grows with you
+as your app gets bigger. And that's not marketing jargon! Your Symfony app will
+*literally* grow as you need more features. But more on that later.
 
-Then playing with the latest versions of Symfony and this is the best one ever. Symfony
-5 is a lean and mean. It's fast and it's tiny. It actually grows with you. It
-grows with you as your application gets more bigger. In fact, a new Symfony 5 project is a
-single file, but more on that later developing in Symfony 5 is also just super fun. There's
-been a huge focus for many years now in Symfony about developer experience, just
-making it something that's great to work with. But Symfony does this without
-sacrificing quality. You get to build code that you love. It's high quality and love
-the process.
+Symfony 5 is *also* the product of *years* of work on developer experience. Basically,
+the people behind Symfony want you to *love* using it but *without* sacrificing
+quality. Yep, you get to write code that you're proud of, love the process, *and*
+build things quickly.
 
-It's also one of the fastest SIF, it's the fastest major PHP framework. All right, so
-let's get started already. First, start by going to http://symfony.com
-and then clicking the download button up here. We're going to download first is not
-actually Symfony. It's a little executable tool that's going to make local
-development with Symfony. Super awesome, so because I'm a Mac, I'll hit copy over
-here. Then open a terminal, I have one already open and I will paste that, command
+Symfony is also the fastest major PHP framework, which is no surprise: - its
+creator *also* created the PHP profiling system Blackfire. So... performance is
+always a focus.
+
+## Downloading the Symfony Installer
+
+So... let's do this! Start off by going to http://symfony.com and clicking
+"Download". What we're *about* to download is *not* actually Symfony. It's an
+executable tool that will help make local development with Symfony... well..
+awesome.
+
+Because I'm a Mac, I'll copy this command and then go open a terminal - I already
+have one waiting. It doesn't matter *where* on your filesystem you run this.
+Paste!
 
 ```terminal-silent
 curl -sS https://get.symfony.com/cli/installer | bash
 ```
 
-this down with the small executable file and then on a Mac in order. I can make that
-globally available by copying this command here and then see if it works. Type
-Symfony, say hello to your new best friend at these Symfony executable Symfonys CLI
-executable. It's going to do many, many cool things for us, but don't worry because
-we're going to see them along the way to actually start a new project.
+This downloads a *single* executable file and, for me, put it into my home directory.
+To make it so that I can run this executable from *anywhere* on my system, I'll
+follow the commands advice and move the file somewhere else:
 
-We can use this new executable 
+```terminal-silent
+mv /Users/weaverryan/.symfony/bin/symfony /usr/local/bin/symfony
+```
+
+Ok, try it!
+
+```terminal
+symfony
+```
+
+It's alive! Say hello to the Symfony CLI: a command-line tool that will help us
+with various things along our path to programming glory.
+
+## Starting a new Symfony App
+
+It's *first* job will be to help us create a new Symfony 5 project. Run:
 
 ```terminal
 symfony new cauldron_overflow
 ```
 
-`cauldron_overflow` is
-this name of the super important site that we're building because we've noticed a lot
-of witches and wizards blowing each other up, not quite getting their spells correct,
-so they need a place, their own stack overflow to ask questions about what they're
-doing wrong behind the scenes. This clones a project called `symfony/skeleton`.
-I'll show you that a bit more later into a new directory called `cauldron_overflow/` and
-then installs the composer dependencies. We'll talk more about composer as well also.
-So I'll move into this by saying I'll clear my screen and then move into this by
-saying 
+Where `cauldron_overflow` will be the *directory* that the new app will live in.
+This *also* happens to be the name of the site we're building... but more on that
+later.
 
-```terminal
+Behind the scenes, this command isn't doing anything special: it clones a Git
+repository called `symfony/skeleton` and then uses Composer to install that
+project's dependencies. We'll talk more about that repository and Composer a bit
+later.
+
+When it's done, move into the new directory:
+
+```terminal-silent
 cd cauldron_overflow
 ```
 
-And then I'm going to open this in my favorite editor PHP storm. I have a little a
-short call called peace storm. Move into the directory and then open this in your
-favorite editor. I highly recommend using PHP storm. I've already opened the project
-over here and you can just go to file open directory and find this directory to boom
-open this thing up right here. And what we have right now is super small. And before
-we get any further, let's create a new git repository and commit this. But hold on a
-second because check this out. Everyone 
+And then *open* this directory in your favorite editor. I already have it open in
+*my* favorite editor: PhpStorm, which I did by going to File -> Open Directory and
+selecting the new project folder. Anyways, say hello to your brand new, shiny,
+full-of-potential new Symfony 5 project.
+
+## Our App is Small!
+
+Before we start hacking away at things, let's create a new git repository and
+commit. But wait... run:
 
 ```terminal
 git status
 ```
 
-it says on branch master nothing
-to commit. The Symfony executable already started a new git repository for us and
-made the first commit. You can see it 
+> On branch master, nothing to commit.
+
+Surprise! The `symfony new` command *already* initialized a git repository *for*
+us and made the first commit. You can see it by running:
 
 ```terminal
 git log
 ```
 
-add an initial set of files. Wow. I
-probably would have used a much more excited to commit message like Oh mg. we're
-developing in Symfony 5 but this will do so. It already committed the files for us
-and we can see all the files that committed by saying 
+> Add initial set of files
+
+Nice! Though, I personally would have preferred a slightly more epic *first*
+commit message... but that's fine.
+
+I'll hit "q" to exit this mode.
+
+I mentioned earlier that Symfony starts *small*. To prove it, we can see a list
+of *all* the files that were committed by running:
 
 ```terminal
 git show --name-only
 ```
 
-So as you can see, the project we're working with is super small. If you kind
-of ignore the that you had to get ignore files. Here we have just about 10 files to
-start with. Symfony starts small and lean.
+Yea... that's it! Our project - which is *fully* set up and ready to leverage
+Symfony - is less than 15 files if you don't count things like `.gitignore`.
+Lean and mean.
 
-Okay, so how can we get this project up and running? Well, the first one we can do is
-run another command called 
+## Checking Requirements
+
+Okay, so... let's hook a web server up to our app and see it in action already!
+First, make sure you system has everything Symfony needs by running:
 
 ```terminal
 symfony check:req
 ```
 
-for check requirements. That's going to
-run some basic checks on Peter, makes sure everything's set up. If you have any
-problems with this, you can fix them or let us know.
+For check requirements. We're good - but if you have any issues and need help
+fixing them, let us know in the comments.
 
-Do you actually get the project running? If I look back in PHP storm here, we're
-gonna talk more about these directories pretty soon. But the first thing you need to
-know is that the `public/` directory is the document root. So we need to point our web
-server at the `public/` directory. Now, of course you're free to use apache, nginx
-whatever you want, and there's documentation on how to get that all set up. But to
-keep things super simple, we're going to use right now just the built in PHP web
-server. You can literally run 
+## Starting the PHP Web Server
+
+To actually get the project running, look back in PhpStorm. We're going to talk
+more about each directory soon. But the *first* thing you need to know is that
+the `public/` directory is the "document root". This means that you need to point
+your web server - like Apache or Nginx - at this directory. Symfony has docs on
+how to do that.
+
+But! To keep life simple, instead of setting up a *real* server on our local
+machine, we can use PHP's built-in web server. At the root of your project, run:
 
 ```terminal
 php -S 127.0.0.1:8000 -t public/
 ```
 
-The point at the PO which says to make the document with the `public/`
-directory, and as soon as we do that, we can spin over here, go to `http://localhost:8000`
-to find. Welcome to Symfony 5 Ooh, fancy. All right, so next, as easy as
-that was to get going, we're going to, I'm going to show you an even better way to
-run a local web server. Then we're going to take a look at some of these files here
-and make sure that our editor is set up to work with Symfony because if you get piece
-of your storm set up correctly to work with Symfony, you are absolutely going to be
-blown away by how cool it is.
+As soon as we do that, we can spin back over to our browser and go to
+http://localhost:8000 to find... Welcome to Symfony 5! Ooh, fancy!
 
+Next: as *easy* as it was to run that PHP web server, I'm going to show you an
+even *better* option for local development. Then we'll get to know the
+*significance* of the directories in our new app *and* make sure that we have
+a few plugins installed in PhpStorm... which... make working with Symfony an
+absolute pleasure.
