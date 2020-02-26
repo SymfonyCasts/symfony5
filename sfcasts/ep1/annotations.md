@@ -42,7 +42,9 @@ Inside the parentheses, say `"/"`.
 Congrats! You just created a route for this controller: when the user goes to the
 homepage, it will execute the function right below this. I *love* annotations
 because they're simple to read and keep the route and controller right next to
-each other.
+each other. And yea... annotations are *literally* configuration inside PHP
+comments. If you don't like them, you can always use YAML or XML instead. Symfony
+is pretty reasonable about things like that.
 
 When you refresh the homepage... our page is back!
 
@@ -97,5 +99,5 @@ since we're not there yet, I'll use `str_replace()` ... and `ucwords()` to make
 this *just* a little it fancier. It's still early, but the page is *starting*
 come alive!
 
-Next: let's talk about Symfony Flex, Composer aliases and the recipes system.
-Basically, the magic layer that makes Symfony awesome.
+Next, our new app is hiding a secret! A little command-line executable that's
+*filled* with goodies to help us debug our app.

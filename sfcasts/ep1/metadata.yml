@@ -3,7 +3,8 @@ chapters:
     - dirs-server
     - route-controller
     - annotations
-    - flex-recipes     #raw
+    - console
+    - flex-recipes
     - twig-recipe      #raw
     - twig             #raw
     - profiler         #raw
