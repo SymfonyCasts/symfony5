@@ -1,0 +1,19 @@
+.q-container {
+    border-top-right-radius: .25rem;
+    border-top-left-radius: .25rem;
+    background-color: #efefee;
+}
+
+.q-display {
+    background: #fff;
+    border-radius: .25rem;
+}
+
+.q-display-response {
+    background: #27476E;
+    color: #fff;
+}
+
+footer {
+    background-color: #efefee;
+}
