@@ -15,7 +15,13 @@ body {
     background-color: #efefee;
 }
 
-.q-container img {
+.q-container-show {
+    border-top-right-radius: .25rem;
+    border-top-left-radius: .25rem;
+    background-color: #ED7458 ;
+}
+
+.q-container img, .q-container-show img {
     border: 2px solid #fff;
     border-radius: 50%;
 }
@@ -27,6 +33,7 @@ body {
 .q-title-show {
     text-transform: uppercase;
     font-size: 1.3rem;
+    color: #fff;
 }
 .q-title {
     text-transform: uppercase;
@@ -52,6 +59,10 @@ body {
 
 .vote-arrows {
     font-size: 1.5rem;
+}
+
+.vote-arrows span {
+    font-size: 1rem;
 }
 
 .vote-arrows a {
