@@ -1,11 +1,11 @@
 # Flex, Recipes & Aliases
 
 We're going to install a *totally* new package into our app called the
-"security checker". The security checker is a tool that will look at our
-application's dependencies and tell us if any of them have known security
-vulnerabilities. But, full disclosure, as *cool* as that is...  the *real*
+"security checker". The security checker is a tool that looks at your
+application's dependencies and tell you if any of them have known security
+vulnerabilities. But, full disclosure, as *cool* as that is... the *real*
 reason I want to install this library is because it's a *great* way to look at
-Symfony's super-important "recipe" system.
+Symfony's all-important "recipe" system.
 
 At your terminal, run:
 
@@ -13,13 +13,13 @@ At your terminal, run:
 composer require sec-checker
 ```
 
-For the Composer pros out, in a real app, you *should* probably pass `--dev`
-to add this to your *dev* dependencies... but it won't matter for us.
+In a real app, you *should* probably pass `--dev` to add this to your *dev*
+dependencies... but it won't matter for us.
 
 ## Flex Aliases
 
-But there *is* something weird about this command. Specifically... `sec-checker`
-is an *invalid* package name! In the Composer world, *every* package *must* be
+There *is*, however, something weird here. Specifically... `sec-checker`
+is *not* a valid package name! In the Composer world, *every* package *must* be
 `something/something-else`: it can't just be `sec-checker`. So what the heck
 is going on?
 
@@ -38,19 +38,19 @@ The alias system is simple: because Symfony Flex is in our app, we can say
 `sensiolabs/security-checker`.
 
 You can see this in our terminal: we said `sec-checker`, but ultimately it
-downloaded `sensiolabs/security-checker`. That's also what was eventually put
-into `composer.json` file. So... aliases are just a nice shortcut feature... but
+downloaded `sensiolabs/security-checker`. That's also what Composer added to our
+`composer.json` file. So... aliases are just a nice shortcut feature... but
 it's kinda cool! You can almost *guess* an alias when you want to install something.
 Want a logger? Run `composer require logger` to get the recommended logger.
-Need to mail something, `composer require mailer`. Need to eat a cake?
-`composer require cake`! Oh... I *wish* that worked.
+Need to mail something? `composer require mailer`. Need to eat a cake?
+`composer require cake`!
 
 ## Flex Recipes
 
 The *second* feature that Flex adds to Composer is the *really* important one.
 It's the recipe system.
 
-Back at my terminal, after installing the package, it says:
+Back at the terminal, after installing the package, it said:
 
 > Symfony operations: 1 recipe
 > configuring sensiolabs/security-checker.
@@ -62,22 +62,23 @@ git status
 ```
 
 Whoa! We expected `composer.json` and `composer.lock` to be modified... that's
-how composer works. But something *also* modified some `symfony.lock` and added
-a totally *new* `security_checker.yaml` file.
+how composer works. But something *also* modified a `symfony.lock` file... and
+added a totally *new* `security_checker.yaml` file!
 
 Ok, first, `symfony.lock` is a file that's managed by Flex. You don't need to
-worry about it, but you *should* commit it. It keeps a big list of which "recipes"
+worry about it, but you *should* commit it. It keeps a big list of which recipes
 have been installed.
 
 So, who created the other file? Open it up: `config/packages/security_checker.yaml`.
-Every package you install *may* have a Flex "recipe". The idea is *beautifully*
-simple. Instead of telling people to install a package and *then* create some
-configuration file so the package works, with Flex, the recipe adds any files you
-need automatically! This file was added by the `sensiolabs/security-checker` recipe!
+Each package you install *may* have a Flex "recipe". The idea is *beautifully*
+simple. Instead of telling people to install a package and *then* create this file,
+and update this other file in order to get things working, Flex executes a
+*recipe* which... just does that stuff for you! This file was added by the
+`sensiolabs/security-checker` recipe!
 
 You don't need to worry about the specifics of what's *inside* this file right
-now: that's something we'll explain later. The point is, *thanks* to this file,
-we have a new `bin/console` command. Run:
+now. The point is, *thanks* to this file, we have a new `bin/console` command.
+Run:
 
 ```terminal
 php bin/console
@@ -97,11 +98,11 @@ No packages have known vulnerabilities! Awesome!
 Here is the *big* picture: thanks to the recipe system, whenever you install a
 package, Flex will check to see if that package has a recipe and, if it does,
 will install it. A recipe can do many things, like add files, create directories
-or even *modify* a few files, like adding new lines to your `.gitignore` file.
+or even *modify* a *few* files, like adding new lines to your `.gitignore` file.
 
 The recipe system is a *game-changer*. I *love* it because anytime I need a
 new package, all I need to do is install it. I don't need to add configuration
-files or modify anything because the recipe will do all that boring work for me.
+files or modify anything because the recipe automates all that boring work.
 
 ## Recipes can Modify Files
 
@@ -111,9 +112,9 @@ In fact, this recipe did something *else* we didn't notice. At the terminal, run
 git diff composer.json
 ```
 
-We expected that code would add this new line to our `require` section. But check
-this out: it *also* modified *another* part - under `scripts`. This recipe added
-a new config file but also *modified* this file.
+We expected that Composer would add this new line to the `require` section. But
+there is *also* a new line under the `scripts` section. That was done by the
+recipe.
 
 Thanks to this, whenever you run:
 
@@ -123,11 +124,11 @@ composer install
 
 After it finishes, it automatically runs the security checker.
 
-The point is: to use the security checker the *only* thing we needed to do was
+The point is: to use the security checker, the *only* thing we needed to do was...
 install it. Its recipe took care of the rest of the setup.
 
 Now... if you're wondering:
 
 > Hey! Where the heck does this recipe live? Can I see it?
 
-That's a *great* question! Let's look at that next.
+That's a *great* question! Let's look at it next.

@@ -1,13 +1,9 @@
 # How Recipes Work
 
-Now... if you're wondering:
-
-> Hey! Where the heck does this recipe live?
-
-That's a *great* question! The recipe lives... in the *cloud*. More specifically,
-if you look back at https://flex.symfony.com, you can to view the Recipe for
-any of the packages on this page. This goes to... interesting: a GitHub repository
-called `symfony/recipes`.
+Where do these Flex recipes lives? They live... in the *cloud*. More specifically,
+if you look back at https://flex.symfony.com, you can click to view the Recipe for
+any of the packages. This goes to... interesting: a GitHub repository called
+`symfony/recipes`.
 
 Go to the homepage of this repository. This is *the* central repository for recipes,
 organized by the name of the package... and then each package can have different
@@ -21,20 +17,19 @@ Every recipe has *at least* this `manifest.json` file, which describes all of th
 why a `config/packages/security_checker.yaml` file was added to our app.
 
 Back in the manifest, the `composer-scripts` section tells Flex to add this line
-to our `composer.json` file and `aliases` define... well... the aliases that
-should map to this package.
+to our `composer.json` file... and `aliases` define... well... the aliases that
+should *map* to this package.
 
 There *are* a few other things that a recipe can do, but this is the basic idea.
 
 So... *all* Symfony recipes live in this *one* repository. Hmm, actually, that's
 not true: all Symfony recipes lives in this repository *or* in another one called
-`recipes-contrib`. There is no difference between these, except that quality
+`recipes-contrib`. There's no difference between these, except that quality
 control is higher on recipes merged into the *main* repository.
 
 ## Using Composer to View Recipes
 
-Another way you can details about recipes that were installed in your app is via
-Composer itself. Run:
+Another way you can see details about the recipes is via Composer itself. Run:
 
 ```terminal
 composer recipes
@@ -46,29 +41,29 @@ These are the 7 recipes that have been installed into our app. And if we run:
 composer recipes sensiolabs/security-checker
 ```
 
-We can get see more details, like the URL to the recipe and files it copied into
+We can see more details, like the URL to the recipe and files it copied into
 our app.
 
 *Anyways*, the recipe system is going to be our *best* friend: allowing our app
-to start tiny, but grow automatically when we install new packages.
+to start tiny, but grow *automatically* when we install new packages.
 
 ## Removing a Package & Recipe
 
-Oh, and if you ever install a package and then decide later to remove it, its
-recipe will be *uninstalled*. Check it out:
+Oh, and if you decide that you want to *remove* a package, its recipe will
+be *uninstalled*. Check it out:
 
 ```terminal
-composer remove sec-cheker
+composer remove sec-checker
 ```
 
 That - of course - will remove the package... but it *also* "unconfigured" the
-recipe. So if we run:
+recipe. When we run:
 
 ```terminal
 git status
 ```
 
-It's clean! It reverted the change from `composer.json` and removed the config file.
+It's clean! It reverted the change in `composer.json` and removed the config file.
 
-Next: let's install Twig - Symfony's templating engine - so we can create templates
-with HTML. The Twig recipe is going to make this dead-simple.
+Next: let's install Twig - Symfony's templating engine - so we can create HTML
+templates. The Twig recipe is going to make this *so* easy.
