@@ -24,7 +24,10 @@ body {
     background: #fff;
     border-radius: .25rem;
 }
-
+.q-title-show {
+    text-transform: uppercase;
+    font-size: 1.3rem;
+}
 .q-title {
     text-transform: uppercase;
     color: #444;
