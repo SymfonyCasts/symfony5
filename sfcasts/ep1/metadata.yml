@@ -6,6 +6,6 @@ chapters:
     - console
     - flex
     - flex-recipes
-    - twig-recipe      #raw
-    - twig             #raw
+    - twig-recipe
+    - twig
     - profiler         #raw
