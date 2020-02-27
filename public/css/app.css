@@ -14,6 +14,18 @@
     color: #fff;
 }
 
+.vote-arrows {
+    font-size: 1.5rem;
+}
+
+.vote-arrows a {
+    color: #000;
+}
+
+.vote-arrows a:hover {
+    color: gray;
+}
+
 footer {
     background-color: #efefee;
 }
