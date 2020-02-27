@@ -1,5 +1,5 @@
 diff --git a/templates/question/show.html.twig b/templates/question/show.html.twig
-index 2dc5677..c404889 100644
+index 9dc9a50..97dcc1e 100644
 --- a/templates/question/show.html.twig
 +++ b/templates/question/show.html.twig
 @@ -1,5 +1,6 @@
@@ -8,9 +8,10 @@ index 2dc5677..c404889 100644
 +{% block body %}
  <h1>{{ question }}</h1>
  
- <div>
-@@ -13,3 +14,4 @@
+ {# oh, I'm just a comment hiding here #}
+@@ -15,4 +16,5 @@
          <li>{{ answer }}</li>
      {% endfor %}
  </ul>
 +{% endblock %}
+ 

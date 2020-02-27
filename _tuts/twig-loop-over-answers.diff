@@ -1,5 +1,5 @@
 diff --git a/src/Controller/QuestionController.php b/src/Controller/QuestionController.php
-index 37b8326..27794da 100644
+index c923a3c..3243321 100644
 --- a/src/Controller/QuestionController.php
 +++ b/src/Controller/QuestionController.php
 @@ -21,8 +21,15 @@ class QuestionController extends AbstractController
@@ -7,9 +7,9 @@ index 37b8326..27794da 100644
      public function show($slug)
      {
 +        $answers = [
-+            'Answer1',
-+            'Answer2',
-+            'Answer3',
++            'Make sure your cat is sitting purrrfectly still 🤣',
++            'Honestly, I like furry shoes better than MY cat',
++            'Maybe... try saying the spell backwards?',
 +        ];
 +
          return $this->render('question/show.html.twig', [
@@ -20,14 +20,13 @@ index 37b8326..27794da 100644
      }
  }
 diff --git a/templates/question/show.html.twig b/templates/question/show.html.twig
-index 9cbbb26..f17723a 100644
+index 14ede98..c2ee3aa 100644
 --- a/templates/question/show.html.twig
 +++ b/templates/question/show.html.twig
-@@ -3,3 +3,11 @@
- <div>
-     TODO - better example structure
+@@ -6,3 +6,11 @@
+     Eventually, we'll print the full question here!
  </div>
-+
+ 
 +<h2>Answers</h2>
 +
 +<ul>
@@ -35,3 +34,4 @@ index 9cbbb26..f17723a 100644
 +        <li>{{ answer }}</li>
 +    {% endfor %}
 +</ul>
++

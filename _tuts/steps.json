@@ -6,8 +6,8 @@
             "description": null
         },
         {
-            "id": "setup-set-platform-version",
-            "name": "Setup: set platform version",
+            "id": "setup-delete-me",
+            "name": "Setup: delete me",
             "description": null
         },
         {
@@ -66,6 +66,11 @@
             "description": null
         },
         {
+            "id": "twig-add-comment",
+            "name": "Twig: add comment",
+            "description": null
+        },
+        {
             "id": "twig-loop-over-answers",
             "name": "Twig: Loop over answers",
             "description": null
@@ -101,6 +106,16 @@
             "description": null
         },
         {
+            "id": "profiler-dd",
+            "name": "Profiler: dd()",
+            "description": null
+        },
+        {
+            "id": "profiler-back-to-dump",
+            "name": "Profiler: back to dump()",
+            "description": null
+        },
+        {
             "id": "profiler-install-debug",
             "name": "Profiler: install debug",
             "description": null
@@ -116,8 +131,8 @@
             "description": null
         },
         {
-            "id": "profiler-remove-re-org-packages",
-            "name": "Profiler: remove \/ re-org packages",
+            "id": "profiler-delete-me",
+            "name": "Profiler: delete me",
             "description": null
         },
         {
@@ -126,5 +141,5 @@
             "description": null
         }
     ],
-    "sha": "89b52ff213f37900b1dc58c5029f6b5e83471e50"
+    "sha": "3bb9cfd0f0d26a2d5edde6d44138a21ed759c66a"
 }

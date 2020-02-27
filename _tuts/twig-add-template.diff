@@ -1,11 +1,12 @@
 diff --git a/templates/question/show.html.twig b/templates/question/show.html.twig
 new file mode 100644
-index 0000000..9cbbb26
+index 0000000..4681bcd
 --- /dev/null
 +++ b/templates/question/show.html.twig
-@@ -0,0 +1,5 @@
+@@ -0,0 +1,6 @@
 +<h1>{{ question }}</h1>
 +
 +<div>
-+    TODO - better example structure
++    Eventually, we'll print the full question here!
 +</div>
++

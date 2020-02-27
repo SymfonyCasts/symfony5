@@ -1,9 +1,9 @@
 diff --git a/templates/question/show.html.twig b/templates/question/show.html.twig
-index f17723a..126618e 100644
+index c2ee3aa..0e8080d 100644
 --- a/templates/question/show.html.twig
 +++ b/templates/question/show.html.twig
-@@ -4,7 +4,7 @@
-     TODO - better example structure
+@@ -6,7 +6,7 @@
+     Eventually, we'll print the full question here!
  </div>
  
 -<h2>Answers</h2>

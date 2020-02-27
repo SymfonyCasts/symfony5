@@ -11,7 +11,7 @@ index c3283aa..5939b36 100644
 +    controller: App\Controller\QuestionController::homepage
 diff --git a/src/Controller/QuestionController.php b/src/Controller/QuestionController.php
 new file mode 100644
-index 0000000..91bb56a
+index 0000000..b2db762
 --- /dev/null
 +++ b/src/Controller/QuestionController.php
 @@ -0,0 +1,13 @@
@@ -25,6 +25,6 @@ index 0000000..91bb56a
 +{
 +    public function homepage()
 +    {
-+        return new Response('OMG! My first page already! WOOO!');
++        return new Response('What a bewitching controller we have conjured!');
 +    }
 +}

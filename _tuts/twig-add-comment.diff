@@ -1,10 +1,12 @@
 diff --git a/templates/question/show.html.twig b/templates/question/show.html.twig
-index 0e8080d..9dc9a50 100644
+index 4681bcd..14ede98 100644
 --- a/templates/question/show.html.twig
 +++ b/templates/question/show.html.twig
-@@ -1,3 +1,5 @@
-+{% extends 'base.html.twig' %}
-+
+@@ -1,5 +1,7 @@
  <h1>{{ question }}</h1>
  
- {# oh, I'm just a comment hiding here #}
++{# oh, I'm just a comment hiding here #}
++
+ <div>
+     Eventually, we'll print the full question here!
+ </div>

@@ -1,14 +1,14 @@
 diff --git a/src/Controller/QuestionController.php b/src/Controller/QuestionController.php
-index dd7e46c..d94335c 100644
+index 1a5131d..00a93f5 100644
 --- a/src/Controller/QuestionController.php
 +++ b/src/Controller/QuestionController.php
 @@ -14,4 +14,12 @@ class QuestionController
      {
-         return new Response('OMG! My first page already! WOOO!');
+         return new Response('What a bewitching controller we have conjured!');
      }
 +
 +    /**
-+     * @Route("/questions/how-to-tie-my-shoes")
++     * @Route("/questions/how-to-tie-my-shoes-with-magic")
 +     */
 +    public function show()
 +    {

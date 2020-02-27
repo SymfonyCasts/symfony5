@@ -10,7 +10,7 @@ index 5939b36..5033f30 100644
 +#    path: /
 +#    controller: App\Controller\QuestionController::homepage
 diff --git a/src/Controller/QuestionController.php b/src/Controller/QuestionController.php
-index 91bb56a..dd7e46c 100644
+index b2db762..1a5131d 100644
 --- a/src/Controller/QuestionController.php
 +++ b/src/Controller/QuestionController.php
 @@ -3,9 +3,13 @@
@@ -26,4 +26,4 @@ index 91bb56a..dd7e46c 100644
 +     */
      public function homepage()
      {
-         return new Response('OMG! My first page already! WOOO!');
+         return new Response('What a bewitching controller we have conjured!');

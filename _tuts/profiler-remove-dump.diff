@@ -1,12 +1,12 @@
 diff --git a/src/Controller/QuestionController.php b/src/Controller/QuestionController.php
-index 6ccf7cf..27794da 100644
+index f7b80ad..3243321 100644
 --- a/src/Controller/QuestionController.php
 +++ b/src/Controller/QuestionController.php
 @@ -27,8 +27,6 @@ class QuestionController extends AbstractController
-             'Answer3',
+             'Maybe... try saying the spell backwards?',
          ];
  
--        dump($slug, $this);
+-        dump($this);
 -
          return $this->render('question/show.html.twig', [
              'question' => ucwords(str_replace('-', ' ', $slug)),
