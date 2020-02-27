@@ -8,4 +8,4 @@ chapters:
     - flex-recipes
     - twig-recipe
     - twig
-    - profiler         #raw
+    - profiler
