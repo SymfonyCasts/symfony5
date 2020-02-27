@@ -144,7 +144,7 @@ move them around, add more of remove some. The more blocks you add, the more
 flexibility your "child" templates have to place content in different spots.
 
 Most of the existing blocks are empty... but they can *also* define *default*
-content - lke the `title` block. See this `Welcome`? No surprise, that's currently
+content - like the `title` block. See this `Welcome`? No surprise, that's currently
 the `title` of the page.
 
 Because this is surrounded by a block, we can *override* that in any template.

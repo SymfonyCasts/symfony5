@@ -5,7 +5,7 @@ be my favorite world! Ok, maybe Disney World is my *favorite* world... but
 programming in Symfony 5 is a *close* second.
 
 Symfony 5 is lean and mean: it's lightning fast, starts tiny, but grows with you
-as your app gets bigger. And that's not marketing jargon! Your Symfony app will
+as your app gets bigger. And that's *not* marketing jargon! Your Symfony app will
 *literally* grow as you need more features. But more on that later.
 
 Symfony 5 is *also* the product of *years* of work on developer experience. Basically,
@@ -13,7 +13,7 @@ the people behind Symfony want you to *love* using it but *without* sacrificing
 quality. Yep, you get to write code that you're proud of, love the process, *and*
 build things quickly.
 
-Symfony is also the fastest major PHP framework, which is no surprise: - its
+Symfony is also the *fastest* major PHP framework, which is no surprise: - its
 creator *also* created the PHP profiling system Blackfire. So... performance is
 always a focus.
 
@@ -24,7 +24,7 @@ So... let's do this! Start off by going to http://symfony.com and clicking
 executable tool that will help make local development with Symfony... well..
 awesome.
 
-Because I'm a Mac, I'll copy this command and then go open a terminal - I already
+Because I'm on a Mac, I'll copy this command and then go open a terminal - I already
 have one waiting. It doesn't matter *where* on your filesystem you run this.
 Paste!
 
@@ -32,9 +32,9 @@ Paste!
 curl -sS https://get.symfony.com/cli/installer | bash
 ```
 
-This downloads a *single* executable file and, for me, put it into my home directory.
+This downloads a *single* executable file and, for me, puts it into my home directory.
 To make it so that I can run this executable from *anywhere* on my system, I'll
-follow the commands advice and move the file somewhere else:
+follow the command's advice and move the file somewhere else:
 
 ```terminal-silent
 mv /Users/weaverryan/.symfony/bin/symfony /usr/local/bin/symfony
@@ -51,7 +51,7 @@ with various things along our path to programming glory.
 
 ## Starting a new Symfony App
 
-It's *first* job will be to help us create a new Symfony 5 project. Run:
+Its *first* job will be to help us create a new Symfony 5 project. Run:
 
 ```terminal
 symfony new cauldron_overflow
@@ -63,17 +63,17 @@ later.
 
 Behind the scenes, this command isn't doing anything special: it clones a Git
 repository called `symfony/skeleton` and then uses Composer to install that
-project's dependencies. We'll talk more about that repository and Composer a bit
+project's dependencies. We'll talk more about that repository *and* Composer a bit
 later.
 
 When it's done, move into the new directory:
 
-```terminal-silent
+```terminal
 cd cauldron_overflow
 ```
 
 And then *open* this directory in your favorite editor. I already have it open in
-*my* favorite editor: PhpStorm, which I did by going to File -> Open Directory and
+*my* favorite: PhpStorm, which I did by going to File -> Open Directory and
 selecting the new project folder. Anyways, say hello to your brand new, shiny,
 full-of-potential new Symfony 5 project.
 
@@ -97,7 +97,7 @@ git log
 
 > Add initial set of files
 
-Nice! Though, I personally would have preferred a slightly more epic *first*
+Nice! Though, I personally would have liked a slightly more epic *first*
 commit message... but that's fine.
 
 I'll hit "q" to exit this mode.
@@ -110,13 +110,13 @@ git show --name-only
 ```
 
 Yea... that's it! Our project - which is *fully* set up and ready to leverage
-Symfony - is less than 15 files if you don't count things like `.gitignore`.
+Symfony - is less than 15 files... if you don't count things like `.gitignore`.
 Lean and mean.
 
 ## Checking Requirements
 
-Okay, so... let's hook a web server up to our app and see it in action already!
-First, make sure you system has everything Symfony needs by running:
+Let's hook up a web server to our app and see it in action! First, make sure
+your computer has everything Symfony needs by running:
 
 ```terminal
 symfony check:req
