@@ -6,11 +6,6 @@
             "description": null
         },
         {
-            "id": "setup-delete-me",
-            "name": "Setup: delete me",
-            "description": null
-        },
-        {
             "id": "pages-create-yaml-page",
             "name": "Pages: Create YAML page",
             "description": null
