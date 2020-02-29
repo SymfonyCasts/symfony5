@@ -27,7 +27,7 @@ Something else? The answer is: a `Response` object... with HTML inside. Because
 remember: the *one* rule of a controller is that it must *always* return a
 `Response`.
 
-***
+***TIP
 A controller *can* actually return something *other* than a Response,
 but don't worry about that right now... or maybe ever.
 ***
@@ -88,7 +88,7 @@ we'll fix that soon.
 ## The Twig Reference: Tags, Filters, Functions
 
 Head to https://twig.symfony.com. Twig is its own library with its *own*
-documentation. There'ss a lot of good stuff here... but what I *really* love is
+documentation. There's a lot of good stuff here... but what I *really* love is
 down here: the [Twig Reference](https://twig.symfony.com/doc/3.x/#reference).
 
 See these "Tags" on the left? These are *all* of the "do something" tags that
@@ -136,7 +136,7 @@ and `body`. Blocks are "holes" that a child template can put content *into*.
 We can't *just* extend `base.html.twig`: we need to tell it which *block* the
 content should go into. The `body` block is a perfect spot.
 
-How do we do this? By *overriding* the block. Above the content dd `{% block body %}`,
+How do we do this? By *overriding* the block. Above the content add `{% block body %}`,
 and after, `{% endblock %}`.
 
 Try it now. It works! It doesn't look like much yet... because our base
@@ -149,7 +149,7 @@ By the way, these blocks in `base.html.twig` aren't special: you can rename them
 move them around, add more or remove some. The more blocks you add, the more
 flexibility your "child" templates have to put content into different spots.
 
-Most of the existing blocks are empty... but they a block *can* define *default*
+Most of the existing blocks are empty... but a block *can* define *default*
 content... like the `title` block. See this `Welcome`? No surprise, that's the
 current `title` of the page.
 

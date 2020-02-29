@@ -75,7 +75,7 @@ When we refresh, woh! It works *exactly* like `var_dump()` except... *way* more
 beautiful and useful. The controller apparently has a `container` property... and
 we can dig deeper and deeper.
 
-If you're *really* lazy... like most of os are.. you can also use `dd()` which
+If you're *really* lazy... like most of us are... you can also use `dd()` which
 stands for `dump()` and `die()`. Now when we reload... it dumps, but *also* kills
 the page. We've now perfected dump-and-die-driven development. I think we should
 be proud?
