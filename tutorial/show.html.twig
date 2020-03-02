@@ -1,0 +1,58 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Question: {{ question }}{% endblock %}
+
+{% block body %}
+<div class="container">
+    <div class="row">
+        <div class="col-12">
+            <h2 class="my-4">Question</h2>
+            <div style="box-shadow: 2px 3px 9px 4px rgba(0,0,0,0.04);">
+                <div class="q-container-show p-4">
+                    <div class="row">
+                        <div class="col-2 text-center">
+                            <img src="/images/tisha.png" width="100" height="100">
+                        </div>
+                        <div class="col">
+                            <h1 class="q-title-show">{{ question }}</h1>
+                            <div class="q-display p-3">
+                                <i class="fa fa-quote-left mr-3"></i>
+                                <p class="d-inline">I've been turned into a cat, any thoughts on how to turn back? While I'm adorable, I don't really care for cat food.</p>
+                                <p class="pt-4"><strong>--Tisha</strong></p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="d-flex justify-content-between my-4">
+        <h2 class="">Answers <span style="font-size:1.2rem;">({{ answers|length }})</span></h2>
+        <button class="btn btn-sm btn-secondary">Submit an Answer</button>
+    </div>
+
+
+
+    <ul class="list-unstyled">
+        {% for answer in answers %}
+            <li class="mb-4">
+                <div class="d-flex justify-content-center">
+                    <div class="mr-2 pt-2">
+                        <img src="/images/tisha.png" width="50" height="50">
+                    </div>
+                    <div class="mr-3 pt-2">
+                        {{ answer }}
+                        <p>-- Mallory</p>
+                    </div>
+                    <div class="vote-arrows flex-fill pt-2" style="min-width: 90px;">
+                        <a class="vote-up" href="#"><i class="far fa-arrow-alt-circle-up"></i></a>
+                        <a class="vote-down" href="#"><i class="far fa-arrow-alt-circle-down"></i></a>
+                        <span>+ 6</span>
+                    </div>
+                </div>
+            </li>
+        {% endfor %}
+    </ul>
+</div>
+{% endblock %}
