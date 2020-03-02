@@ -134,7 +134,152 @@
             "id": "assets-copy-in-layout",
             "name": "Assets: Copy in layout",
             "description": null
+        },
+        {
+            "id": "assets-copy-app-css-images",
+            "name": "Assets: copy app.css & images",
+            "description": null
+        },
+        {
+            "id": "assets-use-asset-function",
+            "name": "Assets: use asset() function",
+            "description": null
+        },
+        {
+            "id": "assets-install-asset",
+            "name": "Assets: install asset",
+            "description": null
+        },
+        {
+            "id": "assets-copy-in-show-template",
+            "name": "Assets: copy in show template",
+            "description": null
+        },
+        {
+            "id": "assets-asset-on-images",
+            "name": "Assets: asset() on images",
+            "description": null
+        },
+        {
+            "id": "assets-render-homepage-template",
+            "name": "Assets: render homepage template",
+            "description": null
+        },
+        {
+            "id": "assets-copy-in-homepage",
+            "name": "Assets: copy in homepage",
+            "description": null
+        },
+        {
+            "id": "routing-link-to-homepage",
+            "name": "Routing: link to homepage",
+            "description": null
+        },
+        {
+            "id": "routing-link-to-show-page",
+            "name": "Routing: link to show page",
+            "description": null
+        },
+        {
+            "id": "ajax-bootstrap-commentcontroller",
+            "name": "AJAX: bootstrap CommentController",
+            "description": null
+        },
+        {
+            "id": "ajax-implement-endpoint",
+            "name": "AJAX: implement endpoint",
+            "description": null
+        },
+        {
+            "id": "ajax-use-this-json",
+            "name": "AJAX: use $this->json()",
+            "description": null
+        },
+        {
+            "id": "ajax-prep-template",
+            "name": "AJAX: prep template",
+            "description": null
+        },
+        {
+            "id": "ajax-add-jquery",
+            "name": "AJAX: Add jQuery",
+            "description": null
+        },
+        {
+            "id": "ajax-include-page-specific-js",
+            "name": "AJAX: include page-specific JS",
+            "description": null
+        },
+        {
+            "id": "ajax-post-only-route",
+            "name": "AJAX: POST only route",
+            "description": null
+        },
+        {
+            "id": "ajax-up-down-route-requirements",
+            "name": "AJAX: up\/down route requirements",
+            "description": null
+        },
+        {
+            "id": "services-autowire-logger",
+            "name": "Services: autowire Logger",
+            "description": null
+        },
+        {
+            "id": "services-render-via-twig",
+            "name": "Services: render via Twig",
+            "description": null
+        },
+        {
+            "id": "services-render-normally",
+            "name": "Services: render normally",
+            "description": null
+        },
+        {
+            "id": "encore-install-it",
+            "name": "Encore: install it",
+            "description": null
+        },
+        {
+            "id": "encore-install-yarn-deps",
+            "name": "Encore: install yarn deps",
+            "description": null
+        },
+        {
+            "id": "encore-encore-entry",
+            "name": "Encore: encore_entry_...",
+            "description": null
+        },
+        {
+            "id": "encore-move-in-css",
+            "name": "Encore: move in CSS",
+            "description": null
+        },
+        {
+            "id": "encore-move-in-js",
+            "name": "Encore: move in JS",
+            "description": null
+        },
+        {
+            "id": "encore-install-jquery",
+            "name": "Encore: install jQuery",
+            "description": null
+        },
+        {
+            "id": "encore-remove-jquery-in-template",
+            "name": "Encore: remove jQuery in template",
+            "description": null
+        },
+        {
+            "id": "encore-import-jquery",
+            "name": "Encore: import jquery",
+            "description": null
+        },
+        {
+            "id": "encore-properly-import-bootstrap-css",
+            "name": "Encore: properly import Bootstrap CSS",
+            "description": null
         }
     ],
-    "sha": "3bb9cfd0f0d26a2d5edde6d44138a21ed759c66a"
+    "sha": "02216cb27eb730f51226521f64e8a90ee14b0649"
 }
