@@ -9,3 +9,9 @@ chapters:
     - twig-recipe
     - twig
     - profiler
+    - assets  #raw
+    - generate-urls  #raw
+    - json-api  #raw
+    - javascript #raw
+    - services  #raw
+    - webpack-encore  #raw
