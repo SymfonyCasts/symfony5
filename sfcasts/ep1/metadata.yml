@@ -9,7 +9,7 @@ chapters:
     - twig-recipe
     - twig
     - profiler
-    - assets  #raw
+    - assets
     - generate-urls  #raw
     - json-api  #raw
     - javascript #raw
