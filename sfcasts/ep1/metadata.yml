@@ -10,7 +10,7 @@ chapters:
     - twig
     - profiler
     - assets
-    - generate-urls  #raw
+    - generate-urls
     - json-api  #raw
     - javascript #raw
     - services  #raw
