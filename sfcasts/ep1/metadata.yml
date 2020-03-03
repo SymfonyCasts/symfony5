@@ -12,6 +12,6 @@ chapters:
     - assets
     - generate-urls
     - json-api
-    - javascript #raw
+    - javascript
     - services  #raw
     - webpack-encore  #raw
