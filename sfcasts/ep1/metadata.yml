@@ -11,7 +11,7 @@ chapters:
     - profiler
     - assets
     - generate-urls
-    - json-api  #raw
+    - json-api
     - javascript #raw
     - services  #raw
     - webpack-encore  #raw
