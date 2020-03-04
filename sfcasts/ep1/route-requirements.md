@@ -1,71 +1,88 @@
-# Routing Requirements
+# Smart Routes: POST-only & Validate {Wildcards}
 
-Coming soon...
+Inside our JavaScript, we are making a POST request to the endpoint. And that
+makes sense. The topic of which HTTP method - like GET, POST, PUT, etc - that
+you're *supposed* to use for an API endpoint can get complicated. But because
+our endpoint will *eventually* be *changing* something in the database, as
+a best-practice, we don't want to allow people to make a GET request to it. Right
+now, we can just go to the URL in our browser. This makes a GET request... which
+works! Hey! I just voted!
 
-the profiler for that specific Ajax requests. You have all the same information that
-you're normally used to having, but for your actual, for the Ajax request, that is
-one of the killer features. No, of course. When inside of my JavaScript value and
-notice that I chose to make a post request to this end point. And that makes sense
-because this end point eventually is actually going to be changing something in the
-database. So we don't want a best practice that we don't allow people to make a get
-requests to it. We want to make a post request to it, but technically speaking we can
-still just make a get request. I guess just to put it in my browser if I want to,
-Hey, I'm voting.
+To tighten this up, in `CommentController`, we can make our route smarter: we can
+tell it to *only* match of the method is POST. To do that add `methods="POST"`.
 
-So to fix that I'm gonna go on a `CommentController` and one of the things you can do
-here is say that this should only match one specific method. So to do that I'm going
-to add `methods=` , and you can put an array here, a multiple methods, but I'm
-just going to say double quote `"POST"`. And as soon as you do that through refresh over
-here, this now gets a four for no route found because only the post methods is
-matched. And actually a cool way to see that. Another way is to run a
+As *soon* as we do that, when we refresh... 404 not found! The route no longer
+matches.
 
-```terminal
+## The router:match Command
+
+Another cool way to see this is at your terminal. Run:
+`php bin/console router:match`. And then go copy the URL... and paste it.
+
+```terminal-silent
 php bin/console router:match /comments/10/vote/up
 ```
-What you can do here is I'm going to go and copy the URL to my
-Ajax end point. You can give this a URL and it will tell you which route in the
-system it matches. You can see that it almost matched this common boat route, but
-this was a get request and it doesn't match the post.
 
-If you want to do a, you can also pass gas as medicals post if you want to say what
-would match my post request
+This fun command will tell you which *route* matches a given URL. In this case,
+*no* routes match, but it tells you that it *almost* matched the
+`app_comment_commentvote` route.
+
+To see if a `POST` request would match this route, pass `--method=POST`:
 
 ```terminal-silent
 php bin/console router:match /comments/10/vote/up --method=POST
 ```
 
-and boom,  it shows you which route matched. And um, and
-of course this tells you like which controller, uh, that route points to. So that's
-really cool. The other little thing that's not quite right here is the direction
-we're expecting it to be up or down. But technically somebody could put a banana
-right there. In fact, let's go over here and change this to banana
+And.. boom! It shows us the route that matched and ALL its details, including
+the controller.
+
+## Restricting what a {Wildcard} Matches
+
+But there's something else that's not quite right with our route. We're *expecting*
+that this will either be `up` or `down`. But... technically, somebody could put
+`banana` in the URL. In fact, let's try that: change the direction to `banana`:
 
 ```terminal-silent
 php bin/console router:match /comments/10/vote/banana --method=POST
 ```
 
-and it matches a
-route. It's not the end of the world, it's just going to downvote it automatically,
-but it's not really as good as it should be. So normally these wildcards match
-anything. But if you want, you can make them a little bit more specific. The way you
+Yes! We vote "banana" for this comment! This isn't the end of the word... if a
+bad user tried to hack our system and did this, it would just be a down vote.
+But we can make this better.
+
+As you know, *normally* a wildcard matches *anything*. But if you want, you can
+control that with a regular expression. Inside the `{}`, but after the name,
 do that is by doing inside the curly race.
+add `<>`. Inside, say `up|down`.
 
-After the name, you say open `<>` instead of here, you can put a
-regular expression that you want this to match. So in our case, we can say `up|down`
-literally up or down. Now let me go over and refresh.
+*Now* try the `router:match` command:
 
 ```terminal-silent
 php bin/console router:match /comments/10/vote/banana --method=POST
 ```
 
-It doesn't match because
-banana does not match up or down. But if we change this to up, it matches. Another
-common one you'll see here is, um, we can use it. Fry ID is `<\d+>` means match a
-digit of any length. I'm actually not going to put that here, even if my ID is an
-integer. In reality, if somebody did put banana, eventually, it's just going to fail
-to find that in the database and it's not going to cause a problem anyways, so don't
-really need that level of specificity. All right, next let's get a preview into, and
-let's spin over and close this. Just refresh the page and double check. This still
-works and it does. So next, let's get a sneak peek into the most fundamental part of
-Symfony services.
+Yes! It does *not* match because `banana` is not up or down. If we change this
+to `up`, it works:
 
+```terminal-silent
+php bin/console router:match /comments/10/vote/up --method=POST
+```
+
+## Making id Only Match an Integer?
+
+By the way, you might be tempted to *also* add make the `{id}` wildcard smarter.
+Assuming we're using auto-increment database ids, we know that `id` should be
+a number. To make this route only match if the `id` part is a number, you an add
+`<\d+>`, which means: match a "digit" of any length.
+
+But... I'm actually *not* going to put that here. Why? Eventually, we're going to
+use `$id` to query the database. If somebody puts `banana` here, who cares? We
+just won't find any comment with an id of `banana` and we can make the page return
+a 404. Even if somebody tries an SQL injection attack, as you'll learn in later
+in our database tutorial, it will *still* be ok, because the database layer will
+protect you.
+
+Let's make sure everything still works. I'll close one browser tab and refresh the
+show page. Yea! Voting still looks good.
+
+Next, let's get a sneak peek into the most *fundamental* part of Symfony: services.
