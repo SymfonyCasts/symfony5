@@ -35,7 +35,7 @@ any markup to the template for this page.
 
 ## Does Symfony Care about your Assets
 
-So let me ask a question... and answer a question: what features does Symfony
+So let me ask a question... and answer it: what features does Symfony
 offer when it comes to CSS and JavaScript? The answer is... none... or a lot!
 
 Symfony has two different levels of integration with CSS and JavaScript. Right
@@ -146,7 +146,7 @@ Let's steal some code from the `tutorial/` directory *one* last time. Open
 look nicer. Copy it, close that file... and then paste it over our
 `homepage.html.twig` code.
 
-And now... it looks *much* bettter.
+And now... it looks *much* better.
 
 So that's the *basic* CSS and JavaScript integration inside of Symfony: you manage
 it yourself. Sure, you *should* use this `asset()` function, but it's not doing
