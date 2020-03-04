@@ -1,5 +1,5 @@
 diff --git a/assets/js/app.js b/assets/js/app.js
-index 1748c14..19dac89 100644
+index 1748c14..4b856f1 100644
 --- a/assets/js/app.js
 +++ b/assets/js/app.js
 @@ -11,4 +11,18 @@ import '../css/app.css';
@@ -18,13 +18,13 @@ index 1748c14..19dac89 100644
 +    $.ajax({
 +        url: '/comments/10/vote/'+$link.data('direction'),
 +        method: 'POST'
-+    }).then(function(response) {
-+        $container.find('.js-vote-total').text(response.votes);
++    }).then(function(data) {
++        $container.find('.js-vote-total').text(data.votes);
 +    });
 +});
 diff --git a/public/js/question_show.js b/public/js/question_show.js
 deleted file mode 100644
-index 7332aac..0000000
+index cb34680..0000000
 --- a/public/js/question_show.js
 +++ /dev/null
 @@ -1,15 +0,0 @@
@@ -39,8 +39,8 @@ index 7332aac..0000000
 -    $.ajax({
 -        url: '/comments/10/vote/'+$link.data('direction'),
 -        method: 'POST'
--    }).then(function(response) {
--        $container.find('.js-vote-total').text(response.votes);
+-    }).then(function(data) {
+-        $container.find('.js-vote-total').text(data.votes);
 -    });
 -});
 diff --git a/templates/question/show.html.twig b/templates/question/show.html.twig

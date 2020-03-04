@@ -1,5 +1,5 @@
 diff --git a/src/Controller/CommentController.php b/src/Controller/CommentController.php
-index bbabb4d..1d0c77e 100644
+index c94477d..d9535f1 100644
 --- a/src/Controller/CommentController.php
 +++ b/src/Controller/CommentController.php
 @@ -9,7 +9,7 @@ use Symfony\Component\Routing\Annotation\Route;
@@ -9,5 +9,5 @@ index bbabb4d..1d0c77e 100644
 -     * @Route("/comments/{id}/vote/{direction}")
 +     * @Route("/comments/{id}/vote/{direction}", methods="POST")
       */
-     public function commentVoteAction($id, $direction)
+     public function commentVote($id, $direction)
      {

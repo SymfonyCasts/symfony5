@@ -211,6 +211,11 @@
             "description": null
         },
         {
+            "id": "ajax-tweak-js-variable",
+            "name": "AJAX: tweak JS variable",
+            "description": null
+        },
+        {
             "id": "ajax-post-only-route",
             "name": "AJAX: POST only route",
             "description": null
@@ -281,5 +286,5 @@
             "description": null
         }
     ],
-    "sha": "02216cb27eb730f51226521f64e8a90ee14b0649"
+    "sha": "be7b054fb234ab0cdfc660f5adc0b65088a03392"
 }
