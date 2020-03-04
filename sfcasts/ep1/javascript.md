@@ -1,142 +1,99 @@
-# JavaScript
+# JavaScript, AJAX & the Profiler
 
-Coming soon...
+Here's our next goal: write some JavaScript so that that when we click the up or
+down vote icons, it will make an AJAX request to our JSON endpoint. This "fakes"
+saving the vote to the database and returns the new vote count, which we will
+use to update the vote number on the page.
 
-So the goal now is to write some JavaScript so that when we click up and down here,
-it will make a request to our end point, which sort of a fake end point that saves
-the vote of the database, which we don't have yet and returns the new vote count. So
-the template for this page is in `templates/question/show.html.twig`. You can
-see down here in answers we have this `vote-up` and `vote-down`. I'm going to add a
-couple of classes here that are going to help our JavaScript on the `vote-arrows`. I'm
-going to add a `js-vote-arrows` class. I'm going to use that in JavaScript
-in a second to find this element. Then on the vote up, I'm going to add a data
-attribute called `data-direction="up"` and same thing on the down button. I'll add 
-`data-direction="down"` so we know which buttons being clicked. The last thing I'm going to
-do is I'm going to surround this little number six here with a span and add a little
-class on here called `js-vote-total`. We'll use that JavaScript to find this
+## Adding js- Classes to the Template
+
+The template for this page is: `templates/question/show.html.twig`. For each
+answer, we have these `vote-up` and `vote-down` links. I'm going to add a
+few classes to this section to our JavaScript. On the `vote-arrows` element,
+add a `js-vote-arrows` class: we'll use that in JavaScript find this element.
+Then, on the `vote-up` link, add a data attribute called `data-direction="up"`.
+Do the same for the down link: `data-direction="down"`. This will help us know
+which link was clicked. Finally, surround the vote number - the 6 - with a span
+that has another class: `js-vote-total`. We'll use that in JavaScript to find the
 element so we can update that number.
 
-No, the co JavaScript code I'm going to write for this is going to use jQuery. Keep
-things nice and simple, and in fact, I'm going to use jQuery on, I'm going to want
-jQuery on my entire site. So the first thing I want to do is go into my base layout
-down here and at the bottom you'll notice we have a block called JavaScripts. I'm
-gonna enter here, I'm a paste in a `<script>` tag, which goes, just goes to a, use a
-jQuery a from a CDN. Either copy this URL exactly or go to jQuery and get this URL
-yourself.
+## Adding JavaScript inside the javascripts Block.
 
-Well, this does nothing more than adds jQuery to our site, but we're not actually
-using jQuery yet. Now, if you're wondering why we put this inside of the JavaScript's
-block other than it seems like a good place to put it, I'll show you in a second.
-Technically, if we had put this after the JavaScript's block, everything would work
-perfectly the same for now. But having it in the JavaScript's block is going to be
-handy in a few minutes. I'll show you why. For the JavaScript itself, I'm going to go
-to the `public/` directory, create a new directory called `js/` and a new file here called
-`question_show.js`. So here's the idea. You might have some global
-JavaScript that you want to include on every page. We don't have any right now, but
-usually you do have some global JavaScript and then on some certain pages and
-sometimes on specific pages you want to add some extra JavaScript.
+To keep things simple, the JavaScript code we are going to write will use jQuery.
+In fact, *if* your site uses jQuery, you *probably* will want to include jQuery
+on *every* page... which means that we'll want to add a `script` tag to
+`base.html.twig`. At the bottom, notice that we have a block called `javascripts`.
+Inside this block, I'm going to paste a `<script>` tag, which will import jQuery
+jQuery from a CDN. You can copy this from the code block on this page, or go to
+jQuery to get it.
 
-So what we're creating here is a file, a JavaScript file that I'm only going to load
-on our show page. It's going gonna contain the logic for the upvote for these
-comments. So in `question_show.js`, I'm just going paste
-about 15 lines of code here. What this does, it listens to the click, finds the 
-`.js-vote-arrows` element, which we just added here, finds the links on them. Then on click
-it makes a Ajax request to `/comments/10` that number is hard coded in for now. `/vote/`
- and then it reads the `data-direction` attribute off of our elements to figure
-out if it should go to `up` or `down`. Then on `response`, which really I'll call that,
-I'll rename that to `data`. That's even more accurate name.
+If you're wondering *why* we put this inside of the javascripts block... other
+than it seems like a logical place, I'll show you why in a minute. Because
+*technically*, if we put this *after* the javascripts block or before, it would
+make no difference. But putting it inside will be useful soon.
 
-It reads the votes property off of the data because in our controller we're returning
-a vote's property and it uses that to update the vote total. Perfect, so how do we
-bring this in? Now if we wanted to bring this into our base template, we pretty easy.
-We would just add another script tag below there, but we want to bring this into our
-show template only. This is where having this inside of a JavaScript's block is handy
-because what we can do with the child template is we can override that JavaScript's
-block. So check this out and `show.html.twig` doesn't matter where. But let's go
-to the bottom and say `{% block javascripts %} {% endblock %}`. And here I'll put a `<script>` tag
-and say `src=`. And remember we're going to use our `{{ asset() }}` function first = I
-remember when these are asset function, but actually you can see it's already auto
-completing here. `js/question_show.js`. If I had to have it as asset a function for me.
-Now if we just stop here, this would literally override the JavaScript's block in our
-base template. So jQuery would not be included on our page. What we really want to do
-is not override this block but a pin to it. We want our JavaScript to effectively go
-right below jQuery. The way to do that is above our script tag to do `{{ parent() }}`
-that literally gets the content of the parents job skirts, block and prints it
-right there.
+For our custom JavaScript, inside `public/` directory, let's create a new
+directory called `js/`. And then a new file: `question_show.js`.
 
-Alright, so let's dry this refresh and yes, we got it it up. And if you hit down,
-you'll get really slow numbers. Now really quick. I want to show you some really
-cool, see this little six down here. I'm actually gonna refresh. Notice that icon is
-not down there, but as soon as our page makes any Ajax requests, it's actually
-keeping track of them. And this is a really cool spot because what it's doing is it's
-showing you a link to look at the profiler for any of those requests. So I'll hold,
-uh, I'm actually gonna open this in a new tab here and we're looking at, here is
-actually the profile,
+Here's the idea: usually, you will have some custom JavaScript that you want to
+include on every page. We don't have any right now - but if we *did*, I would
+create an `app.js` file and add a `script` tag for it in `base.html.twig`. Then,
+on certain pages, you might *also* need to include some page-specific JavaScript,
+like to power a comment-voting feature that only lives on that page.
 
-the profiler for that specific Ajax requests. You have all the same information that
-you're normally used to having, but for your actual, for the Ajax request, that is
-one of the killer features. No, of course. When inside of my JavaScript value and
-notice that I chose to make a post request to this end point. And that makes sense
-because this end point eventually is actually going to be changing something in the
-database. So we don't want a best practice that we don't allow people to make a get
-requests to it. We want to make a post request to it, but technically speaking we can
-still just make a get request. I guess just to put it in my browser if I want to,
-Hey, I'm voting.
+That's what I'm doing and that's why I created a file called `question_show.js`:
+it's custom JavaScript for that page.
 
-So to fix that I'm gonna go on a `CommentController` and one of the things you can do
-here is say that this should only match one specific method. So to do that I'm going
-to add `methods=` , and you can put an array here, a multiple methods, but I'm
-just going to say double quote `"POST"`. And as soon as you do that through refresh over
-here, this now gets a four for no route found because only the post methods is
-matched. And actually a cool way to see that. Another way is to run a 
+Inside `question_show.js`, I'm going to paste about 15 lines of code. This find
+`.js-vote-arrows` element - which we added here - finds any `a` tags inside, and
+registers a `click` listener on them. On click, we make an AJAX request to
+`/comments/10` - the 10 is hardcoded for now - `/vote/` and then we read the
+`data-direction` attribute off of the anchor element to know if this is an
+`up` vote or `down` vote. Then, on success, jQuery passes us the JSON data from
+our endpoint. I'll rename that variable to `data` to be more accurate.
 
-```terminal
-php bin/console router:match /comments/10/vote/up
-```
-What you can do here is I'm going to go and copy the URL to my
-Ajax end point. You can give this a URL and it will tell you which route in the
-system it matches. You can see that it almost matched this common boat route, but
-this was a get request and it doesn't match the post.
+Then, we use the `votes` field from the data - because in our controller we're returning
+a `votes` key - to update the vote total.
 
-If you want to do a, you can also pass gas as medicals post if you want to say what
-would match my post request 
+## Overriding the javascripts Block
 
-```terminal-silent
-php bin/console router:match /comments/10/vote/up --method=POST
-```
+So... how do we include this file? If we wanted to include this on *every* page,
+it would be pretty easy: add another script tag below jQuery in `base.hmtl.twig`.
+But we to include this *only* on the show page. This is where having the jQuery
+script tag inside of a `javascripts` block is handy. Because, in a "child" template,
+we can *override* this block.
 
-and boom,  it shows you which route matched. And um, and
-of course this tells you like which controller, uh, that route points to. So that's
-really cool. The other little thing that's not quite right here is the direction
-we're expecting it to be up or down. But technically somebody could put a banana
-right there. In fact, let's go over here and change this to banana 
+Check this out: in `show.html.twig`, it doesn't matter where, but let's go to
+the bottom, say `{% block javascripts %} {% endblock %}`. Inside, add a
+`<script>` tag with `src=`. Oh, and we need to remember to use the `asset()`
+function. But... PhpStorm is already suggesting `js/question_show.js`. Select
+that. Nice! It added the `asset()` function for us.
 
-```terminal-silent
-php bin/console router:match /comments/10/vote/banana --method=POST
-```
+If we just stop now, this would literally *override* the `javascripts` block of
+`base.html.twig`. So, jQuery would not be included on the page. What we *really*
+want to do is, not *override* the block, but add *to* it! In the final HTML, we
+want our new `script` tag to go right *below* the jQuery script tag.
 
-and it matches a
-route. It's not the end of the world, it's just going to downvote it automatically,
-but it's not really as good as it should be. So normally these wildcards match
-anything. But if you want, you can make them a little bit more specific. The way you
-do that is by doing inside the curly race.
+How can we do this? Above our script tag, `{{ parent() }}`.
 
-After the name, you say open `<>` instead of here, you can put a
-regular expression that you want this to match. So in our case, we can say `up|down`
-literally up or down. Now let me go over and refresh. 
+I love that! The `parent()` function gets the content of the *parent* block,
+and prints it.
 
-```terminal-silent
-php bin/console router:match /comments/10/vote/banana --method=POST
-```
+Ok: let's try this! Refresh and... click up. It updates! And if we hit down,
+we see a really low number.
 
-It doesn't match because
-banana does not match up or down. But if we change this to up, it matches. Another
-common one you'll see here is, um, we can use it. Fry ID is `<\d+>` means match a
-digit of any length. I'm actually not going to put that here, even if my ID is an
-integer. In reality, if somebody did put banana, eventually, it's just going to fail
-to find that in the database and it's not going to cause a problem anyways, so don't
-really need that level of specificity. All right, next let's get a preview into, and
-let's spin over and close this. Just refresh the page and double check. This still
-works and it does. So next, let's get a sneak peek into the most fundamental part of
-Symfony services.
+## AJAX Requests on the Profiler
 
+Oh, and see this number "6" down on the web debug toolbar? This is really cool.
+Refresh the page. Notice that the icon is *not* down here. But as soon as our
+page makes an AJAX requests, it shows up! Yea, the web debug toolbar *detects*
+AJAX requests and lists them here. The *best* part is that you can use this to
+jump into the *profiler* for any of these! I'll right click and open this "down"
+vote link in a new tab.
+
+Yep! This is the *full* profiler for that request, with all the same info as
+normal. This is a *killer* feature.
+
+Next, let's tighten up our API endpoint: we shouldn't be able to make a GET
+request to it - like loading it in our browser. And... do we have anything that
+validates that the `{direction}` wildcard in the URL is `up` or `down`? Not yet.
