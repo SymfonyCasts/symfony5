@@ -1,5 +1,5 @@
 diff --git a/src/Controller/CommentController.php b/src/Controller/CommentController.php
-index 2b64ba3..b84224a 100644
+index 98af1c4..3f12122 100644
 --- a/src/Controller/CommentController.php
 +++ b/src/Controller/CommentController.php
 @@ -2,6 +2,7 @@
@@ -14,8 +14,8 @@ index 2b64ba3..b84224a 100644
      /**
       * @Route("/comments/{id}/vote/{direction<up|down>}", methods="POST")
       */
--    public function commentVoteAction($id, $direction)
-+    public function commentVoteAction($id, $direction, LoggerInterface $logger)
+-    public function commentVote($id, $direction)
++    public function commentVote($id, $direction, LoggerInterface $logger)
      {
          // todo - use id to query the database
  
