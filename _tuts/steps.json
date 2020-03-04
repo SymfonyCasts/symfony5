@@ -226,6 +226,16 @@
             "description": null
         },
         {
+            "id": "ajax-id-requirements",
+            "name": "AJAX: id requirements",
+            "description": null
+        },
+        {
+            "id": "ajax-remove-id-requirements",
+            "name": "AJAX: remove id requirements",
+            "description": null
+        },
+        {
             "id": "services-autowire-logger",
             "name": "Services: autowire Logger",
             "description": null
@@ -286,5 +296,5 @@
             "description": null
         }
     ],
-    "sha": "be7b054fb234ab0cdfc660f5adc0b65088a03392"
+    "sha": "1b0e7ee1494e67ac24893ca6a0c49e7cbf4b8c62"
 }

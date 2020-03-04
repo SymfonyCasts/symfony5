@@ -1,0 +1,13 @@
+diff --git a/src/Controller/CommentController.php b/src/Controller/CommentController.php
+index 74eaa7c..98af1c4 100644
+--- a/src/Controller/CommentController.php
++++ b/src/Controller/CommentController.php
+@@ -9,7 +9,7 @@ use Symfony\Component\Routing\Annotation\Route;
+ class CommentController extends AbstractController
+ {
+     /**
+-     * @Route("/comments/{id<\d+>}/vote/{direction<up|down>}", methods="POST")
++     * @Route("/comments/{id}/vote/{direction<up|down>}", methods="POST")
+      */
+     public function commentVote($id, $direction)
+     {
