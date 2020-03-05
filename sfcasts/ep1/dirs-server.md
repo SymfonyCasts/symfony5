@@ -9,9 +9,12 @@ To start with that, let's take a quick look at the directory structure.
 
 There are only three directories you need to think about. First, `public/` is
 the document root: so it will hold all files that need to be accessible by a
-browser. And... there's only one right now: `index.php`. This is called the
-"front controller": a fancy word that programmers invented to mean that this
-is the file that's executed by your web server.
+browser. And... there's only one right now: `index.php`:
+
+[[[ code('36cb7c15bf') ]]]
+
+This is called the "front controller": a fancy word that programmers invented to 
+mean that this is the file that's executed by your web server.
 
 But, really, other than putting CSS or image files into `public/`, you'll almost
 never need to think about it.
@@ -23,11 +26,14 @@ think about: `config/` and `src/`. `config/` holds... um... puppies? No, `config
 holds config files and `src/` is where all your PHP code will go. It's just that
 simple.
 
-Where is Symfony? Our project *started* with a `composer.json` file, which
-lists all the third-party libraries that our app *requires*. Behind the scenes,
-that `symfony new` command used composer to install these... which is a *fancy*
-way of saying that Composer downloaded a bunch of libraries into the `vendor/`
-directory... including Symfony itself.
+Where is Symfony? Our project *started* with a `composer.json`:
+
+[[[ code('e8bb6427f4') ]]] 
+ 
+file, which lists all the third-party libraries that our app *requires*. 
+Behind the scenes, that `symfony new` command used composer to install these... 
+which is a *fancy* way of saying that Composer downloaded a bunch of libraries 
+into the `vendor/` directory... including Symfony itself.
 
 We'll talk more about the other files and directories along the way... but they're
 not important yet.
