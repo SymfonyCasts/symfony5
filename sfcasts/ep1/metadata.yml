@@ -16,3 +16,4 @@ chapters:
     - route-requirements
     - services
     - webpack-encore
+    - webpack-encore-usage
