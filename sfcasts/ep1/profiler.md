@@ -104,7 +104,7 @@ library with "pack" in its name.
 
 A "pack" is a special concept in Symfony: it's sort of a "fake" package whose only
 job is to help install several packages at once. Check it out: copy the package
-name, find your terminal, and go to https://github.com/symfony/debug-pack. Woh!
+name, find your browser, and go to https://github.com/symfony/debug-pack. Woh!
 It's nothing more than a `composer.json` file! This gives us an easy way to install
 just *this* package... but actually get *all* of these libraries.
 
