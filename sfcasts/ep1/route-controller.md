@@ -11,9 +11,13 @@ route & controller system: a 2-step system to build pages. A route defines the U
 of the page and the controller is where we write PHP code to *build* that page,
 like the HTML or JSON.
 
-Open up `config/routes.yaml`. Hey! We already have an example! Uncomment that.
-If you're not familiar with YAML, it's super friendly: it's a key-value config
-format that's separated by colons. Indentation is also important.
+Open up `config/routes.yaml`: 
+
+[[[ code('4ab87bc059') ]]]
+
+Hey! We already have an example! Uncomment that. If you're not familiar with YAML, 
+it's super friendly: it's a key-value config format that's separated by colons. 
+Indentation is also important.
 
 This creates a single route whose URL is `/`. The controller points to a *function*
 that will *build* this page... really, it points to a method on a class. Overall,
@@ -42,6 +46,8 @@ On the homepage, we will eventually list some of the most recent questions. So
 let's change the controller class to `QuestionController` and the method to
 `homepage`.
 
+[[[ code('b54cc0bccb') ]]]
+
 Ok, route done: it defines the URL and points to the controller that will build
 the page. Now... we need to create that controller! Inside the `src/` directory,
 there's already a `Controller/` directory... but it's empty. I'll right click on
@@ -58,8 +64,12 @@ whatever directory the file lives in. Because we're creating this file in the
 `Controller/` directory, its namespace must be `App\Controller`. PhpStorm will
 pre-fill this every time.
 
+[[[ code('7dbf5d18ac') ]]]
+
 Perfect! Now, because in `routes.yaml` we decided to call the method `homepage`,
 create that here: `public function homepage()`.
+
+[[[ code('a74e0fbea7') ]]]
 
 ## Controllers Return a Response
 
@@ -84,6 +94,8 @@ for me.
 Inside `new Response()`, add some text:
 
 > What a bewitching controller we have conjured!
+
+[[[ code('b1af94625a') ]]]
 
 And... done! We just created our first page! Let's try it! When we go to the
 homepage, it should execute our controller function... which returns the message.
