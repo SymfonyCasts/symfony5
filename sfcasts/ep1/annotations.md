@@ -7,6 +7,8 @@ annotations.
 First, comment-out the YAML route. Basically, remove it entirely. To prove it's
 not working, refresh the homepage. Yep! It's back to the welcome page.
 
+[[[ code('6249b6bc32') ]]]
+
 ## Installing Annotations Support
 
 Annotations are a special config format... and support for annotations is *not*
@@ -39,6 +41,8 @@ at the top of the class automatically.
 
 Inside the parentheses, say `"/"`.
 
+[[[ code('8f140f527a') ]]]
+
 That's it! When the user goes to the homepage, it will execute the function
 right below this. I *love* annotations because they're simple to read and keep
 the route and controller right next to each other. And yes... annotations are
@@ -53,12 +57,20 @@ Now when we refresh the homepage... we're back!
 This page will eventually list some recently-asked questions. When you click
 on a specific question, it will need its *own* page. Let's create a second route
 and controller for that. How? By creating a second method. How about:
-`public function show()`. Above this, add `@Route()` and set the URL to, how about,
+`public function show()`. 
+
+[[[ code('fe1ec280ee') ]]]
+
+Above this, add `@Route()` and set the URL to, how about,
 `/questions/how-to-tie-my-shoes-with-magic`. That would be awesome!
+
+[[[ code('6a6c0c73d5') ]]]
 
 Inside, just like last time, return a new `Response`: the one from `HttpFoundation`.
 
 > Future page to show a question
+
+[[[ code('7b17b4ef63') ]]]
 
 Let's try it! Copy the URL, move over to your browser, paste and... it works!
 We just created a *second* page... in less than a minute.
@@ -87,8 +99,12 @@ But *whatever* we call this wildcard - like `{slug}` - we are now *allowed* to
 have an argument to our controller with the same *name*: `$slug`... which will
 be set to whatever that part of the URL is.
 
+[[[ code('d16dfb89a7') ]]]
+
 Let's use that to make our page fancier! Let's use `sprintf()`, say "the"
 question and add a `%s` placeholder. Pass `$slug` for that placeholder.
+
+[[[ code('4b1f6f7659') ]]]
 
 Sweet! Move over, refresh and... love it! Change the URL to
 `/questions/accidentally-turned-cat-into-furry-shoes` and... that works too.
@@ -97,6 +113,8 @@ In the future, we'll use the `$slug` to query the database for the question. But
 since we're not there yet, I'll use `str_replace()` ... and `ucwords()` to make
 this *just* a little more elegant. It's still early, but the page is *starting*
 come alive!
+
+[[[ code('497e56f24a') ]]]
 
 Next, our new app is hiding a secret! A little command-line executable that's
 *filled* with goodies.
