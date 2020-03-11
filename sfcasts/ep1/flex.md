@@ -26,7 +26,7 @@ is going on?
 Back in PhpStorm, open up `composer.json`. When we started the project, we
 had just a *few* dependencies in this file. One of them is `symfony/flex`.
 
-[[[ code('28230b4aec') ]]]
+[[[ code('4bf6b1df52') ]]]
 
 This is a composer *plugin* that adds *two* special features to Composer itself.
 The first is called "aliases".
