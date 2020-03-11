@@ -25,6 +25,9 @@ is going on?
 
 Back in PhpStorm, open up `composer.json`. When we started the project, we
 had just a *few* dependencies in this file. One of them is `symfony/flex`.
+
+[[[ code('28230b4aec') ]]]
+
 This is a composer *plugin* that adds *two* special features to Composer itself.
 The first is called "aliases".
 
@@ -70,6 +73,9 @@ worry about it, but you *should* commit it. It keeps a big list of which recipes
 have been installed.
 
 So, who created the other file? Open it up: `config/packages/security_checker.yaml`.
+
+[[[ code('ae0e8f67cb') ]]]
+
 Each package you install *may* have a Flex "recipe". The idea is *beautifully*
 simple. Instead of telling people to install a package and *then* create this file,
 and update this other file in order to get things working, Flex executes a
@@ -115,6 +121,8 @@ git diff composer.json
 We expected that Composer would add this new line to the `require` section. But
 there is *also* a new line under the `scripts` section. That was done by the
 recipe.
+
+[[[ code('28230b4aec') ]]]
 
 Thanks to this, whenever you run:
 
