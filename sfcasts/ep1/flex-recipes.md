@@ -65,5 +65,7 @@ git status
 
 It's clean! It reverted the change in `composer.json` and removed the config file.
 
+[[[ code('eff0f785dc') ]]]
+
 Next: let's install Twig - Symfony's templating engine - so we can create HTML
 templates. The Twig recipe is going to make this *so* easy.
