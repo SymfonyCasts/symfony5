@@ -256,6 +256,11 @@
             "description": null
         },
         {
+            "id": "encore-update-readme",
+            "name": "Encore: update README",
+            "description": null
+        },
+        {
             "id": "encore-install-yarn-deps",
             "name": "Encore: install yarn deps",
             "description": null
@@ -294,7 +299,12 @@
             "id": "encore-properly-import-bootstrap-css",
             "name": "Encore: properly import Bootstrap CSS",
             "description": null
+        },
+        {
+            "id": "encore-commit-files",
+            "name": "Encore: commit files",
+            "description": null
         }
     ],
-    "sha": "1b0e7ee1494e67ac24893ca6a0c49e7cbf4b8c62"
+    "sha": "70082e6764102fc75d7d96495f3851708979494c"
 }
