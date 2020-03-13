@@ -38,8 +38,11 @@ Let's look at `bundles.php` first:
 git diff config/bundles.php
 ```
 
-Interesting: it added two lines. Go open that: `config/bundles.php`. A "bundle"
-is a Symfony *plugin*. Pretty commonly, when you want to add a new feature
+Interesting: it added two lines. Go open that: `config/bundles.php`. 
+
+[[[ code('4dc1ee719f') ]]]
+
+A "bundle" is a Symfony *plugin*. Pretty commonly, when you want to add a new feature
 to your app, you'll install a bundle. And when you install a bundle, you need
 to *enable* it in your application. A long time ago, doing this was manual.
 But thanks to Symfony Flex, whenever you install a Symfony bundle, it automatically
@@ -52,10 +55,14 @@ The recipe *also* added a `templates/` directory. So if you were wondering where
 your templates are supposed to live... the recipe kinda answered that question!
 It also added a `base.html.twig` layout file that we'll talk about soon.
 
+[[[ code('f9e2431ee2') ]]]
+
 So... apparently our templates are supposed to live in `templates/`. But why?
 I mean, is that path hardcoded deep in some core Twig file? Nope! It lives right
 in *our* code, thanks to a `twig.yaml` file that was created by the recipe. Let's
 check that out: `config/packages/twig.yaml`.
+
+[[[ code('0f072819a3') ]]]
 
 We're going to talk more about these YAML files in another tutorial. But without
 understanding a lot about this file, it... already makes sense! This `default_path`
