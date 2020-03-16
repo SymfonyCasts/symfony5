@@ -14,6 +14,10 @@ tell it to *only* match if the method is POST. To do that add `methods="POST"`.
 As *soon* as we do that, when we refresh... 404 not found! The route no longer
 matches.
 
+***TIP
+Actually, it's a 405 response code! HTTP Method Not Allowed.
+***
+
 ## The router:match Command
 
 Another cool way to see this is at your terminal. Run:
