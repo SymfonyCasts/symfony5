@@ -109,6 +109,12 @@ it works! Webpack *noticed* that we're importing `jquery` and automatically
 packaged it *inside* of the built `app.js` file. We import the stuff we need,
 and Webpack takes care of... packaging it all together.
 
+***TIP
+Actually, Webpack splits the final code into pieces for efficiency. So jQuery
+itself is *actually* inside a different file in `public/build`, though that
+doesn't matter!
+***
+
 ## Importing the Bootstrap CSS
 
 We can do the same thing for the Bootstrap CSS. On the top of `base.html.twig`,
