@@ -71,7 +71,7 @@ But... we can't stop here. If we try the page now, a glorious error!
 
 > Some mandatory parameters are missing - "slug"
 
-That makes sense! We can't just say "generate the URL to `app_question_homepage`"
+That makes sense! We can't just say "generate the URL to `app_question_show`"
 because that route has a wildcard! Symfony needs to know what value it should use
 for `{slug}`. How do we tell it? Add a *second* argument to `path()` with `{}`.
 The `{}` is a Twig associative array... again, just like JavaScript. Pass `slug` set
