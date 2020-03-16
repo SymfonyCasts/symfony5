@@ -37,6 +37,10 @@ And also yarn:
 yarn -v
 ```
 
+***TIP
+I recommend using yarn version 1 to follow this tutorial.
+***
+
 Yarn is one of the package managers for Node... basically Composer for Node.
 
 Before we install Encore, make sure you've committed all your changes - I already
