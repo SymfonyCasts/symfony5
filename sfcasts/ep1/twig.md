@@ -9,6 +9,8 @@ Now, obviously, a controller doesn't *need* to extend this base class - Symfony
 doesn't really care about that. *But*, you usually *will* extend `AbstractController`
 for one simple reason: it gives us shortcut methods!
 
+[[[ code('71f9a2e8a4') ]]]
+
 ## Rendering a Template
 
 The first useful shortcut method is `render`. We can say:
@@ -21,6 +23,8 @@ template. Eventually, we're going to query the database for a specific question
 and pass that data into the template. Right now, let's fake it. I'll copy my
 `ucwords()` line and delete the old code. Let's pass a variable into the template
 called - how about, `question` - set to this string.
+
+[[[ code('1926626360') ]]]
 
 Pop quiz time! What do you think that `render()` method returns? A string?
 Something else? The answer is: a `Response` object... with HTML inside. Because
@@ -38,6 +42,8 @@ Anyways, let's go create that template! Inside `templates/`, create a `question`
 sub-directory, then a new file called `show.html.twig`. Let's start simple:
 an `<h1>` and then `{{ question }}` to render the question *variable*. And...
 I'll put some extra markup below this.
+
+[[[ code('1f01513b8b') ]]]
 
 ## The 3 Syntaxes of Twig!
 
@@ -61,6 +67,8 @@ like an `if` statement, with `{%`.
 Ok, *small* lie, there *is* a third syntax... but it's just comments: `{#`,
 a comment... then `#}`.
 
+[[[ code('ae7ce3ba5c') ]]]
+
 Let's see if this works! Move over refresh and... got it! If you view the HTML
 source, notice that there is *no* HTML layout yet. It's literally the markup
 from our template and nothing else. We'll add a layout in a few minutes.
@@ -69,9 +77,14 @@ from our template and nothing else. We'll add a layout in a few minutes.
 
 Ok: we have a fake question. I think it deserves some fake answers! Back in the
 controller, up in the `show()` action, I'm going to paste in three fake answers.
+
+[[[ code('9dbcca778c') ]]]
+
 Again, once we talked about databases, we will query the database for these. But
 this will work beautifully to start. Pass these into the template as a
 *second* variable called `answers`.
+
+[[[ code('4847bce1ac') ]]]
 
 Back in the template, how can we print those? We can't just say `{{ answers }}`...
 because it's an array. What we *really* want to do is loop *over* that array and
@@ -81,6 +94,8 @@ tags also have an end tag: `{% endfor %}`.
 
 Let's surround this with a `ul` and, inside the loop, say `<li>` and
 `{{ answer }}`.
+
+[[[ code('c91fba0be4') ]]]
 
 I love that! Ok browser, reload! It works! I mean, it's so, *so*, ugly... but
 we'll fix that soon.
@@ -109,6 +124,8 @@ functions... with a friendlier syntax.
 Let's use this filter to print out the *number* of answers. I'll add some parenthesis,
 then `{{ answers|length }}`. When we try that... super nice!
 
+[[[ code('136272c6c0') ]]]
+
 ## Twig Template Inheritance: extends
 
 At this point, you're *well* on your way to being a Twig pro. There's just *one*
@@ -117,6 +134,8 @@ last big feature we need to talk about, and it's a good one: template inheritanc
 Most of our pages will share an HTML layout. Right now, we don't have *any*
 HTML structure. To give it some, at the *top* of the template, add
 `{% extends 'base.html.twig' %}`.
+
+[[[ code('5db9f912d5') ]]]
 
 This tells Twig that we want to use this `base.html.twig` template as our layout.
 This file is *super* basic right now, but it's *ours* to customize - and we will
@@ -139,6 +158,8 @@ content should go into. The `body` block is a perfect spot.
 How do we do this? By *overriding* the block. Above the content add `{% block body %}`,
 and after, `{% endblock %}`.
 
+[[[ code('e74ca95c2e') ]]]
+
 Try it now. It works! It doesn't look like much yet... because our base
 layout is so simple, but if you check out the page source, we *do* have the basic
 HTML structure.
@@ -156,6 +177,8 @@ current `title` of the page.
 Because this is surrounded by a block, we can *override* that in any template.
 Check it out: anywhere in `show.html.twig`, add `{% block title %}`, Question,
 print the question, then `{% endblock %}`.
+
+[[[ code('21972d43f6') ]]]
 
 This time when we reload... we have a *new* title!
 
