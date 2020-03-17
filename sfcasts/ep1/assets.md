@@ -12,6 +12,8 @@ few minutes.
 The first is `base.html.twig`. I'll open it up, copy its contents, close it,
 and then open *our* `templates/base.html.twig`. Paste the new stuff here.
 
+[[[ code('21a000cf1e') ]]]
+
 This was *not* a huge change: this added some CSS files - including Bootstrap -
 and some basic HTML markup. But we have the same blocks as before:
 `{% block body %}` in the middle, `{% block javascripts %}`,
@@ -19,6 +21,8 @@ and some basic HTML markup. But we have the same blocks as before:
 
 Notice that the link tags are *inside* a block called `stylesheets`. But that's
 not important yet. I'll explain why it's done that way a bit later.
+
+[[[ code('13ee9de667') ]]]
 
 One of the link tags is pointing to `/css/app.css`. That's *another* file that
 lives in this `tutorial/` directory. In fact, select the `images/` directory *and*
@@ -67,6 +71,8 @@ file, JavaScript file or image, instead of just putting `/css/app.css`, you shou
 use a Twig function called `asset()`. So, `{{ asset() }}` and then the *same* path
 as before, but without the opening `/`: `css/app.css`.
 
+[[[ code('e90509371d') ]]]
+
 What does this super-cool-looking `asset()` function do? Almost... nothing. In
 fact, this will output the *exact* same path as before: `/css/app.css`.
 
@@ -104,6 +110,8 @@ Let's make the middle of our page look a bit nicer. Back in the `tutorial/`
 directory, open `show.html.twig`, copy its contents, close it, then open up our
 version: `templates/question/show.html.twig`. Paste the new code.
 
+[[[ code('7807b55f2a') ]]]
+
 Once again, there's nothing important happening here: we're still overriding the
 same `title` and `body` blocks. We're still using the same `question` variable
 and we're still looping over the `answers` down here. There's just a lot of extra
@@ -115,6 +123,8 @@ fix that. I'll use a shortcut! I can just type "tisha", hit tab and... boom!
 It takes care of the rest. Search for `img`... and replace this one too with
 "tisha". Wondering who tisha is? Oh, just one of the several cats we keep on staff
 here at SymfonyCasts. This one manages Vladimir.
+
+[[[ code('c3b798bd91') ]]]
 
 By the way, in a real app, instead of these images being static files in our
 project, that might be files that users *upload*. Don't worry: we have an
@@ -132,11 +142,15 @@ with `return $this->render()`. Let's call the template `question/homepage.html.t
 And... right now... I don't think we need to pass any variables into the template...
 so I'll leave the second argument off.
 
+[[[ code('597721a2c8') ]]]
+
 Inside `templates/question/`, create the new file: `homepage.html.twig`.
 
 Most templates start the *exact* same way. Yay consistency! On top,
 `{% extends 'base.html.twig' %}`, `{% block body %}` and `{% endblock %}`. In
 between, add some markup so we can see if this is working.
+
+[[[ code('34a7e7af54') ]]]
 
 Ok... refresh the page and... excellent! Except for the "this looks totally
 awful" part.
@@ -145,6 +159,8 @@ Let's steal some code from the `tutorial/` directory *one* last time. Open
 `homepage.html.twig`. This is *just* a bunch of hardcoded markup to make things
 look nicer. Copy it, close that file... and then paste it over our
 `homepage.html.twig` code.
+
+[[[ code('5a7ba368ed') ]]]
 
 And now... it looks *much* better.
 
