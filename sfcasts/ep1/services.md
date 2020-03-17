@@ -61,6 +61,8 @@ Here's how you get a service from inside a controller. Add a third argument to
 your method - though the argument order doesn't matter. Say `LoggerInterface` -
 auto-complete the one from `Psr\Log\LoggerInterface` - and `$logger`.
 
+[[[ code('cb7b5791f2') ]]]
+
 This added a `use` statement above the class for `Psr\Log\LoggerInterface`,
 which *matches* the type-hint that `debug:autowiring` told us to use. Thanks
 to this type-hint, when Symfony renders our controller, it will know that we
@@ -78,6 +80,8 @@ So... let's use this object! What methods can we call on it? I have no idea!
 But because we properly type-hinted the argument, we can say `$logger->` and
 PhpStorm tells us *exactly* what methods it has. Let's use `$logger->info()`
 to say "Voting up!". Copy that and say "Voting down!" on the else.
+
+[[[ code('38a18c81d7') ]]]
 
 Testing time! Refresh the page and... let's click up, down, up. It... at least
 doesn't look *broken*.
@@ -116,15 +120,21 @@ use as a "type-hint" to get a Twig service. In our controller, add `Environment`
 and hit tab to add the `use` statement on top. I'll call the argument
 `$twigEnvironment`.
 
+[[[ code('95c90d35db') ]]]
+
 Inside, add `$html = $twigEnvironment->`. Once again, without reading *any*
 documentation, thanks to the fact that we're coding responsibly and using
 type-hints, PhpStorm shows us *all* the methods on this class. Hey! This `render()`
 method looks like it might be what we need! Pass the same template name as
 before.
 
+[[[ code('7c48f5083f') ]]]
+
 When you use twig directly, instead of returning a Response object, it
 returns a *string* with the HTML. No problem: finish with
 `return new Response()` - the one from `HttpFoundation` - and pass `$html`.
+
+[[[ code('702d2ebc1c') ]]]
 
 This is now doing the *exact* same thing as `$this->render()`. To prove it, click
 the homepage link. It still works.
@@ -137,6 +147,8 @@ which *service* does that work. Trust me, *this* is the key to unlocking your
 full potential in Symfony.
 
 Let's put the old, shorter code back, and comment out the longer example.
+
+[[[ code('5eb7b54438') ]]]
 
 Ok, you've *almost* made it through the first Symfony tutorial. You rock!
 As a reward, we're going to finish with something fun: an introduction into a
