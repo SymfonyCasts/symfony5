@@ -62,9 +62,12 @@ git status
 ```
 
 Woh! Its recipe did a *lot* for us! One cool thing is that it modified our
-`.gitignore` file. Go open it in your editor. Cool! We're now ignoring
-`node_modules/` - which is Node's version of the `vendor/` directory - and a
-few other paths.
+`.gitignore` file. Go open it in your editor. 
+
+[[[ code('28c0dcbd53') ]]]
+
+Cool! We're now ignoring `node_modules/` - which is Node's version of the 
+`vendor/` directory - and a few other paths.
 
 The recipe also added some YAML files, which help set things up - but you don't
 really need to look at them.
@@ -76,6 +79,8 @@ Encore configuration file.
 Check out the `package.json` file. This tells Node which libraries it should
 download and it already has the basic stuff we need. Most importantly:
 `@symfony/webpack-encore`.
+
+[[[ code('0d929354c6') ]]]
 
 ## Installing Node Dependencies with yarn
 
