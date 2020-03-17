@@ -4,10 +4,14 @@ Go back to the "show" page for a question. The logo on top is a link... that doe
 go anywhere yet. This *should* take us back to the homepage.
 
 Because this is part of the layout, the link lives in `base.html.twig`. Here it is:
-`navbar-brand` with `href="#"`. To make this link back to the homepage, we can
-just change this to `/`, right? You *could* do this, but in Symfony, a better way
-is to ask Symfony to *generate* the URL to this route. That way, if we decide to
-change this URL later, all our links will update automatically.
+`navbar-brand` with `href="#"`. 
+
+[[[ code('9faea27c3a') ]]]
+
+To make this link back to the homepage, we can just change this to `/`, right? 
+You *could* do this, but in Symfony, a better way is to ask Symfony to *generate* 
+the URL to this route. That way, if we decide to change this URL later, all our 
+links will update automatically.
 
 ## Each Route Has a Name!
 
@@ -36,6 +40,8 @@ an *explicit* name, instead of relying on this auto-generated name, which could
 change suddenly if you rename your method. To give the route a name, add `name=""`
 and... how about: `app_homepage`.
 
+[[[ code('41da313f69') ]]]
+
 I like to keep my route names short, but `app_` makes it long enough that I
 could search my project for this string if I ever needed to.
 
@@ -52,6 +58,8 @@ then go back to `base.html.twig`. The goal is simple, we want to say:
 
 To do that in Twig, use `{{ path() }}` and pass it the route name.
 
+[[[ code('c164d6ba40') ]]]
+
 That's it! When we move over and refresh... *now* this links to the homepage.
 
 ## Linking to a Route with {Wildcards}
@@ -61,6 +69,8 @@ currently go nowhere. Let's fix these!
 
 Step one: now that we want to generate a URL to this route, find the route and add
 `name="app_question_show"`.
+
+[[[ code('ed0b336b2a') ]]]
 
 Copy this and open the template: `templates/question/homepage.html.twig`.
 Let's see... right below the voting stuff, here's the first link to a
@@ -78,10 +88,14 @@ The `{}` is a Twig associative array... again, just like JavaScript. Pass `slug`
 to... let's see... this is a hardcoded question right now, so hardcode
 `reversing-a-spell`.
 
+[[[ code('fad5a0b0dc') ]]]
+
 Copy that *entire* thing, because there's one other link down here for the same
 question. For the second question... paste again, but change it to
 `pausing-a-spell` to match the name. I'll copy that... find the last spot... and
 paste.
+
+[[[ code('dc81dc99c3') ]]]
 
 Later, when we introduce a database, we'll make this fancier and avoid repeating
 ourselves so many times. But! If we move over, refresh... and click a link, it
