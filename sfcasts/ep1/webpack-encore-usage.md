@@ -110,9 +110,8 @@ packaged it *inside* of the built `app.js` file. We import the stuff we need,
 and Webpack takes care of... packaging it all together.
 
 ***TIP
-Actually, Webpack splits the final code into pieces for efficiency. So jQuery
-itself is *actually* inside a different file in `public/build`, though that
-doesn't matter!
+Actually, Webpack splits the final files into multiple for efficiency. jQuery
+actually lives inside a different file in public/build/, though that doesn't matter!
 ***
 
 ## Importing the Bootstrap CSS
