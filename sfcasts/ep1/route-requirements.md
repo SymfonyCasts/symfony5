@@ -11,6 +11,8 @@ I just voted!
 To tighten this up, in `CommentController`, we can make our route smarter: we can
 tell it to *only* match if the method is POST. To do that add `methods="POST"`.
 
+[[[ code('5c1cfcba94') ]]]
+
 As *soon* as we do that, when we refresh... 404 not found! The route no longer
 matches.
 
@@ -58,6 +60,8 @@ But we can make this better.
 As you know, *normally* a wildcard matches *anything*. However, if you want, you
 can control that with a regular expression. Inside the `{}`, but after the name,
 add `<>`. Inside, say `up|down`.
+
+[[[ code('ce6dc3ca9b') ]]]
 
 *Now* try the `router:match` command:
 
