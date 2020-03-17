@@ -17,6 +17,8 @@ which link was clicked. Finally, surround the vote number - the 6 - with a span
 that has another class: `js-vote-total`. We'll use that to find the element so
 we can update that number.
 
+[[[ code('096aba564c') ]]]
+
 ## Adding JavaScript inside the javascripts Block.
 
 To keep things simple, the JavaScript code we are going to write will use jQuery.
@@ -26,6 +28,8 @@ on *every* page... which means that we want to add a `script` tag to
 Inside this block, I'm going to paste a `<script>` tag to bring in jQuery from
 a CDN. You can copy this from the code block on this page, or go to jQuery to
 get it.
+
+[[[ code('dfaa4f6a88') ]]]
 
 If you're wondering *why* we put this inside of the `javascripts` block... other
 than it "seems" like a logical place, I'll show you why in a minute. Because
@@ -44,13 +48,19 @@ like to power a comment-voting feature that only lives on one page.
 That's what I'm doing and that's why I created a file called `question_show.js`:
 it's custom JavaScript for that page.
 
-Inside `question_show.js`, I'm going to paste about 15 lines of code. This finds
-the `.js-vote-arrows` element - which we added here - finds any `a` tags inside,
-and registers a `click` listener on them. On click, we make an AJAX request to
-`/comments/10` - the 10 is hardcoded for now - `/vote/` and then we read the
-`data-direction` attribute off of the anchor element to know if this is an
-`up` vote or `down` vote. On success, jQuery passes us the JSON data from
-our endpoint. Let's rename that variable to `data` to be more accurate.
+Inside `question_show.js`, I'm going to paste about 15 lines of code. 
+
+[[[ code('8ce718cf9e') ]]]
+
+This finds the `.js-vote-arrows` element - which we added here - finds any `a` 
+tags inside, and registers a `click` listener on them. On click, we make 
+an AJAX request to `/comments/10` - the 10 is hardcoded for now - `/vote/` 
+and then we read the `data-direction` attribute off of the anchor element 
+to know if this is an `up` vote or `down` vote. On success, jQuery passes us 
+the JSON data from our endpoint. Let's rename that variable to `data` 
+to be more accurate.
+
+[[[ code('b564ad8fa7') ]]]
 
 Then we use the `votes` field from the data - because in our controller we're
 returning a `votes` key - to update the vote total.
@@ -69,12 +79,16 @@ the bottom, say `{% block javascripts %} {% endblock %}`. Inside, add a
 function. But... PhpStorm is suggesting `js/question_show.js`. Select that.
 Nice! It added the `asset()` function for us.
 
+[[[ code('ebeb877032') ]]]
+
 If we stopped now, this would literally *override* the `javascripts` block of
 `base.html.twig`. So, jQuery would not be included on the page. Instead of
 *overriding* the block, what we *really* want to do is add *to* it! In the final
 HTML, we want our new `script` tag to go right *below* jQuery.
 
 How can we do this? Above our script tag, say `{{ parent() }}`.
+
+[[[ code('9e813983d0') ]]]
 
 I love that! The `parent()` function gets the content of the *parent* block,
 and prints it.
