@@ -33,6 +33,8 @@ I'm using `--dev` because the profiler is a tool that we'll only need while we'r
 `require-dev` section of `composer.json`. This isn't that important, but this is
 the right way to do it.
 
+[[[ code('3b179e857b') ]]]
+
 And... at this point, it should be *no* surprise that this configured a recipe!
 Run:
 
@@ -71,18 +73,26 @@ I'll click back a few times to get to the page. Open up the controller:
 
 Imagine we want to debug a variable. Normally I'd use `var_dump()`. Instead,
 use `dump()` and let's dump the `$slug` and... how about `$this` object itself.
+
+[[[ code('277ed16960') ]]]
+
 When we refresh, woh! It works *exactly* like `var_dump()` except... *way* more
 beautiful and useful. The controller apparently has a `container` property... and
 we can dig deeper and deeper.
 
 If you're *really* lazy... like most of us are... you can also use `dd()` which
-stands for `dump()` and `die()`. Now when we reload... it dumps, but *also* kills
-the page. We've now perfected dump-and-die-driven development. I think we should
-be proud?
+stands for `dump()` and `die()`. 
+
+[[[ code('8ac0d89ffd') ]]]
+
+Now when we reload... it dumps, but *also* kills the page. We've now perfected 
+dump-and-die-driven development. I think we should be proud?
 
 ## Installing the debug Package
 
 Change that back to `dump()`... and let's *just* `dump()` `$this`.
+
+[[[ code('fc22997937') ]]]
 
 There's *one* other library that we can install for debugging tools. This one
 is less important - but still nice to have. At your terminal, run:
@@ -141,6 +151,8 @@ problem with packs is that we only have `debug-pack` version `1.0` here: we
 can't control the versions of the packages inside. You just get whatever versions
 the pack allows.
 
+[[[ code('e5f946509a') ]]]
+
 If you need more control, no problem... just unpack the pack:
 
 ```terminal
@@ -151,5 +163,7 @@ That does exactly what you expect: it removes `debug-pack` from `composer.json`
 and *adds* its underlying packages, like `debug-bundle` and `monolog`. Oh, and
 because the `profiler-pack` is a dependency of the `debug-pack`, it's in both
 places. I'll remove the extra one from `require`.
+
+[[[ code('fce7601089') ]]]
 
 Next, let's make our site prettier by bringing CSS into our app.
