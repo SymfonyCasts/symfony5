@@ -83,12 +83,16 @@ Assuming we're using auto-increment database ids, we know that `id` should be
 an integer. To make this route only match if the `id` part is a number, you an add
 `<\d+>`, which means: match a "digit" of any length.
 
+[[[ code('3416bdd71f') ]]]
+
 But... I'm actually *not* going to put that here. Why? Eventually, we're going to
 use `$id` to query the database. If somebody puts `banana` here, who cares? The
 query won't find any comment with an id of `banana` and we will add some code to
 return a 404 page. Even if somebody tries an SQL injection attack, as you'll learn
 later in our database tutorial, it will *still* be ok, because the database layer
 protects against this.
+
+[[[ code('4df10b95bc') ]]]
 
 Let's make sure everything still works. I'll close one browser tab and refresh the
 show page. Yea! Voting still looks good.
