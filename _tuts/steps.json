@@ -304,7 +304,112 @@
             "id": "encore-commit-files",
             "name": "Encore: commit files",
             "description": null
+        },
+        {
+            "id": "pre-ep2-update-dependencies",
+            "name": "PRE_EP2: update dependencies",
+            "description": null
+        },
+        {
+            "id": "pre-ep2-clean-tutorial",
+            "name": "PRE_EP2: clean tutorial\/",
+            "description": null
+        },
+        {
+            "id": "pre-ep2-fix-bad-alt-attrs",
+            "name": "PRE_EP2: fix bad alt attrs",
+            "description": null
+        },
+        {
+            "id": "install-bundle-move-text-to-controller",
+            "name": "Install Bundle: move text to controller",
+            "description": null
+        },
+        {
+            "id": "install-bundle-add-markdown-to-text",
+            "name": "Install Bundle: add markdown to text",
+            "description": null
+        },
+        {
+            "id": "install-bundle-install-knpmarkdownbundle",
+            "name": "Install Bundle: install KnpMarkdownBundle",
+            "description": null
+        },
+        {
+            "id": "install-bundle-autowire-service",
+            "name": "Install Bundle: autowire service",
+            "description": null
+        },
+        {
+            "id": "install-bundle-use-raw",
+            "name": "Install Bundle: use |raw",
+            "description": null
+        },
+        {
+            "id": "install-bundle-use-markdown",
+            "name": "Install Bundle: Use |markdown",
+            "description": null
+        },
+        {
+            "id": "caching-use-cache-service",
+            "name": "Caching: use cache service",
+            "description": null
+        },
+        {
+            "id": "caching-tweak-question-text",
+            "name": "Caching: tweak question text",
+            "description": null
+        },
+        {
+            "id": "config-dump-markdown",
+            "name": "Config: Dump markdown",
+            "description": null
+        },
+        {
+            "id": "config-change-markdown-config",
+            "name": "Config: Change markdown config",
+            "description": null
+        },
+        {
+            "id": "config-dump-cache",
+            "name": "Config: dump($cache)",
+            "description": null
+        },
+        {
+            "id": "config-change-to-apcu-cache",
+            "name": "Config: Change to apcu cache",
+            "description": null
+        },
+        {
+            "id": "config-delete-me",
+            "name": "Config: delete me",
+            "description": null
+        },
+        {
+            "id": "environment-change-app-env-to-prod",
+            "name": "Environment: change APP_ENV to prod",
+            "description": null
+        },
+        {
+            "id": "environment-tweak-twig-template",
+            "name": "Environment: tweak Twig template",
+            "description": null
+        },
+        {
+            "id": "environment-filesystem-cache-in-dev",
+            "name": "Environment: filesystem cache in dev",
+            "description": null
+        },
+        {
+            "id": "environment-app-env-back-to-dev",
+            "name": "Environment: APP_ENV back to dev",
+            "description": null
+        },
+        {
+            "id": "environment-remove-dump",
+            "name": "Environment: remove dump",
+            "description": null
         }
     ],
-    "sha": "70082e6764102fc75d7d96495f3851708979494c"
+    "sha": "311e8328e56a190fe2ba388811a73a64341913af"
 }
