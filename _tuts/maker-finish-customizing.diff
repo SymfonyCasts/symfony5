@@ -1,0 +1,40 @@
+diff --git a/src/Command/RandomSpellCommand.php b/src/Command/RandomSpellCommand.php
+index ed8b6d0..7aaf13f 100644
+--- a/src/Command/RandomSpellCommand.php
++++ b/src/Command/RandomSpellCommand.php
+@@ -18,7 +18,7 @@ class RandomSpellCommand extends Command
+         $this
+             ->setDescription('Cast a random spell!')
+             ->addArgument('your-name', InputArgument::OPTIONAL, 'Your name')
+-            ->addOption('uppercase', null, InputOption::VALUE_NONE, 'Upper case?')
++            ->addOption('yell', null, InputOption::VALUE_NONE, 'Yell?')
+         ;
+     }
+ 
+@@ -31,11 +31,23 @@ class RandomSpellCommand extends Command
+             $io->note(sprintf('Hi %s!', $yourName));
+         }
+ 
+-        if ($input->getOption('option1')) {
+-            // ...
++        $spells = [
++            'alohomora',
++            'confundo',
++            'engorgio',
++            'expecto patronum',
++            'expelliarmus',
++            'impedimenta',
++            'reparo',
++        ];
++
++        $spell = $spells[array_rand($spells)];
++
++        if ($input->getOption('yell')) {
++            $spell = strtoupper($spell);
+         }
+ 
+-        $io->success('You have a new command! Now make it your own! Pass --help to see your options.');
++        $io->success($spell);
+ 
+         return 0;
+     }

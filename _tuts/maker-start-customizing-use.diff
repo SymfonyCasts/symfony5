@@ -1,0 +1,40 @@
+diff --git a/src/Twig/MarkdownExtension.php b/src/Twig/MarkdownExtension.php
+index ca671dc..746aa0e 100644
+--- a/src/Twig/MarkdownExtension.php
++++ b/src/Twig/MarkdownExtension.php
+@@ -14,19 +14,12 @@ class MarkdownExtension extends AbstractExtension
+             // If your filter generates SAFE HTML, you should add a third
+             // parameter: ['is_safe' => ['html']]
+             // Reference: https://twig.symfony.com/doc/2.x/advanced.html#automatic-escaping
+-            new TwigFilter('filter_name', [$this, 'doSomething']),
++            new TwigFilter('parse_markdown', [$this, 'parseMarkdown']),
+         ];
+     }
+ 
+-    public function getFunctions(): array
++    public function parseMarkdown($value)
+     {
+-        return [
+-            new TwigFunction('function_name', [$this, 'doSomething']),
+-        ];
+-    }
+-
+-    public function doSomething($value)
+-    {
+-        // ...
++        return 'TEST';
+     }
+ }
+diff --git a/templates/question/show.html.twig b/templates/question/show.html.twig
+index 1ebf1f0..eebd034 100644
+--- a/templates/question/show.html.twig
++++ b/templates/question/show.html.twig
+@@ -42,7 +42,7 @@
+                         <img src="{{ asset('images/tisha.png') }}" width="50" height="50" alt="Tisha avatar">
+                     </div>
+                     <div class="mr-3 pt-2">
+-                        {{ answer|markdown }}
++                        {{ answer|parse_markdown }}
+                         <p>-- Mallory</p>
+                     </div>
+                     <div class="vote-arrows flex-fill pt-2 js-vote-arrows" style="min-width: 90px;">

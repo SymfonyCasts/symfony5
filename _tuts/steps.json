@@ -511,6 +511,21 @@
             "description": null
         },
         {
+            "id": "namedautowiring-log-in-service",
+            "name": "NamedAutowiring: Log in service",
+            "description": null
+        },
+        {
+            "id": "namedautowiring-add-logger-channel",
+            "name": "NamedAutowiring: add logger channel",
+            "description": null
+        },
+        {
+            "id": "namedautowiring-autowire-markdown-logger",
+            "name": "NamedAutowiring: autowire markdown logger",
+            "description": null
+        },
+        {
             "id": "controllers-action-inject-isdebug",
             "name": "Controllers: action inject isDebug",
             "description": null
@@ -574,7 +589,57 @@
             "id": "vault-back-to-dev-env",
             "name": "Vault: back to dev env",
             "description": null
+        },
+        {
+            "id": "vault-remove-dump",
+            "name": "Vault: remove dump",
+            "description": null
+        },
+        {
+            "id": "maker-install-it",
+            "name": "Maker: install it",
+            "description": null
+        },
+        {
+            "id": "maker-make-command",
+            "name": "Maker: make:command",
+            "description": null
+        },
+        {
+            "id": "maker-start-customizing",
+            "name": "Maker: start customizing",
+            "description": null
+        },
+        {
+            "id": "maker-finish-customizing",
+            "name": "Maker: finish customizing",
+            "description": null
+        },
+        {
+            "id": "maker-inject-logger",
+            "name": "Maker: inject logger",
+            "description": null
+        },
+        {
+            "id": "maker-make-twig-extension",
+            "name": "Maker: make:twig-extension",
+            "description": null
+        },
+        {
+            "id": "maker-start-customizing-use",
+            "name": "Maker: start customizing & use",
+            "description": null
+        },
+        {
+            "id": "maker-inject-markdownhelper",
+            "name": "Maker: inject MarkdownHelper",
+            "description": null
+        },
+        {
+            "id": "maker-safe-for-html",
+            "name": "Maker: safe for HTML",
+            "description": null
         }
     ],
-    "sha": "8fde4616ad34646f1173e4e1953734f2ff81e89a"
+    "sha": "9e34aa521428341f376aabe651fd28cc6c633dfb"
 }
