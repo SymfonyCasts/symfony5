@@ -1,0 +1,13 @@
+diff --git a/src/Controller/QuestionController.php b/src/Controller/QuestionController.php
+index 270804c..a9dfbb4 100644
+--- a/src/Controller/QuestionController.php
++++ b/src/Controller/QuestionController.php
+@@ -30,8 +30,6 @@ class QuestionController extends AbstractController
+      */
+     public function show($slug, MarkdownHelper $markdownHelper)
+     {
+-        dump($this->getParameter('cache_adapter'));
+-
+         $answers = [
+             'Make sure your cat is sitting `purrrfectly` still 🤣',
+             'Honestly, I like furry shoes better than MY cat',

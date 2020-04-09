@@ -409,7 +409,172 @@
             "id": "environment-remove-dump",
             "name": "Environment: remove dump",
             "description": null
+        },
+        {
+            "id": "services-create-markdownhelper",
+            "name": "Services: Create MarkdownHelper",
+            "description": null
+        },
+        {
+            "id": "services-fix-variables",
+            "name": "Services: fix variables",
+            "description": null
+        },
+        {
+            "id": "services-autowire-into-controller",
+            "name": "Services: autowire into controller",
+            "description": null
+        },
+        {
+            "id": "services-pass-args-to-method",
+            "name": "Services: Pass args to method",
+            "description": null
+        },
+        {
+            "id": "services-use-constructor-injection",
+            "name": "Services: Use constructor injection",
+            "description": null
+        },
+        {
+            "id": "services-remove-extra-args",
+            "name": "Services: remove extra args",
+            "description": null
+        },
+        {
+            "id": "parameters-set-cache-adapter-parameter",
+            "name": "Parameters: Set cache_adapter parameter",
+            "description": null
+        },
+        {
+            "id": "parameters-remove-controller-dump",
+            "name": "Parameters: remove controller dump",
+            "description": null
+        },
+        {
+            "id": "parameters-use-parameter-in-config",
+            "name": "Parameters: use parameter in config",
+            "description": null
+        },
+        {
+            "id": "parameters-override-in-dev",
+            "name": "Parameters: override in dev",
+            "description": null
+        },
+        {
+            "id": "parameters-move-to-services-yaml",
+            "name": "Parameters: move to services.yaml",
+            "description": null
+        },
+        {
+            "id": "parameters-remove-dump",
+            "name": "Parameters: remove dump",
+            "description": null
+        },
+        {
+            "id": "serviceconfig-pass-isdebug-argument",
+            "name": "ServiceConfig: Pass isDebug argument",
+            "description": null
+        },
+        {
+            "id": "serviceconfig-add-explicit-argument",
+            "name": "ServiceConfig: add explicit argument",
+            "description": null
+        },
+        {
+            "id": "serviceconfig-use-kernel-debug",
+            "name": "ServiceConfig: use kernel.debug",
+            "description": null
+        },
+        {
+            "id": "serviceconfig-use-bind",
+            "name": "ServiceConfig: use bind",
+            "description": null
+        },
+        {
+            "id": "serviceconfig-defaults-bind",
+            "name": "ServiceConfig: _defaults bind",
+            "description": null
+        },
+        {
+            "id": "serviceconfig-use-bool-in-bind",
+            "name": "ServiceConfig: use bool in bind",
+            "description": null
+        },
+        {
+            "id": "serviceconfig-remove-bool-type-hint",
+            "name": "ServiceConfig: remove bool type-hint",
+            "description": null
+        },
+        {
+            "id": "serviceconfig-put-it-back",
+            "name": "ServiceConfig: put it back",
+            "description": null
+        },
+        {
+            "id": "controllers-action-inject-isdebug",
+            "name": "Controllers: action inject isDebug",
+            "description": null
+        },
+        {
+            "id": "controllers-add-constructor-log",
+            "name": "Controllers: add constructor & log",
+            "description": null
+        },
+        {
+            "id": "env-vars-install-sentry",
+            "name": "Env Vars: install sentry",
+            "description": null
+        },
+        {
+            "id": "env-vars-configure-in-env-local",
+            "name": "Env Vars: configure in .env.local",
+            "description": null
+        },
+        {
+            "id": "env-vars-throw-an-exception",
+            "name": "Env Vars: throw an exception",
+            "description": null
+        },
+        {
+            "id": "env-vars-dump-hubinterface",
+            "name": "Env Vars: dump HubInterface",
+            "description": null
+        },
+        {
+            "id": "vault-bootstrap-dev-vault",
+            "name": "Vault: bootstrap dev vault",
+            "description": null
+        },
+        {
+            "id": "vault-bootstrap-prod-vault",
+            "name": "Vault: bootstrap prod vault",
+            "description": null
+        },
+        {
+            "id": "vault-delete-me",
+            "name": "Vault: delete me",
+            "description": null
+        },
+        {
+            "id": "vault-delete-me-2",
+            "name": "Vault: delete me 2",
+            "description": null
+        },
+        {
+            "id": "vault-remove-env-var",
+            "name": "Vault: remove env var",
+            "description": null
+        },
+        {
+            "id": "vault-go-to-prod-env",
+            "name": "Vault: go to prod env",
+            "description": null
+        },
+        {
+            "id": "vault-back-to-dev-env",
+            "name": "Vault: back to dev env",
+            "description": null
         }
     ],
-    "sha": "311e8328e56a190fe2ba388811a73a64341913af"
+    "sha": "8fde4616ad34646f1173e4e1953734f2ff81e89a"
 }

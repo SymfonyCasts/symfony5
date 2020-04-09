@@ -1,0 +1,12 @@
+diff --git a/config/services.yaml b/config/services.yaml
+index de96362..4aa6bcc 100644
+--- a/config/services.yaml
++++ b/config/services.yaml
+@@ -26,3 +26,7 @@ services:
+ 
+     # add more service definitions when explicit configuration is needed
+     # please note that last definitions always *replace* previous ones
++
++    App\Service\MarkdownHelper:
++        arguments:
++            $isDebug: true

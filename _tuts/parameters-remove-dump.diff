@@ -1,0 +1,12 @@
+diff --git a/src/Service/MarkdownHelper.php b/src/Service/MarkdownHelper.php
+index f1bc3c0..8b567e5 100644
+--- a/src/Service/MarkdownHelper.php
++++ b/src/Service/MarkdownHelper.php
+@@ -14,7 +14,6 @@ class MarkdownHelper
+     {
+         $this->markdownParser = $markdownParser;
+         $this->cache = $cache;
+-        dump($cache);
+     }
+ 
+     public function parse(string $source): string

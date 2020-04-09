@@ -1,0 +1,40 @@
+diff --git a/src/Controller/QuestionController.php b/src/Controller/QuestionController.php
+index c840649..0e3d2d8 100644
+--- a/src/Controller/QuestionController.php
++++ b/src/Controller/QuestionController.php
+@@ -39,7 +39,7 @@ class QuestionController extends AbstractController
+         ];
+         $questionText = 'I\'ve been turned into a cat, any *thoughts* on how to turn back? While I\'m **adorable**, I don\'t really care for cat food.';
+ 
+-        $parsedQuestionText = $markdownHelper->parse($questionText, $markdownParser, $cache);
++        $parsedQuestionText = $markdownHelper->parse($questionText);
+ 
+         return $this->render('question/show.html.twig', [
+             'question' => ucwords(str_replace('-', ' ', $slug)),
+diff --git a/src/Service/MarkdownHelper.php b/src/Service/MarkdownHelper.php
+index 9ea26a3..8b567e5 100644
+--- a/src/Service/MarkdownHelper.php
++++ b/src/Service/MarkdownHelper.php
+@@ -7,10 +7,19 @@ use Symfony\Contracts\Cache\CacheInterface;
+ 
+ class MarkdownHelper
+ {
+-    public function parse(string $source, MarkdownParserInterface $markdownParser, CacheInterface $cache): string
++    private $markdownParser;
++    private $cache;
++
++    public function __construct(MarkdownParserInterface $markdownParser, CacheInterface $cache)
++    {
++        $this->markdownParser = $markdownParser;
++        $this->cache = $cache;
++    }
++
++    public function parse(string $source): string
+     {
+-        return $cache->get('markdown_'.md5($source), function() use ($source, $markdownParser) {
+-            return $markdownParser->transformMarkdown($source);
++        return $this->cache->get('markdown_'.md5($source), function() use ($source) {
++            return $this->markdownParser->transformMarkdown($source);
+         });
+     }
+ }

@@ -1,0 +1,24 @@
+diff --git a/config/packages/cache.yaml b/config/packages/cache.yaml
+index 68ab09f..6fb8d59 100644
+--- a/config/packages/cache.yaml
++++ b/config/packages/cache.yaml
+@@ -1,3 +1,6 @@
++parameters:
++    cache_adapter: cache.adapter.apcu
++
+ framework:
+     cache:
+         # Unique name of your app: used to compute stable namespaces for cache keys.
+diff --git a/src/Controller/QuestionController.php b/src/Controller/QuestionController.php
+index a9dfbb4..270804c 100644
+--- a/src/Controller/QuestionController.php
++++ b/src/Controller/QuestionController.php
+@@ -30,6 +30,8 @@ class QuestionController extends AbstractController
+      */
+     public function show($slug, MarkdownHelper $markdownHelper)
+     {
++        dump($this->getParameter('cache_adapter'));
++
+         $answers = [
+             'Make sure your cat is sitting `purrrfectly` still 🤣',
+             'Honestly, I like furry shoes better than MY cat',

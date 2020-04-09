@@ -1,0 +1,10 @@
+diff --git a/config/services.yaml b/config/services.yaml
+index 4aa6bcc..370d9ca 100644
+--- a/config/services.yaml
++++ b/config/services.yaml
+@@ -29,4 +29,4 @@ services:
+ 
+     App\Service\MarkdownHelper:
+         arguments:
+-            $isDebug: true
++            $isDebug: '%kernel.debug%'
