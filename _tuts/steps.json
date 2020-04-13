@@ -536,6 +536,21 @@
             "description": null
         },
         {
+            "id": "namedautowiring-change-to-mdlogger",
+            "name": "NamedAutowiring: change to mdLogger",
+            "description": null
+        },
+        {
+            "id": "namedautowiring-add-service-bind",
+            "name": "NamedAutowiring: add service bind",
+            "description": null
+        },
+        {
+            "id": "namedautowiring-move-to-named-alias",
+            "name": "NamedAutowiring: move to named alias",
+            "description": null
+        },
+        {
             "id": "controllers-action-inject-isdebug",
             "name": "Controllers: action inject isDebug",
             "description": null
@@ -651,5 +666,5 @@
             "description": null
         }
     ],
-    "sha": "5a95eba3cde81ef18a2a60bd44aecca2ba9da811"
+    "sha": "df1760245f4f33d34a7ee34480f28b54ad13aa43"
 }
