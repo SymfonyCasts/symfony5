@@ -10,3 +10,7 @@ chapters:
     - service-config
     - services-yaml
     - named-autowiring
+    - controllers-services
+    - environment-variables
+    - secrets-vault
+    - maker-command
