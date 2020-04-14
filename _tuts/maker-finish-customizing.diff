@@ -1,16 +1,7 @@
 diff --git a/src/Command/RandomSpellCommand.php b/src/Command/RandomSpellCommand.php
-index ed8b6d0..7aaf13f 100644
+index 349eaba..7aaf13f 100644
 --- a/src/Command/RandomSpellCommand.php
 +++ b/src/Command/RandomSpellCommand.php
-@@ -18,7 +18,7 @@ class RandomSpellCommand extends Command
-         $this
-             ->setDescription('Cast a random spell!')
-             ->addArgument('your-name', InputArgument::OPTIONAL, 'Your name')
--            ->addOption('uppercase', null, InputOption::VALUE_NONE, 'Upper case?')
-+            ->addOption('yell', null, InputOption::VALUE_NONE, 'Yell?')
-         ;
-     }
- 
 @@ -31,11 +31,23 @@ class RandomSpellCommand extends Command
              $io->note(sprintf('Hi %s!', $yourName));
          }
