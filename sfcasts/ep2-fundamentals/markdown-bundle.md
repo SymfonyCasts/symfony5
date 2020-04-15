@@ -1,113 +1,134 @@
-# Markdown Bundle
+# KnpMarkdownBundle & Service
 
-Coming soon...
+Fun fact! Witches & wizards *love* writing markdown. I have no idea why... but
+we're going to give our customers what they want: we're going to allow the question
+text to be written in Markdown. We'll focus on this "show" page.
 
-Fun fact, wizards love writing in markdown. I have no idea why wizard, which isn't
-wizards, they just love the asterix and things have markdown. So we listen to our
-customers. So we are going to allow the question text on each individual question to
-be written in markdown. We're gonna focus on the show page right here.
+To do that, open up `QuestionController` and find the `show()` method. Let's see,
+this renders `show.html.twig`... open up that template... and find the question
+text. Here it is. Because we don't have a database yet, the question is hardcoded
+right here. Let's move this text into our controller so we can write some code to
+transform it from Markdown to HTML.
 
-So to do that, let's go over to our `QuestionController` and here is our `show()` page.
-And right now this renders `show.html.twig`. Let's open up that template and
-find the question text. Scroll up here. Here we go. It's right. Another question. Tax
-is actually just hard coded right into the template. In order to transform to
-markdown, let's actually move that into our controller so we can do the work there.
-So I'm going to copy this question text here, delete it, and go into my controller
-and we'll make a new variable called `$questionText` and paste that in there. And we'll
-pass this to the template as a new `questionText` variable.
+Copy the question text, delete it, and, in the controller, let's make a new
+variable: `$questionText =` and paste. Pass this to the template as a new
+`questionText` variable. Perfect! Back in `show.html.twig`, print that:
+`{{ questionText }}`. Oh, and to make things a bit more interesting, let's add
+some markdown formatting - how about `**` around "adorable".
 
-Perfect. Now back in `show.html.twig`, I'll say `{{ questionText }}`
-Awesome. And to make it a little bit interesting. Let's put in a little bit of
-markdown. I'll find a durable and we will make that bold. All right, so if we try
-this right now and refresh, no surprise, it's just printing out literally `**`
-adorable. So we still need to transform that and markdown. Now transforming texts
-from markdown into HTML is clearly work and we know that all work in Symfony is done
-by a service right now from
+Ok, if we refresh the page now... no surprise - it literally prints `**adorable**`.
+
+Now, transforming text from Markdown into HTML is clearly "work"... and we know
+that all work in Symfony is done by a service. At your terminal, who knows - let's
+see if Symfony has any services that parse markdown. Run:
 
 ```terminal
 php bin/console debug:autowiring markdown
 ```
 
-there's no
-service in Symfony that we have that uh, can already transform things and markdown
-and we're obviously not going to write one by hand. That would be crazy. We're going
-to S so what we're going to do is install a new bundle that will give us a service
-that can transform from markdown. So Google for `KnpMarkdownBundle`, it's fine and
-get hub. This is a library that has a civil library that transforms markdown. And
-let's just go down here and follow its instructions. So I'll copy of the composer
-require line here, move over and paste.
+## Installing KnpMarkdownBundle
 
-```terminal-silent
+No such luck! And that makes sense: Symfony starts small, but makes it easy to
+add more stuff. Since I don't want to write a markdown parser by hand - that would
+be *crazy* - let's find something that can help us! Google for `KnpMarkdownBundle`
+and find its GitHub page. This isn't the only bundle that can parse markdown, but
+it's a good one. My *hope* is that it will add a service to our app that can handle
+all the markdown parsing for us.
+
+Copy the composer require, find your terminal and paste:
+
+```terminal
 composer require knplabs/knp-markdown-bundle
 ```
 
-Perfect installs the library. And you could see that it configured a bundle. I
-configured a recipe, so if I say get status here, you can see that of course updated
-the compose that JSON had to push that lock and the Symfony, that lock but it also
-updated the config bundles that PHP, we talked about that last time, so you can see
-here automatically initialize the bundle down the bottom. Now as we talked about, the
-main purpose of bundles is that bundles give you services and services are tools. So
-if we go back here and once again run `debug:autowiring markdown`. 
+This installs and... it configured a recipe! Run:
+
+```terminal
+git status
+```
+
+It, of course, updated the files we expect: `composer.json`, `composer.lock`
+and `symfony.lock`. But it *also* update `config/bundles.php`! Check it out: we
+have a new line at the bottom that initializes our new bundle.
+
+## Finding the new Service
+
+Ok, so if the *main* purpose of a bundle is to give us more services... then we
+*probably* have at least one new one! Find your terminal and run
+`debug:autowiring markdown` again:
 
 ```terminal-silent
 php bin/console debug:autowiring markdown
 ```
 
-Now we show have
-two services on here. Actually these are really the same service. This little blue
-text here is the sort of an internal ID of the service. It's not really important but
-you can see these are both actually different ways, different interfaces you can use
-to get the same service so it doesn't really matter which one you use, but I'm going
-to go back over here to the usage and you can see that they say to use the 
-`MarkdownParserInterface`.
+Yes! There are *two* services. Well actually, both of these interfaces are a way
+to get the *same* service object. See this little blue text - `markdown.parser.max`?
+We'll talk more about this later, but each "service" in Symfony has a unique "id".
+This service's unique id is apparently `markdown.parser.max` and we can get it by
+using either type-hint.
 
-So let's do that. Let's go into our `QuestionController` and we will add an argument
-here for that `MarkdownParserInterface $markdownParser`. And then down here I'll
-transform this by saying `$parsedQuestionText = $markdownParser->`. And we don't
-even have to look up what method to use because the type is going to tell us that
-this has a method called `transformMarkdown()`. That sounds perfect. And we'll pass it
-the `$questionText` and down here and now let's ask them the `$parsedQuestionText` into
-our template. Love that. So now when we spin over refresh, it sort of works. It
-actually dumps out raw HTML. The reason and the reason for that is awesome. If we
-kind of open this up, you'll see that if I hit a, and it has HTML editor, you can see
-it's actually dumping out the HTML entities for that. By default, a twig, um, output
-escapes everything for security purposes. So when you don't want that to happen, you
-can use a special tweak filter called `raw`. So `|raw`, it says don't output escape.
-This is now in refresh. It works. And you can see it's a little subtle, but that is
-now bold mission accomplished. By the way, this raw filter, you can look that up in a
-couple different ways. Uh, you can look it up on the twig documentation itself, but
-there's also a debugging mat for it.
+It doesn't really matter which one we use, but if you check back on the bundle's
+documentation... they use `MarkdownParserInterface`.
+
+Let's do it! In `QuestionController::show` add a second argument:
+`MarkdownParserInterface $markdownParser`. Down below, let's say
+`$parsedQuestionText = $markdownParser->`. And we don't even need to look at
+documentation to see what methods this object has. Thanks to the type-hint,
+PhpStorm tells us: `transformMarkdown($questionText)`. Now, pass *this* variable
+into the template.
+
+## Twig Output Escaping: The "raw" Filter
+
+Love it! Does it work? Who knows? Move over and refresh. It... sorta works! But
+it's dumping out the HTML tags! The reason... is *awesome*. If you inspect the
+HTML... here we go. Twig is using `htmlentities` to output escape the text. Twig
+does that automatically for security: it protects against XSS attacks - that's when
+users try to enter HTML for a question so that it will render in your site. In this
+case, we *do* want to allow HTML because it's coming from our Markdown process. To
+tell Twig to *not* escape, we can use a special filter `|raw`.
+
+By the way, in a real app, because the question text *will* be entered by users
+we don't trust, we would need to do a bit more work to prevent these XSS attacks.
+I'll mention how later.
+
+Anyways, now when we refresh... it works! It's subtle, but that word is now bold.
+
+## The twig:debug Command
+
+By the way, you can *of course* read the Twig documentation to learn that this
+`raw` filter exists. But Symfony *also* has a command that will tell you *everything*
+Twig can do. At your terminal, run:
 
 ```terminal
 php bin/console debug:twig
 ```
 
-How cool is that? So here you can see all the tests and the
-long list of filters, functions, um, all the basic things that are in the system. So
-down here we can see `raw` is right there, but Oh, check this out. Look, apparently
-there's a filter called `markdown`. Let's go back over to the bundle here. I'm going to
-search for `|markdown`. Yeah. And sure enough, this bundle apparently also gives us
-a `markdown` filter.
+How cool is this? This shows us the Twig "tests", filters, functions - everything
+Twig can do in our app. Here is the `raw` filter.
 
-And I remember everything in Symfony is done by a service. So even if you wanted to,
-so even if one of the things you can do in toy use, you can add custom functions and
-filters. But remember, everything in Symfony is done by service. So even if you add a
-custom function or filter like markdown and it's actually done by a service behind
-the scenes. So in addition to the `MarkdownParserInterface`, a service that this
-Bumble gave us and apparently also gave us a service, another service that added this
-ability to have this `markdown`  filter, which is pretty cool. By the end of the
-store aisle we're actually going to create our own custom filter so you'll see
-exactly what those services look like. So this is great because our answers, um, we
-would probably also want to parse those through down so we don't have to do it in the
-controller because we can do it in a template. So I'm going to add like little ticks
-around are perfectly here and then going to `show.html.twig`. Scroll down here to
-where we iterate over our answers. And I'll here we can say clearly for the 
-`answer|markdown`.
+## The markdown Twig Filter
 
-Now if it's been over refresh, it works and you can see that it didn't escape it, it
-works. And that filter is smart enough to tell its wake, to not escape it, which is
-why it comes out instantly. Good. All right. Next, let's use some more services
-instead of Symfony. Next, we're going to use a service that's already built into
-Symfony called the cache service to make sure that we're not parsing marked on an
-every single request, which could get a little bit slow.
+And... oh! Apparently there's a filter called `markdown`! If you go back to the
+bundle documentation and search for `|markdown`... yeah!This bundle *also* gives
+us a Twig `markdown` filter. Cool!
 
+So, in addition to the `MarkdownParserInterface` service, this bundle *also*
+apparently gave us another service that added this `markdown` filter. At the
+end of the tutorial, we'll even learn how to add our *own* custom filters.
+
+This filter is *immediately* useful because we might also want to process the
+*answers* through Markdown. We could do that in the controller, but it would
+be *much* easier in the template. I'll add some "ticks" around the word "purrrfectly".
+
+Then, in `show.html.twig`, scroll down to where we loop over the answers. Here,
+say `answer|markdown`. And because answers will eventually be added by users
+we don't trust, in a real app, I would use `answers|striptags|markdown`. Cool, right?
+That removes an HTML added by the user and *then* processes it through Markdown.
+
+Anyways, let's try it! Refresh and... got it! This filter is smart enough to
+automatically *not* escape the HTML - so we don't need the `|raw`.
+
+Next: I'm *loving* this idea of finding new tools, I mean *services*, and seeing
+what we can do with them. Let's find another service that's *already* in our app:
+a caching service. Because parsing Markdown on *every* request can slow down our
+app.
