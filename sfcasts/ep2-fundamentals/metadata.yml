@@ -14,3 +14,4 @@ chapters:
     - environment-variables
     - secrets-vault
     - maker-command
+    - twig-extension
