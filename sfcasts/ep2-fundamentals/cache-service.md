@@ -1,73 +1,84 @@
 # Cache Service
 
-Coming soon...
+Parsing markdown on *every* request is going to make our app unnecessarily slow.
+So... let's cache it! Of course, caching something is "work"... and as I *keep*
+saying, all "work" in Symfony is gone by a service.
 
-Person markdown on every single request can be a little bit slow. So let's cache it.
-Of course. Caching is work and work is done by a service. So the first thing I'm
-going to do is run over and run 
+## Finding the Cache Service
 
-```terminal
+So let's use our trusty `debug:autowiring` command to see if there are any services
+that include the word "cache". And yes, you can *also* just Google this and read
+the docs - we're learning how to do things the hard way to make you dangerous:
+
+```terminal-silent
 php bin/console debug:autowiring cache
 ```
 
-And yeah, there is a caching system already in Symfony and actually here you can see
-that there are a number of different um, of services. But as I mentioned earlier,
-this little part here is actually the ID of the service. So you can even see that
-three of these services are actually just different interfaces to get, uh, the same
-exact service. This went down, this one down here, `$cacheLogger`  something different.
-That's a logger. And this last one down here is really cool. It's actually a, a, a
-more powerful cache service if you need to do tag based in validation. If you don't
-know what I'm talking about, you probably don't need it. So it doesn't matter which
-of these you choose. `CacheInterface` is my favorite. It's just the nicest to work
-with the methods on the interface, the nicest to work with. So let's go use it. Send
-back over to our controller and let's add another uh, argument. `CacheInterface` makes
-you get the one from `Symfony\Contracts`, `$cache`
+And... cool! There is *already* a caching system in our app! Nice! And apparently,
+there are *several* to choose from. But, as we talked about earlier, the blue text
+is the "id" of the service. So 3 of these type-hints are just different ways to
+get the *same* service object, one of these - is actually a logger, not a cache -
+and the last one - the `TagAwareCacheInterface` *is* a different cache - a more
+powerful one if you want to do something called "tag-based invalidation". If you
+don't know what I'm talking about, no worries.
 
-and here his how caching works. Here's how this object works. I'm going to say 
-`$parseQuestionText = $cache->get()`. So every cache system has a get method where you pass it
-a cache key. In this case for the cache key, let's pass it `markdown` because we're
-[inaudible] to indicate that this is a kind of a markdown cache and then `md5()` of
-our `$questionText`. So that'll give us a unique fingerprint for the question tech. So
-if we ever update the question text, they'll update the key and it'll automatically
-invalidate. Now if this is funny to you, now you might be expecting before this line,
-I need to actually check to see if this key is inside of a cache. Uh, with Symfonys
-cache system. The way you, it's actually a little bit different. You pass a second
-argument to get, which is a callback function. So the idea is that if this key is
-inside the cache Symfonys, cache system's going to return it immediately. If it's not
-in the cache, say cache MIS, then it's going to call our function and our functions
-going to return the value that we need. So this is where I'm actually going to take
-our transform markdown stuff and inside that call back function, we will return that.
-Now you can see I have two undefined here. I need to actually use, I need to get
-those into my scope.
+For us, we'll use the normal cache service - and the `CacheInterface` is my
+favorite interface to use because its methods are the easiest to work with.
 
-So I'm going to `use` the `$questionText` and the `$markdownParser`. Those are the two
-things that I need to have in scope and that's it.
+## Using the Cache Service
 
-We're set up. All right, let's go check it. So move over, refresh and it didn't
-break. Did it work? We'll look down here on the web debug tool or for the first time
-we have a cache call and can see cache hits zero out of one cache writes one. I'm
-going to actually, uh, right click and open that up in a new tab so we can see that
-in a little bit more detail. So you can see under our `cache.app` system here, uh, that
-we had one call for our markdown key here and it was a cache miss because it didn't
-already exist in cache. So now we can refresh this again and this time you can see it
-was a cache hit. So it is working behind the scenes, which is awesome. Where is it
-storing right now? It's actually storing on the filesystem or we're going to talk a
-little bit more about that in a little while. It's actually storing in the sub
-filesystem and a `var/cache/dev/pools/` directory. But we're going to talk more about
-that in a little while I and to really make sure this is working. Let's put little
-asterix around the thoughts part.
+Head back to the controller and add another argument: `CacheInterface` - the one
+from `Symfony\Contracts` and call it `$cache`.
 
-Okay.
+This object makes caching fun. Here's how it works: say
+`$parseQuestionText = $cache->get()`. Every cache system has a `get()` method like
+this where you give it some "cache key". For the key, let's pass `markdown_` and
+then an `md5()` of `$questionText`. That will give every unique markdown text its
+own cache key.
 
-That shouldn't change. Change the [inaudible] and we refresh. Yup. You can see cache
-it missed and refreshed again. It was a cache hit. So out of the box, the cache
-system is working perfectly.
+Now, you *might* be thinking:
 
-So how, but that does leave me with a question. As I mentioned a second ago, this is
-being stored on the filesystem in a `var/cache/dev/pools/` directory. One of the
-problems with having these be these built in services that are just given to you is
-that a lot of times you need to be able to control them. What if we don't want to
-cache in our filesystem? What if we want to cache in Reddis because that's faster and
-can be shared across multiple servers? How can we change the behavior of the service?
-That's exactly what we're going to talk about next.
+> Hey Ryan! Don't you need to *first* check to see if this key is *in* the cache
+> already? Like, some: `if ($cache->has())` function call?
 
+Yes... but no. This object works a bit different - the `get()` function has a
+*second* argument - a callback function. Here's the idea: *if* this key is
+already in the cache, the `get()` method will return it immediately. But if it's
+*not* - that's a cache "miss" - then it will call our function, *we* will return
+the parsed HTML, and it will *store* that in the cache.
+
+Copy the markdown-transforming code, paste it inside the callback and return it.
+You can see we have two undefined variables. We need to get this into "scope". Do
+that by adding `use ($questionText, $markdownParser)`.
+
+It's happy! I'm happy! Let's try it! Move over and refresh. Ok... it didn't *break*.
+Did it cache? Down on the web debug toolbar, for the *first* time, the cache icon -
+these 3 little boxes - shows a "1" next to it. It says: cache hits 0, cache writes 1.
+Right click that and open the profiler in a new tab.
+
+Cool! Under `cache.app` - that's the "id" of the cache service - it shows one `get()`
+call to our `markdown_` key. It was a cache "miss" because it didn't already exist
+in the cache. Close this then refresh again. This time on the web debug toolbar...
+yea! We have 1 cache hit! It's alive!
+
+## Where is the Cache Stored?
+
+Oh, and if you're wondering *where* the cache is being stored, the answer is on
+the filesystem - in a `var/cache/dev/pools/` directory. But we're going to talk
+more about that in a little while.
+
+In the controller, make a tweak to our question - some asterisks around "thoughts".
+If we refresh now and check the toolbar... yea! The key changed, it was a cache
+"miss" and the new markdown rendered.
+
+So the cache system *is* working and it's storing things inside a
+`var/cache/dev/pools/` directory. But... that leaves me with a question. Having
+these "tools" - these services - automatically available is *awesome*. We're getting
+a lot of work done quickly.
+
+But because something *else* is instantiating these objects, we don't really have
+any control of them. Like, what if, instead of caching on the filesystem, I wanted
+to cache this in Redis or APCu? How can we do that? More generally, how can we
+control the *behavior* of the services that are given to us by bundles.
+
+*That* is what we're going to discover next.
