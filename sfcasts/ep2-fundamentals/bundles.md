@@ -1,91 +1,93 @@
-# Bundles
+# Bundles!
 
-Coming soon...
+Hey friends! Welcome to Symfony 5 Fundamentals. I *cannot* emphasize enough,
+how *important* this course if you want to be productive in Symfony. And, well,
+I think you're also going to love it because we're going to *really* explore how
+your app works: services, configuration, environment, environment variables! These
+are the tools that you'll need for *anything* else that you'll do in Symfony.
+After putting in some work now, everything else is going to feel *much* easier.
 
-Hey friends, welcome to Symfony five at fundamentals. I cannot stress to you how
-important this course is and honestly I think how much you're going to love it
-because we're really going to be talking about how features inside Symfony actually
-work, how services work, how configuration works, how environments work. These are
-going to be all the tools that you're going to use for everything else that you do in
-Symfony. Everything else is going to be easier after you invest a little bit of time
-going through this course and figuring this stuff out. So I hope you're as excited
-about I am because you were about to unlock some serious potential. As always, if you
-want to kick the most button Symfony, download the course code from this page and
-code along with me. After you unzip the course code, you'll find a `start/` directory
-with the same code that CU that you see here. Head down to this fancy. `README.md`
-file for all the details on how to get the project up and running.
+Ok! Let's go unlock some potential! The *best* way to do that - of course - is to
+download the course code from this page and code a long with me. If you followed
+our first course, the code is basically where that course finished. But I
+recommend downloading the new code because I *do* make a few small tweaks.
 
-The last step will be to find a terminal, move into the project and use the `symfony` a
-executable to start a nice handy built in web server. So I'm gonna run it 
+After you unzip the download, you'll find a `start/` directory with the same code
+that you see here. Head down to the fancy `README.md` for all the instructions on
+how you get your project set up... *and*, of course, a poem about magic.
+
+The last step in the setup will be to find a terminal, move into the project and
+use the `symfony` executable to start a nice handy built in web server. If you
+don't have this `symfony` command, you can download it at https://ymfony.com/download.
+I'll run:
 
 ```terminal
 symfony serve -d
 ```
 
-and I usually run with that `-d` option, which means run as a Damon. So
-that's going to start a server in the background at `localhost:8000` and it's
-going to give me my terminal back. You can run `symfony server:stop`
-later if you actually want to stop that, but I'll just leave that for now.
+To start a web server at `localhost:8000`. The `-d` means run as a "daemon" - a
+fancy way of saying that this runs in the background and I can keep typing at my
+terminal. You can run `symfony server:stop` later to stop it.
 
-now I can spit over and go to `localhost:8000` to see cauldron overflow are
-specialized stack overflow specifically for witches and wizards because somebody else
-already built stack overflow. And the first course in this series, we already have
-the quite a bit of work with Twig and other things. Now, one of the things we
-learned at the end of the first course is that everything is Symfony's done with a
-service. So the routing layers, um, it's done by a useful object. So everything is
-Symfony routing, rendering a template, logging something, making database queries,
-making API calls, everything, every piece of work that you do. And Symfony is done by
-a useful object called a service. So there's a logger service and there is eight
-router service and there's a service for rendering templates
+Ok! Spin over to your browser and go to https://localhost:8000 to see... Cauldron
+Overflow! Our question & answer site dedicated to Witches and Wizards.
 
-and these services are just floating around in Symfony and if you know how to get
-them then you're very, very powerful because services are tools. The way we get
-services is primarily by something called autowiring. So we've got a
-`src/Controller/QuestionController.php` right here. This is the homepage controller and you
-can see we commented it out, but we actually type hinted an argument with `Environment`
-and that was a signal to Symfony to pass us the twig environment service, which is
-the twig rendering service. And then I had an example down here of how you could use
-that to render a template. Better examples probably Nope.
+## Services do Everything
 
-And how can I figure out how did we know to use this `Environment` type hint and what
-other services are floating around? We learned that there's a very handy the 
+One of the things we learned at the end of the first course is that all the work
+in a Symfony app - like executing the routing, rendering a template, logging
+something, executing database queries, making API calls - everything is done by
+one of many useful objects floating around. We call these objects services. There's
+a router service, logger service, service for rendering Twig templates and many more.
+
+Because services do work, they're *tools*: if you know how to get access to them,
+then you're very, very powerful. How *do* we access them? The primary way is by
+something called autowiring. Open up `src/Controller/QuestionController.php` and
+find the `homepage()` method. We commented out the code that used it, but by adding
+an argument type-hinted with `Environment`, we signaled to Symfony that we wanted
+it to pass us the Twig service object.
+
+And how did we know to use this exact `Environment` type hint to get the Twig service?
+And what *other* service objects are floating around waiting for us to use them?
+Find your terminal. We learned *all* of that by running a very handy command:
 
 ```terminal
 php bin/console debug:autowiring
 ```
 
-command that we can run to list all of the services
-available. And it's actually not all of the services, but it's all the most common
-ones that you're going to need to worry about. So for example, I'm here near the
-bottom. You can see that if you type in an argument of `Twig\Environment`, it gives
-you this twig service. There's also other things that we're going to use in this like
-a `CacheInterface` tip, face tip height if you need a cache object. So these are the
-lists of the useful objects floating around and these are the type hints that you can
-use to indicate a Symfony that that's the service that you want.
+Boom! *This* is our guide. Near the bottom, this says that if you type-hint a
+controller argument with `Twig\Environment`, it will give us the Twig service.
+Another one is `CacheInterface`: use that type-hint to get a useful caching object.
+This is your *menu* of what service objects are available and what type-hint to
+use in a controller argument to get them.
 
-But where do these services come from? Like who added these to the system, where they
-configure what? Where does it say that there's a `CacheInterface` service that I can
-get? The answer to that is bundles. So if you go over your project and go to a
-config, open a `config/bundles.php` file, this file just returns off a simple
-array. But you can see that an inter returns about one, two, three, four returns by
-eight bundles. There's two important things I want to say about this. First, bundles
-are first when you install a bundle, the the S the flex recipe system automatically
-update this file for you. So this is not normally a file that you need to worry
-about. But if you install a new bundle like last time we installed this 
-`WebpackEncoreBundle`, it's recipe automatically added this line here, this initializes the
-bundle. Second bundles are Symfony plugins, plain and simple. They are Symfony
-plugins
+## Hello Bundles!
 
-and the main reason that you install a bundle is because bundles give you more
-services and services are tools. In fact, every single service that you see over here
-on this list came from one of these eight bundles. So we can kind of guess that the
-`Twig\Environment` service down here came from the `TwigBundle`. So if I remove that
-line right here and ran that command again, that twig service would be gone. And yes,
-bundles can give you other things that bundles can give you routes and controllers
-and translations and other things. But the main point of a bundle is that it gives
-you more services, more tools in your application. Want more tools to do something in
-your app. If you need a new tool to do something in your app that you don't have, one
-of the ways you can do that is by installing a new bundle that gives you that tool.
-We're going to do that next by installing a library that'll allow us to parse
-markdown. That's next.
+But where do these services come from? Like, who added these to the system? The
+answer to that is... *bundles*. Back in your editor, open up a new file:
+`config/bundles.php`. We'll see who uses this file later, but this returns an array
+with 8 class names that all have the word "Bundle" in them.
 
+First, whenever you install one of these "bundle" things, the Flex recipe system
+automatically updates this file for you and adds the new bundle. For example, in
+the first course, we installed this `WebpackEncoreBundle` and its recipe added
+this line. The point is, this is *not* a file that you need to normally even
+*think* about.
+
+But... what *is* a bundle? Very simply: bundles are Symfony *plugins*. They're
+PHP libraries with special integration with Symfony.
+
+And, the *main* reason that you install a bundle is because bundles give you
+services! And services are tools. In fact, *every* single service that you see in
+the `debug:autowiring` list comes from one of these eight bundles. You can kind of
+guess that the `Twig\Environment` service down here comes from `TwigBundle`. So if
+I removed that `TwigBundle` line and ran that command again, the Twig service would
+be gone.
+
+And yes, bundles can give you other things like routes, controllers, translations
+and more. But the *main* point of a bundle is that it gives you more services.
+
+Need a new tool in your app to talk to an API or parse Markdown into HTML? If you
+can find a bundle that does that, you can get that tool for free.
+
+In fact, let's do *exactly* that next.
