@@ -4,6 +4,7 @@ chapters:
     - cache-service
     - bundle-config
     - debug-container
+    - cache-config
     - environments
     - create-service
     - parameters

@@ -1,107 +1,115 @@
-# Bundle Config
+# Configuring Bundles
 
-Coming soon...
+In the show controller, we're using two services: a `MarkdownParserInterface` -
+from a bundle we installed - and `CacheInterface` from Symfony itself. And... this
+was pretty easy: add an argument with the right type-hint then... use the object!
 
-Ms controller, we're using two services, one `MarkdownParserInterface` from a Pando
-installed and `CacheInterface` from Symfony itself. And this is great because we're
-very easily just grabbing tools and using them down here. But I'm starting to wonder
-how can I change the behavior of these? Like what if I want to cache to Reddis
-instead of the filesystem or maybe there are some ways that I can tweak the markdown
-parser service down here. Let's `dd()` for dumping by a `$markdownParser` to see what that
-actually is. So if we go over and refresh the show page, we can say this is actually
-an instance of some class called `Max`. Okay. And apparently it has an array called
-features where you can turn certain features on and off. So just as a challenge
+But I'm starting to wonder how can I control the *behavior* of these services?
+Like, what if I want Symfony's cache service to store to Redis instead of on the
+filesystem? Or maybe there are some options that I can pass to the markdown parser
+service to control some features.
 
-in general, it looks like there's a lot of configuration to this specific class. And
-if we did want to change one of these configuration options, we can't really do that
-right now. How can we control the options that are passed to this? Because we're not
-responsible for creating this object. The bundle is, well, the answer to that on a
-high level is that every bundle allows you to pass configuration to it to describe
-where you can tell it different. You can describe,
+Let's `dd($markdownParser)` - that's short for `dump()` and `die()` - to see what
+this object looks like.
 
-different functionality that you want the services from that bundle to GIF. That's a
-terrible explanation. So check this out. Uh, if you look in `config/bundles.php`,
-you see this last part of each bundle bundle class name, that's actually the name of
-the bundle internally. So I'm going to copy `KnpMarkdownBundle`, close this file and
-spin over and I'm gonna run a special command called the 
+Move over and refresh. This is apparently an instance of some class called `Max`.
+And... inside, there is a `$features` property: it kind of looks like you can
+turn certain features on or off. Interesting.
+
+If we *did* want to control one of these feature flags, we can't really do that
+right now. Why? Because *we* aren't responsible for creating this object: the
+bundle just gives it to us.
+
+## Bundle Configuration
+
+This is a *super* common problem: a bundle wants to give you a service... but
+*you* want some control over what configuration is *passed* to that object when
+it's instantiated. To handle this, each bundle allows you to pass some
+*configuration* to it where you *describe* the different behavior that you want
+its services to have.
+
+Let me show you *exactly* what I'm talking about. Open `config/bundles.php`
+and copy the `KnpMarkdownBundle` class name. Now, close this file and find your
+terminal. We're going to run a special command that will tell us *exactly* what
+config we can pass to this bundle. Run:
 
 ```terminal
 php bin/console config:dump KnpMarkdownBundle
 ```
 
-and boom. This gives us a big example Yaml of all of the
-configuration that this bundle provides. And apparently there's some option called
-parser. Would you sit down to `markdown.parser.max`? I don't really know what
-that means, but apparently you can configure the in some way. And if you go back and
-look at the documentation of this bundle and search for a `parser`, but down here
-actually let's search for `parser:`. There we go. Yup. You can see it talks about
-kind of the same thing and flip down here. It actually tells you different values
-that you can place for that. A parser option plus copy this `markdown.parser.light`
-just to see if we can configure this.
+Boom! This dumps a bunch of example YAML that describes *all* the configuration
+that can be used to control the services in this bundle. Apparently there's an
+option called parser which has an example value of `markdown.parser.max`... whatever
+that means.
 
-Now, if you go back and look at the, the documentation here, the way that you're
-actually configure this as a VA Yammel file, you're going to have, this can be
-`knp_markdown` key than a `parser` key than a `service` key. Where should this file live? The
-answer is that because we're configuring the `knp_markdown` key here, we're going to go
-into `config/packages/`. There's already a number of files in here and create a new file
-called came `knp_markdown.yaml`. Inside of here we'll put the `knp_markdown` key and
-then we need a `parser` key parser `services` and then I'm going to paste that 
-`markdown.parser.light` now. Now just as a hint, as I mentioned, I need this file
-`knp_markdown.yaml` to match this `knp_markdown` key here. That's actually not
-required. We'll talk more about later. We do it for sanity, but technically this file
-can be called anything. The really important thing is this root key `knp_markdown`
-that tells Symfony to pass this config to our `knp_markdown` bundle.
-Okay. What difference did that make if we go over EQ over to our side now and
-refresh.
+Go back to the bundle's documentation and search for `parser` - better, search
+for `parser:`. Here we go... it says that we can apparently set this `parser`
+key to any of these 5 strings, which turn on or off different features in the
+parser. Copy the `markdown.parser.light` value: let's see if we can change the
+config to *this* value.
 
-Oh, okay.
+Look back at the YAML example at the terminal. The way you configure a bundle
+is via YAML: we just need `knp_markdown`, a `parser` key below that and `service`
+be low. Where should this file live?
 
-I love this. That was a complete accident. Unrecognized options `services` under S I
-can't be that markdown. Did you mean `service`? Yes I did. I actually type of this,
-I'll change that to service. One of the cool things about this configuration is that
-it's validated. If you do a silly typo like I did, you're going to get an air. That's
-awesome. And there it is. And you can see in this situation, by changing that config
-option, it actually changed the service, uh, the class name of that service
-internally.
+Open up the `config/packages/` directory. This is *already* full of files that
+are configuring *other* bundles. Create a file called `knp_markdown.yaml`. Inside,
+say `knp_markdown:`, enter, go in 4 spaces, then we need `parser:`, go in 4
+spaces again and set `service` to `markdown.parser.light`.
 
-So the point is that every single bundle gives you services and every single bundle
-gives you different configuration to help you control the behavior of those services.
-So, for example, we run 
+If you're wondering why I named this file `knp_markdown.yaml`, I did that to match
+this first key. But actually... the filename doesn't matter! It's this `knp_markdown`
+config that tells Symfony to pass this config to *that* bundle.
+
+So... what did this change? Well, find your browser and refresh!
+
+Ah! An error! That was a *genuine* Ryan typo... but I love it!
+
+> Unrecognized options `services` under `knp_markdown.parser`. Did you mean `service`?
+
+Why yes I did! Let me change that. This is one of my favorite things about the
+bundle config system: it's validated. If you make a typo, it'll tell you. That's
+awesome.
+
+Refresh now. Woh! By changing that little config value, it changed the entire
+*class* of the service!
+
+The point is: bundles gives you services and every bundle gives you different
+configuration to help you control the *behavior* of those services. For example,
+find your terminal and run:
 
 ```terminal
 php bin/console config:dump FrameworkBundle
 ```
 
-`FrameworkBundle` is
-the main core Symfony bundle that gives you all the most important services. And if
-you have that you can see a huge list here of all of the potential configuration that
-you can use under the framework fondly. You can see it's quite big because it gives
-you a lot of different features and yes you can totally Google this, look at it as
-Symfony documentation. But how cool is it that you can just run this command and see
-that list right there. Uh, let's also run another one is `TwigBundle` we installed
-`TwigBundle` in the first episode 
+`FrameworkBundle` is the *main*, core, Symfony bundle and it gives us the *most*
+foundational services, like the cache service. This dumps a *huge* list of
+config options: there's a lot here, because this bundle provides many services.
+
+Of course, if you *really* needed to configure something, you'll probably Google
+and find the config you need. But how cool is it that you can run this command
+to see the *full* list of possible config? Let's try another one for TwigBundle,
+which we installed in the first course:
 
 ```terminal-silent
 php bin/console config:dump TwigBundle
 ```
 
-and boom, you can see all the different
-information for twig bundle. Apparently you can set a global variable in here by just
-adding,
-
-our key value pair under some `globals` ski. So you can run a mini concert and fig dump
-twig bundle where you can actually use this root key here. Also if you know that. So
-we just run config on the `config:dump twig`. 
+Hello Twig config! Apparently you can create a global Twig variable by adding
+a `globals` key. Oh, and this command *also* works if you use the root key,
+like `twig`, as the argument:
 
 ```terminal-silent
 php bin/console config:dump twig
 ```
 
-You're going to get the exact same list.
-So you can use the name of the bundle or the sort of configuration alias down here if
-you want to. Well, one thing I am curious about is this service thing. We know what a
-service is at this point and we use this key `markdown.parser.light`. What
-is the significance of this string? Is this just some specials or just say list
-inside the bundle of specific strings that you can use.
-it's actually a little bit more interesting. Other than that, let's talk about it
-next.
+That's the exact same list.
+
+Ok! We *now* know that every bundle gives us configuration that allows us to
+control its services.
+
+But I'm curious about this `service` config we used for `knp_markdown`. The docs
+told us we could use this `markdown.parser.light` value. But what *is* that string?
+Is it just some random string that the bundle decided to use for a "light" parser?
+Actually, that string has a bit *more* meaning. Let's talk about the *massively*
+important "service container" next.
