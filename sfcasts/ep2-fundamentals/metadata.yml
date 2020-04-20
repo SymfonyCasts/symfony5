@@ -8,6 +8,7 @@ chapters:
     - environments
     - prod-environment
     - create-service
+    - dependency-injection
     - parameters
     - service-config
     - services-yaml
