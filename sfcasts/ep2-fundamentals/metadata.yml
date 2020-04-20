@@ -6,6 +6,7 @@ chapters:
     - debug-container
     - cache-config
     - environments
+    - prod-environment
     - create-service
     - parameters
     - service-config
