@@ -1,72 +1,83 @@
 # Controlling the prod Environment
 
-Coming soon...
+Let's see what our app looks like if we change it to the `prod` environment.
+Simple enough: open the `.env` file and change `APP_ENV` to `prod`.
 
-All right, cool. So we have three different
-environments, dev, `dev`, `prod` and `test`. So let's switch over to the prod environment
-to see what it looks like. So I'll go to my `.env` file here and I'm just going to
-change this to `prod`. That's simple. Now if I move over, wow. Don't show any of that
-stuff.
+## Clearing Cache in the prod Environment
 
-Now if I move over and refresh, it works. Well actually it may or may not have worked
-on your computer when you're in the prod environment. One of the properties of it is
-that Symfony does not automatically rebuild your cache. So for example, even if this
-work, now if I went and added a new route to my system and then tried to use it,
-simply wouldn't see that new route because it's already using because it cause then
-its route cache would be out of date. I need to explain that better. So actually
-before you switch in, as soon as you ever want to switch into the prod environment,
-what you need to do is change the environment, the prod and then move over here and
-run
+Cool! Now find your browser, refresh and... it works! Well, actually, we got lucky.
+Behind the scenes, when we load a page, Symfony caches configuration, templates and
+other things for performance. In the `dev` environment, if we update a config file,
+Symfony *automatically* knows to rebuild the cache. So, it's not something we really
+need to even think about.
 
-```terminal
-php bin/console cache:clear
-```
+But in the `prod` environment - which is *primed* for performance - Symfony does *not*
+automatically rebuild your cache files. For example, if we added a new route to
+the system and tried to go to it in the `prod` environment, it would *not* be there!
+Why? Because our app would be using an outdated cache file.
 
-That's going to tell somebody to rebuild the cache and
-you can see that the bin console also reads the same app and flag so it knows that
-we're now in the prod environment. So whenever you switch to prod environment makes
-you clear the cache and really you're only going to do that normally when you go to
-production. Now it will definitely work and notice on here, no web debug toolbar.
-
-And to prove that the cache won't update, I'm actually going to go to
-`templates/question/show.html.twig` and let's see. Let's make a change inside of here. So
-I'll take the question I'll put up.
-
-so the question, I'll put a colon on the end of it. So that's right here. When a
-refresh, it's not there because the twig template itself is cached. But if we move
-over and run our
+For this reason, *whenever* you change to the `prod` environment, you need to
+find your terminal and run a special command:
 
 ```terminal
 php bin/console cache:clear
 ```
 
-and come back. There it is. So that's why you always rebuild your cache in
-development. Now that we understand environments, I have a challenge for us. You
-notice up here that we're still dumping the cache a service from inside of our
-controller, and not surprisingly because we're in the, not surprisingly, it's using
-the APCU adapter because that's what we configured inside of our
-`config/packages/cache.yaml` file.
+This clears the cache so that, on our next reload, *new* cache will be built. The
+cache is stored in a `var/cache/prod` directory. Oh, and notice that `bin/console`
+is smart enough to know that we're no in the `prod` environment.
 
-so using APCU is great, but maybe for simplicity, we just want to use the filesystem
-when we're in development and we only want to use the APCU and we're in the
-production environment, how could we do that? Well, think about it. We now know how
-to override configuration in specific environments. We can override this one config D
-in the dev environment only to do that in the `dev/` directory. Let's create a new file
-called `cache.yaml`. Inside of here we'll say `framework:`, `cache:`, `app:`, and the name of the
-original ID that we had was `cache.adapter.filesystem`,
+In practice, I *rarely* need to switch to the `prod` environment on my local computer.
+And so I typically only run this `cache:clear` command when I'm deploying.
 
-it's just that simple
+*Now* our app should *definitely* work. And notice: no web debug toolbar!
 
-to prove it's working. I'm going to go over here and rebuild my cache just so I can
-refresh the page here in prod and yep. In priding and see it's still using APCU
-adapter in prod. Now let's go back over to our `.env` file. This lives right at
-the root of the project. Let's change back to the dev environment. Now, when we were
+Let's see Symfony's automatic caching system in action. Open up
+`templates/question/show.html.twig` and... let's make some small change - like a
+`Question:`.
 
-fresh,
+This time, when we refresh, the change is *not* there. That's because Symfony
+caches Twig templates. Now find your terminal, run:
 
-you see the dev environment, because we have the web people have to have our, the
-dump goes down there. You can see we are using the `FilesystemAdapter`. So
-environments already very, very powerful concept. But ultimately it's very simple.
-It's all about just overriding configuration in different environments. Uh, next,
-maybe we're creating our own service. Not sure. Sure.
+```terminal
+php bin/console cache:clear
+```
 
+And come back to refresh. *Now* we see the change.
+
+## Different Cache Adapter in prod
+
+Now that we understand environments, I have a challenge for us! At the top of the
+page, we're still dumping the cache service from inside our controller. The class
+is `ApcuAdapter` because that's what we configured inside of
+`config/packages/cache.yaml`.
+
+APCu is great. But maybe for simplicity, since it requires you to have a PHP extension
+installed, we want to use the filesystem adapter in the `dev` environment and
+APCu only for the `prod` environment. How could we do that?
+
+Let's think about it: we now know how to override configuration in specific
+environments. So... we could override just this *one* config key in the `dev`
+environment.
+
+To do that, in the `dev/` directory, create a new file. It *technically* doesn't
+matter what it's called, but because we value our sanity, call it `cache.yaml`.
+Inside, say `framework:`, `cache:`, `app:` and the name of the original default
+value for this: `cache.adapter.filesystem`,
+
+That's... all we need! Let's see if it works! Because we're still in the `prod`
+environment, find your terminal and clear the cache:
+
+```terminal-silent
+php bin/console cache:clear
+```
+
+And now go refresh the page. Good: in `prod` it's *still* using `ApcuAdapter`. Now
+go find the `.env` file at the root of the project... and change `APP_ENV` back
+to `dev`.
+
+*Now* if we refresh... because the web debug toolbar is back, our dump is hiding
+inside the target icon. Inside the `TraceableAdapter`... yes! It's `FilesystemAdapter`!
+
+Now that we've mastered environments and configuring services that are coming
+from bundles, let's do something wild: let's create our *own* service object!
