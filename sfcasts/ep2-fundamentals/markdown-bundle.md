@@ -120,7 +120,7 @@ be *much* easier in the template. I'll add some "ticks" around the word "purrrfe
 
 Then, in `show.html.twig`, scroll down to where we loop over the answers. Here,
 say `answer|markdown`. And because answers will eventually be added by users
-we don't trust, in a real app, I would use `answers|striptags|markdown`. Cool, right?
+we don't trust, in a real app, I would use `answer|striptags|markdown`. Cool, right?
 That would remove any tags HTML added by the user and *then* processes it through
 Markdown.
 
