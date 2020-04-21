@@ -12,71 +12,97 @@ of thing air. There's no, like, `Cache::get()` static call or something that
 will magically give us that object. And that's *good* - that's a recipe to writing
 bad code.
 
-So how *do* we get services? Currently, we only know one way: by autowiring them
-into our controller methods.
-
 ## Passing Dependencies to the Method?
 
-what I'm about to show you is not actually the correct solution, but I want to take
-things one step at a time knowing what we know. Now, one option is that we can
-actually pass the markdown parser and cache from our controller into the `parse()`
-function. So let's actually do that. I'm going to add two new arguments here.
-`MarkdownParserInterface $markdownParser`, and then `CacheInterface` from
-`Symfony\Contracts`, `$cache` and good, just as simple as that. This is now happy. All the
-variables are defined and in `QuestionController`, we're not going to need to pass
-this `$markdownParser` and `$cache`. Cool, so let's see if that works. We've over
-refreshed and it does. Now I mentioned this is not the final solution and here's why.
-If you think about it, the markdown parser object and the cache object aren't really,
+So how *can* we get access to services? Currently, we only know one way: by autowiring
+them into our controller methods... which we can't do here, because that's a superpower
+that *only* controllers have.
 
-aren't really input to the parse function. What I mean is it made sense when we made
-the parts function to make the `$source` in arguments. Of course you have to pass into
-the source that you want parsed, but these next two arguments don't really control
-how this function behaves. They're not really arguments that you would normally put
-on a parse function. Instead, they're really dependencies that this service needs in
-order to do its work. It's just stuff that needs to be available so that it can get
-its job done. And for dependencies like this, for objects or configuration that your
-service just needs in order to get his job done, instead of passing them through the
-individual functions, we instead pass them through the constructor. So we're going to
-create a new public function `__construct()`, and I'm actually going to move
-those two arguments.
+Hmm, but one idea is that we *could* *pass* the markdown parser and cache *from*
+our controller *into* the `parse()`. This won't be our *final* solution, but let's
+try it!
 
-I will delete them from our function down there and move them up here. Now, first
-thing I want you to know before I finish this is that auto wiring works in two places
-in Symfony. It works in the construct method of your services and in the methods to
-your controller and actually the construct method of your service. This is actually
-the main place that auto wiring works is the main place it's supposed to work. It
-also works. Uh, auto wiring also works on the methods of your, uh, controller, but
-that's a special superpower only for your controller. So for example, we wouldn't,
-uh, be able to put like `MarkdownParserInterface` here and expect Symfony to auto
-wire that because we are the ones that are actually choosing what arguments to pass
-to that function. So it's auto wiring works in the constructor. Now what are we going
-to do with those arguments?
+On `parse()`, add two more arguments: `MarkdownParserInterface $markdownParser`
+and then `CacheInterface` - from `Symfony\Contracts` - `$cache`. Cool! Now this
+method is happy.
 
-We're going to do is we're actually going to create two private properties for them,
-`$markdownParser` and another private property called `$cache`. Then down here we're going
-to say `$this->markdownParser = $markdownParser`. And `$this->cache = $cache`. So
-we're doing is we're saying whenever, whenever we are instantiated and Symfony is
-going to instantiate us, Symfony will pass us the markdown parser, the cache service.
-All we're going to do in the construct method is just store them on a property. We're
-not going to do anything else. Just put them on a property. So later when our code
-then calls this parse function, we know that these two properties will hold those
-objects. So we can use them down here, `$this->cache`, and then we don't need to pass
-the `$markdownParser` to the `use` because down here we can say `$this->markdownParser`
-that is now a perfect service. We've auto wire our dependencies to the constructor
-and then use, set them on properties and then use them down below. So in
-`QuestionController`, we can remove these two arguments. They're not, they don't even exist
-anymore.
+Back in `QuestionController`, pass the two extra arguments: `$markdownParser` and
+`$cache`.
 
-And when we move over, it works.
+Ok team - let's see if this works! Find your browser and refresh. It does!
 
-If this didn't feel totally comfortable yet, don't worry. This process of creating
-services is something that we're gonna do, uh, over and over again. But we now have
-this beautiful new service, this new tool that we can use from anywhere in our
-application. We pass it the markdown. We want eight takes care of the caching and the
-markdown processing. We don't need to worry about it at all. So to celebrate in
-`QuestionController`, we don't need to have these arguments anymore. Actually want to
-delete the second and third argument. Look how simple it is. I even go up the top
-here and oops, even though it doesn't hurt anything, I will delete those to you
+## Method Arguments versus Class Dependencies
+
+On a high level, this solution makes sense: since we can't grab service objects
+out of thin air in `MarkdownHelper`, we *pass* them to the method. But, if you
+think about it, the markdown parser and cache objects aren't really "input" to
+the `parse()` function. What I mean is, the `$source` argument to `parse()` makes
+*total* sense: when we call the method, we *of course* need to pass in the content
+we want parsed.
+
+But these next two arguments don't really control how the function behaves... you
+would probably always pass these *same* values each time you called the method.
+No, instead function arguments, these objects are more *dependencies* that the
+service needs in order to do its work. It's just stuff that *must* be available
+so that `parse()` can do its job.
+
+For *dependencies* like this - for service objects or configuration that your service
+simply *needs* in order to get its job done, instead of passing them through the
+individual methods, we instead pass them through the *constructor*.
+
+## Dependency Injection via the Constructor
+
+At the top, create a new `public function __construct()`. Move the two arguments
+here... and delete them from `parse()`.
+
+Now, before we finish this, I need to tell you that autowiring in fact works in
+*two* places. We already know that you can autowire services into your controller
+methods. But you can *also* autowire services into the `__construct()` method of
+services. In fact, this is the *main* place where autowiring is meant to work.
+The fact that autowiring *also* works for controller methods was... kind of an
+added feature to make life easier. And it *only* works for controllers - you wouldn't
+be able to add a `MarkdownParserInterface` argument to `parse()` and expect Symfony
+to autowire that because *we* are the ones that are calling that method and choosing
+the arguments.
+
+*Anyways*, when Symfony's instantiates our `MarkdownHelper`, it will pass use these
+two arguments thanks to autowiring. What do we... *do* with them? Create two private
+properties: `$markdownParser` and `$cache`. Then, in the constructor, set those:
+`$this->markdownParser = $markdownParser` and `$this->cache = $cache`.
+
+Basically, when the object is instantiated, we're taking those objects and storing
+them for later. Then, when we call the `parse()` method, these two properties will
+already hold those objects. Let's use this: `$this->cache`, and then we don't need
+to pass `$markdownParser` to the `use` because we can instead say
+`$this->markdownParser`.
+
+I love it! This class is now a *perfect* service: we add our dependencies to the
+constructor, set them on properties, then use them below.
+
+## Dependency Injection?
+
+By the way, what we *just* did has a fancy name! It's dependency injection. But
+don't be too impressed: it's a simple concept. Whenever you're inside a service -
+like `MarkdownHelper` - and you realize that you need something that you don't
+have access to, you'll follow the *same* solution: add another constructor argument,
+create a property, *set* that onto the property, then use it in your methods.
+*That* is dependency injection. A *big* word to *basically* mean: if you need
+something, don't expect to grab it out of thin air: force Symfony to pass it
+*to* you by adding it to the constructor.
+
+Phew! Back `QuestionController`, we can celebrate by removing the two extra
+arguments to `parse()`. And when we move over and refresh... it works!
+
+If this didn't feel *totally* comfortable yet, don't worry. The process of creating
+services is something that we're gonna to do over and over again. The benefit is
+that we now have a beautiful service - a tool - that we can use from anywhere in
+our app. We pass it the markdown string  and it takes care of the caching and
+markdown processing.
+
+Heck, in `QuestionController`, we don't even need the `$markdownParser` and
+`$cache` arguments to the `show()` method anymore. Remove them and, on top
+of the class, even though it doesn't hurt anything, let's delete those two `use`
 statements.
 
-Next, let's talk about something else. Maybe services.yaml. I'm not sure.
+Next: the service container holds services! That's true! But it *also* holds
+something else: scalar configuration.
