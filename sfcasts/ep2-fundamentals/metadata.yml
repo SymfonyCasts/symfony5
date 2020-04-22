@@ -12,6 +12,7 @@ chapters:
     - parameters
     - service-config
     - services-yaml
+    - global-bind
     - named-autowiring
     - controllers-services
     - environment-variables
