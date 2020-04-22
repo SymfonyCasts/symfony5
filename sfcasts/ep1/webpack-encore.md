@@ -38,7 +38,10 @@ yarn -v
 ```
 
 ***TIP
-I recommend using yarn version 1 to follow this tutorial.
+If you don't have Node or Yarn installed - see official manuals about how
+to install it for _your_ OS. For Node, see https://nodejs.org/en/download/
+and for Yarn: https://classic.yarnpkg.com/en/docs/install . We recommend
+using Yarn version 1.x to follow this tutorial.
 ***
 
 Yarn is one of the package managers for Node... basically Composer for Node.
