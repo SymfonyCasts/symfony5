@@ -28,12 +28,14 @@ favorite type-hint because its methods are the easiest to work with.
 ## Using the Cache Service
 
 Head back to the controller and add another argument: `CacheInterface` - the one
-from `Symfony\Contracts` - and call it `$cache`.
+from `Symfony\Contracts` - and call it `$cache`:
+
+[[[ code('828ef6e9f8') ]]]
 
 This object makes caching fun. Here's how it works: say
 `$parsedQuestionText = $cache->get()`. The first argument is a unique cache *key*.
-Let's pass `markdown_` and then an `md5()` of `$questionText`. This will give
-every unique markdown text its own unique key.
+Let's pass `markdown_` and then an `md5()` of `$questionText`. This will give every
+unique markdown text its own unique key.
 
 Now, you *might* be thinking:
 
@@ -48,7 +50,9 @@ return the parsed HTML, and it will *store* that in the cache.
 
 Copy the markdown-transforming code, paste it inside the callback and return.
 Hmm, we have two undefined variables because we need to get them into the function's
-scope. Do that by adding `use ($questionText, $markdownParser)`.
+scope. Do that by adding `use ($questionText, $markdownParser)`:
+
+[[[ code('de028d3a2c') ]]]
 
 It's happy! I'm happy! Let's try it! Move over and refresh. Ok... it didn't *break*.
 Did it cache? Down on the web debug toolbar, for the *first* time, the cache icon -
@@ -67,7 +71,11 @@ the filesystem - in a `var/cache/dev/pools/` directory. We'll to talk more about
 that in a little while.
 
 In the controller, make a tweak to our question - how about some asterisks around
-"thoughts". If we refresh now and check the toolbar... yea! The key changed, it was
+"thoughts":
+
+[[[ code('cf7d8ac57a') ]]]
+
+If we refresh now and check the toolbar... yea! The key changed, it was
 a cache "miss" and the new markdown was rendered.
 
 So the cache system *is* working and it's storing things inside a
