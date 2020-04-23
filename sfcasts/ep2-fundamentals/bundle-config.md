@@ -101,6 +101,16 @@ php bin/console config:dump FrameworkBundle
 *foundational* services, like the cache service. This dumps a *huge* list of
 config options: there's a lot here because this bundle provides many services.
 
+***SEEALSO
+You can also pass sub-level key, e.g. `cache` as the second argument to reduce
+the output:
+```terminal
+php bin/console config:dump FrameworkBundle cache
+``` 
+
+Try it!
+***
+
 Of course, if you *really* needed to configure something, you'll probably Google
 and find the config you need. But how cool is it that you can run this command
 to see the *full* list of possible config? Let's try another one for TwigBundle,
