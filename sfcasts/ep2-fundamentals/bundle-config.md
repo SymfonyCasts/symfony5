@@ -1,8 +1,12 @@
 # Configuring Bundles
 
 In the show controller, we're using two services: `MarkdownParserInterface` -
-from a bundle we installed - and `CacheInterface` from Symfony itself. And... this
-was pretty easy: add an argument with the right type-hint then... use the object!
+from a bundle we installed - and `CacheInterface` from Symfony itself:
+
+[[[ code('8ae4105c51') ]]]
+
+And... this was pretty easy: add an argument with the right type-hint then...
+use the object!
 
 But I'm starting to wonder how can I control the *behavior* of these services?
 Like, what if I want Symfony's cache service to store in Redis instead of on the
@@ -10,7 +14,9 @@ filesystem? Or maybe there are some options that I can pass to the markdown pars
 service to control its features.
 
 Let's `dd($markdownParser)` - that's short for `dump()` and `die()` - to see what
-this object looks like.
+this object looks like:
+
+[[[ code('1907bbada9') ]]]
 
 Move over and refresh. This is apparently an instance of some class called `Max`.
 And... inside, there's a `$features` property: it kind of looks like you can
@@ -29,9 +35,12 @@ it's instantiated. To handle this, each bundle allows you to pass
 its services to have.
 
 Let me show you *exactly* what I'm talking about. Open `config/bundles.php`
-and copy the `KnpMarkdownBundle` class name. Now, close this file and find your
-terminal. We're going to run a special command that will tell us *exactly* what
-config we can pass to this bundle. Run:
+and copy the `KnpMarkdownBundle` class name:
+
+[[[ code('33116de0d6') ]]]
+
+Now, close this file and find your terminal. We're going to run a special command
+that will tell us *exactly* what config we can pass to this bundle. Run:
 
 ```terminal
 php bin/console config:dump KnpMarkdownBundle
@@ -55,7 +64,9 @@ below *that*. But what file should this live in?
 Open up the `config/packages/` directory. This is *already* full of files that
 are configuring *other* bundles. Create a file called `knp_markdown.yaml`. Inside,
 say `knp_markdown:`, enter, go in 4 spaces, then we need `parser:`, go in 4
-spaces again and set `service` to `markdown.parser.light`.
+spaces again and set `service` to `markdown.parser.light`:
+
+[[[ code('7a97071807') ]]]
 
 If you're wondering why I named this file `knp_markdown.yaml`, I did that to match
 this first key. But actually... the filename doesn't matter! It's the `knp_markdown`
@@ -68,9 +79,12 @@ Ah! An error! That was a *genuine* Ryan typo... but I love it!
 
 > Unrecognized option `services` under `knp_markdown.parser`. Did you mean `service`?
 
-Why yes I did! Let me change that. This is one of my *favorite* things about the
-bundle config system: it's validated. If you make a typo, it will tell you. That's
-awesome.
+Why yes I did! Let me change that:
+
+[[[ code('9a32face77') ]]]
+
+This is one of my *favorite* things about the bundle config system: it's validated.
+If you make a typo, it will tell you. That's awesome.
 
 Refresh now. Woh! By changing that little config value, it changed the entire
 *class* of the service object!
