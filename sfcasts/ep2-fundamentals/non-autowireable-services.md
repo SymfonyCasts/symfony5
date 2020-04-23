@@ -1,80 +1,92 @@
 # Fetching Non-Autowireable Services
 
-Coming soon...
+There are *many* services in the container and only a *small* number of them can
+be autowired. That's by design: most services are pretty low-level and you will
+rarely need to use them.
 
-automatically sets up
-"autowiring aliases" for each channel. Let me back up: let's remember how
-autowiring works. When autowiring sees an argument type-hinted with
-`Psr\Log\LoggerInterface`, it looks in the container for a service with this
-*exact* id. So yes, there is a service in the container whose id is literally
-`Psr\Log\LoggerInterface`. Well it's really a service "alias" that points to
-`monolog.logger`.
+But what if you *do* need to use one? How can we do that?
 
+To learn how, we're going to use our `markdown` channel logger as an example. It
+actually *is* autowireable if you use the `LoggerInterface` type-hint *and* name
+your argument `$markdownLogger`.
 
+But back in `MarkdownHelper`, to go deeper, let's be complicated and change the
+argument's name to something else - like `$mdLogger`.
 
+Excellent! If you refresh the page now, it doesn't break, but if you open the
+profiler and go to the Logs section, you'll notice that this is using the `app`
+channel. That's the "main" logger channel. Because our argument name doesn't match
+any of the "special" names, it's passing us the *main* logger.
 
-So the reason this works is basically because every time you add a new lager channel,
-the `MonologBundle` is really, really smart and it makes sure that it sets up one of
-these auto wiring aliases for you. But if it didn't do that, how could we do it
-ourselves? And when I really want to show you is how the auto wiring works behind the
-scenes. And ultimately I'd probably need to make sure that I've talked about this a
-little bit before
+So here's the big picture: I want to tell Symfony that the `$mdLogger` argument
+to `MarkdownHelper` should be passed the `monolog.logger.markdown` service. I
+don't want any fancy autowiring: I want to tell it *exactly* what services to use.
 
-Wellsy.
+There are *two* ways to do this.
 
-So let's go back to our `MarkdownHelper` and let's be complicated. I'm going to change
-this and change our argument to be called `$mdLogger` in the constructor and then down
-below as well. Perfect. Now if we go back and refresh, that's not going to break our
-page, but if you jump into the profiler and go to the log section, you'll notice
-that, well, once again, a log in through the `app` channel. And that's basically
-because if it doesn't match your argument and it doesn't match with one of these,
-then it's going to give you the default one. So, and I'm doing this on purpose to be
-even more difficult. So how can we fix this ourselves? Like let's say for some reason
-we really do want to call this `$mdLogger`. Well there are two ways both of them are in
-`config/services.yaml`.
+## Passing Services via Bind
 
-The first way is we could use a global `bind:`. It works exactly like our `$isDebug`. So
-I'm gonna go back here and actually copied type in `LoggerInterface`. Let's actually
-get the full a use statement for that full class name for that. So I'll copy
-`Psr\Log\LoggerInterface` like that and then we'll say `$mdLogger`. Cause that's
-what I called it. And then the key thing is here is now we're going to put the ID to
-the service. So if you go and look at our `debug:autowiring` and you can see that the idea
-of service as `monolog.logger.markdown`. So I'm going to copy that and then
-paste it here. But wait, because if we just did this Symfony would think that we
-wanted to pass that string. What we actually want to pass a service with that ID when
-you're referencing a service inside of one of these files, the secret here is to
-prefix it with an ask symbol that has a special syntax that says we're not referring
-to the monolog, that log are not markdown string. I want that service. Now if we go
-back and refresh it works and actually to prove that this is working, let's go back
-and run our debug container dash dash show argument's markdown.
+You might guess the first: it's with `bind`, which works *just* as well to pass
+services as it does to pass scalar config, like parameters.
 
-Actually let's not do that.
+First, go copy the *full* class name for `LoggerInterface`, paste that under bind
+and add `$mdLogger` to match our name. What value do we *set* this to?
 
-And if you click to open the profiler, go back to logs. Yes it is logging through the
-markdown channel but there's actually even a slightly more um correct way to to to
-set up a global binds for services, cover the entire bind, go to the bottom of this
-file going for spaces and paste. What this does is it actually creates a new service
-whose ID is `Psr\Log\LoggerInterface $mdLogger`. I know it's a strange
-service ID and it's not a real service but it is. It's actually an alias, kind of
-almost like a symbolic link to the service who's ID is a `monolog.logger.markdown`
-markdown because remember the way that auto wiring works is that when Symfony at an
-argument called `LoggerInterface $mdLogger`, the first thing it's going to do is look
-to see if there is a service in the container whose name is `Psr\Log\LoggerInterface $mdLogger`
- If there is, it's going to use this service as that argument and
-since the service is an alias to `monolog.logger.markdown`, it's effectively
-get to use that service. Phew.
+If you look back at `debug:autowiring`, the `id` of the service we want to use is
+`monolog.logger.markdown`. Copy that and paste it into our bind.
 
-So if we go back over and refresh, it still works. I'll open up a new tab, go down to
-logs, and yes, it is still using `markdown`. The really cool thing about this is that
-if you spin back over and run our `debug:autowiring log` again,
+But... wait. If we stopped here, Symfony would *literally* pass us the string
+`monolog.logger.markdown`. That's... not what we want: we want it to pass us the
+*service* that has this id. To do that, prefix the service id with `@`. That's
+a super-special syntax to tell Symfony that we're referring to a *service*.
+
+Let's try this thing! Refresh then open the Logs section of the profiler. Yes!
+We're back to logging through the `markdown` channel!
+
+So the `bind` key is your Swiss Army knife for configuring any argument that can't
+be autowired.
+
+## Adding Autowiring Aliases
+
+But there's *one* other way - besides `bind` - that we can accomplish this same
+thing. I'm mentioning it... almost more because it will help you understand how
+the system works: it's no better or worse than `bind`.
+
+Copy the `LoggerInterface` bind line, delete it, move to the bottom of the file,
+go in four spaces so that we're directly under `services` and paste.
+
+*That* will work too. But... it probably deserves some explanation.
+
+This syntax creates a service "alias": it adds a service to the container whose
+`id` is `Psr\Log\LoggerInterface $mdLogger`. I know, that's a strange id, but it's
+totally legal. If anyone ever asks for this service, they will *actually* receive
+the `monolog.logger.markdown` service.
+
+Why does that help us? I told you earlier that when autowiring sees an argument
+type-hinted with `Psr\Log\LoggerInterface`, it looks in the container for a service
+with that exact id. And, well... that's not *entirely* true. It *does* do that,
+but only after *first* looking for a service whose id is the type-hint + the
+argument name. So yes, it looks for a service whose id is
+`Psr\Log\LoggerInterface $mdLogger`. And guess what? We just created a service
+with that id.
+
+To prove it, move over, refresh, and open up the profiler. Yes! It's *still* using
+the `markdown` channel. The *super* cool thing is that, back at your terminal,
+run `debug:autowiring log` again:
 
 ```terminal-silent
 php bin/console debug:autowiring log
 ```
 
-you can see our
-$mdLonger actually shows up here. By creating that alias, we are actually doing the
-exact same thing that the core did that the co, that model I bundled us well my Mongo
-does is it actually creates an alias from PSR log lager interface, and then the name
-of each channel to that specific service. That's how autowiring works. Next, let's
-talk about something else.
+Check it out! Our `$mdLogger` shows up in the list! But creating that alias, we
+are doing the *exact* same thing that MonologBundle does internally to set up
+the *other* named autowiring entires. These are *all* service *aliases*: there is
+a service with the id of `Psr\Log\LoggerInterface $markdownHelper` and it's an
+*alias* to the `monolog.logger.markdown` service.
+
+Phew! I promise team, that's as deep & dark as you'll probably ever need to get
+with all service autowiring stuff. And as a bonus, this autowiring alias stuff is
+*great* small talk for your next Zoom party.
+
+Now that we are service *experts*, let's look back at our controller. Becuase,
+it's a service too!
