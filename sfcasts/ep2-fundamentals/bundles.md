@@ -46,9 +46,17 @@ Simply put, a service is a fancy word for an object that does work.
 And because services do work, they're *tools*! If you know how to get access to
 these objects, then you're very powerful. How *do* we access them? The primary way
 is by something called autowiring. Open up `src/Controller/QuestionController.php`
-and find the `homepage()` method. We commented out the code that used it, but by
-adding an argument type-hinted with `Environment`, we signaled to Symfony that we
-wanted it to pass us the Twig service object. That's called autowiring.
+and find the `homepage()` method:
+
+[[[ code('e976b4bd7f') ]]]
+
+We commented out the code that used it, but by adding an argument type-hinted
+with `Environment`, we signaled to Symfony that we wanted it to pass us
+the Twig service object:
+
+[[[ code('1c2a3e4bbb') ]]]
+
+That's called autowiring.
 
 And how did we know to use this exact `Environment` type hint to get the Twig service?
 And what *other* service objects are floating around waiting for us to use them
@@ -68,14 +76,21 @@ use in a controller argument to get them.
 
 But where do these services come from? Like, who added these to the system? The
 answer to that is... *bundles*. Back in your editor, open a new file:
-`config/bundles.php`. We'll see who uses this file later, but it returns an array
-with 8 class names that all have the word "Bundle" in them.
+`config/bundles.php`:
+
+[[[ code('b722ef1127') ]]]
+
+We'll see who uses this file later, but it returns an array with 8 class names
+that all have the word "Bundle" in them.
 
 Ok, first, whenever you install one of these "bundle" things, the Flex recipe system
 automatically updates this file *for* you and adds the new bundle. For example, in
 the first course, when we installed this `WebpackEncoreBundle`, its recipe added
-this line. The point is, this is *not* a file that you *normally* need to think
-about.
+this line:
+
+[[[ code('75c57feca9') ]]]
+
+The point is, this is *not* a file that you *normally* need to think about.
 
 But... what *is* a bundle? Very simply: bundles are Symfony *plugins*. They're
 PHP libraries with special integration with Symfony.
@@ -83,8 +98,12 @@ PHP libraries with special integration with Symfony.
 And, the *main* reason that you add a bundle to your app is because bundles give you
 services! In fact, *every* single service that you see in the `debug:autowiring`
 list comes from one of these eight bundles. You can kind of guess that the
-`Twig\Environment` service down here comes from `TwigBundle`. So if I removed
-that `TwigBundle` line and ran the command again, the Twig service would be gone.
+`Twig\Environment` service down here comes from `TwigBundle`:
+
+[[[ code('9f3885687b') ]]]
+
+So if I removed that `TwigBundle` line and ran the command again, the Twig service
+would be gone.
 
 And yes, bundles can give you other things like routes, controllers, translations
 and more. But the *main* point of a bundle is that it gives you more services,
