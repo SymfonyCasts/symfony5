@@ -1,45 +1,53 @@
 # Binding Global Arguments
 
-Coming soon...
+In this file, we've registered everything in `src/` as a service and told each to
+autowire its dependencies. That's *all* you need... *most* of time. But sometimes,
+one of our services needs a little bit *more* configuration.
 
-Okay, so we've registered everything in the store as directors of service and we've
-told it to autowire. Now down here
+*That's* what we're doing at the bottom for `MarkdownHelper`. This service *is*
+registered above thanks to auto-registration. Down here, we're *overriding* that
+service: we're *replacing* the auto-registered one with our own so that we can
+add the extra `bind` config. This *still* has `autowire` and `autoconfigure`
+enabled on it, thanks to the `_defaults` section, but we can now add any
+*extra* config that we need to this *one* service.
 
-we get to the situation where sometimes you need to give Symfony's container a little
-more information about a service. So that's what we've done here by putting our this
-services ID or we're doing is we're overriding that service. So this markdown helper
-is actually registered up here, but we immediately override it down here and add a
-bind for `$isDebug: '%kernel.debug%'` this also automatically has autowire
-true on it. We don't have to put that because it's automatically there thanks to the
-defaults above. So this is a long way of saying that everything in your source
-directory is automatically made available as a service in the container and its
-arguments are automatically auto wired. And if you add need to add more
-configuration, you just put the class of the service down here, which is actually the
-ID and that overrides that. And then you can specify whatever config you actually
-need. There's some complexity, get the thing work behind the scenes, but it's a kind
-of beautiful end product. Now that we know this, we can do something really cool. So
-down here, notice we've said that we want the `$isDebug` argument to our
-`MarkdownHelper`.
+## Moving bind to `_defaults`
 
-There's third argument here to be set to the `%kernel.debug%` parameter. But I just
-told you that there's this cool thing called `_defaults:` up here that
-specifies default values for any service red student's container. So we can actually
-do is copy that bind, delete that service entirely, and then go up under `_defaults`
-and paste it there. I forgot where, and refresh no errors. And you can see that the
-`$isDebug` flag down here. We're dumping is still true. What this done is we've now set
-up a global convention. I can not use an `$isDebug` argument in any service anywhere in
-my application and it's automatically going to be set to the `kernel.debug`, uh,
-uh, parameter. That is awesome.
+But when you have an argument that can't be autowired, there is actually another,
+*easier* way to fix it. Our custom config says that we want the `$isDebug` argument
+to `MarkdownHelper` - that's the third argument - to be set to the `%kernel.debug%`
+parameter. What if we moved this up to the `_defaults` section?
 
-Another thing you can optionally do here and it looks a little bit weird, is you can
-actually put the type hint on there. So in this case, the `bool $isDebug` matches. The
-`bool $isDebug`. I have instead of my `MarkdownHelper` so if I refresh, this still
-works, but if I didn't have that bul type and on there, I would actually get that air
-cannot. A auto wire argument $isDebug, has no type it, you should configure its value
-explicitly. So that's pretty cool. So I'll put that is debug flag back right there
-and now it works again and now it's this working. I'll take out, this `$isDebug` flag
-right here. So this is really how I primarily read what I, this is usually what I do.
-Um, by Symfony can auto wire almost everything inside of the container and a few
-things that it can't. Auto wire I typically set up as global binds and this is
-basically as complicated as your configuration file needs to get. Next, let's talk
-about something else named auto wiring on the logger.
+Do that: copy the bind lines, delete that service *entirely*, and then, up under
+`_defaults`, paste.
+
+Let's see if it works! When we refresh, no errors. And the `$isDebug` flag that
+we're dumping is *still* true!
+
+When you add a bind to `_defaults`, you setup up a global *convention*: we can
+now have an `$isDebug` argument in *any* of our services and Symfony will automatically
+know to pass the `kernel.debug` parameter. Thanks to this, we no longer need to
+override the `MarkdownHelper` service to add the bind: it will already have it!
+*This* is how I typically handle non-autowireable arguments.
+
+## Adding a Type to the Bind
+
+Oh, and if you want, you can add the *type* to the bind - like `bool $isDebug`.
+This will *still* work because we have this *exact* argument in MarkdownHelper.
+When we refresh, yep! No errors.
+
+But now, remove the `bool` type-hint a refresh again. Error!
+
+> Cannot autowire `MarkdownHelper`: argument `$isDebug` has no type-hint, you
+> should configure its value explicitly.
+
+Pretty cool. Let's put our `bool` type-hint back so it matches our bind *exactly*.
+And... now that it's working, I'll remove the `dump()` from `MarkdownHelper`.
+
+Here's the big picture: most arguments can be autowired. If you have one that
+*can't*, you can set a bind on the specific service *or* set a global bind,
+which is the quickest option.
+
+Next, let's talk about what happens when there are *multiple* services in the
+container that implement the same interface. How can we choose which one we want?
+And what if I need to use a lower-level service that is *not* autowireable?

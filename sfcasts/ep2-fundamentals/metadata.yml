@@ -14,6 +14,7 @@ chapters:
     - services-yaml
     - global-bind
     - named-autowiring
+    - non-autowireable-services
     - controllers-services
     - environment-variables
     - secrets-vault
