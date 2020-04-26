@@ -57,7 +57,7 @@ called `markdown`.
 By the way, if you're surprised that there was no `monolog.yaml` file by default,
 there actually *is*: there's one in the `dev/` directory and another in `prod/`.
 Loggers behave *pretty* differently in `dev` versus `prod`. Thanks to this new file,
-the new channel will exist in *all* environments.
+the `markdown` channel will exist in *all* environments.
 
 *Anyways*, *now* find your terminal and run `debug:autowiring`:
 
@@ -86,7 +86,7 @@ one of the *other* logger services.
 The *whole* reason this works is because MonologBundle is smart: it sets up
 "autowiring aliases" for each channel. Basically, it makes sure that we can
 autowire the *main* logger with the type-hint *or* any of the other loggers
-with a type-hint and argument name combination. It set all of that up *for* us,
+with a type-hint and argument name combination. It sets all of that up *for* us,
 so we can just take advantage of it.
 
 But what if it *hadn't* done that? Or, what if we needed to access one of the *many*
