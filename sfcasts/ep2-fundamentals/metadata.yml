@@ -18,5 +18,6 @@ chapters:
     - controllers-services
     - environment-variables
     - secrets-vault
+    - using-secrets
     - maker-command
     - twig-extension
