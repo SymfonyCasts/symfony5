@@ -1,40 +1,49 @@
-# Controllers Services
+# Controllers: Boring, Beautiful Services
 
-Coming soon...
+Head back to our trusty controller class: `src/Controller/QuestionController.php`.
+It may be obvious at this point, but controllers are *also* services that live in
+the container. Yep, they're good, normal boring services that behave *just* like
+anything else. Well, that's true - except that they *do* have one superpower that
+no other service has: the ability to autowire arguments to the individual methods.
+That normally *only* works for the constructor.
 
-Open up a `src/Controller/QuestionController.php`. It may seem obvious at this point,
-but controllers are also services that live in the container. They're good, normal
-boring services though they do have one extra special power that no other service has
-in the system. And that is that we can autowire arguments to the method individual
-controller methods in addition to the constructor, there's totally unique to
-controllers, open up `config/services.yaml` and that autowiring into the methods
-works not only for services like `MarkdownHelper`, but it also works for our global
-binds like bull `$isDebug`. So for example, here we can add another argument called
-`bool $isDebug`. I'll dump that down here and if we go over and go back to our show
-page and refresh, that works just fine.
+## Using bind in Controller Arguments
 
-so in controllers we can auto wire through our methods like this or as I mentioned,
-we can also do it just like every other service. We can honor wires, either
-constructor solid, remove that argument and let's do that. Let's pretend that we want
-to log something inside this controller and we're going to inject it through the
-constructor, so the public function `__construct()` and let's add `LoggerInterface $logger`
- and let's also do our `bool $isDebug` flag. Once again here, I'm going
-to hit Alt + Enter and go to "Initialize properties" to create both of those properties
-and set them below and now just like any other service, Symfony's going to when
-Symfony and stage AIDS the controller, it's going to know what values to pass for
-these two arguments. Sit down here and show. You can say something like if
-`$this->isDebug`, then `$this->logger->info()`.
+Open up `config/services.yaml`. A few minutes ago, we added this global "bind"
+called `$isDebug`. We know we can autowire *services* into our controller arguments,
+but can we *also* get this value? Absolutely! In the controller, add another
+argument called `bool $isDebug`. I'll dump that down here.
 
-we are in debug mode and is that easy? [inaudible] over refresh and I'll open the
-profiler head down to logs and there it is. We are in debug mode.
+Now, find you browser, go back to our show page, refresh and... that works fine.
 
-Yeah. Controllers are normal services and if you want it to, you can entirely do the
-normal constructor auto wiring if you wanted to. The only reason that the method auto
-wiring was added, the biggest reason was it's just kind of very convenient. You do a
-lot of work in controllers. So Symfony added this extra superpower to controllers
-only. I usually do my auto wire through my controller methods, but using the
-constructor is just fine as well, and sometimes it's really good idea, like if you
-needed lager service in many different, uh, methods inside of this controller, then
-auto wiring through constructor is kind of convenient because then you can just use
-it below anywhere you want. All right, next, let's talk about something else.
+The point is: this ability to autowire arguments into a method is unique to
+controllers, but it works *exactly* the same as normal, constructor autowiring...
+which is cool, because being able to grab services or bound values like this is
+super easy.
 
+## Constructor Injection
+
+But because a controller is a normal, boring service, we *can* also use *normal*
+dependency injection. Remove the `$isDebug` argument. Let's pretend that we want
+to log something inside this controller. This time, create a
+`public function __construct()` and give it two arguments `LoggerInterface $logger`
+and `bool $isDebug` flag. Like last time, with my cursor on one of the arguments,
+I'll hit Alt + Enter and go to "Initialize properties" to create both of those
+properties and set them below.
+
+And now - just like *any* other service - when Symfony instantiates our controller,
+it will know what values to pass for these two arguments. Down in the `show()`
+method, we can say something like if `$this->isDebug`, then `$this->logger->info()`:
+
+> We are in debug mode!
+
+If you refresh now, open the Profiler, and go to logs... there it is!
+
+So... yeah! Controllers are normal services and, if you want it to, you can
+*entirely* use "normal" dependency injection through the constructor. Heck the
+biggest reason that autowiring was added to the method was convenience. I
+*usually* autowire into my methods, but if you need a service in *every* method,
+using the constructor can help clean things up.
+
+Next, let's talk about the *final* missing piece to configuration: environment
+variables!
