@@ -20,4 +20,5 @@ chapters:
     - secrets-vault
     - using-secrets
     - maker-command
+    - custom-command
     - twig-extension
