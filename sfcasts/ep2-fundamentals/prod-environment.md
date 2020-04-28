@@ -1,7 +1,9 @@
 # Controlling the prod Environment
 
 Let's see what our app looks like if we change to the `prod` environment.
-To do that, open the `.env` file and change `APP_ENV` to `prod`.
+To do that, open the `.env` file and change `APP_ENV` to `prod`:
+
+[[[ code('4efa9abc25') ]]]
 
 ## Clearing Cache in the prod Environment
 
@@ -34,7 +36,9 @@ The most common time I run `cache:clear` is when I'm deploying.
 
 Let's see Symfony's automatic caching system in action. Open up
 `templates/question/show.html.twig` and... let's make some small change - like
-`Question:`.
+`Question:`:
+
+[[[ code('a1830be13a') ]]]
 
 This time, when we refresh, the change is *not* there. That's because Symfony
 caches Twig templates. Now find your terminal, run:
@@ -50,7 +54,9 @@ And come back to refresh. There's the change!
 Now that we understand environments, I have a challenge for us! At the top of the
 page, we're still dumping the cache service inside our controller. The class
 is `ApcuAdapter` because that's what we configured inside of
-`config/packages/cache.yaml`.
+`config/packages/cache.yaml`:
+
+[[[ code('eebd79d37e') ]]]
 
 APCu is great. But maybe for simplicity, because it requires you to have a PHP
 extension installed, we want to use the filesystem adapter in the `dev` environment
@@ -63,7 +69,9 @@ environment.
 To do that, in the `dev/` directory, create a new file. It *technically* doesn't
 matter what it's called, but because we value our sanity, call it `cache.yaml`.
 Inside, say `framework:`, `cache:`, `app:` and the name of the original default
-value for this: `cache.adapter.filesystem`.
+value for this: `cache.adapter.filesystem`:
+
+[[[ code('8c8d43e3e4') ]]]
 
 That's... all we need! Let's see if it works! Because we're still in the `prod`
 environment, find your terminal and clear the cache:
@@ -74,7 +82,11 @@ php bin/console cache:clear
 
 When it finishes, go refresh the page. Good: in `prod` it's *still* using
 `ApcuAdapter`. Now go find the `.env` file at the root of the project... change
-`APP_ENV` back to `dev`... and refresh the page.
+`APP_ENV` back to `dev`:
+
+[[[ code('325f656b0f') ]]]
+
+And refresh the page.
 
 Because the web debug toolbar is back, our dump is hiding inside its target icon.
 Let's see... yes! It's `FilesystemAdapter`!
