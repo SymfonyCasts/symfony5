@@ -20,8 +20,11 @@ other words: when we autowire with `MarkdownParserInterface`, please give us
 
 Anyways, one of our initial goals was to figure out how we could change the
 cache service to *stop* caching on the filesystem and instead cache somewhere
-else. In our controller, replace the `dd()` with `dump($cache)`. I'm using `dump()`
-so that the page still renders - it'll make things easier.
+else. In our controller, replace the `dd()` with `dump($cache)`:
+
+[[[ code('6046e3c670') ]]]
+
+I'm using `dump()` so that the page still renders - it'll make things easier.
 
 Now, move over, refresh and... interesting. The cache object is an instance of
 `TraceableAdapter` but inside it... ah, there's something called `FilesystemAdapter`.
@@ -32,9 +35,12 @@ to find what config you need. But let's see if we can figure this out ourselves.
 But, hmm, we don't really know which *bundle* this service comes from.
 
 Open up `config/bundles.php`. When we started the project, the *only* bundle here
-was `FrameworkBundle` - the core Symfony bundle. *Every* other bundle was
-installed by us. And... since I don't really see any "CacheBundle", it's a good
-guess that the cache service comes from `FrameworkBundle`.
+was `FrameworkBundle` - the core Symfony bundle:
+
+[[[ code('1a8810585b') ]]]
+
+*Every* other bundle was installed by us. And... since I don't really see any
+"CacheBundle", it's a good guess that the cache service comes from `FrameworkBundle`.
 
 Let's test that theory! Find your terminal, pet your cat, and run:
 
@@ -84,12 +90,16 @@ what config we should change... or what to change it to!
 ## Changing the Cache Adapter to APCu
 
 Let's go see if the config file for this bundle can help. Logically, because we're
-configuring the `framework` key, open up `config/packages/framework.yaml`.
+configuring the `framework` key, open up `config/packages/framework.yaml`:
+
+[[[ code('ba9e846a80') ]]]
 
 Huh, I don't see a `cache` key! And it's *possible* that there *is* no `cache`
 key in our config and that the values *we* saw were the bundle's defaults. But
 actually, we *do* have some `cache` config... it's just hiding in its own file:
-`cache.yaml`. Inside, it has `framework` then `cache`.
+`cache.yaml`. Inside, it has `framework` then `cache`:
+
+[[[ code('3d5dea7f15') ]]]
 
 It's not very common for a bundle's config to be separated into two files like
 this, but it *is* totally legal. Remember: the names of these files are *not*
@@ -98,7 +108,9 @@ to have its own file.
 
 *Anyways*, this file is *full* of useful comments: it tells us how we could use
 Redis for cache *or* how we could use APCu, which is a simple in-memory cache.
-Let's use that: uncomment the `cache.adapter.apcu` line.
+Let's use that: uncomment the `cache.adapter.apcu` line:
+
+[[[ code('aff30bd918') ]]]
 
 Before we even *try* that, find your terminal and run the `debug:config` command
 again:
@@ -116,10 +128,10 @@ behavior of that service.
 
 Oh, and if you get the error:
 
-> APCU is not enabled
+> APCu is not enabled
 
 It means you need to install the APCu extension. *How* you do that varies on
-each system but it's *usually* installed with `pecl` - like
+each system but it's *usually* installed with `pecl` - like:
 
 ```terminal
 pecl install apcu
@@ -132,10 +144,15 @@ running
 symfony server:stop
 ```
 
-And then re-run the command to start the server. If installing this is causing
-you problems, don't worry about it. For example purposes, you can use the
-key `cache.adapter.array` instead. That's a service that actually does *no* caching,
-but it will allow you to see how the class changes.
+And then re-run the command to start the server:
+
+```terminal-silent
+symfony server:start
+```
+
+If installing this is causing you problems, don't worry about it. For example
+purposes, you can use the key `cache.adapter.array` instead. That's a service
+that actually does *no* caching, but it will allow you to see how the class changes.
 
 Next, we've started to modify files in this `config/packages/` directory.
 Now I want to talk more about the structure of this directory - *specifically* about
