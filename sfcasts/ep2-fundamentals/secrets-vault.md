@@ -59,7 +59,7 @@ So, each "secret" will need to be set in *both* vaults. Let's start by putting
 a shiny new command:
 
 ```terminal
-php bin/console secret:set SENTRY_DSN
+php bin/console secrets:set SENTRY_DSN
 ```
 
 Because we're *in* the `dev` environment, this will populate the `dev` vault.
@@ -78,7 +78,7 @@ If you *do*, we can work around it: re-run the command with a `-` on the end,
 which tells Symfony to read from STDIN.
 
 ```terminal-silent
-php bin/console secret:set SENTRY_DSN -
+php bin/console secrets:set SENTRY_DSN -
 ```
 
 Then, as *crazy* as it sounds, hit Control + D - as in "dog". That was *just* a
@@ -114,7 +114,7 @@ Let's repeat the same process to put `SENTRY_DSN` into the `prod` vault. Run the
 command again but *also* pass `--env=prod`:
 
 ```terminal-silent
-php bin/console secret:set SENTRY_DSN --env=prod
+php bin/console secrets:set SENTRY_DSN --env=prod
 ```
 
 For the value, open `.env.local`, copy the long DSN string, then paste here. You

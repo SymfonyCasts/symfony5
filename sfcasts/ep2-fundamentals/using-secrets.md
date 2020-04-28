@@ -8,14 +8,14 @@ and `prod` vaults.
 How can I *prove* that? By running:
 
 ```terminal
-php bin/console secret:list
+php bin/console secrets:list
 ```
 
 Because we're in the `dev` environment, this reads the `dev` vault. There's our
 one secret. To see its value, add `--reveal`:
 
 ```terminal-silent
-php bin/console secret:list --reveal
+php bin/console secrets:list --reveal
 ```
 
 Behind-the-scenes, that used the dev "decrypt" key to decrypt that value: it's
@@ -24,13 +24,13 @@ an empty string. Ignore this "local value" thing for a minute.
 We can do the same thing for the `prod` vault by passing `--env=prod`:
 
 ```terminal-silent
-php bin/console secret:list --env=prod
+php bin/console secrets:list --env=prod
 ```
 
 Including adding `--reveal` to see the value.
 
 ```terminal-silent
-php bin/console secret:list --env=prod --reveal
+php bin/console secrets:list --env=prod --reveal
 ```
 
 ## Reading Secrets in your App
@@ -89,7 +89,7 @@ use to our advantage.
 Find your terminal and run:
 
 ```terminal
-php bin.console secret:list --reveal
+php bin.console secrets:list --reveal
 ```
 
 In the `dev` environment, the `SENTRY_DSN` value is set to an empty string.
