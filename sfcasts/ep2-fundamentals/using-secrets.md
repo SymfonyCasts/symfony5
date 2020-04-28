@@ -1,114 +1,120 @@
 # Using & Overriding Secrets
 
-Coming soon...
+We have successfully added the `SENTRY_DSN` secret value to both the `dev`
+and `prod` vaults.
 
-All right. So before we see this in action, we can actually list the keys by saying
-secrets list. So we're going to `secret:list`.
+## Listing the Secrets
 
-```terminal-silent
+How can I *prove* that? By running:
+
+```terminal
 php bin/console secret:list
 ```
 
-This is going to run into development
-environments and you can see that it has one inside of there and we can do a `--reveal`
+Because we're in the `dev` environment, this reads the `dev` vault. There's our
+one secret. To see its value, add `--reveal`:
 
 ```terminal-silent
 php bin/console secret:list --reveal
 ```
 
-And then that will use the um, the decrypt key to actually show us that
-value. And you see its value is an empty quote. Ignore this local value thing for a
-second. I'm going to talk about that. We can also do the same thing for the prod
-environment
+Behind-the-scenes, that used the dev "decrypt" key to decrypt that value: it's
+an empty string. Ignore this "local value" thing for a minute.
+
+We can do the same thing for the `prod` vault by passing `--env=prod`:
 
 ```terminal-silent
 php bin/console secret:list --env=prod
 ```
 
-and `--reveal` to see its value.
+Including adding `--reveal` to see the value.
 
 ```terminal-silent
 php bin/console secret:list --env=prod --reveal
 ```
 
-Alright, so let's check this out.
-So right now we're in the development environment and Symfony, so that should read
-from the development vault. And so the value that it should use should actually be
-the empty string. So let's refresh here. Then I'll just go down and put on a cheat.
-I'll open my dump and look at the look in the options and huh? It's still using the
-production value for some reason. The reason for that. Here's why
+## Reading Secrets in your App
 
-I didn't really mention it, but if you go into `config/packages/sentry.yaml` the way
-that you re reference environment variables is with the exact same syntax, his
-secrets, what Symfony does internally when it sees the syntax is it first looks to
-see if there's an environment variable called `SENTRY_DSN`. If there is, it uses it.
-If there is not, then it goes and looks for a secret in the vault called `SENTRY_DSN`.
-So environment variables take priority over secrets. So as soon as you identify some
-environment variable that you want to convert into your secrets vault, you need to
-remove it entirely as an environment variable. Never referenced that as an
-environment variable anymore because we now want it to be read from the secrets
-faults. So now if you go over and refresh, let's go ahead and expand our object. Once
-again, client options and perfect look, everything is Nolde out.
+Ok: because we're in the `dev` environment, the `dev` secret - the empty string -
+is the one that should be used. Refresh the page, check the dump, and expand it
+a little bit. It's *still* using the production value.
 
-It is now reading from our development vault. Okay, let's switch over to production
-and check it there. Now normally I would change `APP_ENV` to `prod`, but now, now that we
-understand that we have is that that local file, I'm not going to modify that file.
-I'm just going to override the app N in my dot and the local file. Then we'll spend
-over do our
+Go back into `config/packages/sentry.yaml`. We're *still* using the syntax
+for reading *environment* variables. And... surprise! To tell Symfony to read
+a `SENTRY_DSN` *secret*, we use the *exact* same syntax.
+
+## Environment Variables vs Secrets
+
+Here's how it works: when Symfony sees the `%env()%` syntax, it *first* looks to
+see if an environment variable called `SENTRY_DSN` exists. If there is, it uses it.
+If there is *not*, it *then* looks for a secret in the vault called `SENTRY_DSN`.
+So reading environment variables and secrets use the same syntax, but environment
+variables take priority.
+
+This means one important thing: when you identify an environment variable that
+you want to convert into a secret, you need to *remove* it entirely as an
+environment variable. Set a value as an environment variable *or* a secret, but
+not both. Delete the `SENTRY_DSN` entry from `.env` and `.env.local`.
+
+*Now* Symfony should be reading from our `dev` vault. Refresh... then expand the
+object and... yes! All the values are `null`! It works!
+
+Let's try out production. Until now, to switch to the `prod` environment, I've
+been updating the `.env` file. But now that we understand `.env.local`, let's
+add `APP_ENV=prod` there instead.
+
+Next, clear your cache:"
 
 ```terminal
 php bin/console cache:clear
 ```
 
-so we clear the production cache and then move
-over and refresh. And you can see our dump on top here. If I expand that, yes it is
-using the value from our production vault that works because I have the production
-decrypt key in my project. If I didn't have the production decrypted in my project,
-that would fail.
+Then spin back to your browser and refresh. This time the dump is on top. If I
+expand it... yes! It's using the *production* values. Booya! That works because
+my project has the prod decrypt key. If that were *not* there, we would get an
+error.
 
-All right, so let's take out the `APP_ENV=...` line in `.env.local` to get back to the
-development environment. And now inside our `QuestionController`, I'm gonna delete
-that `dump()` the lead. The `Exception` are it, half still works and I don't need this hub
-interface thing anymore. All right, so I'll spin back over and cool. My page is
-working. By the way, the fact that environment variables take precedent over secrets
-is actually a really handy thing because what if, for example, in our development
-vault, we have, I go over to my terminal and run
+Go ahead and take out the `APP_ENV=` line in `.env.local` to get back to the
+`dev` environment. And in `QuestionController`, let's cleanup: remove the `dump()`,
+the Exception and the `HubInterface` argument.
+
+And now... things are working again.
+
+## Overriding Secrets Locally
+
+You are now *ready* to use Symfony's secrets system. But! The fact that
+environment variables take *precedent* over secrets is something that we can
+use to our advantage.
+
+Find your terminal and run:
 
 ```terminal
 php bin.console secret:list --reveal
 ```
 
-in the development environment and my `SENTRY_DSN` is set to an empty string.
-Let's say for some reason that while I'm developing, I really did want to set `SENTRY_DSN`
-to a real value because I was testing something related to it. It would be kind
-of annoying to modify the value inside of the development vaults because then I would
-have to, you know, try not to commit those values. So instead if you want to override
-something inside of your, I'm going to override something in your vault locally. It's
-as simple as adding it to that end, that local. So if I said, `SENTRY_DSN` equal to
-`FOO` and I run that same
+In the `dev` environment, the `SENTRY_DSN` value is set to an empty string.
+Let's pretend that, while developing, I want to temporarily set `SENTRY_DSN`
+to a *real* value so I can, maybe, test that integration.
+
+We *could* use `secrets:set` to override the value... but that would update the
+secrets file... and then we would have to be super careful to avoid committing
+that change.
+
+There's a better way. In `.env.local`, set `SENTRY_DSN` to the real value. Well,
+I'll put "FOO" here so it's obvious when this value is being used.
+
+Now run the *same* command to reveal the `dev` secrets:
 
 ```terminal
 php bin/console secrets:list --reveal
 ```
 
-can I say http to IO /[inaudible] and go back over and I run that same command
-with dash dash revea l.
+The "Value" is still empty quotes, but now it has a "Local Value" set to the
+string we just used! The "Local Value" is the one what will be used. Why? Because
+our new environment variable *overrides* the secret. This "Local Value" is a
+fancy way of saying that.
 
-[inaudible] okay,
+I'll take that value out of `.env.local` so that my secret is once again used.
 
-so we went over to our [inaudible]. I haven't got a logo that's `SENTRY_DSN` =
-and pasted some real value, and I'll make this very obvious that it's a fake value
-here by saying `FOO` is our key, and that has been over and run that same command
-again,
-
-```terminal
-php bin/console secrets:list --reveal
-```
-
-you're going to see that it's, it's telling you that the value is actually
-empty quotes, but it's being overwritten locally. So this is actually the value that
-would be used. So I'll take that out of my `.env.local` vault. But that is a
-great way to override local values. All right, next let's talk about something fun.
-`MakerBundle`.
-
-Note about the ENV var that you can use for setting the prod key
+Next: let's have some fun! We're going to install MakerBundle and start generating
+some code!
