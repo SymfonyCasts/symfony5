@@ -1,8 +1,11 @@
 # The Service Container & Autowiring
 
 We found out that KnpMarkdownBundle allows us to control some of the *features*
-of the markdown parser by using this `knp_markdown.parser.service` key. We used
-their documentation to learn that there were a *few* valid values for this
+of the markdown parser by using this `knp_markdown.parser.service` key:
+
+[[[ code('6761a074b8') ]]]
+
+We used their documentation to learn that there were a *few* valid values for this
 `service` key.
 
 But what *is* this? What does `markdown.parser.light` *mean*? Is it just a string
@@ -30,8 +33,7 @@ php bin/console debug:container
 And wow! *This* is the *full* list of *all* the services inside the service
 container! On the left is the service's id or "key" - like `filesystem` and
 on the right is the type of object you would get if you asked for this service.
-The `filesystem` service is an instance of
-`Symfony\Component\Filesystem\Filesystem`.
+The `filesystem` service is an instance of `Symfony\Component\Filesystem\Filesystem`.
 
 You can see that this is a *really* long list. But the truth is that you will
 probably only ever use a very *small* number of these. *Most* of these are low-level
