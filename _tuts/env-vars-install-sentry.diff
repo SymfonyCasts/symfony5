@@ -11,11 +11,11 @@ index 9501a4d..2cb271b 100644
 +SENTRY_DSN=
 +###< sentry/sentry-symfony ###
 diff --git a/composer.json b/composer.json
-index 0656f47..812a8ef 100644
+index 44a34b1..9755e37 100644
 --- a/composer.json
 +++ b/composer.json
-@@ -8,6 +8,7 @@
-         "easycorp/easy-log-handler": "^1.0.7",
+@@ -7,6 +7,7 @@
+         "ext-iconv": "*",
          "knplabs/knp-markdown-bundle": "^1.8",
          "sensio/framework-extra-bundle": "^5.5",
 +        "sentry/sentry-symfony": "^3.4",
@@ -23,15 +23,15 @@ index 0656f47..812a8ef 100644
          "symfony/console": "5.0.*",
          "symfony/debug-bundle": "5.0.*",
 diff --git a/composer.lock b/composer.lock
-index 8e63b5e..3cb4b33 100644
+index 48eacd5..efea8a8 100644
 --- a/composer.lock
 +++ b/composer.lock
 @@ -4,8 +4,60 @@
          "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
          "This file is @generated automatically"
      ],
--    "content-hash": "9a1f508ead01f0f1fb2148a9896e8175",
-+    "content-hash": "839bba88ff14f0e77cf2924d45dcf2dd",
+-    "content-hash": "0d29a93da9b9786381960676f245927a",
++    "content-hash": "3ea3c1d0bba67e0774e25aacf504210b",
      "packages": [
 +        {
 +            "name": "clue/stream-filter",
@@ -87,13 +87,10 @@ index 8e63b5e..3cb4b33 100644
 +        },
          {
              "name": "doctrine/annotations",
-             "version": "1.10.1",
-@@ -185,8 +237,299 @@
-                 "monolog",
-                 "productivity"
+             "version": "1.10.2",
+@@ -137,6 +189,296 @@
              ],
-+            "abandoned": true,
-             "time": "2019-10-24T07:13:31+00:00"
+             "time": "2019-10-30T14:39:59+00:00"
          },
 +        {
 +            "name": "guzzlehttp/guzzle",
@@ -388,7 +385,7 @@ index 8e63b5e..3cb4b33 100644
          {
              "name": "knplabs/knp-markdown-bundle",
              "version": "1.8.1",
-@@ -381,31 +724,40 @@
+@@ -331,31 +673,40 @@
              "time": "2019-12-20T14:22:59+00:00"
          },
          {
@@ -439,7 +436,7 @@ index 8e63b5e..3cb4b33 100644
                  }
              },
              "notification-url": "https://packagist.org/downloads/",
-@@ -414,44 +766,57 @@
+@@ -364,44 +715,57 @@
              ],
              "authors": [
                  {
@@ -515,7 +512,7 @@ index 8e63b5e..3cb4b33 100644
                  }
              },
              "notification-url": "https://packagist.org/downloads/",
-@@ -460,27 +825,478 @@
+@@ -410,27 +774,478 @@
              ],
              "authors": [
                  {
@@ -1007,7 +1004,7 @@ index 8e63b5e..3cb4b33 100644
                  "reference": "dbefd12671e8a14ec7f180cab83036ed26714bb0"
              },
              "dist": {
-@@ -521,6 +1337,157 @@
+@@ -471,6 +1286,157 @@
              ],
              "time": "2019-01-08T18:20:26+00:00"
          },
@@ -1165,7 +1162,7 @@ index 8e63b5e..3cb4b33 100644
          {
              "name": "psr/log",
              "version": "1.1.3",
-@@ -545,9 +1512,55 @@
+@@ -495,9 +1461,55 @@
                  }
              },
              "autoload": {
@@ -1224,7 +1221,7 @@ index 8e63b5e..3cb4b33 100644
              },
              "notification-url": "https://packagist.org/downloads/",
              "license": [
-@@ -555,18 +1568,12 @@
+@@ -505,18 +1517,12 @@
              ],
              "authors": [
                  {
@@ -1247,9 +1244,9 @@ index 8e63b5e..3cb4b33 100644
          },
          {
              "name": "sensio/framework-extra-bundle",
-@@ -646,6 +1653,205 @@
+@@ -591,6 +1597,205 @@
              ],
-             "time": "2019-12-27T08:57:19+00:00"
+             "time": "2020-04-06T12:20:39+00:00"
          },
 +        {
 +            "name": "sentry/sdk",
@@ -1452,8 +1449,8 @@ index 8e63b5e..3cb4b33 100644
 +        },
          {
              "name": "symfony/asset",
-             "version": "v5.0.7",
-@@ -1979,6 +3185,60 @@
+             "version": "v5.0.8",
+@@ -1925,6 +3130,60 @@
              ],
              "time": "2019-11-13T13:11:14+00:00"
          },
@@ -1514,7 +1511,7 @@ index 8e63b5e..3cb4b33 100644
          {
              "name": "symfony/polyfill-intl-idn",
              "version": "v1.15.0",
-@@ -2158,6 +3418,65 @@
+@@ -2104,6 +3363,65 @@
              ],
              "time": "2020-02-27T09:26:54+00:00"
          },
@@ -1580,9 +1577,9 @@ index 8e63b5e..3cb4b33 100644
          {
              "name": "symfony/profiler-pack",
              "version": "v1.0.4",
-@@ -2262,6 +3581,79 @@
+@@ -2208,6 +3526,79 @@
              ],
-             "time": "2020-03-30T11:42:42+00:00"
+             "time": "2020-04-21T21:02:50+00:00"
          },
 +        {
 +            "name": "symfony/security-core",
@@ -1679,7 +1676,7 @@ index 0000000..342036f
 +sentry:
 +    dsn: '%env(SENTRY_DSN)%'
 diff --git a/symfony.lock b/symfony.lock
-index 3102734..89b489f 100644
+index b55da23..1da2977 100644
 --- a/symfony.lock
 +++ b/symfony.lock
 @@ -1,4 +1,7 @@
@@ -1690,9 +1687,9 @@ index 3102734..89b489f 100644
      "doctrine/annotations": {
          "version": "1.0",
          "recipe": {
-@@ -26,6 +29,21 @@
-             "config/packages/dev/easy_log_handler.yaml"
-         ]
+@@ -14,6 +17,21 @@
+     "doctrine/lexer": {
+         "version": "1.2.0"
      },
 +    "guzzlehttp/guzzle": {
 +        "version": "6.5.2"
@@ -1712,7 +1709,7 @@ index 3102734..89b489f 100644
      "knplabs/knp-markdown-bundle": {
          "version": "1.8.1"
      },
-@@ -35,9 +53,33 @@
+@@ -23,9 +41,33 @@
      "monolog/monolog": {
          "version": "2.0.2"
      },
@@ -1746,7 +1743,7 @@ index 3102734..89b489f 100644
      "psr/cache": {
          "version": "1.0.1"
      },
-@@ -47,9 +89,21 @@
+@@ -35,9 +77,21 @@
      "psr/event-dispatcher": {
          "version": "1.0.0"
      },
@@ -1768,7 +1765,7 @@ index 3102734..89b489f 100644
      "sensio/framework-extra-bundle": {
          "version": "5.2",
          "recipe": {
-@@ -62,6 +116,24 @@
+@@ -50,6 +104,24 @@
              "config/packages/sensio_framework_extra.yaml"
          ]
      },
@@ -1793,7 +1790,7 @@ index 3102734..89b489f 100644
      "symfony/asset": {
          "version": "v5.0.5"
      },
-@@ -181,6 +253,9 @@
+@@ -169,6 +241,9 @@
              "config/packages/test/monolog.yaml"
          ]
      },
@@ -1803,7 +1800,7 @@ index 3102734..89b489f 100644
      "symfony/polyfill-intl-idn": {
          "version": "v1.13.1"
      },
-@@ -190,6 +265,9 @@
+@@ -178,6 +253,9 @@
      "symfony/polyfill-php73": {
          "version": "v1.13.1"
      },
@@ -1813,7 +1810,7 @@ index 3102734..89b489f 100644
      "symfony/profiler-pack": {
          "version": "v1.0.4"
      },
-@@ -207,6 +285,9 @@
+@@ -195,6 +273,9 @@
              "config/routes.yaml"
          ]
      },

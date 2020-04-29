@@ -311,6 +311,11 @@
             "description": null
         },
         {
+            "id": "pre-ep2-removing-easycorp-easy-log-handler",
+            "name": "PRE_EP2: Removing easycorp\/easy-log-handler",
+            "description": null
+        },
+        {
             "id": "pre-ep2-clean-tutorial",
             "name": "PRE_EP2: clean tutorial\/",
             "description": null
@@ -666,5 +671,5 @@
             "description": null
         }
     ],
-    "sha": "1235b90bdc9d4779890c84c57981da65cb77a328"
+    "sha": "66267c59f369ae832a1dec4b3d940a7931402393"
 }

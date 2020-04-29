@@ -1,31 +1,31 @@
 diff --git a/composer.json b/composer.json
-index aee34bd..0656f47 100644
+index 041ce88..44a34b1 100644
 --- a/composer.json
 +++ b/composer.json
-@@ -6,6 +6,7 @@
+@@ -5,6 +5,7 @@
+         "php": "^7.2.5",
          "ext-ctype": "*",
          "ext-iconv": "*",
-         "easycorp/easy-log-handler": "^1.0.7",
 +        "knplabs/knp-markdown-bundle": "^1.8",
          "sensio/framework-extra-bundle": "^5.5",
          "symfony/asset": "5.0.*",
          "symfony/console": "5.0.*",
 diff --git a/composer.lock b/composer.lock
-index b01bed8..8e63b5e 100644
+index 5cd5f48..48eacd5 100644
 --- a/composer.lock
 +++ b/composer.lock
 @@ -4,7 +4,7 @@
          "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
          "This file is @generated automatically"
      ],
--    "content-hash": "47fb1205d801dfec85f6af9ec6279a54",
-+    "content-hash": "9a1f508ead01f0f1fb2148a9896e8175",
+-    "content-hash": "f42806edaae2eb996b77178f98a68937",
++    "content-hash": "0d29a93da9b9786381960676f245927a",
      "packages": [
          {
              "name": "doctrine/annotations",
-@@ -187,6 +187,118 @@
+@@ -137,6 +137,118 @@
              ],
-             "time": "2019-10-24T07:13:31+00:00"
+             "time": "2019-10-30T14:39:59+00:00"
          },
 +        {
 +            "name": "knplabs/knp-markdown-bundle",
@@ -153,12 +153,12 @@ index 825e456..3460dff 100644
 +    Knp\Bundle\MarkdownBundle\KnpMarkdownBundle::class => ['all' => true],
  ];
 diff --git a/symfony.lock b/symfony.lock
-index 333078c..3102734 100644
+index d957216..b55da23 100644
 --- a/symfony.lock
 +++ b/symfony.lock
-@@ -26,6 +26,12 @@
-             "config/packages/dev/easy_log_handler.yaml"
-         ]
+@@ -14,6 +14,12 @@
+     "doctrine/lexer": {
+         "version": "1.2.0"
      },
 +    "knplabs/knp-markdown-bundle": {
 +        "version": "1.8.1"
