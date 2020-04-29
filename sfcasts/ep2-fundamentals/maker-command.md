@@ -83,7 +83,7 @@ When autoconfiguration is enabled for a service, it basically tells Symfony:
 
 > Yo! Please look at the base class or interface of this service and if it
 > *looks* like it should be a command, or an event listener or something
-> *else* that hooks *into* Symfony, please automatically integrat it into
+> *else* that hooks *into* Symfony, please automatically integrate it into
 > that system. Thanks!
 
 In other words, Symfony sees our service, *notices* that it extends `Command`

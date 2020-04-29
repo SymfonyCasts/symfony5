@@ -90,7 +90,7 @@ use to our advantage.
 Find your terminal and run:
 
 ```terminal
-php bin.console secrets:list --reveal
+php bin/console secrets:list --reveal
 ```
 
 In the `dev` environment, the `SENTRY_DSN` value is set to an empty string.
@@ -106,12 +106,12 @@ I'll put "FOO" here so it's obvious when this value is being used.
 
 Now run that command again:
 
-```terminal
+```terminal-silent
 php bin/console secrets:list --reveal
 ```
 
 The "Value" is still empty quotes, but now it has a "Local Value" set to the
-string we just used! The "Local Value" is the one what will be used. Why? Because
+string we just used! The "Local Value" is the one that will be used. Why? Because
 our new environment variable *overrides* the secret: environment variables *always*
 win over secrets. This "Local Value" is a fancy way of saying that.
 
