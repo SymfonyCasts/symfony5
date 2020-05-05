@@ -82,7 +82,7 @@ php bin/console debug:autowiring log
 Check it out! Our `$mdLogger` shows up in the list! By creating that alias, we
 are doing the *exact* same thing that MonologBundle does internally to set up
 the *other* named autowiring entries. These are *all* service *aliases*: there is
-a service with the id of `Psr\Log\LoggerInterface $markdownHelper` and it's an
+a service with the id of `Psr\Log\LoggerInterface $markdownLogger` and it's an
 *alias* to the `monolog.logger.markdown` service.
 
 Phew! I promise team, that's as deep & dark as you'll probably ever need to get
