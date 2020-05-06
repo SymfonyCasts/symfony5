@@ -30,9 +30,12 @@ is, in fact, the *job* of this file. And the way it does it is pretty amazing.
 
 ## The `_defaults` Key
 
-The first thing under `services` is a special key called `_defaults`. This defines
-*default* options that should be applied to *each* service that's added to the
-container in this file. Every service registered here will have an option called
+The first thing under `services` is a special key called `_defaults`:
+
+[[[ code('09350df6b4') ]]]
+
+This defines *default* options that should be applied to *each* service that's added
+to the container in this file. Every service registered here will have an option called
 `autowire` set to `true` and another called `autoconfigure` set to `true`.
 
 Let me... say that a different way. When you configure a single service - like we're
@@ -57,7 +60,10 @@ So these 3 lines don't *do* anything: they just set up default config.
 
 ## Service Auto-Registration
 
-The next section - these 3 lines starting with `App\` - are the key to *everything*.
+The next section - these 3 lines starting with `App\` - are the key to *everything*:
+
+[[[ code('41e67fa6e8') ]]]
+
 This says:
 
 > Hey container! Please look at my `src/` directory and register *every* class
@@ -99,10 +105,14 @@ The point is: everything in `src/` is automatically *available* as a service in
 the container without you needing to think about it.
 
 And... that's really it for the important stuff! The next section registers
-everything in `src/Controller` as a service. But wait... didn't the section above
-already do that? Totally! This overrides those in order to add this "tag" thing.
-This is here to cover an "edge case" that doesn't apply to us. If we deleted this,
-everything would keep working. So... ignore it.
+everything in `src/Controller` as a service:
+
+[[[ code('3119dd1ccf') ]]]
+
+But wait... didn't the section above already do that? Totally! This overrides
+those in order to add this "tag" thing. This is here to cover an "edge case"
+that doesn't apply to us. If we deleted this, everything would keep working.
+So... ignore it.
 
 Now that we understand *how* our services are being added to the container, the
 config that we added to the bottom of this file will make more sense. Let's talk
