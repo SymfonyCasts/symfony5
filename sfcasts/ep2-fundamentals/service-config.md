@@ -36,10 +36,16 @@ some configuration - like a `debug` boolean or maybe an API key. Even in those
 cases, we use this dependency injection flow.
 
 Add a new argument called, how about, `bool $isDebug`. Create a property for this -
-`private $isDebug` - and set that in the constructor: `$this->isDebug = $isDebug`.
+`private $isDebug` - and set that in the constructor: `$this->isDebug = $isDebug`:
+
+[[[ code('6758fbe9af') ]]]
 
 Down in parse, use it: if `$this->isDebug`, then copy the `return` statement
-from below and paste it here. Go team!
+from below and paste it here:
+
+[[[ code('ccd8f26845') ]]]
+
+Go team!
 
 ## Non-Autowireable Arguments
 
@@ -66,7 +72,7 @@ not, fortunately, *that* magic.
 ## Adding Extra Service Config to services.yaml
 
 This is our first example of a constructor argument that can't be autowired. When
-this happen, it's no problem: we just need to give Symfony a little "hint" about
+this happens, it's no problem: we just need to give Symfony a little "hint" about
 what we want.
 
 How? Open up `config/services.yaml`. At a high level, this is where we configure
@@ -75,7 +81,9 @@ going to explore what that does soon. At the bottom of the file, indent four
 spaces so that you're under the `services` key, then type the full class name to
 our service: `App\Service\MarkdownHelper:`. Below this, we can pass configuration
 to help Symfony instantiate the object. Do that by saying `arguments:` and, beneath
-that, `$isDebug` set to, for now, just `true`.
+that, `$isDebug` set to, for now, just `true`:
+
+[[[ code('07f9a47e50') ]]]
 
 Yep, we're *literally* saying:
 
@@ -85,7 +93,9 @@ Yep, we're *literally* saying:
 
 So... that *should* be enough to get it working! Try it! When we refresh... it's
 back! Let's *really* make sure it's doing what we want: inside `MarkdownHelper`,
-add `dump($isDebug)`.
+add `dump($isDebug)`:
+
+[[[ code('af423c71e3') ]]]
 
 This time when we reload... there it is: `true`.
 
@@ -93,25 +103,34 @@ This time when we reload... there it is: `true`.
 
 Of course, we don't *really* want to hardcode `true`: we want to reference
 the `kernel.debug` parameter. No problem: in `services.yaml`, add quotes then
-`%kernel.debug%`.
+`%kernel.debug%`:
+
+[[[ code('41797d52d6') ]]]
 
 When we try the page, it should still be true... and it is! Let's double-check
-the `prod` environment. Find the `.env` file, change `APP_ENV` to `prod`, then
-go clear the cache:
+the `prod` environment. Find the `.env` file, change `APP_ENV` to `prod`:
+
+[[[ code('d11f1617c6') ]]]
+
+Then go clear the cache:
 
 ```terminal-silent
 php bin/console cache:clear
 ```
 
 When that's done, find your browser and take it for a spin. Yep! Up on top, it
-prints `false`. The power! Change the environment back to `dev`.
+prints `false`. The power! Change the environment back to `dev`:
+
+[[[ code('65ccce9464') ]]]
 
 ## The Amazing (but not yet impressive) bind
 
 Before we keep going, head back to `services.yaml`. There *are* other config
 keys we can use below a service to control how it's instantiated, but most of
 them aren't too important or common. However, there *is* one I want to show you.
-Rename `arguments` to `bind`.
+Rename `arguments` to `bind`:
+
+[[[ code('cd9370e625') ]]]
 
 If you move over and refresh... that makes no difference at all. In fact, `arguments`
 and `bind` are *almost* identical. Really, they're *so* similar, that I'm not
