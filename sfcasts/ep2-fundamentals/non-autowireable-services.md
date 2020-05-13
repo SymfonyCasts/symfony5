@@ -11,7 +11,9 @@ actually *is* autowireable if you use the `LoggerInterface` type-hint *and* name
 your argument `$markdownLogger`.
 
 But back in `MarkdownHelper`, to go deeper, let's be complicated and change the
-argument's name to something else - like `$mdLogger`.
+argument's name to something else - like `$mdLogger`:
+
+[[[ code('b53f67cf8b') ]]]
 
 Excellent! If you refresh the page now, it doesn't break, but if you open the
 profiler and go to the Logs section, you'll notice that this is using the `app`
@@ -28,7 +30,9 @@ And, there are *two* ways to do this.
 ## Passing Services via Bind
 
 You might guess the first: it's with `bind`, which works *just* as well to pass
-services as it does to pass scalar config like parameters.
+services as it does to pass scalar config like parameters:
+
+[[[ code('aeff9b134c') ]]]
 
 First, go copy the *full* class name for `LoggerInterface`, paste that under bind
 and add `$mdLogger` to match our name. But, what value do we *set* this to?
@@ -38,7 +42,10 @@ If you look back at `debug:autowiring`, the `id` of the service we want to use i
 
 But... wait. If we stopped now, Symfony would *literally* pass us the string
 `monolog.logger.markdown`. That's... not helpful: we want it to pass us the
-*service* that has this id. To communicate that, prefix the service id with `@`.
+*service* that has this id. To communicate that, prefix the service id with `@`:
+
+[[[ code('0d4fcaeb07') ]]]
+
 That's a super-special syntax to *tell* Symfony that we're referring to a *service*.
 
 Let's try this thing! Refresh, then open the Logs section of the profiler. Yes!
@@ -54,7 +61,9 @@ I'm mentioning it... almost more because it will help you understand how
 the system works: it's no better or worse than `bind`.
 
 Copy the `LoggerInterface` bind line, delete it, move to the bottom of the file,
-go in four spaces so that we're directly under `services` and paste.
+go in four spaces so that we're directly under `services` and paste:
+
+[[[ code('b2d0202d5c') ]]]
 
 *That* will work too. But... this probably deserves some explanation.
 
