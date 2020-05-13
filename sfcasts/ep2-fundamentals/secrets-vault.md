@@ -31,15 +31,19 @@ secrets in *their* system, then securely read them while you're deploying. Those
 are *excellent* options.
 
 Symfony *also* comes with its *own* secrets vault, which is *super* cool because
-it allows us to commit our sensitive values - called secrets - into git!
+it allows us to commit our sensitive values - called secrets - into Git!
 
 ## Dumping the Sentry Connection Details
 
 To help us see this, in `QuestionController::show()`, add a third argument:
-`HubInterface $sentryHub`. Below, `dump($sentryHub)`. The *main* purpose of
-SentryBundle's services is *not* for us to interact with them directly like this.
-But this will be a handy way to *quickly* see our `SENTRY_DSN` value. By the
-way, I *found* this interface, of course, by using `debug:autowiring`.
+`HubInterface $sentryHub`. Below, `dump($sentryHub)`:
+
+[[[ code('ac57a3310e') ]]]
+
+The *main* purpose of SentryBundle's services is *not* for us to interact with
+them directly like this. But this will be a handy way to *quickly* see our
+`SENTRY_DSN` value. By the way, I *found* this interface, of course, by using
+`debug:autowiring`.
 
 Check it out: back on your browser, I'll close the sentry.io tab and refresh.
 Down on the web debug toolbar, it dumps a `Hub` object. If you expand the
@@ -81,7 +85,7 @@ which tells Symfony to read from STDIN.
 php bin/console secrets:set SENTRY_DSN -
 ```
 
-Then, as *crazy* as it sounds, hit Control + D - as in "dog". That was *just* a
+Then, as *crazy* as it sounds, hit `Control`+`D` - as in "dog". That was *just* a
 fancy way to set `SENTRY_DSN` to an empty string.
 
 ## The config/secrets/ Public And Private Key Files
@@ -95,9 +99,15 @@ Let's go check that out! Open up the *new* `config/secrets/` directory. *Excelle
 this has a `dev/` sub-directory because we just created the `dev` vault.
 
 The `dev.encrypt.public.php` file returns the key that's used to add or update
-secrets: it's used to *encrypt* secrets. The `dev.decrypt.private.php` file does
+secrets:
+
+[[[ code('135662b7cf') ]]]
+
+It's used to *encrypt* secrets. The `dev.decrypt.private.php` file does
 the opposite: its value is used to *decrypt* the secrets so that our app can read
-them.
+them:
+
+[[[ code('0771b303ee') ]]]
 
 The decrypt key is *usually* a sensitive value that we would *not* commit to the
 repository. However, we usually *do* commit the decrypt key for the *dev* vault
@@ -134,11 +144,14 @@ will need to know about.
 ***TIP
 Instead of creating the `prod.decrypt.private.php` file when deploying, you can
 *also* set the key on a `SYMFONY_DECRYPTION_SECRET` environment variable. See
-[Production Secrets](https://symfonycasts.com/screencast/symfony5-upgrade/prod-vault#deploying-with-the-decrypt-key) for more info.
+[Production Secrets](https://symfonycasts.com/screencast/symfony5-upgrade/prod-vault#deploying-with-the-decrypt-key)
+for more info.
 ***
 
 And notice how this is a different color in my editor? That's because... in our
-`.gitignore` file, we are *already* ignoring the `prod.decrypt.private.php` file.
+`.gitignore` file, we are *already* ignoring the `prod.decrypt.private.php` file:
+
+[[[ code('f9591e389f') ]]]
 
 ## Committing the Secrets Vaults
 
