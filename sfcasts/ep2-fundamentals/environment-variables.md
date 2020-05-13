@@ -15,9 +15,15 @@ package.
 
 ## Installing sentry/sentry-symfony & Contrib Recipes
 
-Before you do, make sure you've committed all your changes to git. I committed
-before hitting record, so I'm good to go. I like to do this before installing a
-new package so I can see what its recipe does.
+Before you do, make sure you've committed all your changes to Git.
+
+```terminal-silent
+git add .
+git commit -m "your commit message here..."
+```
+
+I committed before hitting record, so I'm good to go. I like to do this before
+installing a new package so I can see what its recipe does.
 
 Back on the docs, copy the `composer require` line, move over, and paste:
 
@@ -46,7 +52,9 @@ git status
 
 It modified the normal stuff - like `composer.json`, `composer.lock`,
 `symfony.lock` and `config/bundles.php` because this package contains a bundle:
-`SentryBundle`.
+`SentryBundle`:
+
+[[[ code('69e4fb56cb') ]]]
 
 ## Hello Environment Variables & .env
 
@@ -54,26 +62,35 @@ The recipe also *updated* `.env` and added a new config file. Let's go see
 what's going on.
 
 First, open up `.env` and scroll to the bottom. Woh! This has a new section
-that sets an environment variable called `SENTRY_DSN`. Environment variables
-are not a Symfony or PHP concept: they're values that you can pass to *any*
-process on your computer to configure that process's behavior. Symfony supports
-*reading* environment variables, which we'll see in a minute. But *setting* them
-can be a pain: it's different for every operating system. For that reason, when
-Symfony loads, it reads this file and sets anything here as an environment variable
-*for* you.
+that sets an environment variable called `SENTRY_DSN`:
+
+[[[ code('6865775536') ]]]
+
+Environment variables are not a Symfony or PHP concept: they're values that you
+can pass to *any* process on your computer to configure that process's behavior.
+Symfony supports *reading* environment variables, which we'll see in a minute.
+But *setting* them can be a pain: it's different for every operating system.
+For that reason, when Symfony loads, it reads this file and sets anything here
+as an environment variable *for* you.
 
 ## Reading Environment Variables with %env()%
 
 So... if we're *setting* a `SENTRY_DSN` environment variable... what's *using*
 that? Go into `config/packages/` and open the shiny new `sentry.yaml` file, which,
 not surprisingly, configures the new SentryBundle. Check this out: it has a `dsn`
-key set to a *very* strange value: `%env(SENTRY_DSN)%`.
+key set to a *very* strange value: `%env(SENTRY_DSN)%`:
+
+[[[ code('bd69cf06d2') ]]]
 
 This... kind of looks like a parameter, right? It has percent signs on both sides,
 just like how, in `cache.yaml`, we referenced the `cache_adapter` parameter with
-`%cache_adapter%`. And... it is *sort* of a parameter, but with a special
-super-power: when you surround something by `%env()%`, it tells Symfony to read
-the `SENTRY_DSN` environment value.
+`%cache_adapter%`:
+
+[[[ code('f8e5ea52fe') ]]]
+
+And... it is *sort* of a parameter, but with a special super-power: when you
+surround something by `%env()%`, it tells Symfony to read the `SENTRY_DSN`
+environment value.
 
 ## Why Environment Variables?
 
@@ -105,7 +122,7 @@ git status
 So if we pasted the `SENTRY_DSN` value here, we would have the same problem: the
 sensitive value would be committed to the repository.
 
-Here's the deal: the `.env` file is meant to store, non-sensitive, *default* values
+Here's the deal: the `.env` file is meant to store non-sensitive *default* values
 for your environment variables - usually values that are good for local development.
 This works because *after* Symfony loads `.env`, it looks for *another* file called
 `.env.local`.
@@ -113,15 +130,25 @@ This works because *after* Symfony loads `.env`, it looks for *another* file cal
 We don't have that yet, so let's create it: `.env.local`.
 
 Anything you put in this file will *override* the values in `.env`. Let's add
-our real value here: `SENTRY_DSN=` then paste.
+our real value here: `SENTRY_DSN=` then paste:
 
-*Perfect*! In `.env`, we set `SENTRY_DSN` to a non-sensitive default - in this
-case empty quotes means "don't send data to Sentry" - and in `.env.local` we
-*override* that to the real value.
+[[[ code('ace20a4aea') ]]]
+
+*Perfect*! In `.env`, we set `SENTRY_DSN` to a non-sensitive default:
+
+[[[ code('ef6fcde3e6') ]]]
+
+in this case empty quotes means "don't send data to Sentry": and in `.env.local`
+we *override* that to the real value:
+
+[[[ code('0dffbdccc7') ]]]
 
 If you're confused *why* this is better, there's *one* more thing I need to tell
-you. Open up `.gitignore`: the `.env.local` file is *ignored* from git. Check it
-out: at your terminal, run:
+you. Open up `.gitignore`: the `.env.local` file is *ignored* from Git:
+
+[[[ code('c402790452') ]]]
+
+Check it out: at your terminal, run:
 
 ```terminal
 git status
@@ -144,6 +171,8 @@ So let's... see if Sentry works! In the `show()` controller, throw a very realis
 new `\Exception()`:
 
 > bad stuff happened!
+
+[[[ code('e36c81b3a3') ]]]
 
 When we installed SentryBundle, it *did* add some services to the container. But
 the main purpose of those services isn't for us to interact with them directly:
