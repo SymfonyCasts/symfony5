@@ -17,17 +17,21 @@ the others for now: we'll talk about them in a few minutes.
 In `MarkdownHelper`, how do we get access to a service that we need? It's the
 *same* process every time: add another constructor argument:
 `LoggerInterface $logger`. To create a new property and set it, I'm going to use a
-PhpStorm shortcut. With my cursor on the argument, I'll hit Alt+Enter and select
-"Initialize properties".
+PhpStorm shortcut. With my cursor on the argument, I'll hit `Alt`+`Enter` and select
+"Initialize properties":
+
+[[[ code('7e25a81b56') ]]]
 
 Nice! But it's not magic: that just created the property and set it down here.
 
 In `parse()`, let's add some very important code: if
 `stripos($source, 'cat') !== false`, then say `$this->logger` and... let's use,
-`->info('Meow!')`.
+`->info('Meow!')`:
+
+[[[ code('e2ad61da1b') ]]]
 
 Let's take it for a spin! Move over, refresh... then click any link on the web
-debug toolbar to jump into the profiler. In the Logs section... there's our
+debug toolbar to jump into the profiler. In the "Logs" section... there's our
 message!
 
 ## Multiple Logger Services
@@ -52,7 +56,9 @@ config to that bundle, we can get a shiny new logger channel.
 
 In `config/packages/`, create a new file called `monolog.yaml`. Inside say
 `monolog:` and below, set `channels:` to an array. Let's create one new channel
-called `markdown`.
+called `markdown`:
+
+[[[ code('0937efd9e0') ]]]
 
 By the way, if you're surprised that there was no `monolog.yaml` file by default,
 there actually *is*: there's one in the `dev/` directory and another in `prod/`.
@@ -75,7 +81,9 @@ with `LoggerInterface` *and* *name* the argument `$markdownLogger`, it will pass
 us the `monolog.logger.markdown` service.
 
 Ok, let's try it! Back in `MarkdownHelper`, rename the argument from `$logger` to
-`$markdownLogger`... and update the variable name below.
+`$markdownLogger`... and update the variable name below:
+
+[[[ code('abe6722fda') ]]]
 
 Let's see what difference this makes. When we reload, it still works... but open
 up the profiler and go to the Logs section. Yes! There it is! It says "channel":
