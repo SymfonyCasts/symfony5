@@ -54,9 +54,13 @@ Ok: it asks us for a command name. I like to prefix mine with `app`: how about
 `app:random-spell`. Our new command will output a random magical spell - very useful!
 
 And... we're done! You can see that this created a new
-`src/Command/RandomSpellCommand.php` file. Let's go check it out! Cool! We can
-see the name on top, it has a description, some options... and, at the bottom, it
-ultimately prints a message. We'll start customizing this in a minute.
+`src/Command/RandomSpellCommand.php` file. Let's go check it out!
+
+[[[ code('759b657477') ]]]
+
+Cool! We can see the name on top, it has a description, some options... and,
+at the bottom, it ultimately prints a message. We'll start customizing this
+in a minute.
 
 But before we do that... guess what? The new command already works! Run:
 
@@ -75,9 +79,12 @@ that live there? Nope! We could rename this to directory to
 
 The way this works is way cooler. Open up `config/services.yaml` and look at
 the `_defaults` section. We talked about what `autowire: true` means, but I did
-*not* explain the purpose of `autoconfigure: true`. Because this is below
-`_defaults`, autoconfiguration *is* active on *all* of our services, *including*
-our new command.
+*not* explain the purpose of `autoconfigure: true`:
+
+[[[ code('e2a43c2184') ]]]
+
+Because this is below `_defaults`, autoconfiguration *is* active on *all*
+of our services, *including* our new command.
 
 When autoconfiguration is enabled for a service, it basically tells Symfony:
 
@@ -86,8 +93,11 @@ When autoconfiguration is enabled for a service, it basically tells Symfony:
 > *else* that hooks *into* Symfony, please automatically integrate it into
 > that system. Thanks!
 
-In other words, Symfony sees our service, *notices* that it extends `Command`
-and thinks:
+In other words, Symfony sees our service, *notices* that it extends `Command`:
+
+[[[ code('88f2817bd8') ]]]
+
+And thinks:
 
 > I bet this is meant to be a console command. I'll just... hook it into that
 > system automatically.
