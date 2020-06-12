@@ -139,4 +139,4 @@ Now... if you're wondering:
 
 > Hey! Where the heck does this recipe live? Can I see it?
 
-That's a *great* question! Let's look at it next.
+That's a *great* question! Let's find out where the recipes live and what they look like, next.
