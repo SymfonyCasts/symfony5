@@ -1,8 +1,12 @@
 # Autowiring Dependencies into a Service
 
-Our `MarkdownHelper` service is... sort of working. We can call it from the
-controller... but inside, we're trying to use two services - cache and markdown
-parser - that we don't have access to. How can we get those objects?
+Our `MarkdownHelper` service is... sort of working:
+
+[[[ code('edd1623d7c') ]]]
+
+We can call it from the controller... but inside, we're trying to use two
+services - cache and markdown parser - that we don't have access to.
+How can we get those objects?
 
 Real quick: I've said many times that there are service objects "floating
 around" in Symfony. But even though that's true, you *can't* just grab them out
@@ -13,19 +17,30 @@ bad code.
 ## Passing Dependencies to the Method?
 
 So how *can* we get access to services? Currently, we only know one way: by autowiring
-them into our controller methods... which we can't do here, because that's a superpower
-that *only* controllers have.
+them into our controller methods:
+
+[[[ code('8fec4c9d14') ]]]
+
+Which we can't do here, because that's a superpower that *only* controllers have.
 
 Hmm, but one idea is that we could *pass* the markdown parser and cache *from*
-our controller *into* `parse()`. This won't be our *final* solution, but let's
-try it!
+our controller *into* `parse()`:
+
+[[[ code('4e5ab04243') ]]]
+
+This won't be our *final* solution, but let's try it!
 
 On `parse()`, add two more arguments: `MarkdownParserInterface $markdownParser`
-and `CacheInterface` - from `Symfony\Contracts` - `$cache`. Cool! This method
-is happy.
+and `CacheInterface` - from `Symfony\Contracts` - `$cache`:
+
+[[[ code('8c89a60910') ]]]
+
+Cool! This method is happy.
 
 Back in `QuestionController`, pass the two extra arguments: `$markdownParser` and
-`$cache`.
+`$cache`:
+
+[[[ code('746ee2e1e4') ]]]
 
 Ok team - let's see if it works! Find your browser and refresh. It does!
 
@@ -51,7 +66,9 @@ pass them through the *constructor*.
 ## Dependency Injection via the Constructor
 
 At the top, create a new `public function __construct()`. Move the two arguments
-here... and delete them from `parse()`.
+here... and delete them from `parse()`:
+
+[[[ code('a142f44313') ]]]
 
 Before we finish this, I need to tell you that autowiring in fact works in
 *two* places. We already know that you can autowire services into your controller
@@ -65,20 +82,24 @@ that because *we* are the ones that are calling that method and passing it argum
 *Anyways*, when Symfony instantiates `MarkdownHelper`, it will pass us these
 two arguments thanks to autowiring. What do we... *do* with them? Create two private
 properties: `$markdownParser` and `$cache`. Then, in the constructor, set those:
-`$this->markdownParser = $markdownParser` and `$this->cache = $cache`.
+`$this->markdownParser = $markdownParser` and `$this->cache = $cache`:
+
+[[[ code('f54f768a02') ]]]
 
 Basically, when the object is instantiated, we're taking those objects and storing
 them for later. Then, whenever we call `parse()`, the two properties will already
 hold those objects. Let's use them: `$this->cache`, and then we don't need
 to pass `$markdownParser` to the `use` because we can instead say
-`$this->markdownParser`.
+`$this->markdownParser`:
+
+[[[ code('cac7a38595') ]]]
 
 I love it! This class is now a *perfect* service: we add our dependencies to the
 constructor, set them on properties, then use them below.
 
 ## Dependency Injection?
 
-By the way, what we *just* did has a fancy name! Ooo. It's dependency injection. But
+By the way, what we *just* did has a fancy name! Ooo. It's *dependency injection*. But
 don't be too impressed: it's a simple concept. Whenever you're inside a service -
 like `MarkdownHelper` - and you realize that you need something that you don't
 have access to, you'll follow the *same* solution: add another constructor argument,
@@ -88,7 +109,11 @@ something, don't expect to grab it out of thin air: force Symfony to pass it
 *to* you by adding it to the constructor.
 
 Phew! Back in `QuestionController`, we can celebrate by removing the two extra
-arguments to `parse()`. And when we move over and refresh... it works!
+arguments to `parse()`:
+
+[[[ code('ceaa1e3772') ]]]
+
+And when we move over and refresh... it works!
 
 If this didn't feel *totally* comfortable yet, don't worry. The process of creating
 services is something that we're gonna to do over and over again. The benefit is
@@ -97,9 +122,12 @@ our app. We pass it the markdown string and it takes care of the caching and
 markdown processing.
 
 Heck, in `QuestionController`, we don't even need the `$markdownParser` and
-`$cache` arguments to the `show()` method! Remove them and, on top
-of the class, even though it doesn't hurt anything, let's delete the two `use`
-statements.
+`$cache` arguments to the `show()` method!
+
+[[[ code('5c6c237fef') ]]]
+
+Remove them and, on top of the class, even though it doesn't hurt anything,
+let's delete the two `use` statements.
 
 Next: the service container holds services! That's true! But it *also* holds
 something else: scalar configuration.

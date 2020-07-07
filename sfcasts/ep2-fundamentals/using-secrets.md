@@ -39,10 +39,13 @@ Ok: because we're in the `dev` environment, the `dev` secret - the empty string 
 is the one that should be used. Refresh the page, check the dump, and expand it
 a few times. It's *still* using the production value.
 
-Go back into `config/packages/sentry.yaml`. We're *still* using the syntax
-for reading *environment* variables. How can we tell it to read the
-`SENTRY_DSN` secret instead? Surprise! To tell Symfony to read
-a `SENTRY_DSN` *secret*, we use the *exact* same syntax.
+Go back into `config/packages/sentry.yaml`:
+
+[[[ code('593883e732') ]]]
+
+We're *still* using the syntax for reading *environment* variables. How can
+we tell it to read the `SENTRY_DSN` secret instead? Surprise! To tell Symfony
+to read a `SENTRY_DSN` *secret*, we use the *exact* same syntax.
 
 ## Environment Variables vs Secrets
 
@@ -55,14 +58,23 @@ variables take priority.
 This means one important thing: when you identify an environment variable that
 you want to convert into a secret, you need to *remove* it entirely as an
 environment variable. Set a value as an environment variable *or* a secret, but
-not both. Delete the `SENTRY_DSN` entry from `.env` and `.env.local`.
+not both. Delete the `SENTRY_DSN` entry from `.env` and `.env.local`:
+
+[[[ code('7b72910f5c') ]]]
+
+[[[ code('67a661c074') ]]]
 
 *Now* Symfony should be read from our `dev` vault. Refresh... expand the object
 and... yes! All the values are `null`! It works!
 
 Let's try out production. Until now, to switch to the `prod` environment, I've
-been updating the `.env` file. But now that we understand `.env.local`, let's
-add `APP_ENV=prod` there instead.
+been updating the `.env` file:
+
+[[[ code('d3e2035ab5') ]]]
+
+But now that we understand `.env.local`, let's add `APP_ENV=prod` there instead:
+
+[[[ code('7b0aba700b') ]]]
 
 Next, clear your cache:
 
@@ -76,8 +88,14 @@ my project has the prod decrypt key. If that was *not* there, we would get an
 error.
 
 Go ahead and take out the `APP_ENV=` line in `.env.local` to get back to the
-`dev` environment. And in `QuestionController`, let's cleanup: remove the `dump()`,
-the `new Exception` and the `HubInterface` argument.
+`dev` environment:
+
+[[[ code('c28b87309b') ]]]
+
+And in `QuestionController`, let's cleanup: remove the `dump()`, the `new Exception`
+and the `HubInterface` argument:
+
+[[[ code('65d8ec65d2') ]]]
 
 After this... things are working again.
 
