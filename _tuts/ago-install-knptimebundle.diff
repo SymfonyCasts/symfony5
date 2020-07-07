@@ -1,0 +1,330 @@
+diff --git a/composer.json b/composer.json
+index 87dd19d..8838a5f 100644
+--- a/composer.json
++++ b/composer.json
+@@ -6,6 +6,7 @@
+         "ext-ctype": "*",
+         "ext-iconv": "*",
+         "knplabs/knp-markdown-bundle": "^1.8",
++        "knplabs/knp-time-bundle": "^1.11",
+         "sensio/framework-extra-bundle": "^5.5",
+         "sentry/sentry-symfony": "^3.4",
+         "symfony/asset": "5.1.*",
+diff --git a/composer.lock b/composer.lock
+index 88b7dba..1c64cb2 100644
+--- a/composer.lock
++++ b/composer.lock
+@@ -4,7 +4,7 @@
+         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
+         "This file is @generated automatically"
+     ],
+-    "content-hash": "dfb06d824f8fdf2e3f38c553fe85e940",
++    "content-hash": "3513267a2f4fcb81868171da3ca3f19a",
+     "packages": [
+         {
+             "name": "clue/stream-filter",
+@@ -1862,6 +1862,73 @@
+             ],
+             "time": "2019-11-26T13:18:52+00:00"
+         },
++        {
++            "name": "knplabs/knp-time-bundle",
++            "version": "v1.11.0",
++            "target-dir": "Knp/Bundle/TimeBundle",
++            "source": {
++                "type": "git",
++                "url": "https://github.com/KnpLabs/KnpTimeBundle.git",
++                "reference": "8f3983f8b53e9c350f7dd476461bd7f5b32dfc89"
++            },
++            "dist": {
++                "type": "zip",
++                "url": "https://api.github.com/repos/KnpLabs/KnpTimeBundle/zipball/8f3983f8b53e9c350f7dd476461bd7f5b32dfc89",
++                "reference": "8f3983f8b53e9c350f7dd476461bd7f5b32dfc89",
++                "shasum": ""
++            },
++            "require": {
++                "php": "^7.1.3",
++                "symfony/config": "~3.4|^4.3|^5.0",
++                "symfony/dependency-injection": "~3.4|^4.3|^5.0",
++                "symfony/templating": "~3.4|^4.3|^5.0",
++                "symfony/translation": "^4.3|^5.0"
++            },
++            "require-dev": {
++                "symfony/framework-bundle": "^4.3|^5.0",
++                "symfony/phpunit-bridge": "^4.3|^5.0",
++                "symfony/twig-bundle": "^4.3|^5.0"
++            },
++            "suggest": {
++                "symfony/twig-bundle": "to use the Twig time_diff function"
++            },
++            "type": "symfony-bundle",
++            "extra": {
++                "branch-alias": {
++                    "dev-master": "1.1.x-dev"
++                }
++            },
++            "autoload": {
++                "psr-0": {
++                    "Knp\\Bundle\\TimeBundle": ""
++                }
++            },
++            "notification-url": "https://packagist.org/downloads/",
++            "license": [
++                "MIT"
++            ],
++            "authors": [
++                {
++                    "name": "KnpLabs Team",
++                    "homepage": "http://knplabs.com"
++                },
++                {
++                    "name": "Symfony Community",
++                    "homepage": "http://github.com/KnpLabs/KnpTimeBundle/contributors"
++                }
++            ],
++            "description": "Knplabs time bundle makes your dates look sensible and descriptive",
++            "homepage": "http://github.com/KnpLabs/KnpTimeBundle",
++            "keywords": [
++                "bundle",
++                "date",
++                "descriptive time",
++                "knp",
++                "knplabs",
++                "time"
++            ],
++            "time": "2019-12-30T16:00:41+00:00"
++        },
+         {
+             "name": "michelf/php-markdown",
+             "version": "1.9.0",
+@@ -5995,6 +6062,168 @@
+             ],
+             "time": "2020-06-11T12:16:36+00:00"
+         },
++        {
++            "name": "symfony/templating",
++            "version": "v5.1.2",
++            "source": {
++                "type": "git",
++                "url": "https://github.com/symfony/templating.git",
++                "reference": "d3f0347e70029067ab690bfa9ff121c1c929ee4e"
++            },
++            "dist": {
++                "type": "zip",
++                "url": "https://api.github.com/repos/symfony/templating/zipball/d3f0347e70029067ab690bfa9ff121c1c929ee4e",
++                "reference": "d3f0347e70029067ab690bfa9ff121c1c929ee4e",
++                "shasum": ""
++            },
++            "require": {
++                "php": ">=7.2.5",
++                "symfony/polyfill-ctype": "~1.8"
++            },
++            "require-dev": {
++                "psr/log": "~1.0"
++            },
++            "suggest": {
++                "psr/log-implementation": "For using debug logging in loaders"
++            },
++            "type": "library",
++            "extra": {
++                "branch-alias": {
++                    "dev-master": "5.1-dev"
++                }
++            },
++            "autoload": {
++                "psr-4": {
++                    "Symfony\\Component\\Templating\\": ""
++                },
++                "exclude-from-classmap": [
++                    "/Tests/"
++                ]
++            },
++            "notification-url": "https://packagist.org/downloads/",
++            "license": [
++                "MIT"
++            ],
++            "authors": [
++                {
++                    "name": "Fabien Potencier",
++                    "email": "fabien@symfony.com"
++                },
++                {
++                    "name": "Symfony Community",
++                    "homepage": "https://symfony.com/contributors"
++                }
++            ],
++            "description": "Symfony Templating Component",
++            "homepage": "https://symfony.com",
++            "funding": [
++                {
++                    "url": "https://symfony.com/sponsor",
++                    "type": "custom"
++                },
++                {
++                    "url": "https://github.com/fabpot",
++                    "type": "github"
++                },
++                {
++                    "url": "https://tidelift.com/funding/github/packagist/symfony/symfony",
++                    "type": "tidelift"
++                }
++            ],
++            "time": "2020-05-28T08:20:44+00:00"
++        },
++        {
++            "name": "symfony/translation",
++            "version": "v5.1.2",
++            "source": {
++                "type": "git",
++                "url": "https://github.com/symfony/translation.git",
++                "reference": "d387f07d4c15f9c09439cf3f13ddbe0b2c5e8be2"
++            },
++            "dist": {
++                "type": "zip",
++                "url": "https://api.github.com/repos/symfony/translation/zipball/d387f07d4c15f9c09439cf3f13ddbe0b2c5e8be2",
++                "reference": "d387f07d4c15f9c09439cf3f13ddbe0b2c5e8be2",
++                "shasum": ""
++            },
++            "require": {
++                "php": ">=7.2.5",
++                "symfony/polyfill-mbstring": "~1.0",
++                "symfony/polyfill-php80": "^1.15",
++                "symfony/translation-contracts": "^2"
++            },
++            "conflict": {
++                "symfony/config": "<4.4",
++                "symfony/dependency-injection": "<5.0",
++                "symfony/http-kernel": "<5.0",
++                "symfony/twig-bundle": "<5.0",
++                "symfony/yaml": "<4.4"
++            },
++            "provide": {
++                "symfony/translation-implementation": "2.0"
++            },
++            "require-dev": {
++                "psr/log": "~1.0",
++                "symfony/config": "^4.4|^5.0",
++                "symfony/console": "^4.4|^5.0",
++                "symfony/dependency-injection": "^5.0",
++                "symfony/finder": "^4.4|^5.0",
++                "symfony/http-kernel": "^5.0",
++                "symfony/intl": "^4.4|^5.0",
++                "symfony/service-contracts": "^1.1.2|^2",
++                "symfony/yaml": "^4.4|^5.0"
++            },
++            "suggest": {
++                "psr/log-implementation": "To use logging capability in translator",
++                "symfony/config": "",
++                "symfony/yaml": ""
++            },
++            "type": "library",
++            "extra": {
++                "branch-alias": {
++                    "dev-master": "5.1-dev"
++                }
++            },
++            "autoload": {
++                "psr-4": {
++                    "Symfony\\Component\\Translation\\": ""
++                },
++                "exclude-from-classmap": [
++                    "/Tests/"
++                ]
++            },
++            "notification-url": "https://packagist.org/downloads/",
++            "license": [
++                "MIT"
++            ],
++            "authors": [
++                {
++                    "name": "Fabien Potencier",
++                    "email": "fabien@symfony.com"
++                },
++                {
++                    "name": "Symfony Community",
++                    "homepage": "https://symfony.com/contributors"
++                }
++            ],
++            "description": "Symfony Translation Component",
++            "homepage": "https://symfony.com",
++            "funding": [
++                {
++                    "url": "https://symfony.com/sponsor",
++                    "type": "custom"
++                },
++                {
++                    "url": "https://github.com/fabpot",
++                    "type": "github"
++                },
++                {
++                    "url": "https://tidelift.com/funding/github/packagist/symfony/symfony",
++                    "type": "tidelift"
++                }
++            ],
++            "time": "2020-05-30T20:35:19+00:00"
++        },
+         {
+             "name": "symfony/translation-contracts",
+             "version": "v2.1.3",
+diff --git a/config/bundles.php b/config/bundles.php
+index d206866..097e21c 100644
+--- a/config/bundles.php
++++ b/config/bundles.php
+@@ -14,4 +14,5 @@ return [
+     Symfony\Bundle\MakerBundle\MakerBundle::class => ['dev' => true],
+     Doctrine\Bundle\DoctrineBundle\DoctrineBundle::class => ['all' => true],
+     Doctrine\Bundle\MigrationsBundle\DoctrineMigrationsBundle::class => ['all' => true],
++    Knp\Bundle\TimeBundle\KnpTimeBundle::class => ['all' => true],
+ ];
+diff --git a/config/packages/translation.yaml b/config/packages/translation.yaml
+new file mode 100644
+index 0000000..05a2b3d
+--- /dev/null
++++ b/config/packages/translation.yaml
+@@ -0,0 +1,6 @@
++framework:
++    default_locale: en
++    translator:
++        default_path: '%kernel.project_dir%/translations'
++        fallbacks:
++            - en
+diff --git a/symfony.lock b/symfony.lock
+index c99f217..59845c7 100644
+--- a/symfony.lock
++++ b/symfony.lock
+@@ -99,6 +99,9 @@
+     "knplabs/knp-markdown-bundle": {
+         "version": "1.8.1"
+     },
++    "knplabs/knp-time-bundle": {
++        "version": "v1.11.0"
++    },
+     "michelf/php-markdown": {
+         "version": "1.9.0"
+     },
+@@ -378,6 +381,22 @@
+     "symfony/string": {
+         "version": "v5.1.2"
+     },
++    "symfony/templating": {
++        "version": "v5.1.2"
++    },
++    "symfony/translation": {
++        "version": "3.3",
++        "recipe": {
++            "repo": "github.com/symfony/recipes",
++            "branch": "master",
++            "version": "3.3",
++            "ref": "2ad9d2545bce8ca1a863e50e92141f0b9d87ffcd"
++        },
++        "files": [
++            "config/packages/translation.yaml",
++            "translations/.gitignore"
++        ]
++    },
+     "symfony/translation-contracts": {
+         "version": "v2.0.1"
+     },
+diff --git a/translations/.gitignore b/translations/.gitignore
+new file mode 100644
+index 0000000..e69de29

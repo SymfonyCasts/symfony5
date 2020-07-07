@@ -1,0 +1,13 @@
+diff --git a/docker-compose.yaml b/docker-compose.yaml
+index f1e1589..e5ad45b 100644
+--- a/docker-compose.yaml
++++ b/docker-compose.yaml
+@@ -1,7 +1,7 @@
+ version: '3.7'
+ services:
+     database:
+-        image: 'mysql:latest'
++        image: 'mysql:8.0'
+         environment:
+             MYSQL_ROOT_PASSWORD: 'root'
+         ports: ['3306']

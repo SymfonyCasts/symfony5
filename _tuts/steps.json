@@ -669,7 +669,127 @@
             "id": "maker-safe-for-html",
             "name": "Maker: safe for HTML",
             "description": null
+        },
+        {
+            "id": "pre-ep3-upgrade-deps",
+            "name": "PRE_EP3: Upgrade deps",
+            "description": null
+        },
+        {
+            "id": "pre-ep3-framework-bundle-recipe",
+            "name": "PRE_EP3: framework-bundle recipe",
+            "description": null
+        },
+        {
+            "id": "pre-ep3-symfony-console-recipe",
+            "name": "PRE_EP3: symfony\/console recipe",
+            "description": null
+        },
+        {
+            "id": "pre-ep3-monolog-bundle-recipe",
+            "name": "PRE_EP3: monolog-bundle recipe",
+            "description": null
+        },
+        {
+            "id": "symfony-routing-recipe",
+            "name": "symfony\/routing recipe",
+            "description": null
+        },
+        {
+            "id": "doctrine-install-install-doctrine",
+            "name": "Doctrine Install: Install doctrine",
+            "description": null
+        },
+        {
+            "id": "docker-make-docker-database",
+            "name": "Docker: make:docker:database",
+            "description": null
+        },
+        {
+            "id": "docker-configure-server-version",
+            "name": "Docker: configure server_version",
+            "description": null
+        },
+        {
+            "id": "docker-set-8-0-in-compose",
+            "name": "Docker: set 8.0 in compose",
+            "description": null
+        },
+        {
+            "id": "entity-generate-question-entity",
+            "name": "Entity: generate Question entity",
+            "description": null
+        },
+        {
+            "id": "entity-make-migration",
+            "name": "Entity: make:migration",
+            "description": null
+        },
+        {
+            "id": "entity-make-slug-unique",
+            "name": "Entity: make slug unique",
+            "description": null
+        },
+        {
+            "id": "entity-make-2nd-migration",
+            "name": "Entity: make 2nd migration",
+            "description": null
+        },
+        {
+            "id": "save-entity-add-new-controller",
+            "name": "Save Entity: Add \"New\" controller",
+            "description": null
+        },
+        {
+            "id": "save-entity-move-above",
+            "name": "Save Entity: move above ",
+            "description": null
+        },
+        {
+            "id": "save-entity-create-question-object",
+            "name": "Save Entity: Create Question object",
+            "description": null
+        },
+        {
+            "id": "save-entity-persist-and-flush",
+            "name": "Save Entity: persist and flush",
+            "description": null
+        },
+        {
+            "id": "query-use-em-to-get-repo-and-find",
+            "name": "Query: use em to get repo and find",
+            "description": null
+        },
+        {
+            "id": "query-404-if-not-found",
+            "name": "Query: 404 if not found",
+            "description": null
+        },
+        {
+            "id": "query-pass-question-to-template",
+            "name": "Query: Pass question to template",
+            "description": null
+        },
+        {
+            "id": "query-use-parse-markdown",
+            "name": "Query: use |parse_markdown",
+            "description": null
+        },
+        {
+            "id": "ago-print-date-in-tpl",
+            "name": "Ago: print date in tpl",
+            "description": null
+        },
+        {
+            "id": "ago-install-knptimebundle",
+            "name": "Ago: install KnpTimeBundle",
+            "description": null
+        },
+        {
+            "id": "ago-use-ago",
+            "name": "Ago: use |ago",
+            "description": null
         }
     ],
-    "sha": "66267c59f369ae832a1dec4b3d940a7931402393"
+    "sha": "f8ac039488f91e540014dedf8d93dc52830245fb"
 }

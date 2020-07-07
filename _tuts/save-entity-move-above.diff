@@ -1,0 +1,32 @@
+diff --git a/src/Controller/QuestionController.php b/src/Controller/QuestionController.php
+index 46e4807..fc02df0 100644
+--- a/src/Controller/QuestionController.php
++++ b/src/Controller/QuestionController.php
+@@ -37,6 +37,14 @@ class QuestionController extends AbstractController
+         return $this->render('question/homepage.html.twig');
+     }
+ 
++    /**
++     * @Route("/questions/new")
++     */
++    public function new()
++    {
++        return new Response('Time for some Doctrine magic!');
++    }
++
+     /**
+      * @Route("/questions/{slug}", name="app_question_show")
+      */
+@@ -61,12 +69,4 @@ class QuestionController extends AbstractController
+             'answers' => $answers,
+         ]);
+     }
+-
+-    /**
+-     * @Route("/questions/new")
+-     */
+-    public function new()
+-    {
+-        return new Response('Time for some Doctrine magic!');
+-    }
+ }

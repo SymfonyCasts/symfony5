@@ -1,0 +1,17 @@
+diff --git a/src/Controller/QuestionController.php b/src/Controller/QuestionController.php
+index 7bc8c48..46e4807 100644
+--- a/src/Controller/QuestionController.php
++++ b/src/Controller/QuestionController.php
+@@ -61,4 +61,12 @@ class QuestionController extends AbstractController
+             'answers' => $answers,
+         ]);
+     }
++
++    /**
++     * @Route("/questions/new")
++     */
++    public function new()
++    {
++        return new Response('Time for some Doctrine magic!');
++    }
+ }

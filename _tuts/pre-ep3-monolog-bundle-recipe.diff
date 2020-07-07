@@ -1,0 +1,47 @@
+diff --git a/config/packages/prod/deprecations.yaml b/config/packages/prod/deprecations.yaml
+new file mode 100644
+index 0000000..920a061
+--- /dev/null
++++ b/config/packages/prod/deprecations.yaml
+@@ -0,0 +1,8 @@
++# As of Symfony 5.1, deprecations are logged in the dedicated "deprecation" channel when it exists
++#monolog:
++#    channels: [deprecation]
++#    handlers:
++#        deprecation:
++#            type: stream
++#            channels: [deprecation]
++#            path: "%kernel.logs_dir%/%kernel.environment%.deprecations.log"
+diff --git a/config/packages/prod/monolog.yaml b/config/packages/prod/monolog.yaml
+index 14b42bb..bfe69c0 100644
+--- a/config/packages/prod/monolog.yaml
++++ b/config/packages/prod/monolog.yaml
+@@ -14,11 +14,3 @@ monolog:
+             type: console
+             process_psr_3_messages: false
+             channels: ["!event", "!doctrine"]
+-        deprecation:
+-            type: stream
+-            path: "%kernel.logs_dir%/%kernel.environment%.deprecations.log"
+-        deprecation_filter:
+-            type: filter
+-            handler: deprecation
+-            max_level: info
+-            channels: ["php"]
+diff --git a/symfony.lock b/symfony.lock
+index 422b7ff..12df1c0 100644
+--- a/symfony.lock
++++ b/symfony.lock
+@@ -246,10 +246,11 @@
+             "repo": "github.com/symfony/recipes",
+             "branch": "master",
+             "version": "3.3",
+-            "ref": "877bdb4223245783d00ed1f7429aa7ebc606d914"
++            "ref": "d7249f7d560f6736115eee1851d02a65826f0a56"
+         },
+         "files": [
+             "config/packages/dev/monolog.yaml",
++            "config/packages/prod/deprecations.yaml",
+             "config/packages/prod/monolog.yaml",
+             "config/packages/test/monolog.yaml"
+         ]
