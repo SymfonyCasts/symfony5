@@ -1,5 +1,5 @@
 diff --git a/src/Controller/QuestionController.php b/src/Controller/QuestionController.php
-index fc02df0..62ea81c 100644
+index 1c6c66c..092de65 100644
 --- a/src/Controller/QuestionController.php
 +++ b/src/Controller/QuestionController.php
 @@ -2,6 +2,7 @@
@@ -9,8 +9,8 @@ index fc02df0..62ea81c 100644
 +use App\Entity\Question;
  use App\Service\MarkdownHelper;
  use Psr\Log\LoggerInterface;
- use Sentry\State\HubInterface;
-@@ -42,6 +43,26 @@ class QuestionController extends AbstractController
+ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+@@ -33,6 +34,26 @@ class QuestionController extends AbstractController
       */
      public function new()
      {

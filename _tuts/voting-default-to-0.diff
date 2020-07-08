@@ -1,0 +1,13 @@
+diff --git a/src/Entity/Question.php b/src/Entity/Question.php
+index 6686485..ab68e0e 100644
+--- a/src/Entity/Question.php
++++ b/src/Entity/Question.php
+@@ -40,7 +40,7 @@ class Question
+     /**
+      * @ORM\Column(type="integer")
+      */
+-    private $votes;
++    private $votes = 0;
+ 
+     public function getId(): ?int
+     {

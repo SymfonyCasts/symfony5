@@ -1,5 +1,5 @@
 diff --git a/src/Controller/QuestionController.php b/src/Controller/QuestionController.php
-index 62ea81c..164a3e1 100644
+index 092de65..1ee92c6 100644
 --- a/src/Controller/QuestionController.php
 +++ b/src/Controller/QuestionController.php
 @@ -4,6 +4,7 @@ namespace App\Controller;
@@ -8,9 +8,9 @@ index 62ea81c..164a3e1 100644
  use App\Service\MarkdownHelper;
 +use Doctrine\ORM\EntityManagerInterface;
  use Psr\Log\LoggerInterface;
- use Sentry\State\HubInterface;
  use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
-@@ -41,7 +42,7 @@ class QuestionController extends AbstractController
+ use Symfony\Component\HttpFoundation\Response;
+@@ -32,7 +33,7 @@ class QuestionController extends AbstractController
      /**
       * @Route("/questions/new")
       */
@@ -19,7 +19,7 @@ index 62ea81c..164a3e1 100644
      {
          $question = new Question();
          $question->setName('Missing pants')
-@@ -63,7 +64,14 @@ EOF
+@@ -54,7 +55,14 @@ EOF
              $question->setAskedAt(new \DateTime(sprintf('-%d days', rand(1, 100))));
          }
  

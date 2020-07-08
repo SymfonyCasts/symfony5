@@ -1,8 +1,8 @@
 diff --git a/src/Controller/QuestionController.php b/src/Controller/QuestionController.php
-index 118048a..c9315a2 100644
+index 76c24eb..79dea80 100644
 --- a/src/Controller/QuestionController.php
 +++ b/src/Controller/QuestionController.php
-@@ -89,20 +89,15 @@ EOF
+@@ -80,20 +80,15 @@ EOF
          if (!$question) {
              throw $this->createNotFoundException(sprintf('no question found for slug "%s"', $slug));
          }
@@ -25,7 +25,7 @@ index 118048a..c9315a2 100644
          ]);
      }
 diff --git a/templates/question/show.html.twig b/templates/question/show.html.twig
-index eebd034..4fd81a5 100644
+index b17c5af..1157568 100644
 --- a/templates/question/show.html.twig
 +++ b/templates/question/show.html.twig
 @@ -1,6 +1,6 @@
@@ -36,8 +36,8 @@ index eebd034..4fd81a5 100644
  
  {% block body %}
  <div class="container">
-@@ -14,10 +14,10 @@
-                             <img src="{{ asset('images/tisha.png') }}" width="100" height="100"  alt="Tisha avatar">
+@@ -26,10 +26,10 @@
+                             </div>
                          </div>
                          <div class="col">
 -                            <h1 class="q-title-show">{{ question }}</h1>

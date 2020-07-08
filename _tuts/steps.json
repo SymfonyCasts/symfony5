@@ -691,8 +691,28 @@
             "description": null
         },
         {
-            "id": "symfony-routing-recipe",
-            "name": "symfony\/routing recipe",
+            "id": "pre-ep3-upgrade-node-deps",
+            "name": "PRE_EP3: upgrade node deps",
+            "description": null
+        },
+        {
+            "id": "pre-ep3-remove-old-comment",
+            "name": "PRE_EP3: remove old comment",
+            "description": null
+        },
+        {
+            "id": "pre-ep3-tweak-margin-on-homepage",
+            "name": "PRE_EP3: tweak margin on homepage",
+            "description": null
+        },
+        {
+            "id": "pre-ep3-re-work-upvotes-styling",
+            "name": "PRE_EP3: re-work upvotes styling",
+            "description": null
+        },
+        {
+            "id": "pre-ep3-symfony-routing-recipe",
+            "name": "PRE_EP3: symfony\/routing recipe",
             "description": null
         },
         {
@@ -771,6 +791,11 @@
             "description": null
         },
         {
+            "id": "query-remove-markdownhelper-arg",
+            "name": "Query: remove MarkdownHelper arg",
+            "description": null
+        },
+        {
             "id": "query-use-parse-markdown",
             "name": "Query: use |parse_markdown",
             "description": null
@@ -789,7 +814,107 @@
             "id": "ago-use-ago",
             "name": "Ago: use |ago",
             "description": null
+        },
+        {
+            "id": "more-queries-findall-on-homepage",
+            "name": "More Queries: findAll() on homepage",
+            "description": null
+        },
+        {
+            "id": "more-queries-loop-in-template",
+            "name": "More Queries: loop in template",
+            "description": null
+        },
+        {
+            "id": "more-queries-render-dynamic-data",
+            "name": "More Queries: render dynamic data",
+            "description": null
+        },
+        {
+            "id": "more-queries-change-order",
+            "name": "More Queries: change order",
+            "description": null
+        },
+        {
+            "id": "more-queries-uncomment-repo-method",
+            "name": "More Queries: uncomment repo method",
+            "description": null
+        },
+        {
+            "id": "more-queries-write-query-builder",
+            "name": "More Queries: Write query builder",
+            "description": null
+        },
+        {
+            "id": "more-queries-use-custom-method",
+            "name": "More Queries: use custom method",
+            "description": null
+        },
+        {
+            "id": "more-queries-autowire-repository",
+            "name": "More Queries: Autowire repository",
+            "description": null
+        },
+        {
+            "id": "more-queries-reuse-query",
+            "name": "More Queries: Reuse query",
+            "description": null
+        },
+        {
+            "id": "more-queries-get-or-create-query-builder",
+            "name": "More Queries: Get or create query builder",
+            "description": null
+        },
+        {
+            "id": "more-queries-use-param-converter",
+            "name": "More Queries: Use param converter",
+            "description": null
+        },
+        {
+            "id": "more-queries-remove-extra-em-arg",
+            "name": "More Queries: remove extra em arg",
+            "description": null
+        },
+        {
+            "id": "voting-add-votes-field",
+            "name": "Voting: add votes field",
+            "description": null
+        },
+        {
+            "id": "voting-default-to-0",
+            "name": "Voting: default to 0",
+            "description": null
+        },
+        {
+            "id": "voting-remove-from-int-return",
+            "name": "Voting: remove ? from int return",
+            "description": null
+        },
+        {
+            "id": "voting-set-new-field-on-dummy-new-page",
+            "name": "Voting: set new field on dummy new page",
+            "description": null
+        },
+        {
+            "id": "voting-render-votes",
+            "name": "Voting: render votes",
+            "description": null
+        },
+        {
+            "id": "voting-getvotesstring-entity-method",
+            "name": "Voting: getVotesString entity method",
+            "description": null
+        },
+        {
+            "id": "voting-use-on-homepage",
+            "name": "Voting: use on homepage",
+            "description": null
+        },
+        {
+            "id": "vote-action-add-form-action",
+            "name": "Vote Action: add form + action",
+            "description": null
         }
     ],
-    "sha": "f8ac039488f91e540014dedf8d93dc52830245fb"
+    "sha": "4251cb44bed5b5dca9eb0d9b789cf6d1ce127ef3"
 }

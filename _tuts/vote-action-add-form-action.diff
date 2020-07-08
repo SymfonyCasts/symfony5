@@ -1,0 +1,40 @@
+diff --git a/src/Controller/QuestionController.php b/src/Controller/QuestionController.php
+index dabed65..553c1e1 100644
+--- a/src/Controller/QuestionController.php
++++ b/src/Controller/QuestionController.php
+@@ -92,4 +92,12 @@ EOF
+             'answers' => $answers,
+         ]);
+     }
++
++    /**
++     * @Route("/questions/{slug}/vote", name="app_question_vote", methods="POST")
++     */
++    public function questionVote(Question $question)
++    {
++        dd($question);
++    }
+ }
+diff --git a/templates/question/show.html.twig b/templates/question/show.html.twig
+index 065cf1b..e1fc4b5 100644
+--- a/templates/question/show.html.twig
++++ b/templates/question/show.html.twig
+@@ -22,11 +22,13 @@
+                                     {% endif %}
+                                 </small>
+ 
+-                                <div class="vote-arrows vote-arrows-alt flex-fill pt-2" style="min-width: 90px;">
+-                                    <button class="vote-up btn btn-link" data-direction="up"><i class="far fa-arrow-alt-circle-up"></i></button>
+-                                    <button class="vote-down btn btn-link" data-direction="down"><i class="far fa-arrow-alt-circle-down"></i></button>
+-                                    <span>{{ question.votesString }}</span>
+-                                </div>
++                                <form action="{{ path('app_question_vote', { slug: question.slug }) }}" method="POST">
++                                    <div class="vote-arrows vote-arrows-alt flex-fill pt-2" style="min-width: 90px;">
++                                        <button class="vote-up btn btn-link" data-direction="up"><i class="far fa-arrow-alt-circle-up"></i></button>
++                                        <button class="vote-down btn btn-link" data-direction="down"><i class="far fa-arrow-alt-circle-down"></i></button>
++                                        <span>{{ question.votesString }}</span>
++                                    </div>
++                                </form>
+                             </div>
+                         </div>
+                         <div class="col">

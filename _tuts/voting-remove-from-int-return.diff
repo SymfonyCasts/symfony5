@@ -1,0 +1,13 @@
+diff --git a/src/Entity/Question.php b/src/Entity/Question.php
+index ab68e0e..e0a8806 100644
+--- a/src/Entity/Question.php
++++ b/src/Entity/Question.php
+@@ -95,7 +95,7 @@ class Question
+         return $this;
+     }
+ 
+-    public function getVotes(): ?int
++    public function getVotes(): int
+     {
+         return $this->votes;
+     }
