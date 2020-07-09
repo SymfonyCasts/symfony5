@@ -126,11 +126,6 @@
             "description": null
         },
         {
-            "id": "profiler-delete-me",
-            "name": "Profiler: delete me",
-            "description": null
-        },
-        {
             "id": "assets-copy-in-layout",
             "name": "Assets: Copy in layout",
             "description": null
@@ -386,11 +381,6 @@
             "description": null
         },
         {
-            "id": "config-delete-me",
-            "name": "Config: delete me",
-            "description": null
-        },
-        {
             "id": "environment-change-app-env-to-prod",
             "name": "Environment: change APP_ENV to prod",
             "description": null
@@ -593,16 +583,6 @@
         {
             "id": "vault-bootstrap-prod-vault",
             "name": "Vault: bootstrap prod vault",
-            "description": null
-        },
-        {
-            "id": "vault-delete-me",
-            "name": "Vault: delete me",
-            "description": null
-        },
-        {
-            "id": "vault-delete-me-2",
-            "name": "Vault: delete me 2",
             "description": null
         },
         {
@@ -1036,11 +1016,6 @@
             "description": null
         },
         {
-            "id": "delete-me-1",
-            "name": "delete me 1",
-            "description": null
-        },
-        {
             "id": "timestampable-make-migration",
             "name": "Timestampable: make:migration",
             "description": null
@@ -1053,36 +1028,6 @@
         {
             "id": "timestampable-make-another-migration",
             "name": "Timestampable: make another migration",
-            "description": null
-        },
-        {
-            "id": "delete-me-2",
-            "name": "delete me 2",
-            "description": null
-        },
-        {
-            "id": "delete-me-3",
-            "name": "delete me 3",
-            "description": null
-        },
-        {
-            "id": "delete-me-4",
-            "name": "delete me 4",
-            "description": null
-        },
-        {
-            "id": "delete-me-5",
-            "name": "delete me 5",
-            "description": null
-        },
-        {
-            "id": "delete-me-6",
-            "name": "delete me 6",
-            "description": null
-        },
-        {
-            "id": "delete-me-7",
-            "name": "delete me 7",
             "description": null
         }
     ],
