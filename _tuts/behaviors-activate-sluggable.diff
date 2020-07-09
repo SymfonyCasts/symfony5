@@ -1,0 +1,31 @@
+diff --git a/config/packages/stof_doctrine_extensions.yaml b/config/packages/stof_doctrine_extensions.yaml
+index c83f3b1..e7ac8f4 100644
+--- a/config/packages/stof_doctrine_extensions.yaml
++++ b/config/packages/stof_doctrine_extensions.yaml
+@@ -2,3 +2,6 @@
+ # See the official DoctrineExtensions documentation for more details: https://github.com/Atlantic18/DoctrineExtensions/tree/master/doc/
+ stof_doctrine_extensions:
+     default_locale: en_US
++    orm:
++        default:
++            sluggable: true
+diff --git a/src/Factory/QuestionFactory.php b/src/Factory/QuestionFactory.php
+index a927397..88c1a9a 100644
+--- a/src/Factory/QuestionFactory.php
++++ b/src/Factory/QuestionFactory.php
+@@ -48,14 +48,7 @@ EOF
+ 
+     protected function initialize()
+     {
+-        return $this
+-            ->afterInstantiate(function(Question $question) {
+-                if (!$question->getSlug()) {
+-                    $slugger = new AsciiSlugger();
+-                    $question->setSlug($slugger->slug($question->getName()));
+-                }
+-            })
+-        ;
++        return $this;
+     }
+ 
+     protected static function getClass(): string

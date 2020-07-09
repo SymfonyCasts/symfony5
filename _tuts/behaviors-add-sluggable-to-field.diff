@@ -1,0 +1,20 @@
+diff --git a/src/Entity/Question.php b/src/Entity/Question.php
+index b1fe38d..c948d6e 100644
+--- a/src/Entity/Question.php
++++ b/src/Entity/Question.php
+@@ -4,6 +4,7 @@ namespace App\Entity;
+ 
+ use App\Repository\QuestionRepository;
+ use Doctrine\ORM\Mapping as ORM;
++use Gedmo\Mapping\Annotation as Gedmo;
+ 
+ /**
+  * @ORM\Entity(repositoryClass=QuestionRepository::class)
+@@ -24,6 +25,7 @@ class Question
+ 
+     /**
+      * @ORM\Column(type="string", length=100, unique=true)
++     * @Gedmo\Slug(fields={"name"})
+      */
+     private $slug;
+ 

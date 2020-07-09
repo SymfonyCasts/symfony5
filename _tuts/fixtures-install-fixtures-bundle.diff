@@ -1,0 +1,258 @@
+diff --git a/composer.json b/composer.json
+index 8838a5f..ccf5f8c 100644
+--- a/composer.json
++++ b/composer.json
+@@ -24,6 +24,7 @@
+         "symfony/yaml": "5.1.*"
+     },
+     "require-dev": {
++        "doctrine/doctrine-fixtures-bundle": "^3.3",
+         "symfony/maker-bundle": "^1.15",
+         "symfony/profiler-pack": "^1.0"
+     },
+diff --git a/composer.lock b/composer.lock
+index 1c64cb2..c4655f5 100644
+--- a/composer.lock
++++ b/composer.lock
+@@ -4,7 +4,7 @@
+         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
+         "This file is @generated automatically"
+     ],
+-    "content-hash": "3513267a2f4fcb81868171da3ca3f19a",
++    "content-hash": "d6b3387000ded4d67ff7caf1ba42ace0",
+     "packages": [
+         {
+             "name": "clue/stream-filter",
+@@ -7186,6 +7186,166 @@
+         }
+     ],
+     "packages-dev": [
++        {
++            "name": "doctrine/data-fixtures",
++            "version": "1.4.3",
++            "source": {
++                "type": "git",
++                "url": "https://github.com/doctrine/data-fixtures.git",
++                "reference": "7ebac50901eb4516816ac39100dba1759d843943"
++            },
++            "dist": {
++                "type": "zip",
++                "url": "https://api.github.com/repos/doctrine/data-fixtures/zipball/7ebac50901eb4516816ac39100dba1759d843943",
++                "reference": "7ebac50901eb4516816ac39100dba1759d843943",
++                "shasum": ""
++            },
++            "require": {
++                "doctrine/common": "^2.11",
++                "doctrine/persistence": "^1.3.3",
++                "php": "^7.2 || ^8.0"
++            },
++            "conflict": {
++                "doctrine/phpcr-odm": "<1.3.0"
++            },
++            "require-dev": {
++                "alcaeus/mongo-php-adapter": "^1.1",
++                "doctrine/coding-standard": "^6.0",
++                "doctrine/dbal": "^2.5.4",
++                "doctrine/mongodb-odm": "^1.3.0",
++                "doctrine/orm": "^2.7.0",
++                "phpunit/phpunit": "^7.0"
++            },
++            "suggest": {
++                "alcaeus/mongo-php-adapter": "For using MongoDB ODM with PHP 7",
++                "doctrine/mongodb-odm": "For loading MongoDB ODM fixtures",
++                "doctrine/orm": "For loading ORM fixtures",
++                "doctrine/phpcr-odm": "For loading PHPCR ODM fixtures"
++            },
++            "type": "library",
++            "extra": {
++                "branch-alias": {
++                    "dev-master": "1.4.x-dev"
++                }
++            },
++            "autoload": {
++                "psr-4": {
++                    "Doctrine\\Common\\DataFixtures\\": "lib/Doctrine/Common/DataFixtures"
++                }
++            },
++            "notification-url": "https://packagist.org/downloads/",
++            "license": [
++                "MIT"
++            ],
++            "authors": [
++                {
++                    "name": "Jonathan Wage",
++                    "email": "jonwage@gmail.com"
++                }
++            ],
++            "description": "Data Fixtures for all Doctrine Object Managers",
++            "homepage": "http://www.doctrine-project.org",
++            "keywords": [
++                "database"
++            ],
++            "funding": [
++                {
++                    "url": "https://www.doctrine-project.org/sponsorship.html",
++                    "type": "custom"
++                },
++                {
++                    "url": "https://www.patreon.com/phpdoctrine",
++                    "type": "patreon"
++                },
++                {
++                    "url": "https://tidelift.com/funding/github/packagist/doctrine%2Fdata-fixtures",
++                    "type": "tidelift"
++                }
++            ],
++            "time": "2020-05-25T19:45:03+00:00"
++        },
++        {
++            "name": "doctrine/doctrine-fixtures-bundle",
++            "version": "3.3.1",
++            "source": {
++                "type": "git",
++                "url": "https://github.com/doctrine/DoctrineFixturesBundle.git",
++                "reference": "39defca57ee0949e1475c46177b30b6d1b732e8f"
++            },
++            "dist": {
++                "type": "zip",
++                "url": "https://api.github.com/repos/doctrine/DoctrineFixturesBundle/zipball/39defca57ee0949e1475c46177b30b6d1b732e8f",
++                "reference": "39defca57ee0949e1475c46177b30b6d1b732e8f",
++                "shasum": ""
++            },
++            "require": {
++                "doctrine/data-fixtures": "^1.3",
++                "doctrine/doctrine-bundle": "^1.11|^2.0",
++                "doctrine/orm": "^2.6.0",
++                "doctrine/persistence": "^1.3",
++                "php": "^7.1",
++                "symfony/config": "^3.4|^4.3|^5.0",
++                "symfony/console": "^3.4|^4.3|^5.0",
++                "symfony/dependency-injection": "^3.4|^4.3|^5.0",
++                "symfony/doctrine-bridge": "^3.4|^4.1|^5.0",
++                "symfony/http-kernel": "^3.4|^4.3|^5.0"
++            },
++            "require-dev": {
++                "doctrine/coding-standard": "^6.0",
++                "phpunit/phpunit": "^7.4",
++                "symfony/phpunit-bridge": "^4.1|^5.0"
++            },
++            "type": "symfony-bundle",
++            "extra": {
++                "branch-alias": {
++                    "dev-master": "3.3.x-dev"
++                }
++            },
++            "autoload": {
++                "psr-4": {
++                    "Doctrine\\Bundle\\FixturesBundle\\": ""
++                }
++            },
++            "notification-url": "https://packagist.org/downloads/",
++            "license": [
++                "MIT"
++            ],
++            "authors": [
++                {
++                    "name": "Fabien Potencier",
++                    "email": "fabien@symfony.com"
++                },
++                {
++                    "name": "Doctrine Project",
++                    "homepage": "http://www.doctrine-project.org"
++                },
++                {
++                    "name": "Symfony Community",
++                    "homepage": "http://symfony.com/contributors"
++                }
++            ],
++            "description": "Symfony DoctrineFixturesBundle",
++            "homepage": "http://www.doctrine-project.org",
++            "keywords": [
++                "Fixture",
++                "persistence"
++            ],
++            "funding": [
++                {
++                    "url": "https://www.doctrine-project.org/sponsorship.html",
++                    "type": "custom"
++                },
++                {
++                    "url": "https://www.patreon.com/phpdoctrine",
++                    "type": "patreon"
++                },
++                {
++                    "url": "https://tidelift.com/funding/github/packagist/doctrine%2Fdoctrine-fixtures-bundle",
++                    "type": "tidelift"
++                }
++            ],
++            "time": "2020-04-02T16:40:37+00:00"
++        },
+         {
+             "name": "nikic/php-parser",
+             "version": "v4.6.0",
+diff --git a/config/bundles.php b/config/bundles.php
+index 097e21c..a9ebfeb 100644
+--- a/config/bundles.php
++++ b/config/bundles.php
+@@ -15,4 +15,5 @@ return [
+     Doctrine\Bundle\DoctrineBundle\DoctrineBundle::class => ['all' => true],
+     Doctrine\Bundle\MigrationsBundle\DoctrineMigrationsBundle::class => ['all' => true],
+     Knp\Bundle\TimeBundle\KnpTimeBundle::class => ['all' => true],
++    Doctrine\Bundle\FixturesBundle\DoctrineFixturesBundle::class => ['dev' => true, 'test' => true],
+ ];
+diff --git a/src/DataFixtures/AppFixtures.php b/src/DataFixtures/AppFixtures.php
+new file mode 100644
+index 0000000..fece475
+--- /dev/null
++++ b/src/DataFixtures/AppFixtures.php
+@@ -0,0 +1,17 @@
++<?php
++
++namespace App\DataFixtures;
++
++use Doctrine\Bundle\FixturesBundle\Fixture;
++use Doctrine\Common\Persistence\ObjectManager;
++
++class AppFixtures extends Fixture
++{
++    public function load(ObjectManager $manager)
++    {
++        // $product = new Product();
++        // $manager->persist($product);
++
++        $manager->flush();
++    }
++}
+diff --git a/symfony.lock b/symfony.lock
+index 59845c7..29bbac4 100644
+--- a/symfony.lock
++++ b/symfony.lock
+@@ -23,6 +23,9 @@
+     "doctrine/common": {
+         "version": "2.13.3"
+     },
++    "doctrine/data-fixtures": {
++        "version": "1.4.3"
++    },
+     "doctrine/dbal": {
+         "version": "2.10.2"
+     },
+@@ -41,6 +44,18 @@
+             "src/Repository/.gitignore"
+         ]
+     },
++    "doctrine/doctrine-fixtures-bundle": {
++        "version": "3.0",
++        "recipe": {
++            "repo": "github.com/symfony/recipes",
++            "branch": "master",
++            "version": "3.0",
++            "ref": "fc52d86631a6dfd9fdf3381d0b7e3df2069e51b3"
++        },
++        "files": [
++            "src/DataFixtures/AppFixtures.php"
++        ]
++    },
+     "doctrine/doctrine-migrations-bundle": {
+         "version": "2.2",
+         "recipe": {

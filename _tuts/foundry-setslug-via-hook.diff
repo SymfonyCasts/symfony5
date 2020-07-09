@@ -1,0 +1,39 @@
+diff --git a/src/Factory/QuestionFactory.php b/src/Factory/QuestionFactory.php
+index 81870fd..84aa984 100644
+--- a/src/Factory/QuestionFactory.php
++++ b/src/Factory/QuestionFactory.php
+@@ -4,6 +4,7 @@ namespace App\Factory;
+ 
+ use App\Entity\Question;
+ use App\Repository\QuestionRepository;
++use Symfony\Component\String\Slugger\AsciiSlugger;
+ use Zenstruck\Foundry\RepositoryProxy;
+ use Zenstruck\Foundry\ModelFactory;
+ use Zenstruck\Foundry\Proxy;
+@@ -23,7 +24,6 @@ final class QuestionFactory extends ModelFactory
+     {
+         return [
+             'name' => self::faker()->realText(50),
+-            'slug' => self::faker()->slug,
+             'question' => <<<EOF
+ Hi! So... I'm having a *weird* day. Yesterday, I cast a spell
+ to make my dishes wash themselves. But while I was casting it,
+@@ -41,6 +41,18 @@ EOF
+         ];
+     }
+ 
++    protected function initialize()
++    {
++        return $this
++            ->afterInstantiate(function(Question $question) {
++                if (!$question->getSlug()) {
++                    $slugger = new AsciiSlugger();
++                    $question->setSlug($slugger->slug($question->getName()));
++                }
++            })
++        ;
++    }
++
+     protected static function getClass(): string
+     {
+         return Question::class;

@@ -1,0 +1,39 @@
+diff --git a/src/Factory/QuestionFactory.php b/src/Factory/QuestionFactory.php
+new file mode 100644
+index 0000000..54cb4d1
+--- /dev/null
++++ b/src/Factory/QuestionFactory.php
+@@ -0,0 +1,33 @@
++<?php
++
++namespace App\Factory;
++
++use App\Entity\Question;
++use App\Repository\QuestionRepository;
++use Zenstruck\Foundry\RepositoryProxy;
++use Zenstruck\Foundry\ModelFactory;
++use Zenstruck\Foundry\Proxy;
++
++/**
++ * @method static Question|Proxy findOrCreate(array $attributes)
++ * @method static Question|Proxy random()
++ * @method static Question[]|Proxy[] randomSet(int $number)
++ * @method static Question[]|Proxy[] randomRange(int $min, int $max)
++ * @method static QuestionRepository|RepositoryProxy repository()
++ * @method Question|Proxy create($attributes = [])
++ * @method Question[]|Proxy[] createMany(int $number, $attributes = [])
++ */
++final class QuestionFactory extends ModelFactory
++{
++    protected function getDefaults(): array
++    {
++        return [
++            // TODO add your default values here (https://github.com/zenstruck/foundry#model-factories)
++        ];
++    }
++
++    protected static function getClass(): string
++    {
++        return Question::class;
++    }
++}

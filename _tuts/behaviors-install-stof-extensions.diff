@@ -1,0 +1,294 @@
+diff --git a/composer.json b/composer.json
+index 80ac675..24c3ed0 100644
+--- a/composer.json
++++ b/composer.json
+@@ -9,6 +9,7 @@
+         "knplabs/knp-time-bundle": "^1.11",
+         "sensio/framework-extra-bundle": "^5.5",
+         "sentry/sentry-symfony": "^3.4",
++        "stof/doctrine-extensions-bundle": "^1.4",
+         "symfony/asset": "5.1.*",
+         "symfony/console": "5.1.*",
+         "symfony/debug-bundle": "5.1.*",
+diff --git a/composer.lock b/composer.lock
+index 346b708..664d8c8 100644
+--- a/composer.lock
++++ b/composer.lock
+@@ -4,8 +4,53 @@
+         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
+         "This file is @generated automatically"
+     ],
+-    "content-hash": "2d0b7faaaedb4300c3b37e5197f00e56",
++    "content-hash": "010986cbe6c191c6ab21d6d5718d98f3",
+     "packages": [
++        {
++            "name": "behat/transliterator",
++            "version": "v1.3.0",
++            "source": {
++                "type": "git",
++                "url": "https://github.com/Behat/Transliterator.git",
++                "reference": "3c4ec1d77c3d05caa1f0bf8fb3aae4845005c7fc"
++            },
++            "dist": {
++                "type": "zip",
++                "url": "https://api.github.com/repos/Behat/Transliterator/zipball/3c4ec1d77c3d05caa1f0bf8fb3aae4845005c7fc",
++                "reference": "3c4ec1d77c3d05caa1f0bf8fb3aae4845005c7fc",
++                "shasum": ""
++            },
++            "require": {
++                "php": ">=5.3.3"
++            },
++            "require-dev": {
++                "chuyskywalker/rolling-curl": "^3.1",
++                "php-yaoi/php-yaoi": "^1.0",
++                "phpunit/phpunit": "^4.8.36|^6.3"
++            },
++            "type": "library",
++            "extra": {
++                "branch-alias": {
++                    "dev-master": "1.2-dev"
++                }
++            },
++            "autoload": {
++                "psr-4": {
++                    "Behat\\Transliterator\\": "src/Behat/Transliterator"
++                }
++            },
++            "notification-url": "https://packagist.org/downloads/",
++            "license": [
++                "Artistic-1.0"
++            ],
++            "description": "String transliterator",
++            "keywords": [
++                "i18n",
++                "slug",
++                "transliterator"
++            ],
++            "time": "2020-01-14T16:39:13+00:00"
++        },
+         {
+             "name": "clue/stream-filter",
+             "version": "v1.4.1",
+@@ -1509,6 +1554,88 @@
+             ],
+             "time": "2020-05-29T18:32:49+00:00"
+         },
++        {
++            "name": "gedmo/doctrine-extensions",
++            "version": "v2.4.41",
++            "source": {
++                "type": "git",
++                "url": "https://github.com/Atlantic18/DoctrineExtensions.git",
++                "reference": "e55a6727052f91834a968937c93b6fb193be8fb6"
++            },
++            "dist": {
++                "type": "zip",
++                "url": "https://api.github.com/repos/Atlantic18/DoctrineExtensions/zipball/e55a6727052f91834a968937c93b6fb193be8fb6",
++                "reference": "e55a6727052f91834a968937c93b6fb193be8fb6",
++                "shasum": ""
++            },
++            "require": {
++                "behat/transliterator": "~1.2",
++                "doctrine/common": "~2.4",
++                "php": ">=5.3.2"
++            },
++            "conflict": {
++                "doctrine/annotations": "<1.2",
++                "doctrine/mongodb-odm": ">=2.0"
++            },
++            "require-dev": {
++                "doctrine/common": ">=2.5.0",
++                "doctrine/mongodb-odm": ">=1.0.2 <2.0",
++                "doctrine/orm": ">=2.5.0",
++                "phpunit/phpunit": "^4.8.35 || ^5.7 || ^6.5",
++                "symfony/yaml": "^2.6 || ^3.0 || ^4.0 || ^5.0"
++            },
++            "suggest": {
++                "doctrine/mongodb-odm": "to use the extensions with the MongoDB ODM",
++                "doctrine/orm": "to use the extensions with the ORM"
++            },
++            "type": "library",
++            "extra": {
++                "branch-alias": {
++                    "dev-master": "2.4.x-dev"
++                }
++            },
++            "autoload": {
++                "psr-4": {
++                    "Gedmo\\": "lib/Gedmo"
++                }
++            },
++            "notification-url": "https://packagist.org/downloads/",
++            "license": [
++                "MIT"
++            ],
++            "authors": [
++                {
++                    "name": "Gediminas Morkevicius",
++                    "email": "gediminas.morkevicius@gmail.com"
++                },
++                {
++                    "name": "Gustavo Falco",
++                    "email": "comfortablynumb84@gmail.com"
++                },
++                {
++                    "name": "David Buchmann",
++                    "email": "david@liip.ch"
++                }
++            ],
++            "description": "Doctrine2 behavioral extensions",
++            "homepage": "http://gediminasm.org/",
++            "keywords": [
++                "Blameable",
++                "behaviors",
++                "doctrine2",
++                "extensions",
++                "gedmo",
++                "loggable",
++                "nestedset",
++                "sluggable",
++                "sortable",
++                "timestampable",
++                "translatable",
++                "tree",
++                "uploadable"
++            ],
++            "time": "2020-05-10T22:20:03+00:00"
++        },
+         {
+             "name": "guzzlehttp/guzzle",
+             "version": "6.5.5",
+@@ -3246,6 +3373,72 @@
+             ],
+             "time": "2020-05-07T13:11:22+00:00"
+         },
++        {
++            "name": "stof/doctrine-extensions-bundle",
++            "version": "v1.4.0",
++            "source": {
++                "type": "git",
++                "url": "https://github.com/stof/StofDoctrineExtensionsBundle.git",
++                "reference": "4d340daa1a8304faa62260be2adb0180e2138af3"
++            },
++            "dist": {
++                "type": "zip",
++                "url": "https://api.github.com/repos/stof/StofDoctrineExtensionsBundle/zipball/4d340daa1a8304faa62260be2adb0180e2138af3",
++                "reference": "4d340daa1a8304faa62260be2adb0180e2138af3",
++                "shasum": ""
++            },
++            "require": {
++                "gedmo/doctrine-extensions": "^2.3.4",
++                "php": "^7.1.3",
++                "symfony/framework-bundle": "^4.3 || ^5.0"
++            },
++            "require-dev": {
++                "symfony/phpunit-bridge": "^4.4",
++                "symfony/security-bundle": "^4.3 || ^5.0"
++            },
++            "suggest": {
++                "doctrine/doctrine-bundle": "to use the ORM extensions",
++                "doctrine/mongodb-odm-bundle": "to use the MongoDB ODM extensions",
++                "symfony/mime": "To use the Mime component integration for Uploadable"
++            },
++            "type": "symfony-bundle",
++            "extra": {
++                "branch-alias": {
++                    "dev-master": "1.3.x-dev"
++                }
++            },
++            "autoload": {
++                "psr-4": {
++                    "Stof\\DoctrineExtensionsBundle\\": ""
++                }
++            },
++            "notification-url": "https://packagist.org/downloads/",
++            "license": [
++                "MIT"
++            ],
++            "authors": [
++                {
++                    "name": "Christophe Coevoet",
++                    "email": "stof@notk.org"
++                }
++            ],
++            "description": "Integration of the gedmo/doctrine-extensions with Symfony2",
++            "homepage": "https://github.com/stof/StofDoctrineExtensionsBundle",
++            "keywords": [
++                "behaviors",
++                "doctrine2",
++                "extensions",
++                "gedmo",
++                "loggable",
++                "nestedset",
++                "sluggable",
++                "sortable",
++                "timestampable",
++                "translatable",
++                "tree"
++            ],
++            "time": "2020-03-30T09:00:40+00:00"
++        },
+         {
+             "name": "symfony/asset",
+             "version": "v5.1.2",
+diff --git a/config/bundles.php b/config/bundles.php
+index f184981..f8e820f 100644
+--- a/config/bundles.php
++++ b/config/bundles.php
+@@ -17,4 +17,5 @@ return [
+     Knp\Bundle\TimeBundle\KnpTimeBundle::class => ['all' => true],
+     Doctrine\Bundle\FixturesBundle\DoctrineFixturesBundle::class => ['dev' => true, 'test' => true],
+     Zenstruck\Foundry\Bundle\ZenstruckFoundryBundle::class => ['dev' => true, 'test' => true],
++    Stof\DoctrineExtensionsBundle\StofDoctrineExtensionsBundle::class => ['all' => true],
+ ];
+diff --git a/config/packages/stof_doctrine_extensions.yaml b/config/packages/stof_doctrine_extensions.yaml
+new file mode 100644
+index 0000000..c83f3b1
+--- /dev/null
++++ b/config/packages/stof_doctrine_extensions.yaml
+@@ -0,0 +1,4 @@
++# Read the documentation: https://symfony.com/doc/current/bundles/StofDoctrineExtensionsBundle/index.html
++# See the official DoctrineExtensions documentation for more details: https://github.com/Atlantic18/DoctrineExtensions/tree/master/doc/
++stof_doctrine_extensions:
++    default_locale: en_US
+diff --git a/symfony.lock b/symfony.lock
+index b1f2e16..51c808b 100644
+--- a/symfony.lock
++++ b/symfony.lock
+@@ -1,4 +1,7 @@
+ {
++    "behat/transliterator": {
++        "version": "v1.3.0"
++    },
+     "clue/stream-filter": {
+         "version": "v1.4.1"
+     },
+@@ -99,6 +102,9 @@
+     "fzaninotto/faker": {
+         "version": "v1.9.1"
+     },
++    "gedmo/doctrine-extensions": {
++        "version": "v2.4.41"
++    },
+     "guzzlehttp/guzzle": {
+         "version": "6.5.2"
+     },
+@@ -213,6 +219,18 @@
+             "config/packages/sentry.yaml"
+         ]
+     },
++    "stof/doctrine-extensions-bundle": {
++        "version": "1.2",
++        "recipe": {
++            "repo": "github.com/symfony/recipes-contrib",
++            "branch": "master",
++            "version": "1.2",
++            "ref": "6c1ceb662f8997085f739cd089bfbef67f245983"
++        },
++        "files": [
++            "config/packages/stof_doctrine_extensions.yaml"
++        ]
++    },
+     "symfony/asset": {
+         "version": "v5.0.5"
+     },

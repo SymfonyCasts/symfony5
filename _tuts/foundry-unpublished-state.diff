@@ -1,0 +1,45 @@
+diff --git a/src/DataFixtures/AppFixtures.php b/src/DataFixtures/AppFixtures.php
+index 9b87b7f..ecd72d4 100644
+--- a/src/DataFixtures/AppFixtures.php
++++ b/src/DataFixtures/AppFixtures.php
+@@ -11,7 +11,14 @@ class AppFixtures extends Fixture
+ {
+     public function load(ObjectManager $manager)
+     {
+-        QuestionFactory::new()->createMany(20);
++        QuestionFactory::new()
++            ->createMany(20)
++        ;
++
++        QuestionFactory::new()
++            ->unpublished()
++            ->createMany(5)
++        ;
+ 
+         $manager->flush();
+     }
+diff --git a/src/Factory/QuestionFactory.php b/src/Factory/QuestionFactory.php
+index 84aa984..a927397 100644
+--- a/src/Factory/QuestionFactory.php
++++ b/src/Factory/QuestionFactory.php
+@@ -20,6 +20,11 @@ use Zenstruck\Foundry\Proxy;
+  */
+ final class QuestionFactory extends ModelFactory
+ {
++    public function unpublished(): self
++    {
++        return $this->addState(['askedAt' => null]);
++    }
++
+     protected function getDefaults(): array
+     {
+         return [
+@@ -36,7 +41,7 @@ opening the front door and walking out! I've been out all afternoon
+ Does anyone have a spell to call your pants back?
+ EOF
+             ,
+-            'askedAt' => self::faker()->boolean(70) ? self::faker()->dateTimeBetween('-100 days', '-1 minute') : null,
++            'askedAt' => self::faker()->dateTimeBetween('-100 days', '-1 minute'),
+             'votes' => rand(-20, 50),
+         ];
+     }
