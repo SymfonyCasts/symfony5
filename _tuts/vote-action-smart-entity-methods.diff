@@ -1,0 +1,39 @@
+diff --git a/src/Controller/QuestionController.php b/src/Controller/QuestionController.php
+index 35ac5bc..1f47ec6 100644
+--- a/src/Controller/QuestionController.php
++++ b/src/Controller/QuestionController.php
+@@ -102,9 +102,9 @@ EOF
+         $direction = $request->request->get('direction');
+ 
+         if ($direction === 'up') {
+-            $question->setVotes($question->getVotes() + 1);
++            $question->upVote();
+         } elseif ($direction === 'down') {
+-            $question->setVotes($question->getVotes() - 1);
++            $question->downVote();
+         }
+         dd($question);
+     }
+diff --git a/src/Entity/Question.php b/src/Entity/Question.php
+index e8fecc3..b1fe38d 100644
+--- a/src/Entity/Question.php
++++ b/src/Entity/Question.php
+@@ -113,4 +113,18 @@ class Question
+ 
+         return $this;
+     }
++
++    public function upVote(): self
++    {
++        $this->votes++;
++
++        return $this;
++    }
++
++    public function downVote(): self
++    {
++        $this->votes--;
++
++        return $this;
++    }
+ }

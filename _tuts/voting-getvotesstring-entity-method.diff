@@ -17,13 +17,13 @@ index e0a8806..e8fecc3 100644
      {
          $this->votes = $votes;
 diff --git a/templates/question/show.html.twig b/templates/question/show.html.twig
-index 0fbaadc..065cf1b 100644
+index 643cbdb..2092072 100644
 --- a/templates/question/show.html.twig
 +++ b/templates/question/show.html.twig
 @@ -25,7 +25,7 @@
                                  <div class="vote-arrows vote-arrows-alt flex-fill pt-2" style="min-width: 90px;">
-                                     <button class="vote-up btn btn-link" data-direction="up"><i class="far fa-arrow-alt-circle-up"></i></button>
-                                     <button class="vote-down btn btn-link" data-direction="down"><i class="far fa-arrow-alt-circle-down"></i></button>
+                                     <button class="vote-up btn btn-link" name="direction" value="up"><i class="far fa-arrow-alt-circle-up"></i></button>
+                                     <button class="vote-down btn btn-link" name="direction" value="down"><i class="far fa-arrow-alt-circle-down"></i></button>
 -                                    <span>{{ question.votes }}</span>
 +                                    <span>{{ question.votesString }}</span>
                                  </div>

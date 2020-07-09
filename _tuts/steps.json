@@ -914,7 +914,32 @@
             "id": "vote-action-add-form-action",
             "name": "Vote Action: add form + action",
             "description": null
+        },
+        {
+            "id": "vote-action-dump-post-vars",
+            "name": "Vote Action: dump POST vars",
+            "description": null
+        },
+        {
+            "id": "vote-action-setvotes",
+            "name": "Vote Action: setVotes()",
+            "description": null
+        },
+        {
+            "id": "vote-action-smart-entity-methods",
+            "name": "Vote Action: smart entity methods",
+            "description": null
+        },
+        {
+            "id": "vote-action-save-and-redirect",
+            "name": "Vote Action: save and redirect",
+            "description": null
+        },
+        {
+            "id": "vote-action-flash-message",
+            "name": "Vote Action: flash message",
+            "description": null
         }
     ],
-    "sha": "4251cb44bed5b5dca9eb0d9b789cf6d1ce127ef3"
+    "sha": "64d6f25524cda734c96ac97853746ba3626d4daf"
 }

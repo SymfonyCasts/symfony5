@@ -25,7 +25,7 @@ index 76c24eb..79dea80 100644
          ]);
      }
 diff --git a/templates/question/show.html.twig b/templates/question/show.html.twig
-index b17c5af..1157568 100644
+index 6864965..a8e5611 100644
 --- a/templates/question/show.html.twig
 +++ b/templates/question/show.html.twig
 @@ -1,6 +1,6 @@
