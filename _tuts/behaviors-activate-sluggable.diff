@@ -10,12 +10,12 @@ index c83f3b1..e7ac8f4 100644
 +        default:
 +            sluggable: true
 diff --git a/src/Factory/QuestionFactory.php b/src/Factory/QuestionFactory.php
-index a927397..88c1a9a 100644
+index 3387620..c76834a 100644
 --- a/src/Factory/QuestionFactory.php
 +++ b/src/Factory/QuestionFactory.php
 @@ -48,14 +48,7 @@ EOF
  
-     protected function initialize()
+     protected function initialize(): self
      {
 -        return $this
 -            ->afterInstantiate(function(Question $question) {

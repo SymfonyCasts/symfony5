@@ -42,7 +42,7 @@ index 4894dfc..f91f0f7 100644
          $manager->flush();
      }
 diff --git a/src/Factory/QuestionFactory.php b/src/Factory/QuestionFactory.php
-index 54cb4d1..c0912d0 100644
+index 89124dd..e43b2da 100644
 --- a/src/Factory/QuestionFactory.php
 +++ b/src/Factory/QuestionFactory.php
 @@ -22,7 +22,22 @@ final class QuestionFactory extends ModelFactory

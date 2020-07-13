@@ -1,5 +1,5 @@
 diff --git a/composer.json b/composer.json
-index 80ac675..24c3ed0 100644
+index 0d9caba..d5f53cd 100644
 --- a/composer.json
 +++ b/composer.json
 @@ -9,6 +9,7 @@
@@ -11,15 +11,15 @@ index 80ac675..24c3ed0 100644
          "symfony/console": "5.1.*",
          "symfony/debug-bundle": "5.1.*",
 diff --git a/composer.lock b/composer.lock
-index 346b708..664d8c8 100644
+index 331cf44..2967479 100644
 --- a/composer.lock
 +++ b/composer.lock
 @@ -4,8 +4,53 @@
          "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
          "This file is @generated automatically"
      ],
--    "content-hash": "2d0b7faaaedb4300c3b37e5197f00e56",
-+    "content-hash": "010986cbe6c191c6ab21d6d5718d98f3",
+-    "content-hash": "93d11e056ed21efbfb2d8cc08d971399",
++    "content-hash": "0f53eca0da9055caedd6187c7bf575b8",
      "packages": [
 +        {
 +            "name": "behat/transliterator",
@@ -232,13 +232,13 @@ index 346b708..664d8c8 100644
              "name": "symfony/asset",
              "version": "v5.1.2",
 diff --git a/config/bundles.php b/config/bundles.php
-index f184981..f8e820f 100644
+index 883e9af..b89ddb3 100644
 --- a/config/bundles.php
 +++ b/config/bundles.php
 @@ -17,4 +17,5 @@ return [
      Knp\Bundle\TimeBundle\KnpTimeBundle::class => ['all' => true],
      Doctrine\Bundle\FixturesBundle\DoctrineFixturesBundle::class => ['dev' => true, 'test' => true],
-     Zenstruck\Foundry\Bundle\ZenstruckFoundryBundle::class => ['dev' => true, 'test' => true],
+     Zenstruck\Foundry\ZenstruckFoundryBundle::class => ['dev' => true, 'test' => true],
 +    Stof\DoctrineExtensionsBundle\StofDoctrineExtensionsBundle::class => ['all' => true],
  ];
 diff --git a/config/packages/stof_doctrine_extensions.yaml b/config/packages/stof_doctrine_extensions.yaml
@@ -252,7 +252,7 @@ index 0000000..c83f3b1
 +stof_doctrine_extensions:
 +    default_locale: en_US
 diff --git a/symfony.lock b/symfony.lock
-index b1f2e16..51c808b 100644
+index 2e74d0d..30c4629 100644
 --- a/symfony.lock
 +++ b/symfony.lock
 @@ -1,4 +1,7 @@

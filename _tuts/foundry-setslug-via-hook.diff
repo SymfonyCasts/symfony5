@@ -1,5 +1,5 @@
 diff --git a/src/Factory/QuestionFactory.php b/src/Factory/QuestionFactory.php
-index 81870fd..84aa984 100644
+index 879b538..ddea206 100644
 --- a/src/Factory/QuestionFactory.php
 +++ b/src/Factory/QuestionFactory.php
 @@ -4,6 +4,7 @@ namespace App\Factory;
@@ -18,22 +18,19 @@ index 81870fd..84aa984 100644
              'question' => <<<EOF
  Hi! So... I'm having a *weird* day. Yesterday, I cast a spell
  to make my dishes wash themselves. But while I was casting it,
-@@ -41,6 +41,18 @@ EOF
-         ];
-     }
+@@ -43,9 +43,13 @@ EOF
  
-+    protected function initialize()
-+    {
-+        return $this
+     protected function initialize(): self
+     {
+-        // see https://github.com/zenstruck/foundry#initialization
+         return $this
+-            // ->beforeInstantiate(function(Question $question) {})
 +            ->afterInstantiate(function(Question $question) {
 +                if (!$question->getSlug()) {
 +                    $slugger = new AsciiSlugger();
 +                    $question->setSlug($slugger->slug($question->getName()));
 +                }
 +            })
-+        ;
-+    }
-+
-     protected static function getClass(): string
-     {
-         return Question::class;
+         ;
+     }
+ 

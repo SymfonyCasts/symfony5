@@ -19,7 +19,7 @@ index 9b87b7f..ecd72d4 100644
          $manager->flush();
      }
 diff --git a/src/Factory/QuestionFactory.php b/src/Factory/QuestionFactory.php
-index 84aa984..a927397 100644
+index ddea206..3387620 100644
 --- a/src/Factory/QuestionFactory.php
 +++ b/src/Factory/QuestionFactory.php
 @@ -20,6 +20,11 @@ use Zenstruck\Foundry\Proxy;

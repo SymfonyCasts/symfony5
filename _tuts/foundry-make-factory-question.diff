@@ -1,9 +1,9 @@
 diff --git a/src/Factory/QuestionFactory.php b/src/Factory/QuestionFactory.php
 new file mode 100644
-index 0000000..54cb4d1
+index 0000000..89124dd
 --- /dev/null
 +++ b/src/Factory/QuestionFactory.php
-@@ -0,0 +1,33 @@
+@@ -0,0 +1,41 @@
 +<?php
 +
 +namespace App\Factory;
@@ -30,6 +30,14 @@ index 0000000..54cb4d1
 +        return [
 +            // TODO add your default values here (https://github.com/zenstruck/foundry#model-factories)
 +        ];
++    }
++
++    protected function initialize(): self
++    {
++        // see https://github.com/zenstruck/foundry#initialization
++        return $this
++            // ->beforeInstantiate(function(Question $question) {})
++        ;
 +    }
 +
 +    protected static function getClass(): string
