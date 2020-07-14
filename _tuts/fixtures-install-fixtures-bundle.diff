@@ -11,7 +11,7 @@ index 8838a5f..ccf5f8c 100644
          "symfony/profiler-pack": "^1.0"
      },
 diff --git a/composer.lock b/composer.lock
-index 7b47aab..a573a9d 100644
+index 695934d..df61bc3 100644
 --- a/composer.lock
 +++ b/composer.lock
 @@ -4,7 +4,7 @@
@@ -23,7 +23,7 @@ index 7b47aab..a573a9d 100644
      "packages": [
          {
              "name": "clue/stream-filter",
-@@ -7187,6 +7187,166 @@
+@@ -7168,6 +7168,166 @@
          }
      ],
      "packages-dev": [
@@ -224,7 +224,7 @@ index 0000000..fece475
 +    }
 +}
 diff --git a/symfony.lock b/symfony.lock
-index 59845c7..29bbac4 100644
+index 76347c9..e92bfc5 100644
 --- a/symfony.lock
 +++ b/symfony.lock
 @@ -23,6 +23,9 @@
@@ -254,5 +254,5 @@ index 59845c7..29bbac4 100644
 +        ]
 +    },
      "doctrine/doctrine-migrations-bundle": {
-         "version": "2.2",
+         "version": "1.2",
          "recipe": {

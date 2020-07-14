@@ -27,7 +27,7 @@ index fd74677..87dd19d 100644
          "symfony/twig-pack": "^1.0",
          "symfony/var-dumper": "5.1.*",
 diff --git a/composer.lock b/composer.lock
-index 1223f33..8e3b545 100644
+index 54da39d..45e91d1 100644
 --- a/composer.lock
 +++ b/composer.lock
 @@ -4,7 +4,7 @@
@@ -39,64 +39,66 @@ index 1223f33..8e3b545 100644
      "packages": [
          {
              "name": "clue/stream-filter",
-@@ -196,27 +196,1216 @@
-             ],
+@@ -197,36 +197,44 @@
              "time": "2020-05-25T17:24:27+00:00"
          },
-+        {
+         {
+-            "name": "doctrine/lexer",
+-            "version": "1.2.1",
 +            "name": "doctrine/cache",
-+            "version": "1.10.1",
-+            "source": {
-+                "type": "git",
++            "version": "1.10.2",
+             "source": {
+                 "type": "git",
+-                "url": "https://github.com/doctrine/lexer.git",
+-                "reference": "e864bbf5904cb8f5bb334f99209b48018522f042"
 +                "url": "https://github.com/doctrine/cache.git",
-+                "reference": "35a4a70cd94e09e2259dfae7488afc6b474ecbd3"
-+            },
-+            "dist": {
-+                "type": "zip",
-+                "url": "https://api.github.com/repos/doctrine/cache/zipball/35a4a70cd94e09e2259dfae7488afc6b474ecbd3",
-+                "reference": "35a4a70cd94e09e2259dfae7488afc6b474ecbd3",
-+                "shasum": ""
-+            },
-+            "require": {
++                "reference": "13e3381b25847283a91948d04640543941309727"
+             },
+             "dist": {
+                 "type": "zip",
+-                "url": "https://api.github.com/repos/doctrine/lexer/zipball/e864bbf5904cb8f5bb334f99209b48018522f042",
+-                "reference": "e864bbf5904cb8f5bb334f99209b48018522f042",
++                "url": "https://api.github.com/repos/doctrine/cache/zipball/13e3381b25847283a91948d04640543941309727",
++                "reference": "13e3381b25847283a91948d04640543941309727",
+                 "shasum": ""
+             },
+             "require": {
+-                "php": "^7.2 || ^8.0"
 +                "php": "~7.1 || ^8.0"
 +            },
 +            "conflict": {
 +                "doctrine/common": ">2.2,<2.4"
-+            },
-+            "require-dev": {
+             },
+             "require-dev": {
 +                "alcaeus/mongo-php-adapter": "^1.1",
-+                "doctrine/coding-standard": "^6.0",
+                 "doctrine/coding-standard": "^6.0",
+-                "phpstan/phpstan": "^0.11.8",
+-                "phpunit/phpunit": "^8.2"
 +                "mongodb/mongodb": "^1.1",
 +                "phpunit/phpunit": "^7.0",
 +                "predis/predis": "~1.0"
 +            },
 +            "suggest": {
 +                "alcaeus/mongo-php-adapter": "Required to use legacy MongoDB driver"
-+            },
-+            "type": "library",
-+            "extra": {
-+                "branch-alias": {
+             },
+             "type": "library",
+             "extra": {
+                 "branch-alias": {
+-                    "dev-master": "1.2.x-dev"
 +                    "dev-master": "1.9.x-dev"
-+                }
-+            },
-+            "autoload": {
-+                "psr-4": {
+                 }
+             },
+             "autoload": {
+                 "psr-4": {
+-                    "Doctrine\\Common\\Lexer\\": "lib/Doctrine/Common/Lexer"
 +                    "Doctrine\\Common\\Cache\\": "lib/Doctrine/Common/Cache"
-+                }
-+            },
-+            "notification-url": "https://packagist.org/downloads/",
-+            "license": [
-+                "MIT"
-+            ],
-+            "authors": [
-+                {
-+                    "name": "Guilherme Blanco",
-+                    "email": "guilhermeblanco@gmail.com"
-+                },
-+                {
-+                    "name": "Roman Borschel",
-+                    "email": "roman@code-factory.org"
-+                },
+                 }
+             },
+             "notification-url": "https://packagist.org/downloads/",
+@@ -242,18 +250,206 @@
+                     "name": "Roman Borschel",
+                     "email": "roman@code-factory.org"
+                 },
 +                {
 +                    "name": "Benjamin Eberlei",
 +                    "email": "kontakt@beberlei.de"
@@ -105,14 +107,20 @@ index 1223f33..8e3b545 100644
 +                    "name": "Jonathan Wage",
 +                    "email": "jonwage@gmail.com"
 +                },
-+                {
-+                    "name": "Johannes Schmitt",
-+                    "email": "schmittjoh@gmail.com"
-+                }
-+            ],
+                 {
+                     "name": "Johannes Schmitt",
+                     "email": "schmittjoh@gmail.com"
+                 }
+             ],
+-            "description": "PHP Doctrine Lexer parser library that can be used in Top-Down, Recursive Descent Parsers.",
+-            "homepage": "https://www.doctrine-project.org/projects/lexer.html",
 +            "description": "PHP Doctrine Cache library is a popular cache implementation that supports many different drivers such as redis, memcache, apc, mongodb and others.",
 +            "homepage": "https://www.doctrine-project.org/projects/cache.html",
-+            "keywords": [
+             "keywords": [
+-                "annotations",
+-                "docblock",
+-                "lexer",
+-                "parser",
 +                "abstraction",
 +                "apcu",
 +                "cache",
@@ -137,20 +145,20 @@ index 1223f33..8e3b545 100644
 +                    "type": "tidelift"
 +                }
 +            ],
-+            "time": "2020-05-27T16:24:54+00:00"
++            "time": "2020-07-07T18:54:01+00:00"
 +        },
 +        {
 +            "name": "doctrine/collections",
-+            "version": "1.6.5",
++            "version": "1.6.6",
 +            "source": {
 +                "type": "git",
 +                "url": "https://github.com/doctrine/collections.git",
-+                "reference": "fc0206348e17e530d09463fef07ba8968406cd6d"
++                "reference": "5f0470363ff042d0057006ae7acabc5d7b5252d5"
 +            },
 +            "dist": {
 +                "type": "zip",
-+                "url": "https://api.github.com/repos/doctrine/collections/zipball/fc0206348e17e530d09463fef07ba8968406cd6d",
-+                "reference": "fc0206348e17e530d09463fef07ba8968406cd6d",
++                "url": "https://api.github.com/repos/doctrine/collections/zipball/5f0470363ff042d0057006ae7acabc5d7b5252d5",
++                "reference": "5f0470363ff042d0057006ae7acabc5d7b5252d5",
 +                "shasum": ""
 +            },
 +            "require": {
@@ -216,7 +224,7 @@ index 1223f33..8e3b545 100644
 +                    "type": "tidelift"
 +                }
 +            ],
-+            "time": "2020-05-25T19:24:35+00:00"
++            "time": "2020-06-22T19:14:02+00:00"
 +        },
 +        {
 +            "name": "doctrine/common",
@@ -297,18 +305,15 @@ index 1223f33..8e3b545 100644
 +            "keywords": [
 +                "common",
 +                "doctrine",
-+                "php"
-+            ],
-+            "funding": [
-+                {
-+                    "url": "https://www.doctrine-project.org/sponsorship.html",
-+                    "type": "custom"
-+                },
-+                {
-+                    "url": "https://www.patreon.com/phpdoctrine",
-+                    "type": "patreon"
-+                },
-+                {
+                 "php"
+             ],
+             "funding": [
+@@ -266,11 +462,1019 @@
+                     "type": "patreon"
+                 },
+                 {
+-                    "url": "https://tidelift.com/funding/github/packagist/doctrine%2Flexer",
+-                    "type": "tidelift"
 +                    "url": "https://tidelift.com/funding/github/packagist/doctrine%2Fcommon",
 +                    "type": "tidelift"
 +                }
@@ -531,37 +536,35 @@ index 1223f33..8e3b545 100644
 +        },
 +        {
 +            "name": "doctrine/doctrine-migrations-bundle",
-+            "version": "3.0.1",
++            "version": "2.1.2",
 +            "source": {
 +                "type": "git",
 +                "url": "https://github.com/doctrine/DoctrineMigrationsBundle.git",
-+                "reference": "96e730b0ffa0bb39c0f913c1966213f1674bf249"
++                "reference": "856437e8de96a70233e1f0cc2352fc8dd15a899d"
 +            },
 +            "dist": {
 +                "type": "zip",
-+                "url": "https://api.github.com/repos/doctrine/DoctrineMigrationsBundle/zipball/96e730b0ffa0bb39c0f913c1966213f1674bf249",
-+                "reference": "96e730b0ffa0bb39c0f913c1966213f1674bf249",
++                "url": "https://api.github.com/repos/doctrine/DoctrineMigrationsBundle/zipball/856437e8de96a70233e1f0cc2352fc8dd15a899d",
++                "reference": "856437e8de96a70233e1f0cc2352fc8dd15a899d",
 +                "shasum": ""
 +            },
 +            "require": {
 +                "doctrine/doctrine-bundle": "~1.0|~2.0",
-+                "doctrine/migrations": "~3.0",
-+                "php": "^7.2",
++                "doctrine/migrations": "^2.2",
++                "php": "^7.1",
 +                "symfony/framework-bundle": "~3.4|~4.0|~5.0"
 +            },
 +            "require-dev": {
 +                "doctrine/coding-standard": "^5.0",
-+                "doctrine/orm": "^2.6",
-+                "phpstan/phpstan": "^0.11",
-+                "phpstan/phpstan-deprecation-rules": "^0.11",
-+                "phpstan/phpstan-phpunit": "^0.11",
-+                "phpstan/phpstan-strict-rules": "^0.11",
++                "mikey179/vfsstream": "^1.6",
++                "phpstan/phpstan": "^0.9.2",
++                "phpstan/phpstan-strict-rules": "^0.9",
 +                "phpunit/phpunit": "^6.4|^7.0"
 +            },
 +            "type": "symfony-bundle",
 +            "extra": {
 +                "branch-alias": {
-+                    "dev-master": "3.0.x-dev"
++                    "dev-master": "2.1.x-dev"
 +                }
 +            },
 +            "autoload": {
@@ -597,21 +600,7 @@ index 1223f33..8e3b545 100644
 +                "migrations",
 +                "schema"
 +            ],
-+            "funding": [
-+                {
-+                    "url": "https://www.doctrine-project.org/sponsorship.html",
-+                    "type": "custom"
-+                },
-+                {
-+                    "url": "https://www.patreon.com/phpdoctrine",
-+                    "type": "patreon"
-+                },
-+                {
-+                    "url": "https://tidelift.com/funding/github/packagist/doctrine%2Fdoctrine-migrations-bundle",
-+                    "type": "tidelift"
-+                }
-+            ],
-+            "time": "2020-06-15T06:04:38+00:00"
++            "time": "2019-11-13T12:57:41+00:00"
 +        },
 +        {
 +            "name": "doctrine/event-manager",
@@ -851,13 +840,11 @@ index 1223f33..8e3b545 100644
 +            ],
 +            "time": "2020-05-29T17:27:14+00:00"
 +        },
-         {
-             "name": "doctrine/lexer",
-             "version": "1.2.1",
-             "source": {
-                 "type": "git",
--                "url": "https://github.com/doctrine/lexer.git",
--                "reference": "e864bbf5904cb8f5bb334f99209b48018522f042"
++        {
++            "name": "doctrine/lexer",
++            "version": "1.2.1",
++            "source": {
++                "type": "git",
 +                "url": "https://github.com/doctrine/lexer.git",
 +                "reference": "e864bbf5904cb8f5bb334f99209b48018522f042"
 +            },
@@ -931,45 +918,42 @@ index 1223f33..8e3b545 100644
 +        },
 +        {
 +            "name": "doctrine/migrations",
-+            "version": "3.0.1",
++            "version": "2.2.1",
 +            "source": {
 +                "type": "git",
 +                "url": "https://github.com/doctrine/migrations.git",
-+                "reference": "69eaf2ca5bc48357b43ddbdc31ccdffc0e2a0882"
++                "reference": "a3987131febeb0e9acb3c47ab0df0af004588934"
 +            },
 +            "dist": {
 +                "type": "zip",
-+                "url": "https://api.github.com/repos/doctrine/migrations/zipball/69eaf2ca5bc48357b43ddbdc31ccdffc0e2a0882",
-+                "reference": "69eaf2ca5bc48357b43ddbdc31ccdffc0e2a0882",
++                "url": "https://api.github.com/repos/doctrine/migrations/zipball/a3987131febeb0e9acb3c47ab0df0af004588934",
++                "reference": "a3987131febeb0e9acb3c47ab0df0af004588934",
 +                "shasum": ""
 +            },
 +            "require": {
-+                "doctrine/dbal": "^2.10",
-+                "doctrine/event-manager": "^1.0",
++                "doctrine/dbal": "^2.9",
 +                "ocramius/package-versions": "^1.3",
 +                "ocramius/proxy-manager": "^2.0.2",
-+                "php": "^7.2",
-+                "psr/log": "^1.1.3",
++                "php": "^7.1",
 +                "symfony/console": "^3.4||^4.0||^5.0",
 +                "symfony/stopwatch": "^3.4||^4.0||^5.0"
 +            },
 +            "require-dev": {
-+                "doctrine/coding-standard": "^7.0",
++                "doctrine/coding-standard": "^6.0",
 +                "doctrine/orm": "^2.6",
-+                "doctrine/persistence": "^1.3||^2.0",
-+                "doctrine/sql-formatter": "^1.0",
 +                "ext-pdo_sqlite": "*",
-+                "phpstan/phpstan": "^0.12",
-+                "phpstan/phpstan-deprecation-rules": "^0.12",
-+                "phpstan/phpstan-phpunit": "^0.12",
-+                "phpstan/phpstan-strict-rules": "^0.12",
-+                "phpstan/phpstan-symfony": "^0.12",
-+                "phpunit/phpunit": "^8.4",
++                "jdorn/sql-formatter": "^1.1",
++                "mikey179/vfsstream": "^1.6",
++                "phpstan/phpstan": "^0.10",
++                "phpstan/phpstan-deprecation-rules": "^0.10",
++                "phpstan/phpstan-phpunit": "^0.10",
++                "phpstan/phpstan-strict-rules": "^0.10",
++                "phpunit/phpunit": "^7.0",
 +                "symfony/process": "^3.4||^4.0||^5.0",
 +                "symfony/yaml": "^3.4||^4.0||^5.0"
 +            },
 +            "suggest": {
-+                "doctrine/sql-formatter": "Allows to generate formatted SQL with the diff command.",
++                "jdorn/sql-formatter": "Allows to generate formatted SQL with the diff command.",
 +                "symfony/yaml": "Allows the use of yaml for migration configuration files."
 +            },
 +            "bin": [
@@ -978,7 +962,7 @@ index 1223f33..8e3b545 100644
 +            "type": "library",
 +            "extra": {
 +                "branch-alias": {
-+                    "dev-master": "3.0.x-dev"
++                    "dev-master": "2.2.x-dev"
 +                }
 +            },
 +            "autoload": {
@@ -1012,21 +996,7 @@ index 1223f33..8e3b545 100644
 +                "migrations",
 +                "php"
 +            ],
-+            "funding": [
-+                {
-+                    "url": "https://www.doctrine-project.org/sponsorship.html",
-+                    "type": "custom"
-+                },
-+                {
-+                    "url": "https://www.patreon.com/phpdoctrine",
-+                    "type": "patreon"
-+                },
-+                {
-+                    "url": "https://tidelift.com/funding/github/packagist/doctrine%2Fmigrations",
-+                    "type": "tidelift"
-+                }
-+            ],
-+            "time": "2020-06-21T08:55:42+00:00"
++            "time": "2019-12-04T06:09:14+00:00"
 +        },
 +        {
 +            "name": "doctrine/orm",
@@ -1035,17 +1005,14 @@ index 1223f33..8e3b545 100644
 +                "type": "git",
 +                "url": "https://github.com/doctrine/orm.git",
 +                "reference": "d95e03ba660d50d785a9925f41927fef0ee553cf"
-             },
-             "dist": {
-                 "type": "zip",
--                "url": "https://api.github.com/repos/doctrine/lexer/zipball/e864bbf5904cb8f5bb334f99209b48018522f042",
--                "reference": "e864bbf5904cb8f5bb334f99209b48018522f042",
++            },
++            "dist": {
++                "type": "zip",
 +                "url": "https://api.github.com/repos/doctrine/orm/zipball/d95e03ba660d50d785a9925f41927fef0ee553cf",
 +                "reference": "d95e03ba660d50d785a9925f41927fef0ee553cf",
-                 "shasum": ""
-             },
-             "require": {
--                "php": "^7.2 || ^8.0"
++                "shasum": ""
++            },
++            "require": {
 +                "doctrine/annotations": "^1.8",
 +                "doctrine/cache": "^1.9.1",
 +                "doctrine/collections": "^1.5",
@@ -1157,11 +1124,9 @@ index 1223f33..8e3b545 100644
 +            },
 +            "conflict": {
 +                "doctrine/common": "<2.10@dev"
-             },
-             "require-dev": {
-                 "doctrine/coding-standard": "^6.0",
--                "phpstan/phpstan": "^0.11.8",
--                "phpunit/phpunit": "^8.2"
++            },
++            "require-dev": {
++                "doctrine/coding-standard": "^6.0",
 +                "phpstan/phpstan": "^0.11",
 +                "phpunit/phpunit": "^7.0"
 +            },
@@ -1260,22 +1225,31 @@ index 1223f33..8e3b545 100644
 +                "phpstan/phpstan": "^0.11.0",
 +                "phpstan/phpstan-phpunit": "^0.11.0",
 +                "phpunit/phpunit": "^7.0"
-             },
-             "type": "library",
-             "extra": {
-@@ -226,7 +1415,7 @@
-             },
-             "autoload": {
-                 "psr-4": {
--                    "Doctrine\\Common\\Lexer\\": "lib/Doctrine/Common/Lexer"
++            },
++            "type": "library",
++            "extra": {
++                "branch-alias": {
++                    "dev-master": "1.2.x-dev"
++                }
++            },
++            "autoload": {
++                "psr-4": {
 +                    "Doctrine\\Common\\": "lib/Doctrine/Common"
-                 }
-             },
-             "notification-url": "https://packagist.org/downloads/",
-@@ -242,35 +1431,83 @@
-                     "name": "Roman Borschel",
-                     "email": "roman@code-factory.org"
-                 },
++                }
++            },
++            "notification-url": "https://packagist.org/downloads/",
++            "license": [
++                "MIT"
++            ],
++            "authors": [
++                {
++                    "name": "Guilherme Blanco",
++                    "email": "guilhermeblanco@gmail.com"
++                },
++                {
++                    "name": "Roman Borschel",
++                    "email": "roman@code-factory.org"
++                },
 +                {
 +                    "name": "Benjamin Eberlei",
 +                    "email": "kontakt@beberlei.de"
@@ -1284,25 +1258,18 @@ index 1223f33..8e3b545 100644
 +                    "name": "Jonathan Wage",
 +                    "email": "jonwage@gmail.com"
 +                },
-                 {
-                     "name": "Johannes Schmitt",
-                     "email": "schmittjoh@gmail.com"
++                {
++                    "name": "Johannes Schmitt",
++                    "email": "schmittjoh@gmail.com"
 +                },
 +                {
 +                    "name": "Marco Pivetta",
 +                    "email": "ocramius@gmail.com"
-                 }
-             ],
--            "description": "PHP Doctrine Lexer parser library that can be used in Top-Down, Recursive Descent Parsers.",
--            "homepage": "https://www.doctrine-project.org/projects/lexer.html",
++                }
++            ],
 +            "description": "The Doctrine Reflection project is a simple library used by the various Doctrine projects which adds some additional functionality on top of the reflection functionality that comes with PHP. It allows you to get the reflection information about classes, methods and properties statically.",
 +            "homepage": "https://www.doctrine-project.org/projects/reflection.html",
-             "keywords": [
--                "annotations",
--                "docblock",
--                "lexer",
--                "parser",
--                "php"
++            "keywords": [
 +                "reflection",
 +                "static"
 +            ],
@@ -1345,20 +1312,9 @@ index 1223f33..8e3b545 100644
 +            "notification-url": "https://packagist.org/downloads/",
 +            "license": [
 +                "MIT"
-             ],
--            "funding": [
--                {
--                    "url": "https://www.doctrine-project.org/sponsorship.html",
--                    "type": "custom"
--                },
--                {
--                    "url": "https://www.patreon.com/phpdoctrine",
--                    "type": "patreon"
--                },
++            ],
 +            "authors": [
-                 {
--                    "url": "https://tidelift.com/funding/github/packagist/doctrine%2Flexer",
--                    "type": "tidelift"
++                {
 +                    "name": "Jeremy Dorn",
 +                    "email": "jeremy@jeremydorn.com",
 +                    "homepage": "http://jeremydorn.com/"
@@ -1375,7 +1331,7 @@ index 1223f33..8e3b545 100644
          },
          {
              "name": "guzzlehttp/guzzle",
-@@ -765,6 +2002,76 @@
+@@ -765,6 +1969,76 @@
              ],
              "time": "2020-05-22T08:12:19+00:00"
          },
@@ -1452,7 +1408,7 @@ index 1223f33..8e3b545 100644
          {
              "name": "php-http/client-common",
              "version": "2.2.1",
-@@ -2520,6 +3827,119 @@
+@@ -2520,6 +3794,119 @@
              ],
              "time": "2020-06-06T08:49:21+00:00"
          },
@@ -1572,28 +1528,29 @@ index 1223f33..8e3b545 100644
          {
              "name": "symfony/dotenv",
              "version": "v5.1.2",
-@@ -3566,6 +4986,33 @@
+@@ -3566,6 +4953,48 @@
              ],
              "time": "2020-05-23T13:08:13+00:00"
          },
 +        {
 +            "name": "symfony/orm-pack",
-+            "version": "v1.0.8",
++            "version": "v1.1.0",
 +            "source": {
 +                "type": "git",
 +                "url": "https://github.com/symfony/orm-pack.git",
-+                "reference": "c9bcc08102061f406dc908192c0f33524a675666"
++                "reference": "7dd2ed9ba6d7af79f90bdc77522605d40463e533"
 +            },
 +            "dist": {
 +                "type": "zip",
-+                "url": "https://api.github.com/repos/symfony/orm-pack/zipball/c9bcc08102061f406dc908192c0f33524a675666",
-+                "reference": "c9bcc08102061f406dc908192c0f33524a675666",
++                "url": "https://api.github.com/repos/symfony/orm-pack/zipball/7dd2ed9ba6d7af79f90bdc77522605d40463e533",
++                "reference": "7dd2ed9ba6d7af79f90bdc77522605d40463e533",
 +                "shasum": ""
 +            },
 +            "require": {
-+                "doctrine/doctrine-bundle": "*",
-+                "doctrine/doctrine-migrations-bundle": "*",
-+                "doctrine/orm": "*"
++                "composer/package-versions-deprecated": "*",
++                "doctrine/doctrine-bundle": "^2",
++                "doctrine/doctrine-migrations-bundle": "^2",
++                "doctrine/orm": "^2"
 +            },
 +            "type": "symfony-pack",
 +            "notification-url": "https://packagist.org/downloads/",
@@ -1601,12 +1558,26 @@ index 1223f33..8e3b545 100644
 +                "MIT"
 +            ],
 +            "description": "A pack for the Doctrine ORM",
-+            "time": "2020-02-10T18:03:48+00:00"
++            "funding": [
++                {
++                    "url": "https://symfony.com/sponsor",
++                    "type": "custom"
++                },
++                {
++                    "url": "https://github.com/fabpot",
++                    "type": "github"
++                },
++                {
++                    "url": "https://tidelift.com/funding/github/packagist/symfony/symfony",
++                    "type": "tidelift"
++                }
++            ],
++            "time": "2020-07-08T14:31:54+00:00"
 +        },
          {
              "name": "symfony/polyfill-intl-grapheme",
              "version": "v1.17.1",
-@@ -5395,101 +6842,122 @@
+@@ -5395,101 +6824,122 @@
                  }
              ],
              "time": "2020-07-05T13:18:14+00:00"
@@ -1833,15 +1804,15 @@ index 0000000..5e80e77
 +                alias: App
 diff --git a/config/packages/doctrine_migrations.yaml b/config/packages/doctrine_migrations.yaml
 new file mode 100644
-index 0000000..61e6612
+index 0000000..08e7f07
 --- /dev/null
 +++ b/config/packages/doctrine_migrations.yaml
 @@ -0,0 +1,5 @@
 +doctrine_migrations:
-+    migrations_paths:
-+        # namespace is arbitrary but should be different from App\Migrations
-+        # as migrations classes should NOT be autoloaded
-+        'DoctrineMigrations': '%kernel.project_dir%/migrations'
++    dir_name: '%kernel.project_dir%/migrations'
++    # namespace is arbitrary but should be different from App\Migrations
++    # as migrations classes should NOT be autoloaded
++    namespace: DoctrineMigrations
 diff --git a/config/packages/prod/doctrine.yaml b/config/packages/prod/doctrine.yaml
 new file mode 100644
 index 0000000..084f59a
@@ -1878,7 +1849,7 @@ diff --git a/src/Repository/.gitignore b/src/Repository/.gitignore
 new file mode 100644
 index 0000000..e69de29
 diff --git a/symfony.lock b/symfony.lock
-index 2d28238..c99f217 100644
+index 2d28238..e4334a1 100644
 --- a/symfony.lock
 +++ b/symfony.lock
 @@ -14,12 +14,73 @@
@@ -1913,12 +1884,12 @@ index 2d28238..c99f217 100644
 +        ]
 +    },
 +    "doctrine/doctrine-migrations-bundle": {
-+        "version": "2.2",
++        "version": "1.2",
 +        "recipe": {
 +            "repo": "github.com/symfony/recipes",
 +            "branch": "master",
-+            "version": "2.2",
-+            "ref": "baaa439e3e3179e69e3da84b671f0a3e4a2f56ad"
++            "version": "1.2",
++            "ref": "b609494a0ab33d79acf3ead2067e3f67c9a47bd2"
 +        },
 +        "files": [
 +            "config/packages/doctrine_migrations.yaml",

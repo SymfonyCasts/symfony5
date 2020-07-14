@@ -1,8 +1,8 @@
 diff --git a/README.md b/README.md
-index a2f0472..0e1e349 100644
+index a2f0472..d1148da 100644
 --- a/README.md
 +++ b/README.md
-@@ -21,6 +21,33 @@ composer install
+@@ -21,6 +21,36 @@ composer install
  You may alternatively need to run `php composer.phar install`, depending
  on how you installed Composer.
  
@@ -28,6 +28,9 @@ index a2f0472..0e1e349 100644
 +symfony console doctrine:database:create
 +symfony console doctrine:migrations:migrate
 +```
++
++(If you get an error about "MySQL server has gone away", just wait
++a few seconds and try again - the container is probably still booting).
 +
 +If you do *not* want to use Docker, just make sure to start your own
 +database server and update the `DATABASE_URL` environment variable in

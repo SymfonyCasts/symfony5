@@ -11,7 +11,7 @@ index 87dd19d..8838a5f 100644
          "sentry/sentry-symfony": "^3.4",
          "symfony/asset": "5.1.*",
 diff --git a/composer.lock b/composer.lock
-index 8e3b545..7b47aab 100644
+index 45e91d1..695934d 100644
 --- a/composer.lock
 +++ b/composer.lock
 @@ -4,7 +4,7 @@
@@ -23,23 +23,22 @@ index 8e3b545..7b47aab 100644
      "packages": [
          {
              "name": "clue/stream-filter",
-@@ -1862,6 +1862,73 @@
+@@ -1829,6 +1829,72 @@
              ],
              "time": "2019-11-26T13:18:52+00:00"
          },
 +        {
 +            "name": "knplabs/knp-time-bundle",
-+            "version": "v1.11.0",
-+            "target-dir": "Knp/Bundle/TimeBundle",
++            "version": "v1.12.0",
 +            "source": {
 +                "type": "git",
 +                "url": "https://github.com/KnpLabs/KnpTimeBundle.git",
-+                "reference": "8f3983f8b53e9c350f7dd476461bd7f5b32dfc89"
++                "reference": "d413a674d206e0a71748513d13c50bb5907ca372"
 +            },
 +            "dist": {
 +                "type": "zip",
-+                "url": "https://api.github.com/repos/KnpLabs/KnpTimeBundle/zipball/8f3983f8b53e9c350f7dd476461bd7f5b32dfc89",
-+                "reference": "8f3983f8b53e9c350f7dd476461bd7f5b32dfc89",
++                "url": "https://api.github.com/repos/KnpLabs/KnpTimeBundle/zipball/d413a674d206e0a71748513d13c50bb5907ca372",
++                "reference": "d413a674d206e0a71748513d13c50bb5907ca372",
 +                "shasum": ""
 +            },
 +            "require": {
@@ -64,8 +63,8 @@ index 8e3b545..7b47aab 100644
 +                }
 +            },
 +            "autoload": {
-+                "psr-0": {
-+                    "Knp\\Bundle\\TimeBundle": ""
++                "psr-4": {
++                    "Knp\\Bundle\\TimeBundle\\": ""
 +                }
 +            },
 +            "notification-url": "https://packagist.org/downloads/",
@@ -92,12 +91,12 @@ index 8e3b545..7b47aab 100644
 +                "knplabs",
 +                "time"
 +            ],
-+            "time": "2019-12-30T16:00:41+00:00"
++            "time": "2020-07-07T20:34:42+00:00"
 +        },
          {
              "name": "michelf/php-markdown",
              "version": "1.9.0",
-@@ -5996,6 +6063,168 @@
+@@ -5978,6 +6044,168 @@
              ],
              "time": "2020-06-11T12:16:36+00:00"
          },
@@ -289,7 +288,7 @@ index 0000000..05a2b3d
 +        fallbacks:
 +            - en
 diff --git a/symfony.lock b/symfony.lock
-index c99f217..59845c7 100644
+index e4334a1..76347c9 100644
 --- a/symfony.lock
 +++ b/symfony.lock
 @@ -99,6 +99,9 @@
