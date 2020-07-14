@@ -706,6 +706,11 @@
             "description": null
         },
         {
+            "id": "docker-internal-update-readme",
+            "name": "Docker: internal, update README",
+            "description": null
+        },
+        {
             "id": "docker-configure-server-version",
             "name": "Docker: configure server_version",
             "description": null
@@ -1031,5 +1036,5 @@
             "description": null
         }
     ],
-    "sha": "c7bb5a45bc29257e6f459d717a2385bee8030220"
+    "sha": "29879a674195ec2f0ba58c1283e026d10384ac2e"
 }

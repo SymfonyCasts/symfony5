@@ -27,7 +27,7 @@ index fd74677..87dd19d 100644
          "symfony/twig-pack": "^1.0",
          "symfony/var-dumper": "5.1.*",
 diff --git a/composer.lock b/composer.lock
-index a1f6290..88b7dba 100644
+index 1223f33..8e3b545 100644
 --- a/composer.lock
 +++ b/composer.lock
 @@ -4,7 +4,7 @@
@@ -1451,8 +1451,8 @@ index a1f6290..88b7dba 100644
 +        },
          {
              "name": "php-http/client-common",
-             "version": "2.2.0",
-@@ -2519,6 +3826,119 @@
+             "version": "2.2.1",
+@@ -2520,6 +3827,119 @@
              ],
              "time": "2020-06-06T08:49:21+00:00"
          },
@@ -1572,7 +1572,7 @@ index a1f6290..88b7dba 100644
          {
              "name": "symfony/dotenv",
              "version": "v5.1.2",
-@@ -3565,6 +4985,33 @@
+@@ -3566,6 +4986,33 @@
              ],
              "time": "2020-05-23T13:08:13+00:00"
          },
@@ -1606,7 +1606,7 @@ index a1f6290..88b7dba 100644
          {
              "name": "symfony/polyfill-intl-grapheme",
              "version": "v1.17.1",
-@@ -5394,101 +6841,122 @@
+@@ -5395,101 +6842,122 @@
                  }
              ],
              "time": "2020-07-05T13:18:14+00:00"

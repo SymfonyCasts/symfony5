@@ -11,7 +11,7 @@ index 0d9caba..d5f53cd 100644
          "symfony/console": "5.1.*",
          "symfony/debug-bundle": "5.1.*",
 diff --git a/composer.lock b/composer.lock
-index 331cf44..2967479 100644
+index ff3edf5..e76f95f 100644
 --- a/composer.lock
 +++ b/composer.lock
 @@ -4,8 +4,53 @@
@@ -69,7 +69,7 @@ index 331cf44..2967479 100644
          {
              "name": "clue/stream-filter",
              "version": "v1.4.1",
-@@ -1509,6 +1554,88 @@
+@@ -1476,6 +1521,88 @@
              ],
              "time": "2020-05-29T18:32:49+00:00"
          },
@@ -158,9 +158,9 @@ index 331cf44..2967479 100644
          {
              "name": "guzzlehttp/guzzle",
              "version": "6.5.5",
-@@ -3246,6 +3373,72 @@
+@@ -3213,6 +3340,72 @@
              ],
-             "time": "2020-05-07T13:11:22+00:00"
+             "time": "2020-07-08T10:36:55+00:00"
          },
 +        {
 +            "name": "stof/doctrine-extensions-bundle",

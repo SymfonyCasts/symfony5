@@ -11,7 +11,7 @@ index 8838a5f..ccf5f8c 100644
          "symfony/profiler-pack": "^1.0"
      },
 diff --git a/composer.lock b/composer.lock
-index 1c64cb2..c4655f5 100644
+index 7b47aab..a573a9d 100644
 --- a/composer.lock
 +++ b/composer.lock
 @@ -4,7 +4,7 @@
@@ -23,7 +23,7 @@ index 1c64cb2..c4655f5 100644
      "packages": [
          {
              "name": "clue/stream-filter",
-@@ -7186,6 +7186,166 @@
+@@ -7187,6 +7187,166 @@
          }
      ],
      "packages-dev": [
