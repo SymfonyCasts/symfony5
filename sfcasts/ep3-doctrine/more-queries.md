@@ -63,3 +63,47 @@ in methods about as far as they can go next, we're going to further, we're gonna
 this Macquarie for this page more complex, so complex that we're going to need to
 write a custom query to accomplish it.
 
+Now when you call get repository, what that actually gives you back? Isn't a class
+called entity repository. So all shifts. Okay. Inside entity, repository .php. I want
+to actually see what that looks like and I'll make sure I include all non project
+items here. There we go. So NC repository, which lives deep down inside of doctrine.
+So this is actually the object that we get back and you can see it has methods on it,
+like down here, find, find out, yeah, find a buy, find one, buy. So time you call,
+get repository. You get back an instance of entity repository. And this is where all
+those methods live. But check this out. Okay. I'm going to DD repository. When I move
+over now and refresh, check this out, it is not actually an instance of entering
+repository. It's an instance of app repository, question repository. That's a class
+that lives in our project. Open it up and source repository, question repository or
+adopt PHP. Now remember when we originally ran a make entity to generate our question
+entity, it generated two classes. It generated our question class, but it also
+generated question repository. And at that time I said, don't worry about this. We'll
+talk about it later. Now, if you look closely questioned, repository extends this
+service entity repository. And if you hold command or control and click into that,
+that extends entity repository. The class we were just looking at.
+
+So the point is this question, repository class extends entity repository, which is
+why we have all, which is why we can use all the methods, like find all our find by
+now, the reason that doctor knows to give us a question repository. When we ask for
+the, when we call get repository and pass it. The question is at the top of the
+question class, we have an ad or an entity, and it says repository class = question
+repository, ::class. This was generated for us from make entity. So the whole point
+is that whenever we call a get repository and pass it, the question class, it's going
+to give us back an instance of question repository, and that has all the shortcut
+methods in it. We need now reason. This is cool is that each time we need to write a
+custom query, we can add a new method inside of the question repository for it.
+
+So you can actually see one generated in here by default. I'm actually going to
+comment out this find by example, field thing here. So if I have a fine by example
+field method in here, I can actually call that on my repository because this is an
+instance of question repository. So in our case, well, we, what I want to do next is
+modify the query in here. Not just to order by asked at, but I also want to add where
+asked to add is not, no, because I don't want to show a questions that don't have an
+AskPat value, but doing an ease, not know is too complex for the fine buy. So we're
+going to need to custom query. So in question repository, I'm going to rename this
+method to find that all asked, ordered by newest. And we won't need this to take any
+arguments. And then inside of my controller, I'll get rid of the D D we can say
+questions = repository arrow. Find all asked, ordered by newest. Of course, that's
+not going to work yet because this logic is all wrong. But next let's learn about
+what this query builder thing is and learn how we can make a custom query that
+returns the exact question objects that we need.
+
