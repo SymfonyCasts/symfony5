@@ -1,25 +1,25 @@
 diff --git a/composer.json b/composer.json
-index 0d9caba..d5f53cd 100644
+index 71b325a..f37ed0d 100644
 --- a/composer.json
 +++ b/composer.json
-@@ -9,6 +9,7 @@
+@@ -13,6 +13,7 @@
          "knplabs/knp-time-bundle": "^1.11",
          "sensio/framework-extra-bundle": "^5.5",
          "sentry/sentry-symfony": "^3.4",
 +        "stof/doctrine-extensions-bundle": "^1.4",
          "symfony/asset": "5.1.*",
          "symfony/console": "5.1.*",
-         "symfony/debug-bundle": "5.1.*",
+         "symfony/dotenv": "5.1.*",
 diff --git a/composer.lock b/composer.lock
-index 2b980c4..64f41a3 100644
+index 982c06a..9558718 100644
 --- a/composer.lock
 +++ b/composer.lock
 @@ -4,8 +4,53 @@
          "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
          "This file is @generated automatically"
      ],
--    "content-hash": "93d11e056ed21efbfb2d8cc08d971399",
-+    "content-hash": "0f53eca0da9055caedd6187c7bf575b8",
+-    "content-hash": "d86339c424cbc7d97a5b2c7a3c20cdfe",
++    "content-hash": "1d46ac85852a68a5eaffbb2e073c8468",
      "packages": [
 +        {
 +            "name": "behat/transliterator",
@@ -69,7 +69,7 @@ index 2b980c4..64f41a3 100644
          {
              "name": "clue/stream-filter",
              "version": "v1.4.1",
-@@ -1476,6 +1521,88 @@
+@@ -1509,6 +1554,88 @@
              ],
              "time": "2020-05-29T18:32:49+00:00"
          },
@@ -158,7 +158,7 @@ index 2b980c4..64f41a3 100644
          {
              "name": "guzzlehttp/guzzle",
              "version": "6.5.5",
-@@ -3213,6 +3340,72 @@
+@@ -3246,6 +3373,72 @@
              ],
              "time": "2020-07-08T10:36:55+00:00"
          },
@@ -252,7 +252,7 @@ index 0000000..c83f3b1
 +stof_doctrine_extensions:
 +    default_locale: en_US
 diff --git a/symfony.lock b/symfony.lock
-index 0410b9d..dc6c502 100644
+index e72752a..f87283e 100644
 --- a/symfony.lock
 +++ b/symfony.lock
 @@ -1,4 +1,7 @@

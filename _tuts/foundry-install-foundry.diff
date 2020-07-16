@@ -1,31 +1,183 @@
 diff --git a/composer.json b/composer.json
-index ccf5f8c..0d9caba 100644
+index b78be83..71b325a 100644
 --- a/composer.json
 +++ b/composer.json
-@@ -26,7 +26,8 @@
-     "require-dev": {
-         "doctrine/doctrine-fixtures-bundle": "^3.3",
+@@ -31,7 +31,8 @@
+         "symfony/debug-bundle": "5.1.*",
          "symfony/maker-bundle": "^1.15",
--        "symfony/profiler-pack": "^1.0"
-+        "symfony/profiler-pack": "^1.0",
+         "symfony/var-dumper": "5.1.*",
+-        "symfony/web-profiler-bundle": "5.1.*"
++        "symfony/web-profiler-bundle": "5.1.*",
 +        "zenstruck/foundry": "^1.1"
      },
      "config": {
          "preferred-install": {
 diff --git a/composer.lock b/composer.lock
-index df61bc3..2b980c4 100644
+index 48e0af9..982c06a 100644
 --- a/composer.lock
 +++ b/composer.lock
 @@ -4,7 +4,7 @@
          "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
          "This file is @generated automatically"
      ],
--    "content-hash": "d6b3387000ded4d67ff7caf1ba42ace0",
-+    "content-hash": "93d11e056ed21efbfb2d8cc08d971399",
+-    "content-hash": "704929d3cf5fef3bafaeabb8101d3003",
++    "content-hash": "d86339c424cbc7d97a5b2c7a3c20cdfe",
      "packages": [
          {
              "name": "clue/stream-filter",
-@@ -7328,6 +7328,56 @@
+@@ -4974,16 +4974,16 @@
+         },
+         {
+             "name": "symfony/polyfill-intl-grapheme",
+-            "version": "v1.17.1",
++            "version": "v1.18.0",
+             "source": {
+                 "type": "git",
+                 "url": "https://github.com/symfony/polyfill-intl-grapheme.git",
+-                "reference": "6e4dbcf5e81eba86e36731f94fe56b1726835846"
++                "reference": "b740103edbdcc39602239ee8860f0f45a8eb9aa5"
+             },
+             "dist": {
+                 "type": "zip",
+-                "url": "https://api.github.com/repos/symfony/polyfill-intl-grapheme/zipball/6e4dbcf5e81eba86e36731f94fe56b1726835846",
+-                "reference": "6e4dbcf5e81eba86e36731f94fe56b1726835846",
++                "url": "https://api.github.com/repos/symfony/polyfill-intl-grapheme/zipball/b740103edbdcc39602239ee8860f0f45a8eb9aa5",
++                "reference": "b740103edbdcc39602239ee8860f0f45a8eb9aa5",
+                 "shasum": ""
+             },
+             "require": {
+@@ -4995,7 +4995,7 @@
+             "type": "library",
+             "extra": {
+                 "branch-alias": {
+-                    "dev-master": "1.17-dev"
++                    "dev-master": "1.18-dev"
+                 },
+                 "thanks": {
+                     "name": "symfony/polyfill",
+@@ -5048,7 +5048,7 @@
+                     "type": "tidelift"
+                 }
+             ],
+-            "time": "2020-06-06T08:46:27+00:00"
++            "time": "2020-07-14T12:35:20+00:00"
+         },
+         {
+             "name": "symfony/polyfill-intl-idn",
+@@ -5132,16 +5132,16 @@
+         },
+         {
+             "name": "symfony/polyfill-intl-normalizer",
+-            "version": "v1.17.1",
++            "version": "v1.18.0",
+             "source": {
+                 "type": "git",
+                 "url": "https://github.com/symfony/polyfill-intl-normalizer.git",
+-                "reference": "40309d1700e8f72447bb9e7b54af756eeea35620"
++                "reference": "37078a8dd4a2a1e9ab0231af7c6cb671b2ed5a7e"
+             },
+             "dist": {
+                 "type": "zip",
+-                "url": "https://api.github.com/repos/symfony/polyfill-intl-normalizer/zipball/40309d1700e8f72447bb9e7b54af756eeea35620",
+-                "reference": "40309d1700e8f72447bb9e7b54af756eeea35620",
++                "url": "https://api.github.com/repos/symfony/polyfill-intl-normalizer/zipball/37078a8dd4a2a1e9ab0231af7c6cb671b2ed5a7e",
++                "reference": "37078a8dd4a2a1e9ab0231af7c6cb671b2ed5a7e",
+                 "shasum": ""
+             },
+             "require": {
+@@ -5153,7 +5153,7 @@
+             "type": "library",
+             "extra": {
+                 "branch-alias": {
+-                    "dev-master": "1.17-dev"
++                    "dev-master": "1.18-dev"
+                 },
+                 "thanks": {
+                     "name": "symfony/polyfill",
+@@ -5209,20 +5209,20 @@
+                     "type": "tidelift"
+                 }
+             ],
+-            "time": "2020-06-14T14:40:37+00:00"
++            "time": "2020-07-14T12:35:20+00:00"
+         },
+         {
+             "name": "symfony/polyfill-mbstring",
+-            "version": "v1.17.1",
++            "version": "v1.18.0",
+             "source": {
+                 "type": "git",
+                 "url": "https://github.com/symfony/polyfill-mbstring.git",
+-                "reference": "7110338d81ce1cbc3e273136e4574663627037a7"
++                "reference": "a6977d63bf9a0ad4c65cd352709e230876f9904a"
+             },
+             "dist": {
+                 "type": "zip",
+-                "url": "https://api.github.com/repos/symfony/polyfill-mbstring/zipball/7110338d81ce1cbc3e273136e4574663627037a7",
+-                "reference": "7110338d81ce1cbc3e273136e4574663627037a7",
++                "url": "https://api.github.com/repos/symfony/polyfill-mbstring/zipball/a6977d63bf9a0ad4c65cd352709e230876f9904a",
++                "reference": "a6977d63bf9a0ad4c65cd352709e230876f9904a",
+                 "shasum": ""
+             },
+             "require": {
+@@ -5234,7 +5234,7 @@
+             "type": "library",
+             "extra": {
+                 "branch-alias": {
+-                    "dev-master": "1.17-dev"
++                    "dev-master": "1.18-dev"
+                 },
+                 "thanks": {
+                     "name": "symfony/polyfill",
+@@ -5286,7 +5286,7 @@
+                     "type": "tidelift"
+                 }
+             ],
+-            "time": "2020-06-06T08:46:27+00:00"
++            "time": "2020-07-14T12:35:20+00:00"
+         },
+         {
+             "name": "symfony/polyfill-php73",
+@@ -5366,16 +5366,16 @@
+         },
+         {
+             "name": "symfony/polyfill-php80",
+-            "version": "v1.17.1",
++            "version": "v1.18.0",
+             "source": {
+                 "type": "git",
+                 "url": "https://github.com/symfony/polyfill-php80.git",
+-                "reference": "4a5b6bba3259902e386eb80dd1956181ee90b5b2"
++                "reference": "d87d5766cbf48d72388a9f6b85f280c8ad51f981"
+             },
+             "dist": {
+                 "type": "zip",
+-                "url": "https://api.github.com/repos/symfony/polyfill-php80/zipball/4a5b6bba3259902e386eb80dd1956181ee90b5b2",
+-                "reference": "4a5b6bba3259902e386eb80dd1956181ee90b5b2",
++                "url": "https://api.github.com/repos/symfony/polyfill-php80/zipball/d87d5766cbf48d72388a9f6b85f280c8ad51f981",
++                "reference": "d87d5766cbf48d72388a9f6b85f280c8ad51f981",
+                 "shasum": ""
+             },
+             "require": {
+@@ -5384,7 +5384,7 @@
+             "type": "library",
+             "extra": {
+                 "branch-alias": {
+-                    "dev-master": "1.17-dev"
++                    "dev-master": "1.18-dev"
+                 },
+                 "thanks": {
+                     "name": "symfony/polyfill",
+@@ -5442,7 +5442,7 @@
+                     "type": "tidelift"
+                 }
+             ],
+-            "time": "2020-06-06T08:46:27+00:00"
++            "time": "2020-07-14T12:35:20+00:00"
+         },
+         {
+             "name": "symfony/polyfill-uuid",
+@@ -7104,6 +7104,56 @@
              ],
              "time": "2020-04-02T16:40:37+00:00"
          },
@@ -82,9 +234,9 @@ index df61bc3..2b980c4 100644
          {
              "name": "nikic/php-parser",
              "version": "v4.6.0",
-@@ -7380,6 +7430,79 @@
+@@ -7236,6 +7286,79 @@
              ],
-             "time": "2020-07-02T17:12:47+00:00"
+             "time": "2020-05-20T17:43:50+00:00"
          },
 +        {
 +            "name": "symfony/inflector",
@@ -162,11 +314,10 @@ index df61bc3..2b980c4 100644
          {
              "name": "symfony/maker-bundle",
              "version": "v1.20.0",
-@@ -7462,6 +7585,245 @@
-                 }
+@@ -7319,6 +7442,180 @@
              ],
              "time": "2020-07-14T11:22:04+00:00"
-+        },
+         },
 +        {
 +            "name": "symfony/property-access",
 +            "version": "v5.1.2",
@@ -341,6 +492,14 @@ index df61bc3..2b980c4 100644
 +            ],
 +            "time": "2020-06-15T11:50:15+00:00"
 +        },
+         {
+             "name": "symfony/web-profiler-bundle",
+             "version": "v5.1.2",
+@@ -7397,6 +7694,71 @@
+                 }
+             ],
+             "time": "2020-06-09T11:33:28+00:00"
++        },
 +        {
 +            "name": "zenstruck/foundry",
 +            "version": "v1.1.0",
@@ -419,7 +578,7 @@ index a9ebfeb..883e9af 100644
 +    Zenstruck\Foundry\ZenstruckFoundryBundle::class => ['dev' => true, 'test' => true],
  ];
 diff --git a/symfony.lock b/symfony.lock
-index e92bfc5..0410b9d 100644
+index 167fe81..e72752a 100644
 --- a/symfony.lock
 +++ b/symfony.lock
 @@ -96,6 +96,9 @@

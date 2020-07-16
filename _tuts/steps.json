@@ -696,6 +696,16 @@
             "description": null
         },
         {
+            "id": "pre-ep3-unpack-packs",
+            "name": "PRE_EP3: unpack packs",
+            "description": null
+        },
+        {
+            "id": "pre-ep3-move-dev-packages",
+            "name": "PRE_EP3: move dev packages",
+            "description": null
+        },
+        {
             "id": "doctrine-install-install-doctrine",
             "name": "Doctrine Install: Install doctrine",
             "description": null
@@ -708,6 +718,16 @@
         {
             "id": "docker-internal-update-readme",
             "name": "Docker: internal, update README",
+            "description": null
+        },
+        {
+            "id": "docker-dd-server",
+            "name": "Docker: dd($_SERVER)",
+            "description": null
+        },
+        {
+            "id": "docker-remove-dd",
+            "name": "Docker: remove dd",
             "description": null
         },
         {
@@ -791,6 +811,11 @@
             "description": null
         },
         {
+            "id": "ago-use-date-filter",
+            "name": "Ago: use date filter",
+            "description": null
+        },
+        {
             "id": "ago-install-knptimebundle",
             "name": "Ago: install KnpTimeBundle",
             "description": null
@@ -821,8 +846,18 @@
             "description": null
         },
         {
+            "id": "more-queries-dd-repository",
+            "name": "More Queries: dd($repository)",
+            "description": null
+        },
+        {
             "id": "more-queries-uncomment-repo-method",
             "name": "More Queries: uncomment repo method",
+            "description": null
+        },
+        {
+            "id": "more-queries-rename-method",
+            "name": "More Queries: rename method",
             "description": null
         },
         {
@@ -921,8 +956,8 @@
             "description": null
         },
         {
-            "id": "vote-action-flash-message",
-            "name": "Vote Action: flash message",
+            "id": "delete-me-1",
+            "name": "delete me 1",
             "description": null
         },
         {
@@ -1036,5 +1071,5 @@
             "description": null
         }
     ],
-    "sha": "1aafd98261e06cdd2d7870623b0e2c7570e2b6be"
+    "sha": "51905f05e623ebdb27df33c2048e5b9a1f16c3de"
 }

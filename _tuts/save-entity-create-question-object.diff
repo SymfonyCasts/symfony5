@@ -1,5 +1,5 @@
 diff --git a/src/Controller/QuestionController.php b/src/Controller/QuestionController.php
-index 1c6c66c..092de65 100644
+index 1c6c66c..b03d9ef 100644
 --- a/src/Controller/QuestionController.php
 +++ b/src/Controller/QuestionController.php
 @@ -2,6 +2,7 @@
@@ -10,7 +10,7 @@ index 1c6c66c..092de65 100644
  use App\Service\MarkdownHelper;
  use Psr\Log\LoggerInterface;
  use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
-@@ -33,6 +34,26 @@ class QuestionController extends AbstractController
+@@ -33,6 +34,28 @@ class QuestionController extends AbstractController
       */
      public function new()
      {
@@ -33,6 +33,8 @@ index 1c6c66c..092de65 100644
 +        if (rand(1, 10) > 2) {
 +            $question->setAskedAt(new \DateTime(sprintf('-%d days', rand(1, 100))));
 +        }
++
++        dd($question);
 +
          return new Response('Time for some Doctrine magic!');
      }

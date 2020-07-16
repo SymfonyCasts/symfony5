@@ -1,29 +1,29 @@
 diff --git a/composer.json b/composer.json
-index 87dd19d..8838a5f 100644
+index 9b9a91d..092284c 100644
 --- a/composer.json
 +++ b/composer.json
-@@ -6,6 +6,7 @@
-         "ext-ctype": "*",
-         "ext-iconv": "*",
+@@ -10,6 +10,7 @@
+         "doctrine/doctrine-migrations-bundle": "^3.0",
+         "doctrine/orm": "^2.7",
          "knplabs/knp-markdown-bundle": "^1.8",
 +        "knplabs/knp-time-bundle": "^1.11",
          "sensio/framework-extra-bundle": "^5.5",
          "sentry/sentry-symfony": "^3.4",
          "symfony/asset": "5.1.*",
 diff --git a/composer.lock b/composer.lock
-index 45e91d1..695934d 100644
+index 76da20d..3805c0e 100644
 --- a/composer.lock
 +++ b/composer.lock
 @@ -4,7 +4,7 @@
          "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
          "This file is @generated automatically"
      ],
--    "content-hash": "dfb06d824f8fdf2e3f38c553fe85e940",
-+    "content-hash": "3513267a2f4fcb81868171da3ca3f19a",
+-    "content-hash": "015a638534723fa441e181f55c6b4db4",
++    "content-hash": "e76dcf2bf1cbef5d0e6d8acaec6b828f",
      "packages": [
          {
              "name": "clue/stream-filter",
-@@ -1829,6 +1829,72 @@
+@@ -1862,6 +1862,72 @@
              ],
              "time": "2019-11-26T13:18:52+00:00"
          },
@@ -96,7 +96,7 @@ index 45e91d1..695934d 100644
          {
              "name": "michelf/php-markdown",
              "version": "1.9.0",
-@@ -5978,6 +6044,168 @@
+@@ -5861,6 +5927,168 @@
              ],
              "time": "2020-06-11T12:16:36+00:00"
          },
@@ -288,7 +288,7 @@ index 0000000..05a2b3d
 +        fallbacks:
 +            - en
 diff --git a/symfony.lock b/symfony.lock
-index e4334a1..76347c9 100644
+index 5777f80..030ccbf 100644
 --- a/symfony.lock
 +++ b/symfony.lock
 @@ -99,6 +99,9 @@

@@ -1,29 +1,29 @@
 diff --git a/composer.json b/composer.json
-index 8838a5f..ccf5f8c 100644
+index 092284c..b78be83 100644
 --- a/composer.json
 +++ b/composer.json
-@@ -24,6 +24,7 @@
-         "symfony/yaml": "5.1.*"
+@@ -27,6 +27,7 @@
+         "twig/twig": "^2.12|^3.0"
      },
      "require-dev": {
 +        "doctrine/doctrine-fixtures-bundle": "^3.3",
+         "symfony/debug-bundle": "5.1.*",
          "symfony/maker-bundle": "^1.15",
-         "symfony/profiler-pack": "^1.0"
-     },
+         "symfony/var-dumper": "5.1.*",
 diff --git a/composer.lock b/composer.lock
-index 695934d..df61bc3 100644
+index 3805c0e..48e0af9 100644
 --- a/composer.lock
 +++ b/composer.lock
 @@ -4,7 +4,7 @@
          "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
          "This file is @generated automatically"
      ],
--    "content-hash": "3513267a2f4fcb81868171da3ca3f19a",
-+    "content-hash": "d6b3387000ded4d67ff7caf1ba42ace0",
+-    "content-hash": "e76dcf2bf1cbef5d0e6d8acaec6b828f",
++    "content-hash": "704929d3cf5fef3bafaeabb8101d3003",
      "packages": [
          {
              "name": "clue/stream-filter",
-@@ -7168,6 +7168,166 @@
+@@ -6944,6 +6944,166 @@
          }
      ],
      "packages-dev": [
@@ -224,7 +224,7 @@ index 0000000..fece475
 +    }
 +}
 diff --git a/symfony.lock b/symfony.lock
-index 76347c9..e92bfc5 100644
+index 030ccbf..167fe81 100644
 --- a/symfony.lock
 +++ b/symfony.lock
 @@ -23,6 +23,9 @@
@@ -254,5 +254,5 @@ index 76347c9..e92bfc5 100644
 +        ]
 +    },
      "doctrine/doctrine-migrations-bundle": {
-         "version": "1.2",
+         "version": "2.2",
          "recipe": {

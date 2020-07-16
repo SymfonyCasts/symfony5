@@ -1,0 +1,390 @@
+diff --git a/composer.json b/composer.json
+index 43f1dd4..8f2c817 100644
+--- a/composer.json
++++ b/composer.json
+@@ -10,22 +10,22 @@
+         "sentry/sentry-symfony": "^3.4",
+         "symfony/asset": "5.1.*",
+         "symfony/console": "5.1.*",
+-        "symfony/debug-bundle": "5.1.*",
+         "symfony/dotenv": "5.1.*",
+         "symfony/flex": "^1.3.1",
+         "symfony/framework-bundle": "5.1.*",
+         "symfony/monolog-bundle": "^3.0",
+         "symfony/stopwatch": "5.1.*",
+         "symfony/twig-bundle": "5.1.*",
+-        "symfony/var-dumper": "5.1.*",
+-        "symfony/web-profiler-bundle": "5.1.*",
+         "symfony/webpack-encore-bundle": "^1.7",
+         "symfony/yaml": "5.1.*",
+         "twig/extra-bundle": "^2.12|^3.0",
+         "twig/twig": "^2.12|^3.0"
+     },
+     "require-dev": {
+-        "symfony/maker-bundle": "^1.15"
++        "symfony/debug-bundle": "5.1.*",
++        "symfony/maker-bundle": "^1.15",
++        "symfony/var-dumper": "5.1.*",
++        "symfony/web-profiler-bundle": "5.1.*"
+     },
+     "config": {
+         "preferred-install": {
+diff --git a/composer.lock b/composer.lock
+index b230ea8..1fa5e66 100644
+--- a/composer.lock
++++ b/composer.lock
+@@ -4,7 +4,7 @@
+         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
+         "This file is @generated automatically"
+     ],
+-    "content-hash": "8d273519f2bd91fc27e42a1725639827",
++    "content-hash": "69daa2a9da108783e78c37f8d19882c0",
+     "packages": [
+         {
+             "name": "clue/stream-filter",
+@@ -2287,86 +2287,6 @@
+             ],
+             "time": "2020-06-15T12:59:21+00:00"
+         },
+-        {
+-            "name": "symfony/debug-bundle",
+-            "version": "v5.1.2",
+-            "source": {
+-                "type": "git",
+-                "url": "https://github.com/symfony/debug-bundle.git",
+-                "reference": "3f4bcea52678eedf19260973217f5ae7b835edf5"
+-            },
+-            "dist": {
+-                "type": "zip",
+-                "url": "https://api.github.com/repos/symfony/debug-bundle/zipball/3f4bcea52678eedf19260973217f5ae7b835edf5",
+-                "reference": "3f4bcea52678eedf19260973217f5ae7b835edf5",
+-                "shasum": ""
+-            },
+-            "require": {
+-                "ext-xml": "*",
+-                "php": ">=7.2.5",
+-                "symfony/http-kernel": "^4.4|^5.0",
+-                "symfony/twig-bridge": "^4.4|^5.0",
+-                "symfony/var-dumper": "^4.4|^5.0"
+-            },
+-            "conflict": {
+-                "symfony/config": "<4.4",
+-                "symfony/dependency-injection": "<4.4"
+-            },
+-            "require-dev": {
+-                "symfony/config": "^4.4|^5.0",
+-                "symfony/dependency-injection": "^4.4|^5.0",
+-                "symfony/web-profiler-bundle": "^4.4|^5.0"
+-            },
+-            "suggest": {
+-                "symfony/config": "For service container configuration",
+-                "symfony/dependency-injection": "For using as a service from the container"
+-            },
+-            "type": "symfony-bundle",
+-            "extra": {
+-                "branch-alias": {
+-                    "dev-master": "5.1-dev"
+-                }
+-            },
+-            "autoload": {
+-                "psr-4": {
+-                    "Symfony\\Bundle\\DebugBundle\\": ""
+-                },
+-                "exclude-from-classmap": [
+-                    "/Tests/"
+-                ]
+-            },
+-            "notification-url": "https://packagist.org/downloads/",
+-            "license": [
+-                "MIT"
+-            ],
+-            "authors": [
+-                {
+-                    "name": "Fabien Potencier",
+-                    "email": "fabien@symfony.com"
+-                },
+-                {
+-                    "name": "Symfony Community",
+-                    "homepage": "https://symfony.com/contributors"
+-                }
+-            ],
+-            "description": "Symfony DebugBundle",
+-            "homepage": "https://symfony.com",
+-            "funding": [
+-                {
+-                    "url": "https://symfony.com/sponsor",
+-                    "type": "custom"
+-                },
+-                {
+-                    "url": "https://github.com/fabpot",
+-                    "type": "github"
+-                },
+-                {
+-                    "url": "https://tidelift.com/funding/github/packagist/symfony/symfony",
+-                    "type": "tidelift"
+-                }
+-            ],
+-            "time": "2020-05-20T17:43:50+00:00"
+-        },
+         {
+             "name": "symfony/dependency-injection",
+             "version": "v5.1.2",
+@@ -4966,85 +4886,6 @@
+             ],
+             "time": "2020-06-07T15:42:22+00:00"
+         },
+-        {
+-            "name": "symfony/web-profiler-bundle",
+-            "version": "v5.1.2",
+-            "source": {
+-                "type": "git",
+-                "url": "https://github.com/symfony/web-profiler-bundle.git",
+-                "reference": "25d892ab4927e7df32b0e8dce23cc7a1d4a3bd1c"
+-            },
+-            "dist": {
+-                "type": "zip",
+-                "url": "https://api.github.com/repos/symfony/web-profiler-bundle/zipball/25d892ab4927e7df32b0e8dce23cc7a1d4a3bd1c",
+-                "reference": "25d892ab4927e7df32b0e8dce23cc7a1d4a3bd1c",
+-                "shasum": ""
+-            },
+-            "require": {
+-                "php": ">=7.2.5",
+-                "symfony/config": "^4.4|^5.0",
+-                "symfony/framework-bundle": "^5.1",
+-                "symfony/http-kernel": "^4.4|^5.0",
+-                "symfony/routing": "^4.4|^5.0",
+-                "symfony/twig-bundle": "^4.4|^5.0",
+-                "twig/twig": "^2.10|^3.0"
+-            },
+-            "conflict": {
+-                "symfony/form": "<4.4",
+-                "symfony/messenger": "<4.4"
+-            },
+-            "require-dev": {
+-                "symfony/browser-kit": "^4.4|^5.0",
+-                "symfony/console": "^4.4|^5.0",
+-                "symfony/css-selector": "^4.4|^5.0",
+-                "symfony/stopwatch": "^4.4|^5.0"
+-            },
+-            "type": "symfony-bundle",
+-            "extra": {
+-                "branch-alias": {
+-                    "dev-master": "5.1-dev"
+-                }
+-            },
+-            "autoload": {
+-                "psr-4": {
+-                    "Symfony\\Bundle\\WebProfilerBundle\\": ""
+-                },
+-                "exclude-from-classmap": [
+-                    "/Tests/"
+-                ]
+-            },
+-            "notification-url": "https://packagist.org/downloads/",
+-            "license": [
+-                "MIT"
+-            ],
+-            "authors": [
+-                {
+-                    "name": "Fabien Potencier",
+-                    "email": "fabien@symfony.com"
+-                },
+-                {
+-                    "name": "Symfony Community",
+-                    "homepage": "https://symfony.com/contributors"
+-                }
+-            ],
+-            "description": "Symfony WebProfilerBundle",
+-            "homepage": "https://symfony.com",
+-            "funding": [
+-                {
+-                    "url": "https://symfony.com/sponsor",
+-                    "type": "custom"
+-                },
+-                {
+-                    "url": "https://github.com/fabpot",
+-                    "type": "github"
+-                },
+-                {
+-                    "url": "https://tidelift.com/funding/github/packagist/symfony/symfony",
+-                    "type": "tidelift"
+-                }
+-            ],
+-            "time": "2020-06-09T11:33:28+00:00"
+-        },
+         {
+             "name": "symfony/webpack-encore-bundle",
+             "version": "v1.7.3",
+@@ -5486,6 +5327,86 @@
+             ],
+             "time": "2020-07-02T17:12:47+00:00"
+         },
++        {
++            "name": "symfony/debug-bundle",
++            "version": "v5.1.2",
++            "source": {
++                "type": "git",
++                "url": "https://github.com/symfony/debug-bundle.git",
++                "reference": "3f4bcea52678eedf19260973217f5ae7b835edf5"
++            },
++            "dist": {
++                "type": "zip",
++                "url": "https://api.github.com/repos/symfony/debug-bundle/zipball/3f4bcea52678eedf19260973217f5ae7b835edf5",
++                "reference": "3f4bcea52678eedf19260973217f5ae7b835edf5",
++                "shasum": ""
++            },
++            "require": {
++                "ext-xml": "*",
++                "php": ">=7.2.5",
++                "symfony/http-kernel": "^4.4|^5.0",
++                "symfony/twig-bridge": "^4.4|^5.0",
++                "symfony/var-dumper": "^4.4|^5.0"
++            },
++            "conflict": {
++                "symfony/config": "<4.4",
++                "symfony/dependency-injection": "<4.4"
++            },
++            "require-dev": {
++                "symfony/config": "^4.4|^5.0",
++                "symfony/dependency-injection": "^4.4|^5.0",
++                "symfony/web-profiler-bundle": "^4.4|^5.0"
++            },
++            "suggest": {
++                "symfony/config": "For service container configuration",
++                "symfony/dependency-injection": "For using as a service from the container"
++            },
++            "type": "symfony-bundle",
++            "extra": {
++                "branch-alias": {
++                    "dev-master": "5.1-dev"
++                }
++            },
++            "autoload": {
++                "psr-4": {
++                    "Symfony\\Bundle\\DebugBundle\\": ""
++                },
++                "exclude-from-classmap": [
++                    "/Tests/"
++                ]
++            },
++            "notification-url": "https://packagist.org/downloads/",
++            "license": [
++                "MIT"
++            ],
++            "authors": [
++                {
++                    "name": "Fabien Potencier",
++                    "email": "fabien@symfony.com"
++                },
++                {
++                    "name": "Symfony Community",
++                    "homepage": "https://symfony.com/contributors"
++                }
++            ],
++            "description": "Symfony DebugBundle",
++            "homepage": "https://symfony.com",
++            "funding": [
++                {
++                    "url": "https://symfony.com/sponsor",
++                    "type": "custom"
++                },
++                {
++                    "url": "https://github.com/fabpot",
++                    "type": "github"
++                },
++                {
++                    "url": "https://tidelift.com/funding/github/packagist/symfony/symfony",
++                    "type": "tidelift"
++                }
++            ],
++            "time": "2020-05-20T17:43:50+00:00"
++        },
+         {
+             "name": "symfony/maker-bundle",
+             "version": "v1.20.0",
+@@ -5568,6 +5489,85 @@
+                 }
+             ],
+             "time": "2020-07-14T11:22:04+00:00"
++        },
++        {
++            "name": "symfony/web-profiler-bundle",
++            "version": "v5.1.2",
++            "source": {
++                "type": "git",
++                "url": "https://github.com/symfony/web-profiler-bundle.git",
++                "reference": "25d892ab4927e7df32b0e8dce23cc7a1d4a3bd1c"
++            },
++            "dist": {
++                "type": "zip",
++                "url": "https://api.github.com/repos/symfony/web-profiler-bundle/zipball/25d892ab4927e7df32b0e8dce23cc7a1d4a3bd1c",
++                "reference": "25d892ab4927e7df32b0e8dce23cc7a1d4a3bd1c",
++                "shasum": ""
++            },
++            "require": {
++                "php": ">=7.2.5",
++                "symfony/config": "^4.4|^5.0",
++                "symfony/framework-bundle": "^5.1",
++                "symfony/http-kernel": "^4.4|^5.0",
++                "symfony/routing": "^4.4|^5.0",
++                "symfony/twig-bundle": "^4.4|^5.0",
++                "twig/twig": "^2.10|^3.0"
++            },
++            "conflict": {
++                "symfony/form": "<4.4",
++                "symfony/messenger": "<4.4"
++            },
++            "require-dev": {
++                "symfony/browser-kit": "^4.4|^5.0",
++                "symfony/console": "^4.4|^5.0",
++                "symfony/css-selector": "^4.4|^5.0",
++                "symfony/stopwatch": "^4.4|^5.0"
++            },
++            "type": "symfony-bundle",
++            "extra": {
++                "branch-alias": {
++                    "dev-master": "5.1-dev"
++                }
++            },
++            "autoload": {
++                "psr-4": {
++                    "Symfony\\Bundle\\WebProfilerBundle\\": ""
++                },
++                "exclude-from-classmap": [
++                    "/Tests/"
++                ]
++            },
++            "notification-url": "https://packagist.org/downloads/",
++            "license": [
++                "MIT"
++            ],
++            "authors": [
++                {
++                    "name": "Fabien Potencier",
++                    "email": "fabien@symfony.com"
++                },
++                {
++                    "name": "Symfony Community",
++                    "homepage": "https://symfony.com/contributors"
++                }
++            ],
++            "description": "Symfony WebProfilerBundle",
++            "homepage": "https://symfony.com",
++            "funding": [
++                {
++                    "url": "https://symfony.com/sponsor",
++                    "type": "custom"
++                },
++                {
++                    "url": "https://github.com/fabpot",
++                    "type": "github"
++                },
++                {
++                    "url": "https://tidelift.com/funding/github/packagist/symfony/symfony",
++                    "type": "tidelift"
++                }
++            ],
++            "time": "2020-06-09T11:33:28+00:00"
+         }
+     ],
+     "aliases": [],
