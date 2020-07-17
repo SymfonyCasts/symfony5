@@ -1,5 +1,5 @@
 diff --git a/src/Factory/QuestionFactory.php b/src/Factory/QuestionFactory.php
-index 879b538..ddea206 100644
+index 2450133..cf4573e 100644
 --- a/src/Factory/QuestionFactory.php
 +++ b/src/Factory/QuestionFactory.php
 @@ -4,6 +4,7 @@ namespace App\Factory;
@@ -15,14 +15,12 @@ index 879b538..ddea206 100644
          return [
              'name' => self::faker()->realText(50),
 -            'slug' => self::faker()->slug,
-             'question' => <<<EOF
- Hi! So... I'm having a *weird* day. Yesterday, I cast a spell
- to make my dishes wash themselves. But while I was casting it,
-@@ -43,9 +43,13 @@ EOF
- 
-     protected function initialize(): self
+             'question' => self::faker()->paragraphs(
+                 self::faker()->numberBetween(1, 4),
+                 true
+@@ -37,7 +37,12 @@ final class QuestionFactory extends ModelFactory
      {
--        // see https://github.com/zenstruck/foundry#initialization
+         // see https://github.com/zenstruck/foundry#initialization
          return $this
 -            // ->beforeInstantiate(function(Question $question) {})
 +            ->afterInstantiate(function(Question $question) {

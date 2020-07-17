@@ -1021,6 +1021,11 @@
             "description": null
         },
         {
+            "id": "foundry-paragraphs-for-text",
+            "name": "Foundry: paragraphs for text",
+            "description": null
+        },
+        {
             "id": "foundry-setslug-via-hook",
             "name": "Foundry: setSlug via hook",
             "description": null
@@ -1071,5 +1076,5 @@
             "description": null
         }
     ],
-    "sha": "51905f05e623ebdb27df33c2048e5b9a1f16c3de"
+    "sha": "693a5c57b59aae20efba4175680fa99938cad37b"
 }

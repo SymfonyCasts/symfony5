@@ -10,22 +10,20 @@ index c83f3b1..e7ac8f4 100644
 +        default:
 +            sluggable: true
 diff --git a/src/Factory/QuestionFactory.php b/src/Factory/QuestionFactory.php
-index 3387620..c76834a 100644
+index a4a0ca4..8687a11 100644
 --- a/src/Factory/QuestionFactory.php
 +++ b/src/Factory/QuestionFactory.php
-@@ -48,14 +48,7 @@ EOF
- 
-     protected function initialize(): self
+@@ -42,12 +42,7 @@ final class QuestionFactory extends ModelFactory
      {
--        return $this
+         // see https://github.com/zenstruck/foundry#initialization
+         return $this
 -            ->afterInstantiate(function(Question $question) {
 -                if (!$question->getSlug()) {
 -                    $slugger = new AsciiSlugger();
 -                    $question->setSlug($slugger->slug($question->getName()));
 -                }
 -            })
--        ;
-+        return $this;
++            //->afterInstantiate(function(Question $question) { });
+         ;
      }
  
-     protected static function getClass(): string
