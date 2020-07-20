@@ -9,3 +9,12 @@ chapters:
     - ago
     - more-queries
     - query-builder
+    - query-reuse
+    - votes
+    - request
+    - update
+    - fixtures
+    - foundry
+    - foundry-tricks
+    - sliggable
+    - bad-migrations
