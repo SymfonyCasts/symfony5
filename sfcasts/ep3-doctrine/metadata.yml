@@ -1,6 +1,7 @@
 chapters:
     - install
     - docker-database
+    - docker-compose
     - docker-env-vars
     - entity
     - migrations
