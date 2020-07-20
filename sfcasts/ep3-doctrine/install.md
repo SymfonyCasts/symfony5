@@ -1,104 +1,132 @@
-# Install
+# Installing Doctrine
 
-Coming soon...
+Well hey friends! And bienvenidos to our tutorial about learning Spanish! Huh?
+That's next week? Doctrine?
 
-Hey friends.
+Ah: welcome to our tutorial *all* about making Symfony talk to a database... in
+English.
 
-Welcome to our tutorial about Symfony and doctrine. This is going to be a good one.
-We learned a ton of stuff in the first two courses in the series. It really, we
-learned everything about how Symfony works, how configuration works. Now it's time to
-take our application to the next level, by adding a database, that's going to make
-things way, way more interesting. Now, actually Symfony has no database integration
-at all. Instead it leverages another library called doctrine, which has been around
-for a super long time and is incredibly powerful. Somebody doctrine, nurse sort of
-programming BFS, they're sort of the Batman and Robin of web development. They're
-both powerful, but they have such good integration that it feels like one unit
+We learned a *ton* of in the first two courses in this series, especially the last
+tutorial where we demystified services, autowiring and configuration. That hard
+work is now about to pay off as we take our app to the next level by adding a
+database. That's going to make things way, *way* more interesting.
 
-And not only is doctrine powerful, but it's also easier to use. And it's ever been in
-its entire history. I think you're going to love it. So as always to get the most out
-of this and have the most fun, you should absolutely code along with me. Download the
-course code from this page. After you unzip it, you'll find a `start/` directory with
-the same code that you see here. Check out this `README.md` file for all the
-setup instructions. The last step will be to open a terminal, move into the project
-and run 
+## Who is Doctrine Exactly?
+
+In truth, Symfony actually has *no* database integration at all. Instead, it
+leverages another library called Doctrine, which has been around for a long time
+and is *incredible*. Symfony and Doctrine are, sort of, the BFF's of
+programming, the Batman and Robin of web development, the Bert & Ernie of HTTP!
+They're both powerful, but they have *such* a strong integration that it *feels*
+like you're using one library.
+
+And not only is Doctrine powerful, but it's also easy to use. I'll admit that this
+wasn't *always* the case - but Doctrine is now more accessible and fun to use
+than *ever* before. I think you're going to love it.
+
+## Project Setup
+
+To learn the *most* about Doctrine - and to become the third amigo - you should
+*definitely* code along with me by downloading the course code from this page.
+After you unzip the file, you'll find a `start/` directory with the same code
+that you see here. Check out this `README.md` file for all the setup instructions.
+
+The last step will be to open a terminal and use the Symfony binary to start a
+local web server - you can download this at https://symfony.com/download. Run:
 
 ```terminal
 symfony serve -d
 ```
 
-Do you use these Symfony binary to start a local web
-server? You can download this at https://symfony.com/download run 
+This starts a web server in the background on port 8000. I'll copy the URL, spin
+over to my browser and say hello to... Cauldron Overflow! Our question and
+answer site for witches and wizards: a place to debug *what* went wrong when your
+attempt to make your cat invisible instead made... *you* invisible.
 
-```terminal
-symfony serve -d
-```
+So far, we have a homepage that lists questions and you can view each individual
+question and its answers. But... this is *all* hardcoded! None of this is coming
+from a database... yet. *That* is our job.
 
-to start a web server in the background, Port `8000`. So I'll copy this. You are all
-here. Spin over to my browser and say hello to Cauldron Overflow, our question and
-answer sites for witches and wizards. When things kind of go wrong, Where do you have
-a listing of spells on the homepage? And you can go and view individual spells, but
-all of this stuff is really hard coded. We're not grabbing this from our dynamic
-database yet. That is our job. So like everything is Symfony Symfony starts very,
-very small. So doctrine actually isn't installed right now, installing it though is
-really easy over at our terminal. I'm going to run
+## Installing Doctrine
+
+Now, remember: Symfony starts small: it does not come with every feature and
+library that you might *ever* need. And so, Doctrine is *not* installed yet.
+
+To get it, find your terminal and run:
 
 ```terminal
 composer require orm
 ```
 
-There's a few things I want to say about that. `orm` is one of
-those Symfony flex aliases. You can just say `orm` but in reality, uh, it's just a
-shortcut for a `symfony/orm-pack`. Now we're talking about packs in a previous
-course, a pack is sort of a fake package that helps you just get other packages. So I
-can actually copy that, uh, the name of that repository. And we can see what that
-looks like over at https://github.com/symfony/orm-pack. You can see it's just a
-`composer.json` file. The whole point of this library is that it requires a few other
-packages. So we can just `composer require` this one library and we will get all four of
-these libraries.
+## Auto-Unpacked Packs
 
-Now, one of the, one of the libraries that we have in our project is `symfony/flex`,
-which is actually what, which is what powers, the alias and recipe system starting in
-`symfony/flex` version 1.9, which I have in this project. When you install a pack like
-we just did, and you go and look at your `composer.json` file, what you're gonna
-see is that these four lines here were added. So before a `symfony/flex` 1.9, you would
-have only had one entry in here for `symfony/orm-pack`. It would have still downloaded
-the same things in the background, but starting in `symfony/flex` 1.9, instead of putting
-that one line here, it adds all four lines here and it just makes it easier because
-now you can manage all of these independently. So the point is, all we had to do was
-say, `composer require orm`. And that's a shortcut for getting the four libraries that
-Symfony recommends to work with the Doctrine ORM.
+A few things about this. First, `orm` is one of those Symfony Flex *aliases*. We
+can just say `orm` but, in reality, this is just a shortcut for a library called
+`symfony/orm-pack`.
 
-So anyways, if we scroll down, you can ignore this Zen framework, uh, abandoned
-thing. That's, uh, not something we use very directly. Now we just install the
-library that talks to the database and you can see we get this nice little, uh, uh,
-message at the bottom here about that. And it says, modify your database. You were
-all config in `.env` So when we installed doctrine, it installed a couple of recipes.
-So I'm gonna go down here, clear my screen and say,
+Also, we talked about "packs" in a previous course. A pack is am sort of, fake
+package that exists simply to help you get several *other* packages.
+
+Let me show you: copy the name of the package, and go open it on GitHub:
+https://github.com/symfony/orm-pack. Yep! It's nothing more than a *single*
+`composer.json` file! The whole point of this library is that it requires a few
+*other* packages. That means that we can `composer require` this one package, but
+in reality, we will get all four of these libraries.
+
+Now, one of the *other* packages that we have in our project is `symfony/flex`,
+which is what powers the alias and recipe systems. Starting in `symfony/flex`
+version 1.9 - which I'm using in this project - when you install a pack, Flex
+does something special.
+
+Go and look at your `composer.json` file. What you would *expect* to see is one
+new line for `symfony/orm-pack`: the one library that we just required. In reality,
+Composer would *also* install its 4 dependencies, but only the pack would how up
+here. But... surprise! The 4 packages were added!
+
+Here's the deal: before `symfony/flex` 1.9, when you required a pack, nothing
+special happened: Composer added the *one* new package. But starting in
+`symfony/flex` 1.9, instead of adding the pack, it adds the *individual* libraries
+that the pack requires: these 4 lines. It does this because this makes it *much*
+easier to manage the versions of each package independently.
+
+The point is: a pack is *nothing* more than a shortcut to install *several* packages.
+And in the latest version of Flex, it adds those several packages to your
+`composer.json` file automatically to make life easier.
+
+## DoctrineBundle Recipe & DATABASE_URL
+
+Anyways, if we scroll down, you can ignore this `zend-framework` abandoned warning.
+That's a distant dependency and it won't cause us problems. And... ah! It looks
+like this installed *two* recipes... and one of those gives us a *nice* set
+of instructions at the bottom. We'll learn *all* about this.
+
+To see what the recipes did, I'll clear my screen and say:
 
 ```terminal
 git status
 ```
 
-And so, in addition
-to the normal files that we would expect to be modified, also modified the `.env` and
-created a couple new files. So if we look at that, that end, what it did down here at
-the bottom is it added this new `DATABASE_URL`. So this is the configuration, the
-environment variable that doctrine is going to use to connect to your database the
-way it does that. The recipe also add another file called `config/packages/doctrine.yaml`
-This is actually the doctrine configuration here, and you can actually see
-this `doctrine.dbal.url` . You were anything that points to the environment
-variable. So this, this file is not all that important, but I wanted you to see how
-the pieces are connected with doctrine.
+Ok: in addition to the normal files that we expect to be modified, the recipe
+also modified `.env` and created some new files.
 
-The recipe also added a couple of directories `src/Entity/`, `src/Repository/`,
-and `migrations/`, which we'll talk about soon. So all we need to do to start working
-with doctrine is configure this `DATABASE_URL` environment, variable, and point that to
-our real database in connection information. But unlike what we're going to do
-something special in this tutorial, instead of me telling you to go install my SQL
-and get the server running on your own, we're going to use Docker. And if you already
-use Docker then great, you're going to love this. If you haven't used Docker much
-yet, I still think this isn't required, but I still think you're going to love this.
-Docker has wonderful integration with the Symfony Symfony binary. That's going to
-make using a, spinning up a web server, a database server. Very nice. Let's talk
-about that next.
+Go check out `.env`. At the bottom... here it is: it added a new `DATABASE_URL`.
+This is the environment variable that Doctrine uses to connect to your database.
+And... we can see this! The recipe *also* added another file called
+`config/packages/doctrine.yaml`
 
+*This* is the Doctrine config file and you can actually *see* this
+`doctrine.dbal.url` key *points* to the environment variable. We won't need to
+do much work in this file, but I wanted you to see how the pieces are connected.
+
+The recipe also added a few directories `src/Entity/`, `src/Repository/`,
+and `migrations/`, which we'll talk about soon.
+
+So all we need to do to start working with Doctrine is configure this
+`DATABASE_URL` environment variable: give it some real database connection
+details.
+
+To do that, we're going to do something *special* in this tutorial. Instead of
+telling you to install MySQL locally, we're going to use Docker. If you already
+use Docker, then great. But if you *haven't* used Docker... or you've tried it
+before and didn't like it, give me just a *few* minutes to convince you - I
+think you're going to *love* how Symfony integrates with Docker. That's next!
