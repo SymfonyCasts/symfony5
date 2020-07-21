@@ -1,105 +1,140 @@
-# Entity
+# Entity Class
 
-Coming soon...
+Doctrine is an ORM: an object relational mapper. That's a fancy way of saying
+that, for each table in the database, you will have a corresponding class in PHP.
+And for each column on that table, you'll have a property in that class. When
+you query for a row in a table, Doctrine will give you an *object* back with all
+its data set on properties.
 
-Doctrine is an ORM object, relational mapper, which is a really fancy way of saying
-that for each table that you'll have in the database, you will have a corresponding
-class in PHP. And for each column on that table, you'll have a property in that
-class, the fairly simple concept. So if you want to create a database table, the
-first way you actually do that in doctrine is by creating that class. And these
-classes that nap to a table in the database are given a special name and entity
-class. You can totally create these entity classes by hand, but like many times we're
-going to cheat. We're going to cheat by generating it. So I'm going to run bin
-console, make entity. One of my absolute favorite commands.
+So if you want to create a database table in Doctrine, the way you do that is
+actually by creating the class it will map to. These "classes" that map to a
+table are given a special name: entity classes.
 
-It's going to ask us the class name of the entity we want to create. Now remember the
-whole point of our site is for people to be able to ask questions and then post
-answers below. So the very first thing we're going to need at our site is probably a
-question entity. So we have a question table and the database, it's a macro here. I'm
-going to answer the question and it immediately starts asking what properties we
-want, which really sort of means what columns we want the table. So let's add a few
-of them. I'm going to add one, call the name. This would actually be the kind of
-short name here, like reversing a spell, sweat, a name property. It's going to ask us
-what type we want. Now doctrine has its own type system. So I'm going to hit question
-Mark here.
+## make:entity
 
-And it's going to show you all the different doctrine types you have. These are
-different than for example, my SQL types, but they map to them. So for example, a
-string masturbate VAR char field and the database, and there are a number of other
-types inside of here. So string I'm use string. That's what you want for anything
-that's less than 250 characters. So I'll say string. And then for length, 255 is
-fine. Then finally it says, can this field be nullable in the database? I'm going to
-say no, which means it is. If it's not normal, it is required in the database. I'm
-going to need a name. Alright. And that's it. We just added a property. So let's add
-a couple more. Let's add another one called slug. This will be the fancy URL, fancy
-part of the URL offensive part fancy string that we see in the URL.
+You *can* create an entity class by hand - there's nothing *too* special about
+them. But... come on! There's a *much* easier way. Find your terminal and run
+one of my *favorite* `bin/console` commands:
 
-This will also be a string. Let's say 100. Maybe we want to make sure that you stay
-somewhat short. And once again, I'll say no to novel. And then for the actual body of
-the question, let's call that question. Now, in this case, the body of the question,
-it's going to be kind of a long part here. This could actually be quite long, so we
-don't want to use just a normal string type. We want something to be longer. So for
-that, we can use a type called text and we also want this to be required in the
-database. All right, last field here, I'm going to add one called asked at this is
-going to be a date field. That's kind of like a published date. So as soon as they
-hit it, you can see it actually recommends. It sees the Atlas ending at a recommends
-a date time type, which is exactly what we want.
+```terminal
+php bin/console make:entity
+```
 
-So I'll hit enter to accept a date time type. And this time I'm going to say yes to
-nullable. The idea is that you can maybe start your question and save it to the
-database, but we don't actually set the asked to add property until you finally
-publish it onto the site. So it is okay for that to be known and we're done. So I'm
-just going to hit enter here and we are finished. Now. I just want to be clear. This
-made absolutely no changes to our database at all. The only thing this did and I'll
-actually scroll up to the top of the command is he created two files, source entity
-question and source repository, question repository by PHP for now. I want you to
-completely ignore this repository class. It is not important yet. We will talk about
-it later. This entity class, however, is very important. So let's bend over and open
-that source entity question dot the PHP.
+You can also run:
 
-Now, as I mentioned with doctrine ORM, we're going to have one class per database
-table. And the first thing I want you to notice about this insti class is that
-there's nothing special about it. It's just a very boring normal class. It's called
-question. It doesn't even extend the base class. And then it just has a number of
-private properties on it to access those properties. We have a bunch of getters and
-setters, like get name, get slugs, set, slug, and so on. So it's just about the most
-boring class that you'll ever see. Now, of course, if doctrine is going to use this
-class to store something in the database, it kind of needs to know which destroys me
-a table kind of needs to know some configuration about that. For example, it needs to
-know that the name field, the name property is a string type.
+```terminal
+symfony console make:entity
+```
 
-So the way that doctrine does configuration is via annotations. So this, our, an anti
-thing up here, this is actually the key that tells doctrine, Hey, this is not just a
-normal, boring PGB class. This is an insti class. So you should store. And this is an
-entity class. This is something that we want to be stored into a question table. And
-then the ad RM column, you see above all the properties, same thing. This is how it's
-out, knows that this isn't just a random property where she want this property to
-store in a column in that table. Now, there are lots of ways to configure the
-annotations above the class and above the properties. And I'm not going to go into
-them. I haven't to point you to a little reference. If you search for a doctrine,
-annotations, a reference, you'll find a really nice spot on their site where you can
-actually see a list of all of the different, uh, uh, annotations you have in there
-for.
+It doesn't matter in this case, because this command won't talk directly to the
+database: it will just generate code.
 
-So for example, at column, it's going to tell you all the different options that you
-have on the column, like a name option. Uh, so for example, if you wanted to control
-the name of the slug field and here, um, you can do that via name option. You don't
-have to do that because if you don't have a name option, it's just going to guess a
-nice one for you. One of the other annotations that you'll see on here is, um, at
-table. Now notice one, this is what you can do to control the name of the table. If
-you want to know, notice in the doctrine and annotations, you see things like at
-table and that column inside Symfony, it's always going to be at or M /column, or for
-example, up here, if we wanted to control the table name, we can say at table, at RM
-/table and then name = and, uh, you know, some table name.
+Now remember: the *whole* point of our site is for witches and wizards to be able
+to ask questions and then post answers below. So the *very* first thing we need
+is a `Question` entity. So, a question table in the database.
 
-But again, I'm not going to do that here because it's going to guess a table name for
-us. And we're just going to L we don't need to be difficult and threw something. Oh,
-and you notice the auto completion that we got on that that's things to the Peachtree
-storm annotations plugin. Okay. So thanks to our new make entity command. We were
-able to interactively answer some questions, any created this class for us, but it
-did not talk to the database. There is no question table in the database. It just
-created this file right here. Next let's generate a migration to automatically create
-this table in the database. It turns out the migration system and doctrine is
-amazing. And it's even going to allow us to do table updates with basically no
-effort. Let's do that next. Okay.
+So, enter `Question`. The command immediately starts asking what properties we
+want, which really, sort of means what *columns* we want in the table. Let's add
+a few. Call the first one `name` - that will be the short name or "title" of
+the wuestion like "Reversing a Spell". The command then asks what "type" we want.
+Doctrine has its *own* type system: enter "?" to see the full list.
 
+These aren't MySQL column types, but each one maps one. For example, a `string`
+maps to a `VARCHAR` in MySQL. And there are a bunch more.
+
+In this case, we *do* want a `string` - that's good for any text 255 characters
+or less. Next, it asks for the column length - I'll use 255 - and then it says:
+
+> Can this field be nullable in the database?
+
+Say "No". This means that the column will be *required* in the database.
+
+And.. congrats! We just added our first field! Let's add a few more. Call the
+next `slug`. This will be the URL-safe version of the name that shows up in the
+URL. It will also be a string, let's set its length to 100 and, once again, I'll
+say "no" to "nullable".
+
+For the actual body of the question, let's call that `question`. In this case,
+the body will be *long*, so we can't use the `string` type. Instead, use
+text... and make this *also* required in the database.
+
+Ok, *one* more field: `askedAt`. This will be a *date* field - kind of like a
+"published at" field. For the type, ooh! It recommends a `datetime` type - that
+is *exactly* what we want! Hit enter and this time say "yes" to nullable.
+The idea is that you could *start* writing your question and save it to the
+database with a `null` `askedAt` because you're not finished. When you *are* ready
+to post it, we would set that avlue.
+
+And... we're done! Hit enter one more time to exit `make:entity`.
+
+## Hello Entity Class
+
+So... what did this do? Well, first, I'll tell you that this made absolutely
+*no* changes to our database - we do *not* have a `question` database table
+yet.
+
+If you scroll back up to the top of the command, you'll see that it created 2
+files: `src/Entity/Question.php` and `src/Repository/QuestionRepository.php`.
+
+I want you to *completely* ignore the repository class for now - it's not
+important yet and we'll talk about it later.
+
+This entity class, however, is *super* important. Go open it up:
+`src/Entity/Question.php`.
+
+As we talked about, we're going to have *one* class per database table.
+
+The first thing I want you to notice is that... there's nothing special about this
+class it. It's a boring, normal class - it doesn't even extend a base class!
+It has several private properties and, to access those, the command generate
+getter and setter methods, like `getName()`, `getSlug()`, `setSlug()` and so on.
+
+It's just about the most *boring* class that you'll ever see.
+
+But of course, if Doctrine is going to map this class and its properties to a
+database table, it's going to need to know a few things. For example, it needs
+to know that the `name` property should map to a `name` column and that its
+*type* is a `string`.
+
+The way that Doctrine does this is by reading annotations. Well, you can also
+use XML, but I *love* annotations.
+
+For example, the `@ORM\Entity` above the class is what actually tells Doctrine:
+
+> Hey! This is not *just* a normal, boring PHP class. This is a class that
+> I intend to store data for in the database.
+
+Then, the `@ORM\Column` above the properties is how Doctrine knows which properties
+should be stored in the table and their types.
+
+## Annotations Reference
+
+Now, there are a *bunch* of different annotations and options you can use to
+configure Doctrine. Most are pretty simple - but let me show you a reference.
+Search for [doctrine annotations reference](https://www.doctrine-project.org/projects/doctrine-orm/en/2.7/reference/annotations-reference.html)
+to find a *really* nice spot on their site where you can see a list of *all*
+the different possible annotations and their options.
+
+For example, `@Column` tells you all the different options that you can pass
+to this, like a `name` option. So, for example, if you wanted to control
+the `name` of the slug column - instead of letting Doctrine determine it automatically -
+you would do that by adding a `name` option.
+
+One of the other annotations that you'll see here is `@Table`. Oh, and notice,
+in the docs, the annotation will be called `@Table`. But inside Symfony, we always
+use `@ORM\Table`. But those are referring to the same annotation.
+
+Anyways, if you wanted to control the name of the table, we could say
+`@ORM\Table()` and pass it `name=""` some cool table name.
+
+
+But again, I won't bother doing this because Doctrine will guess a good table
+name from the class. Oh, and by the way, the auto-completion that you're seeing
+on the annotations comes from the "PHP Annotations" plugin in PhpStorm.
+
+Status check: the `make:entity` command helped us create this new entity class,
+but it did *not* talk to the database. There is *no* `question` table yet.
+
+How *do* we create the table? By generating a *migration*. Doctrine's migrations
+system is *amazing*. And will even allow us to perform table *changes* with
+basically zero Let's find out how next.
