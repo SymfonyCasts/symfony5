@@ -1,167 +1,99 @@
-# Docker Env Vars
+# docker-compose Env Vars & Symfony
 
-Coming soon...
-
-Thanks to our simple `docker-compose.yaml` file and the `docker-compose up` command. We
-started a nice, we started a, MySQL container in Docker. You can see it by
-running.com. You can prove it by running 
+Thanks to our `docker-compose.yaml` file and the `docker-compose up` command, we
+started a, MySQL container in Docker. You can prove it by running:
 
 ```terminal
 docker-compose ps
 ```
 
-port 3306 on the inside of the container is being exposed to my host on port 32776
-which is a random port that will change every time you use `docker-compose`. Now,
-whether you followed me and just created this Majeski created MySQL in this
-container, or you decided to install my SQL your own way. We're at the same point at
-this moment, we need to update our `DATABASE_URL` environment, variable to point to our
-database. So like re user whatever the password is, the correct port and whatever
-database name we want. Now, normally the way that I would do this is I would copy
-this database. You were all key here. And then I would go into `.env.local`, and
-I would do a local override, like maybe `root`, no password, and then, uh, create some
-creative database name like `caulder_overflow`.
+Yep! Port 3306 of the container is being exposed to my host machine on port 32776,
+which is a random port that will change each time you run `docker-compose up`.
 
-That would allow me to talk to doctrine, but I'm actually not going to do that.
-That's logical. But in reality, the `DATABASE_URL` environment is already
-configured correctly without us having to do anything. How we remember when we first
-started our project, we use the Symfony web server to start our web servers. I'm
-actually gonna run 
+## Configure DATABASE_URL Manually?
+
+Whether you followed me through the Docker setup or decided to install MySQL
+on your own, we're now at the same point: we need to update the `DATABASE_URL`
+environment variable to point to the database.
+
+Normally, to do this, I would copy `DATABASE_URL`, go into `.env.local`, paste
+it and configure to whatever my local settings are like `root` user, no password
+and any creative database name `caulder_overflow`.
+
+## DATABASE_URL From Docker
+
+But... I'm *not* going to do that. Why? Because the `DATABASE_URL` environment
+is *already* configured correctly.
+
+Let me show you. When we st started our app, we used the Symfony binary to start
+a local web server. I'll run:
 
 ```terminal
 symfony server:stop
 ```
 
-so we can stop it. You remember, we
-were running Symfony. We said, I said, 
+to stop it... just so I can show you the command we used. It was:
 
 ```terminal
 symfony serve -d
 ```
 
-And that started our web
-server at `localhost:8000`. So we're seeing a very, as it's actually running through
-the Symfony web server, well, the Symfony Webster has integration with Docker. It
-actually detects that we have a `docker-compose.yaml` file in this project. And it
-detects that `docker-compose` is running it then goes through each of these services,
-reads their configuration and exposes these as environment variables. So, because we
-have a service here called database, which could have been called anything, it's
-going to expose the connection information of this, uh, to this container as an
-environment variable called `DATABASE_URL` the exact name that doctrine is looking
+That started a web server at `localhost:8000`. What we're seeing in the browser
+is being *served* by the `symfony` binary.
+
+Well... surprise! The Symfony binary has *special* integration with Docker. It
+*detects* that we have a `docker-compose.yaml` file in this project. It then
+loops over all of the running services, reads their configuration and exposes
+*real* environment variables to our app with the connection details for each.
+
+For example, because this service is called `database` - we technically could have
+called it anything - the Symfony binary is *already* exposing an environment variable
+called `DATABASE_URL`: the *exact* environment variable that doctrine is looking
 for.
 
-I'll show you exactly what I mean. But first, if you go over to our browser and
-refresh, the first thing you notice is down here on the right, all of a sudden this
-little server thing is going green, and you can that it is detecting backer composed.
-And it says that there are some environment variables from Docker. So to see what
-this means is that if you go to `public/index.php`, this is the front controller
-for our project, and we normally don't need to put any, we normally don't need to
-mess with this file, but I actually going to go read from my Ottawa file and say, 
-`dd($_SERVER)` the server. So the server global variable is the one that hold in
-environment variables. So figuring out and refresh and search for a database, check
-it out. `DATABASE_URL`.
+## Dumping the Environment Variable
 
-There is an environment variable called database. You were out that is actually being
-set by the Symfony binary. And it's reading it from Docker. You can see it has all
-the correct connection information here for port 32776. And when you
-have a real environment, variable, it overrides the value that you have and `.env` or
-`.env.local`. So the whole point is just by starting Docker, `docker-compose`, we
-already have a database URL that is set to point to that Docker container without us
-needing to do anything. In other words, I've just spent five, 10 times longer talking
-about how this works. Then you will, then you would actually need to get this running
-back in the `index.php`. I'm going to remove this line another way to see what
-variables the Symfony binary is exporting is by running 
+I'll show you *exactly* what I mean. First, go back to your browser, watch the
+bottom right of the web debug toolbar, and refresh. Ah! The little green "Server"
+icon turned green! This is info about the Symfony web server... and *now* it says
+"Env Vars from Docker".
+
+Back at your editor, open up `public/index.php` - the front controller for your
+project. We normally don't need to mess with this file... but let's temporarily
+hack in some code. After the autoload line, add `dd($_SERVER)`.
+
+The `$_SERVER` global variable holds a lot of things *including* any real
+*environment* variables that are passed to PHP. Back at the browser, refresh
+and search for a "database". Check it out! A `DATABASE_URL` environment variable!
+
+That is being *set* by the Symfony binary and *read* dynamically from Docker.
+It has all the correct info including port 32776.
+
+When a *real* environment variable exists, it *overrides* the value that you have
+in `.env` or `.env.local`.
+
+In other words, as *soon* as we run `docker-compose up`, our app has a
+`DATABASE_URL` environment variable that points to the Docker container. We don't
+need to configure *anything*.
+
+## Seeing the Environment Variables
+
+Back in `index.php`, remove the `dd()` line.
+
+Another way to see what environment variables the Symfony binary is exporting to
+our app is by running:
 
 ```terminal
 symfony ver:export --multiline
 ```
 
-this year. It's going to tell you that it has a couple of other, has a
-couple of kind of Symfony specific things you can see up here. This is all the
-environment variables is exposing to describe our service. And if we had a read a
-service, you would see, uh, an environment variables here for redness or rabbit MQ.
+And... boom! This has `DATABASE_URL` and some other `DATABASE` variables that
+you can use for each part... if you need to. If we added a *second* service
+to `docker-compose` - like a redis container - then *that* we show up here too.
 
-So the point is all we needed to do was run `docker-compose up -d`, and everything
-works. I love that. Now, even though our project is already set up to talk to the
-database, we can't really do much yet because the database there, there is no
-database and there are no database tables. Uh, if you look at our, of our export, you
-can see that, uh, the database you were all by default is going to use a database
-called Maine. And that name of that is not important. All we don't care. So the first
-we didn't do is actually make sure that that database exists. Now, when you install
-Docker, it actually adds a number of `bin/console` commands to your projects. If I run
+The big picture is this: all we need to do is run `docker-compose up -d` and
+our Symfony app is immediately setup to talk to the database. I *love* that.
 
-```terminal
-php bin/console
-```
-
-scroll up, you'll see a bunch of these that start with the word doctrine,
-the vast, vast majority of these. You're not gonna need to worry about, and we'll
-talk about the important ones, but one of them is called `doctrine:database:create`.
-And what that does is it reads your database configuration information and the
-database. So in our case, it should create a database called `main`.
-
-So I'll copy that command name and then let's run 
-
-```terminal
-php bin/console doctrine:database:create
-```
-
-and, Oh, it doesn't work access denied for db_user at localhost. So you can
-kind of read between the lines here. For some reason, it's using the, this `DATABASE_URL`.
-value instead of the one from the Symfony binary. And the problem is when
-you load your site through the web server here, this is running through the Symfony
-binary. So the Symfony binary, the Symfony binary can inject all the environment
-variables that you need. But if you just run a random `bin/console` command, the
-Symfony binary doesn't have an opportunity to inject those environment variables. So,
-but that's fine. The Symfony binary has a solution for that instead of running 
-`bin/console`. And then our command. What we're going to do now is actually run 
-`symfony console`
-
-So when a council literally means `bin/console`, but because we're running through the
-Symfony executable, it's going to inject the environment variables coming from
-Docker. So 
-
-```terminal
-symfony console doctrine:database:create
-```
-
-and boom, that works perfectly.
-All right. The last thing I want to talk about before we actually go and start
-creating some database tables is inside of our `docker-compose.yaml` file. This
-version is `:latest`. That means we, this gives us the latest version of MySQL,
-and you can totally keep that latest thing there if you want to, but I'm going to go
-to the, I'm going to Google for Docker hub to find hub.backer.com. Now, when you say
-something like image, MySQL that actually communicates back to Docker hub to figure
-out what that means. So we can search here for MySQL and this shows us the, my SQL
-image and all of the different tags that are currently there. So when I'm recording
-this, the latest is actually the same as version eight. So that's great. I'm actually
-going to go over here and change my latest two version. Let's say 8.0. So instead of
-just, this is going to make it so that if 8.1 comes out tomorrow, I might see my
-project. Doesn't start instantly using it and gives me a little bit more control.
-
-Now, 8.0 in latest are the same right now, but I'm actually going to run Docker,
-compose, bashed down for this to take effect. I'm gonna run 
-
-```terminal
-docker-compose down
-```
-
-and then 
-
-```terminal
-docker-compose up -d
-```
-
-once again. And that's going to now pull in the
-minuscule eight imaging and see it was really fast because my school eight is really
-the same as the latest version. And the last change I'm going to make is actually the
-doctrines configuration file `config/packages/doctrine.yaml` you notice over here,
-there's a little bit of configuration here called `server_version`. This is an annoying
-little thing that you should set. I'm an oncoming that out and set this to 8.0. What
-this does is it tells doctrine what version of my SQL you're running or what version
-of Postgres you're running so that it knows what features are supported. And then it
-can kind of adjust the SQL. It generates based on that. If you're using Maria DB,
-instead, you can use a version numbers like a `mariadb-10.2` here, something you
-just need to set one time, and then you're good to go. Alright. Our database have a
-database. Our project is connected to the database next let's generate our first
-entity, our first database table, and really start putting things together.
-
+But... we can't really *do* anything yet... because the MySQL instance if empty!
+Next, let's create our database and make sure that Doctrine knows *exactly* which
+version of MySQL we're using.

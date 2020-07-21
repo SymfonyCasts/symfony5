@@ -3,6 +3,7 @@ chapters:
     - docker-database
     - docker-compose
     - docker-env-vars
+    - console
     - entity
     - migrations
     - persist
