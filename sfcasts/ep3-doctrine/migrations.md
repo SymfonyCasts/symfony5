@@ -1,69 +1,132 @@
 # Migrations
 
-Coming soon...
+We have a beautiful new `Question` entity class that is *supposed* to map to a
+`question` table in the database. But... that table doesn't actually exist yet.
+So, how do we create it?
 
-We have this beautiful new question, entity class, but there's not actually a
-question table in our database yet. We just made this class. Now, in theory, since
-doctrine has all of this configuration about this entity doctrine, should in theory,
-be able to create this class for us and knows what the table name is and knows what
-all the columns are and knows all the types. And actually we can absolutely do that.
-We can just say, Hey, doctrine, create this database, great this table for me. And it
-will do it the way we do that is via a migration. Here's how it works. We'll return
-to terminal and run bin console, make migration that want to run, that that's going
-to fail once again, access denied for user DB_user. Anytime you see that, you need to
-be thinking, Oh, it's not using my Docker connection because instead of running Ben
-console, I need to run Symfony console, make migration run that same command, but
-allow the Symfony binary to add our environment variables from Docker. So now we run
-Symfony.
+Well, because Doctrine has all of this configuration about the entity, like
+the fields and field types, it should - in theory - be able to create this table
+*for* us. And it absolutely *can*.
 
-Now we're on Symfony consult, make migration and awesome. This generated one new file
-inside of a migrations directory. Let's go check it out. So let's see new migrations
-directory right here inside open the new file and awesome. You can see as an op
-method here with the exact SQL that we need, create table question and all of the
-columns on it. This is awesome. What the make migration command actually does is it
-compares the actual database, which has zero tables in it right now with all of our
-entities and then generates the SQL necessary to make your database, to bring, to
-make your database in sync with your entities. So right now it needs because we have
-no tables in the database and we have a single question entity. It grades the great
-table, uh, for that question table, do, um, execute this. We can run doctrine
-migrations migrate, but be careful. Remember we can't run bin console. We're going to
-run Symfony console doctrine, migrations migrate, and congratulations. We have a new
-question table in the database.
+## Hello make:migration
 
-Now, the way the migration system work is really cool. You can run another command
-called dr. Migrations list. What this is going to do is give you a list of all of the
-migrations that you have in your system, which for us right now is just one. And you
-can see this as status migrated. What this does behind the scenes is the migration
-system creates a table in the database called doctrine migrations versions. And every
-time you've executed migration, it keeps track of the one that you did that you just
-ran. It does that. So that later, if you were in dr. Migrations migrate again, it's
-not going to run that same. It's not going to execute this migration again because it
-looks in that table and sees that you've already done it. So when you deploy, you're
-going to run doctrine, migrations migrate, and the migration system is going to be
-smart enough to only run new migrations that haven't already been executed.
+The mechanism we use to make database *structure* changes is called migrations.
+At your terminal, run:
 
-So this is the workflow that you're going to get into. You're going to create a new
-entity. You know what, though? I actually did something wrong. When I created my
-question entity, the slug column here, I really need that to be unique in the
-database. We can have to slug two identical slugs, because this will be used because
-this will be used on the URL or one of the options you can pass the ad or on column
-is unique = true. Now, what that does is that doesn't change how our PHP code is
-going to behave. That just tells doctrine, Hey, this should have a unique constraint
-in the database, but actually make that actually make that happen. We need to
-generate another migration and migration that adds that unique constraint. So great.
+```terminal
+php bin/console make:migration
+```
 
-We can have over here again and run once again, run Symfony console, make colon
-migration, this grates, a new second migration file. And if let's go check this out
-on the migrations directory. Oh, beautiful. Look it create unique index on question
-slug. So it looked in the database compared the question table in the database to the
-question, entity determined that the only difference was it was missing the unique
-index and generated the SQL to add that unique index. That is awesome. Let's go over
-now and execute that with Symfony console doctrine, pulling migrations, colon
-migrate, and we now have that unique, uh, column and the database. So that's the
-workflow you're going to get into. You're going to make, you're going to generate a
-new entity or maybe make a change to an NZ generated migration with make migration,
-then execute it. It keeps your database in sync with your entities and you have these
-great new migrations that you can execute when you push to production. Next we are
-ready. Let's actually start creating some question objects and PHP and see how we can
-save those into our question table.
+And... that fails:
 
+> Access denied for user db_user.
+
+Of course: the command doesn't have access to the Docker environment variables.
+I *meant* to run:
+
+```terminal
+symfony console make:migration
+```
+
+And... cool! This generated one new file inside of a `migrations/` directory. Let's
+go check it out! In `migrations/` open the one new file and... awesome! This
+file has an `up()` method here with the *exact* SQL that we need!
+
+> CREATE TABLE question...
+
+and then all of the column. Sweet! The `make:migration` command is *smart*: it
+compares the *actual* database - which has zero tables at the moment - with all of
+our entity classes - just one right now - and then generates the SQL necessary to
+make your database match your entities.
+
+It sees the one `Question` entity... but no `question` *table*, so it generated
+the `CREATE TABLE` statement.
+
+## Executing Migrations
+
+But this query has *not* been *executed* yet. To do that, run:
+
+```terminal
+php bin/console doctrine:migrations:migrate
+```
+
+But! Be careful - we can't use `bin/console` directory. Instead run:
+
+```terminal
+symfony console doctrine:migrations:migrate
+```
+
+And... congratulations! We have a new `question` table in the database!
+
+## How Executed Migrations are Tracked
+
+The way the migration system work is really cool. Run another command:
+
+```terminal
+symfony console doctrine:migrations:list
+```
+
+This shows all of the migrations in your app, which is just one right now. Next
+to that migration is says "Status Migrated". Behind the scenes, the migration
+system created a table in the database called `doctrine_migration_versions`. Each
+time it executes a migration file, it stores a new row in that table that *records*
+that it was executed.
+
+That means that later, if you ran:
+
+```terminal
+symfony console doctrine:migrations:migrate
+```
+
+again... it is smart enough to *not* execute the same migration again. It looks
+at the table, sees that it's already ran, and skips it.
+
+When you deploy to production, you'll *also* run `doctrine:migrations:migrate`.
+When you do that, it will check the `doctrine_migration_versions` table in the
+*production* database and execute *any* new migrations.
+
+## Making a Column Unique
+
+Before we keep going, you know what? When we created the `Question` entity, I
+forgot to do something. The `slug` column should *really* be unique in the
+database because eventually we will read that part of the URL and *query* for
+the *one* `Question` that matches it.
+
+One of the options you can pass to `@ORM\Column()` is `unique=true`.
+
+That won't change our *PHP* code behaves - this doesn't relate to form validation
+or anything like that. This *simply* tells Doctrine:
+
+> Hey! I want this column to have a unique constraint in the database
+
+Of course... just making this change did *not* somehow magically add the unique
+constraint to the database. To do that, we need to generate another migration.
+
+Cool! At your terminal, once again run:
+
+```terminal
+symfony console make:migration
+```
+
+to generate a *second* migration file. Let's go check it out. And... *beautiful*.
+It's an `ALTER TABLE` to create the unique index on `slug`! The migrations system
+compared the `question` table in the database to the `Question` entity, determined
+that the only difference was a missing unique index and then generated the SQL
+to add it. Honestly, that's amazing.
+
+Let's go run it:
+
+```terminal
+symfony console doctrine:migrations:migrate
+```
+
+This sees *both* migrations, but only runs the *one* that hasn't been executed
+yet. The `slug` column is now unique in the database.
+
+So this is the workflow: you make an entity or change an existing entity, run
+`make:migration` and then execute it. This will keep your database in sync with
+your entity classes *and* give you a set of migration files that you can run
+when you deploy to production.
+
+Next: it's time to create some `Question` objects in PHP and see how we can
+save those to the question table.
