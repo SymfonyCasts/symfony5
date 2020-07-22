@@ -1,45 +1,64 @@
-# Ago
+# "5 Minutes Ago" Strings
 
-Coming soon...
+Let's make this date dynamic! The field on `Question` that we're going to use is
+`$askedAt`, which - remember - *might* actually be *null*. If a `Question` hasn't
+been published yet, then it won't have an `askedAt`.
 
-All right. Let's print this date, make that dynamic, the `$askedAt` date. So this should
-be simple enough. Um, one thing to remember is that the `$askedAt` is actually nullable. It
-was true. It's it's not going to be set on all questions because some questions might
-not be published yet. So I want to make sure that we account for that. So obviously
-say `{% if question.askedAt %}` that and that'll put an `{% else %}` and, and, `{% endif %}`, if it's
-actually not published, so I'll do that one first. I'm just going to say unpublished,
-and I'm probably in a VR eventually in a real app, we wouldn't let users see on
-published questions, but maybe a user can see their own unpublished question. So if
-they ever did that, we want to show on published here. Now to print the question. The
-easiest thing to do is just to say curly curly `question.askedAt` that a lot of
-you're probably going to say, Hey, Ryan, sorry, that's not going to work.
+Let's plan for this. In the template, add `{% if question.askedAt %}` with an
+`{% else %}` and `{% endif %}`. If the question is *not* published, say
+`(unpublished)`.
 
-And you are right. Object of class. Date time could not be converted to string
-because we know that when we have a `datetime` type in doctrine, it's stored in your
-code is a `DateTime` object, which is really nice. Cause daytime objects are great to
-work with, but it also means we can't just run around and print them. So to fix this,
-we can say `|date()` and the types of the `date()` filter. And then we can give it a
-format like `Y-m-d H:i:s`which, which I have memorized because I have been
-programming for so long that gives us this format here, which is technically correct,
-but not terribly friendly. So whenever I deal with dates, one of the things I like to
-do is make them relative. I like to print strings that say things like asked 10
-minutes ago, things like that.
+In a real app, we would probably *not* allow users to see *unpublished* questions...
+we could do that in our controller by checking for this field and saying
+`throw $this->createNotFoundException()` if it's null. But... maybe a user will
+be able to *preview* their *own* unpublished question. If the did, we want to
+show `unpublished`.
 
-So let's go back here. And actually the first thing I want to do is actually put my
-asked, asked back, here we go. And now I want to convert this into that nice string.
-Um, now there's not the functionality in Symfony to do that, but there is a really
-small bundle that we can install. I can do this. I'm going to say a 
+## The Twig date Filter
+
+The easiest way to *try* to print the date would be to say `{{ question.askedAt }}`.
+But... I'm sure many of you are thinking: "That's not going to work Ryan!".
+
+And you're right:
+
+> Object of class `DateTime` could not be converted to string
+
+We know that when we have a `datetime` type in doctrine, it's stored in PHP
+as a `DateTime` object. That's nice because `DateTime` objects are nice to work
+with... but we can't simply print them.
+
+So to fix this, pass the `DateTime` object through a `|date()` a *filter* and pass
+it a format like `Y-m-d H:i:s`.
+
+When we try the page now... it's technically *correct*... but yikes! That's...
+not terribly friendly.
+
+## KnpTimeBundle
+
+Whenever I render dates, I like to make them relative. Instead of printing an
+exact date, I prefer something like "10 minutes ago". It also avoids timezone
+problems... because 10 minutes ago makes sense to everyone but *this* date would
+*really* need a timezone to make sense.
+
+So let's do this. Start by adding the word "Asked" back before the date. To convert
+the `DateTime` into a friendly string, we can install a nice bundle. At your
+terminal,
+run:
 
 ```terminal
 composer require knplabs/knp-time-bundle
 ```
 
-What'd you could find if you Google Symfony
-ago. No, as we know when we install bundles, the main thing that Bumble's give us
-our services. And in this case, the button gives us one main service that provides a
-twig filter, a tweak filter called `ago`. So it's pretty awesome. We can now pop
-over here and say `|ago`. And that's it. And I refresh now it works asked one
-month ago. Awesome. So that's a great little thing to put into your site, and then
-you don't even have to worry about you. Don't have to worry about time zones. Next.
-Let's add more queries to our site for the homepage.
+You could find this bundle if you googled for "Symfony ago". Now, remember: the
+*main* thing that bundles give is *services*. In this case, the bundle gives us
+one main service that provides a twig filter called `ago`.
 
+It's pretty awesome. Back in the template, add `|ago`.
+
+And that's it. When we refresh now... woohoo!
+
+> Asked 1 month ago
+
+
+Next: let's make the homepage dynamic by querying for *all* of the questions in
+the database.
