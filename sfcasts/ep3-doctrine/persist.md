@@ -1,125 +1,153 @@
-# Persist
+# Persisting to the Database
 
-Coming soon...
+We have a beautiful entity class with properties and, thanks to the
+migrations that we just executed, we have a corresponding `question` table in the
+database. Time to insert some data!
 
-We have a beautiful entity class with some properties on it. And thanks to our
-migrations, which we just executed. We have a corresponding `question` table in the
-database. We are ready to insert some data. Okay. Now, one of the key philosophies of
-doctrine is that doctor doesn't want you to think about tables and columns. Doctrine
-wants you to think about classes and properties, and then let all the details of
-saving and querying to a database table. Leave that to doctrine. So instead of
-asking, how can I insert a new row in the question table? We're going to think, how
-can we create a `Question` object populated with data and then ask doctrine to save it,
-to create a integrated new question. Let's add a new page. It be like `/question/new`
-that when we go to this URL, it will create a new question in the database.
+## Think "Classes", not "Tables"
 
-So let's find our controller for this `src/Controller/QuestionController.php`. You can
-see our homepage, our show page. So let's go down to the bottom here and we'll say
-`public function` wouldn't call us anything. But how about `new()`? And I'll add my 
-`@Route()` above this four `/questions/new`, and to keep things simple, it's going to
-return a `new Response()` from this is the lowest level thing you can do in Symfonys. You
-can always return a `Response` object, and I have to say time for some doctrine magic.
-Alright, so nothing doctor related yet, but if we go over here and hit enter, it
-doesn't work well. I mean it worked, but this is not the page we expected. It looks
-like the question show page. And in fact, if you look down here, yes, the route is
-app questions show the problem is that it matched this route up here because
-`/question/new`, it just makes it look like "new" is the `slug` value.
+One of the *key* philosophies of Doctrine is that Doctrine doesn't want you to
+think about tables and columns. Doctrine wants you to think about classes and
+properties... and then leave all the details of saving and querying to a database
+table up to *it* to worry about.
 
-Now routes match from top to bottom. So the easiest way to fix this is actually just
-to move your more specific routes above this one. It's kind of big, doesn't happen
-too often, but this is a nice example. Now, if we go over and refresh, got it.
-Alright, so let's get to work. Now. Eventually this page would have a form on it that
-the user can fill out all the information about their question. And when they submit,
-we would say that to the, to the database, but we're not going to talk about Symfony
-forms yet. So I just want to fake it inside the controller. We're literally just
-going to create a question object and ask doctors to save it. So very simply start
-with `$question = new Question()`. I'll enter the audit, complete that, and then we need
-to start setting the data. So `$question->setName()`.
+So instead of asking:
 
-We'll ask a question about a spell that went wrong and made her pants disappear. I'll
-`->setSlug()` on this two missing pants dash, and then I'm going to add a little random
-thing because remember this needs to be unique in the database. So I want to make
-sure that those don't collide. And then I'll say `->setQuestion()`, and this is the long
-text. So I'm gonna use the multiline syntax here, the EOF syntax, and then I'm going
-to paste in some content. You put any content here, but you want to, you can grab
-this from our, from this page. Perfect. So there's a question object. And then the
-last field we haven't said here is the `$askedAt` I'm actually going to set this. I'm
-gonna do this a little in a little bit of a conditional way. So I'm gonna say if `rand()`
-of one from one to 10 is greater than two.
+> How can I insert a new row in the `question` table?
 
-So kind of a 70% chance of this. If statement mean hit, then we're going to set
-`$question->setAskedAt()` app. So the idea is that the asked ad is something that is set
-only when a question is sort of published. So this will give us a nice mixture of
-like most questions will be published, but we'll have a few that will be unpublished.
-So that'll give us some nice data to play with. Now, remember the `$askedAt` is a `datetime`
-field. So what this means in PHP, this means in my as well as it's going to be a
-date column with a, with a, with a string value. But in PHP, we don't have to worry
-about the string value. We're just going to pass to say `DateTime` object. So here
-I'll say `new \DateTime()`. And then we'll make this a little bit random as well say,
-`-%d days`. And then we can pass this a random, uh, from one to a hundred.
-So set the, ask that at anywhere between one and a hundred days ago.
+We should think:
 
-And that's it. So I'll `dd($question)` the question down here, dumping dye, just so we can move
-over and refresh and Oh, sprint app minus percent percent the days. And they'll pass
-this a random number from one to a hundred days. That's not going to work. Let me go
-over and refresh there. It is a nice, boring question. Object. You can see that his
-ID is no, because we didn't set the idea and then it hasn't been saved to the
-database yet. So now all we need to do is basically ask doctrine to save this forest.
-Now, when we installed doctrine a few minutes ago, Ben saw the doc in library, but
-also installed a DoctrineBundle, which integrates into Symfony. Now you remember the
-main reason that the main thing that a bundle gives us is new services in our
-container in doctrine is super powerful, but it turns out that there's basically just
-one main service instead of doctrine, that we care about.
+> Let's create a `Question` object, populate it with data and then ask Doctrine
+> to save it.
 
-This one service is capable of both saving and querying to find it however your
-terminal and let's run our handy 
+## Creating a Question Endpoint
+
+To play with all of this, let's add a new, sort of, fake page - `/question/new`.
+When we go there, I want a new question to be added to the database.
+
+Open up `src/Controller/QuestionController.php`, which already holds the homepage
+and show page. At the bottom, add `public function ` and... let's call it `new()`.
+Above, say `@Route()` with `/questions/new`.
+
+To keep things simple, return a simple `new Response()` - the one from
+HttpFoundation - with `Time for some Doctrine magic!`
+
+There's no Doctrine logic yet, but this *should* work. At the browser, hit enter
+and... woh! It *doesn't* work! I mean... there's no error, but this is *not* the
+page we expected. It looks like the question *show* page. And, in fact, if you
+look down on the web debug toolbar... yea! The route is `app_question_show`!
+
+The problem is that the url `/question/new` *does* match this route: it look like
+"new" is the `slug`. Routes match from top to bottom, and Symfony stops as soon
+as it finds the *first* matching route. So the easiest fix is to just move the
+*more* specific route above this one. This doesn't happen too often, but this
+the fix.
+
+Now when we go refresh... got it!
+
+## Creating the Question Object
+
+Ok: time to work! Eventually - in a future tutorial - this page will have a form
+on it where the user can fill out all the information about their question. And
+when they submit, we will save that question to the database.
+
+But we're not going to talk about Symfony forms yet. Instead, I just want to
+"fake it" inside the controller. We're literally going to create a `Question`
+object, put some hardcoded data on it, and ask Doctrine to save it.
+
+And because there is *nothing* special about our entity class, creating it looks
+*exactly* like you would expect: `$question = new Question()` and hit enter to
+auto-complete that so that PhpStorm adds the `Question` use statement.
+Next, set the name `$question->setName('Missing pants')` - an unfortunate magical
+side effect of an incorrect spell - then `->setSlug('missing-pants')` with a
+random number at the end so that each one is unique.
+
+For the *main* part of the question, call `->setQuestion()` and because this is
+long, I'll use the funny multieline syntax - `<<<EOF` - and paste in some content.
+You can copy this from the code block on this page or use any text.
+
+The *last* field that we haven't set is `$askedAt`. Let's add some randomness
+to this: if a random number between 1 and 10 is greater than 2 - so a 70% change -
+then call `$question->setAskedAt()`. Remember: the `askedAt` *is* allowed to be
+`null` in the database... and if it *is*, we want that to mean that the user
+hasn't *published* the question yet. This will give us a nice mixture of published
+and unpublished questions.
+
+Also remember the `$askedAt` property is a `datetime` field. This means that it
+will be a `DATETIME` type in MySQL - which we ultimately set via a date *string*.
+But in PHP, instead of dealing with *strings*, this property should be a `DateTime`
+*object*. Let's say `new \DateTime()` and  make this a little bit random as well
+with `sprintf('-%d days')` and pass a random number from 1 to 100.
+
+So, the `askedAt` will be anywhere from 1 to 100 days ago.
+
+Ok! Our `Question` object is done! Add a `dd($question)` at the bottom then move over,
+refresh and... hello nice, boring `question` object! Notice that its `id` property
+is still `null` because we haven't saved it to the database yet.
+
+## The EntityManagerInterface Service
+
+So... how *do* we ask Doctrine to save this? When we installed Doctrine earlier,
+one of the packages we downloaded was DoctrineBundle. From the Symfony Fundamentals
+course, you might remember that the *main* thing that a bundle gives us is new
+*services* in the container. And even though Doctrine is *super* powerful, it
+turns out that there is just *one* Doctrine service that we'll use 99% of the time.
+This *one* service is capable of both saving and querying... which... is really
+Doctrine does.
+
+To find the service, head to your terminal and run:
 
 ```terminal
 php bin/console debug:autowiring doctrine
 ```
 
-notice here. I could
-also be saying `symfony console debug:autowiring`. So that by this case, I don't
-really care about my environment variables. So it's safe to run it either way. Oops.
-And then we'll say doctrine and you see, there are several things in the error, but
-most of these are lower level. The one we care about to do everything is 
-`EntityManagerInterface`. This can save in this can query. So let's go add this as a type
-into our controller to fax that service. So as an argument, I'll say 
-`EntityManagerInterface $entityManager` and then down here at the of the manager, doesn't have
-very many methods on it to save an object. We're going to say 
-`$entityManager->persist()`, and then pass it.
+This returns several services, but most of these are lower level. The one we want,
+which is the *most* important service *by far* in Doctrine is `EntityManagerInterface`.
 
-The `$question` object, and then, and `$entityManager->flush()`. Now this is the first time
-you've seen doctrine. You might be surprised that there are two lines to save
-something. So what happens here is `persist()` simply tells doctrine, Hey, please be
-aware of this question object. The persist line doesn't actually make any queries.
-But doctor now knows that we about our question object. When we call `flush()`, this
-actually makes the query specifically doctrine looks at all of the objects that it's
-aware of in our case, just one and then makes all the queries to save those. So
-usually how persistent flush like this right next to each other. But in theory, you
-could persist five question objects, and then just flush them once all at once, which
-is more performance.
+Let's go use it! Back in the controller, add a new argument to autowire this:
+`EntityManagerInterface $entityManager`.
 
-Alright, to see the data down here, let's actually replace our response with
-something more interesting. I'll say sprint up. And what I want to do here is say
-that the shiny new question is ID and they'll actually say `%d` uh, and then
-slug `%s` will do it. I'm going to pass a `$question->getId()`, and then
-`$question->getSlug()`. And I remember from a second ago, when we dumped the question
-object before saving it, there was no idea yet. But now when we refresh, yes, look at
-it has an ID when doc can saves that to the database, it grabs the auto Ingram ID and
-puts that back on the question object. We can refresh this over and over again. And
-this is actually inserting more and more question rows into the database. So that's
-it saving an object is creating the object and then calling persist and flush. If you
-want to see this more directly in the database, there is a nice handy command inside
-of a doctrine to query the database directly. So this is not on the run Symfony
-console so that I get my environment variables. And then we can say `doctrine:query:sql`
-. And I'll say `SELECT * FROM question`. 
+## persist() and flush()
 
-```terminal-silent
+Below, remove the `dd()`. How do we save? Call
+`$entityManager->persist()` and pass it the object that we want to save. And
+then `$entityManager->flush()`.
+
+Yes, you need *both* lines. The `persist()` call *simply* says to Doctrine:
+
+> Hey! Please be "aware" of this `Question` object.
+
+The persist line does *not* actually make any queries. The `INSERT` query will
+happen when we call `flush()`. The `flush()` method says:
+
+> Yo Doctrine! Please look at all of the objects that you are "aware" of and
+> make all the queries you need to save those.
+
+So *this* is how saving looks: a `persist()` and `flush()` right next to each
+other. But if you needed to, you could call `persist()` on 5 different objects
+and *then* call `flush()` once at the end to make *all* of those queries at
+the same time.
+
+*Anyways*, now that we have a `Question` object, let's make the `Response`
+more interesting. I'll say `sprintf` with:
+
+> Well hallo! The shiny new question is id #%d, slug: %s
+
+And then pass `$question->getId()` for the first placeholder and
+`$question->getSlug()` for the second.
+
+Before we refresh, remember that *before* we saved the `Question`, it had *no*
+`id` value yet. But now when we refresh... yes! It has an id! After saving it,
+Doctrine automatically sets the new `id` on the object. We can refresh over and
+over again to add more and more question rows to the database.
+
+Let's go see them! If you ever want to make a query to see something, Doctrine
+has a handy `bin/console` command for that:
+
+```terminal
 symfony console doctrine:query:sql 'SELECT * FROM question'
 ```
 
-And that gives us a nice
-little dump and you can see our seven objects are eight objects in this array. That's
-it. Our next we're saving. How do we query? Let's do that next.
+And... yes! Here is a dump of the 8 rows in the table.
 
+Next: we know how to save. How can we query to *fetch* data?
