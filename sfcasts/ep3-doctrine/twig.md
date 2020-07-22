@@ -1,67 +1,86 @@
 # Entity objects in Twig
 
-All right. So we now have our question object inside of our controller. And
-eventually at the bottom here, we render a template. So we rather do now is actually
-pass that question, object into the templates and then use it on the page to print
-the title and to print the name and the other information. So I'm going to remove my
-DD here. Uh, answers. We'll keep those hard coded for now because we don't have an
-answer entity yet. And then I'll get rid of this, a hard coded question, tech stuff,
-and then down here, we're going to pass in order to remove these two of these
-template variables and just pass questions, set to question. So in the template, the
-question variable will now be a object. All right. So let's go from that template.
-Templates question showed at H not TWIC. So if question is no longer a string, it's
-actually an object. How do we render that object? And the answer is very simple
-because our question has a name property on it. We can say a question that name, it
-even auto completes that auto-completion doesn't always work, but when it does is
-awesome.
+We *now* have a `Question` object inside of our controller. And at the bottom,
+we render a template. What we need is *pass* that `Question` object *into* the
+template and then use it on the page to print the name and the other info.
 
-And then down here, let's see here's another one. Say, question.name here. And this
-is the question texts. So I'll actually say Washington dot question. All right. If I
-didn't miss any dynamic things should work, move over. Oh, and I'm going to go back
-to my real question page refresh and yes, there it is. We have the real title, the
-real title, the real name, the real name of the page. And this is the real question
-text. This date is still hard coded, but we'll fix that in a second, but you might be
-wondering how the heck that worked, because we said question.name, which sort of
-makes it look like it's reading the name property. But if you look at the name
-property inside of our question, entity, it's privates means you can't just access
-the name property directly. So this works thanks to some twig magic.
+Remove the `dd()`, leave the `$answers` - we'll keep those hardcoded for now because
+we don't have an `Answer` entity yet and then get rid of the hardcoded `$question`,
+and `$questionText`.
 
-In reality, when you say question not name it first does look to see if the name of
-property exists and is public. If it were public, you would just use it. But since
-it's not, then tries to call get name. So in reality, we're saying question.name, but
-that's calling get named behind the scenes. This is really nice. Cause you don't, you
-can just run around and saying question, not name and your template and not really
-worry about the details of a, of whether there's a, there's a getter on that you can,
-if you can, if you want to still call get named, that's totally legal. But most of
-the time, you're not going to need to.
+Instead pass a `question` variable to Twig set to the `Question` object.
 
-The one detail that we did lose here is that originally this was being parsed through
-markdown. We can fix that really easy. And now by using our parse markdown filter
-that we created in the last tutorial and refresh, now it works. So if you look down
-at the bottom here, check out the web people at toolbar, there's a little database
-icon. It says one database query. So this is a really great thing about doctrine is
-actually shows you your database queries. So I can click in here and you can see the
-exact query that was being made.
+## Twig's Smart . Syntax
 
-If there were any, there were multiple queries. You'd see the multiple queries here.
-And you can say, if you run a bulk query, if you want to be able to copy that and
-maybe go run it directly on your database to, uh, to figure it out. So I love this.
-And actually we can even see the query on our, um, on our insert page. So if I go
-back to /questions /new, that just made an insert query. But the problem is that,
-because this isn't a real page, you don't see the web debug toolbar. This is a common
-thing that happens with Ajax calls. You might make an Ajax call, a, you might want to
-see the queries that Ajax call makes, but it doesn't have a web view of a toolbar. So
-you can't see it. So the trick here is to go to /on our score profiler.
+Let's go find that template: `templates/question/show.html.twig`. The `question`
+variable is *no longer* a string: it's now an *object*. So... how do we render an
+object? Because the `Question` class has a `name` property, we can say
+`question.name` - it even auto-completes it for me! That doesn't always work in
+Twig, but it's nice when it does.
 
-And that's going to show you a list of all of the recent requests you made. So for
-example, here, we can see when we can see the requests, we just made a /question
-/knew. If we could click this little token thing over here, we can see the profiler
-for that request. And then we click on doctrine. Bam. There you go. You can see it
-actually started a transaction insert into here's the answer statement and then
-committed the transaction on the bottom. So this is a great little trick to see
-information about a request, an Ajax request, usually. All right, next, let's next.
-If I go back a couple of pages back to our show page, but one piece of data that's
-still hard code is this asked 10 minutes ago thing. I'll actually search for that in
-my template. There we go. Line 18. Um, let's make this dynamic next, but not just by
-putting a date. I actually want to print out a cool dynamic, like 10 minutes ago.
-Kind of message. What let's do that next.
+Below... here's another one - `question.name` and `questionText` is now
+`question.question`.
+
+And... I think that's it! Testing time! Move over, go back to the *real* question
+slug and... there it is! We have a real name and real question text. This date is
+still hard coded, but we'll fix that in a minute.
+
+Now, some of you *might* be thinking:
+
+> How the heck did that work?
+
+We said `question.name`... which makes it *look* like it's reading the *name*
+property. But... if you look at the `name` property inside of the `Question`
+entity... it's private! That means you *can't* access the `name` property directly.
+What's going on?
+
+We're witnessing some Twig magic. In reality, when we say `question.name`, Twig
+first *does* look to see if the `name` property exists and is public. If it *were*
+public, Twig would use it. But since it is not, Twig *then* tries to call a
+`getName()` method. Yep, we write `question.name`, but, behind the scenes, Twig
+is smart enough to call `getName()`.
+
+I *love* this: it means you can run around saying `question.name` in your template
+and not really worry about the details whether there's a getter method. That's
+especially friendly to non-PHP frontend devs.
+
+If you wanted to actually *call* a method - like `getName()` - that *is* allowed,
+but it's usually unnecessary.
+
+## The Doctrine Web Debug Toolbar
+
+The one thing that we *did* lose is that, originally, the question text was being
+parsed through markdown. We can fix that really easy by using the `parse_markdown`
+filter that we created in the last tutorial.
+
+Refresh and... it works.
+
+You may not have noticed, but near the middle of the web debug toolbar, there's a
+little database icon that says 1 database query. And we can click this icon to
+jump into the profiler to see the *exact* query! If this page made multiple
+queries, you would see *all* of them here.
+
+If you ever want to debug a query directly, click "View runnable query" to get a
+version that you can copy.
+
+Now, here's a challenge: how could we see the `INSERT` query that's made when we
+go to `/questions/new`? This *did* just make that query... but because we're not
+rendering HTML, this doesn't have a web debug toolbar. This same problem happens
+whenever you make an AJAX call.
+
+So... are we out of luck? Nah - we can use a trick. Go to `/_profiler`. This shows
+a list of the most recent requests we've made. Here's the one we just made to
+`/question/new`. Click the little token string on the right to jump into the
+*full* profiler for that request. Go to the "Doctrine" tab and... bam! And.. cool!
+It even wraps the INSERT in a transaction.
+
+Remember this trick the next time you want to see database queries, a rendered
+version of an HTML error, or something else about an AJAX request.
+
+Go back a few times to the question show page. The last piece of question data
+that's hardcoded is this "asked 10 minutes ago" text. Search for it in the
+template... there it is, line 18.
+
+Next, let's make this dynamic. But, not by printing some boring date like
+"July 4th and 10:30 EST". Yuck. Let's print a much-friendlier "10 minutes ago" type
+of message.
