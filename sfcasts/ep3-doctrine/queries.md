@@ -20,7 +20,7 @@ use three: `persist()` and `flush()` to save, and `getRepository()` when you wan
 to *get* data.
 
 Say `$repository = $entityManager->getRepository()` and pass the entity
-*class* that we want to query. So `Question::CLASS`.
+*class* that we want to query. So `Question::class`.
 
 Whenever you need to get data, you'll *first* get the *repository* for an entity.
 This repository object is really really good at querying from the `question`
