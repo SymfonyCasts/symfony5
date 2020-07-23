@@ -20,5 +20,5 @@ chapters:
     - fixtures
     - foundry
     - foundry-tricks
-    - sliggable
+    - sluggable
     - bad-migrations
