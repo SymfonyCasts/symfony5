@@ -1,95 +1,129 @@
-# Update
+# Update Query & Rich vs Anemic Models
 
-Coming soon...
+On the show page, we can now up vote or down vote the question... mostly. In
+the controller, we read `direction` to know which button was clicked and change
+the vote count. This doesn't save to the database yet, but we'll do that in a minute.
 
-Back on the show page, we can now upvote or downvote inquiries for that question
-object in the controller grabs which button we clicked in increases or decreases the
-vote. Count. This doesn't save the database yet, but we'll do that in a minute before
-we do. I think we have another opportunity to clean up our code, adding some new
-methods directly to our entity, the code of the controller to increase or decrease
-the vote isn't complex, but it could be simpler and more descriptive in `Question` at
-the bottom, what's that a new `public function` called `upVote()`, and I'm going to have
-this return `self`. Basically the job of this is it's going to say `$this->votes++`
-plus that simple, this vote, we can call this method. If we ever want to increase the
-votes, I'm also going to return `$this` just because that makes it easier to chain.
+## Adding upVote and downVote Methods
 
-I returned this on all of my methods that, uh, all of my setter methods let's copy
-this and make another method called `downVote()` this time. It will do `$this->votes--`
-notice. I'm not even adding any PHP documentation above these votes because is
-so descriptive `upVote` and `downVote`. I love doing this because it's going to make
-our code in our controller. So simple. Check this up. If the direction is up,
-`$question->upVote()`. If it's down, `$question->downVote()` how beautiful is that?
-When we go over and try it and refresh it still works. This question has 10 votes,
-but when we uploaded it up votes to 11, we've now added the three custom methods to
-our question, `upVote()` `downVote()` and also `getVotesString()`. And this touches on a
-somewhat controversial topic related to entities. Notice that every property in our
-entity has a getter and setter method.
+Before we do, we have another opportunity to improve our code. The logic inside the
+controller to increase or decrease the vote isn't complex, but it *could* be simpler
+and more descriptive.
 
-This makes our entity super flexible. You can get or set any field you want, but
-sometimes you might not need or even want a Gitter or a setter method. For example,
-do we really want a sets, a `setVotes()` method, should anything in our app, be able to
-set the vote directly to any number that it wants? Probably not, probably always want
-to use `upVote()` or `downVote()` methods. Now I will keep this method, but only because
-we're using it in `QuestionController`. If I scroll up here to help create our random
-data, to help create our fake data.
+In `Question` at the bottom, add a new `public function` called `upVote()`. I'm
+going make this return `self`. Inside, say `$this->votes++`. Then, `return $this`...
+just because that chaining easier - all of the setter methods return `$this`.
 
-But this touches on a really interesting idea by removing any unnecessary getter or
+Copy this, paste, and create another called `downVote()` that will do `$this->votes--`.
+I'm not going to both adding any PHP documentation above these, because their names
+are already so descriptive: `upVote()` and `downVote()`!
+
+I love doing this because it makes the code in our controller *so* nice. If
+the direction is `up`, `$question->upVote()`. If it's `down`, `$question->downVote()`.
+
+How beautiful is that? And when we move over and refresh... it still works!
+
+## Rich vs Anemic Models
+
+We've now added the *three* custom methods to `Question`: `upVote()` `downVote()`
+`getVotesString()`. And this touches on a somewhat controversial topic related to
+entities. Notice that every property in our entity has a getter and setter method.
+This makes the entity super flexible: you can get or set any field you want.
+
+But sometimes you might not need or even want a getter or setter method. For example,
+do we really want a `setVotes()` method? Should anything in our app be able to
+set the vote directly to *any* number that it wants? Probably not. Probably we
+will always want to use `upVote()` or `downVote()`.
+
+Now I *will* keep this method... but only because we're using it in
+`QuestionController` - in the `new()` method... we're using it to set the fake data.
+
+But this touches on a really interesting idea: by removing any unnecessary getter or
 setter methods in your entity and replacing them with more descriptive methods that
-fit your business logic like `upVote()` and `downVote()`, you can little by little, give your
-entities more clarity, `upVote()`, and `downVote()` are very clear methods. Some people take
-this to an extreme and have almost zero getter and setter methods on their entity
-class here at Symfony casts, we tend to be more pragmatic. We usually have getters
-and setters, but we always look for ways to be more descriptive, to be more
-descriptive. For example, the `upVote()` and `downVote()` methods are super nice. Okay, let's
-finish this in our controller back down on question vote. How can we execute an
-update query to save the new vote, count to the database? Well, no surprise. Whenever
-we're saving something with doctrine, we need the entity manager. So add another
-argument and `EntityManagerInterface $entityManager`
+fit your business logic - like `upVote()` and `downVote()` - you can, little by
+little, give your entities more clarity. `upVote()`, and `downVote()` are *very*
+clear & descriptive.
 
-And then down here, replace the `dd($question)` with `$entityManager->flush()` that's it.
-Doctrine is smart enough to realize that the question object already exists in the
-database and makes an update query instead of an insert we don't need to worry about
-is this an insert or an update at all? Doctrine has us covered. Wait didn't I forget
-the `persist()` call up in our new action. We learned that when we need to insert
-something in the database, we get the entity manager. When you call `persist()` in, then
-flush what you could. We could have added persist down here if we want it to, but you
-don't have to remember the point of `persist()`. If I scroll back up is to make doctrine
-aware of your object so that when you call `flush()`, it will execute whatever queries it
-needs to put that into the database, whether those are update or insert queries, but
-down in our question vote, because doctrine was used to query for this question
-object. It already knows it exists.
+Some people take this to an extreme and have almost *zero* getter and setter
+methods on their entities. Here at Symfonycasts, we tend to be more pragmatic.
+We usually have getters and setters method, but we always look for ways to be
+more descriptive - like `upVote()` and `downVote()` methods.
 
-We just call `flush()` down here. It checks that question. Object for updates and
-performs. The update query doctrine is smart. Now that this is saving, what should
-our controller return? Well, usually after a form submit we'll redirect. So let's do
-that. How am I saying return `$this->redirectToRoute()` and then passes the name of the
-route that we want to redirect to. So I'm gonna use `app_question_show` we'll
-redirect to our show page, and then pass that any wild cards that it needs. So that
-has a `slug`. Wildcards will pass it. `$question->getSlug()`. Now, two things
-about this one is so far we've only ever generated you where else from inside of twig
-and instead of twig, when you use the `{{ path() }}` function to generate you, where else the
-redirector route, we pass it, similar arguments because internally it's going to
-generate a URL to that route.
+## Updating an Entity in the Database
 
-The second thing is that if you think about it, what a redirect actually is, it's a
-special type of response. So we know that our controller always needs to return a
-response, right? Well, the redirect is actually just a response with a 302
-status code and a special location header set to the address that your browser should
-go to. So I'm actually going to hold command or control to click into this redirect
-route. You can see this actually comes from our `AbstractController`. This apparently
-calls some other method called `redirect()` on this class. I'm going to hold command to
-jump that. So ultimately what this redirect drop method returns is a `RedirectResponse`
-response. And if I hold command on that `RedirectResponse` is actually a class deep in
-the core of Symfony that extends `Response`. It's just a special subclass of response.
-That's really good at creating redirect responses. So if that didn't quite make
-sense, that's fine. I'm gonna close out these two classes. What I want you to know is
-that `redirectToRoute()` actually returns a `Response` object, response option. That's
-really good at redirecting. All right. So testing time, let's move over. Let's go
-back to the show page and you can see that right now. This has 10 votes. Let's upload
-that. And as 11 of what it again, 12 I'll put it again. 13, downvote it? 12, it works
-beautifully.
+Okay, let's finish this! In our controller, back down on `questionVote()`, how
+can we execute an *update* query to save the new vote count to the database? Well,
+no surprise, whenever we need to *save* something in doctrine, we need the
+entity manager.
 
-Like I said, in a real app, when we have user authentication, we might prevent a
-person from voting multiple times, but since we don't have that yet, this is working
-awesome. Next let's talk about something else.
+Add another argument: `EntityManagerInterface $entityManager`. Then, below,
+replace the `dd($question)` with `$entityManager->flush()`.
 
+Done! Seriously! Doctrine is smart enough to *realize* that the `Question` object
+already exists in the database and makes an *update* query instead of an insert.
+*We* don't need to worry about "is this an insert or an update" at all? Doctrine
+has that covered.
+
+But wait, didn't I forget the `persist()` call? Up in the `new()` action, we
+learned that to insert something in the database, we need to call call `persist()`
+*and* `flush()`.
+
+This time, we *could* have added `persist()`, but we don't need to. Scroll back
+up to `new()`. Remember: the point of `persist()` is to make Doctrine *aware* of
+your object so that when you call `flush()`, it can *check* that object and
+execute whatever queries it needs to save that into the database, whether that
+is an INSERT of UPDATE query.
+
+Down in `questionVote()`, because Doctrine was used to *query* for this `Question`
+object... it's *already* aware of it! When we call `flush()`, it already knows
+to check that `Question` object for changes and performs an UPDATE query.
+Doctrine is smart.
+
+## Redirecting
+
+Ok, now that this is saving... what should our controller return? Well, usually
+after a form submit, we should redirect somewhere. Let's do that. How?
+`return $this->redirectToRoute()` and then pass the name of the route that we
+want to redirect to. Let's use `app_question_show` to redirect to the show page
+and then pass any wildcard value as the second argument: `slug` set to
+`$question->getSlug()`.
+
+Two things about. First, until now, we've *only* ever generated a URL from inside
+of Twig, by using the `{{ path() }}` function. We pass the same arguments to
+`redirectToRoute()` because, internally, it generates a URL just like `path()`
+does.
+
+And second... on a high level... what *is* a redirect? When a server wants to
+redirect you to another page, how does it do that?
+
+A redirect is *nothing* more than a special type of response. It's a response
+that has a 301 or 302 status code and a `Location` header that tells your browser
+where to go.
+
+We know that our controller always needs to return a Symfony `Response` object.
+Let's do some digging: hold Command or Ctrl and click `redirectToRoute()` to
+jump to that method inside of `AbstractController`. This apparently calls another
+method `redirect()`. Hold Command or Ctrl again to jump to that.
+
+Ah, *here's* the answer: this returns a `RedirectResponse` object. Hold Command
+or Ctrl *one* more time to jump into this class.
+
+`RedirectResponse` live deep in the core of Symfony and it *extends* `Response`!
+Yes this is just a special subclass of `Response` that's really good at creating
+*redirect* responses.
+
+Let's close all of these core classes. The point is: the `redirectToRoute()`
+method doesn't do anything magical: it returns a `Response` object that's really
+good at redirecting.
+
+Ok: testing time! Spin over to your browser and go back to the show page. Right
+now this has 10 votes. Hit "up vote" and... 11! Do it again: 12! The 13! Downvote
+and... 12. We got it!
+
+Like I said earlier, in a real app, when we have user authentication, we might
+prevent someone from voting multiple times. But, we can worry about that later.
+
+Next: we *have* created a way to load dummy data into our database via the
+`/questions/new` page. But... it's pretty hacky.
+
+Let's replace this with a much more robust *fixtures* system.
