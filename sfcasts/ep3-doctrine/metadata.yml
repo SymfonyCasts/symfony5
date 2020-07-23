@@ -13,6 +13,7 @@ chapters:
     - more-queries
     - query-builder
     - query-reuse
+    - param-converter
     - votes
     - request
     - update
