@@ -33,6 +33,11 @@ I'm using `--dev` because the profiler is a tool that we'll only need while we'r
 `require-dev` section of `composer.json`. This isn't that important, but this is
 the right way to do it.
 
+***TIP
+In newer projects, instead of `symfony/profiler-pack`, you may see 3 packages here, including
+`symfony/web-profiler-bundle`. That's ok! We'll explain what's going on in a few minutes.
+***
+
 [[[ code('3b179e857b') ]]]
 
 And... at this point, it should be *no* surprise that this configured a recipe!
@@ -117,6 +122,13 @@ job is to help install several packages at once. Check it out: copy the package
 name, find your browser, and go to https://github.com/symfony/debug-pack. Woh!
 It's nothing more than a `composer.json` file! This gives us an easy way to install
 just *this* package... but actually get *all* of these libraries.
+
+***TIP
+In my project, installing a "pack" would add just *one* line to `composer.json`: `symfony/debug-pack`.
+But starting in `symfony/flex` 1.9, when you install a pack, instead of adding `symfony/debug-pack`
+to `composer.json`, it will add these 5 packages instead. You still get the same code, but this makes
+it easier to manage the package versions.
+***
 
 So thanks to this, we have two new things in our app. The first is a logger!
 If we refresh the page... and click into the profiler, we have a "Logs" section
