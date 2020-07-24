@@ -1,98 +1,126 @@
-# Foundry
+# Foundry: Fixture Model Factories
 
-Coming soon...
+In the `load()` method of tje fixture class, we can create as much dummy data as
+we want. Right now... we're creating exactly *one* `Question`... which isn't
+making for a very realistic experience.
 
-In the load method of our fixture class, we can create as much dummy data as we want.
-Right now. We're only grading one question, which isn't making for a very realistic
-experience, but, but if we were to create more questions and especially in the
-future, when we will have multiple database tables that relate to each other, this
-class would become big and ugly. It's already kind of ugly. So instead of doing that,
-let's use a super fun new library, Google for яenstruck Foundry and find it's GitHub
-page.
+If we created *more* questions... and especially in the future when we will have
+multiple database tables that relate to each other, this class would start to get
+ugly. It's... already kind of ugly.
 
-Gary is all about creating doctrine, entity objects in as easy way as possible. It's
-perfect for fixtures as well as for tests. When you want to see your database with
-data at the start of your test, it also has extra features for assertions and the
-test, which is what it was really originally created for. Oh, and prompts to it's
-author, Kevin, Kevin Bond, a long time Symfony community member who has been creating
-some excellent libraries lately, scroll down to the installation. Copy of the
-composer require line, find your terminal and paste. This is `--dev` because we
-only need the load dummy data and the dev environment. 
+## Hello Foundry!
+
+No, we deserve better! Let's use a super fun new library instead. Google for
+"Zenstruck Foundry" and find its [GitHub Page](https://github.com/zenstruck/foundry).
+
+Foundry is *all* about creating Doctrine entity objects in an easy, repeatable
+way. It's perfect for fixtures as well as for functional tests where you want to
+seed your database with data at the start of your test. It even has extra
+features for test assertions!
+
+The bundle was created by [Kevin Bond](https://github.com/kbond) - a *long* time
+Symfony contributor and friend of mine who's been creating some *really* excellent
+libraries lately. Foundry is Canadian for fun!
+
+## Installing Foundry
+
+Let's get to work! Scroll down to the installation, copy the composer require
+line, find your terminal and paste. The `--dev` is here because we only need
+to load dummy data and the dev & test environments.
 
 ```terminal-silent
 composer require zenstruck/foundry --dev
 ```
 
-While that's running head back
-over to the docs. The idea is that for each entity, like for example, `Category` or
-`Post`, like they use in this example, We're going to generate a corresponding model
-factory. So I post entity, which we'll do with a `make:factory` command. So he `Post`
-[inaudible] `PostFactory` class, which will look something like this. Once we have
-that, we can configure some default data on that for that entity class, and then
-start grading objects. Now I know I wonder that really quickly, but that's mostly
-because we're going to see this in action back at the terminal. Let's wait for this
-to finish. I'm actually recording this at my parents' house where the internet is a
-little lack. Luster
+While that's running, head back to the docs. Let me show you what this bundle is
+all about. Suppose you have entities like `Category` or `Post`. The idea is that,
+for each entity, we will generate a corresponding *model factory*. So, a `Post`
+entity will have a `PostFactory` class, which will look something like this.
 
-When finishes
+Once we have that, we can configure some default data for the entity class and then
+start creating objects!
 
-Let's do generate one of those model factories for our `Question`,
+I know I explained that quickly, but that's because we're going to see this in
+action. Back at the terminal... let's wait for this to finish. I'm actually
+recording at my parents' house... where the Internet is a little... disappointing.
 
-Using the new `make:factory` command I'll run 
+After an edited break where I ate a sandwich, this finally finishes.
+
+## make:factory
+
+Let's generate one of those fancy-looking model factories for `Question`. To
+do that, run `make:factory`:
 
 ```terminal
 symfony console make:factory
 ```
 
-Now I also could have used a `bin/console make:factory` because this command doesn't need the
-database connection environment variable, but it's easier to get in the habit of
-always using Symfony console select question from the list and done. Go check out a
-new class `src/Factory/QuestionFactory.php`, the only method that we need to
-worry about right now is `getDefaults()`. The idea is that we'll return an array of all
-of the data needed to create a question. For example, we can set a `name` key to our
-dummy question name, which is right now missing pants internally. This works a bit
-like twig. When frown, when Foundry sees the `name` key, it will call the `setName()`
-method on our end state internally. This is used as Symfony's property access or
-component. So it also has a few other tricks and how it can set properties.
+I also could have run `bin/console make:factory`... because this command doesn't
+need the database environment variable... but it's easier to get in the habit of
+*always* using `symfony console`.
 
-Copy the rest of the dummy code from our fixture class. Delete it, delete everything
-actually. And then back in our question factory and get a false it. Now, what I need
-to do is basically now convert this all into the key format, but array format, `slug` key
-a `question` key. And then for the `askedAt` we'll actually do use a ternary syntax to
-do all of that thing in one line. So if our random number is greater than two, then
-we will pass our random value here. Check my prints. These ELLs will pass. No, there
-we go. And then finally here, I'll add a key four votes set to a random number from
-negative 20 to 50.
+Select `Question` from the list and... done! Go check out the new class
+`src/Factory/QuestionFactory.php`.
 
-All right. Let me clean out all this old code and we'll see if I messed up any of my,
-see if I mess anything up and I just need my closing square bracket and a stomach
-colon. Perfect. So a little ugly conversion there, but you can see it's just a very
-simple array and that's it. We are ready to use this question factory. How in the
-fixtures glass, say `QuestionFactory::new()` that will give us a new
-instance of the `QuestionFactory`, then `->create()` to create a single question. That's
-still not very interesting, but let's try it rerun the fixtures 
+## Adding Default Values
+
+The only method that we need to worry about right now is `getDefaults()`. The
+idea is that we'll return an array of all of the data needed to create a `Question`.
+For example, we can set a `name` key to our dummy question name - "Missing pants".
+
+This works a bit like Twig. When Foundry sees the `name` key, it will
+call the `setName()` method on `Question`. Internally, this uses Symfony's
+property-access component, which I'm mentioning, because it also supports passing
+data through the constructor if you need that.
+
+Copy the rest of the dummy code from our fixture class, delete it... delete
+*everything* actually. And then, back in `QuestionFactory`, paste!
+
+But we need to convert all of this into array keys. As *exciting* as this is...
+I'll... type really fast.
+
+And.... done! Phew...
+
+## Using the Factory
+
+Ok! A simply array of "default" values that are enough to create a `Question`
+object. Our `QuestionFactory` is ready! Let's use it in `AppFixtures`. How?
+
+First, say `QuestionFactory::new()`. That will give us a new *instance* of the
+`QuestionFactory`. Now `->create()` to create a *single* `Question`.
+
+Done! Ok, it's *still* not interesting... but let's try it! Re-run the fixtures:
 
 ```terminal
 symfony console doctrine:fixtures:load
 ```
 
-load press. Yes. So it will purge the database and no errors
-over on the home page. Whenever you refresh. Oh, actually zero questions probably
-because mine was unpublished. Let me load one more time. And there it is our one
-question.
-
-So this point you might be wondering why is this better? It's better because we've
-only just started to scratch the service of what Foundry can do. Try this, want to
-create 20 questions instead of just one change, `create()` to `createMany(20)` reload the
-fixtures again, 
+Answer yes and... no errors! Head over to the browser, refresh and... oh! Zero
+questions! Ah, my *one* question is probably unpublished. Load the fixtures again:
 
 ```terminal-silent
 symfony console doctrine:fixtures:load
 ```
 
-then go check out the homepage. Hello, our 20 questions with one line
-of very readable code, but wait, there's more Foundry comes with a built in
-integration with a library called faker and handy library for creating truly fake
-data. Let's improve the quality of our fake data and see a few other cool things that
-Foundry can do next.
+Refresh and... there it is!
 
+## createMany()
+
+At this point, you might be wondering: why is this better? Valid question. It's
+better because we've only just *started* to scratch the service of what Foundry
+can do. Want to create 20 questions instead of just one? Change `create()` to
+`createMany(20)`.
+
+That's it. Reload the fixtures again:
+
+```terminal-silent
+symfony console doctrine:fixtures:load
+```
+
+Then go check out the homepage. Hello 20 questions created with one line
+of very readable code.
+
+But wait there's *more* Foundry goodness! Foundry comes with built-in
+support for a library called faker: and handy tool for creating *truly* fake
+data. Let's improve the quality of our fake data *and* see a few other cool things
+that Foundry can do next.
