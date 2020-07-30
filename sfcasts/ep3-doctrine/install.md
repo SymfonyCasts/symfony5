@@ -87,6 +87,8 @@ Composer *would* also download its 4 dependencies... but only the pack would sho
 up here. But... surprise! Instead of `symfony/orm-pack`, the 4 packages *it*
 requires are here instead!
 
+[[[ code('3b531fab0e') ]]]
+
 Here's the deal: before `symfony/flex` 1.9, when you required a pack, nothing
 special happened: Composer added the *one* new package to `composer.json`. But
 starting in `symfony/flex` 1.9, instead of adding the pack, it adds the
@@ -115,6 +117,9 @@ also modified `.env` and created some *new* files.
 
 Go check out `.env`. At the bottom... here it is: it added a new `DATABASE_URL`.
 This is the environment variable that Doctrine uses to connect to the database.
+
+[[[ code('c8060c922e') ]]]
+
 And... we can see this! The recipe *also* added another file called
 `config/packages/doctrine.yaml`
 
@@ -122,6 +127,8 @@ And... we can see this! The recipe *also* added another file called
 *see* that this `doctrine.dbal.url` key *points* to the environment variable! We
 won't need to do much work in this file, but I wanted you to see that the environment
 variable is *passed* to the bundle.
+
+[[[ code('02c3e9bed9') ]]]
 
 The recipe also added a few directories `src/Entity/`, `src/Repository/`,
 and `migrations/`, which we'll talk about soon.
