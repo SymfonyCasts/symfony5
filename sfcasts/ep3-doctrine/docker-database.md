@@ -39,7 +39,7 @@ Then, we're *just* going to use Docker to launch *services* like MySQL, Redis
 or Elasticsearch. Finally, we'll configure our local PHP app to communicate with
 those containers.
 
-For me, it's kind of the best of both words: it makes it super easy to launch
+For me, it's kind of the best of both worlds: it makes it super easy to launch
 services like MySQL... but without the complexity that often comes with Docker.
 
 ## Hello make:docker:database
