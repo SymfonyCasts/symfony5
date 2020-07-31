@@ -4,6 +4,8 @@ Doctrine is installed! Woo! Now we need to make sure a database is running - lik
 MySQL or PostgreSQL - and then update the `DATABASE_URL` environment variable
 to point to it.
 
+[[[ code('44307a5c42') ]]]
+
 So: you can *absolutely* start a database manually: you can download MySQL or
 PostgreSQL onto your machine and start it. *Or* you can use Docker, which is what
 *we* will do. OooOoooo.
@@ -64,6 +66,8 @@ And... done! The database service is ready!
 Well, in reality, the *only* thing this command did was create a `docker-compose.yaml`
 file: it didn't communicate with Docker or start any containers - it *just*
 created this new `docker-compose.yaml` file.
+
+[[[ code('57e47f9c54') ]]]
 
 And... it's pretty basic: we have a service called `database` - that's just an
 internal name for it - which uses a `mysql` image at its `latest` version. And
