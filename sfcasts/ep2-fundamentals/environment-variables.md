@@ -183,5 +183,10 @@ So all *we* need to do is... refresh! There's our error. Back on Sentry, I shoul
 be able to go to `sentry.io` and... yep! It takes me over to the SymfonyCasts issues
 and we have a new entry: Exception: bad stuff happened!
 
+***TIP
+If you don't see your logs showing up in Sentry, there could be some connection error that's being hidden
+from you. If you want to debug, check out Ryan's comment about this: https://bit.ly/sentry-debug
+***
+
 Next, how do you handle setting environment variables when you deploy? It's time
 to check out a *cool* new system called the secrets vault.
