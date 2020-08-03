@@ -1,6 +1,6 @@
 # Foundry: Fixture Model Factories
 
-In the `load()` method of tje fixture class, we can create as much dummy data as
+In the `load()` method of the fixture class, we can create as much dummy data as
 we want. Right now... we're creating exactly *one* `Question`... which isn't
 making for a very realistic experience.
 
@@ -15,7 +15,7 @@ No, we deserve better! Let's use a super fun new library instead. Google for
 
 Foundry is *all* about creating Doctrine entity objects in an easy, repeatable
 way. It's perfect for fixtures as well as for functional tests where you want to
-seed your database with data at the start of your test. It even has extra
+seed your database with data at the start of each test. It even has extra
 features for test assertions!
 
 The bundle was created by [Kevin Bond](https://github.com/kbond) - a *long* time
@@ -26,7 +26,7 @@ libraries lately. Foundry is Canadian for fun!
 
 Let's get to work! Scroll down to the installation, copy the composer require
 line, find your terminal and paste. The `--dev` is here because we only need
-to load dummy data and the dev & test environments.
+to load dummy data in the `dev` & `test` environments.
 
 ```terminal-silent
 composer require zenstruck/foundry --dev
@@ -37,26 +37,28 @@ all about. Suppose you have entities like `Category` or `Post`. The idea is that
 for each entity, we will generate a corresponding *model factory*. So, a `Post`
 entity will have a `PostFactory` class, which will look something like this.
 
-Once we have that, we can configure some default data for the entity class and then
-start creating objects!
+Once we have that, we can configure some default data for the entity class and
+then... start creating objects!
 
 I know I explained that quickly, but that's because we're going to see this in
 action. Back at the terminal... let's wait for this to finish. I'm actually
-recording at my parents' house... where the Internet is a little... disappointing.
+recording at my parents' house... where the Internet is *barely* a step up from
+dial-up.
 
-After an edited break where I ate a sandwich, this finally finishes.
+After an edited break where I ate a sandwich and watched Moana, this finally
+finishes.
 
 ## make:factory
 
 Let's generate one of those fancy-looking model factories for `Question`. To
-do that, run `make:factory`:
+do that, run:
 
 ```terminal
 symfony console make:factory
 ```
 
 I also could have run `bin/console make:factory`... because this command doesn't
-need the database environment variable... but it's easier to get in the habit of
+need the database environment variables... but it's easier to get in the habit of
 *always* using `symfony console`.
 
 Select `Question` from the list and... done! Go check out the new class
@@ -73,8 +75,8 @@ call the `setName()` method on `Question`. Internally, this uses Symfony's
 property-access component, which I'm mentioning, because it also supports passing
 data through the constructor if you need that.
 
-Copy the rest of the dummy code from our fixture class, delete it... delete
-*everything* actually. And then, back in `QuestionFactory`, paste!
+Copy the rest of the dummy code from our fixture class, delete it... and delete
+*everything* actually. Back in `QuestionFactory`, paste!
 
 But we need to convert all of this into array keys. As *exciting* as this is...
 I'll... type really fast.
@@ -83,13 +85,15 @@ And.... done! Phew...
 
 ## Using the Factory
 
-Ok! A simply array of "default" values that are enough to create a `Question`
-object. Our `QuestionFactory` is ready! Let's use it in `AppFixtures`. How?
+Ok! We now have a simple array of "default" values that are enough to create a
+valid `Question` object. Our `QuestionFactory` is ready! Let's use it in
+`AppFixtures`.
 
-First, say `QuestionFactory::new()`. That will give us a new *instance* of the
+How? First, say `QuestionFactory::new()`. That will give us a new *instance* of the
 `QuestionFactory`. Now `->create()` to create a *single* `Question`.
 
-Done! Ok, it's *still* not interesting... but let's try it! Re-run the fixtures:
+Done! Ok, it's *still* not interesting - it will create just *one* `Question`...
+but let's try it! Re-run the fixtures:
 
 ```terminal
 symfony console doctrine:fixtures:load
