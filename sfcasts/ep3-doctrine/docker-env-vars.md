@@ -62,6 +62,8 @@ Back at your editor, open up `public/index.php`: the front controller for our
 project. We normally don't need to mess with this file... but let's temporarily
 hack in some code. After the autoload line, add `dd($_SERVER)`.
 
+[[[ code('b15f81deeb') ]]]
+
 The `$_SERVER` global variable holds a lot of things *including* any real
 *environment* variables that are passed to PHP. Back at the browser, refresh
 and search for "database". Check it out! A `DATABASE_URL` environment variable!
@@ -77,6 +79,8 @@ container. We don't need to configure *anything*!
 ## Seeing the Environment Variables
 
 Back in `index.php`, remove the `dd()` line.
+
+[[[ code('c63b268ce8') ]]]
 
 Another way to see what environment variables the Symfony binary is exporting to
 our app is by running:
