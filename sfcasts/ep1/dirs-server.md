@@ -38,7 +38,7 @@ into the `vendor/` directory... including Symfony itself.
 We'll talk more about the other files and directories along the way... but they're
 not important yet.
 
-## Using the symfony Local Web Server
+## Using the Symfony Local Web Server
 
 A few minutes ago, we used PHP itself to start a local web server. Cool. But
 hit Ctrl+C to quit that. Why? Because that handy symfony binary tool we
