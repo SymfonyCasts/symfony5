@@ -1,154 +1,184 @@
-# Bad Migrations
+# Timestampable & Failed Migrations
 
-Coming soon...
+Ok team: I've got one more mission for us: to add `createdAt` and `updatedAt`
+fields to our `Question` entity *and* make sure that these are automatically set
+whenever we create or update that entity. This functionality is called timestampable,
+and Doctrine Extensions *totally* has a feature for it.
 
-Okay, Dean, I've got one more mission for us in this tutorial to add, `createAt` and
-`updatedAt` fields to our `Question` entity and make sure these are set automatically
-when we create or update or entity. This functionality is called time. Stackable and
-doctrine. Extensions totally has a feature for it. Activate it in the config file.
-`stof_doctrine_extensions.yaml`, add `timestampable: true`.
+## Activating Timestampable
 
-Sure.
+Start by activating it in the config file: `stof_doctrine_extensions.yaml`.
+Add `timestampable: true`.
 
-If you click into the doctrine extensions docs and then find timestampable and scroll
-down to the example, you'll see that this works a lot. Like slugable erratic `created`
-that and `updated` that fields. Then add an annotation to tell the library to set them
-automatically simple, but Oh, this library makes it even easier. It includes a trait
-that holds the fields and annotations. Check it out at the top of the `Question`.
-That's the ad `use TimestampableEntity`. That's it. Well almost hold command or
-control and click to open that trait. How beautiful is this? It holds the two
-properties with the `ORM` annotations and the `Timestampable` annotations. It also has
-getter and setter methods for each.
+Back at the browser, click into the Doctrine Extensions docs and find the
+Timestampable page. Scroll down to the example... Ah, this works a lot like
+Sluggable: add `createdAt`  and `updatedAt` fields, then put an annotation above
+each to tell the library to set them automatically.
 
-It has everything we need.
-But since this does mean that we just added two new fields to our entity, we need to
-make a migration at your terminal run
+## The TimestampableEntity Trait
+
+Easy! But oh, this library makes it even easier! It has a trait that holds the
+fields *and* annotations! Check it out: at the top of `Question`, add
+`use TimestampableEntity`.
+
+That's it. Hold command or control and click to open that trait. How beautiful
+is this? It holds the two properties with the `ORM` annotations *and* the
+`Timestampable` annotations. It even has getter and setter methods. It's
+everything we need.
+
+But since this *does* mean that we just added two new fields to our entity, we
+need a migration! At your terminal run:
 
 ```terminal
 symfony console make:migration
 ```
 
-Okay. Let's check that out to make
+Then go check it out to make sure it doesn't contain any surprises. Yup! It looks
+good: it adds the two columns.
 
-Sure it doesn't contain any surprises. Yup. It looks perfect. It adds the two columns
-back of the terminal. Run it with 
+Back at the terminal, run it with:
 
 ```terminal
 symfony console doctrine:migrations:migrate
 ```
 
-and eye explosion. Invalid date, time format zero zero, zero, zero four
-column created at, at row one. Uh, the problem is that our database already has
-questions in it. And so when we add a new date time field, that does not allow no, my
-SQL kind of freaks out. So how can we fix this? There are two options, depending on
-your situation. First, if you haven't deployed your application to production yet,
-then you can just drop your database and start over. Basically, whenever you
-eventually deploy, you won't have any questions in the database yet. And so this
-simply won't be a problem. I'll show you the commands to drop a database in a minute.
-But if you have deployed to production already and your production database does have
-questions in it, then when we deploy, we will have this problem. So what's the fix.
-We need to be smart. Let's see what we need to do is first create the columns, but
-make them optional in the database. Then we'll set the, `createdAt` and `updateAt` it,
-update to that of all the records to be right now. And finally, we can make another
-up another alter table statement to make the two columns required that will make this
-migration safe. So usually a migration is perfect, but sometimes you need to update
-them by hand change the nitinol to default Knoll on both columns.
+And... yikes!
 
-Next call `$this->addSql()` again, to set both columns 
-UPDATE question SET created_at = NOW() Now comma updated_at = NOW() 
-let's start here. We'll worry
-about changing the columns to be required after this in a second in another
-migration. So should we just run our migrations again? Not so fast, that would be
-safe in this case, but you have to be careful if a migration has multiple SQL
-statements and it fails. It's possible that part, the migration was executed
-successfully. In part wasn't. This can leave us in a sort of weird invalid migration
-state.
+> Invalid datetime format 0000 for column `created_at` at row one.
+
+## When Migrations Fail
+
+The problem is that our database already has rows in the `question` table! And
+so, when we add a new `datetime` field that does *not* allow null, MySQL...
+kinda freaks out! How can we fix this?
+
+There are two options depending on your situation. First, if you have *not* deployed
+your app to production yet, then you can reset your local database and start over.
+Why? Because when you eventually deploy, you will *not* have any questions in the
+database yet and so you will *not* have this error when the migration runs. I'll
+show you the commands to drop a database in a minute.
+
+But if you *have* already deployed to production and your production database
+*does* have questions in it, then when you deploy, this *will* be a problem. To
+fix it, we need to be smart.
+
+Let's see... what we need to do is first create the columns but make them
+*optional* in the database. Then, with a second query, we can set the
+`created_at` and `updated_at` of all the existing records to right now. And *finally*,
+once that's done, we can execute another alter table query to make the two
+columns required. *That* will make this migration safe.
+
+## Modifying a Migration
+
+Ok! Let's get to work. *Usually* we don't need to modify a migration by hand,
+but this is *one* rare case when we *do*. Start by changing both columns to
+`DEFAULT NULL`.
+
+Next call `$this->addSql()` with:
+
+> UPDATE question SET created_at = NOW(), updated_at = NOW()
+
+Let's start here: we'll worry about making the columns required in
+another migration.
+
+The *big* question now is... should we just run our migrations again? Not so fast.
+That *might* be safe - and would in this case - but you need to be careful. If
+a migration has multiple SQL statements and it fails, it's possible that *part*
+of the migration was executed successfully and part was *not*. This can leave us
+in a, sort of, invalid migration state.
 
 ```terminal-status
 symfony console doctrine:migrations:list
 ```
 
-It would look like immigration wasn't executed when in fact, maybe half of it was so
-to be extra safe, let's reset the database, completely do that with 
+It would *look* like a migration was *not* executed, when in fact, maybe *half*
+of it actually *was*! Oh, and by the way, if you use something like PostgreSQL,
+which supports transactional DDL statements, then this is *not* a problem. In
+that case, if any part of the migration fails, all the changes are rolled back.
+
+## Safely Re-Testing the Migration
+
+Anyways, let's play it extra safe by resetting our database back to its original
+state and *then* testing the new migration. Start by dropping the database
+completely by running:
 
 ```terminal
 symfony console doctrine:database:drop --force
 ```
 
-to completely drop a database,
-then `doctrine:database:create` to recreate it. 
+Then `doctrine:database:create` to re-create it:
 
 ```terminal-silent
 symfony console doctrine:database:create
 ```
 
-Now I'll temporarily comment out the
-new trait in `Question` that will let us reload the fixtures so that we have data when
-we run the new migration. So 
+Next, I'll temporarily comment out the new trait in `Question`. That will allow us
+to reload the fixtures using the *old* database structure - the one *before*
+the migration. I also need to do a little hack and take the `.php` off of the new
+migration file so that Doctrine won't see it. I'm doing this so that I can easily
+run all the migrations *except* for this one.
 
-```terminal
-symfony console doctrine:fixtures:load
-```
-
-Oh, after I unkind comment out timestamp of what entity I'm going to do a little hack
-here where I actually go to refactor rename, and I'm actually going to take the dot
-PHP off the end of this file temporarily. That's a little hack because we don't want
-to do is I want to run only these first three migrations to get my system back to
-where it was before. So now I'll run 
+Let's do it:
 
 ```terminal
 symfony console doctrine:migrations:migrate
 ```
 
-Perfect. So we're back to the situation before we had created that and updated that
-properties and now to make things more realistic, I'll run 
+Excellent: we're back to the database structure *before* the new columns. Now
+load some data:
 
 ```terminal
 symfony console doctrine:fixtures:load
 ```
 
-Beautiful. All right, let's go back and undo those
-things. So I'll go back to refactor rename. I have the `.php` on the end, so that
-doctrine migrations sees that and let's uncomment out our use timestamp of state. So
-we're back right where we were a second ago. And we're going to try to run the new
-migration, do that with a 
+Beautiful. Back in our editor, undo those changes: put the `.php` back
+on the end of the migration filename. And, in `Question`, re-add the
+`TimestampableEntity` trait.
+
+*Now* we can properly test the new version of the migration. Do it with:
 
 ```terminal
-symfony console doctrine:migrations"migrate
+symfony console doctrine:migrations:migrate
 ```
 
-and this time, yes, it works perfectly.
-
-We can even run 
+And this time... yes! It works perfectly. We can even run:
 
 ```terminal
 symfony console doctrine:query:sql 'SELECT * FROM question'
 ```
 
-to see those beautiful new `createdAt` and `updatedAt` columns set.
-Finally, the last thing we needed to do is make another migration to make these two
-columns created in the database. And we can just ask doctrine to generate that
-migration for us.
+to see those beautiful new `created_at` and `updated_at` columns.
+
+## Making the Columns Required
+
+The *final* thing we need to do is create another migration to make the two
+columns required in the database. And... we can just make Doctrine do this for
+us:
 
 ```terminal
 symfony console make:migration
 ```
 
-Let's go check that one out,
-open it up and beautiful doctrine noticed that the columns weren't required in the
-database and generated the alter table statement. Fix that. Run the migrations one
-last time.
+Go check out the new file. Doctrine: you smartie! Doctrine noticed that the
+columns were *not* required in the database and generated the `ALTER TABLE` statement
+needed to fix that.
 
-```terminal
+Run the migrations one last time:
+
+```terminal-silent
 symfony console doctrine:migrations:migrate
 ```
 
-and got it. This, these are two safe migrations. Okay. Friends, that's it. You've
-just unlocked some huge potential in your application with doctrine. We know how to
-create entities, update entities, generate migrations, persist, data, create dummy
-fixtures and much more. The one big thing that we have not talked about yet is
-doctrine relations. That's a big enough topic that we'll save it for the next
-tutorial until then start building. If you have any questions, thoughts, or want to
-show us what you're building. That's awesome. We are here for you down in the
-comments. All right, friends. See you next time.
+And... got it! These are two *perfectly* safe migrations.
 
+Okay, friends, we did it!. We just unlocked *huge* potential in our app
+thanks to Doctrine. We know how to create entities, update entities, generate
+migrations, persist data, create dummy fixtures and more! The only big thing
+that we have *not* talked about yet is doctrine relations. That's an important
+enough topic that we'll save it for the next tutorial.
+
+Until then start building and, if you have questions, thoughts, or want to
+show us what you're building - whether that's a Symfony app or an extravagant
+Lego creation, we're here for you down in the comments.
+
+Alright friends, seeya next time.
