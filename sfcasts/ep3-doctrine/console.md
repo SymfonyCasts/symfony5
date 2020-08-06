@@ -31,9 +31,13 @@ And... yikes!
 > Access denied for db_user at localhost.
 
 Huh. For some reason, it's using this `DATABASE_URL` from `.env` *instead* of the
-one that's set by the Symfony binary. The problem is that, when you load your site
-in the browser, this is processed through the Symfony web server. That allows
-the Symfony binary to inject all of the environment variables.
+one that's set by the Symfony binary. 
+
+[[[ code('40c53ddb25') ]]]
+
+The problem is that, when you load your site in the browser, this is processed through 
+the Symfony web server. That allows the Symfony binary to inject all of 
+the environment variables.
 
 But when you just run a random `bin/console` command, that does *not* use the
 symfony binary. And so, it does *not* have an opportunity to add the environment
@@ -68,6 +72,8 @@ I want to tighten up one more thing. Open up `docker-compose.yaml`. The
 `:latest` next to the image means that we want to use the *latest* version of MySQL.
 Where does that image come from?
 
+[[[ code('ce2796e7e5') ]]]
+
 Google for Docker hub to find https://hub.docker.com. When you say that you want
 a `mysql` image at version `latest`, Docker communicates back to Docker Hub to
 get the details. Search for MySQL for *all* the info about that image including
@@ -77,6 +83,8 @@ the *tags* that are currently available. Right now, the `latest` tag is equal to
 Head back over to `docker-compose.yaml`. You don't have to do this, but I'm going
 to change `latest` to `8.0` so that I'm locked at a specific version that won't
 suddenly change.
+
+[[[ code('1c2496eebe') ]]]
 
 Over at the terminal, even though `latest` and `8.0` are *technically* the same
 image, let's restart `docker-compose` anyways to update the image. Run:
@@ -98,8 +106,13 @@ same image we used before.
 
 Now that we've set the MySQL version in Docker, we should *also* do the same thing
 with Doctrine. Open up `config/packages/doctrine.yaml`. See that `server_version`
-key? Set this to 8.0. If you're using mariadb, you can use a format like
-`mariadb-10.5.4`.
+key? 
+
+[[[ code('04d8a01d57') ]]]
+
+Set this to 8.0. If you're using mariadb, you can use a format like `mariadb-10.5.4`.
+
+[[[ code('edc8d42c85') ]]]
 
 This is... kind of an annoying thing to set, but it *is* important. It tells
 Doctrine what *version* of MySQL we're running so that it knows what features are
