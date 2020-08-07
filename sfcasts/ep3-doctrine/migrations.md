@@ -111,7 +111,7 @@ symfony console make:migration
 ```
 
 to generate a *second* migration file. Let's go check it out. And... woh!
-It's an `ALTER TABLE` statement to create the unique index on `slug`! The
+It's a `CREATE UNIQUE INDEX` statement for the `slug` column! The
 migrations system compared the `question` table in the database to the `Question`
 entity, determined that the only difference was a missing unique index and then
 generated the SQL to add it. Honestly, that's amazing.
