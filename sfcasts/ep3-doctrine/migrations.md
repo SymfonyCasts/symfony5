@@ -32,6 +32,8 @@ This time... cool! It generated a new *file* inside of a `migrations/` directory
 Let's go check it out! In `migrations/` open the one new file and... awesome! It
 has an `up()` method with the *exact* SQL we need!
 
+[[[ code('37c54aa30e') ]]]
+
 > CREATE TABLE question...
 
 and then all of the columns.
@@ -96,6 +98,8 @@ the *one* `Question` that matches.
 
 One of the options you can pass to `@ORM\Column()` is `unique=true`.
 
+[[[ code('5d69347229') ]]]
+
 That won't change how our *PHP* code behaves - this doesn't relate to form validation
 or anything like that. This *simply* tells Doctrine:
 
@@ -110,8 +114,11 @@ Cool! At your terminal, once again run:
 symfony console make:migration
 ```
 
-to generate a *second* migration file. Let's go check it out. And... woh!
-It's a `CREATE UNIQUE INDEX` statement for the `slug` column! The
+to generate a *second* migration file. Let's go check it out. 
+
+[[[ code('ce2626cefd') ]]]
+
+And... woh! It's a `CREATE UNIQUE INDEX` statement for the `slug` column! The
 migrations system compared the `question` table in the database to the `Question`
 entity, determined that the only difference was a missing unique index and then
 generated the SQL to add it. Honestly, that's amazing.
