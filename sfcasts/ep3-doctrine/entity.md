@@ -84,12 +84,16 @@ important yet and we'll talk about it later.
 This entity class, however, is *super* important. Go open it up:
 `src/Entity/Question.php`.
 
+[[[ code('1a970f0dbb') ]]]
+
 As we talked about, we're going to have *one* class per table.
 
 The first thing I want you to notice is that... there's nothing special about this
 class. It's a boring, normal class... it doesn't even extend a base class!
 It has several private properties and, to access those, the command generated
 getter and setter methods, like `getName()`, `getSlug()` and `setSlug()`.
+
+[[[ code('694e158b6e') ]]]
 
 It's just about the most *boring* class you'll ever see.
 
@@ -98,10 +102,14 @@ database table, it's needs to know a few things. For example, it needs
 to know that the `name` property should map to a `name` column and that its
 *type* is a `string`.
 
+[[[ code('ca74540bc7') ]]]
+
 The way that Doctrine does this is by reading annotations. Well, you can also
 use XML, but I *love* annotations.
 
 For example, the `@ORM\Entity()` above the *class* is what actually tells Doctrine:
+
+[[[ code('dd26a10fdc') ]]]
 
 > Hey! This is not just a normal, boring PHP class. This is an "entity": a class
 > that I want to be able to store in the database.
