@@ -68,7 +68,7 @@ long, I'll use the multiline syntax - `<<<EOF` - and paste in some content.
 You can copy this from the code block on this page or use any text.
 
 The *last* field is `$askedAt`. Let's add some randomness
-to this: if a random number between 1 and 10 is greater than 2 - so a 70% chance -
+to this: if a random number between 1 and 10 is greater than 2,
 then call `$question->setAskedAt()`. Remember: `askedAt` *is* allowed to be
 `null` in the database... and if it *is*, we want that to *mean* that the user
 hasn't *published* the question yet. This if statement will give us a nice mixture
