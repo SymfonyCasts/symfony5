@@ -29,8 +29,12 @@ Open up `src/Controller/QuestionController.php`, which already holds the homepag
 and show page. At the bottom, add `public function ` and... let's call it `new()`.
 Above, say `@Route()` with `/questions/new`.
 
+[[[ code('d06c3d81f8') ]]]
+
 To keep things simple, return a `new Response()` - the one from
 HttpFoundation - with `Time for some Doctrine magic!`
+
+[[[ code('dd9cf90b53') ]]]
 
 There's no Doctrine logic yet, but this *should* work. At the browser, hit enter
 and... woh! It *doesn't* work! There's no error, but this is *not* the
@@ -41,6 +45,8 @@ The problem is that the url `/questions/new` *does* match this route! It look li
 "new" is the `slug`. Routes match from top to bottom and Symfony stops as soon
 as it finds the *first* matching route. So the easiest fix is to just move the
 *more* specific route above this one.
+
+[[[ code('22adc8c7f5') ]]]
 
 This doesn't happen too often, but this is how I handle it.
 
@@ -59,13 +65,24 @@ hardcoded data on it and ask Doctrine to save it.
 And because there is *nothing* special about our entity class, instantiating it
 looks *exactly* like you would expect: `$question = new Question()` and I'll
 auto-complete this so that PhpStorm adds the `Question` use statement.
+
+[[[ code('56f537923d') ]]]
+
 Next, call `$question->setName('Missing pants')` - an unfortunate magical
-side effect of an incorrect spell. And `->setSlug('missing-pants')` with a
-random number at the end so that each one is unique.
+side effect of an incorrect spell. 
+
+[[[ code('be2a5b033c') ]]]
+
+And `->setSlug('missing-pants')` with a random number at the end so 
+that each one is unique.
+
+[[[ code('1078c239cd') ]]]
 
 For the *main* part of the question, call `->setQuestion()` and, because this is
 long, I'll use the multiline syntax - `<<<EOF` - and paste in some content.
 You can copy this from the code block on this page or use any text.
+
+[[[ code('b40a8a2d70') ]]]
 
 The *last* field is `$askedAt`. Let's add some randomness
 to this: if a random number between 1 and 10 is greater than 2,
@@ -74,17 +91,25 @@ then call `$question->setAskedAt()`. Remember: `askedAt` *is* allowed to be
 hasn't *published* the question yet. This if statement will give us a nice mixture
 of published and unpublished questions.
 
+[[[ code('724dee444d') ]]]
+
 Also remember that the `$askedAt` property is a `datetime` field. This means that it
 will be a `DATETIME` type in MySQL: a field that is ultimately set via a date *string*.
 But in PHP, instead of dealing with *strings*, *thankfully* we get to deal with
 `DateTime` *objects*. Let's say `new \DateTime()` and add some randomness here too:
 `sprintf('-%d days')` and pass a random number from 1 to 100.
 
+[[[ code('a44ae62d99') ]]]
+
 So, the `askedAt` will be anywhere from 1 to 100 days ago.
 
-Ok! Our `Question` object is done! Add a `dd($question)` at the bottom, then move
-over, refresh and... hello nice, boring `Question` object! Notice that the `id`
-property is still `null` because we haven't saved it to the database yet.
+Ok! Our `Question` object is done! Add a `dd($question)` at the bottom:
+
+[[[ code('1e51fccdee') ]]]
+
+then move over, refresh and...  hello nice, boring `Question` object! 
+Notice that the `id` property is still `null` because we haven't saved it 
+to the database yet.
 
 ## The EntityManagerInterface Service
 
@@ -109,11 +134,15 @@ which is the *most* important service *by far* in Doctrine - is
 Let's go use it! Back in the controller, add a new argument to autowire this:
 `EntityManagerInterface $entityManager`.
 
+[[[ code('2e4b6e2095') ]]]
+
 ## persist() and flush()
 
 Below, remove the `dd()`. How do we save? Call
 `$entityManager->persist()` and pass the object to save. And
 then `$entityManager->flush()`.
+
+[[[ code('62a742d411') ]]]
 
 Yes, you need *both* lines. The `persist()` call *simply* says:
 
@@ -137,6 +166,8 @@ more interesting. I'll say `sprintf` with:
 
 Passing `$question->getId()` for the first placeholder and
 `$question->getSlug()` for the second.
+
+[[[ code('7ef7a2c565') ]]]
 
 Ok, back at the browser, *before* saving, the `Question` object had *no*
 `id` value. But now when we refresh... yes! It has an id! After saving,
