@@ -19,8 +19,12 @@ interface has a *bunch* of methods on it. But... most of the time, you'll only
 use three: `persist()` and `flush()` to save, and `getRepository()` when you want
 to *get* data.
 
+[[[ code('db3d694501') ]]]
+
 Say `$repository = $entityManager->getRepository()` and pass the entity
 *class* that we want to query. So `Question::class`.
+
+[[[ code('86226f150f') ]]]
 
 Whenever you need to get data, you'll *first* get the *repository* for an entity.
 This repository object is really really good at querying from the `question`
@@ -30,6 +34,8 @@ For example, we want to query `WHERE` the `slug` column equals the `$slug`
 variable. Do that with `$question = $repository->` and... this auto completes
 a bunch of methods. We want `findOneBy()`. Pass this an array of the WHERE
 statements we need: `'slug' => $slug`. After, `dd($question)`.
+
+[[[ code('e2e4b34f5c') ]]]
 
 Ok, let's see what this returns! Refresh and... woohoo! This gives us a `Question`
 *object*. Doctrine finds the matching row of data and uses that to populate an
@@ -56,6 +62,8 @@ trigger a 404 page in Symfony?
 First, this is optional - I'm going to say `/**` space and then type
 `Question|null`.
 
+[[[ code('76cef19dcb') ]]]
+
 This simply helps my editor know that this is a `Question` object or
 null, which will assist auto-completion. And, to be honest, PhpStorm is so smart
 that... I think it already knew this.
@@ -67,6 +75,8 @@ Below, if *not* `$question`, trigger a 404 page by saying
 > No question found for slug %s
 
 And pass the `$slug` variable.
+
+[[[ code('3d373d14a6') ]]]
 
 That's it! But notice the `throw`. `createNotFoundException()` instantiates an
 exception object - a very *special* exception object that triggers a 404 page.
