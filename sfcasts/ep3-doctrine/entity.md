@@ -120,7 +120,7 @@ should be stored in the table and their types.
 ## Annotations Reference
 
 Now, there are a *bunch* of different annotations and options you can use to
-configure Doctrine. Most are pretty simple - but let me show you am *awesome*
+configure Doctrine. Most are pretty simple - but let me show you an *awesome*
 reference. Search for
 [doctrine annotations reference](https://www.doctrine-project.org/projects/doctrine-orm/en/2.7/reference/annotations-reference.html)
 to find a *really* nice spot on their site where you can see a list of *all*
