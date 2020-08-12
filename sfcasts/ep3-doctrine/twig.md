@@ -8,7 +8,11 @@ Remove the `dd()`, leave the `$answers` - we'll keep those hardcoded for now bec
 we don't have an `Answer` entity yet - and get rid of the hardcoded `$question`,
 and `$questionText`.
 
+[[[ code('587337f92c') ]]]
+
 Instead pass a `question` variable to Twig set to the `Question` object.
+
+[[[ code('f3434f5c33') ]]]
 
 ## Twig's Smart . Syntax
 
@@ -18,8 +22,12 @@ object? Because the `Question` class has a `name` property, we can say
 `question.name`. It even auto-completes it for me! That doesn't always work in
 Twig, but it's nice when it does.
 
+[[[ code('87b420f418') ]]]
+
 Below... here's another one - `question.name` and `questionText` is now
 `question.question`.
+
+[[[ code('87b420f418') ]]]
 
 I think that's it! Testing time! Move over, go back to the *real* question
 slug and... there it is! We have a real name and real question text. This date is
@@ -34,11 +42,15 @@ property. But... if you look at the `name` property inside of the `Question`
 entity... it's private! That means we *can't* access the `name` property directly.
 What's going on?
 
+[[[ code('67530e8aa8') ]]]
+
 We're witnessing some Twig magic. In reality, when we say `question.name`, Twig
 first *does* look to see if the `name` property exists and is public. If it *were*
 public, Twig would use it. But since it's not, Twig *then* tries to call a
 `getName()` method. Yep, we write `question.name`, but, behind the scenes, Twig
 is smart enough to call `getName()`.
+
+[[[ code('684ca469b2') ]]]
 
 I *love* this: it means you can run around saying `question.name` in your template
 and not really worry about the whether there's a getter method or not. It's
@@ -50,6 +62,8 @@ but it's usually not necessary.
 The one thing that we *did* lose is that, originally, the question text was being
 parsed through markdown. We can fix that really easily by using the `parse_markdown`
 filter that we created in the last tutorial.
+
+[[[ code('91fe6d8f0e') ]]]
 
 Refresh and... it works.
 
