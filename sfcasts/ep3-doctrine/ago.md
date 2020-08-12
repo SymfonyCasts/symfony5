@@ -5,8 +5,13 @@ Let's make this date dynamic! The field on `Question` that we're going to use is
 been published yet, then it won't have an `askedAt`.
 
 Let's plan for this. In the template, add `{% if question.askedAt %}` with an
-`{% else %}` and `{% endif %}`. If the question is *not* published, say
-`(unpublished)`.
+`{% else %}` and `{% endif %}`
+
+[[[ code('fe9f6aa47e') ]]]
+
+If the question is *not* published, say `(unpublished)`.
+
+[[[ code('0834411c10') ]]]
 
 In a real app, we would probably *not* allow users to see *unpublished* questions...
 we could do that in our controller by checking for this field and saying
@@ -17,6 +22,9 @@ be able to *preview* their *own* unpublished questions. If they did, we'll show
 ## The Twig date Filter
 
 The easiest way to *try* to print the date would be to say `{{ question.askedAt }}`.
+
+[[[ code('b8c6fc84cc') ]]]
+
 But... you might be shouting: "Hey Ryan! That's not going to work!".
 
 And... you're right:
@@ -30,6 +38,8 @@ with... but we can't simply print them.
 To fix this, pass the `DateTime` object through a `|date()` *filter*. This takes
 a format argument - something like `Y-m-d H:i:s`.
 
+[[[ code('7f7f5ae385') ]]]
+
 When we try the page now... it's technically *correct*... but yikes! This... well...
 how can I put this politely: it looks like a backend developer designed this.
 
@@ -41,6 +51,8 @@ problems... because 10 minutes ago makes sense to everyone! But this exact date
 would *really* need a timezone to make sense.
 
 So let's do this. Start by adding the word "Asked" back before the date. Cool.
+
+[[[ code('5554170ac3') ]]]
 
 To convert the `DateTime` into a friendly string, we can install a nice bundle.
 At your terminal, run:
@@ -54,6 +66,8 @@ You could find this bundle if you googled for "Symfony ago". As we know, the
 us one main service that provides a Twig filter called `ago`.
 
 It's pretty awesome. Back in the template, add `|ago`.
+
+[[[ code('7e4d103918') ]]]
 
 We're done! When we refresh now... woohoo!
 
