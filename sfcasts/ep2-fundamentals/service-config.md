@@ -1,4 +1,4 @@
-# Service Config & Non-Autowireable Argumens
+# Service Config & Non-Autowireable Arguments
 
 At your terminal, run
 
