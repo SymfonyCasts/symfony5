@@ -53,9 +53,13 @@ statements work. It's not unique at *all* to Doctrine, but I wanted to point it 
 Ok: let's clear out these four lines and make our *own* query. Start with
 `->andWhere('q.askedAt IS NOT NULL')`.
 
+[[[ code('a8ac4aa978') ]]]
+
 I'm using `askedAt` because that's the name of the *property*... even though
 the column in the table is `asked_at`. Now add `->orderBy()` with
 `q.askedAt` and `DESC`.
+
+[[[ code('a8ac4aa978') ]]]
 
 Oh, and notice that I'm using `andWhere()`... even though there are no WHERE
 clauses before this! I'm doing this for 2 reasons. First... because it's allowed!
@@ -100,6 +104,8 @@ is a service in the container. That means we can autowire it directly!
 
 Check it out: remove the `EntityManagerInterface` argument and replace it with
 `QuestionRepository $repository`. Celebrate by deleting the `getRepository()` call.
+
+[[[ code('1dfbf65a32') ]]]
 
 If we move over and refresh... it *still* works! In practice, when I
 need to query for something, this is what I do: I autowire the specific repository
