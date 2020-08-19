@@ -12,9 +12,13 @@ Create a new private function at the bottom. Let's call it `addIsAskedQueryBuild
 with a `QueryBuilder` argument - the one from ORM. Make this also *return*
 a `QueryBuilder`.
 
+[[[ code('b6332ca605') ]]]
+
 Inside, we're going to *modify* the `QueryBuilder` that's passed to us to *add*
 the custom logic. So, `$qb->` and then copy the
 `andWhere('q.askedAt IS NOT NULL')`. Oh, and `return` this.
+
+[[[ code('c54974236f') ]]]
 
 Pretty much every `QueryBuilder` method returns *itself*, which is nice because
 it allows us to do method chaining. By returning the `QueryBuilder` from *our*
@@ -23,8 +27,12 @@ method, we will *also* be able to chain off of it.
 Ok, back in the original method, *first* create a `QueryBuilder` and set it to a
 variable. So, `$qb = $this->createQueryBuilder()`.
 
+[[[ code('fb5066df30') ]]]
+
 Then we can say `return $this->addIsAskedQueryBuilder($qb)` and then the rest of
 the query.
+
+[[[ code('59d00e3ad0') ]]]
 
 How cool is that? We now have a private method that we can call whenever we
 have a query that should *only* return published questions. And as a bonus... when
@@ -40,19 +48,27 @@ Create another private method at the bottom called `getOrCreateQueryBuilder()`.
 This will accept an *optional* `QueryBuilder` argument - so
 `QueryBuilder $qb = null`. And, it will *return* a `QueryBuilder`.
 
+[[[ code('485c2731d0') ]]]
+
 This is *totally* a convenience method. If the `QueryBuilder` is passed, return
 it, else, return `$this->createQueryBuilder()` using the same `q` alias.
+
+[[[ code('853a60d38d') ]]]
 
 This is useful because, in `addIsAskedQueryBuilder()`, we can add `= null` to make
 *its* `QueryBuilder` argument optional. Make this work by saying
 `return $this->getOrCreateQueryBuilder()` passing `$qb`. Then
 `->andWhere('q.askedAt IS NOT NULL')`
 
+[[[ code('7acd77ad67') ]]]
+
 So, if somebody passes us an existing `QueryBuilder`, we use it! But if not,
 we'll create an empty `QueryBuilder` automatically. That's customer service!
 
 All of this basically just makes the helper method easier to use above. Now we
 can just `return $this->addIsAskedQueryBuilder()` with *no* `$qb` argument.
+
+[[[ code('916ab9910f') ]]]
 
 Before we celebrate and throw a well-deserved taco party, let's make sure it
 works. Refresh and... it does! Sweet! Tacos!
