@@ -104,7 +104,7 @@ A redirect is *nothing* more than a special type of *response*. It's a response
 that has a 301 or 302 status code and a `Location` header that tells your browser
 where to go.
 
-Let's do some digging and find out how `redirectToResponse()` does this. Hold
+Let's do some digging and find out how `redirectToRoute()` does this. Hold
 Command or Ctrl and click `redirectToRoute()` to jump to that method inside of
 `AbstractController`. This apparently calls another method: `redirect()`. Hold
 Command or Ctrl again to jump to that.
