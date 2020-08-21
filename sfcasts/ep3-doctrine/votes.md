@@ -32,6 +32,9 @@ an `integer` type and set it to *not* nullable in the database. Hit enter to fin
 
 Ok! Let's go check out the `Question` entity. It looks *exactly* like we expected:
 a `$votes` property and, at the bottom, `getVotes()` and `setVotes()` methods.
+
+[[[ code('c60363cb05') ]]]
+
 Let's generate the migration for this. Run:
 
 ```terminal
@@ -40,6 +43,9 @@ symfony console make:migration
 
 so that the Symfony binary can inject the environment variables. When this finishes,
 I like to double check the migration to make sure it doesn't contain any surprises.
+
+[[[ code('db70a2e45c') ]]]
+
 This looks perfect. Execute it with:
 
 ```terminal
@@ -65,6 +71,8 @@ would be: how can we default the value of a *property* in *PHP*?
 
 And the answer to that is simple. In `Question`, just say `private $votes = 0`
 
+[[[ code('aa15b243d9') ]]]
+
 It's that easy. Now, when we instantiate a `Question` object, `votes` will be zero.
 And when it saves the database... the `votes` *column* will be zero instead of null.
 There *is* actually a way inside the `@ORM\Column` annotation to *specifically*
@@ -81,6 +89,8 @@ that the `votes` property would ever be set: it *was* possible for `votes` to
 be `null` in PHP. But thanks to the change we just made, we can now *remove*
 the question mark: we know that this will *always* be an integer.
 
+[[[ code('084c7a1c45') ]]]
+
 ## Rendering the Vote
 
 Before we hook up the voting functionality, let's *render* the vote count.
@@ -88,12 +98,17 @@ To make this more interesting - because all of the questions in the database rig
 now have *zero* votes - let's set a random vote number for new questions. In
 `QuestionController`, scroll up to the `new()` action. Near the bottom, add
 `$question->setVotes()` and pass a random number from negative 20 to 50.
+
+[[[ code('bfa82a88c6') ]]]
+
 Back on the browser, I'll refresh `/questions/new` a few times to get some fresh
 data. Copy the new `slug` and put that into the address bar to *view* the new Question.
 
 *Rendering* the true vote count should be easy. Open up
 `templates/question/show.html.twig`. Find the vote number... `+ 6` and replace it
 with `{{ question.votes }}`
+
+[[[ code('291eac9daf') ]]]
 
 That's good boring code. Back at the browser, when we refresh... nice! This has
 minus 10 votes... it must not be a great question.
@@ -121,12 +136,18 @@ it right after `getVotes()` so that it's next to related methods - add
 `public function getVotesString()` with a `string` return type. Inside, I'll paste
 some logic.
 
+[[[ code('a874042f40') ]]]
+
 This first determines the "prefix" - the plus or minus sign - and then adds
 that before the number - using the `abs()` function to avoid two minus signs
 for negative numbers. In other words, this returns the *exact* string we want.
 How nice is that? Easy to read & reusable.
 
+[[[ code('10bf2396bb') ]]]
+
 To use it in Twig, we can say `question.votesString`.
+
+[[[ code('94e8733378') ]]]
 
 That's it. Let's try it! Over on the browser, refresh and... there it is! + 10!
 
