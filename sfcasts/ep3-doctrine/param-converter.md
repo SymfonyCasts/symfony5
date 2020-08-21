@@ -6,7 +6,7 @@ Head over to `QuestionController` and find the `show()` action. Instead of
 manually querying for the `Question` object via `findOneBy()`, Symfony can make
 that query *for* us automatically.
 
-[[[ code('d071098f48') ]]]
+[[[ code('6f3adcd8e2') ]]]
 
 ## Automatic Queries
 
