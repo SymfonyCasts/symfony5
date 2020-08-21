@@ -6,6 +6,8 @@ Head over to `QuestionController` and find the `show()` action. Instead of
 manually querying for the `Question` object via `findOneBy()`, Symfony can make
 that query *for* us automatically.
 
+[[[ code('d071098f48') ]]]
+
 ## Automatic Queries
 
 Here's how: replace the `$slug` argument with `Question $question`. The important
@@ -20,6 +22,8 @@ the 404 stuff. I explain why in a minute. We can also delete my
 `EntityManagerInterface` argument... and, actually, we haven't needed this
 `MarkdownHelper` argument for awhile.
 
+[[[ code('c74967bf1b') ]]]
+
 Before we chat about *what's* going on, let's try it. Refresh the homepage, then
 click into one of the questions. Yes! It works! You can even see the query in
 the web debug toolbar. It's exactly what we expect: `WHERE slug =` that slug.
@@ -30,6 +34,8 @@ This magic is *actually* provided by a bundle that we already have installed
 called SensioFrameworkExtraBundle. When that bundle sees a controller argument
 that's type-hinted with an entity class, it tries to query for that entity
 *automatically* by using *all* of the wildcard values.
+
+[[[ code('91eae5b70b') ]]]
 
 So this works because our wildcard is called `slug`, which *exactly* matches
 the property name. Quite literally this makes a query where `slug` equals the
