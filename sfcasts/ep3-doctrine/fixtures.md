@@ -31,6 +31,8 @@ and `symfony.lock` files, it enabled the bundle *and* ooh: it created a new
 `src/DataFixtures/` directory! Let's go see what's inside `src/DataFixtures/` -
 a shiny new `AppFixtures` class!
 
+[[[ code('b5e50e9de5') ]]]
+
 The DoctrineFixturesBundle that we just installed is a *beautifully* simple bundle.
 First, we create one or more of these fixture classes: classes that extend
 `Fixture` and have this `load()` method. Second, inside `load()`, we write normal
@@ -44,6 +46,8 @@ this code *would* work... despite what PhpStorm is saying. But to remove the war
 and make our code future-proof with newer versions of Doctrine, find the
 `ObjectManager` type-hint and replace it with one from `Doctrine\Persistence`.
 
+[[[ code('8486f2164c') ]]]
+
 ## Creating Dummy Data
 
 Anyways: let's see this bundle in action. Find the `new()` method in the controller,
@@ -51,9 +55,13 @@ copy *all* of the question-creating code and delete it. We'll *properly* create
 this page in a future tutorial when we talk about forms... so let's just render
 that: this sounds like a *great* feature for V2!
 
+[[[ code('875ce7ff22') ]]]
+
 Back in `AppFixtures`, paste the code and... check it out! PhpStorm was smart enough
 to *see* that we're using the `Question` class and ask us if we want to import
 its `use` statement. We definitely do!
+
+[[[ code('e8f469f223') ]]]
 
 The only problem now is that we don't have an `$entityManager` variable. Hmm,
 but we *do* have a `$manager` variable that's passed to the `load()` method - it's
@@ -62,6 +70,8 @@ an `ObjectManager`?
 This is *actually* the entity manager in disguise: `ObjectManager` is an interface
 that it implements. So change the `persist()` call to `$manager`... and we only
 need one `flush()`.
+
+[[[ code('b3ba438c35') ]]]
 
 Done! Well, this isn't a very interesting fixture class... it's only going to create
 *one* `Question`.... but it's a good start. Let's see if it works!
