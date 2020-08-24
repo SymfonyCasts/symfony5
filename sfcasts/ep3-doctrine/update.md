@@ -12,15 +12,26 @@ controller to increase or decrease the vote isn't complex, but it *could* be sim
 and more descriptive.
 
 In `Question`, at the bottom, add a new `public function` called `upVote()`. I'm
-going make this return `self`. Inside, say `$this->votes++`. Then, `return $this`...
-just because that allows method chaining - all of the setter methods return `$this`.
+going make this return `self`. 
+
+[[[ code('a3b3f08486') ]]]
+
+Inside, say `$this->votes++`. Then, `return $this`... just because that allows method chaining 
+- all of the setter methods return `$this`.
+
+[[[ code('0a7876f243') ]]]
 
 Copy this, paste, and create another called `downVote()` that will do `$this->votes--`.
+
+[[[ code('3c6ed75ed2') ]]]
+
 I'm not going to bother adding any PHP documentation above these, because... their
 names are already so descriptive: `upVote()` and `downVote()`!
 
 I love doing this because it makes the code in our controller *so* nice. If
 the direction is `up`, `$question->upVote()`. If it's `down`, `$question->downVote()`.
+
+[[[ code('241ddf187d') ]]]
 
 How beautiful is that? And when we move over to try it... we're still good!
 
@@ -58,8 +69,13 @@ can we execute an *update* query to save the new vote count to the database? Wel
 no surprise, whenever we need to *save* something in Doctrine, we need the
 entity manager.
 
-Add another argument: `EntityManagerInterface $entityManager`. Then, below,
-replace the `dd($question)` with `$entityManager->flush()`.
+Add another argument: `EntityManagerInterface $entityManager`. 
+
+[[[ code('f841f59cf6') ]]]
+
+Then, below, replace the `dd($question)` with `$entityManager->flush()`.
+
+[[[ code('a5f0d6c0ba') ]]]
 
 Done! Seriously! Doctrine is smart enough to *realize* that the `Question` object
 already exists in the database and make an *update* query instead of an insert.
@@ -91,6 +107,8 @@ after a form submit, we will redirect somewhere. Let's do that. How?
 want to redirect to. Let's use `app_question_show` to redirect to the show page
 and then pass any wildcard values as the second argument: `slug` set to
 `$question->getSlug()`.
+
+[[[ code('82e8655912') ]]]
 
 Two things about this. First, until now, we've *only* generated URLs from inside
 of Twig, by using the `{{ path() }}` function. We pass the same arguments to
