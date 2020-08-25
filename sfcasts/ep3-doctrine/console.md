@@ -57,7 +57,15 @@ symfony console
 
 `symfony console` literally means `bin/console`... but because we're running it
 through the Symfony executable, it *will* inject the environment variables that
-are coming from Docker. So:
+are coming from Docker.
+
+***TIP
+The latest version of MakerBundle generates a `MYSQL_DATABASE: main` config
+into your `docker-compose.yaml` file. If you have this, then the database will
+already be created! Feel free to run the command just in case ;).
+***
+
+So:
 
 ```terminal
 symfony console doctrine:database:create
