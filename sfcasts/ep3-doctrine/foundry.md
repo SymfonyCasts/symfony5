@@ -64,11 +64,15 @@ need the database environment variables... but it's easier to get in the habit o
 Select `Question` from the list and... done! Go check out the new class
 `src/Factory/QuestionFactory.php`.
 
+[[[ code('4c507c3280') ]]]
+
 ## Adding Default Values
 
 The only method that we need to worry about right now is `getDefaults()`. The
 idea is that we'll return an array of all of the data needed to create a `Question`.
 For example, we can set a `name` key to our dummy question name - "Missing pants".
+
+[[[ code('f01e32d755') ]]]
 
 This works a bit like Twig. When Foundry sees the `name` key, it will
 call the `setName()` method on `Question`. Internally, this uses Symfony's
@@ -76,10 +80,16 @@ property-access component, which I'm mentioning, because it also supports passin
 data through the constructor if you need that.
 
 Copy the rest of the dummy code from our fixture class, delete it... and delete
-*everything* actually. Back in `QuestionFactory`, paste!
+*everything* actually. 
+
+[[[ code('4085c5d08a') ]]]
+
+Back in `QuestionFactory`, paste!
 
 But we need to convert all of this into array keys. As *exciting* as this is...
 I'll... type really fast.
+
+[[[ code('4a38bfd803') ]]]
 
 And.... done! Phew...
 
@@ -91,6 +101,8 @@ valid `Question` object. Our `QuestionFactory` is ready! Let's use it in
 
 How? First, say `QuestionFactory::new()`. That will give us a new *instance* of the
 `QuestionFactory`. Now `->create()` to create a *single* `Question`.
+
+[[[ code('c74ac23b08') ]]]
 
 Done! Ok, it's *still* not interesting - it will create just *one* `Question`...
 but let's try it! Re-run the fixtures:
@@ -114,6 +126,8 @@ At this point, you might be wondering: why is this better? Valid question. It's
 better because we've only just *started* to scratch the service of what Foundry
 can do. Want to create 20 questions instead of just one? Change `create()` to
 `createMany(20)`.
+
+[[[ code('f2d0b3d06a') ]]]
 
 That's it. Reload the fixtures again:
 
