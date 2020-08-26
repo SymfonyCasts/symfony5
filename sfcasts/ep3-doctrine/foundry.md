@@ -102,7 +102,7 @@ valid `Question` object. Our `QuestionFactory` is ready! Let's use it in
 How? First, say `QuestionFactory::new()`. That will give us a new *instance* of the
 `QuestionFactory`. Now `->create()` to create a *single* `Question`.
 
-[[[ code('c74ac23b08') ]]]
+[[[ code('08efce95a6') ]]]
 
 Done! Ok, it's *still* not interesting - it will create just *one* `Question`...
 but let's try it! Re-run the fixtures:
