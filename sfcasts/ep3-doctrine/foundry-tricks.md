@@ -97,7 +97,7 @@ then use Symfony's Slugger - `$slugger = new AsciiSlugger()`:
  
 and set it with `$question->setSlug($slugger->slug($question->getName()))`.
 
-[[[ code(2e0a4aeb5d) ]]]
+[[[ code('2e0a4aeb5d') ]]]
 
 Nice! Let's try it. Move over, reload the fixtures again:
 
