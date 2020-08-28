@@ -93,7 +93,7 @@ a random slug based off of the name, we can say: if *not*
 
 then use Symfony's Slugger - `$slugger = new AsciiSlugger()`:
 
-[[[ code('7aebddd686') ]]]
+[[[ code('95c46f84e2') ]]]
  
 and set it with `$question->setSlug($slugger->slug($question->getName()))`.
 
@@ -121,7 +121,7 @@ published and exactly 5 that are *unpublished*.
 To do this, first remove the randomness from `askedAt` in `getDefaults()`: let's
 *always* set this.
 
-[[[ code('7aebddd686') ]]]
+[[[ code('2ad554da21') ]]]
 
 If we stopped here, we would, of course, have 20 questions that are all published.
 But now, add a new public function to the factory: `public function unpublished()`
