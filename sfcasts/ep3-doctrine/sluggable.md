@@ -56,6 +56,8 @@ to see what the recipe did! Ok: it enabled the bundle - of course - and it also
 added a new config file `stof_doctrine_extensions.yaml`. Let's go check that out:
 `config/packages/stof_doctrine_extensions.yaml`.
 
+[[[ code('27fbe03292') ]]]
+
 Ok... nothing too interesting yet.
 
 ## Activating Sluggable in Config
@@ -63,15 +65,27 @@ Ok... nothing too interesting yet.
 As we saw, this bundle comes with a *bunch* of special features for entities.
 And each time you want to use a feature, you need to enable it in this config file.
 The first behavior we want is sluggable. To enable it add `orm:` - because we're
-using the Doctrine ORM - and then `default:`, because we want to enable this on
-our *default* entity manager. That's... really not important except in edge cases
-where you have multiple database connections. Then, `sluggable: true`.
+using the Doctrine ORM:
+
+[[[ code('0f6bddc0be') ]]]
+
+and then `default:`, because we want to enable this on our *default* entity manager. 
+That's... really not important except in edge cases where you have multiple 
+database connections. 
+
+[[[ code('a4986e86e6') ]]]
+
+Then, `sluggable: true`.
+
+[[[ code('82cb5aacdb') ]]]
 
 That's it! Well... sort of. This won't make any *real* difference in our app yet.
 But, internally, the sluggable feature *is* now active.
 
 Before we start using it, in `QuestionFactory`, remove the code that sets the slug.
 I'll delete this logic, but keep an example function for later.
+
+[[[ code('1feac3f2cd') ]]]
 
 Now, temporarily, if we reload our fixtures with:
 
@@ -90,6 +104,8 @@ this so that PhpStorm adds the `use` statement for this annotation.
 
 The `@Gedmo\Slug` annotation has one required option called `fields={}`. Set it to
 `name`.
+
+[[[ code('8223030ea4') ]]]
 
 Done! The `slug` will now be automatically set right before saving to a URL-safe
 version of the `name` property.
