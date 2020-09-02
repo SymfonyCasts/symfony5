@@ -10,6 +10,8 @@ and Doctrine Extensions *totally* has a feature for it.
 Start by activating it in the config file: `stof_doctrine_extensions.yaml`.
 Add `timestampable: true`.
 
+[[[ code('deea140959') ]]]
+
 Back at the browser, click into the Doctrine Extensions docs and find the
 Timestampable page. Scroll down to the example... Ah, this works a lot like
 Sluggable: add `createdAt`  and `updatedAt` fields, then put an annotation above
@@ -20,6 +22,8 @@ each to tell the library to set them automatically.
 Easy! But oh, this library makes it even easier! It has a trait that holds the
 fields *and* annotations! Check it out: at the top of `Question`, add
 `use TimestampableEntity`.
+
+[[[ code('d472cfd5fb') ]]]
 
 That's it. Hold command or control and click to open that trait. How beautiful
 is this? It holds the two properties with the `ORM` annotations *and* the
@@ -35,6 +39,8 @@ symfony console make:migration
 
 Then go check it out to make sure it doesn't contain any surprises. Yup! It looks
 good: it adds the two columns.
+
+[[[ code('5d3d714348') ]]]
 
 Back at the terminal, run it with:
 
@@ -74,9 +80,13 @@ Ok! Let's get to work. *Usually* we don't need to modify a migration by hand,
 but this is *one* rare case when we *do*. Start by changing both columns to
 `DEFAULT NULL`.
 
+[[[ code('43a0fd6c61') ]]]
+
 Next call `$this->addSql()` with:
 
 > UPDATE question SET created_at = NOW(), updated_at = NOW()
+
+[[[ code('db60c92d01') ]]]
 
 Let's start here: we'll worry about making the columns required in
 another migration.
@@ -162,6 +172,8 @@ symfony console make:migration
 Go check out the new file. Doctrine: you smartie! Doctrine noticed that the
 columns were *not* required in the database and generated the `ALTER TABLE` statement
 needed to fix that.
+
+[[[ code('dbdb6a855f') ]]]
 
 Run the migrations one last time:
 
