@@ -139,6 +139,6 @@ Then go check out the homepage. Hello 20 questions created with one line
 of very readable code.
 
 But wait there's *more* Foundry goodness! Foundry comes with built-in
-support for a library called faker: and handy tool for creating *truly* fake
+support for a library called faker. A handy tool for creating *truly* fake
 data. Let's improve the quality of our fake data *and* see a few other cool things
 that Foundry can do next.
