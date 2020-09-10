@@ -16,8 +16,8 @@ going make this return `self`.
 
 [[[ code('a3b3f08486') ]]]
 
-Inside, say `$this->votes++`. Then, `return $this`... just because that allows method chaining 
-- all of the setter methods return `$this`.
+Inside, say `$this->votes++`. Then, `return $this`... just because that allows method
+chaining. All of the setter methods return `$this`.
 
 [[[ code('0a7876f243') ]]]
 
