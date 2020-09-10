@@ -106,4 +106,4 @@ relationships where objects are linked to *other* objects... these classes can
 get ugly fast. And they're not much fun to write.
 
 So, next: let's use a shiny new library called Foundry to create numerous, random,
-rich dummy data
+rich dummy data.
