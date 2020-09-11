@@ -53,7 +53,7 @@ git status
 ```
 
 to see what the recipe did! Ok: it enabled the bundle - of course - and it also
-added a new config file `stof_doctrine_extensions.yaml`. Let's go check that out:
+created a new config file `stof_doctrine_extensions.yaml`. Let's go check that out:
 `config/packages/stof_doctrine_extensions.yaml`.
 
 [[[ code('27fbe03292') ]]]
