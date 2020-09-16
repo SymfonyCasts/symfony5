@@ -183,7 +183,7 @@ symfony console doctrine:migrations:migrate
 
 And... got it! These are two *perfectly* safe migrations.
 
-Okay, friends, we did it!. We just unlocked *huge* potential in our app
+Okay, friends, we did it! We just unlocked *huge* potential in our app
 thanks to Doctrine. We know how to create entities, update entities, generate
 migrations, persist data, create dummy fixtures and more! The only big thing
 that we have *not* talked about yet is doctrine relations. That's an important
