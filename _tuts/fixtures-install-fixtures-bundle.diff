@@ -11,7 +11,7 @@ index 092284c..b78be83 100644
          "symfony/maker-bundle": "^1.15",
          "symfony/var-dumper": "5.1.*",
 diff --git a/composer.lock b/composer.lock
-index 3805c0e..48e0af9 100644
+index f27e154..5cd2be6 100644
 --- a/composer.lock
 +++ b/composer.lock
 @@ -4,7 +4,7 @@
@@ -23,7 +23,7 @@ index 3805c0e..48e0af9 100644
      "packages": [
          {
              "name": "clue/stream-filter",
-@@ -6944,6 +6944,166 @@
+@@ -6947,6 +6947,166 @@
          }
      ],
      "packages-dev": [
@@ -224,10 +224,10 @@ index 0000000..fece475
 +    }
 +}
 diff --git a/symfony.lock b/symfony.lock
-index 030ccbf..167fe81 100644
+index bdb2ddd..879d33e 100644
 --- a/symfony.lock
 +++ b/symfony.lock
-@@ -23,6 +23,9 @@
+@@ -26,6 +26,9 @@
      "doctrine/common": {
          "version": "2.13.3"
      },
@@ -237,7 +237,7 @@ index 030ccbf..167fe81 100644
      "doctrine/dbal": {
          "version": "2.10.2"
      },
-@@ -41,6 +44,18 @@
+@@ -44,6 +47,18 @@
              "src/Repository/.gitignore"
          ]
      },

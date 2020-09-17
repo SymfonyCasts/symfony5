@@ -11,7 +11,7 @@ index 9b9a91d..092284c 100644
          "sentry/sentry-symfony": "^3.4",
          "symfony/asset": "5.1.*",
 diff --git a/composer.lock b/composer.lock
-index 76da20d..3805c0e 100644
+index a6c450a..f27e154 100644
 --- a/composer.lock
 +++ b/composer.lock
 @@ -4,7 +4,7 @@
@@ -96,7 +96,7 @@ index 76da20d..3805c0e 100644
          {
              "name": "michelf/php-markdown",
              "version": "1.9.0",
-@@ -5861,6 +5927,168 @@
+@@ -5864,6 +5930,168 @@
              ],
              "time": "2020-06-11T12:16:36+00:00"
          },
@@ -288,10 +288,10 @@ index 0000000..05a2b3d
 +        fallbacks:
 +            - en
 diff --git a/symfony.lock b/symfony.lock
-index 5777f80..030ccbf 100644
+index 6b5e1bf..bdb2ddd 100644
 --- a/symfony.lock
 +++ b/symfony.lock
-@@ -99,6 +99,9 @@
+@@ -102,6 +102,9 @@
      "knplabs/knp-markdown-bundle": {
          "version": "1.8.1"
      },
@@ -301,7 +301,7 @@ index 5777f80..030ccbf 100644
      "michelf/php-markdown": {
          "version": "1.9.0"
      },
-@@ -378,6 +381,22 @@
+@@ -381,6 +384,22 @@
      "symfony/string": {
          "version": "v5.1.2"
      },

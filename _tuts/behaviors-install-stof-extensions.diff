@@ -11,7 +11,7 @@ index 71b325a..f37ed0d 100644
          "symfony/console": "5.1.*",
          "symfony/dotenv": "5.1.*",
 diff --git a/composer.lock b/composer.lock
-index 982c06a..9558718 100644
+index 954c145..9a011b9 100644
 --- a/composer.lock
 +++ b/composer.lock
 @@ -4,8 +4,53 @@
@@ -158,7 +158,7 @@ index 982c06a..9558718 100644
          {
              "name": "guzzlehttp/guzzle",
              "version": "6.5.5",
-@@ -3246,6 +3373,72 @@
+@@ -3249,6 +3376,72 @@
              ],
              "time": "2020-07-08T10:36:55+00:00"
          },
@@ -252,7 +252,7 @@ index 0000000..c83f3b1
 +stof_doctrine_extensions:
 +    default_locale: en_US
 diff --git a/symfony.lock b/symfony.lock
-index e72752a..f87283e 100644
+index f9b85ca..4c54dac 100644
 --- a/symfony.lock
 +++ b/symfony.lock
 @@ -1,4 +1,7 @@
@@ -263,7 +263,7 @@ index e72752a..f87283e 100644
      "clue/stream-filter": {
          "version": "v1.4.1"
      },
-@@ -99,6 +102,9 @@
+@@ -102,6 +105,9 @@
      "fzaninotto/faker": {
          "version": "v1.9.1"
      },
@@ -273,7 +273,7 @@ index e72752a..f87283e 100644
      "guzzlehttp/guzzle": {
          "version": "6.5.2"
      },
-@@ -213,6 +219,18 @@
+@@ -216,6 +222,18 @@
              "config/packages/sentry.yaml"
          ]
      },
