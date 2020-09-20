@@ -38,6 +38,14 @@ to stop it... just so I can show you the command we used. It was:
 symfony serve -d
 ```
 
+***TIP
+If you're using Ubuntu and running Docker in "root" mode, then you
+will need to run `sudo symfony serve -d` for Symfony to see the Docker
+environment variables. Later, when we use things like `symfony console`,
+you will also need to use sudo. Note that this may cause some cache
+file ownership issues in your Symfony app while developing. Ok, have fun!
+***
+
 That started a web server at `localhost:8000`. So: what we're seeing in the browser
 is being *served* by the `symfony` binary.
 
