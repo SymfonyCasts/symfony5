@@ -17,6 +17,11 @@ Symfony is also the *fastest* major PHP framework, which is no surprise: - its
 creator *also* created the PHP profiling system Blackfire. So... performance is
 always a focus.
 
+***SEEALSO
+Watch our [Blackfire.io: Revealing Performance Secrets with Profiling](https://symfonycasts.com/screencast/blackfire)
+course to learn about Blackfire.
+***
+
 ## Downloading the Symfony Installer
 
 So... let's do this! Start off by going to http://symfony.com and clicking
