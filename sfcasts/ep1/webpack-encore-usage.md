@@ -1,5 +1,12 @@
 # Webpack Encore: JavaScript Greatness
 
+***TIP
+The recipe now adds these 2 files in a slightly different location:
+* `assets/app.js`
+* `assets/styles/app.css`
+But the purpose of each file is exactly the same.
+***
+
 Okay: here's how this whole thing works. The recipe added a new `assets/` directory
 with a couple of example CSS and JS files. The `app.js` file basically just
 `console.log()`'s something:
