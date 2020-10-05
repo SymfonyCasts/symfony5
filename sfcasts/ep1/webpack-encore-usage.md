@@ -4,6 +4,7 @@
 The recipe now adds these 2 files in a slightly different location:
 * `assets/app.js`
 * `assets/styles/app.css`
+
 But the purpose of each file is exactly the same.
 ***
 
