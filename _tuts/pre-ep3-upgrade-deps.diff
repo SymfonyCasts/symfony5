@@ -38,7 +38,7 @@ index 3d7cc61..fd74677 100644
      }
  }
 diff --git a/composer.lock b/composer.lock
-index eceb3a4..54da39d 100644
+index 65915e9..f7b7bba 100644
 --- a/composer.lock
 +++ b/composer.lock
 @@ -4,7 +4,7 @@
@@ -1225,7 +1225,7 @@ index eceb3a4..54da39d 100644
                  }
              },
              "autoload": {
-@@ -2266,24 +2440,103 @@
+@@ -2266,32 +2440,111 @@
              ],
              "description": "Symfony DependencyInjection Component",
              "homepage": "https://symfony.com",
@@ -1245,24 +1245,32 @@ index eceb3a4..54da39d 100644
 +                }
 +            ],
 +            "time": "2020-06-12T08:11:32+00:00"
-+        },
-+        {
+         },
+         {
+-            "name": "symfony/dotenv",
+-            "version": "v5.0.8",
 +            "name": "symfony/deprecation-contracts",
 +            "version": "v2.1.3",
-+            "source": {
-+                "type": "git",
+             "source": {
+                 "type": "git",
+-                "url": "https://github.com/symfony/dotenv.git",
+-                "reference": "28658ee990ea643c8111bac242d6ee5f3a15ef72"
 +                "url": "https://github.com/symfony/deprecation-contracts.git",
 +                "reference": "5e20b83385a77593259c9f8beb2c43cd03b2ac14"
-+            },
-+            "dist": {
-+                "type": "zip",
+             },
+             "dist": {
+                 "type": "zip",
+-                "url": "https://api.github.com/repos/symfony/dotenv/zipball/28658ee990ea643c8111bac242d6ee5f3a15ef72",
+-                "reference": "28658ee990ea643c8111bac242d6ee5f3a15ef72",
 +                "url": "https://api.github.com/repos/symfony/deprecation-contracts/zipball/5e20b83385a77593259c9f8beb2c43cd03b2ac14",
 +                "reference": "5e20b83385a77593259c9f8beb2c43cd03b2ac14",
-+                "shasum": ""
-+            },
-+            "require": {
+                 "shasum": ""
+             },
+             "require": {
+-                "php": "^7.2.5"
 +                "php": ">=7.1"
-+            },
+             },
+-            "require-dev": {
 +            "type": "library",
 +            "extra": {
 +                "branch-alias": {
@@ -1309,33 +1317,28 @@ index eceb3a4..54da39d 100644
 +                }
 +            ],
 +            "time": "2020-06-06T08:49:21+00:00"
-         },
-         {
-             "name": "symfony/dotenv",
--            "version": "v5.0.8",
++        },
++        {
++            "name": "symfony/dotenv",
 +            "version": "v5.1.2",
-             "source": {
-                 "type": "git",
-                 "url": "https://github.com/symfony/dotenv.git",
--                "reference": "28658ee990ea643c8111bac242d6ee5f3a15ef72"
++            "source": {
++                "type": "git",
++                "url": "https://github.com/symfony/dotenv.git",
 +                "reference": "42d2a18597f4c7cafc0e25b1ad6a1cbb4f2caf05"
-             },
-             "dist": {
-                 "type": "zip",
--                "url": "https://api.github.com/repos/symfony/dotenv/zipball/28658ee990ea643c8111bac242d6ee5f3a15ef72",
--                "reference": "28658ee990ea643c8111bac242d6ee5f3a15ef72",
++            },
++            "dist": {
++                "type": "zip",
 +                "url": "https://api.github.com/repos/symfony/dotenv/zipball/42d2a18597f4c7cafc0e25b1ad6a1cbb4f2caf05",
 +                "reference": "42d2a18597f4c7cafc0e25b1ad6a1cbb4f2caf05",
-                 "shasum": ""
-             },
-             "require": {
--                "php": "^7.2.5"
++                "shasum": ""
++            },
++            "require": {
 +                "php": ">=7.2.5",
 +                "symfony/deprecation-contracts": "^2.1"
-             },
-             "require-dev": {
++            },
++            "require-dev": {
                  "symfony/process": "^4.4|^5.0"
-@@ -2291,7 +2544,7 @@
+             },
              "type": "library",
              "extra": {
                  "branch-alias": {
@@ -1524,7 +1527,6 @@ index eceb3a4..54da39d 100644
                  "standards"
              ],
 -            "time": "2019-11-18T17:27:11+00:00"
--        },
 +            "funding": [
 +                {
 +                    "url": "https://symfony.com/sponsor",
@@ -1540,7 +1542,7 @@ index eceb3a4..54da39d 100644
 +                }
 +            ],
 +            "time": "2020-07-06T13:23:11+00:00"
-+        },
+         },
          {
              "name": "symfony/filesystem",
 -            "version": "v5.0.8",
@@ -1623,7 +1625,7 @@ index eceb3a4..54da39d 100644
                  }
              },
              "autoload": {
-@@ -2605,36 +2936,50 @@
+@@ -2605,7 +2936,21 @@
              ],
              "description": "Symfony Finder Component",
              "homepage": "https://symfony.com",
@@ -1646,66 +1648,7 @@ index eceb3a4..54da39d 100644
          },
          {
              "name": "symfony/flex",
--            "version": "v1.6.2",
-+            "version": "v1.9.0",
-             "source": {
-                 "type": "git",
-                 "url": "https://github.com/symfony/flex.git",
--                "reference": "e4f5a2653ca503782a31486198bd1dd1c9a47f83"
-+                "reference": "afd3d715d6860b9d5cc57b0a819eb36b6495b1f0"
-             },
-             "dist": {
-                 "type": "zip",
--                "url": "https://api.github.com/repos/symfony/flex/zipball/e4f5a2653ca503782a31486198bd1dd1c9a47f83",
--                "reference": "e4f5a2653ca503782a31486198bd1dd1c9a47f83",
-+                "url": "https://api.github.com/repos/symfony/flex/zipball/afd3d715d6860b9d5cc57b0a819eb36b6495b1f0",
-+                "reference": "afd3d715d6860b9d5cc57b0a819eb36b6495b1f0",
-                 "shasum": ""
-             },
-             "require": {
--                "composer-plugin-api": "^1.0",
--                "php": "^7.0"
-+                "composer-plugin-api": "^1.0|^2.0",
-+                "php": ">=7.1"
-             },
-             "require-dev": {
--                "composer/composer": "^1.0.2",
--                "symfony/dotenv": "^3.4|^4.0|^5.0",
--                "symfony/phpunit-bridge": "^3.4.19|^4.1.8|^5.0",
--                "symfony/process": "^2.7|^3.0|^4.0|^5.0"
-+                "composer/composer": "^1.0.2|^2.0",
-+                "symfony/dotenv": "^4.4|^5.0",
-+                "symfony/phpunit-bridge": "^4.4|^5.0",
-+                "symfony/process": "^3.4|^4.4|^5.0"
-             },
-             "type": "composer-plugin",
-             "extra": {
-                 "branch-alias": {
--                    "dev-master": "1.5-dev"
-+                    "dev-master": "1.8-dev"
-                 },
-                 "class": "Symfony\\Flex\\Flex"
-             },
-@@ -2654,46 +2999,62 @@
-                 }
-             ],
-             "description": "Composer plugin for Symfony",
--            "time": "2020-01-30T12:06:45+00:00"
-+            "funding": [
-+                {
-+                    "url": "https://symfony.com/sponsor",
-+                    "type": "custom"
-+                },
-+                {
-+                    "url": "https://github.com/fabpot",
-+                    "type": "github"
-+                },
-+                {
-+                    "url": "https://tidelift.com/funding/github/packagist/symfony/symfony",
-+                    "type": "tidelift"
-+                }
-+            ],
-+            "time": "2020-07-14T14:43:46+00:00"
+@@ -2676,42 +3021,44 @@
          },
          {
              "name": "symfony/framework-bundle",
@@ -1759,7 +1702,7 @@ index eceb3a4..54da39d 100644
                  "symfony/form": "<4.4",
                  "symfony/http-client": "<4.4",
                  "symfony/lock": "<4.4",
-@@ -2715,12 +3076,12 @@
+@@ -2733,12 +3080,12 @@
                  "doctrine/cache": "~1.0",
                  "paragonie/sodium_compat": "^1.8",
                  "phpdocumentor/reflection-docblock": "^3.0|^4.0",
@@ -1774,7 +1717,7 @@ index eceb3a4..54da39d 100644
                  "symfony/expression-language": "^4.4|^5.0",
                  "symfony/form": "^4.4|^5.0",
                  "symfony/http-client": "^4.4|^5.0",
-@@ -2731,11 +3092,12 @@
+@@ -2749,11 +3096,12 @@
                  "symfony/polyfill-intl-icu": "~1.0",
                  "symfony/process": "^4.4|^5.0",
                  "symfony/property-info": "^4.4|^5.0",
@@ -1788,7 +1731,7 @@ index eceb3a4..54da39d 100644
                  "symfony/translation": "^5.0",
                  "symfony/twig-bundle": "^4.4|^5.0",
                  "symfony/validator": "^4.4|^5.0",
-@@ -2757,7 +3119,7 @@
+@@ -2775,7 +3123,7 @@
              "type": "symfony-bundle",
              "extra": {
                  "branch-alias": {
@@ -1797,7 +1740,7 @@ index eceb3a4..54da39d 100644
                  }
              },
              "autoload": {
-@@ -2784,35 +3146,55 @@
+@@ -2802,35 +3150,55 @@
              ],
              "description": "Symfony FrameworkBundle",
              "homepage": "https://symfony.com",
@@ -1863,7 +1806,7 @@ index eceb3a4..54da39d 100644
                  }
              },
              "autoload": {
-@@ -2839,30 +3221,46 @@
+@@ -2857,30 +3225,46 @@
              ],
              "description": "Symfony HttpFoundation Component",
              "homepage": "https://symfony.com",
@@ -1917,7 +1860,7 @@ index eceb3a4..54da39d 100644
              },
              "conflict": {
                  "symfony/browser-kit": "<4.4",
-@@ -2909,7 +3307,7 @@
+@@ -2927,7 +3311,7 @@
              "type": "library",
              "extra": {
                  "branch-alias": {
@@ -1926,7 +1869,7 @@ index eceb3a4..54da39d 100644
                  }
              },
              "autoload": {
-@@ -2936,87 +3334,39 @@
+@@ -2954,87 +3338,39 @@
              ],
              "description": "Symfony HttpKernel Component",
              "homepage": "https://symfony.com",
@@ -2028,7 +1971,7 @@ index eceb3a4..54da39d 100644
                  "symfony/http-kernel": "^4.4|^5.0",
                  "symfony/service-contracts": "^1.1|^2"
              },
-@@ -3027,6 +3377,8 @@
+@@ -3045,6 +3381,8 @@
              "require-dev": {
                  "symfony/console": "^4.4|^5.0",
                  "symfony/http-client": "^4.4|^5.0",
@@ -2037,7 +1980,7 @@ index eceb3a4..54da39d 100644
                  "symfony/security-core": "^4.4|^5.0",
                  "symfony/var-dumper": "^4.4|^5.0"
              },
-@@ -3038,7 +3390,7 @@
+@@ -3056,7 +3394,7 @@
              "type": "symfony-bridge",
              "extra": {
                  "branch-alias": {
@@ -2046,7 +1989,7 @@ index eceb3a4..54da39d 100644
                  }
              },
              "autoload": {
-@@ -3065,7 +3417,21 @@
+@@ -3083,7 +3421,21 @@
              ],
              "description": "Symfony Monolog Bridge",
              "homepage": "https://symfony.com",
@@ -2069,7 +2012,7 @@ index eceb3a4..54da39d 100644
          },
          {
              "name": "symfony/monolog-bundle",
-@@ -3132,25 +3498,27 @@
+@@ -3150,25 +3502,27 @@
          },
          {
              "name": "symfony/options-resolver",
@@ -2103,7 +2046,7 @@ index eceb3a4..54da39d 100644
                  }
              },
              "autoload": {
-@@ -3182,20 +3550,112 @@
+@@ -3200,24 +3554,116 @@
                  "configuration",
                  "options"
              ],
@@ -2123,22 +2066,29 @@ index eceb3a4..54da39d 100644
 +                }
 +            ],
 +            "time": "2020-05-23T13:08:13+00:00"
-+        },
-+        {
+         },
+         {
+-            "name": "symfony/polyfill-intl-idn",
+-            "version": "v1.15.0",
 +            "name": "symfony/polyfill-intl-grapheme",
 +            "version": "v1.17.1",
-+            "source": {
-+                "type": "git",
+             "source": {
+                 "type": "git",
+-                "url": "https://github.com/symfony/polyfill-intl-idn.git",
+-                "reference": "47bd6aa45beb1cd7c6a16b7d1810133b728bdfcf"
 +                "url": "https://github.com/symfony/polyfill-intl-grapheme.git",
 +                "reference": "6e4dbcf5e81eba86e36731f94fe56b1726835846"
-+            },
-+            "dist": {
-+                "type": "zip",
+             },
+             "dist": {
+                 "type": "zip",
+-                "url": "https://api.github.com/repos/symfony/polyfill-intl-idn/zipball/47bd6aa45beb1cd7c6a16b7d1810133b728bdfcf",
+-                "reference": "47bd6aa45beb1cd7c6a16b7d1810133b728bdfcf",
 +                "url": "https://api.github.com/repos/symfony/polyfill-intl-grapheme/zipball/6e4dbcf5e81eba86e36731f94fe56b1726835846",
 +                "reference": "6e4dbcf5e81eba86e36731f94fe56b1726835846",
-+                "shasum": ""
-+            },
-+            "require": {
+                 "shasum": ""
+             },
+             "require": {
+-                "php": ">=5.3.3",
 +                "php": ">=5.3.3"
 +            },
 +            "suggest": {
@@ -2201,27 +2151,27 @@ index eceb3a4..54da39d 100644
 +                }
 +            ],
 +            "time": "2020-06-06T08:46:27+00:00"
-         },
-         {
-             "name": "symfony/polyfill-intl-idn",
--            "version": "v1.15.0",
++        },
++        {
++            "name": "symfony/polyfill-intl-idn",
 +            "version": "v1.17.1",
-             "source": {
-                 "type": "git",
-                 "url": "https://github.com/symfony/polyfill-intl-idn.git",
--                "reference": "47bd6aa45beb1cd7c6a16b7d1810133b728bdfcf"
++            "source": {
++                "type": "git",
++                "url": "https://github.com/symfony/polyfill-intl-idn.git",
 +                "reference": "a57f8161502549a742a63c09f0a604997bf47027"
-             },
-             "dist": {
-                 "type": "zip",
--                "url": "https://api.github.com/repos/symfony/polyfill-intl-idn/zipball/47bd6aa45beb1cd7c6a16b7d1810133b728bdfcf",
--                "reference": "47bd6aa45beb1cd7c6a16b7d1810133b728bdfcf",
++            },
++            "dist": {
++                "type": "zip",
 +                "url": "https://api.github.com/repos/symfony/polyfill-intl-idn/zipball/a57f8161502549a742a63c09f0a604997bf47027",
 +                "reference": "a57f8161502549a742a63c09f0a604997bf47027",
-                 "shasum": ""
++                "shasum": ""
++            },
++            "require": {
++                "php": ">=5.3.3",
+                 "symfony/polyfill-mbstring": "^1.3",
+                 "symfony/polyfill-php72": "^1.10"
              },
-             "require": {
-@@ -3209,7 +3669,11 @@
+@@ -3227,7 +3673,11 @@
              "type": "library",
              "extra": {
                  "branch-alias": {
@@ -2234,7 +2184,7 @@ index eceb3a4..54da39d 100644
                  }
              },
              "autoload": {
-@@ -3244,20 +3708,115 @@
+@@ -3262,20 +3712,115 @@
                  "portable",
                  "shim"
              ],
@@ -2355,7 +2305,7 @@ index eceb3a4..54da39d 100644
                  "shasum": ""
              },
              "require": {
-@@ -3269,7 +3828,11 @@
+@@ -3287,7 +3832,11 @@
              "type": "library",
              "extra": {
                  "branch-alias": {
@@ -2368,7 +2318,7 @@ index eceb3a4..54da39d 100644
                  }
              },
              "autoload": {
-@@ -3303,20 +3866,34 @@
+@@ -3321,20 +3870,34 @@
                  "portable",
                  "shim"
              ],
@@ -2408,7 +2358,7 @@ index eceb3a4..54da39d 100644
                  "shasum": ""
              },
              "require": {
-@@ -3325,7 +3902,11 @@
+@@ -3343,7 +3906,11 @@
              "type": "library",
              "extra": {
                  "branch-alias": {
@@ -2421,7 +2371,7 @@ index eceb3a4..54da39d 100644
                  }
              },
              "autoload": {
-@@ -3361,20 +3942,114 @@
+@@ -3379,20 +3946,114 @@
                  "portable",
                  "shim"
              ],
@@ -2541,7 +2491,7 @@ index eceb3a4..54da39d 100644
                  "shasum": ""
              },
              "require": {
-@@ -3387,7 +4062,11 @@
+@@ -3405,7 +4066,11 @@
              "type": "library",
              "extra": {
                  "branch-alias": {
@@ -2554,7 +2504,7 @@ index eceb3a4..54da39d 100644
                  }
              },
              "autoload": {
-@@ -3420,7 +4099,21 @@
+@@ -3438,7 +4103,21 @@
                  "portable",
                  "uuid"
              ],
@@ -2577,7 +2527,7 @@ index eceb3a4..54da39d 100644
          },
          {
              "name": "symfony/profiler-pack",
-@@ -3452,20 +4145,22 @@
+@@ -3470,20 +4149,22 @@
          },
          {
              "name": "symfony/routing",
@@ -2605,7 +2555,7 @@ index eceb3a4..54da39d 100644
              },
              "conflict": {
                  "symfony/config": "<5.0",
-@@ -3491,7 +4186,7 @@
+@@ -3509,7 +4190,7 @@
              "type": "library",
              "extra": {
                  "branch-alias": {
@@ -2614,7 +2564,7 @@ index eceb3a4..54da39d 100644
                  }
              },
              "autoload": {
-@@ -3524,25 +4219,41 @@
+@@ -3542,25 +4223,41 @@
                  "uri",
                  "url"
              ],
@@ -2662,7 +2612,7 @@ index eceb3a4..54da39d 100644
                  "symfony/service-contracts": "^1.1.6|^2"
              },
              "conflict": {
-@@ -3570,7 +4281,7 @@
+@@ -3588,7 +4285,7 @@
              "type": "library",
              "extra": {
                  "branch-alias": {
@@ -2671,11 +2621,15 @@ index eceb3a4..54da39d 100644
                  }
              },
              "autoload": {
-@@ -3597,24 +4308,38 @@
+@@ -3613,41 +4310,131 @@
+                     "homepage": "https://symfony.com/contributors"
+                 }
              ],
-             "description": "Symfony Security Component - Core Library",
-             "homepage": "https://symfony.com",
+-            "description": "Symfony Security Component - Core Library",
+-            "homepage": "https://symfony.com",
 -            "time": "2020-03-30T14:14:32+00:00"
++            "description": "Symfony Security Component - Core Library",
++            "homepage": "https://symfony.com",
 +            "funding": [
 +                {
 +                    "url": "https://symfony.com/sponsor",
@@ -2691,49 +2645,67 @@ index eceb3a4..54da39d 100644
 +                }
 +            ],
 +            "time": "2020-05-30T21:52:37+00:00"
-         },
-         {
-             "name": "symfony/service-contracts",
--            "version": "v2.0.1",
++        },
++        {
++            "name": "symfony/service-contracts",
 +            "version": "v2.1.3",
-             "source": {
-                 "type": "git",
-                 "url": "https://github.com/symfony/service-contracts.git",
--                "reference": "144c5e51266b281231e947b51223ba14acf1a749"
++            "source": {
++                "type": "git",
++                "url": "https://github.com/symfony/service-contracts.git",
 +                "reference": "58c7475e5457c5492c26cc740cc0ad7464be9442"
-             },
-             "dist": {
-                 "type": "zip",
--                "url": "https://api.github.com/repos/symfony/service-contracts/zipball/144c5e51266b281231e947b51223ba14acf1a749",
--                "reference": "144c5e51266b281231e947b51223ba14acf1a749",
++            },
++            "dist": {
++                "type": "zip",
 +                "url": "https://api.github.com/repos/symfony/service-contracts/zipball/58c7475e5457c5492c26cc740cc0ad7464be9442",
 +                "reference": "58c7475e5457c5492c26cc740cc0ad7464be9442",
-                 "shasum": ""
-             },
-             "require": {
--                "php": "^7.2.5",
++                "shasum": ""
++            },
++            "require": {
 +                "php": ">=7.2.5",
-                 "psr/container": "^1.0"
-             },
-             "suggest": {
-@@ -3623,7 +4348,11 @@
-             "type": "library",
-             "extra": {
-                 "branch-alias": {
--                    "dev-master": "2.0-dev"
++                "psr/container": "^1.0"
++            },
++            "suggest": {
++                "symfony/service-implementation": ""
++            },
++            "type": "library",
++            "extra": {
++                "branch-alias": {
 +                    "dev-master": "2.1-dev"
 +                },
 +                "thanks": {
 +                    "name": "symfony/contracts",
 +                    "url": "https://github.com/symfony/contracts"
-                 }
-             },
-             "autoload": {
-@@ -3655,30 +4384,44 @@
-                 "interoperability",
-                 "standards"
-             ],
--            "time": "2019-11-18T17:27:11+00:00"
++                }
++            },
++            "autoload": {
++                "psr-4": {
++                    "Symfony\\Contracts\\Service\\": ""
++                }
++            },
++            "notification-url": "https://packagist.org/downloads/",
++            "license": [
++                "MIT"
++            ],
++            "authors": [
++                {
++                    "name": "Nicolas Grekas",
++                    "email": "p@tchwork.com"
++                },
++                {
++                    "name": "Symfony Community",
++                    "homepage": "https://symfony.com/contributors"
++                }
++            ],
++            "description": "Generic abstractions related to writing services",
++            "homepage": "https://symfony.com",
++            "keywords": [
++                "abstractions",
++                "contracts",
++                "decoupling",
++                "interfaces",
++                "interoperability",
++                "standards"
++            ],
 +            "funding": [
 +                {
 +                    "url": "https://symfony.com/sponsor",
@@ -2751,41 +2723,77 @@ index eceb3a4..54da39d 100644
 +            "time": "2020-07-06T13:23:11+00:00"
          },
          {
-             "name": "symfony/stopwatch",
--            "version": "v5.0.8",
+-            "name": "symfony/service-contracts",
+-            "version": "v2.0.1",
++            "name": "symfony/stopwatch",
 +            "version": "v5.1.2",
              "source": {
                  "type": "git",
-                 "url": "https://github.com/symfony/stopwatch.git",
--                "reference": "a1d86d30d4522423afc998f32404efa34fcf5a73"
+-                "url": "https://github.com/symfony/service-contracts.git",
+-                "reference": "144c5e51266b281231e947b51223ba14acf1a749"
++                "url": "https://github.com/symfony/stopwatch.git",
 +                "reference": "0f7c58cf81dbb5dd67d423a89d577524a2ec0323"
              },
              "dist": {
                  "type": "zip",
--                "url": "https://api.github.com/repos/symfony/stopwatch/zipball/a1d86d30d4522423afc998f32404efa34fcf5a73",
--                "reference": "a1d86d30d4522423afc998f32404efa34fcf5a73",
+-                "url": "https://api.github.com/repos/symfony/service-contracts/zipball/144c5e51266b281231e947b51223ba14acf1a749",
+-                "reference": "144c5e51266b281231e947b51223ba14acf1a749",
 +                "url": "https://api.github.com/repos/symfony/stopwatch/zipball/0f7c58cf81dbb5dd67d423a89d577524a2ec0323",
 +                "reference": "0f7c58cf81dbb5dd67d423a89d577524a2ec0323",
                  "shasum": ""
              },
              "require": {
 -                "php": "^7.2.5",
+-                "psr/container": "^1.0"
+-            },
+-            "suggest": {
+-                "symfony/service-implementation": ""
 +                "php": ">=7.2.5",
-                 "symfony/service-contracts": "^1.0|^2"
++                "symfony/service-contracts": "^1.0|^2"
              },
              "type": "library",
              "extra": {
                  "branch-alias": {
--                    "dev-master": "5.0-dev"
+-                    "dev-master": "2.0-dev"
 +                    "dev-master": "5.1-dev"
                  }
              },
              "autoload": {
-@@ -3705,24 +4448,123 @@
+                 "psr-4": {
+-                    "Symfony\\Contracts\\Service\\": ""
+-                }
++                    "Symfony\\Component\\Stopwatch\\": ""
++                },
++                "exclude-from-classmap": [
++                    "/Tests/"
++                ]
+             },
+             "notification-url": "https://packagist.org/downloads/",
+             "license": [
+@@ -3655,54 +4442,73 @@
              ],
-             "description": "Symfony Stopwatch Component",
+             "authors": [
+                 {
+-                    "name": "Nicolas Grekas",
+-                    "email": "p@tchwork.com"
++                    "name": "Fabien Potencier",
++                    "email": "fabien@symfony.com"
+                 },
+                 {
+                     "name": "Symfony Community",
+                     "homepage": "https://symfony.com/contributors"
+                 }
+             ],
+-            "description": "Generic abstractions related to writing services",
++            "description": "Symfony Stopwatch Component",
              "homepage": "https://symfony.com",
--            "time": "2020-03-27T16:56:45+00:00"
+-            "keywords": [
+-                "abstractions",
+-                "contracts",
+-                "decoupling",
+-                "interfaces",
+-                "interoperability",
+-                "standards"
 +            "funding": [
 +                {
 +                    "url": "https://symfony.com/sponsor",
@@ -2799,24 +2807,33 @@ index eceb3a4..54da39d 100644
 +                    "url": "https://tidelift.com/funding/github/packagist/symfony/symfony",
 +                    "type": "tidelift"
 +                }
-+            ],
+             ],
+-            "time": "2019-11-18T17:27:11+00:00"
 +            "time": "2020-05-20T17:43:50+00:00"
-+        },
-+        {
+         },
+         {
+-            "name": "symfony/stopwatch",
+-            "version": "v5.0.8",
 +            "name": "symfony/string",
 +            "version": "v5.1.2",
-+            "source": {
-+                "type": "git",
+             "source": {
+                 "type": "git",
+-                "url": "https://github.com/symfony/stopwatch.git",
+-                "reference": "a1d86d30d4522423afc998f32404efa34fcf5a73"
 +                "url": "https://github.com/symfony/string.git",
 +                "reference": "ac70459db781108db7c6d8981dd31ce0e29e3298"
-+            },
-+            "dist": {
-+                "type": "zip",
+             },
+             "dist": {
+                 "type": "zip",
+-                "url": "https://api.github.com/repos/symfony/stopwatch/zipball/a1d86d30d4522423afc998f32404efa34fcf5a73",
+-                "reference": "a1d86d30d4522423afc998f32404efa34fcf5a73",
 +                "url": "https://api.github.com/repos/symfony/string/zipball/ac70459db781108db7c6d8981dd31ce0e29e3298",
 +                "reference": "ac70459db781108db7c6d8981dd31ce0e29e3298",
-+                "shasum": ""
-+            },
-+            "require": {
+                 "shasum": ""
+             },
+             "require": {
+-                "php": "^7.2.5",
+-                "symfony/service-contracts": "^1.0|^2"
 +                "php": ">=7.2.5",
 +                "symfony/polyfill-ctype": "~1.8",
 +                "symfony/polyfill-intl-grapheme": "~1.0",
@@ -2829,40 +2846,43 @@ index eceb3a4..54da39d 100644
 +                "symfony/http-client": "^4.4|^5.0",
 +                "symfony/translation-contracts": "^1.1|^2",
 +                "symfony/var-exporter": "^4.4|^5.0"
-+            },
-+            "type": "library",
-+            "extra": {
-+                "branch-alias": {
+             },
+             "type": "library",
+             "extra": {
+                 "branch-alias": {
+-                    "dev-master": "5.0-dev"
 +                    "dev-master": "5.1-dev"
-+                }
-+            },
-+            "autoload": {
-+                "psr-4": {
+                 }
+             },
+             "autoload": {
+                 "psr-4": {
+-                    "Symfony\\Component\\Stopwatch\\": ""
 +                    "Symfony\\Component\\String\\": ""
-+                },
+                 },
 +                "files": [
 +                    "Resources/functions.php"
 +                ],
-+                "exclude-from-classmap": [
-+                    "/Tests/"
-+                ]
-+            },
-+            "notification-url": "https://packagist.org/downloads/",
-+            "license": [
-+                "MIT"
-+            ],
-+            "authors": [
-+                {
+                 "exclude-from-classmap": [
+                     "/Tests/"
+                 ]
+@@ -3713,34 +4519,56 @@
+             ],
+             "authors": [
+                 {
+-                    "name": "Fabien Potencier",
+-                    "email": "fabien@symfony.com"
 +                    "name": "Nicolas Grekas",
 +                    "email": "p@tchwork.com"
-+                },
-+                {
-+                    "name": "Symfony Community",
-+                    "homepage": "https://symfony.com/contributors"
-+                }
-+            ],
+                 },
+                 {
+                     "name": "Symfony Community",
+                     "homepage": "https://symfony.com/contributors"
+                 }
+             ],
+-            "description": "Symfony Stopwatch Component",
 +            "description": "Symfony String component",
-+            "homepage": "https://symfony.com",
+             "homepage": "https://symfony.com",
+-            "time": "2020-03-27T16:56:45+00:00"
 +            "keywords": [
 +                "grapheme",
 +                "i18n",
@@ -2911,7 +2931,7 @@ index eceb3a4..54da39d 100644
              },
              "suggest": {
                  "symfony/translation-implementation": ""
-@@ -3730,7 +4572,11 @@
+@@ -3748,7 +4576,11 @@
              "type": "library",
              "extra": {
                  "branch-alias": {
@@ -2924,7 +2944,7 @@ index eceb3a4..54da39d 100644
                  }
              },
              "autoload": {
-@@ -3762,30 +4608,45 @@
+@@ -3780,30 +4612,45 @@
                  "interoperability",
                  "standards"
              ],
@@ -2977,7 +2997,7 @@ index eceb3a4..54da39d 100644
                  "symfony/http-foundation": "<4.4",
                  "symfony/http-kernel": "<4.4",
                  "symfony/translation": "<5.0",
-@@ -3798,7 +4659,7 @@
+@@ -3816,7 +4663,7 @@
                  "symfony/dependency-injection": "^4.4|^5.0",
                  "symfony/expression-language": "^4.4|^5.0",
                  "symfony/finder": "^4.4|^5.0",
@@ -2986,7 +3006,7 @@ index eceb3a4..54da39d 100644
                  "symfony/http-foundation": "^4.4|^5.0",
                  "symfony/http-kernel": "^4.4|^5.0",
                  "symfony/mime": "^4.4|^5.0",
-@@ -3836,7 +4697,7 @@
+@@ -3854,7 +4701,7 @@
              "type": "symfony-bridge",
              "extra": {
                  "branch-alias": {
@@ -2995,7 +3015,7 @@ index eceb3a4..54da39d 100644
                  }
              },
              "autoload": {
-@@ -3863,24 +4724,38 @@
+@@ -3881,24 +4728,38 @@
              ],
              "description": "Symfony Twig Bridge",
              "homepage": "https://symfony.com",
@@ -3040,7 +3060,7 @@ index eceb3a4..54da39d 100644
                  "symfony/config": "^4.4|^5.0",
                  "symfony/http-foundation": "^4.4|^5.0",
                  "symfony/http-kernel": "^5.0",
-@@ -3911,7 +4786,7 @@
+@@ -3929,7 +4790,7 @@
              "type": "symfony-bundle",
              "extra": {
                  "branch-alias": {
@@ -3049,7 +3069,7 @@ index eceb3a4..54da39d 100644
                  }
              },
              "autoload": {
-@@ -3938,7 +4813,21 @@
+@@ -3956,7 +4817,21 @@
              ],
              "description": "Symfony TwigBundle",
              "homepage": "https://symfony.com",
@@ -3072,7 +3092,7 @@ index eceb3a4..54da39d 100644
          },
          {
              "name": "symfony/twig-pack",
-@@ -3970,21 +4859,22 @@
+@@ -3988,21 +4863,22 @@
          },
          {
              "name": "symfony/var-dumper",
@@ -3101,7 +3121,7 @@ index eceb3a4..54da39d 100644
              },
              "conflict": {
                  "phpunit/phpunit": "<5.4.3",
-@@ -4007,7 +4897,7 @@
+@@ -4025,7 +4901,7 @@
              "type": "library",
              "extra": {
                  "branch-alias": {
@@ -3110,7 +3130,7 @@ index eceb3a4..54da39d 100644
                  }
              },
              "autoload": {
-@@ -4041,32 +4931,47 @@
+@@ -4059,32 +4935,47 @@
                  "debug",
                  "dump"
              ],
@@ -3166,7 +3186,7 @@ index eceb3a4..54da39d 100644
                  }
              },
              "autoload": {
-@@ -4101,26 +5006,40 @@
+@@ -4119,26 +5010,40 @@
                  "instantiate",
                  "serialize"
              ],
@@ -3214,7 +3234,7 @@ index eceb3a4..54da39d 100644
                  "symfony/http-kernel": "^4.4|^5.0",
                  "symfony/routing": "^4.4|^5.0",
                  "symfony/twig-bundle": "^4.4|^5.0",
-@@ -4134,13 +5053,12 @@
+@@ -4152,13 +5057,12 @@
                  "symfony/browser-kit": "^4.4|^5.0",
                  "symfony/console": "^4.4|^5.0",
                  "symfony/css-selector": "^4.4|^5.0",
@@ -3229,7 +3249,7 @@ index eceb3a4..54da39d 100644
                  }
              },
              "autoload": {
-@@ -4167,7 +5085,21 @@
+@@ -4185,7 +5089,21 @@
              ],
              "description": "Symfony WebProfilerBundle",
              "homepage": "https://symfony.com",
@@ -3252,7 +3272,7 @@ index eceb3a4..54da39d 100644
          },
          {
              "name": "symfony/webpack-encore-bundle",
-@@ -4224,20 +5156,21 @@
+@@ -4242,20 +5160,21 @@
          },
          {
              "name": "symfony/yaml",
@@ -3279,7 +3299,7 @@ index eceb3a4..54da39d 100644
                  "symfony/polyfill-ctype": "~1.8"
              },
              "conflict": {
-@@ -4249,10 +5182,13 @@
+@@ -4267,10 +5186,13 @@
              "suggest": {
                  "symfony/console": "For validating YAML files using the lint command"
              },
@@ -3294,7 +3314,7 @@ index eceb3a4..54da39d 100644
                  }
              },
              "autoload": {
-@@ -4279,24 +5215,38 @@
+@@ -4297,24 +5219,38 @@
              ],
              "description": "Symfony Yaml Component",
              "homepage": "https://symfony.com",
@@ -3339,7 +3359,7 @@ index eceb3a4..54da39d 100644
                  "symfony/framework-bundle": "^4.3|^5.0",
                  "symfony/twig-bundle": "^4.3|^5.0",
                  "twig/twig": "^2.4|^3.0"
-@@ -4338,30 +5288,52 @@
+@@ -4356,30 +5292,52 @@
                  "extra",
                  "twig"
              ],
@@ -3399,7 +3419,7 @@ index eceb3a4..54da39d 100644
              },
              "type": "library",
              "extra": {
-@@ -4400,39 +5372,66 @@
+@@ -4418,39 +5376,66 @@
              "keywords": [
                  "templating"
              ],
@@ -3475,7 +3495,7 @@ index eceb3a4..54da39d 100644
                  }
              },
              "notification-url": "https://packagist.org/downloads/",
-@@ -4461,28 +5460,48 @@
+@@ -4479,28 +5464,48 @@
                      "email": "schmittjoh@gmail.com"
                  }
              ],
@@ -3534,7 +3554,7 @@ index eceb3a4..54da39d 100644
                  "shasum": ""
              },
              "require": {
-@@ -4521,26 +5540,26 @@
+@@ -4539,26 +5544,26 @@
                  "parser",
                  "php"
              ],
@@ -3567,7 +3587,7 @@ index eceb3a4..54da39d 100644
                  "symfony/config": "^3.4|^4.0|^5.0",
                  "symfony/console": "^3.4|^4.0|^5.0",
                  "symfony/dependency-injection": "^3.4|^4.0|^5.0",
-@@ -4550,6 +5569,7 @@
+@@ -4568,6 +5573,7 @@
                  "symfony/http-kernel": "^3.4|^4.0|^5.0"
              },
              "require-dev": {
@@ -3575,7 +3595,7 @@ index eceb3a4..54da39d 100644
                  "doctrine/doctrine-bundle": "^1.8|^2.0",
                  "doctrine/orm": "^2.3",
                  "friendsofphp/php-cs-fixer": "^2.8",
-@@ -4589,7 +5609,21 @@
+@@ -4607,7 +5613,21 @@
                  "scaffold",
                  "scaffolding"
              ],
@@ -3598,19 +3618,21 @@ index eceb3a4..54da39d 100644
          }
      ],
      "aliases": [],
-@@ -4605,5 +5639,6 @@
-     "platform-dev": [],
-     "platform-overrides": {
-         "php": "7.2.5"
--    }
-+    },
-+    "plugin-api-version": "1.1.0"
- }
 diff --git a/symfony.lock b/symfony.lock
-index 0f45e32..dff38a0 100644
+index 0f45e32..82f5d15 100644
 --- a/symfony.lock
 +++ b/symfony.lock
-@@ -171,6 +171,9 @@
+@@ -2,6 +2,9 @@
+     "clue/stream-filter": {
+         "version": "v1.4.1"
+     },
++    "composer/package-versions-deprecated": {
++        "version": "1.8.2"
++    },
+     "doctrine/annotations": {
+         "version": "1.0",
+         "recipe": {
+@@ -171,6 +174,9 @@
      "symfony/dependency-injection": {
          "version": "v5.0.4"
      },
@@ -3620,7 +3642,7 @@ index 0f45e32..dff38a0 100644
      "symfony/dotenv": {
          "version": "v5.0.4"
      },
-@@ -236,9 +239,6 @@
+@@ -236,9 +242,6 @@
              "ref": "fadbfe33303a76e25cb63401050439aa9b1a9c7f"
          }
      },
@@ -3630,7 +3652,7 @@ index 0f45e32..dff38a0 100644
      "symfony/monolog-bridge": {
          "version": "v5.0.4"
      },
-@@ -259,15 +259,24 @@
+@@ -259,15 +262,24 @@
      "symfony/options-resolver": {
          "version": "v5.0.7"
      },
@@ -3655,7 +3677,7 @@ index 0f45e32..dff38a0 100644
      "symfony/polyfill-uuid": {
          "version": "v1.15.0"
      },
-@@ -297,6 +306,9 @@
+@@ -297,6 +309,9 @@
      "symfony/stopwatch": {
          "version": "v5.0.4"
      },

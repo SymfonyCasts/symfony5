@@ -55,7 +55,7 @@ index 385255a..aee34bd 100644
      },
      "require-dev": {
 diff --git a/composer.lock b/composer.lock
-index 65d5d93..cbc7243 100644
+index 4ba3692..0fe8bd6 100644
 --- a/composer.lock
 +++ b/composer.lock
 @@ -4,7 +4,7 @@
@@ -67,7 +67,7 @@ index 65d5d93..cbc7243 100644
      "packages": [
          {
              "name": "doctrine/annotations",
-@@ -2719,6 +2719,59 @@
+@@ -2737,6 +2737,59 @@
              "homepage": "https://symfony.com",
              "time": "2020-01-23T11:07:12+00:00"
          },

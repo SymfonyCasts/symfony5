@@ -11,7 +11,7 @@ index 9b9a91d..092284c 100644
          "sentry/sentry-symfony": "^3.4",
          "symfony/asset": "5.1.*",
 diff --git a/composer.lock b/composer.lock
-index a6c450a..f27e154 100644
+index f41e149..17f6cb0 100644
 --- a/composer.lock
 +++ b/composer.lock
 @@ -4,7 +4,7 @@
@@ -96,7 +96,7 @@ index a6c450a..f27e154 100644
          {
              "name": "michelf/php-markdown",
              "version": "1.9.0",
-@@ -5864,6 +5930,168 @@
+@@ -5868,6 +5934,168 @@
              ],
              "time": "2020-06-11T12:16:36+00:00"
          },

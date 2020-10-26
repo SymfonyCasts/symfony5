@@ -13,7 +13,7 @@ index b78be83..71b325a 100644
      "config": {
          "preferred-install": {
 diff --git a/composer.lock b/composer.lock
-index 5cd2be6..954c145 100644
+index c39db27..9828845 100644
 --- a/composer.lock
 +++ b/composer.lock
 @@ -4,7 +4,7 @@
@@ -25,7 +25,7 @@ index 5cd2be6..954c145 100644
      "packages": [
          {
              "name": "clue/stream-filter",
-@@ -4977,16 +4977,16 @@
+@@ -4981,16 +4981,16 @@
          },
          {
              "name": "symfony/polyfill-intl-grapheme",
@@ -46,7 +46,7 @@ index 5cd2be6..954c145 100644
                  "shasum": ""
              },
              "require": {
-@@ -4998,7 +4998,7 @@
+@@ -5002,7 +5002,7 @@
              "type": "library",
              "extra": {
                  "branch-alias": {
@@ -55,7 +55,7 @@ index 5cd2be6..954c145 100644
                  },
                  "thanks": {
                      "name": "symfony/polyfill",
-@@ -5051,7 +5051,7 @@
+@@ -5055,7 +5055,7 @@
                      "type": "tidelift"
                  }
              ],
@@ -64,7 +64,7 @@ index 5cd2be6..954c145 100644
          },
          {
              "name": "symfony/polyfill-intl-idn",
-@@ -5135,16 +5135,16 @@
+@@ -5139,16 +5139,16 @@
          },
          {
              "name": "symfony/polyfill-intl-normalizer",
@@ -85,7 +85,7 @@ index 5cd2be6..954c145 100644
                  "shasum": ""
              },
              "require": {
-@@ -5156,7 +5156,7 @@
+@@ -5160,7 +5160,7 @@
              "type": "library",
              "extra": {
                  "branch-alias": {
@@ -94,7 +94,7 @@ index 5cd2be6..954c145 100644
                  },
                  "thanks": {
                      "name": "symfony/polyfill",
-@@ -5212,20 +5212,20 @@
+@@ -5216,20 +5216,20 @@
                      "type": "tidelift"
                  }
              ],
@@ -120,7 +120,7 @@ index 5cd2be6..954c145 100644
                  "shasum": ""
              },
              "require": {
-@@ -5237,7 +5237,7 @@
+@@ -5241,7 +5241,7 @@
              "type": "library",
              "extra": {
                  "branch-alias": {
@@ -129,7 +129,7 @@ index 5cd2be6..954c145 100644
                  },
                  "thanks": {
                      "name": "symfony/polyfill",
-@@ -5289,7 +5289,7 @@
+@@ -5293,7 +5293,7 @@
                      "type": "tidelift"
                  }
              ],
@@ -138,7 +138,7 @@ index 5cd2be6..954c145 100644
          },
          {
              "name": "symfony/polyfill-php73",
-@@ -5369,16 +5369,16 @@
+@@ -5373,16 +5373,16 @@
          },
          {
              "name": "symfony/polyfill-php80",
@@ -159,7 +159,7 @@ index 5cd2be6..954c145 100644
                  "shasum": ""
              },
              "require": {
-@@ -5387,7 +5387,7 @@
+@@ -5391,7 +5391,7 @@
              "type": "library",
              "extra": {
                  "branch-alias": {
@@ -168,7 +168,7 @@ index 5cd2be6..954c145 100644
                  },
                  "thanks": {
                      "name": "symfony/polyfill",
-@@ -5445,7 +5445,7 @@
+@@ -5449,7 +5449,7 @@
                      "type": "tidelift"
                  }
              ],
@@ -177,7 +177,7 @@ index 5cd2be6..954c145 100644
          },
          {
              "name": "symfony/polyfill-uuid",
-@@ -7107,6 +7107,56 @@
+@@ -7111,6 +7111,56 @@
              ],
              "time": "2020-04-02T16:40:37+00:00"
          },
@@ -234,7 +234,7 @@ index 5cd2be6..954c145 100644
          {
              "name": "nikic/php-parser",
              "version": "v4.6.0",
-@@ -7239,6 +7289,79 @@
+@@ -7243,6 +7293,79 @@
              ],
              "time": "2020-05-20T17:43:50+00:00"
          },
@@ -314,7 +314,7 @@ index 5cd2be6..954c145 100644
          {
              "name": "symfony/maker-bundle",
              "version": "v1.20.0",
-@@ -7322,6 +7445,180 @@
+@@ -7326,6 +7449,180 @@
              ],
              "time": "2020-07-14T11:22:04+00:00"
          },
@@ -495,7 +495,7 @@ index 5cd2be6..954c145 100644
          {
              "name": "symfony/web-profiler-bundle",
              "version": "v5.1.2",
-@@ -7400,6 +7697,71 @@
+@@ -7404,6 +7701,71 @@
                  }
              ],
              "time": "2020-06-09T11:33:28+00:00"

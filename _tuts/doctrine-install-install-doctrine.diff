@@ -30,7 +30,7 @@ index 8f2c817..9b9a91d 100644
          "sensio/framework-extra-bundle": "^5.5",
          "sentry/sentry-symfony": "^3.4",
 diff --git a/composer.lock b/composer.lock
-index fef4e16..a6c450a 100644
+index 2912b04..f41e149 100644
 --- a/composer.lock
 +++ b/composer.lock
 @@ -4,7 +4,7 @@
@@ -1598,7 +1598,7 @@ index fef4e16..a6c450a 100644
          {
              "name": "symfony/dotenv",
              "version": "v5.1.2",
-@@ -5183,101 +6603,122 @@
+@@ -5187,101 +6607,122 @@
                  }
              ],
              "time": "2020-07-05T13:18:14+00:00"

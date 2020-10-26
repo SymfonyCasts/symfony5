@@ -23,7 +23,7 @@ index 44a34b1..9755e37 100644
          "symfony/console": "5.0.*",
          "symfony/debug-bundle": "5.0.*",
 diff --git a/composer.lock b/composer.lock
-index 48eacd5..efea8a8 100644
+index 80933a6..fb23305 100644
 --- a/composer.lock
 +++ b/composer.lock
 @@ -4,8 +4,60 @@
@@ -512,7 +512,7 @@ index 48eacd5..efea8a8 100644
                  }
              },
              "notification-url": "https://packagist.org/downloads/",
-@@ -410,27 +774,478 @@
+@@ -410,28 +774,479 @@
              ],
              "authors": [
                  {
@@ -548,6 +548,7 @@ index 48eacd5..efea8a8 100644
              "source": {
                  "type": "git",
 -                "url": "https://github.com/php-fig/event-dispatcher.git",
+-                "reference": "dbefd12671e8a14ec7f180cab83036ed26714bb0"
 +                "url": "https://github.com/php-http/discovery.git",
 +                "reference": "82dbef649ccffd8e4f22e1953c3a5265992b83c0"
 +            },
@@ -1001,9 +1002,10 @@ index 48eacd5..efea8a8 100644
 +            "source": {
 +                "type": "git",
 +                "url": "https://github.com/php-fig/event-dispatcher.git",
-                 "reference": "dbefd12671e8a14ec7f180cab83036ed26714bb0"
++                "reference": "dbefd12671e8a14ec7f180cab83036ed26714bb0"
              },
              "dist": {
+                 "type": "zip",
 @@ -471,6 +1286,157 @@
              ],
              "time": "2019-01-08T18:20:26+00:00"
@@ -1450,7 +1452,7 @@ index 48eacd5..efea8a8 100644
          {
              "name": "symfony/asset",
              "version": "v5.0.8",
-@@ -1925,6 +3130,60 @@
+@@ -1943,6 +3148,60 @@
              ],
              "time": "2019-11-13T13:11:14+00:00"
          },
@@ -1511,7 +1513,7 @@ index 48eacd5..efea8a8 100644
          {
              "name": "symfony/polyfill-intl-idn",
              "version": "v1.15.0",
-@@ -2104,6 +3363,65 @@
+@@ -2122,6 +3381,65 @@
              ],
              "time": "2020-02-27T09:26:54+00:00"
          },
@@ -1577,7 +1579,7 @@ index 48eacd5..efea8a8 100644
          {
              "name": "symfony/profiler-pack",
              "version": "v1.0.4",
-@@ -2208,6 +3526,79 @@
+@@ -2226,6 +3544,79 @@
              ],
              "time": "2020-04-21T21:02:50+00:00"
          },

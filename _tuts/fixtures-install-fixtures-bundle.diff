@@ -11,7 +11,7 @@ index 092284c..b78be83 100644
          "symfony/maker-bundle": "^1.15",
          "symfony/var-dumper": "5.1.*",
 diff --git a/composer.lock b/composer.lock
-index f27e154..5cd2be6 100644
+index 17f6cb0..c39db27 100644
 --- a/composer.lock
 +++ b/composer.lock
 @@ -4,7 +4,7 @@
@@ -23,7 +23,7 @@ index f27e154..5cd2be6 100644
      "packages": [
          {
              "name": "clue/stream-filter",
-@@ -6947,6 +6947,166 @@
+@@ -6951,6 +6951,166 @@
          }
      ],
      "packages-dev": [

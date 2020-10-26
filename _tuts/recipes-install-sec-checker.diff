@@ -21,7 +21,7 @@ index 41b1e41..85dfe04 100644
          "post-install-cmd": [
              "@auto-scripts"
 diff --git a/composer.lock b/composer.lock
-index e591201..6a0002b 100644
+index b51022c..1df15d5 100644
 --- a/composer.lock
 +++ b/composer.lock
 @@ -4,7 +4,7 @@
@@ -88,7 +88,7 @@ index e591201..6a0002b 100644
          {
              "name": "symfony/cache",
              "version": "v5.0.4",
-@@ -1270,6 +1318,131 @@
+@@ -1288,6 +1336,131 @@
              "homepage": "https://symfony.com",
              "time": "2020-01-31T09:13:47+00:00"
          },

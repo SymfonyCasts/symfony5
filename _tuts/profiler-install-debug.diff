@@ -11,7 +11,7 @@ index 5757d89..cfaea8a 100644
          "symfony/flex": "^1.3.1",
          "symfony/framework-bundle": "5.0.*",
 diff --git a/composer.lock b/composer.lock
-index b429a75..43ba430 100644
+index fbd6046..b2c1dfd 100644
 --- a/composer.lock
 +++ b/composer.lock
 @@ -4,7 +4,7 @@
@@ -264,7 +264,7 @@ index b429a75..43ba430 100644
          {
              "name": "symfony/dependency-injection",
              "version": "v5.0.4",
-@@ -1483,6 +1710,136 @@
+@@ -1501,6 +1728,136 @@
              ],
              "time": "2020-01-04T14:08:26+00:00"
          },
@@ -401,7 +401,7 @@ index b429a75..43ba430 100644
          {
              "name": "symfony/polyfill-intl-idn",
              "version": "v1.13.1",
-@@ -1663,26 +2020,54 @@
+@@ -1681,26 +2038,54 @@
              "time": "2019-11-27T16:25:15+00:00"
          },
          {
@@ -468,7 +468,7 @@ index b429a75..43ba430 100644
              },
              "require-dev": {
                  "doctrine/annotations": "~1.2",
-@@ -1796,6 +2181,56 @@
+@@ -1814,6 +2199,56 @@
              ],
              "time": "2019-11-18T17:27:11+00:00"
          },
@@ -525,7 +525,7 @@ index b429a75..43ba430 100644
          {
              "name": "symfony/translation-contracts",
              "version": "v2.0.1",
-@@ -2192,6 +2627,72 @@
+@@ -2210,6 +2645,72 @@
              ],
              "time": "2020-01-04T14:08:26+00:00"
          },
@@ -598,7 +598,7 @@ index b429a75..43ba430 100644
          {
              "name": "symfony/yaml",
              "version": "v5.0.4",
-@@ -2373,152 +2874,7 @@
+@@ -2391,152 +2892,7 @@
              "time": "2019-12-28T07:17:28+00:00"
          }
      ],

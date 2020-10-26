@@ -26,7 +26,7 @@ index fd74677..43f1dd4 100644
      "config": {
          "preferred-install": {
 diff --git a/composer.lock b/composer.lock
-index 54da39d..b230ea8 100644
+index f7b7bba..35c914d 100644
 --- a/composer.lock
 +++ b/composer.lock
 @@ -4,7 +4,7 @@
@@ -38,7 +38,7 @@ index 54da39d..b230ea8 100644
      "packages": [
          {
              "name": "clue/stream-filter",
-@@ -4115,34 +4115,6 @@
+@@ -4119,34 +4119,6 @@
              ],
              "time": "2020-06-06T08:46:27+00:00"
          },
@@ -73,7 +73,7 @@ index 54da39d..b230ea8 100644
          {
              "name": "symfony/routing",
              "version": "v5.1.2",
-@@ -4829,34 +4801,6 @@
+@@ -4833,34 +4805,6 @@
              ],
              "time": "2020-05-20T17:43:50+00:00"
          },

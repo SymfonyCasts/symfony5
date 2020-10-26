@@ -29,10 +29,10 @@ index 14b42bb..bfe69c0 100644
 -            max_level: info
 -            channels: ["php"]
 diff --git a/symfony.lock b/symfony.lock
-index 422b7ff..12df1c0 100644
+index 236ff1a..7ba507c 100644
 --- a/symfony.lock
 +++ b/symfony.lock
-@@ -246,10 +246,11 @@
+@@ -249,10 +249,11 @@
              "repo": "github.com/symfony/recipes",
              "branch": "master",
              "version": "3.3",

@@ -11,7 +11,7 @@ index 9755e37..3d7cc61 100644
      },
      "config": {
 diff --git a/composer.lock b/composer.lock
-index efea8a8..eceb3a4 100644
+index fb23305..65915e9 100644
 --- a/composer.lock
 +++ b/composer.lock
 @@ -4,7 +4,7 @@
@@ -23,7 +23,7 @@ index efea8a8..eceb3a4 100644
      "packages": [
          {
              "name": "clue/stream-filter",
-@@ -4403,7 +4403,195 @@
+@@ -4421,7 +4421,195 @@
              "time": "2020-02-11T15:33:47+00:00"
          }
      ],
