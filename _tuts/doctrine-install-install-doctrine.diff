@@ -15,14 +15,13 @@ index 9501a4d..bc897b0 100644
 +DATABASE_URL=mysql://db_user:db_password@127.0.0.1:3306/db_name?serverVersion=5.7
 +###< doctrine/doctrine-bundle ###
 diff --git a/composer.json b/composer.json
-index 8f2c817..9b9a91d 100644
+index 9f00dac..c3dfe99 100644
 --- a/composer.json
 +++ b/composer.json
-@@ -5,6 +5,10 @@
-         "php": "^7.2.5",
+@@ -6,6 +6,9 @@
          "ext-ctype": "*",
          "ext-iconv": "*",
-+        "composer/package-versions-deprecated": "^1.8",
+         "composer/package-versions-deprecated": "^1.11",
 +        "doctrine/doctrine-bundle": "^2.1",
 +        "doctrine/doctrine-migrations-bundle": "^3.0",
 +        "doctrine/orm": "^2.7",
@@ -30,19 +29,19 @@ index 8f2c817..9b9a91d 100644
          "sensio/framework-extra-bundle": "^5.5",
          "sentry/sentry-symfony": "^3.4",
 diff --git a/composer.lock b/composer.lock
-index 2912b04..f41e149 100644
+index e173007..35fd28e 100644
 --- a/composer.lock
 +++ b/composer.lock
 @@ -4,7 +4,7 @@
          "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
          "This file is @generated automatically"
      ],
--    "content-hash": "69daa2a9da108783e78c37f8d19882c0",
-+    "content-hash": "015a638534723fa441e181f55c6b4db4",
+-    "content-hash": "dcd9f823e54bf8e06ddaed57563d0fbf",
++    "content-hash": "c741aaeabfd9e5788fb6ec9dd8adc51a",
      "packages": [
          {
              "name": "clue/stream-filter",
-@@ -196,37 +196,1298 @@
+@@ -200,37 +200,1298 @@
              ],
              "time": "2020-05-25T17:24:27+00:00"
          },
@@ -1350,7 +1349,7 @@ index 2912b04..f41e149 100644
                  }
              },
              "notification-url": "https://packagist.org/downloads/",
-@@ -235,42 +1496,18 @@
+@@ -239,42 +1500,18 @@
              ],
              "authors": [
                  {
@@ -1401,7 +1400,7 @@ index 2912b04..f41e149 100644
          },
          {
              "name": "guzzlehttp/guzzle",
-@@ -765,6 +2002,76 @@
+@@ -769,6 +2006,76 @@
              ],
              "time": "2020-05-22T08:12:19+00:00"
          },
@@ -1478,7 +1477,7 @@ index 2912b04..f41e149 100644
          {
              "name": "php-http/client-common",
              "version": "2.2.1",
-@@ -2443,6 +3750,119 @@
+@@ -2447,6 +3754,119 @@
              ],
              "time": "2020-06-06T08:49:21+00:00"
          },
@@ -1598,7 +1597,7 @@ index 2912b04..f41e149 100644
          {
              "name": "symfony/dotenv",
              "version": "v5.1.2",
-@@ -5187,101 +6607,122 @@
+@@ -5191,101 +6611,122 @@
                  }
              ],
              "time": "2020-07-05T13:18:14+00:00"
@@ -1870,7 +1869,7 @@ diff --git a/src/Repository/.gitignore b/src/Repository/.gitignore
 new file mode 100644
 index 0000000..e69de29
 diff --git a/symfony.lock b/symfony.lock
-index fbd6955..6b5e1bf 100644
+index de17b99..9325191 100644
 --- a/symfony.lock
 +++ b/symfony.lock
 @@ -17,12 +17,73 @@

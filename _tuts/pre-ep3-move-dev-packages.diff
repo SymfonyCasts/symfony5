@@ -1,8 +1,8 @@
 diff --git a/composer.json b/composer.json
-index 43f1dd4..8f2c817 100644
+index 7ab14e0..9f00dac 100644
 --- a/composer.json
 +++ b/composer.json
-@@ -10,22 +10,22 @@
+@@ -11,22 +11,22 @@
          "sentry/sentry-symfony": "^3.4",
          "symfony/asset": "5.1.*",
          "symfony/console": "5.1.*",
@@ -30,19 +30,19 @@ index 43f1dd4..8f2c817 100644
      "config": {
          "preferred-install": {
 diff --git a/composer.lock b/composer.lock
-index 35c914d..2912b04 100644
+index 96c3104..e173007 100644
 --- a/composer.lock
 +++ b/composer.lock
 @@ -4,7 +4,7 @@
          "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
          "This file is @generated automatically"
      ],
--    "content-hash": "8d273519f2bd91fc27e42a1725639827",
-+    "content-hash": "69daa2a9da108783e78c37f8d19882c0",
+-    "content-hash": "59242a0720f4b220cb058139fc2c3405",
++    "content-hash": "dcd9f823e54bf8e06ddaed57563d0fbf",
      "packages": [
          {
              "name": "clue/stream-filter",
-@@ -1578,40 +1578,43 @@
+@@ -1582,40 +1582,43 @@
          },
          {
              "name": "sensio/framework-extra-bundle",
@@ -93,7 +93,7 @@ index 35c914d..2912b04 100644
                  "symfony/psr-http-message-bridge": "^1.1",
                  "symfony/security-bundle": "^4.4|^5.0",
                  "symfony/twig-bundle": "^4.4|^5.0",
-@@ -1621,7 +1624,7 @@
+@@ -1625,7 +1628,7 @@
              "type": "symfony-bundle",
              "extra": {
                  "branch-alias": {
@@ -102,7 +102,7 @@ index 35c914d..2912b04 100644
                  }
              },
              "autoload": {
-@@ -1647,7 +1650,7 @@
+@@ -1651,7 +1654,7 @@
                  "annotations",
                  "controllers"
              ],
@@ -111,7 +111,7 @@ index 35c914d..2912b04 100644
          },
          {
              "name": "sentry/sdk",
-@@ -2287,86 +2290,6 @@
+@@ -2291,86 +2294,6 @@
              ],
              "time": "2020-06-15T12:59:21+00:00"
          },
@@ -198,7 +198,7 @@ index 35c914d..2912b04 100644
          {
              "name": "symfony/dependency-injection",
              "version": "v5.1.2",
-@@ -4970,85 +4893,6 @@
+@@ -4974,85 +4897,6 @@
              ],
              "time": "2020-06-07T15:42:22+00:00"
          },
@@ -284,7 +284,7 @@ index 35c914d..2912b04 100644
          {
              "name": "symfony/webpack-encore-bundle",
              "version": "v1.7.3",
-@@ -5490,6 +5334,86 @@
+@@ -5494,6 +5338,86 @@
              ],
              "time": "2020-07-02T17:12:47+00:00"
          },
@@ -371,7 +371,7 @@ index 35c914d..2912b04 100644
          {
              "name": "symfony/maker-bundle",
              "version": "v1.20.0",
-@@ -5572,6 +5496,85 @@
+@@ -5576,6 +5500,85 @@
                  }
              ],
              "time": "2020-07-14T11:22:04+00:00"

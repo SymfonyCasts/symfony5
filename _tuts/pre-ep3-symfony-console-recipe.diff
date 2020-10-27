@@ -31,7 +31,7 @@ index 5de0e1c..8fe9d49 100755
  if ($_SERVER['APP_DEBUG']) {
      umask(0000);
 diff --git a/symfony.lock b/symfony.lock
-index 21b76ee..236ff1a 100644
+index d098404..7fef5e5 100644
 --- a/symfony.lock
 +++ b/symfony.lock
 @@ -144,16 +144,15 @@

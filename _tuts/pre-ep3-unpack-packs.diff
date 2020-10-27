@@ -1,8 +1,8 @@
 diff --git a/composer.json b/composer.json
-index fd74677..43f1dd4 100644
+index 483e2f6..7ab14e0 100644
 --- a/composer.json
 +++ b/composer.json
-@@ -15,15 +15,17 @@
+@@ -16,15 +16,17 @@
          "symfony/flex": "^1.3.1",
          "symfony/framework-bundle": "5.1.*",
          "symfony/monolog-bundle": "^3.0",
@@ -26,19 +26,19 @@ index fd74677..43f1dd4 100644
      "config": {
          "preferred-install": {
 diff --git a/composer.lock b/composer.lock
-index f7b7bba..35c914d 100644
+index aceb03d..96c3104 100644
 --- a/composer.lock
 +++ b/composer.lock
 @@ -4,7 +4,7 @@
          "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
          "This file is @generated automatically"
      ],
--    "content-hash": "0b2b724aba5a5d2ddbed8b52cb89b3a7",
-+    "content-hash": "8d273519f2bd91fc27e42a1725639827",
+-    "content-hash": "536901f0f42a18eb04aef9838873af82",
++    "content-hash": "59242a0720f4b220cb058139fc2c3405",
      "packages": [
          {
              "name": "clue/stream-filter",
-@@ -4119,34 +4119,6 @@
+@@ -4123,34 +4123,6 @@
              ],
              "time": "2020-06-06T08:46:27+00:00"
          },
@@ -73,7 +73,7 @@ index f7b7bba..35c914d 100644
          {
              "name": "symfony/routing",
              "version": "v5.1.2",
-@@ -4833,34 +4805,6 @@
+@@ -4837,34 +4809,6 @@
              ],
              "time": "2020-05-20T17:43:50+00:00"
          },

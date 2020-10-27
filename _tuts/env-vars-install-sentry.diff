@@ -11,11 +11,14 @@ index 9501a4d..2cb271b 100644
 +SENTRY_DSN=
 +###< sentry/sentry-symfony ###
 diff --git a/composer.json b/composer.json
-index 44a34b1..9755e37 100644
+index 44a34b1..41b3e1f 100644
 --- a/composer.json
 +++ b/composer.json
-@@ -7,6 +7,7 @@
+@@ -5,8 +5,10 @@
+         "php": "^7.2.5",
+         "ext-ctype": "*",
          "ext-iconv": "*",
++        "composer/package-versions-deprecated": "^1.11",
          "knplabs/knp-markdown-bundle": "^1.8",
          "sensio/framework-extra-bundle": "^5.5",
 +        "sentry/sentry-symfony": "^3.4",
@@ -23,15 +26,15 @@ index 44a34b1..9755e37 100644
          "symfony/console": "5.0.*",
          "symfony/debug-bundle": "5.0.*",
 diff --git a/composer.lock b/composer.lock
-index 80933a6..fb23305 100644
+index 80933a6..9ce191d 100644
 --- a/composer.lock
 +++ b/composer.lock
-@@ -4,8 +4,60 @@
+@@ -4,8 +4,133 @@
          "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
          "This file is @generated automatically"
      ],
 -    "content-hash": "0d29a93da9b9786381960676f245927a",
-+    "content-hash": "3ea3c1d0bba67e0774e25aacf504210b",
++    "content-hash": "6a214c19c87b041e00b2b45f07eacd39",
      "packages": [
 +        {
 +            "name": "clue/stream-filter",
@@ -85,10 +88,83 @@ index 80933a6..fb23305 100644
 +            ],
 +            "time": "2019-04-09T12:31:48+00:00"
 +        },
++        {
++            "name": "composer/package-versions-deprecated",
++            "version": "1.11.99",
++            "source": {
++                "type": "git",
++                "url": "https://github.com/composer/package-versions-deprecated.git",
++                "reference": "c8c9aa8a14cc3d3bec86d0a8c3fa52ea79936855"
++            },
++            "dist": {
++                "type": "zip",
++                "url": "https://api.github.com/repos/composer/package-versions-deprecated/zipball/c8c9aa8a14cc3d3bec86d0a8c3fa52ea79936855",
++                "reference": "c8c9aa8a14cc3d3bec86d0a8c3fa52ea79936855",
++                "shasum": ""
++            },
++            "require": {
++                "composer-plugin-api": "^1.1.0 || ^2.0",
++                "php": "^7 || ^8"
++            },
++            "replace": {
++                "ocramius/package-versions": "1.11.99"
++            },
++            "require-dev": {
++                "composer/composer": "^1.9.3 || ^2.0@dev",
++                "ext-zip": "^1.13",
++                "phpunit/phpunit": "^6.5 || ^7"
++            },
++            "type": "composer-plugin",
++            "extra": {
++                "class": "PackageVersions\\Installer",
++                "branch-alias": {
++                    "dev-master": "1.x-dev"
++                }
++            },
++            "autoload": {
++                "psr-4": {
++                    "PackageVersions\\": "src/PackageVersions"
++                }
++            },
++            "notification-url": "https://packagist.org/downloads/",
++            "license": [
++                "MIT"
++            ],
++            "authors": [
++                {
++                    "name": "Marco Pivetta",
++                    "email": "ocramius@gmail.com"
++                },
++                {
++                    "name": "Jordi Boggiano",
++                    "email": "j.boggiano@seld.be"
++                }
++            ],
++            "description": "Composer plugin that provides efficient querying for installed package versions (no runtime IO)",
++            "support": {
++                "issues": "https://github.com/composer/package-versions-deprecated/issues",
++                "source": "https://github.com/composer/package-versions-deprecated/tree/master"
++            },
++            "funding": [
++                {
++                    "url": "https://packagist.com",
++                    "type": "custom"
++                },
++                {
++                    "url": "https://github.com/composer",
++                    "type": "github"
++                },
++                {
++                    "url": "https://tidelift.com/funding/github/packagist/composer/composer",
++                    "type": "tidelift"
++                }
++            ],
++            "time": "2020-08-25T05:50:16+00:00"
++        },
          {
              "name": "doctrine/annotations",
              "version": "1.10.2",
-@@ -137,6 +189,296 @@
+@@ -137,6 +262,296 @@
              ],
              "time": "2019-10-30T14:39:59+00:00"
          },
@@ -385,99 +461,26 @@ index 80933a6..fb23305 100644
          {
              "name": "knplabs/knp-markdown-bundle",
              "version": "1.8.1",
-@@ -331,31 +673,40 @@
+@@ -331,8 +746,431 @@
              "time": "2019-12-20T14:22:59+00:00"
          },
          {
 -            "name": "psr/cache",
 -            "version": "1.0.1",
-+            "name": "ocramius/package-versions",
-+            "version": "1.4.2",
-             "source": {
-                 "type": "git",
--                "url": "https://github.com/php-fig/cache.git",
--                "reference": "d11b50ad223250cf17b86e38383413f5a6764bf8"
-+                "url": "https://github.com/Ocramius/PackageVersions.git",
-+                "reference": "44af6f3a2e2e04f2af46bcb302ad9600cba41c7d"
-             },
-             "dist": {
-                 "type": "zip",
--                "url": "https://api.github.com/repos/php-fig/cache/zipball/d11b50ad223250cf17b86e38383413f5a6764bf8",
--                "reference": "d11b50ad223250cf17b86e38383413f5a6764bf8",
-+                "url": "https://api.github.com/repos/Ocramius/PackageVersions/zipball/44af6f3a2e2e04f2af46bcb302ad9600cba41c7d",
-+                "reference": "44af6f3a2e2e04f2af46bcb302ad9600cba41c7d",
-                 "shasum": ""
-             },
-             "require": {
--                "php": ">=5.3.0"
-+                "composer-plugin-api": "^1.0.0",
-+                "php": "^7.1.0"
-             },
--            "type": "library",
-+            "require-dev": {
-+                "composer/composer": "^1.6.3",
-+                "doctrine/coding-standard": "^5.0.1",
-+                "ext-zip": "*",
-+                "infection/infection": "^0.7.1",
-+                "phpunit/phpunit": "^7.5.17"
-+            },
-+            "type": "composer-plugin",
-             "extra": {
-+                "class": "PackageVersions\\Installer",
-                 "branch-alias": {
--                    "dev-master": "1.0.x-dev"
-+                    "dev-master": "2.0.x-dev"
-                 }
-             },
-             "autoload": {
-                 "psr-4": {
--                    "Psr\\Cache\\": "src/"
-+                    "PackageVersions\\": "src/PackageVersions"
-                 }
-             },
-             "notification-url": "https://packagist.org/downloads/",
-@@ -364,44 +715,57 @@
-             ],
-             "authors": [
-                 {
--                    "name": "PHP-FIG",
--                    "homepage": "http://www.php-fig.org/"
-+                    "name": "Marco Pivetta",
-+                    "email": "ocramius@gmail.com"
-                 }
-             ],
--            "description": "Common interface for caching libraries",
--            "keywords": [
--                "cache",
--                "psr",
--                "psr-6"
--            ],
--            "time": "2016-08-06T20:24:11+00:00"
-+            "description": "Composer plugin that provides efficient querying for installed package versions (no runtime IO)",
-+            "time": "2019-11-15T16:17:10+00:00"
-         },
-         {
--            "name": "psr/container",
--            "version": "1.0.0",
 +            "name": "php-http/client-common",
 +            "version": "2.1.0",
-             "source": {
-                 "type": "git",
--                "url": "https://github.com/php-fig/container.git",
--                "reference": "b7ce3b176482dbbc1245ebf52b181af44c2cf55f"
++            "source": {
++                "type": "git",
 +                "url": "https://github.com/php-http/client-common.git",
 +                "reference": "a8b29678d61556f45d6236b1667db16d998ceec5"
-             },
-             "dist": {
-                 "type": "zip",
--                "url": "https://api.github.com/repos/php-fig/container/zipball/b7ce3b176482dbbc1245ebf52b181af44c2cf55f",
--                "reference": "b7ce3b176482dbbc1245ebf52b181af44c2cf55f",
++            },
++            "dist": {
++                "type": "zip",
 +                "url": "https://api.github.com/repos/php-http/client-common/zipball/a8b29678d61556f45d6236b1667db16d998ceec5",
 +                "reference": "a8b29678d61556f45d6236b1667db16d998ceec5",
-                 "shasum": ""
-             },
-             "require": {
--                "php": ">=5.3.0"
++                "shasum": ""
++            },
++            "require": {
 +                "php": "^7.1",
 +                "php-http/httplug": "^2.0",
 +                "php-http/message": "^1.6",
@@ -497,58 +500,43 @@ index 80933a6..fb23305 100644
 +                "php-http/cache-plugin": "PSR-6 Cache plugin",
 +                "php-http/logger-plugin": "PSR-3 Logger plugin",
 +                "php-http/stopwatch-plugin": "Symfony Stopwatch plugin"
-             },
-             "type": "library",
-             "extra": {
-                 "branch-alias": {
--                    "dev-master": "1.0.x-dev"
++            },
++            "type": "library",
++            "extra": {
++                "branch-alias": {
 +                    "dev-master": "2.0.x-dev"
-                 }
-             },
-             "autoload": {
-                 "psr-4": {
--                    "Psr\\Container\\": "src/"
++                }
++            },
++            "autoload": {
++                "psr-4": {
 +                    "Http\\Client\\Common\\": "src/"
-                 }
-             },
-             "notification-url": "https://packagist.org/downloads/",
-@@ -410,28 +774,479 @@
-             ],
-             "authors": [
-                 {
--                    "name": "PHP-FIG",
--                    "homepage": "http://www.php-fig.org/"
++                }
++            },
++            "notification-url": "https://packagist.org/downloads/",
++            "license": [
++                "MIT"
++            ],
++            "authors": [
++                {
 +                    "name": "Márk Sági-Kazár",
 +                    "email": "mark.sagikazar@gmail.com"
-                 }
-             ],
--            "description": "Common Container Interface (PHP FIG PSR-11)",
--            "homepage": "https://github.com/php-fig/container",
++                }
++            ],
 +            "description": "Common HTTP Client implementations and tools for HTTPlug",
 +            "homepage": "http://httplug.io",
-             "keywords": [
--                "PSR-11",
--                "container",
--                "container-interface",
--                "container-interop",
--                "psr"
++            "keywords": [
 +                "client",
 +                "common",
 +                "http",
 +                "httplug"
-             ],
--            "time": "2017-02-14T16:28:37+00:00"
++            ],
 +            "time": "2019-11-18T08:58:18+00:00"
-         },
-         {
--            "name": "psr/event-dispatcher",
--            "version": "1.0.0",
++        },
++        {
 +            "name": "php-http/discovery",
 +            "version": "1.7.4",
-             "source": {
-                 "type": "git",
--                "url": "https://github.com/php-fig/event-dispatcher.git",
--                "reference": "dbefd12671e8a14ec7f180cab83036ed26714bb0"
++            "source": {
++                "type": "git",
 +                "url": "https://github.com/php-http/discovery.git",
 +                "reference": "82dbef649ccffd8e4f22e1953c3a5265992b83c0"
 +            },
@@ -904,109 +892,10 @@ index 80933a6..fb23305 100644
 +        {
 +            "name": "psr/cache",
 +            "version": "1.0.1",
-+            "source": {
-+                "type": "git",
-+                "url": "https://github.com/php-fig/cache.git",
-+                "reference": "d11b50ad223250cf17b86e38383413f5a6764bf8"
-+            },
-+            "dist": {
-+                "type": "zip",
-+                "url": "https://api.github.com/repos/php-fig/cache/zipball/d11b50ad223250cf17b86e38383413f5a6764bf8",
-+                "reference": "d11b50ad223250cf17b86e38383413f5a6764bf8",
-+                "shasum": ""
-+            },
-+            "require": {
-+                "php": ">=5.3.0"
-+            },
-+            "type": "library",
-+            "extra": {
-+                "branch-alias": {
-+                    "dev-master": "1.0.x-dev"
-+                }
-+            },
-+            "autoload": {
-+                "psr-4": {
-+                    "Psr\\Cache\\": "src/"
-+                }
-+            },
-+            "notification-url": "https://packagist.org/downloads/",
-+            "license": [
-+                "MIT"
-+            ],
-+            "authors": [
-+                {
-+                    "name": "PHP-FIG",
-+                    "homepage": "http://www.php-fig.org/"
-+                }
-+            ],
-+            "description": "Common interface for caching libraries",
-+            "keywords": [
-+                "cache",
-+                "psr",
-+                "psr-6"
-+            ],
-+            "time": "2016-08-06T20:24:11+00:00"
-+        },
-+        {
-+            "name": "psr/container",
-+            "version": "1.0.0",
-+            "source": {
-+                "type": "git",
-+                "url": "https://github.com/php-fig/container.git",
-+                "reference": "b7ce3b176482dbbc1245ebf52b181af44c2cf55f"
-+            },
-+            "dist": {
-+                "type": "zip",
-+                "url": "https://api.github.com/repos/php-fig/container/zipball/b7ce3b176482dbbc1245ebf52b181af44c2cf55f",
-+                "reference": "b7ce3b176482dbbc1245ebf52b181af44c2cf55f",
-+                "shasum": ""
-+            },
-+            "require": {
-+                "php": ">=5.3.0"
-+            },
-+            "type": "library",
-+            "extra": {
-+                "branch-alias": {
-+                    "dev-master": "1.0.x-dev"
-+                }
-+            },
-+            "autoload": {
-+                "psr-4": {
-+                    "Psr\\Container\\": "src/"
-+                }
-+            },
-+            "notification-url": "https://packagist.org/downloads/",
-+            "license": [
-+                "MIT"
-+            ],
-+            "authors": [
-+                {
-+                    "name": "PHP-FIG",
-+                    "homepage": "http://www.php-fig.org/"
-+                }
-+            ],
-+            "description": "Common Container Interface (PHP FIG PSR-11)",
-+            "homepage": "https://github.com/php-fig/container",
-+            "keywords": [
-+                "PSR-11",
-+                "container",
-+                "container-interface",
-+                "container-interop",
-+                "psr"
-+            ],
-+            "time": "2017-02-14T16:28:37+00:00"
-+        },
-+        {
-+            "name": "psr/event-dispatcher",
-+            "version": "1.0.0",
-+            "source": {
-+                "type": "git",
-+                "url": "https://github.com/php-fig/event-dispatcher.git",
-+                "reference": "dbefd12671e8a14ec7f180cab83036ed26714bb0"
-             },
-             "dist": {
-                 "type": "zip",
-@@ -471,6 +1286,157 @@
+             "source": {
+                 "type": "git",
+                 "url": "https://github.com/php-fig/cache.git",
+@@ -471,6 +1309,157 @@
              ],
              "time": "2019-01-08T18:20:26+00:00"
          },
@@ -1164,7 +1053,7 @@ index 80933a6..fb23305 100644
          {
              "name": "psr/log",
              "version": "1.1.3",
-@@ -495,9 +1461,55 @@
+@@ -495,9 +1484,55 @@
                  }
              },
              "autoload": {
@@ -1223,7 +1112,7 @@ index 80933a6..fb23305 100644
              },
              "notification-url": "https://packagist.org/downloads/",
              "license": [
-@@ -505,18 +1517,12 @@
+@@ -505,18 +1540,12 @@
              ],
              "authors": [
                  {
@@ -1246,7 +1135,7 @@ index 80933a6..fb23305 100644
          },
          {
              "name": "sensio/framework-extra-bundle",
-@@ -591,6 +1597,205 @@
+@@ -591,6 +1620,205 @@
              ],
              "time": "2020-04-06T12:20:39+00:00"
          },
@@ -1452,7 +1341,7 @@ index 80933a6..fb23305 100644
          {
              "name": "symfony/asset",
              "version": "v5.0.8",
-@@ -1943,6 +3148,60 @@
+@@ -1943,6 +3171,60 @@
              ],
              "time": "2019-11-13T13:11:14+00:00"
          },
@@ -1513,7 +1402,7 @@ index 80933a6..fb23305 100644
          {
              "name": "symfony/polyfill-intl-idn",
              "version": "v1.15.0",
-@@ -2122,6 +3381,65 @@
+@@ -2122,6 +3404,65 @@
              ],
              "time": "2020-02-27T09:26:54+00:00"
          },
@@ -1579,7 +1468,7 @@ index 80933a6..fb23305 100644
          {
              "name": "symfony/profiler-pack",
              "version": "v1.0.4",
-@@ -2226,6 +3544,79 @@
+@@ -2226,6 +3567,79 @@
              ],
              "time": "2020-04-21T21:02:50+00:00"
          },
@@ -1678,18 +1567,21 @@ index 0000000..342036f
 +sentry:
 +    dsn: '%env(SENTRY_DSN)%'
 diff --git a/symfony.lock b/symfony.lock
-index b55da23..1da2977 100644
+index b55da23..00908a1 100644
 --- a/symfony.lock
 +++ b/symfony.lock
-@@ -1,4 +1,7 @@
+@@ -1,4 +1,10 @@
  {
 +    "clue/stream-filter": {
 +        "version": "v1.4.1"
 +    },
++    "composer/package-versions-deprecated": {
++        "version": "1.11.99"
++    },
      "doctrine/annotations": {
          "version": "1.0",
          "recipe": {
-@@ -14,6 +17,21 @@
+@@ -14,6 +20,21 @@
      "doctrine/lexer": {
          "version": "1.2.0"
      },
@@ -1711,7 +1603,7 @@ index b55da23..1da2977 100644
      "knplabs/knp-markdown-bundle": {
          "version": "1.8.1"
      },
-@@ -23,9 +41,33 @@
+@@ -23,9 +44,33 @@
      "monolog/monolog": {
          "version": "2.0.2"
      },
@@ -1745,7 +1637,7 @@ index b55da23..1da2977 100644
      "psr/cache": {
          "version": "1.0.1"
      },
-@@ -35,9 +77,21 @@
+@@ -35,9 +80,21 @@
      "psr/event-dispatcher": {
          "version": "1.0.0"
      },
@@ -1767,7 +1659,7 @@ index b55da23..1da2977 100644
      "sensio/framework-extra-bundle": {
          "version": "5.2",
          "recipe": {
-@@ -50,6 +104,24 @@
+@@ -50,6 +107,24 @@
              "config/packages/sensio_framework_extra.yaml"
          ]
      },
@@ -1792,7 +1684,7 @@ index b55da23..1da2977 100644
      "symfony/asset": {
          "version": "v5.0.5"
      },
-@@ -169,6 +241,9 @@
+@@ -169,6 +244,9 @@
              "config/packages/test/monolog.yaml"
          ]
      },
@@ -1802,7 +1694,7 @@ index b55da23..1da2977 100644
      "symfony/polyfill-intl-idn": {
          "version": "v1.13.1"
      },
-@@ -178,6 +253,9 @@
+@@ -178,6 +256,9 @@
      "symfony/polyfill-php73": {
          "version": "v1.13.1"
      },
@@ -1812,7 +1704,7 @@ index b55da23..1da2977 100644
      "symfony/profiler-pack": {
          "version": "v1.0.4"
      },
-@@ -195,6 +273,9 @@
+@@ -195,6 +276,9 @@
              "config/routes.yaml"
          ]
      },

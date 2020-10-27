@@ -11,7 +11,7 @@ index 7e97762..b45c1ce 100644
 +        # See https://symfony.com/doc/current/routing.html#generating-urls-in-commands
 +        #default_uri: http://localhost
 diff --git a/symfony.lock b/symfony.lock
-index 7ba507c..fbd6955 100644
+index e50c293..de17b99 100644
 --- a/symfony.lock
 +++ b/symfony.lock
 @@ -286,12 +286,12 @@
