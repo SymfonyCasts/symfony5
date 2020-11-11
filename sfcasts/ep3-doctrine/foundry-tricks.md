@@ -8,9 +8,14 @@ all *kinds* of interesting, fake data.
 ## Using Faker
 
 If you look at the top of the Foundry docs, you'll see a section called Faker and
-a link to the [Faker documentation](https://github.com/fzaninotto/Faker). This
+a link to the [Faker documentation](https://github.com/FakerPHP/Faker). This
 tells you everything that Faker can do... which is... a *lot*. Let's use it to
 make our fixtures even better.
+
+***TIP
+The Faker library now has a new home! At https://github.com/FakerPHP/Faker.
+Same great library, shiny new home.
+***
 
 For example, for the random -1 to -100 days, we can make it more readable by
 replacing the `new \DateTime()` with `self::faker()` - that's how you can get an
