@@ -118,6 +118,12 @@ also modified `.env` and created some *new* files.
 Go check out `.env`. At the bottom... here it is: it added a new `DATABASE_URL`.
 This is the environment variable that Doctrine uses to connect to the database.
 
+***TIP
+The default `DATABASE_URL` now uses PostgreSQL, but there is a commented-out
+MySQL example above if you prefer that. But in both cases, if you use our Docker
+integration (keep watching!) then you won't need to configure `DATABASE_URL` manually.
+***
+
 [[[ code('c8060c922e') ]]]
 
 And... we can see this! The recipe *also* added another file called
