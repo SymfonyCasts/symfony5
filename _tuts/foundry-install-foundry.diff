@@ -1,5 +1,5 @@
 diff --git a/composer.json b/composer.json
-index 1dc5b22..dcfe637 100644
+index 1dc5b226..dcfe6379 100644
 --- a/composer.json
 +++ b/composer.json
 @@ -31,7 +31,8 @@
@@ -13,7 +13,7 @@ index 1dc5b22..dcfe637 100644
      "config": {
          "preferred-install": {
 diff --git a/composer.lock b/composer.lock
-index c5daf2c..ca588f0 100644
+index 23e12d9c..95d193cf 100644
 --- a/composer.lock
 +++ b/composer.lock
 @@ -4,7 +4,7 @@
@@ -313,10 +313,10 @@ index c5daf2c..ca588f0 100644
 +        },
          {
              "name": "symfony/maker-bundle",
-             "version": "v1.20.0",
-@@ -7330,6 +7453,180 @@
+             "version": "v1.23.0",
+@@ -7334,6 +7457,180 @@
              ],
-             "time": "2020-07-14T11:22:04+00:00"
+             "time": "2020-10-28T15:35:16+00:00"
          },
 +        {
 +            "name": "symfony/property-access",
@@ -495,7 +495,7 @@ index c5daf2c..ca588f0 100644
          {
              "name": "symfony/web-profiler-bundle",
              "version": "v5.1.2",
-@@ -7408,6 +7705,71 @@
+@@ -7412,6 +7709,71 @@
                  }
              ],
              "time": "2020-06-09T11:33:28+00:00"
@@ -568,7 +568,7 @@ index c5daf2c..ca588f0 100644
      ],
      "aliases": [],
 diff --git a/config/bundles.php b/config/bundles.php
-index a9ebfeb..883e9af 100644
+index a9ebfeb2..883e9af5 100644
 --- a/config/bundles.php
 +++ b/config/bundles.php
 @@ -16,4 +16,5 @@ return [
@@ -578,7 +578,7 @@ index a9ebfeb..883e9af 100644
 +    Zenstruck\Foundry\ZenstruckFoundryBundle::class => ['dev' => true, 'test' => true],
  ];
 diff --git a/symfony.lock b/symfony.lock
-index f4ecc61..e63eccf 100644
+index f4ecc61b..e63eccff 100644
 --- a/symfony.lock
 +++ b/symfony.lock
 @@ -99,6 +99,9 @@

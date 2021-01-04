@@ -1,5 +1,5 @@
 diff --git a/src/Controller/QuestionController.php b/src/Controller/QuestionController.php
-index 0e3d2d8..c840649 100644
+index 0e3d2d86..c840649a 100644
 --- a/src/Controller/QuestionController.php
 +++ b/src/Controller/QuestionController.php
 @@ -39,7 +39,7 @@ class QuestionController extends AbstractController
@@ -12,7 +12,7 @@ index 0e3d2d8..c840649 100644
          return $this->render('question/show.html.twig', [
              'question' => ucwords(str_replace('-', ' ', $slug)),
 diff --git a/src/Service/MarkdownHelper.php b/src/Service/MarkdownHelper.php
-index 7dac88a..9ea26a3 100644
+index 7dac88a5..9ea26a38 100644
 --- a/src/Service/MarkdownHelper.php
 +++ b/src/Service/MarkdownHelper.php
 @@ -2,9 +2,12 @@

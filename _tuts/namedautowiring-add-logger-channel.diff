@@ -1,6 +1,6 @@
 diff --git a/config/packages/monolog.yaml b/config/packages/monolog.yaml
 new file mode 100644
-index 0000000..73d7b33
+index 00000000..73d7b332
 --- /dev/null
 +++ b/config/packages/monolog.yaml
 @@ -0,0 +1,2 @@

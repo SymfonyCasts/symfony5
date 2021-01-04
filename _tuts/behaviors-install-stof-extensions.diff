@@ -1,5 +1,5 @@
 diff --git a/composer.json b/composer.json
-index dcfe637..63a1d58 100644
+index dcfe6379..63a1d589 100644
 --- a/composer.json
 +++ b/composer.json
 @@ -13,6 +13,7 @@
@@ -11,7 +11,7 @@ index dcfe637..63a1d58 100644
          "symfony/console": "5.1.*",
          "symfony/dotenv": "5.1.*",
 diff --git a/composer.lock b/composer.lock
-index ca588f0..375ac2f 100644
+index 95d193cf..c4ebb8c9 100644
 --- a/composer.lock
 +++ b/composer.lock
 @@ -4,8 +4,53 @@
@@ -232,7 +232,7 @@ index ca588f0..375ac2f 100644
              "name": "symfony/asset",
              "version": "v5.1.2",
 diff --git a/config/bundles.php b/config/bundles.php
-index 883e9af..b89ddb3 100644
+index 883e9af5..b89ddb31 100644
 --- a/config/bundles.php
 +++ b/config/bundles.php
 @@ -17,4 +17,5 @@ return [
@@ -243,7 +243,7 @@ index 883e9af..b89ddb3 100644
  ];
 diff --git a/config/packages/stof_doctrine_extensions.yaml b/config/packages/stof_doctrine_extensions.yaml
 new file mode 100644
-index 0000000..c83f3b1
+index 00000000..c83f3b1d
 --- /dev/null
 +++ b/config/packages/stof_doctrine_extensions.yaml
 @@ -0,0 +1,4 @@
@@ -252,7 +252,7 @@ index 0000000..c83f3b1
 +stof_doctrine_extensions:
 +    default_locale: en_US
 diff --git a/symfony.lock b/symfony.lock
-index e63eccf..bae2996 100644
+index e63eccff..bae29965 100644
 --- a/symfony.lock
 +++ b/symfony.lock
 @@ -1,4 +1,7 @@

@@ -1,5 +1,5 @@
 diff --git a/.gitignore b/.gitignore
-index a67f91e..7fdcc07 100644
+index a67f91e2..7fdcc07f 100644
 --- a/.gitignore
 +++ b/.gitignore
 @@ -8,3 +8,10 @@
@@ -15,7 +15,7 @@ index a67f91e..7fdcc07 100644
 +###< symfony/webpack-encore-bundle ###
 diff --git a/assets/css/app.css b/assets/css/app.css
 new file mode 100644
-index 0000000..cb33b13
+index 00000000..cb33b131
 --- /dev/null
 +++ b/assets/css/app.css
 @@ -0,0 +1,3 @@
@@ -24,7 +24,7 @@ index 0000000..cb33b13
 +}
 diff --git a/assets/js/app.js b/assets/js/app.js
 new file mode 100644
-index 0000000..1748c14
+index 00000000..1748c149
 --- /dev/null
 +++ b/assets/js/app.js
 @@ -0,0 +1,14 @@
@@ -43,7 +43,7 @@ index 0000000..1748c14
 +
 +console.log('Hello Webpack Encore! Edit me in assets/js/app.js');
 diff --git a/composer.json b/composer.json
-index 385255a..aee34bd 100644
+index 385255ab..aee34bd3 100644
 --- a/composer.json
 +++ b/composer.json
 @@ -17,6 +17,7 @@
@@ -55,7 +55,7 @@ index 385255a..aee34bd 100644
      },
      "require-dev": {
 diff --git a/composer.lock b/composer.lock
-index 4ba3692..0fe8bd6 100644
+index 4ba36928..0fe8bd64 100644
 --- a/composer.lock
 +++ b/composer.lock
 @@ -4,7 +4,7 @@
@@ -128,7 +128,7 @@ index 4ba3692..0fe8bd6 100644
              "name": "symfony/yaml",
              "version": "v5.0.4",
 diff --git a/config/bundles.php b/config/bundles.php
-index 73b24fd..825e456 100644
+index 73b24fd6..825e4568 100644
 --- a/config/bundles.php
 +++ b/config/bundles.php
 @@ -8,4 +8,5 @@ return [
@@ -139,7 +139,7 @@ index 73b24fd..825e456 100644
  ];
 diff --git a/config/packages/assets.yaml b/config/packages/assets.yaml
 new file mode 100644
-index 0000000..051d36d
+index 00000000..051d36dc
 --- /dev/null
 +++ b/config/packages/assets.yaml
 @@ -0,0 +1,3 @@
@@ -148,7 +148,7 @@ index 0000000..051d36d
 +        json_manifest_path: '%kernel.project_dir%/public/build/manifest.json'
 diff --git a/config/packages/prod/webpack_encore.yaml b/config/packages/prod/webpack_encore.yaml
 new file mode 100644
-index 0000000..d0b3ba8
+index 00000000..d0b3ba81
 --- /dev/null
 +++ b/config/packages/prod/webpack_encore.yaml
 @@ -0,0 +1,4 @@
@@ -158,7 +158,7 @@ index 0000000..d0b3ba8
 +    #cache: true
 diff --git a/config/packages/test/webpack_encore.yaml b/config/packages/test/webpack_encore.yaml
 new file mode 100644
-index 0000000..02a7651
+index 00000000..02a76515
 --- /dev/null
 +++ b/config/packages/test/webpack_encore.yaml
 @@ -0,0 +1,2 @@
@@ -166,7 +166,7 @@ index 0000000..02a7651
 +#    strict_mode: false
 diff --git a/config/packages/webpack_encore.yaml b/config/packages/webpack_encore.yaml
 new file mode 100644
-index 0000000..9191f4f
+index 00000000..9191f4f4
 --- /dev/null
 +++ b/config/packages/webpack_encore.yaml
 @@ -0,0 +1,25 @@
@@ -197,7 +197,7 @@ index 0000000..9191f4f
 +    # cache: true
 diff --git a/package.json b/package.json
 new file mode 100644
-index 0000000..875d54d
+index 00000000..875d54d7
 --- /dev/null
 +++ b/package.json
 @@ -0,0 +1,16 @@
@@ -218,7 +218,7 @@ index 0000000..875d54d
 +    }
 +}
 diff --git a/symfony.lock b/symfony.lock
-index 99875e2..333078c 100644
+index 99875e2b..333078cb 100644
 --- a/symfony.lock
 +++ b/symfony.lock
 @@ -250,6 +250,25 @@
@@ -249,7 +249,7 @@ index 99875e2..333078c 100644
      },
 diff --git a/webpack.config.js b/webpack.config.js
 new file mode 100644
-index 0000000..e8b4283
+index 00000000..e8b42835
 --- /dev/null
 +++ b/webpack.config.js
 @@ -0,0 +1,74 @@

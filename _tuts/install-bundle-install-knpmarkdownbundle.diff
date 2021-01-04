@@ -1,5 +1,5 @@
 diff --git a/composer.json b/composer.json
-index 041ce88..44a34b1 100644
+index 041ce88d..44a34b10 100644
 --- a/composer.json
 +++ b/composer.json
 @@ -5,6 +5,7 @@
@@ -11,7 +11,7 @@ index 041ce88..44a34b1 100644
          "symfony/asset": "5.0.*",
          "symfony/console": "5.0.*",
 diff --git a/composer.lock b/composer.lock
-index 84ef377..80933a6 100644
+index 84ef377b..80933a66 100644
 --- a/composer.lock
 +++ b/composer.lock
 @@ -4,7 +4,7 @@
@@ -143,7 +143,7 @@ index 84ef377..80933a6 100644
              "name": "monolog/monolog",
              "version": "2.0.2",
 diff --git a/config/bundles.php b/config/bundles.php
-index 825e456..3460dff 100644
+index 825e4568..3460dff0 100644
 --- a/config/bundles.php
 +++ b/config/bundles.php
 @@ -9,4 +9,5 @@ return [
@@ -153,7 +153,7 @@ index 825e456..3460dff 100644
 +    Knp\Bundle\MarkdownBundle\KnpMarkdownBundle::class => ['all' => true],
  ];
 diff --git a/symfony.lock b/symfony.lock
-index d957216..b55da23 100644
+index d9572160..b55da234 100644
 --- a/symfony.lock
 +++ b/symfony.lock
 @@ -14,6 +14,12 @@

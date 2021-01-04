@@ -1,5 +1,5 @@
 diff --git a/composer.json b/composer.json
-index 09f220f..1dc5b22 100644
+index 09f220f2..1dc5b226 100644
 --- a/composer.json
 +++ b/composer.json
 @@ -27,6 +27,7 @@
@@ -11,7 +11,7 @@ index 09f220f..1dc5b22 100644
          "symfony/maker-bundle": "^1.15",
          "symfony/var-dumper": "5.1.*",
 diff --git a/composer.lock b/composer.lock
-index 9af970b..c5daf2c 100644
+index 8bab49ab..23e12d9c 100644
 --- a/composer.lock
 +++ b/composer.lock
 @@ -4,7 +4,7 @@
@@ -191,7 +191,7 @@ index 9af970b..c5daf2c 100644
              "name": "nikic/php-parser",
              "version": "v4.6.0",
 diff --git a/config/bundles.php b/config/bundles.php
-index 097e21c..a9ebfeb 100644
+index 097e21c0..a9ebfeb2 100644
 --- a/config/bundles.php
 +++ b/config/bundles.php
 @@ -15,4 +15,5 @@ return [
@@ -202,7 +202,7 @@ index 097e21c..a9ebfeb 100644
  ];
 diff --git a/src/DataFixtures/AppFixtures.php b/src/DataFixtures/AppFixtures.php
 new file mode 100644
-index 0000000..fece475
+index 00000000..fece4758
 --- /dev/null
 +++ b/src/DataFixtures/AppFixtures.php
 @@ -0,0 +1,17 @@
@@ -224,7 +224,7 @@ index 0000000..fece475
 +    }
 +}
 diff --git a/symfony.lock b/symfony.lock
-index b65ce9f..f4ecc61 100644
+index b65ce9f8..f4ecc61b 100644
 --- a/symfony.lock
 +++ b/symfony.lock
 @@ -26,6 +26,9 @@

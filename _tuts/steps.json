@@ -706,6 +706,11 @@
             "description": null
         },
         {
+            "id": "pre-ep3-upgrade-maker-bundle",
+            "name": "PRE_EP3: upgrade maker-bundle",
+            "description": null
+        },
+        {
             "id": "doctrine-install-install-doctrine",
             "name": "Doctrine Install: Install doctrine",
             "description": null
@@ -1076,5 +1081,5 @@
             "description": null
         }
     ],
-    "sha": "01121610756d9329abe9ad67e3dabe7c513f1492"
+    "sha": "5170a6d2e9ff7b66cc85ab9811e357db0e8f123d"
 }

@@ -1,5 +1,5 @@
 diff --git a/composer.json b/composer.json
-index a3a0667..41b1e41 100644
+index a3a06678..41b1e416 100644
 --- a/composer.json
 +++ b/composer.json
 @@ -5,6 +5,7 @@
@@ -11,7 +11,7 @@ index a3a0667..41b1e41 100644
          "symfony/dotenv": "5.0.*",
          "symfony/flex": "^1.3.1",
 diff --git a/composer.lock b/composer.lock
-index 55d013e..b51022c 100644
+index 55d013ea..b51022c4 100644
 --- a/composer.lock
 +++ b/composer.lock
 @@ -4,8 +4,138 @@
@@ -240,7 +240,7 @@ index 55d013e..b51022c 100644
              "name": "symfony/cache",
              "version": "v5.0.4",
 diff --git a/config/bundles.php b/config/bundles.php
-index 49d3fb6..0d71512 100644
+index 49d3fb6f..0d715123 100644
 --- a/config/bundles.php
 +++ b/config/bundles.php
 @@ -2,4 +2,5 @@
@@ -251,7 +251,7 @@ index 49d3fb6..0d71512 100644
  ];
 diff --git a/config/packages/sensio_framework_extra.yaml b/config/packages/sensio_framework_extra.yaml
 new file mode 100644
-index 0000000..1821ccc
+index 00000000..1821ccc0
 --- /dev/null
 +++ b/config/packages/sensio_framework_extra.yaml
 @@ -0,0 +1,3 @@
@@ -260,7 +260,7 @@ index 0000000..1821ccc
 +        annotations: false
 diff --git a/config/routes/annotations.yaml b/config/routes/annotations.yaml
 new file mode 100644
-index 0000000..e92efc5
+index 00000000..e92efc59
 --- /dev/null
 +++ b/config/routes/annotations.yaml
 @@ -0,0 +1,7 @@
@@ -272,7 +272,7 @@ index 0000000..e92efc5
 +    resource: ../../src/Kernel.php
 +    type: annotation
 diff --git a/symfony.lock b/symfony.lock
-index d7e81ec..e3ba8fa 100644
+index d7e81ec8..e3ba8fa6 100644
 --- a/symfony.lock
 +++ b/symfony.lock
 @@ -1,4 +1,19 @@

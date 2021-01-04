@@ -1,5 +1,5 @@
 diff --git a/src/Controller/QuestionController.php b/src/Controller/QuestionController.php
-index 7fdfd39..ca4963e 100644
+index 7fdfd393..ca4963e7 100644
 --- a/src/Controller/QuestionController.php
 +++ b/src/Controller/QuestionController.php
 @@ -36,7 +36,7 @@ class QuestionController extends AbstractController

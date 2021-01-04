@@ -1,5 +1,5 @@
 diff --git a/.env b/.env
-index 9501a4d..2cb271b 100644
+index 9501a4d1..2cb271b2 100644
 --- a/.env
 +++ b/.env
 @@ -19,3 +19,7 @@ APP_SECRET=c28f3d37eba278748f3c0427b313e86a
@@ -11,7 +11,7 @@ index 9501a4d..2cb271b 100644
 +SENTRY_DSN=
 +###< sentry/sentry-symfony ###
 diff --git a/composer.json b/composer.json
-index 44a34b1..41b3e1f 100644
+index 44a34b10..41b3e1ff 100644
 --- a/composer.json
 +++ b/composer.json
 @@ -5,8 +5,10 @@
@@ -26,7 +26,7 @@ index 44a34b1..41b3e1f 100644
          "symfony/console": "5.0.*",
          "symfony/debug-bundle": "5.0.*",
 diff --git a/composer.lock b/composer.lock
-index 80933a6..9ce191d 100644
+index 80933a66..9ce191db 100644
 --- a/composer.lock
 +++ b/composer.lock
 @@ -4,8 +4,133 @@
@@ -1549,7 +1549,7 @@ index 80933a6..9ce191d 100644
              "name": "symfony/service-contracts",
              "version": "v2.0.1",
 diff --git a/config/bundles.php b/config/bundles.php
-index 3460dff..690fdf8 100644
+index 3460dff0..690fdf88 100644
 --- a/config/bundles.php
 +++ b/config/bundles.php
 @@ -10,4 +10,5 @@ return [
@@ -1560,14 +1560,14 @@ index 3460dff..690fdf8 100644
  ];
 diff --git a/config/packages/sentry.yaml b/config/packages/sentry.yaml
 new file mode 100644
-index 0000000..342036f
+index 00000000..342036fe
 --- /dev/null
 +++ b/config/packages/sentry.yaml
 @@ -0,0 +1,2 @@
 +sentry:
 +    dsn: '%env(SENTRY_DSN)%'
 diff --git a/symfony.lock b/symfony.lock
-index b55da23..00908a1 100644
+index b55da234..00908a12 100644
 --- a/symfony.lock
 +++ b/symfony.lock
 @@ -1,4 +1,10 @@

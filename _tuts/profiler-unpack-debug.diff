@@ -1,5 +1,5 @@
 diff --git a/composer.json b/composer.json
-index cfaea8a..c62bc55 100644
+index cfaea8a6..c62bc552 100644
 --- a/composer.json
 +++ b/composer.json
 @@ -5,13 +5,17 @@
@@ -22,7 +22,7 @@ index cfaea8a..c62bc55 100644
      },
      "require-dev": {
 diff --git a/composer.lock b/composer.lock
-index b2c1dfd..6a80d9e 100644
+index b2c1dfdd..6a80d9e6 100644
 --- a/composer.lock
 +++ b/composer.lock
 @@ -4,7 +4,7 @@
