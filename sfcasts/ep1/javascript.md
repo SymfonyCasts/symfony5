@@ -29,6 +29,13 @@ Inside this block, I'm going to paste a `<script>` tag to bring in jQuery from
 a CDN. You can copy this from the code block on this page, or go to jQuery to
 get it.
 
+***TIP
+In new Symfony projects, the `javascripts` block is at the top of this file - inside the `<head>` tag.
+You can keep the `javascripts` block up in `<head>` or move it down here. If you
+keep it up inside `head`, be sure to add a `defer` attribute to every `script` tag:
+this will cause your JavaScript to be executed *after* the page loads.
+***
+
 [[[ code('dfaa4f6a88') ]]]
 
 If you're wondering *why* we put this inside of the `javascripts` block... other
