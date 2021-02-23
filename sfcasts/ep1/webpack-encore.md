@@ -50,7 +50,7 @@ Before we install Encore, make sure you've committed all your changes - I alread
 have. Then run:
 
 ```terminal
-composer require encore
+composer require "encore:^1.8"
 ```
 
 Wait... a minute ago, I said that Encore is a *Node* library. So why are we
