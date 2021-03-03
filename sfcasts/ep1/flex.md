@@ -13,6 +13,12 @@ At your terminal, run:
 composer require sec-checker
 ```
 
+***TIP
+You can still download the security checker to see how its recipe works,
+but the API it uses has been discontinued in favor of other solutions.
+If you want to know more, see https://github.com/sensiolabs/security-checker
+***
+
 In a real app, you *should* probably pass `--dev` to add this to your *dev*
 dependencies... but it won't matter for us.
 
