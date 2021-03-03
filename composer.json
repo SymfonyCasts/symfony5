@@ -2,7 +2,7 @@
     "type": "project",
     "license": "proprietary",
     "require": {
-        "php": "^7.2.5",
+        "php": "^7.3.0 || ^8.0.0",
         "ext-ctype": "*",
         "ext-iconv": "*",
         "symfony/console": "5.0.*",
@@ -19,7 +19,7 @@
         },
         "sort-packages": true,
         "platform": {
-            "php": "7.2.5"
+            "php": "7.3.0"
         }
     },
     "autoload": {
