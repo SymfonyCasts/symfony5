@@ -1,9 +1,9 @@
 diff --git a/composer.json b/composer.json
-index aee34bd3..041ce88d 100644
+index bb562fa8..345e90e5 100644
 --- a/composer.json
 +++ b/composer.json
 @@ -5,7 +5,6 @@
-         "php": "^7.2.5",
+         "php": "^7.3.0 || ^8.0.0",
          "ext-ctype": "*",
          "ext-iconv": "*",
 -        "easycorp/easy-log-handler": "^1.0.7",
@@ -11,21 +11,21 @@ index aee34bd3..041ce88d 100644
          "symfony/asset": "5.0.*",
          "symfony/console": "5.0.*",
 diff --git a/composer.lock b/composer.lock
-index 56be6690..84ef377b 100644
+index 241844f9..21343439 100644
 --- a/composer.lock
 +++ b/composer.lock
 @@ -4,7 +4,7 @@
          "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
          "This file is @generated automatically"
      ],
--    "content-hash": "47fb1205d801dfec85f6af9ec6279a54",
-+    "content-hash": "f42806edaae2eb996b77178f98a68937",
+-    "content-hash": "10ac164187c007a17ba94739a11431de",
++    "content-hash": "2790d8c7fdf7c308e04e0b969df660db",
      "packages": [
          {
              "name": "doctrine/annotations",
-@@ -137,57 +137,6 @@
+@@ -156,61 +156,6 @@
              ],
-             "time": "2019-10-30T14:39:59+00:00"
+             "time": "2020-05-25T17:44:05+00:00"
          },
 -        {
 -            "name": "easycorp/easy-log-handler",
@@ -75,12 +75,16 @@ index 56be6690..84ef377b 100644
 -                "monolog",
 -                "productivity"
 -            ],
+-            "support": {
+-                "issues": "https://github.com/EasyCorp/easy-log-handler/issues",
+-                "source": "https://github.com/EasyCorp/easy-log-handler/tree/master"
+-            },
 -            "abandoned": true,
 -            "time": "2019-10-24T07:13:31+00:00"
 -        },
          {
              "name": "monolog/monolog",
-             "version": "2.0.2",
+             "version": "2.2.0",
 diff --git a/config/packages/dev/easy_log_handler.yaml b/config/packages/dev/easy_log_handler.yaml
 deleted file mode 100644
 index 27bfc608..00000000
@@ -104,24 +108,15 @@ index 27bfc608..00000000
 -#            type: service
 -#            id:   EasyCorp\EasyLog\EasyLogHandler
 diff --git a/symfony.lock b/symfony.lock
-index 333078cb..d9572160 100644
+index 88fff8f7..0309794e 100644
 --- a/symfony.lock
 +++ b/symfony.lock
-@@ -14,18 +14,6 @@
+@@ -14,9 +14,6 @@
      "doctrine/lexer": {
          "version": "1.2.0"
      },
 -    "easycorp/easy-log-handler": {
--        "version": "1.0",
--        "recipe": {
--            "repo": "github.com/symfony/recipes",
--            "branch": "master",
--            "version": "1.0",
--            "ref": "70062abc2cd58794d2a90274502f81b55cd9951b"
--        },
--        "files": [
--            "config/packages/dev/easy_log_handler.yaml"
--        ]
+-        "version": "v1.0.9"
 -    },
      "monolog/monolog": {
          "version": "2.0.2"

@@ -146,10 +146,10 @@ index 1cd05726..b0168617 100644
      }
  }
 diff --git a/symfony.lock b/symfony.lock
-index 57a707be..d098404b 100644
+index 7479e32d..1e000b5f 100644
 --- a/symfony.lock
 +++ b/symfony.lock
-@@ -208,15 +208,14 @@
+@@ -214,15 +214,14 @@
          ]
      },
      "symfony/framework-bundle": {

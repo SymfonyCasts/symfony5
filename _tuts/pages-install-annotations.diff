@@ -1,9 +1,9 @@
 diff --git a/composer.json b/composer.json
-index a3a06678..41b1e416 100644
+index df105b67..4b8287d6 100644
 --- a/composer.json
 +++ b/composer.json
 @@ -5,6 +5,7 @@
-         "php": "^7.2.5",
+         "php": "^7.3.0 || ^8.0.0",
          "ext-ctype": "*",
          "ext-iconv": "*",
 +        "sensio/framework-extra-bundle": "^5.5",
@@ -11,44 +11,42 @@ index a3a06678..41b1e416 100644
          "symfony/dotenv": "5.0.*",
          "symfony/flex": "^1.3.1",
 diff --git a/composer.lock b/composer.lock
-index 55d013ea..b51022c4 100644
+index 92841499..1eb6d790 100644
 --- a/composer.lock
 +++ b/composer.lock
-@@ -4,8 +4,138 @@
+@@ -4,8 +4,158 @@
          "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
          "This file is @generated automatically"
      ],
--    "content-hash": "51afe8f3fed7346f8594d1e4efbe228a",
-+    "content-hash": "a769d0cdcb12663a51bafa11fab11777",
+-    "content-hash": "f330d4d45a88ccd00e9582e130d1818b",
++    "content-hash": "1db8a0b3f6e8de8d5bdb4d716ce3b7e5",
      "packages": [
 +        {
 +            "name": "doctrine/annotations",
-+            "version": "v1.8.0",
++            "version": "1.12.1",
 +            "source": {
 +                "type": "git",
 +                "url": "https://github.com/doctrine/annotations.git",
-+                "reference": "904dca4eb10715b92569fbcd79e201d5c349b6bc"
++                "reference": "b17c5014ef81d212ac539f07a1001832df1b6d3b"
 +            },
 +            "dist": {
 +                "type": "zip",
-+                "url": "https://api.github.com/repos/doctrine/annotations/zipball/904dca4eb10715b92569fbcd79e201d5c349b6bc",
-+                "reference": "904dca4eb10715b92569fbcd79e201d5c349b6bc",
++                "url": "https://api.github.com/repos/doctrine/annotations/zipball/b17c5014ef81d212ac539f07a1001832df1b6d3b",
++                "reference": "b17c5014ef81d212ac539f07a1001832df1b6d3b",
 +                "shasum": ""
 +            },
 +            "require": {
 +                "doctrine/lexer": "1.*",
-+                "php": "^7.1"
++                "ext-tokenizer": "*",
++                "php": "^7.1 || ^8.0"
 +            },
 +            "require-dev": {
 +                "doctrine/cache": "1.*",
-+                "phpunit/phpunit": "^7.5"
++                "doctrine/coding-standard": "^6.0 || ^8.1",
++                "phpstan/phpstan": "^0.12.20",
++                "phpunit/phpunit": "^7.5 || ^9.1.5"
 +            },
 +            "type": "library",
-+            "extra": {
-+                "branch-alias": {
-+                    "dev-master": "1.7.x-dev"
-+                }
-+            },
 +            "autoload": {
 +                "psr-4": {
 +                    "Doctrine\\Common\\Annotations\\": "lib/Doctrine/Common/Annotations"
@@ -81,30 +79,34 @@ index 55d013ea..b51022c4 100644
 +                }
 +            ],
 +            "description": "Docblock Annotations Parser",
-+            "homepage": "http://www.doctrine-project.org",
++            "homepage": "https://www.doctrine-project.org/projects/annotations.html",
 +            "keywords": [
 +                "annotations",
 +                "docblock",
 +                "parser"
 +            ],
-+            "time": "2019-10-01T18:55:10+00:00"
++            "support": {
++                "issues": "https://github.com/doctrine/annotations/issues",
++                "source": "https://github.com/doctrine/annotations/tree/1.12.1"
++            },
++            "time": "2021-02-21T21:00:45+00:00"
 +        },
 +        {
 +            "name": "doctrine/lexer",
-+            "version": "1.2.0",
++            "version": "1.2.1",
 +            "source": {
 +                "type": "git",
 +                "url": "https://github.com/doctrine/lexer.git",
-+                "reference": "5242d66dbeb21a30dd8a3e66bf7a73b66e05e1f6"
++                "reference": "e864bbf5904cb8f5bb334f99209b48018522f042"
 +            },
 +            "dist": {
 +                "type": "zip",
-+                "url": "https://api.github.com/repos/doctrine/lexer/zipball/5242d66dbeb21a30dd8a3e66bf7a73b66e05e1f6",
-+                "reference": "5242d66dbeb21a30dd8a3e66bf7a73b66e05e1f6",
++                "url": "https://api.github.com/repos/doctrine/lexer/zipball/e864bbf5904cb8f5bb334f99209b48018522f042",
++                "reference": "e864bbf5904cb8f5bb334f99209b48018522f042",
 +                "shasum": ""
 +            },
 +            "require": {
-+                "php": "^7.2"
++                "php": "^7.2 || ^8.0"
 +            },
 +            "require-dev": {
 +                "doctrine/coding-standard": "^6.0",
@@ -149,13 +151,31 @@ index 55d013ea..b51022c4 100644
 +                "parser",
 +                "php"
 +            ],
-+            "time": "2019-10-30T14:39:59+00:00"
++            "support": {
++                "issues": "https://github.com/doctrine/lexer/issues",
++                "source": "https://github.com/doctrine/lexer/tree/1.2.1"
++            },
++            "funding": [
++                {
++                    "url": "https://www.doctrine-project.org/sponsorship.html",
++                    "type": "custom"
++                },
++                {
++                    "url": "https://www.patreon.com/phpdoctrine",
++                    "type": "patreon"
++                },
++                {
++                    "url": "https://tidelift.com/funding/github/packagist/doctrine%2Flexer",
++                    "type": "tidelift"
++                }
++            ],
++            "time": "2020-05-25T17:44:05+00:00"
 +        },
          {
              "name": "psr/cache",
              "version": "1.0.1",
-@@ -194,6 +324,84 @@
-             ],
+@@ -208,6 +358,88 @@
+             },
              "time": "2019-11-01T11:05:21+00:00"
          },
 +        {
@@ -234,11 +254,15 @@ index 55d013ea..b51022c4 100644
 +                "annotations",
 +                "controllers"
 +            ],
++            "support": {
++                "issues": "https://github.com/sensiolabs/SensioFrameworkExtraBundle/issues",
++                "source": "https://github.com/sensiolabs/SensioFrameworkExtraBundle/tree/v5.5.3"
++            },
 +            "time": "2019-12-27T08:57:19+00:00"
 +        },
          {
              "name": "symfony/cache",
-             "version": "v5.0.4",
+             "version": "v5.0.11",
 diff --git a/config/bundles.php b/config/bundles.php
 index 49d3fb6f..0d715123 100644
 --- a/config/bundles.php
@@ -272,7 +296,7 @@ index 00000000..e92efc59
 +    resource: ../../src/Kernel.php
 +    type: annotation
 diff --git a/symfony.lock b/symfony.lock
-index d7e81ec8..e3ba8fa6 100644
+index 4a1f199a..f207d18e 100644
 --- a/symfony.lock
 +++ b/symfony.lock
 @@ -1,4 +1,19 @@

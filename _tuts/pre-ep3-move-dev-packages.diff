@@ -1,9 +1,9 @@
 diff --git a/composer.json b/composer.json
-index 7ab14e0d..9f00dac7 100644
+index 6716470d..ab689d83 100644
 --- a/composer.json
 +++ b/composer.json
-@@ -11,22 +11,22 @@
-         "sentry/sentry-symfony": "^3.4",
+@@ -12,22 +12,22 @@
+         "sentry/sentry-symfony": "^4.0",
          "symfony/asset": "5.1.*",
          "symfony/console": "5.1.*",
 -        "symfony/debug-bundle": "5.1.*",
@@ -30,19 +30,19 @@ index 7ab14e0d..9f00dac7 100644
      "config": {
          "preferred-install": {
 diff --git a/composer.lock b/composer.lock
-index 96c31046..e1730070 100644
+index ad4e8476..37bf540c 100644
 --- a/composer.lock
 +++ b/composer.lock
 @@ -4,7 +4,7 @@
          "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
          "This file is @generated automatically"
      ],
--    "content-hash": "59242a0720f4b220cb058139fc2c3405",
-+    "content-hash": "dcd9f823e54bf8e06ddaed57563d0fbf",
+-    "content-hash": "ba0bd346e14ff1e295829fb94eb597f7",
++    "content-hash": "558e673bea516d954fc25f6312307c25",
      "packages": [
          {
              "name": "clue/stream-filter",
-@@ -1582,40 +1582,43 @@
+@@ -1632,40 +1632,43 @@
          },
          {
              "name": "sensio/framework-extra-bundle",
@@ -93,7 +93,7 @@ index 96c31046..e1730070 100644
                  "symfony/psr-http-message-bridge": "^1.1",
                  "symfony/security-bundle": "^4.4|^5.0",
                  "symfony/twig-bundle": "^4.4|^5.0",
-@@ -1625,7 +1628,7 @@
+@@ -1675,7 +1678,7 @@
              "type": "symfony-bundle",
              "extra": {
                  "branch-alias": {
@@ -102,16 +102,19 @@ index 96c31046..e1730070 100644
                  }
              },
              "autoload": {
-@@ -1651,7 +1654,7 @@
-                 "annotations",
-                 "controllers"
+@@ -1703,9 +1706,9 @@
              ],
+             "support": {
+                 "issues": "https://github.com/sensiolabs/SensioFrameworkExtraBundle/issues",
+-                "source": "https://github.com/sensiolabs/SensioFrameworkExtraBundle/tree/master"
++                "source": "https://github.com/sensiolabs/SensioFrameworkExtraBundle/tree/v5.6.1"
+             },
 -            "time": "2020-06-15T20:28:02+00:00"
 +            "time": "2020-08-25T19:10:18+00:00"
          },
          {
              "name": "sentry/sdk",
-@@ -2291,86 +2294,6 @@
+@@ -2400,89 +2403,6 @@
              ],
              "time": "2020-06-15T12:59:21+00:00"
          },
@@ -179,6 +182,9 @@ index 96c31046..e1730070 100644
 -            ],
 -            "description": "Symfony DebugBundle",
 -            "homepage": "https://symfony.com",
+-            "support": {
+-                "source": "https://github.com/symfony/debug-bundle/tree/5.1"
+-            },
 -            "funding": [
 -                {
 -                    "url": "https://symfony.com/sponsor",
@@ -198,7 +204,7 @@ index 96c31046..e1730070 100644
          {
              "name": "symfony/dependency-injection",
              "version": "v5.1.2",
-@@ -4974,85 +4897,6 @@
+@@ -5348,88 +5268,6 @@
              ],
              "time": "2020-06-07T15:42:22+00:00"
          },
@@ -265,6 +271,9 @@ index 96c31046..e1730070 100644
 -            ],
 -            "description": "Symfony WebProfilerBundle",
 -            "homepage": "https://symfony.com",
+-            "support": {
+-                "source": "https://github.com/symfony/web-profiler-bundle/tree/5.1"
+-            },
 -            "funding": [
 -                {
 -                    "url": "https://symfony.com/sponsor",
@@ -283,9 +292,9 @@ index 96c31046..e1730070 100644
 -        },
          {
              "name": "symfony/webpack-encore-bundle",
-             "version": "v1.7.3",
-@@ -5494,6 +5338,86 @@
-             ],
+             "version": "v1.8.0",
+@@ -5907,6 +5745,89 @@
+             },
              "time": "2020-07-02T17:12:47+00:00"
          },
 +        {
@@ -352,6 +361,9 @@ index 96c31046..e1730070 100644
 +            ],
 +            "description": "Symfony DebugBundle",
 +            "homepage": "https://symfony.com",
++            "support": {
++                "source": "https://github.com/symfony/debug-bundle/tree/5.1"
++            },
 +            "funding": [
 +                {
 +                    "url": "https://symfony.com/sponsor",
@@ -370,11 +382,11 @@ index 96c31046..e1730070 100644
 +        },
          {
              "name": "symfony/maker-bundle",
-             "version": "v1.20.0",
-@@ -5576,6 +5500,85 @@
+             "version": "v1.23.0",
+@@ -5993,6 +5914,88 @@
                  }
              ],
-             "time": "2020-07-14T11:22:04+00:00"
+             "time": "2020-10-28T15:35:16+00:00"
 +        },
 +        {
 +            "name": "symfony/web-profiler-bundle",
@@ -439,6 +451,9 @@ index 96c31046..e1730070 100644
 +            ],
 +            "description": "Symfony WebProfilerBundle",
 +            "homepage": "https://symfony.com",
++            "support": {
++                "source": "https://github.com/symfony/web-profiler-bundle/tree/5.1"
++            },
 +            "funding": [
 +                {
 +                    "url": "https://symfony.com/sponsor",

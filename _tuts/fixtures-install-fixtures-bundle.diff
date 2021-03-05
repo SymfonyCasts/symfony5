@@ -1,8 +1,8 @@
 diff --git a/composer.json b/composer.json
-index 09f220f2..1dc5b226 100644
+index da3252dd..a9a181c0 100644
 --- a/composer.json
 +++ b/composer.json
-@@ -27,6 +27,7 @@
+@@ -28,6 +28,7 @@
          "twig/twig": "^2.12|^3.0"
      },
      "require-dev": {
@@ -11,64 +11,59 @@ index 09f220f2..1dc5b226 100644
          "symfony/maker-bundle": "^1.15",
          "symfony/var-dumper": "5.1.*",
 diff --git a/composer.lock b/composer.lock
-index 8bab49ab..23e12d9c 100644
+index 0037669d..4b25354c 100644
 --- a/composer.lock
 +++ b/composer.lock
 @@ -4,7 +4,7 @@
          "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
          "This file is @generated automatically"
      ],
--    "content-hash": "6677969bffcac593c42c4093741a893f",
-+    "content-hash": "2903407209183706300cd1016bbb2d84",
+-    "content-hash": "bae3e4132126ee96c40f264e765d90bc",
++    "content-hash": "80224d71352eb46d2d2bf25f1025f672",
      "packages": [
          {
              "name": "clue/stream-filter",
-@@ -6955,6 +6955,166 @@
+@@ -7342,6 +7342,164 @@
          }
      ],
      "packages-dev": [
 +        {
 +            "name": "doctrine/data-fixtures",
-+            "version": "1.4.3",
++            "version": "1.5.0",
 +            "source": {
 +                "type": "git",
 +                "url": "https://github.com/doctrine/data-fixtures.git",
-+                "reference": "7ebac50901eb4516816ac39100dba1759d843943"
++                "reference": "51d3d4880d28951fff42a635a2389f8c63baddc5"
 +            },
 +            "dist": {
 +                "type": "zip",
-+                "url": "https://api.github.com/repos/doctrine/data-fixtures/zipball/7ebac50901eb4516816ac39100dba1759d843943",
-+                "reference": "7ebac50901eb4516816ac39100dba1759d843943",
++                "url": "https://api.github.com/repos/doctrine/data-fixtures/zipball/51d3d4880d28951fff42a635a2389f8c63baddc5",
++                "reference": "51d3d4880d28951fff42a635a2389f8c63baddc5",
 +                "shasum": ""
 +            },
 +            "require": {
-+                "doctrine/common": "^2.11",
-+                "doctrine/persistence": "^1.3.3",
++                "doctrine/common": "^2.13|^3.0",
++                "doctrine/persistence": "^1.3.3|^2.0",
 +                "php": "^7.2 || ^8.0"
 +            },
 +            "conflict": {
 +                "doctrine/phpcr-odm": "<1.3.0"
 +            },
 +            "require-dev": {
-+                "alcaeus/mongo-php-adapter": "^1.1",
-+                "doctrine/coding-standard": "^6.0",
++                "doctrine/coding-standard": "^8.2",
 +                "doctrine/dbal": "^2.5.4",
-+                "doctrine/mongodb-odm": "^1.3.0",
++                "doctrine/mongodb-odm": "^1.3.0 || ^2.0.0",
 +                "doctrine/orm": "^2.7.0",
-+                "phpunit/phpunit": "^7.0"
++                "ext-sqlite3": "*",
++                "phpunit/phpunit": "^8.0"
 +            },
 +            "suggest": {
-+                "alcaeus/mongo-php-adapter": "For using MongoDB ODM with PHP 7",
++                "alcaeus/mongo-php-adapter": "For using MongoDB ODM 1.3 with PHP 7 (deprecated)",
 +                "doctrine/mongodb-odm": "For loading MongoDB ODM fixtures",
 +                "doctrine/orm": "For loading ORM fixtures",
 +                "doctrine/phpcr-odm": "For loading PHPCR ODM fixtures"
 +            },
 +            "type": "library",
-+            "extra": {
-+                "branch-alias": {
-+                    "dev-master": "1.4.x-dev"
-+                }
-+            },
 +            "autoload": {
 +                "psr-4": {
 +                    "Doctrine\\Common\\DataFixtures\\": "lib/Doctrine/Common/DataFixtures"
@@ -89,6 +84,10 @@ index 8bab49ab..23e12d9c 100644
 +            "keywords": [
 +                "database"
 +            ],
++            "support": {
++                "issues": "https://github.com/doctrine/data-fixtures/issues",
++                "source": "https://github.com/doctrine/data-fixtures/tree/1.5.0"
++            },
 +            "funding": [
 +                {
 +                    "url": "https://www.doctrine-project.org/sponsorship.html",
@@ -103,28 +102,28 @@ index 8bab49ab..23e12d9c 100644
 +                    "type": "tidelift"
 +                }
 +            ],
-+            "time": "2020-05-25T19:45:03+00:00"
++            "time": "2021-01-23T10:20:43+00:00"
 +        },
 +        {
 +            "name": "doctrine/doctrine-fixtures-bundle",
-+            "version": "3.3.1",
++            "version": "3.4.0",
 +            "source": {
 +                "type": "git",
 +                "url": "https://github.com/doctrine/DoctrineFixturesBundle.git",
-+                "reference": "39defca57ee0949e1475c46177b30b6d1b732e8f"
++                "reference": "870189619a7770f468ffb0b80925302e065a3b34"
 +            },
 +            "dist": {
 +                "type": "zip",
-+                "url": "https://api.github.com/repos/doctrine/DoctrineFixturesBundle/zipball/39defca57ee0949e1475c46177b30b6d1b732e8f",
-+                "reference": "39defca57ee0949e1475c46177b30b6d1b732e8f",
++                "url": "https://api.github.com/repos/doctrine/DoctrineFixturesBundle/zipball/870189619a7770f468ffb0b80925302e065a3b34",
++                "reference": "870189619a7770f468ffb0b80925302e065a3b34",
 +                "shasum": ""
 +            },
 +            "require": {
 +                "doctrine/data-fixtures": "^1.3",
 +                "doctrine/doctrine-bundle": "^1.11|^2.0",
 +                "doctrine/orm": "^2.6.0",
-+                "doctrine/persistence": "^1.3",
-+                "php": "^7.1",
++                "doctrine/persistence": "^1.3.7|^2.0",
++                "php": "^7.1 || ^8.0",
 +                "symfony/config": "^3.4|^4.3|^5.0",
 +                "symfony/console": "^3.4|^4.3|^5.0",
 +                "symfony/dependency-injection": "^3.4|^4.3|^5.0",
@@ -133,15 +132,10 @@ index 8bab49ab..23e12d9c 100644
 +            },
 +            "require-dev": {
 +                "doctrine/coding-standard": "^6.0",
-+                "phpunit/phpunit": "^7.4",
++                "phpunit/phpunit": "^7.4 || ^8.0 || ^9.2",
 +                "symfony/phpunit-bridge": "^4.1|^5.0"
 +            },
 +            "type": "symfony-bundle",
-+            "extra": {
-+                "branch-alias": {
-+                    "dev-master": "3.3.x-dev"
-+                }
-+            },
 +            "autoload": {
 +                "psr-4": {
 +                    "Doctrine\\Bundle\\FixturesBundle\\": ""
@@ -171,6 +165,10 @@ index 8bab49ab..23e12d9c 100644
 +                "Fixture",
 +                "persistence"
 +            ],
++            "support": {
++                "issues": "https://github.com/doctrine/DoctrineFixturesBundle/issues",
++                "source": "https://github.com/doctrine/DoctrineFixturesBundle/tree/3.4.0"
++            },
 +            "funding": [
 +                {
 +                    "url": "https://www.doctrine-project.org/sponsorship.html",
@@ -185,7 +183,7 @@ index 8bab49ab..23e12d9c 100644
 +                    "type": "tidelift"
 +                }
 +            ],
-+            "time": "2020-04-02T16:40:37+00:00"
++            "time": "2020-11-14T09:36:49+00:00"
 +        },
          {
              "name": "nikic/php-parser",
@@ -224,7 +222,7 @@ index 00000000..fece4758
 +    }
 +}
 diff --git a/symfony.lock b/symfony.lock
-index b65ce9f8..f4ecc61b 100644
+index 88224d2e..dd963b6b 100644
 --- a/symfony.lock
 +++ b/symfony.lock
 @@ -26,6 +26,9 @@

@@ -1,8 +1,8 @@
 diff --git a/composer.json b/composer.json
-index 483e2f6e..7ab14e0d 100644
+index 79d879e0..6716470d 100644
 --- a/composer.json
 +++ b/composer.json
-@@ -16,15 +16,17 @@
+@@ -17,15 +17,17 @@
          "symfony/flex": "^1.3.1",
          "symfony/framework-bundle": "5.1.*",
          "symfony/monolog-bundle": "^3.0",
@@ -26,38 +26,37 @@ index 483e2f6e..7ab14e0d 100644
      "config": {
          "preferred-install": {
 diff --git a/composer.lock b/composer.lock
-index aceb03de..96c31046 100644
+index c99a18f5..ad4e8476 100644
 --- a/composer.lock
 +++ b/composer.lock
 @@ -4,7 +4,7 @@
          "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
          "This file is @generated automatically"
      ],
--    "content-hash": "536901f0f42a18eb04aef9838873af82",
-+    "content-hash": "59242a0720f4b220cb058139fc2c3405",
+-    "content-hash": "7ea874a641555a7c5ff79501097daa15",
++    "content-hash": "ba0bd346e14ff1e295829fb94eb597f7",
      "packages": [
          {
              "name": "clue/stream-filter",
-@@ -4123,34 +4123,6 @@
+@@ -4379,51 +4379,6 @@
              ],
              "time": "2020-06-06T08:46:27+00:00"
          },
 -        {
 -            "name": "symfony/profiler-pack",
--            "version": "v1.0.4",
+-            "version": "v1.0.5",
 -            "source": {
 -                "type": "git",
 -                "url": "https://github.com/symfony/profiler-pack.git",
--                "reference": "99c4370632c2a59bb0444852f92140074ef02209"
+-                "reference": "29ec66471082b4eb068db11eb4f0a48c277653f7"
 -            },
 -            "dist": {
 -                "type": "zip",
--                "url": "https://api.github.com/repos/symfony/profiler-pack/zipball/99c4370632c2a59bb0444852f92140074ef02209",
--                "reference": "99c4370632c2a59bb0444852f92140074ef02209",
+-                "url": "https://api.github.com/repos/symfony/profiler-pack/zipball/29ec66471082b4eb068db11eb4f0a48c277653f7",
+-                "reference": "29ec66471082b4eb068db11eb4f0a48c277653f7",
 -                "shasum": ""
 -            },
 -            "require": {
--                "php": "^7.0",
 -                "symfony/stopwatch": "*",
 -                "symfony/twig-bundle": "*",
 -                "symfony/web-profiler-bundle": "*"
@@ -68,31 +67,48 @@ index aceb03de..96c31046 100644
 -                "MIT"
 -            ],
 -            "description": "A pack for the Symfony web profiler",
--            "time": "2018-12-10T12:11:44+00:00"
+-            "support": {
+-                "issues": "https://github.com/symfony/profiler-pack/issues",
+-                "source": "https://github.com/symfony/profiler-pack/tree/v1.0.5"
+-            },
+-            "funding": [
+-                {
+-                    "url": "https://symfony.com/sponsor",
+-                    "type": "custom"
+-                },
+-                {
+-                    "url": "https://github.com/fabpot",
+-                    "type": "github"
+-                },
+-                {
+-                    "url": "https://tidelift.com/funding/github/packagist/symfony/symfony",
+-                    "type": "tidelift"
+-                }
+-            ],
+-            "time": "2020-08-12T06:50:46+00:00"
 -        },
          {
-             "name": "symfony/routing",
-             "version": "v5.1.2",
-@@ -4837,34 +4809,6 @@
+             "name": "symfony/psr-http-message-bridge",
+             "version": "v2.1.0",
+@@ -5222,51 +5177,6 @@
              ],
              "time": "2020-05-20T17:43:50+00:00"
          },
 -        {
 -            "name": "symfony/twig-pack",
--            "version": "v1.0.0",
+-            "version": "v1.0.1",
 -            "source": {
 -                "type": "git",
 -                "url": "https://github.com/symfony/twig-pack.git",
--                "reference": "8b278ea4b61fba7c051f172aacae6d87ef4be0e0"
+-                "reference": "08a73e833e07921c464336deb7630f93e85ef930"
 -            },
 -            "dist": {
 -                "type": "zip",
--                "url": "https://api.github.com/repos/symfony/twig-pack/zipball/8b278ea4b61fba7c051f172aacae6d87ef4be0e0",
--                "reference": "8b278ea4b61fba7c051f172aacae6d87ef4be0e0",
+-                "url": "https://api.github.com/repos/symfony/twig-pack/zipball/08a73e833e07921c464336deb7630f93e85ef930",
+-                "reference": "08a73e833e07921c464336deb7630f93e85ef930",
 -                "shasum": ""
 -            },
 -            "require": {
--                "php": "^7.0",
 -                "symfony/twig-bundle": "*",
 -                "twig/extra-bundle": "^2.12|^3.0",
 -                "twig/twig": "^2.12|^3.0"
@@ -103,8 +119,50 @@ index aceb03de..96c31046 100644
 -                "MIT"
 -            ],
 -            "description": "A Twig pack for Symfony projects",
--            "time": "2019-10-17T05:44:22+00:00"
+-            "support": {
+-                "issues": "https://github.com/symfony/twig-pack/issues",
+-                "source": "https://github.com/symfony/twig-pack/tree/v1.0.1"
+-            },
+-            "funding": [
+-                {
+-                    "url": "https://symfony.com/sponsor",
+-                    "type": "custom"
+-                },
+-                {
+-                    "url": "https://github.com/fabpot",
+-                    "type": "github"
+-                },
+-                {
+-                    "url": "https://tidelift.com/funding/github/packagist/symfony/symfony",
+-                    "type": "tidelift"
+-                }
+-            ],
+-            "time": "2020-10-19T08:46:41+00:00"
 -        },
          {
              "name": "symfony/var-dumper",
              "version": "v5.1.2",
+diff --git a/symfony.lock b/symfony.lock
+index c210ae7b..34df6b1c 100644
+--- a/symfony.lock
++++ b/symfony.lock
+@@ -291,9 +291,6 @@
+     "symfony/polyfill-uuid": {
+         "version": "v1.15.0"
+     },
+-    "symfony/profiler-pack": {
+-        "version": "v1.0.4"
+-    },
+     "symfony/psr-http-message-bridge": {
+         "version": "2.1",
+         "recipe": {
+@@ -352,9 +349,6 @@
+             "templates/base.html.twig"
+         ]
+     },
+-    "symfony/twig-pack": {
+-        "version": "v1.0.0"
+-    },
+     "symfony/var-dumper": {
+         "version": "v5.0.4"
+     },

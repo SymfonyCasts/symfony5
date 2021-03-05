@@ -1,9 +1,9 @@
 diff --git a/composer.json b/composer.json
-index 041ce88d..44a34b10 100644
+index 345e90e5..0d602c94 100644
 --- a/composer.json
 +++ b/composer.json
 @@ -5,6 +5,7 @@
-         "php": "^7.2.5",
+         "php": "^7.3.0 || ^8.0.0",
          "ext-ctype": "*",
          "ext-iconv": "*",
 +        "knplabs/knp-markdown-bundle": "^1.8",
@@ -11,39 +11,39 @@ index 041ce88d..44a34b10 100644
          "symfony/asset": "5.0.*",
          "symfony/console": "5.0.*",
 diff --git a/composer.lock b/composer.lock
-index 84ef377b..80933a66 100644
+index 21343439..b048488d 100644
 --- a/composer.lock
 +++ b/composer.lock
 @@ -4,7 +4,7 @@
          "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
          "This file is @generated automatically"
      ],
--    "content-hash": "f42806edaae2eb996b77178f98a68937",
-+    "content-hash": "0d29a93da9b9786381960676f245927a",
+-    "content-hash": "2790d8c7fdf7c308e04e0b969df660db",
++    "content-hash": "e5bd964c52d6d915679f2b2b1cf1a34b",
      "packages": [
          {
              "name": "doctrine/annotations",
-@@ -137,6 +137,118 @@
+@@ -156,6 +156,126 @@
              ],
-             "time": "2019-10-30T14:39:59+00:00"
+             "time": "2020-05-25T17:44:05+00:00"
          },
 +        {
 +            "name": "knplabs/knp-markdown-bundle",
-+            "version": "1.8.1",
++            "version": "1.9.0",
 +            "source": {
 +                "type": "git",
 +                "url": "https://github.com/KnpLabs/KnpMarkdownBundle.git",
-+                "reference": "7238cc264eab9c42d1a5b71950b55fe3dd78ab38"
++                "reference": "843b3d0c9b741a3cf46296e9f326026b210e66c1"
 +            },
 +            "dist": {
 +                "type": "zip",
-+                "url": "https://api.github.com/repos/KnpLabs/KnpMarkdownBundle/zipball/7238cc264eab9c42d1a5b71950b55fe3dd78ab38",
-+                "reference": "7238cc264eab9c42d1a5b71950b55fe3dd78ab38",
++                "url": "https://api.github.com/repos/KnpLabs/KnpMarkdownBundle/zipball/843b3d0c9b741a3cf46296e9f326026b210e66c1",
++                "reference": "843b3d0c9b741a3cf46296e9f326026b210e66c1",
 +                "shasum": ""
 +            },
 +            "require": {
 +                "michelf/php-markdown": "~1.4",
-+                "php": "^7.1.3",
++                "php": "^7.1.3|^8.0",
 +                "symfony/dependency-injection": "~3.4|^4.0|^5.0",
 +                "symfony/framework-bundle": "~3.4|^4.0|^5.0"
 +            },
@@ -88,7 +88,11 @@ index 84ef377b..80933a66 100644
 +                "knplabs",
 +                "markdown"
 +            ],
-+            "time": "2019-11-26T13:18:52+00:00"
++            "support": {
++                "issues": "https://github.com/KnpLabs/KnpMarkdownBundle/issues",
++                "source": "https://github.com/KnpLabs/KnpMarkdownBundle/tree/1.9.0"
++            },
++            "time": "2021-03-03T20:01:32+00:00"
 +        },
 +        {
 +            "name": "michelf/php-markdown",
@@ -137,11 +141,15 @@ index 84ef377b..80933a66 100644
 +            "keywords": [
 +                "markdown"
 +            ],
++            "support": {
++                "issues": "https://github.com/michelf/php-markdown/issues",
++                "source": "https://github.com/michelf/php-markdown/tree/1.9.0"
++            },
 +            "time": "2019-12-02T02:32:27+00:00"
 +        },
          {
              "name": "monolog/monolog",
-             "version": "2.0.2",
+             "version": "2.2.0",
 diff --git a/config/bundles.php b/config/bundles.php
 index 825e4568..3460dff0 100644
 --- a/config/bundles.php
@@ -153,7 +161,7 @@ index 825e4568..3460dff0 100644
 +    Knp\Bundle\MarkdownBundle\KnpMarkdownBundle::class => ['all' => true],
  ];
 diff --git a/symfony.lock b/symfony.lock
-index d9572160..b55da234 100644
+index 0309794e..0cc2418d 100644
 --- a/symfony.lock
 +++ b/symfony.lock
 @@ -14,6 +14,12 @@

@@ -43,7 +43,7 @@ index 00000000..1748c149
 +
 +console.log('Hello Webpack Encore! Edit me in assets/js/app.js');
 diff --git a/composer.json b/composer.json
-index 385255ab..aee34bd3 100644
+index ecb84d8d..bb562fa8 100644
 --- a/composer.json
 +++ b/composer.json
 @@ -17,6 +17,7 @@
@@ -55,38 +55,38 @@ index 385255ab..aee34bd3 100644
      },
      "require-dev": {
 diff --git a/composer.lock b/composer.lock
-index 4ba36928..0fe8bd64 100644
+index 556c2e70..acfe25d0 100644
 --- a/composer.lock
 +++ b/composer.lock
 @@ -4,7 +4,7 @@
          "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
          "This file is @generated automatically"
      ],
--    "content-hash": "bdf0c0c8f8e500b9a0762d57ae90105d",
-+    "content-hash": "47fb1205d801dfec85f6af9ec6279a54",
+-    "content-hash": "110dfb058b9867d7df48982b0ced8003",
++    "content-hash": "10ac164187c007a17ba94739a11431de",
      "packages": [
          {
              "name": "doctrine/annotations",
-@@ -2737,6 +2737,59 @@
-             "homepage": "https://symfony.com",
-             "time": "2020-01-23T11:07:12+00:00"
+@@ -3548,6 +3548,77 @@
+             ],
+             "time": "2020-07-23T08:36:09+00:00"
          },
 +        {
 +            "name": "symfony/webpack-encore-bundle",
-+            "version": "v1.7.3",
++            "version": "v1.8.0",
 +            "source": {
 +                "type": "git",
 +                "url": "https://github.com/symfony/webpack-encore-bundle.git",
-+                "reference": "5c0f659eceae87271cce54bbdfb05ed8ec9007bd"
++                "reference": "c879bc50c69f6b4f2984b2bb5fe8190bbc5befdd"
 +            },
 +            "dist": {
 +                "type": "zip",
-+                "url": "https://api.github.com/repos/symfony/webpack-encore-bundle/zipball/5c0f659eceae87271cce54bbdfb05ed8ec9007bd",
-+                "reference": "5c0f659eceae87271cce54bbdfb05ed8ec9007bd",
++                "url": "https://api.github.com/repos/symfony/webpack-encore-bundle/zipball/c879bc50c69f6b4f2984b2bb5fe8190bbc5befdd",
++                "reference": "c879bc50c69f6b4f2984b2bb5fe8190bbc5befdd",
 +                "shasum": ""
 +            },
 +            "require": {
-+                "php": "^7.1.3",
++                "php": ">=7.1.3",
 +                "symfony/asset": "^3.4 || ^4.0 || ^5.0",
 +                "symfony/config": "^3.4 || ^4.0 || ^5.0",
 +                "symfony/dependency-injection": "^3.4 || ^4.0 || ^5.0",
@@ -122,11 +122,29 @@ index 4ba36928..0fe8bd64 100644
 +                }
 +            ],
 +            "description": "Integration with your Symfony app & Webpack Encore!",
-+            "time": "2020-01-31T15:31:59+00:00"
++            "support": {
++                "issues": "https://github.com/symfony/webpack-encore-bundle/issues",
++                "source": "https://github.com/symfony/webpack-encore-bundle/tree/v1.8.0"
++            },
++            "funding": [
++                {
++                    "url": "https://symfony.com/sponsor",
++                    "type": "custom"
++                },
++                {
++                    "url": "https://github.com/fabpot",
++                    "type": "github"
++                },
++                {
++                    "url": "https://tidelift.com/funding/github/packagist/symfony/symfony",
++                    "type": "tidelift"
++                }
++            ],
++            "time": "2020-10-28T17:07:25+00:00"
 +        },
          {
              "name": "symfony/yaml",
-             "version": "v5.0.4",
+             "version": "v5.0.11",
 diff --git a/config/bundles.php b/config/bundles.php
 index 73b24fd6..825e4568 100644
 --- a/config/bundles.php
@@ -218,10 +236,10 @@ index 00000000..875d54d7
 +    }
 +}
 diff --git a/symfony.lock b/symfony.lock
-index 99875e2b..333078cb 100644
+index 3504d78e..88fff8f7 100644
 --- a/symfony.lock
 +++ b/symfony.lock
-@@ -250,6 +250,25 @@
+@@ -244,6 +244,25 @@
              "config/routes/dev/web_profiler.yaml"
          ]
      },
