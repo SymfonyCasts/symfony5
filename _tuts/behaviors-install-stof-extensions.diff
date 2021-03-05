@@ -1,7 +1,16 @@
 diff --git a/composer.json b/composer.json
-index 1557828c..f3d3e642 100644
+index 1557828c..e2fb4bbe 100644
 --- a/composer.json
 +++ b/composer.json
+@@ -2,7 +2,7 @@
+     "type": "project",
+     "license": "proprietary",
+     "require": {
+-        "php": "^7.4.1 || ^8.0.0",
++        "php": "^7.4.1",
+         "ext-ctype": "*",
+         "ext-iconv": "*",
+         "composer/package-versions-deprecated": "^1.11",
 @@ -14,6 +14,7 @@
          "nyholm/psr7": "^1.4",
          "sensio/framework-extra-bundle": "^5.5",
@@ -11,15 +20,15 @@ index 1557828c..f3d3e642 100644
          "symfony/console": "5.1.*",
          "symfony/dotenv": "5.1.*",
 diff --git a/composer.lock b/composer.lock
-index 159515f7..67eb1718 100644
+index 159515f7..0cc19485 100644
 --- a/composer.lock
 +++ b/composer.lock
-@@ -4,8 +4,53 @@
+@@ -4,8 +4,57 @@
          "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
          "This file is @generated automatically"
      ],
 -    "content-hash": "489e3415a79269ef94ab8059be436030",
-+    "content-hash": "495c09406b449e772275abac1a9ba54b",
++    "content-hash": "bd44aec04d060ba63f57478720674351",
      "packages": [
 +        {
 +            "name": "behat/transliterator",
@@ -64,12 +73,16 @@ index 159515f7..67eb1718 100644
 +                "slug",
 +                "transliterator"
 +            ],
++            "support": {
++                "issues": "https://github.com/Behat/Transliterator/issues",
++                "source": "https://github.com/Behat/Transliterator/tree/v1.3.0"
++            },
 +            "time": "2020-01-14T16:39:13+00:00"
 +        },
          {
              "name": "clue/stream-filter",
              "version": "v1.5.0",
-@@ -1562,6 +1607,103 @@
+@@ -1562,6 +1611,103 @@
              ],
              "time": "2021-01-14T21:52:44+00:00"
          },
@@ -173,7 +186,7 @@ index 159515f7..67eb1718 100644
          {
              "name": "guzzlehttp/promises",
              "version": "1.4.0",
-@@ -3516,6 +3658,76 @@
+@@ -3516,6 +3662,76 @@
              ],
              "time": "2021-03-03T16:05:24+00:00"
          },
@@ -250,6 +263,15 @@ index 159515f7..67eb1718 100644
          {
              "name": "symfony/asset",
              "version": "v5.1.2",
+@@ -8193,7 +8409,7 @@
+     "prefer-stable": false,
+     "prefer-lowest": false,
+     "platform": {
+-        "php": "^7.4.1 || ^8.0.0",
++        "php": "^7.4.1",
+         "ext-ctype": "*",
+         "ext-iconv": "*"
+     },
 diff --git a/config/bundles.php b/config/bundles.php
 index 883e9af5..b89ddb31 100644
 --- a/config/bundles.php
