@@ -39,6 +39,9 @@
     "symfony/dependency-injection": {
         "version": "v5.0.4"
     },
+    "symfony/deprecation-contracts": {
+        "version": "v2.2.0"
+    },
     "symfony/dotenv": {
         "version": "v5.0.4"
     },
