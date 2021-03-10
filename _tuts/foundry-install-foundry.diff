@@ -13,7 +13,7 @@ index a9a181c0..1557828c 100644
      "config": {
          "preferred-install": {
 diff --git a/composer.lock b/composer.lock
-index 4b25354c..159515f7 100644
+index 25992fe9..dff7db8c 100644
 --- a/composer.lock
 +++ b/composer.lock
 @@ -4,7 +4,7 @@
@@ -239,7 +239,7 @@ index 4b25354c..159515f7 100644
          },
          {
              "name": "symfony/polyfill-uuid",
-@@ -7500,6 +7500,58 @@
+@@ -7495,6 +7495,58 @@
              ],
              "time": "2020-11-14T09:36:49+00:00"
          },
@@ -298,7 +298,7 @@ index 4b25354c..159515f7 100644
          {
              "name": "nikic/php-parser",
              "version": "v4.6.0",
-@@ -7639,6 +7691,82 @@
+@@ -7634,6 +7686,82 @@
              ],
              "time": "2020-05-20T17:43:50+00:00"
          },
@@ -381,7 +381,7 @@ index 4b25354c..159515f7 100644
          {
              "name": "symfony/maker-bundle",
              "version": "v1.23.0",
-@@ -7726,6 +7854,186 @@
+@@ -7721,6 +7849,186 @@
              ],
              "time": "2020-10-28T15:35:16+00:00"
          },
@@ -568,7 +568,7 @@ index 4b25354c..159515f7 100644
          {
              "name": "symfony/web-profiler-bundle",
              "version": "v5.1.2",
-@@ -7807,6 +8115,76 @@
+@@ -7802,6 +8110,76 @@
                  }
              ],
              "time": "2020-06-09T11:33:28+00:00"
@@ -656,7 +656,7 @@ index a9ebfeb2..883e9af5 100644
 +    Zenstruck\Foundry\ZenstruckFoundryBundle::class => ['dev' => true, 'test' => true],
  ];
 diff --git a/symfony.lock b/symfony.lock
-index dd963b6b..176763d4 100644
+index 15eda45a..a798ff42 100644
 --- a/symfony.lock
 +++ b/symfony.lock
 @@ -96,6 +96,9 @@

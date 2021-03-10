@@ -1,8 +1,8 @@
 diff --git a/composer.json b/composer.json
-index f8982514..f1db42e7 100644
+index a3e382d3..9e6d0f54 100644
 --- a/composer.json
 +++ b/composer.json
-@@ -14,6 +14,7 @@
+@@ -15,6 +15,7 @@
          "symfony/yaml": "5.0.*"
      },
      "require-dev": {
@@ -11,19 +11,19 @@ index f8982514..f1db42e7 100644
      "config": {
          "preferred-install": {
 diff --git a/composer.lock b/composer.lock
-index 3e4ebe75..0b7acf47 100644
+index 3af6d233..a276e170 100644
 --- a/composer.lock
 +++ b/composer.lock
 @@ -4,7 +4,7 @@
          "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
          "This file is @generated automatically"
      ],
--    "content-hash": "517ce4a761a4b5a74564db220846f254",
-+    "content-hash": "92d3328167753a3a8ebbc1a7644ff524",
+-    "content-hash": "a6b36c4138e8daf3e99a7c28bb8804c9",
++    "content-hash": "5b4d1ec284ded103d1a6ebc4251465b5",
      "packages": [
          {
              "name": "doctrine/annotations",
-@@ -3126,7 +3126,203 @@
+@@ -3190,7 +3190,203 @@
              "time": "2021-02-08T09:54:36+00:00"
          }
      ],
@@ -276,10 +276,10 @@ index 00000000..c82beff2
 +    resource: '@WebProfilerBundle/Resources/config/routing/profiler.xml'
 +    prefix: /_profiler
 diff --git a/symfony.lock b/symfony.lock
-index 24b1c780..0d729167 100644
+index 660c388f..3f086f61 100644
 --- a/symfony.lock
 +++ b/symfony.lock
-@@ -140,6 +140,9 @@
+@@ -143,6 +143,9 @@
      "symfony/polyfill-php80": {
          "version": "v1.22.1"
      },
@@ -289,7 +289,7 @@ index 24b1c780..0d729167 100644
      "symfony/routing": {
          "version": "4.2",
          "recipe": {
-@@ -157,6 +160,9 @@
+@@ -160,6 +163,9 @@
      "symfony/service-contracts": {
          "version": "v2.0.1"
      },
@@ -299,7 +299,7 @@ index 24b1c780..0d729167 100644
      "symfony/translation-contracts": {
          "version": "v2.0.1"
      },
-@@ -186,6 +192,20 @@
+@@ -189,6 +195,20 @@
      "symfony/var-exporter": {
          "version": "v5.0.4"
      },

@@ -1,5 +1,5 @@
 diff --git a/composer.json b/composer.json
-index f1db42e7..f26ad26f 100644
+index 9e6d0f54..8c76e77d 100644
 --- a/composer.json
 +++ b/composer.json
 @@ -7,6 +7,7 @@
@@ -11,15 +11,15 @@ index f1db42e7..f26ad26f 100644
          "symfony/flex": "^1.3.1",
          "symfony/framework-bundle": "5.0.*",
 diff --git a/composer.lock b/composer.lock
-index 0b7acf47..53b3f846 100644
+index a276e170..2a045570 100644
 --- a/composer.lock
 +++ b/composer.lock
 @@ -4,7 +4,7 @@
          "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
          "This file is @generated automatically"
      ],
--    "content-hash": "92d3328167753a3a8ebbc1a7644ff524",
-+    "content-hash": "718c3963605367a148f36f3b97eedeb1",
+-    "content-hash": "5b4d1ec284ded103d1a6ebc4251465b5",
++    "content-hash": "4626a33a5fcaa79234ae9dac6a69fee8",
      "packages": [
          {
              "name": "doctrine/annotations",
@@ -262,7 +262,7 @@ index 0b7acf47..53b3f846 100644
          {
              "name": "symfony/dependency-injection",
              "version": "v5.0.11",
-@@ -1808,43 +2033,52 @@
+@@ -1875,43 +2100,52 @@
              "time": "2020-07-23T10:04:24+00:00"
          },
          {
@@ -334,7 +334,7 @@ index 0b7acf47..53b3f846 100644
                  ]
              },
              "notification-url": "https://packagist.org/downloads/",
-@@ -1853,30 +2087,18 @@
+@@ -1920,30 +2154,18 @@
              ],
              "authors": [
                  {
@@ -369,7 +369,7 @@ index 0b7acf47..53b3f846 100644
              },
              "funding": [
                  {
-@@ -1892,47 +2114,47 @@
+@@ -1959,47 +2181,47 @@
                      "type": "tidelift"
                  }
              ],
@@ -439,7 +439,7 @@ index 0b7acf47..53b3f846 100644
                  ]
              },
              "notification-url": "https://packagist.org/downloads/",
-@@ -1941,36 +2163,190 @@
+@@ -2008,36 +2230,190 @@
              ],
              "authors": [
                  {
@@ -651,7 +651,7 @@ index 0b7acf47..53b3f846 100644
                  {
                      "url": "https://tidelift.com/funding/github/packagist/symfony/symfony",
                      "type": "tidelift"
-@@ -2220,6 +2596,51 @@
+@@ -2287,6 +2663,51 @@
              ],
              "time": "2021-01-07T16:49:33+00:00"
          },
@@ -702,8 +702,8 @@ index 0b7acf47..53b3f846 100644
 +        },
          {
              "name": "symfony/routing",
-             "version": "v5.0.11",
-@@ -2393,39 +2814,36 @@
+             "version": "v5.1.11",
+@@ -2457,39 +2878,36 @@
              "time": "2020-09-07T11:33:47+00:00"
          },
          {
@@ -757,7 +757,7 @@ index 0b7acf47..53b3f846 100644
              },
              "notification-url": "https://packagist.org/downloads/",
              "license": [
-@@ -2433,26 +2851,96 @@
+@@ -2497,26 +2915,96 @@
              ],
              "authors": [
                  {
@@ -866,7 +866,7 @@ index 0b7acf47..53b3f846 100644
              },
              "funding": [
                  {
-@@ -2895,6 +3383,89 @@
+@@ -2959,6 +3447,89 @@
              ],
              "time": "2020-06-07T15:38:39+00:00"
          },
@@ -956,7 +956,7 @@ index 0b7acf47..53b3f846 100644
          {
              "name": "symfony/yaml",
              "version": "v5.0.11",
-@@ -3126,203 +3697,7 @@
+@@ -3190,203 +3761,7 @@
              "time": "2021-02-08T09:54:36+00:00"
          }
      ],
@@ -1278,7 +1278,7 @@ index 00000000..fc40641d
 +            path: "%kernel.logs_dir%/%kernel.environment%.log"
 +            level: debug
 diff --git a/symfony.lock b/symfony.lock
-index 0d729167..501257fe 100644
+index 3f086f61..1330b3fe 100644
 --- a/symfony.lock
 +++ b/symfony.lock
 @@ -14,6 +14,9 @@
@@ -1313,7 +1313,7 @@ index 0d729167..501257fe 100644
      "symfony/dependency-injection": {
          "version": "v5.0.4"
      },
-@@ -125,6 +143,23 @@
+@@ -128,6 +146,23 @@
      "symfony/mime": {
          "version": "v5.0.4"
      },

@@ -26,7 +26,7 @@ index 79d879e0..6716470d 100644
      "config": {
          "preferred-install": {
 diff --git a/composer.lock b/composer.lock
-index c99a18f5..ad4e8476 100644
+index 305b4507..738ddb3e 100644
 --- a/composer.lock
 +++ b/composer.lock
 @@ -4,7 +4,7 @@
@@ -38,7 +38,7 @@ index c99a18f5..ad4e8476 100644
      "packages": [
          {
              "name": "clue/stream-filter",
-@@ -4379,51 +4379,6 @@
+@@ -4376,51 +4376,6 @@
              ],
              "time": "2020-06-06T08:46:27+00:00"
          },
@@ -90,7 +90,7 @@ index c99a18f5..ad4e8476 100644
          {
              "name": "symfony/psr-http-message-bridge",
              "version": "v2.1.0",
-@@ -5222,51 +5177,6 @@
+@@ -5214,51 +5169,6 @@
              ],
              "time": "2020-05-20T17:43:50+00:00"
          },
@@ -143,7 +143,7 @@ index c99a18f5..ad4e8476 100644
              "name": "symfony/var-dumper",
              "version": "v5.1.2",
 diff --git a/symfony.lock b/symfony.lock
-index c210ae7b..34df6b1c 100644
+index 74b43098..7923c33d 100644
 --- a/symfony.lock
 +++ b/symfony.lock
 @@ -291,9 +291,6 @@

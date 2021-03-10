@@ -20,7 +20,7 @@ index 1557828c..e2fb4bbe 100644
          "symfony/console": "5.1.*",
          "symfony/dotenv": "5.1.*",
 diff --git a/composer.lock b/composer.lock
-index 159515f7..0cc19485 100644
+index dff7db8c..b365f885 100644
 --- a/composer.lock
 +++ b/composer.lock
 @@ -4,8 +4,57 @@
@@ -263,7 +263,7 @@ index 159515f7..0cc19485 100644
          {
              "name": "symfony/asset",
              "version": "v5.1.2",
-@@ -8193,7 +8409,7 @@
+@@ -8188,7 +8404,7 @@
      "prefer-stable": false,
      "prefer-lowest": false,
      "platform": {
@@ -293,7 +293,7 @@ index 00000000..c83f3b1d
 +stof_doctrine_extensions:
 +    default_locale: en_US
 diff --git a/symfony.lock b/symfony.lock
-index 176763d4..2855f019 100644
+index a798ff42..515bf913 100644
 --- a/symfony.lock
 +++ b/symfony.lock
 @@ -1,4 +1,7 @@

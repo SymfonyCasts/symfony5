@@ -30,7 +30,7 @@ index 6716470d..ab689d83 100644
      "config": {
          "preferred-install": {
 diff --git a/composer.lock b/composer.lock
-index ad4e8476..37bf540c 100644
+index 738ddb3e..237dfc89 100644
 --- a/composer.lock
 +++ b/composer.lock
 @@ -4,7 +4,7 @@
@@ -42,7 +42,7 @@ index ad4e8476..37bf540c 100644
      "packages": [
          {
              "name": "clue/stream-filter",
-@@ -1632,40 +1632,43 @@
+@@ -1629,40 +1629,43 @@
          },
          {
              "name": "sensio/framework-extra-bundle",
@@ -93,7 +93,7 @@ index ad4e8476..37bf540c 100644
                  "symfony/psr-http-message-bridge": "^1.1",
                  "symfony/security-bundle": "^4.4|^5.0",
                  "symfony/twig-bundle": "^4.4|^5.0",
-@@ -1675,7 +1678,7 @@
+@@ -1672,7 +1675,7 @@
              "type": "symfony-bundle",
              "extra": {
                  "branch-alias": {
@@ -102,7 +102,7 @@ index ad4e8476..37bf540c 100644
                  }
              },
              "autoload": {
-@@ -1703,9 +1706,9 @@
+@@ -1700,9 +1703,9 @@
              ],
              "support": {
                  "issues": "https://github.com/sensiolabs/SensioFrameworkExtraBundle/issues",
@@ -114,7 +114,7 @@ index ad4e8476..37bf540c 100644
          },
          {
              "name": "sentry/sdk",
-@@ -2400,89 +2403,6 @@
+@@ -2397,89 +2400,6 @@
              ],
              "time": "2020-06-15T12:59:21+00:00"
          },
@@ -204,7 +204,7 @@ index ad4e8476..37bf540c 100644
          {
              "name": "symfony/dependency-injection",
              "version": "v5.1.2",
-@@ -5348,88 +5268,6 @@
+@@ -5340,88 +5260,6 @@
              ],
              "time": "2020-06-07T15:42:22+00:00"
          },
@@ -293,7 +293,7 @@ index ad4e8476..37bf540c 100644
          {
              "name": "symfony/webpack-encore-bundle",
              "version": "v1.8.0",
-@@ -5907,6 +5745,89 @@
+@@ -5899,6 +5737,89 @@
              },
              "time": "2020-07-02T17:12:47+00:00"
          },
@@ -383,7 +383,7 @@ index ad4e8476..37bf540c 100644
          {
              "name": "symfony/maker-bundle",
              "version": "v1.23.0",
-@@ -5993,6 +5914,88 @@
+@@ -5985,6 +5906,88 @@
                  }
              ],
              "time": "2020-10-28T15:35:16+00:00"

@@ -11,7 +11,7 @@ index 9501a4d1..2cb271b2 100644
 +SENTRY_DSN=
 +###< sentry/sentry-symfony ###
 diff --git a/composer.json b/composer.json
-index 0d602c94..b6bb4cb2 100644
+index 7d078489..653499dd 100644
 --- a/composer.json
 +++ b/composer.json
 @@ -5,8 +5,11 @@
@@ -27,15 +27,15 @@ index 0d602c94..b6bb4cb2 100644
          "symfony/console": "5.0.*",
          "symfony/debug-bundle": "5.0.*",
 diff --git a/composer.lock b/composer.lock
-index b048488d..2f052157 100644
+index 29beba78..e54665d3 100644
 --- a/composer.lock
 +++ b/composer.lock
 @@ -4,8 +4,147 @@
          "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
          "This file is @generated automatically"
      ],
--    "content-hash": "e5bd964c52d6d915679f2b2b1cf1a34b",
-+    "content-hash": "fdb57936af9d0ef31b1ffa828b1dfb6d",
+-    "content-hash": "f418372306d4d56f78d864cde72808f2",
++    "content-hash": "c1b75680f5b1393f1c05efd68fdf1064",
      "packages": [
 +        {
 +            "name": "clue/stream-filter",
@@ -1749,7 +1749,7 @@ index b048488d..2f052157 100644
          },
          {
              "name": "symfony/asset",
-@@ -1887,10 +3201,174 @@
+@@ -1954,10 +3268,174 @@
                      "homepage": "https://symfony.com/contributors"
                  }
              ],
@@ -1927,7 +1927,7 @@ index b048488d..2f052157 100644
              },
              "funding": [
                  {
-@@ -1906,7 +3384,7 @@
+@@ -1973,7 +3451,7 @@
                      "type": "tidelift"
                  }
              ],
@@ -1936,7 +1936,7 @@ index b048488d..2f052157 100644
          },
          {
              "name": "symfony/http-foundation",
-@@ -2339,6 +3817,77 @@
+@@ -2406,6 +3884,77 @@
              ],
              "time": "2020-10-06T15:12:11+00:00"
          },
@@ -2014,7 +2014,7 @@ index b048488d..2f052157 100644
          {
              "name": "symfony/polyfill-intl-idn",
              "version": "v1.22.1",
-@@ -2752,6 +4301,82 @@
+@@ -2819,6 +4368,82 @@
              ],
              "time": "2021-01-07T16:49:33+00:00"
          },
@@ -2097,7 +2097,7 @@ index b048488d..2f052157 100644
          {
              "name": "symfony/profiler-pack",
              "version": "v1.0.5",
-@@ -2797,6 +4422,94 @@
+@@ -2864,6 +4489,94 @@
              ],
              "time": "2020-08-12T06:50:46+00:00"
          },
@@ -2191,10 +2191,10 @@ index b048488d..2f052157 100644
 +        },
          {
              "name": "symfony/routing",
-             "version": "v5.0.11",
-@@ -2890,6 +4603,96 @@
+             "version": "v5.1.11",
+@@ -2954,6 +4667,96 @@
              ],
-             "time": "2020-06-18T18:18:56+00:00"
+             "time": "2021-01-27T10:01:46+00:00"
          },
 +        {
 +            "name": "symfony/security-core",
@@ -2362,7 +2362,7 @@ index 00000000..342036fe
 +sentry:
 +    dsn: '%env(SENTRY_DSN)%'
 diff --git a/symfony.lock b/symfony.lock
-index 0cc2418d..db3c085c 100644
+index fbe0dd59..070d43ae 100644
 --- a/symfony.lock
 +++ b/symfony.lock
 @@ -1,4 +1,10 @@
@@ -2485,7 +2485,7 @@ index 0cc2418d..db3c085c 100644
      "symfony/asset": {
          "version": "v5.0.5"
      },
-@@ -140,6 +221,12 @@
+@@ -143,6 +224,12 @@
              "src/Kernel.php"
          ]
      },
@@ -2498,7 +2498,7 @@ index 0cc2418d..db3c085c 100644
      "symfony/http-foundation": {
          "version": "v5.0.4"
      },
-@@ -166,6 +253,9 @@
+@@ -169,6 +256,9 @@
              "config/packages/test/monolog.yaml"
          ]
      },
@@ -2508,7 +2508,7 @@ index 0cc2418d..db3c085c 100644
      "symfony/polyfill-intl-idn": {
          "version": "v1.13.1"
      },
-@@ -181,9 +271,24 @@
+@@ -184,9 +274,24 @@
      "symfony/polyfill-php80": {
          "version": "v1.22.1"
      },
@@ -2533,7 +2533,7 @@ index 0cc2418d..db3c085c 100644
      "symfony/routing": {
          "version": "4.2",
          "recipe": {
-@@ -198,6 +303,9 @@
+@@ -201,6 +306,9 @@
              "config/routes.yaml"
          ]
      },

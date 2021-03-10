@@ -11,7 +11,7 @@ index a0c22199..da3252dd 100644
          "sensio/framework-extra-bundle": "^5.5",
          "sentry/sentry-symfony": "^4.0",
 diff --git a/composer.lock b/composer.lock
-index 0d158315..0037669d 100644
+index 1434ce2d..9857ef68 100644
 --- a/composer.lock
 +++ b/composer.lock
 @@ -4,7 +4,7 @@
@@ -383,7 +383,7 @@ index 0d158315..0037669d 100644
          {
              "name": "php-http/client-common",
              "version": "2.2.1",
-@@ -6394,6 +6462,101 @@
+@@ -6389,6 +6457,101 @@
              ],
              "time": "2020-06-11T12:16:36+00:00"
          },
@@ -485,7 +485,7 @@ index 0d158315..0037669d 100644
          {
              "name": "symfony/translation-contracts",
              "version": "v2.1.3",
-@@ -7176,65 +7339,6 @@
+@@ -7171,65 +7334,6 @@
                  }
              ],
              "time": "2020-07-05T13:18:14+00:00"
@@ -574,7 +574,7 @@ index 00000000..05a2b3d8
 +        fallbacks:
 +            - en
 diff --git a/symfony.lock b/symfony.lock
-index 8f38032d..88224d2e 100644
+index b42bb40d..f7fa903f 100644
 --- a/symfony.lock
 +++ b/symfony.lock
 @@ -81,6 +81,9 @@

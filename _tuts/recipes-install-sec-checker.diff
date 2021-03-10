@@ -1,5 +1,5 @@
 diff --git a/composer.json b/composer.json
-index 4b8287d6..90fbbdac 100644
+index b907c0b4..1366da98 100644
 --- a/composer.json
 +++ b/composer.json
 @@ -6,6 +6,7 @@
@@ -10,7 +10,7 @@ index 4b8287d6..90fbbdac 100644
          "symfony/console": "5.0.*",
          "symfony/dotenv": "5.0.*",
          "symfony/flex": "^1.3.1",
-@@ -45,7 +46,8 @@
+@@ -46,7 +47,8 @@
      "scripts": {
          "auto-scripts": {
              "cache:clear": "symfony-cmd",
@@ -21,15 +21,15 @@ index 4b8287d6..90fbbdac 100644
          "post-install-cmd": [
              "@auto-scripts"
 diff --git a/composer.lock b/composer.lock
-index 1eb6d790..cfe846de 100644
+index 4ce458e5..adf8af48 100644
 --- a/composer.lock
 +++ b/composer.lock
 @@ -4,7 +4,7 @@
          "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
          "This file is @generated automatically"
      ],
--    "content-hash": "1db8a0b3f6e8de8d5bdb4d716ce3b7e5",
-+    "content-hash": "75b5a77dcc7e1c89cbcb9ddf475013ac",
+-    "content-hash": "48db5b48ab90890fd305dd94115b622e",
++    "content-hash": "0565cdb4dd968d9a0180f58abdef93e4",
      "packages": [
          {
              "name": "doctrine/annotations",
@@ -93,7 +93,7 @@ index 1eb6d790..cfe846de 100644
          {
              "name": "symfony/cache",
              "version": "v5.0.11",
-@@ -1541,6 +1594,170 @@
+@@ -1608,6 +1661,170 @@
              ],
              "time": "2020-07-23T08:36:09+00:00"
          },
@@ -279,7 +279,7 @@ index 00000000..2e905f7f
 +
 +    SensioLabs\Security\Command\SecurityCheckerCommand: null
 diff --git a/symfony.lock b/symfony.lock
-index f207d18e..2f2fc212 100644
+index 55362bca..b6844ba9 100644
 --- a/symfony.lock
 +++ b/symfony.lock
 @@ -41,6 +41,18 @@
@@ -301,7 +301,7 @@ index f207d18e..2f2fc212 100644
      "symfony/cache": {
          "version": "v5.0.4"
      },
-@@ -116,6 +128,12 @@
+@@ -119,6 +131,12 @@
              "src/Kernel.php"
          ]
      },

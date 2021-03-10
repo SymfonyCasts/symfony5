@@ -1,5 +1,5 @@
 diff --git a/composer.json b/composer.json
-index df105b67..4b8287d6 100644
+index f4decb0c..b907c0b4 100644
 --- a/composer.json
 +++ b/composer.json
 @@ -5,6 +5,7 @@
@@ -11,15 +11,15 @@ index df105b67..4b8287d6 100644
          "symfony/dotenv": "5.0.*",
          "symfony/flex": "^1.3.1",
 diff --git a/composer.lock b/composer.lock
-index 92841499..1eb6d790 100644
+index 7ab76da0..4ce458e5 100644
 --- a/composer.lock
 +++ b/composer.lock
 @@ -4,8 +4,158 @@
          "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
          "This file is @generated automatically"
      ],
--    "content-hash": "f330d4d45a88ccd00e9582e130d1818b",
-+    "content-hash": "1db8a0b3f6e8de8d5bdb4d716ce3b7e5",
+-    "content-hash": "2cb5b323721b471b688e18bfb7406800",
++    "content-hash": "48db5b48ab90890fd305dd94115b622e",
      "packages": [
 +        {
 +            "name": "doctrine/annotations",
@@ -296,7 +296,7 @@ index 00000000..e92efc59
 +    resource: ../../src/Kernel.php
 +    type: annotation
 diff --git a/symfony.lock b/symfony.lock
-index 4a1f199a..f207d18e 100644
+index ee7fc069..55362bca 100644
 --- a/symfony.lock
 +++ b/symfony.lock
 @@ -1,4 +1,19 @@
