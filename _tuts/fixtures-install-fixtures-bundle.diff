@@ -11,7 +11,7 @@ index da3252dd..a9a181c0 100644
          "symfony/maker-bundle": "^1.15",
          "symfony/var-dumper": "5.1.*",
 diff --git a/composer.lock b/composer.lock
-index 9857ef68..25992fe9 100644
+index b20bdf20..d6b7ff21 100644
 --- a/composer.lock
 +++ b/composer.lock
 @@ -4,7 +4,7 @@
