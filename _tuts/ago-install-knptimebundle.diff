@@ -1,5 +1,5 @@
 diff --git a/composer.json b/composer.json
-index a0c22199..da3252dd 100644
+index ef7e35c6..b82a6148 100644
 --- a/composer.json
 +++ b/composer.json
 @@ -10,6 +10,7 @@
@@ -7,19 +7,19 @@ index a0c22199..da3252dd 100644
          "doctrine/orm": "^2.7",
          "knplabs/knp-markdown-bundle": "^1.8",
 +        "knplabs/knp-time-bundle": "^1.11",
-         "nyholm/psr7": "^1.4",
-         "sensio/framework-extra-bundle": "^5.5",
+         "sensio/framework-extra-bundle": "^6.0",
          "sentry/sentry-symfony": "^4.0",
+         "symfony/asset": "5.1.*",
 diff --git a/composer.lock b/composer.lock
-index 4927b63b..b20bdf20 100644
+index 9dbfb1e6..a583ea5e 100644
 --- a/composer.lock
 +++ b/composer.lock
 @@ -4,7 +4,7 @@
          "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
          "This file is @generated automatically"
      ],
--    "content-hash": "d0f9ef7df0bc70bfea37ae3daa85d284",
-+    "content-hash": "bae3e4132126ee96c40f264e765d90bc",
+-    "content-hash": "c2e47a3a1b183a04e10ed7dc263c6ceb",
++    "content-hash": "a214b3853d5fc7f7f8c1bd7966a5409c",
      "packages": [
          {
              "name": "clue/stream-filter",
@@ -103,7 +103,7 @@ index 4927b63b..b20bdf20 100644
          {
              "name": "laminas/laminas-code",
              "version": "4.0.0",
-@@ -6384,6 +6457,101 @@
+@@ -6305,6 +6378,101 @@
              ],
              "time": "2020-06-11T12:16:36+00:00"
          },
@@ -228,7 +228,7 @@ index 00000000..05a2b3d8
 +        fallbacks:
 +            - en
 diff --git a/symfony.lock b/symfony.lock
-index 8ea377f7..f7fa903f 100644
+index d67492a1..f42d7672 100644
 --- a/symfony.lock
 +++ b/symfony.lock
 @@ -99,6 +99,9 @@
@@ -241,7 +241,7 @@ index 8ea377f7..f7fa903f 100644
      "laminas/laminas-code": {
          "version": "3.5.1"
      },
-@@ -405,6 +408,19 @@
+@@ -393,6 +396,19 @@
      "symfony/string": {
          "version": "v5.1.2"
      },

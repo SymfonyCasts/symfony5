@@ -1,8 +1,8 @@
 diff --git a/composer.json b/composer.json
-index 79d879e0..6716470d 100644
+index e5cca93c..def886ca 100644
 --- a/composer.json
 +++ b/composer.json
-@@ -17,15 +17,17 @@
+@@ -16,15 +16,17 @@
          "symfony/flex": "^1.3.1",
          "symfony/framework-bundle": "5.1.*",
          "symfony/monolog-bundle": "^3.0",
@@ -26,19 +26,19 @@ index 79d879e0..6716470d 100644
      "config": {
          "preferred-install": {
 diff --git a/composer.lock b/composer.lock
-index 305b4507..738ddb3e 100644
+index 9131956a..020c254f 100644
 --- a/composer.lock
 +++ b/composer.lock
 @@ -4,7 +4,7 @@
          "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
          "This file is @generated automatically"
      ],
--    "content-hash": "7ea874a641555a7c5ff79501097daa15",
-+    "content-hash": "ba0bd346e14ff1e295829fb94eb597f7",
+-    "content-hash": "230b6777eddb01e3b7c74975dab27ccb",
++    "content-hash": "77b2306ef74d49a03b3e0666f77e2e47",
      "packages": [
          {
              "name": "clue/stream-filter",
-@@ -4376,51 +4376,6 @@
+@@ -4300,51 +4300,6 @@
              ],
              "time": "2020-06-06T08:46:27+00:00"
          },
@@ -90,7 +90,7 @@ index 305b4507..738ddb3e 100644
          {
              "name": "symfony/psr-http-message-bridge",
              "version": "v2.1.0",
-@@ -5214,51 +5169,6 @@
+@@ -5138,51 +5093,6 @@
              ],
              "time": "2020-05-20T17:43:50+00:00"
          },
@@ -143,10 +143,10 @@ index 305b4507..738ddb3e 100644
              "name": "symfony/var-dumper",
              "version": "v5.1.2",
 diff --git a/symfony.lock b/symfony.lock
-index 74b43098..7923c33d 100644
+index 4a099791..b744e863 100644
 --- a/symfony.lock
 +++ b/symfony.lock
-@@ -291,9 +291,6 @@
+@@ -279,9 +279,6 @@
      "symfony/polyfill-uuid": {
          "version": "v1.15.0"
      },
@@ -156,7 +156,7 @@ index 74b43098..7923c33d 100644
      "symfony/psr-http-message-bridge": {
          "version": "2.1",
          "recipe": {
-@@ -352,9 +349,6 @@
+@@ -340,9 +337,6 @@
              "templates/base.html.twig"
          ]
      },

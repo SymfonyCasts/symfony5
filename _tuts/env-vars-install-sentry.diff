@@ -11,23 +11,23 @@ index 9501a4d1..2cb271b2 100644
 +SENTRY_DSN=
 +###< sentry/sentry-symfony ###
 diff --git a/composer.json b/composer.json
-index 7d078489..653499dd 100644
+index 7d078489..21796e65 100644
 --- a/composer.json
 +++ b/composer.json
-@@ -5,8 +5,11 @@
+@@ -5,8 +5,10 @@
          "php": "^7.3.0 || ^8.0.0",
          "ext-ctype": "*",
          "ext-iconv": "*",
 +        "composer/package-versions-deprecated": "^1.11",
          "knplabs/knp-markdown-bundle": "^1.8",
-+        "nyholm/psr7": "^1.4",
-         "sensio/framework-extra-bundle": "^5.5",
+-        "sensio/framework-extra-bundle": "^5.5",
++        "sensio/framework-extra-bundle": "^6.0",
 +        "sentry/sentry-symfony": "^4.0",
          "symfony/asset": "5.0.*",
          "symfony/console": "5.0.*",
          "symfony/debug-bundle": "5.0.*",
 diff --git a/composer.lock b/composer.lock
-index 29beba78..e54665d3 100644
+index 29beba78..66b161cb 100644
 --- a/composer.lock
 +++ b/composer.lock
 @@ -4,8 +4,147 @@
@@ -35,7 +35,7 @@ index 29beba78..e54665d3 100644
          "This file is @generated automatically"
      ],
 -    "content-hash": "f418372306d4d56f78d864cde72808f2",
-+    "content-hash": "c1b75680f5b1393f1c05efd68fdf1064",
++    "content-hash": "315fa143fbf24f9061c432c529ea3d2f",
      "packages": [
 +        {
 +            "name": "clue/stream-filter",
@@ -425,113 +425,31 @@ index 29beba78..e54665d3 100644
          {
              "name": "knplabs/knp-markdown-bundle",
              "version": "1.9.0",
-@@ -373,31 +751,44 @@
+@@ -373,31 +751,54 @@
              "time": "2020-12-14T13:15:25+00:00"
          },
          {
 -            "name": "psr/cache",
 -            "version": "1.0.1",
-+            "name": "nyholm/psr7",
-+            "version": "1.4.0",
++            "name": "php-http/client-common",
++            "version": "2.3.0",
              "source": {
                  "type": "git",
 -                "url": "https://github.com/php-fig/cache.git",
 -                "reference": "d11b50ad223250cf17b86e38383413f5a6764bf8"
-+                "url": "https://github.com/Nyholm/psr7.git",
-+                "reference": "23ae1f00fbc6a886cbe3062ca682391b9cc7c37b"
++                "url": "https://github.com/php-http/client-common.git",
++                "reference": "e37e46c610c87519753135fb893111798c69076a"
              },
              "dist": {
                  "type": "zip",
 -                "url": "https://api.github.com/repos/php-fig/cache/zipball/d11b50ad223250cf17b86e38383413f5a6764bf8",
 -                "reference": "d11b50ad223250cf17b86e38383413f5a6764bf8",
-+                "url": "https://api.github.com/repos/Nyholm/psr7/zipball/23ae1f00fbc6a886cbe3062ca682391b9cc7c37b",
-+                "reference": "23ae1f00fbc6a886cbe3062ca682391b9cc7c37b",
++                "url": "https://api.github.com/repos/php-http/client-common/zipball/e37e46c610c87519753135fb893111798c69076a",
++                "reference": "e37e46c610c87519753135fb893111798c69076a",
                  "shasum": ""
              },
              "require": {
 -                "php": ">=5.3.0"
-+                "php": ">=7.1",
-+                "php-http/message-factory": "^1.0",
-+                "psr/http-factory": "^1.0",
-+                "psr/http-message": "^1.0"
-+            },
-+            "provide": {
-+                "psr/http-factory-implementation": "1.0",
-+                "psr/http-message-implementation": "1.0"
-+            },
-+            "require-dev": {
-+                "http-interop/http-factory-tests": "^0.8",
-+                "php-http/psr7-integration-tests": "^1.0",
-+                "phpunit/phpunit": "^7.5 || 8.5 || 9.4",
-+                "symfony/error-handler": "^4.4"
-             },
-             "type": "library",
-             "extra": {
-                 "branch-alias": {
--                    "dev-master": "1.0.x-dev"
-+                    "dev-master": "1.4-dev"
-                 }
-             },
-             "autoload": {
-                 "psr-4": {
--                    "Psr\\Cache\\": "src/"
-+                    "Nyholm\\Psr7\\": "src/"
-                 }
-             },
-             "notification-url": "https://packagist.org/downloads/",
-@@ -406,37 +797,596 @@
-             ],
-             "authors": [
-                 {
--                    "name": "PHP-FIG",
--                    "homepage": "http://www.php-fig.org/"
-+                    "name": "Tobias Nyholm",
-+                    "email": "tobias.nyholm@gmail.com"
-+                },
-+                {
-+                    "name": "Martijn van der Ven",
-+                    "email": "martijn@vanderven.se"
-                 }
-             ],
--            "description": "Common interface for caching libraries",
-+            "description": "A fast PHP7 implementation of PSR-7",
-+            "homepage": "https://tnyholm.se",
-             "keywords": [
--                "cache",
-+                "psr-17",
-+                "psr-7"
-+            ],
-+            "support": {
-+                "issues": "https://github.com/Nyholm/psr7/issues",
-+                "source": "https://github.com/Nyholm/psr7/tree/1.4.0"
-+            },
-+            "funding": [
-+                {
-+                    "url": "https://github.com/Zegnat",
-+                    "type": "github"
-+                },
-+                {
-+                    "url": "https://github.com/nyholm",
-+                    "type": "github"
-+                }
-+            ],
-+            "time": "2021-02-18T15:41:32+00:00"
-+        },
-+        {
-+            "name": "php-http/client-common",
-+            "version": "2.3.0",
-+            "source": {
-+                "type": "git",
-+                "url": "https://github.com/php-http/client-common.git",
-+                "reference": "e37e46c610c87519753135fb893111798c69076a"
-+            },
-+            "dist": {
-+                "type": "zip",
-+                "url": "https://api.github.com/repos/php-http/client-common/zipball/e37e46c610c87519753135fb893111798c69076a",
-+                "reference": "e37e46c610c87519753135fb893111798c69076a",
-+                "shasum": ""
-+            },
-+            "require": {
 +                "php": "^7.1 || ^8.0",
 +                "php-http/httplug": "^2.0",
 +                "php-http/message": "^1.6",
@@ -556,37 +474,45 @@ index 29beba78..e54665d3 100644
 +                "php-http/cache-plugin": "PSR-6 Cache plugin",
 +                "php-http/logger-plugin": "PSR-3 Logger plugin",
 +                "php-http/stopwatch-plugin": "Symfony Stopwatch plugin"
-+            },
-+            "type": "library",
-+            "extra": {
-+                "branch-alias": {
+             },
+             "type": "library",
+             "extra": {
+                 "branch-alias": {
+-                    "dev-master": "1.0.x-dev"
 +                    "dev-master": "2.3.x-dev"
-+                }
-+            },
-+            "autoload": {
-+                "psr-4": {
+                 }
+             },
+             "autoload": {
+                 "psr-4": {
+-                    "Psr\\Cache\\": "src/"
 +                    "Http\\Client\\Common\\": "src/"
-+                }
-+            },
-+            "notification-url": "https://packagist.org/downloads/",
-+            "license": [
-+                "MIT"
-+            ],
-+            "authors": [
-+                {
+                 }
+             },
+             "notification-url": "https://packagist.org/downloads/",
+@@ -406,18 +807,386 @@
+             ],
+             "authors": [
+                 {
+-                    "name": "PHP-FIG",
+-                    "homepage": "http://www.php-fig.org/"
 +                    "name": "Márk Sági-Kazár",
 +                    "email": "mark.sagikazar@gmail.com"
-+                }
-+            ],
+                 }
+             ],
+-            "description": "Common interface for caching libraries",
 +            "description": "Common HTTP Client implementations and tools for HTTPlug",
 +            "homepage": "http://httplug.io",
-+            "keywords": [
+             "keywords": [
+-                "cache",
+-                "psr",
+-                "psr-6"
 +                "client",
 +                "common",
 +                "http",
 +                "httplug"
-+            ],
-+            "support": {
+             ],
+             "support": {
+-                "source": "https://github.com/php-fig/cache/tree/master"
 +                "issues": "https://github.com/php-http/client-common/issues",
 +                "source": "https://github.com/php-http/client-common/tree/2.3.0"
 +            },
@@ -954,72 +880,15 @@ index 29beba78..e54665d3 100644
 +            ],
 +            "support": {
 +                "source": "https://github.com/php-fig/cache/tree/master"
-+            },
-+            "time": "2016-08-06T20:24:11+00:00"
-+        },
-+        {
-+            "name": "psr/container",
-+            "version": "1.0.0",
-+            "source": {
-+                "type": "git",
-+                "url": "https://github.com/php-fig/container.git",
-+                "reference": "b7ce3b176482dbbc1245ebf52b181af44c2cf55f"
-+            },
-+            "dist": {
-+                "type": "zip",
-+                "url": "https://api.github.com/repos/php-fig/container/zipball/b7ce3b176482dbbc1245ebf52b181af44c2cf55f",
-+                "reference": "b7ce3b176482dbbc1245ebf52b181af44c2cf55f",
-+                "shasum": ""
-+            },
-+            "require": {
-+                "php": ">=5.3.0"
-+            },
-+            "type": "library",
-+            "extra": {
-+                "branch-alias": {
-+                    "dev-master": "1.0.x-dev"
-+                }
-+            },
-+            "autoload": {
-+                "psr-4": {
-+                    "Psr\\Container\\": "src/"
-+                }
-+            },
-+            "notification-url": "https://packagist.org/downloads/",
-+            "license": [
-+                "MIT"
-+            ],
-+            "authors": [
-+                {
-+                    "name": "PHP-FIG",
-+                    "homepage": "http://www.php-fig.org/"
-+                }
-+            ],
-+            "description": "Common Container Interface (PHP FIG PSR-11)",
-+            "homepage": "https://github.com/php-fig/container",
-+            "keywords": [
-+                "PSR-11",
-+                "container",
-+                "container-interface",
-+                "container-interop",
-+                "psr"
-+            ],
-+            "support": {
-+                "issues": "https://github.com/php-fig/container/issues",
-+                "source": "https://github.com/php-fig/container/tree/master"
-+            },
-+            "time": "2017-02-14T16:28:37+00:00"
-+        },
-+        {
-+            "name": "psr/event-dispatcher",
-+            "version": "1.0.0",
-+            "source": {
-+                "type": "git",
-+                "url": "https://github.com/php-fig/event-dispatcher.git",
-+                "reference": "dbefd12671e8a14ec7f180cab83036ed26714bb0"
-+            },
-+            "dist": {
-+                "type": "zip",
+             },
+             "time": "2016-08-06T20:24:11+00:00"
+         },
+@@ -484,172 +1253,641 @@
+             },
+             "dist": {
+                 "type": "zip",
+-                "url": "https://api.github.com/repos/php-fig/event-dispatcher/zipball/dbefd12671e8a14ec7f180cab83036ed26714bb0",
+-                "reference": "dbefd12671e8a14ec7f180cab83036ed26714bb0",
 +                "url": "https://api.github.com/repos/php-fig/event-dispatcher/zipball/dbefd12671e8a14ec7f180cab83036ed26714bb0",
 +                "reference": "dbefd12671e8a14ec7f180cab83036ed26714bb0",
 +                "shasum": ""
@@ -1051,113 +920,93 @@ index 29beba78..e54665d3 100644
 +            "description": "Standard interfaces for event handling.",
 +            "keywords": [
 +                "events",
-                 "psr",
--                "psr-6"
++                "psr",
 +                "psr-14"
-             ],
-             "support": {
--                "source": "https://github.com/php-fig/cache/tree/master"
++            ],
++            "support": {
 +                "issues": "https://github.com/php-fig/event-dispatcher/issues",
 +                "source": "https://github.com/php-fig/event-dispatcher/tree/1.0.0"
-             },
--            "time": "2016-08-06T20:24:11+00:00"
++            },
 +            "time": "2019-01-08T18:20:26+00:00"
-         },
-         {
--            "name": "psr/container",
--            "version": "1.0.0",
++        },
++        {
 +            "name": "psr/http-client",
 +            "version": "1.0.1",
-             "source": {
-                 "type": "git",
--                "url": "https://github.com/php-fig/container.git",
--                "reference": "b7ce3b176482dbbc1245ebf52b181af44c2cf55f"
++            "source": {
++                "type": "git",
 +                "url": "https://github.com/php-fig/http-client.git",
 +                "reference": "2dfb5f6c5eff0e91e20e913f8c5452ed95b86621"
-             },
-             "dist": {
-                 "type": "zip",
--                "url": "https://api.github.com/repos/php-fig/container/zipball/b7ce3b176482dbbc1245ebf52b181af44c2cf55f",
--                "reference": "b7ce3b176482dbbc1245ebf52b181af44c2cf55f",
++            },
++            "dist": {
++                "type": "zip",
 +                "url": "https://api.github.com/repos/php-fig/http-client/zipball/2dfb5f6c5eff0e91e20e913f8c5452ed95b86621",
 +                "reference": "2dfb5f6c5eff0e91e20e913f8c5452ed95b86621",
-                 "shasum": ""
-             },
-             "require": {
--                "php": ">=5.3.0"
++                "shasum": ""
++            },
++            "require": {
 +                "php": "^7.0 || ^8.0",
 +                "psr/http-message": "^1.0"
-             },
-             "type": "library",
-             "extra": {
-@@ -446,7 +1396,7 @@
-             },
-             "autoload": {
-                 "psr-4": {
--                    "Psr\\Container\\": "src/"
++            },
++            "type": "library",
++            "extra": {
++                "branch-alias": {
++                    "dev-master": "1.0.x-dev"
++                }
++            },
++            "autoload": {
++                "psr-4": {
 +                    "Psr\\Http\\Client\\": "src/"
-                 }
-             },
-             "notification-url": "https://packagist.org/downloads/",
-@@ -459,37 +1409,36 @@
-                     "homepage": "http://www.php-fig.org/"
-                 }
-             ],
--            "description": "Common Container Interface (PHP FIG PSR-11)",
--            "homepage": "https://github.com/php-fig/container",
++                }
++            },
++            "notification-url": "https://packagist.org/downloads/",
++            "license": [
++                "MIT"
++            ],
++            "authors": [
++                {
++                    "name": "PHP-FIG",
++                    "homepage": "http://www.php-fig.org/"
++                }
++            ],
 +            "description": "Common interface for HTTP clients",
 +            "homepage": "https://github.com/php-fig/http-client",
-             "keywords": [
--                "PSR-11",
--                "container",
--                "container-interface",
--                "container-interop",
--                "psr"
++            "keywords": [
 +                "http",
 +                "http-client",
 +                "psr",
 +                "psr-18"
-             ],
-             "support": {
--                "issues": "https://github.com/php-fig/container/issues",
--                "source": "https://github.com/php-fig/container/tree/master"
++            ],
++            "support": {
 +                "source": "https://github.com/php-fig/http-client/tree/master"
-             },
--            "time": "2017-02-14T16:28:37+00:00"
++            },
 +            "time": "2020-06-29T06:28:15+00:00"
-         },
-         {
--            "name": "psr/event-dispatcher",
--            "version": "1.0.0",
++        },
++        {
 +            "name": "psr/http-factory",
 +            "version": "1.0.1",
-             "source": {
-                 "type": "git",
--                "url": "https://github.com/php-fig/event-dispatcher.git",
--                "reference": "dbefd12671e8a14ec7f180cab83036ed26714bb0"
++            "source": {
++                "type": "git",
 +                "url": "https://github.com/php-fig/http-factory.git",
 +                "reference": "12ac7fcd07e5b077433f5f2bee95b3a771bf61be"
-             },
-             "dist": {
-                 "type": "zip",
--                "url": "https://api.github.com/repos/php-fig/event-dispatcher/zipball/dbefd12671e8a14ec7f180cab83036ed26714bb0",
--                "reference": "dbefd12671e8a14ec7f180cab83036ed26714bb0",
++            },
++            "dist": {
++                "type": "zip",
 +                "url": "https://api.github.com/repos/php-fig/http-factory/zipball/12ac7fcd07e5b077433f5f2bee95b3a771bf61be",
 +                "reference": "12ac7fcd07e5b077433f5f2bee95b3a771bf61be",
-                 "shasum": ""
-             },
-             "require": {
--                "php": ">=7.2.0"
++                "shasum": ""
++            },
++            "require": {
 +                "php": ">=7.0.0",
 +                "psr/http-message": "^1.0"
-             },
-             "type": "library",
-             "extra": {
-@@ -499,157 +1448,522 @@
-             },
-             "autoload": {
-                 "psr-4": {
--                    "Psr\\EventDispatcher\\": "src/"
++            },
++            "type": "library",
++            "extra": {
++                "branch-alias": {
++                    "dev-master": "1.0.x-dev"
++                }
++            },
++            "autoload": {
++                "psr-4": {
 +                    "Psr\\Http\\Message\\": "src/"
 +                }
 +            },
@@ -1336,41 +1185,42 @@ index 29beba78..e54665d3 100644
 +        },
 +        {
 +            "name": "sensio/framework-extra-bundle",
-+            "version": "v5.5.4",
++            "version": "v6.1.1",
 +            "source": {
 +                "type": "git",
 +                "url": "https://github.com/sensiolabs/SensioFrameworkExtraBundle.git",
-+                "reference": "d0585d4825a87a5030ca8cd34adb4a17e1066c17"
++                "reference": "8ef75e99f20332f2725587896364f7079b53de95"
 +            },
 +            "dist": {
 +                "type": "zip",
-+                "url": "https://api.github.com/repos/sensiolabs/SensioFrameworkExtraBundle/zipball/d0585d4825a87a5030ca8cd34adb4a17e1066c17",
-+                "reference": "d0585d4825a87a5030ca8cd34adb4a17e1066c17",
++                "url": "https://api.github.com/repos/sensiolabs/SensioFrameworkExtraBundle/zipball/8ef75e99f20332f2725587896364f7079b53de95",
++                "reference": "8ef75e99f20332f2725587896364f7079b53de95",
 +                "shasum": ""
 +            },
 +            "require": {
 +                "doctrine/annotations": "^1.0",
-+                "php": ">=7.1.3",
++                "php": ">=7.2.5",
 +                "symfony/config": "^4.4|^5.0",
 +                "symfony/dependency-injection": "^4.4|^5.0",
 +                "symfony/framework-bundle": "^4.4|^5.0",
 +                "symfony/http-kernel": "^4.4|^5.0"
 +            },
 +            "conflict": {
-+                "doctrine/doctrine-cache-bundle": "<1.3.1"
++                "doctrine/doctrine-cache-bundle": "<1.3.1",
++                "doctrine/persistence": "<1.3"
 +            },
 +            "require-dev": {
++                "doctrine/dbal": "^2.10|^3.0",
 +                "doctrine/doctrine-bundle": "^1.11|^2.0",
 +                "doctrine/orm": "^2.5",
-+                "nyholm/psr7": "^1.1",
 +                "symfony/browser-kit": "^4.4|^5.0",
++                "symfony/doctrine-bridge": "^4.4|^5.0",
 +                "symfony/dom-crawler": "^4.4|^5.0",
 +                "symfony/expression-language": "^4.4|^5.0",
 +                "symfony/finder": "^4.4|^5.0",
 +                "symfony/monolog-bridge": "^4.0|^5.0",
 +                "symfony/monolog-bundle": "^3.2",
-+                "symfony/phpunit-bridge": "^4.3.5|^5.0",
-+                "symfony/psr-http-message-bridge": "^1.1",
++                "symfony/phpunit-bridge": "^4.4.9|^5.0.9",
 +                "symfony/security-bundle": "^4.4|^5.0",
 +                "symfony/twig-bundle": "^4.4|^5.0",
 +                "symfony/yaml": "^4.4|^5.0",
@@ -1379,7 +1229,7 @@ index 29beba78..e54665d3 100644
 +            "type": "symfony-bundle",
 +            "extra": {
 +                "branch-alias": {
-+                    "dev-master": "5.5.x-dev"
++                    "dev-master": "6.1.x-dev"
 +                }
 +            },
 +            "autoload": {
@@ -1398,7 +1248,7 @@ index 29beba78..e54665d3 100644
 +                {
 +                    "name": "Fabien Potencier",
 +                    "email": "fabien@symfony.com"
-                 }
++                }
 +            ],
 +            "description": "This bundle provides a way to configure your controllers with annotations",
 +            "keywords": [
@@ -1407,9 +1257,9 @@ index 29beba78..e54665d3 100644
 +            ],
 +            "support": {
 +                "issues": "https://github.com/sensiolabs/SensioFrameworkExtraBundle/issues",
-+                "source": "https://github.com/sensiolabs/SensioFrameworkExtraBundle/tree/master"
++                "source": "https://github.com/sensiolabs/SensioFrameworkExtraBundle/tree/v6.1.1"
 +            },
-+            "time": "2020-04-06T12:20:39+00:00"
++            "time": "2021-02-23T11:50:58+00:00"
 +        },
 +        {
 +            "name": "sentry/sdk",
@@ -1423,9 +1273,21 @@ index 29beba78..e54665d3 100644
 +                "type": "zip",
 +                "url": "https://api.github.com/repos/getsentry/sentry-php-sdk/zipball/f03133b067fdf03fed09ff03daf3f1d68f5f3673",
 +                "reference": "f03133b067fdf03fed09ff03daf3f1d68f5f3673",
-+                "shasum": ""
-+            },
-+            "require": {
+                 "shasum": ""
+             },
+             "require": {
+-                "php": ">=7.2.0"
+-            },
+-            "type": "library",
+-            "extra": {
+-                "branch-alias": {
+-                    "dev-master": "1.0.x-dev"
+-                }
+-            },
+-            "autoload": {
+-                "psr-4": {
+-                    "Psr\\EventDispatcher\\": "src/"
+-                }
 +                "http-interop/http-factory-guzzle": "^1.0",
 +                "sentry/sentry": "^3.1",
 +                "symfony/http-client": "^4.3|^5.0"
@@ -1749,7 +1611,7 @@ index 29beba78..e54665d3 100644
          },
          {
              "name": "symfony/asset",
-@@ -1954,10 +3268,174 @@
+@@ -1954,10 +3192,174 @@
                      "homepage": "https://symfony.com/contributors"
                  }
              ],
@@ -1927,7 +1789,7 @@ index 29beba78..e54665d3 100644
              },
              "funding": [
                  {
-@@ -1973,7 +3451,7 @@
+@@ -1973,7 +3375,7 @@
                      "type": "tidelift"
                  }
              ],
@@ -1936,7 +1798,7 @@ index 29beba78..e54665d3 100644
          },
          {
              "name": "symfony/http-foundation",
-@@ -2406,6 +3884,77 @@
+@@ -2406,6 +3808,77 @@
              ],
              "time": "2020-10-06T15:12:11+00:00"
          },
@@ -2014,7 +1876,7 @@ index 29beba78..e54665d3 100644
          {
              "name": "symfony/polyfill-intl-idn",
              "version": "v1.22.1",
-@@ -2819,6 +4368,82 @@
+@@ -2819,6 +4292,82 @@
              ],
              "time": "2021-01-07T16:49:33+00:00"
          },
@@ -2097,7 +1959,7 @@ index 29beba78..e54665d3 100644
          {
              "name": "symfony/profiler-pack",
              "version": "v1.0.5",
-@@ -2864,6 +4489,94 @@
+@@ -2864,6 +4413,94 @@
              ],
              "time": "2020-08-12T06:50:46+00:00"
          },
@@ -2192,7 +2054,7 @@ index 29beba78..e54665d3 100644
          {
              "name": "symfony/routing",
              "version": "v5.1.11",
-@@ -2954,6 +4667,96 @@
+@@ -2954,6 +4591,96 @@
              ],
              "time": "2021-01-27T10:01:46+00:00"
          },
@@ -2299,60 +2161,6 @@ index 3460dff0..690fdf88 100644
      Knp\Bundle\MarkdownBundle\KnpMarkdownBundle::class => ['all' => true],
 +    Sentry\SentryBundle\SentryBundle::class => ['all' => true],
  ];
-diff --git a/config/packages/nyholm_psr7.yaml b/config/packages/nyholm_psr7.yaml
-new file mode 100644
-index 00000000..f1357233
---- /dev/null
-+++ b/config/packages/nyholm_psr7.yaml
-@@ -0,0 +1,21 @@
-+services:
-+    # Register nyholm/psr7 services for autowiring with PSR-17 (HTTP factories)
-+    Psr\Http\Message\RequestFactoryInterface: '@nyholm.psr7.psr17_factory'
-+    Psr\Http\Message\ResponseFactoryInterface: '@nyholm.psr7.psr17_factory'
-+    Psr\Http\Message\ServerRequestFactoryInterface: '@nyholm.psr7.psr17_factory'
-+    Psr\Http\Message\StreamFactoryInterface: '@nyholm.psr7.psr17_factory'
-+    Psr\Http\Message\UploadedFileFactoryInterface: '@nyholm.psr7.psr17_factory'
-+    Psr\Http\Message\UriFactoryInterface: '@nyholm.psr7.psr17_factory'
-+
-+    # Register nyholm/psr7 services for autowiring with HTTPlug factories
-+    Http\Message\MessageFactory: '@nyholm.psr7.httplug_factory'
-+    Http\Message\RequestFactory: '@nyholm.psr7.httplug_factory'
-+    Http\Message\ResponseFactory: '@nyholm.psr7.httplug_factory'
-+    Http\Message\StreamFactory: '@nyholm.psr7.httplug_factory'
-+    Http\Message\UriFactory: '@nyholm.psr7.httplug_factory'
-+
-+    nyholm.psr7.psr17_factory:
-+        class: Nyholm\Psr7\Factory\Psr17Factory
-+
-+    nyholm.psr7.httplug_factory:
-+        class: Nyholm\Psr7\Factory\HttplugFactory
-diff --git a/config/packages/psr_http_message_bridge.yaml b/config/packages/psr_http_message_bridge.yaml
-new file mode 100644
-index 00000000..465e5a7c
---- /dev/null
-+++ b/config/packages/psr_http_message_bridge.yaml
-@@ -0,0 +1,21 @@
-+services:
-+    _defaults:
-+        autowire: true
-+        autoconfigure: true
-+
-+    Symfony\Bridge\PsrHttpMessage\HttpFoundationFactoryInterface:
-+        '@Symfony\Bridge\PsrHttpMessage\Factory\HttpFoundationFactory'
-+
-+    Symfony\Bridge\PsrHttpMessage\HttpMessageFactoryInterface:
-+        '@Symfony\Bridge\PsrHttpMessage\Factory\PsrHttpFactory'
-+
-+    Symfony\Bridge\PsrHttpMessage\Factory\HttpFoundationFactory: null
-+    Symfony\Bridge\PsrHttpMessage\Factory\PsrHttpFactory: null
-+
-+    # Uncomment the following line to allow controllers to receive a
-+    # PSR-7 server request object instead of an HttpFoundation request
-+    #Symfony\Bridge\PsrHttpMessage\ArgumentValueResolver\PsrServerRequestResolver: null
-+
-+    # Uncomment the following line to allow controllers to return a
-+    # PSR-7 response object instead of an HttpFoundation response
-+    #Symfony\Bridge\PsrHttpMessage\EventListener\PsrResponseListener: null
 diff --git a/config/packages/sentry.yaml b/config/packages/sentry.yaml
 new file mode 100644
 index 00000000..342036fe
@@ -2362,7 +2170,7 @@ index 00000000..342036fe
 +sentry:
 +    dsn: '%env(SENTRY_DSN)%'
 diff --git a/symfony.lock b/symfony.lock
-index fbe0dd59..070d43ae 100644
+index fbe0dd59..2abcba0a 100644
 --- a/symfony.lock
 +++ b/symfony.lock
 @@ -1,4 +1,10 @@
@@ -2395,22 +2203,10 @@ index fbe0dd59..070d43ae 100644
      "knplabs/knp-markdown-bundle": {
          "version": "1.8.1"
      },
-@@ -23,9 +41,42 @@
+@@ -23,9 +41,30 @@
      "monolog/monolog": {
          "version": "2.0.2"
      },
-+    "nyholm/psr7": {
-+        "version": "1.0",
-+        "recipe": {
-+            "repo": "github.com/symfony/recipes",
-+            "branch": "master",
-+            "version": "1.0",
-+            "ref": "7c0a9352a57376f04f5444e74565102c3a23d0c7"
-+        },
-+        "files": [
-+            "config/packages/nyholm_psr7.yaml"
-+        ]
-+    },
 +    "ocramius/package-versions": {
 +        "version": "1.4.2"
 +    },
@@ -2438,7 +2234,7 @@ index fbe0dd59..070d43ae 100644
      "psr/cache": {
          "version": "1.0.1"
      },
-@@ -35,9 +86,21 @@
+@@ -35,9 +74,21 @@
      "psr/event-dispatcher": {
          "version": "1.0.0"
      },
@@ -2460,7 +2256,7 @@ index fbe0dd59..070d43ae 100644
      "sensio/framework-extra-bundle": {
          "version": "5.2",
          "recipe": {
-@@ -50,6 +113,24 @@
+@@ -50,6 +101,24 @@
              "config/packages/sensio_framework_extra.yaml"
          ]
      },
@@ -2485,7 +2281,7 @@ index fbe0dd59..070d43ae 100644
      "symfony/asset": {
          "version": "v5.0.5"
      },
-@@ -143,6 +224,12 @@
+@@ -143,6 +212,12 @@
              "src/Kernel.php"
          ]
      },
@@ -2498,7 +2294,7 @@ index fbe0dd59..070d43ae 100644
      "symfony/http-foundation": {
          "version": "v5.0.4"
      },
-@@ -169,6 +256,9 @@
+@@ -169,6 +244,9 @@
              "config/packages/test/monolog.yaml"
          ]
      },
@@ -2508,7 +2304,7 @@ index fbe0dd59..070d43ae 100644
      "symfony/polyfill-intl-idn": {
          "version": "v1.13.1"
      },
-@@ -184,9 +274,24 @@
+@@ -184,9 +262,24 @@
      "symfony/polyfill-php80": {
          "version": "v1.22.1"
      },
@@ -2533,7 +2329,7 @@ index fbe0dd59..070d43ae 100644
      "symfony/routing": {
          "version": "4.2",
          "recipe": {
-@@ -201,6 +306,9 @@
+@@ -201,6 +294,9 @@
              "config/routes.yaml"
          ]
      },
