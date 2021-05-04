@@ -44,6 +44,11 @@ For `slug`, there's a feature for that! `self::faker()->slug`:
 
 [[[ code('09f12aaaf0') ]]]
 
+***TIP
+Direct property access is deprecated since v1.14 of `fakerphp/faker` - use `self::faker()->slug()` 
+instead of `self::faker()->slug`
+***
+
 Finally, for the question text, it can be made much more interesting by using
 `self::faker->paragraphs()`.
 
