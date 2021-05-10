@@ -112,6 +112,11 @@ same image we used before.
 
 ## Setting server_version
 
+***TIP
+In newer versions, the `server_version` config may not be in your `doctrine.yaml` file,
+but you can add it manually.
+***
+
 Now that we've set the MySQL version in Docker, we should *also* do the same thing
 with Doctrine. Open up `config/packages/doctrine.yaml`. See that `server_version`
 key? 
