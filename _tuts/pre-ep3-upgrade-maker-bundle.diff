@@ -1,7 +1,38 @@
+diff --git a/composer.json b/composer.json
+index 3ff978a4..9d98ace9 100644
+--- a/composer.json
++++ b/composer.json
+@@ -2,7 +2,7 @@
+     "type": "project",
+     "license": "proprietary",
+     "require": {
+-        "php": "^7.3.0 || ^8.0.0",
++        "php": "^7.4.1 || ^8.0.0",
+         "ext-ctype": "*",
+         "ext-iconv": "*",
+         "composer/package-versions-deprecated": "^1.11",
+@@ -34,7 +34,7 @@
+         },
+         "sort-packages": true,
+         "platform": {
+-            "php": "7.3.0"
++            "php": "7.4.1"
+         }
+     },
+     "autoload": {
 diff --git a/composer.lock b/composer.lock
-index 2d8397c5..b47577f7 100644
+index 2d8397c5..fe0dbf1c 100644
 --- a/composer.lock
 +++ b/composer.lock
+@@ -4,7 +4,7 @@
+         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
+         "This file is @generated automatically"
+     ],
+-    "content-hash": "00a873d9f4c0e2457b377c9d925ba06b",
++    "content-hash": "5757b9be63ab36b24b7fd931e43efca0",
+     "packages": [
+         {
+             "name": "clue/stream-filter",
 @@ -5604,16 +5604,16 @@
          },
          {
@@ -55,3 +86,19 @@ index 2d8397c5..b47577f7 100644
          },
          {
              "name": "symfony/debug-bundle",
+@@ -5917,13 +5917,13 @@
+     "prefer-stable": false,
+     "prefer-lowest": false,
+     "platform": {
+-        "php": "^7.3.0 || ^8.0.0",
++        "php": "^7.4.1 || ^8.0.0",
+         "ext-ctype": "*",
+         "ext-iconv": "*"
+     },
+     "platform-dev": [],
+     "platform-overrides": {
+-        "php": "7.3.0"
++        "php": "7.4.1"
+     },
+     "plugin-api-version": "2.0.0"
+ }

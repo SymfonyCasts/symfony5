@@ -1,16 +1,7 @@
 diff --git a/composer.json b/composer.json
-index c0f42158..7270d1da 100644
+index c0f42158..48ca72c0 100644
 --- a/composer.json
 +++ b/composer.json
-@@ -2,7 +2,7 @@
-     "type": "project",
-     "license": "proprietary",
-     "require": {
--        "php": "^7.4.1 || ^8.0.0",
-+        "php": "^7.4.1",
-         "ext-ctype": "*",
-         "ext-iconv": "*",
-         "composer/package-versions-deprecated": "^1.11",
 @@ -13,6 +13,7 @@
          "knplabs/knp-time-bundle": "^1.11",
          "sensio/framework-extra-bundle": "^6.0",
@@ -20,7 +11,7 @@ index c0f42158..7270d1da 100644
          "symfony/console": "5.1.*",
          "symfony/dotenv": "5.1.*",
 diff --git a/composer.lock b/composer.lock
-index b8adfd2c..a8e571fe 100644
+index b8adfd2c..a04ed1b9 100644
 --- a/composer.lock
 +++ b/composer.lock
 @@ -4,8 +4,57 @@
@@ -28,7 +19,7 @@ index b8adfd2c..a8e571fe 100644
          "This file is @generated automatically"
      ],
 -    "content-hash": "be2248139e9eb993e3e195a5c898e4f9",
-+    "content-hash": "f67040c2bfced679c741764c3124087a",
++    "content-hash": "8f9c0bb6da45e7ad2b11602f192f8fba",
      "packages": [
 +        {
 +            "name": "behat/transliterator",
@@ -263,15 +254,14 @@ index b8adfd2c..a8e571fe 100644
          {
              "name": "symfony/asset",
              "version": "v5.1.2",
-@@ -8109,7 +8325,7 @@
-     "prefer-stable": false,
-     "prefer-lowest": false,
-     "platform": {
--        "php": "^7.4.1 || ^8.0.0",
-+        "php": "^7.4.1",
-         "ext-ctype": "*",
-         "ext-iconv": "*"
-     },
+@@ -7681,6 +7897,7 @@
+                     "type": "tidelift"
+                 }
+             ],
++            "abandoned": "use `EnglishInflector` from the String component instead",
+             "time": "2020-05-20T17:43:50+00:00"
+         },
+         {
 diff --git a/config/bundles.php b/config/bundles.php
 index 883e9af5..b89ddb31 100644
 --- a/config/bundles.php

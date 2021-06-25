@@ -15,15 +15,10 @@ index 9501a4d1..bc897b0f 100644
 +DATABASE_URL=mysql://db_user:db_password@127.0.0.1:3306/db_name?serverVersion=5.7
 +###< doctrine/doctrine-bundle ###
 diff --git a/composer.json b/composer.json
-index 3ff978a4..ef7e35c6 100644
+index 9d98ace9..ef7e35c6 100644
 --- a/composer.json
 +++ b/composer.json
-@@ -2,10 +2,13 @@
-     "type": "project",
-     "license": "proprietary",
-     "require": {
--        "php": "^7.3.0 || ^8.0.0",
-+        "php": "^7.4.1 || ^8.0.0",
+@@ -6,6 +6,9 @@
          "ext-ctype": "*",
          "ext-iconv": "*",
          "composer/package-versions-deprecated": "^1.11",
@@ -33,24 +28,15 @@ index 3ff978a4..ef7e35c6 100644
          "knplabs/knp-markdown-bundle": "^1.8",
          "sensio/framework-extra-bundle": "^6.0",
          "sentry/sentry-symfony": "^4.0",
-@@ -34,7 +37,7 @@
-         },
-         "sort-packages": true,
-         "platform": {
--            "php": "7.3.0"
-+            "php": "7.4.1"
-         }
-     },
-     "autoload": {
 diff --git a/composer.lock b/composer.lock
-index b47577f7..920e9a5d 100644
+index fe0dbf1c..920e9a5d 100644
 --- a/composer.lock
 +++ b/composer.lock
 @@ -4,7 +4,7 @@
          "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
          "This file is @generated automatically"
      ],
--    "content-hash": "00a873d9f4c0e2457b377c9d925ba06b",
+-    "content-hash": "5757b9be63ab36b24b7fd931e43efca0",
 +    "content-hash": "c2e47a3a1b183a04e10ed7dc263c6ceb",
      "packages": [
          {
@@ -2084,22 +2070,6 @@ index b47577f7..920e9a5d 100644
          {
              "name": "nikic/php-parser",
              "version": "v4.10.5",
-@@ -5917,13 +7405,13 @@
-     "prefer-stable": false,
-     "prefer-lowest": false,
-     "platform": {
--        "php": "^7.3.0 || ^8.0.0",
-+        "php": "^7.4.1 || ^8.0.0",
-         "ext-ctype": "*",
-         "ext-iconv": "*"
-     },
-     "platform-dev": [],
-     "platform-overrides": {
--        "php": "7.3.0"
-+        "php": "7.4.1"
-     },
-     "plugin-api-version": "2.0.0"
- }
 diff --git a/config/bundles.php b/config/bundles.php
 index af33fbca..d206866c 100644
 --- a/config/bundles.php
