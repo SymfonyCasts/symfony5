@@ -22,7 +22,7 @@ This is where the majority of the documentation lives. Anyways, let's get the bu
 installed. Find your terminal and run:
 
 ```terminal
-composer require stof/doctrine-extensions-bundle
+composer require 'stof/doctrine-extensions-bundle:^1.5.0'
 ```
 You can find this command in the bundle's documentation.
 
