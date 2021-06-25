@@ -127,6 +127,12 @@ better because we've only just *started* to scratch the service of what Foundry
 can do. Want to create 20 questions instead of just one? Change `create()` to
 `createMany(20)`.
 
+***TIP
+In the latest version of Foundry, creating many objects is easier: just
+`QuestionFactory::createMany()`. You can also create a single object
+with the shorter `QuestionFactory::createOne()`.
+***
+
 [[[ code('f2d0b3d06a') ]]]
 
 That's it. Reload the fixtures again:
