@@ -13,7 +13,7 @@ index 30e458ad..c0f42158 100644
      "config": {
          "preferred-install": {
 diff --git a/composer.lock b/composer.lock
-index bba805d0..ee67ce62 100644
+index 7d451e18..b8adfd2c 100644
 --- a/composer.lock
 +++ b/composer.lock
 @@ -4,7 +4,7 @@
@@ -297,7 +297,7 @@ index bba805d0..ee67ce62 100644
 +        },
          {
              "name": "nikic/php-parser",
-             "version": "v4.6.0",
+             "version": "v4.10.5",
 @@ -7555,6 +7607,82 @@
              ],
              "time": "2020-05-20T17:43:50+00:00"

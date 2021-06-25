@@ -11,7 +11,7 @@ index b82a6148..30e458ad 100644
          "symfony/maker-bundle": "^1.15",
          "symfony/var-dumper": "5.1.*",
 diff --git a/composer.lock b/composer.lock
-index a583ea5e..bba805d0 100644
+index eaa0b496..7d451e18 100644
 --- a/composer.lock
 +++ b/composer.lock
 @@ -4,7 +4,7 @@
@@ -187,7 +187,7 @@ index a583ea5e..bba805d0 100644
 +        },
          {
              "name": "nikic/php-parser",
-             "version": "v4.6.0",
+             "version": "v4.10.5",
 diff --git a/config/bundles.php b/config/bundles.php
 index 097e21c0..a9ebfeb2 100644
 --- a/config/bundles.php

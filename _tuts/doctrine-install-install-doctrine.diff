@@ -43,7 +43,7 @@ index 3ff978a4..ef7e35c6 100644
      },
      "autoload": {
 diff --git a/composer.lock b/composer.lock
-index 2d8397c5..9dbfb1e6 100644
+index b47577f7..920e9a5d 100644
 --- a/composer.lock
 +++ b/composer.lock
 @@ -4,7 +4,7 @@
@@ -2083,7 +2083,7 @@ index 2d8397c5..9dbfb1e6 100644
 -        },
          {
              "name": "nikic/php-parser",
-             "version": "v4.6.0",
+             "version": "v4.10.5",
 @@ -5917,13 +7405,13 @@
      "prefer-stable": false,
      "prefer-lowest": false,
