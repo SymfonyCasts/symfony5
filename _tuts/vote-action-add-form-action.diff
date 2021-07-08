@@ -1,5 +1,5 @@
 diff --git a/src/Controller/QuestionController.php b/src/Controller/QuestionController.php
-index dabed654..553c1e1c 100644
+index dabed65..553c1e1 100644
 --- a/src/Controller/QuestionController.php
 +++ b/src/Controller/QuestionController.php
 @@ -92,4 +92,12 @@ EOF
@@ -16,7 +16,7 @@ index dabed654..553c1e1c 100644
 +    }
  }
 diff --git a/templates/question/show.html.twig b/templates/question/show.html.twig
-index 20920727..bb631842 100644
+index 2092072..bb63184 100644
 --- a/templates/question/show.html.twig
 +++ b/templates/question/show.html.twig
 @@ -22,11 +22,13 @@

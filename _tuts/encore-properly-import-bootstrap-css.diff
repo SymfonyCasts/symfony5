@@ -1,5 +1,5 @@
 diff --git a/assets/css/app.css b/assets/css/app.css
-index b7e59001..3ff383cc 100644
+index b7e5900..3ff383c 100644
 --- a/assets/css/app.css
 +++ b/assets/css/app.css
 @@ -1,3 +1,5 @@
@@ -9,7 +9,7 @@ index b7e59001..3ff383cc 100644
      font-family: spartan;
      color: #444;
 diff --git a/package.json b/package.json
-index 968175f0..d1e1c367 100644
+index 968175f..d1e1c36 100644
 --- a/package.json
 +++ b/package.json
 @@ -1,6 +1,7 @@
@@ -21,7 +21,7 @@ index 968175f0..d1e1c367 100644
          "jquery": "^3.4.1",
          "regenerator-runtime": "^0.13.2",
 diff --git a/templates/base.html.twig b/templates/base.html.twig
-index 3157e2e2..d73bdb98 100644
+index 3157e2e..d73bdb9 100644
 --- a/templates/base.html.twig
 +++ b/templates/base.html.twig
 @@ -4,7 +4,6 @@
@@ -33,7 +33,7 @@ index 3157e2e2..d73bdb98 100644
              <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/all.min.css" integrity="sha256-mmgLkCYLUQbXn0B1SRqzHar6dCnv9oZFPEC1g1cwlkk=" crossorigin="anonymous" />
              {{ encore_entry_link_tags('app') }}
 diff --git a/yarn.lock b/yarn.lock
-index a67c4fb2..e870617d 100644
+index a67c4fb..e870617 100644
 --- a/yarn.lock
 +++ b/yarn.lock
 @@ -1385,6 +1385,11 @@ boolbase@^1.0.0, boolbase@~1.0.0:

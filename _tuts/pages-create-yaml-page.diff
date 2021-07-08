@@ -1,5 +1,5 @@
 diff --git a/config/routes.yaml b/config/routes.yaml
-index c3283aa2..5939b360 100644
+index c3283aa..5939b36 100644
 --- a/config/routes.yaml
 +++ b/config/routes.yaml
 @@ -1,3 +1,3 @@
@@ -11,7 +11,7 @@ index c3283aa2..5939b360 100644
 +    controller: App\Controller\QuestionController::homepage
 diff --git a/src/Controller/QuestionController.php b/src/Controller/QuestionController.php
 new file mode 100644
-index 00000000..b2db7624
+index 0000000..b2db762
 --- /dev/null
 +++ b/src/Controller/QuestionController.php
 @@ -0,0 +1,13 @@

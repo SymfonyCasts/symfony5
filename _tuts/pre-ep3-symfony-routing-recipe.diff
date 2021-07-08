@@ -1,5 +1,5 @@
 diff --git a/config/packages/routing.yaml b/config/packages/routing.yaml
-index 7e977620..b45c1cec 100644
+index 7e97762..b45c1ce 100644
 --- a/config/packages/routing.yaml
 +++ b/config/packages/routing.yaml
 @@ -1,3 +1,7 @@
@@ -11,7 +11,7 @@ index 7e977620..b45c1cec 100644
 +        # See https://symfony.com/doc/current/routing.html#generating-urls-in-commands
 +        #default_uri: http://localhost
 diff --git a/symfony.lock b/symfony.lock
-index e6b066b1..4a099791 100644
+index e6b066b..4a09979 100644
 --- a/symfony.lock
 +++ b/symfony.lock
 @@ -295,12 +295,12 @@

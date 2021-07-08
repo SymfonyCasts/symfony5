@@ -1,5 +1,5 @@
 diff --git a/config/packages/doctrine.yaml b/config/packages/doctrine.yaml
-index 5e80e77b..ab3343b1 100644
+index 5e80e77..ab3343b 100644
 --- a/config/packages/doctrine.yaml
 +++ b/config/packages/doctrine.yaml
 @@ -4,7 +4,7 @@ doctrine:

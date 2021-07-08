@@ -1,5 +1,5 @@
 diff --git a/composer.json b/composer.json
-index 9e6d0f54..8c76e77d 100644
+index 9e6d0f5..8c76e77 100644
 --- a/composer.json
 +++ b/composer.json
 @@ -7,6 +7,7 @@
@@ -11,7 +11,7 @@ index 9e6d0f54..8c76e77d 100644
          "symfony/flex": "^1.3.1",
          "symfony/framework-bundle": "5.0.*",
 diff --git a/composer.lock b/composer.lock
-index a276e170..2a045570 100644
+index a276e17..2a04557 100644
 --- a/composer.lock
 +++ b/composer.lock
 @@ -4,7 +4,7 @@
@@ -1162,7 +1162,7 @@ index a276e170..2a045570 100644
      "minimum-stability": "stable",
      "stability-flags": [],
 diff --git a/config/bundles.php b/config/bundles.php
-index d505424c..73b24fd6 100644
+index d505424..73b24fd 100644
 --- a/config/bundles.php
 +++ b/config/bundles.php
 @@ -6,4 +6,6 @@ return [
@@ -1174,7 +1174,7 @@ index d505424c..73b24fd6 100644
  ];
 diff --git a/config/packages/dev/debug.yaml b/config/packages/dev/debug.yaml
 new file mode 100644
-index 00000000..26d4e53d
+index 0000000..26d4e53
 --- /dev/null
 +++ b/config/packages/dev/debug.yaml
 @@ -0,0 +1,4 @@
@@ -1184,7 +1184,7 @@ index 00000000..26d4e53d
 +    dump_destination: "tcp://%env(VAR_DUMPER_SERVER)%"
 diff --git a/config/packages/dev/easy_log_handler.yaml b/config/packages/dev/easy_log_handler.yaml
 new file mode 100644
-index 00000000..27bfc608
+index 0000000..27bfc60
 --- /dev/null
 +++ b/config/packages/dev/easy_log_handler.yaml
 @@ -0,0 +1,16 @@
@@ -1206,7 +1206,7 @@ index 00000000..27bfc608
 +#            id:   EasyCorp\EasyLog\EasyLogHandler
 diff --git a/config/packages/dev/monolog.yaml b/config/packages/dev/monolog.yaml
 new file mode 100644
-index 00000000..b1998da1
+index 0000000..b1998da
 --- /dev/null
 +++ b/config/packages/dev/monolog.yaml
 @@ -0,0 +1,19 @@
@@ -1231,7 +1231,7 @@ index 00000000..b1998da1
 +            channels: ["!event", "!doctrine", "!console"]
 diff --git a/config/packages/prod/monolog.yaml b/config/packages/prod/monolog.yaml
 new file mode 100644
-index 00000000..14b42bba
+index 0000000..14b42bb
 --- /dev/null
 +++ b/config/packages/prod/monolog.yaml
 @@ -0,0 +1,24 @@
@@ -1261,7 +1261,7 @@ index 00000000..14b42bba
 +            channels: ["php"]
 diff --git a/config/packages/test/monolog.yaml b/config/packages/test/monolog.yaml
 new file mode 100644
-index 00000000..fc40641d
+index 0000000..fc40641
 --- /dev/null
 +++ b/config/packages/test/monolog.yaml
 @@ -0,0 +1,12 @@
@@ -1278,7 +1278,7 @@ index 00000000..fc40641d
 +            path: "%kernel.logs_dir%/%kernel.environment%.log"
 +            level: debug
 diff --git a/symfony.lock b/symfony.lock
-index 3f086f61..1330b3fe 100644
+index 3f086f6..1330b3f 100644
 --- a/symfony.lock
 +++ b/symfony.lock
 @@ -14,6 +14,9 @@
