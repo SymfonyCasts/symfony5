@@ -1,4 +1,0 @@
-ci_commands:
-    - 'composer install'
-    - 'yarn install'
-    - 'composer validate'
