@@ -130,13 +130,14 @@ recipe.
 
 [[[ code('28230b4aec') ]]]
 
-Thanks to this, whenever you run:
+Thanks to this, whenever you run `composer install` after it finishes, 
+it automatically runs the security checker.
 
-```terminal
-composer install
-```
-
-After it finishes, it automatically runs the security checker.
+***TIP
+Running `composer install` will fail with 403 API error. It's ok, we will 
+remove security checker in the next chapter so it won't be an issue.
+If you want to know more, see https://github.com/sensiolabs/security-checker
+***
 
 The point is: to use the security checker, the *only* thing we needed to do was...
 install it. Its recipe took care of the rest of the setup.
