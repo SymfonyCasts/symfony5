@@ -10,7 +10,7 @@ Symfony's all-important "recipe" system.
 At your terminal, run:
 
 ```terminal
-composer require sec-checker
+composer require sec-checker --no-scripts
 ```
 
 ***TIP
