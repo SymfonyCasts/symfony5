@@ -57,6 +57,13 @@ by little, give your entities more clarity. `upVote()`, and `downVote()` are *ve
 clear & descriptive. Someone calling these doesn't even need to know or care
 how they work internally.
 
+***TIP
+Generally-speaking, an "anemic" model is a class where you can directly modify
+and access its properties (e.g. via getter/setter methods). A "rich" model
+is where you, instead, create methods specific to your business logic - like
+`upVote()`.
+***
+
 Some people take this to an extreme and have almost *zero* getter and setter
 methods on their entities. Here at Symfonycasts, we tend to be more pragmatic.
 We usually have getters and setters method, but we always look for ways to be
