@@ -38,6 +38,11 @@ it allows us to commit our sensitive values - called secrets - into Git!
 To help us see this, in `QuestionController::show()`, add a third argument:
 `HubInterface $sentryHub`. Below, `dump($sentryHub)`:
 
+***TIP
+In newer versions of SentryBundle, you may need to `dump($sentryHub->getClient())`
+to see the data that we see here.
+***
+
 [[[ code('ac57a3310e') ]]]
 
 The *main* purpose of SentryBundle's services is *not* for us to interact with
