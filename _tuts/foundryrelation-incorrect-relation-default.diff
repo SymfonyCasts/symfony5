@@ -1,0 +1,13 @@
+diff --git a/src/Factory/CommentFactory.php b/src/Factory/CommentFactory.php
+index 31e57f71..2de4ad67 100644
+--- a/src/Factory/CommentFactory.php
++++ b/src/Factory/CommentFactory.php
+@@ -40,7 +40,7 @@ final class CommentFactory extends ModelFactory
+         return [
+             'content' => self::faker()->text(),
+             'username' => self::faker()->userName(),
+-            'question' => QuestionFactory::random(),
++            'question' => QuestionFactory::new()->unpublished()->create(),
+         ];
+     }
+ 

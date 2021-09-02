@@ -1,0 +1,26 @@
+diff --git a/src/DataFixtures/AppFixtures.php b/src/DataFixtures/AppFixtures.php
+index 884c48f8..ba34e8e2 100644
+--- a/src/DataFixtures/AppFixtures.php
++++ b/src/DataFixtures/AppFixtures.php
+@@ -13,7 +13,7 @@ class AppFixtures extends Fixture
+ {
+     public function load(ObjectManager $manager)
+     {
+-        QuestionFactory::createMany(20);
++        $questions = QuestionFactory::createMany(20);
+ 
+         QuestionFactory::new()
+             ->unpublished()
+@@ -21,7 +21,11 @@ class AppFixtures extends Fixture
+             ->create()
+         ;
+ 
+-        CommentFactory::createMany(100);
++        CommentFactory::createMany(100, function() use ($questions) {
++            return [
++                'question' => $questions[array_rand($questions)]
++            ];
++        });
+ 
+         $manager->flush();
+     }

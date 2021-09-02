@@ -1,0 +1,28 @@
+diff --git a/src/DataFixtures/AppFixtures.php b/src/DataFixtures/AppFixtures.php
+index 45477690..884c48f8 100644
+--- a/src/DataFixtures/AppFixtures.php
++++ b/src/DataFixtures/AppFixtures.php
+@@ -4,6 +4,7 @@ namespace App\DataFixtures;
+ 
+ use App\Entity\Comment;
+ use App\Entity\Question;
++use App\Factory\CommentFactory;
+ use App\Factory\QuestionFactory;
+ use Doctrine\Bundle\FixturesBundle\Fixture;
+ use Doctrine\Persistence\ObjectManager;
+@@ -20,14 +21,7 @@ class AppFixtures extends Fixture
+             ->create()
+         ;
+ 
+-        $question = QuestionFactory::createOne()->object();
+-
+-        $comment = new Comment();
+-        $comment->setContent('This question is the best? I wish... I knew the answer.');
+-        $comment->setUsername('weaverryan');
+-        $comment->setQuestion($question);
+-
+-        $manager->persist($comment);
++        CommentFactory::createMany(100);
+ 
+         $manager->flush();
+     }

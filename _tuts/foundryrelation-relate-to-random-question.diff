@@ -1,0 +1,15 @@
+diff --git a/src/DataFixtures/AppFixtures.php b/src/DataFixtures/AppFixtures.php
+index 884c48f8..43db2935 100644
+--- a/src/DataFixtures/AppFixtures.php
++++ b/src/DataFixtures/AppFixtures.php
+@@ -21,7 +21,9 @@ class AppFixtures extends Fixture
+             ->create()
+         ;
+ 
+-        CommentFactory::createMany(100);
++        CommentFactory::createMany(100, [
++            'question' => QuestionFactory::random(),
++        ]);
+ 
+         $manager->flush();
+     }

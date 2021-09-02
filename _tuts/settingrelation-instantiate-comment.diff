@@ -1,0 +1,25 @@
+diff --git a/src/DataFixtures/AppFixtures.php b/src/DataFixtures/AppFixtures.php
+index 0ade76a2..aa916d90 100644
+--- a/src/DataFixtures/AppFixtures.php
++++ b/src/DataFixtures/AppFixtures.php
+@@ -2,6 +2,7 @@
+ 
+ namespace App\DataFixtures;
+ 
++use App\Entity\Comment;
+ use App\Entity\Question;
+ use App\Factory\QuestionFactory;
+ use Doctrine\Bundle\FixturesBundle\Fixture;
+@@ -19,6 +20,12 @@ class AppFixtures extends Fixture
+             ->create()
+         ;
+ 
++        $comment = new Comment();
++        $comment->setContent('This question is the best? I wish... I knew the answer.');
++        $comment->setUsername('weaverryan');
++
++        $manager->persist($comment);
++
+         $manager->flush();
+     }
+ }

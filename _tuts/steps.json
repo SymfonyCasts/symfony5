@@ -1106,6 +1106,11 @@
             "description": null
         },
         {
+            "id": "pre-relations-refresh-questionfactory",
+            "name": "PRE_RELATIONS: refresh QuestionFactory",
+            "description": null
+        },
+        {
             "id": "comment-add-entity",
             "name": "Comment: Add entity",
             "description": null
@@ -1124,7 +1129,67 @@
             "id": "comment-add-relation",
             "name": "Comment: add relation",
             "description": null
+        },
+        {
+            "id": "comment-second-migration",
+            "name": "Comment: second migration",
+            "description": null
+        },
+        {
+            "id": "settingrelation-instantiate-comment",
+            "name": "SettingRelation: instantiate Comment",
+            "description": null
+        },
+        {
+            "id": "settingrelation-create-question",
+            "name": "SettingRelation: create Question",
+            "description": null
+        },
+        {
+            "id": "settingrelation-assign-to-question",
+            "name": "SettingRelation: assign to Question",
+            "description": null
+        },
+        {
+            "id": "foundryrelation-make-commentfactory",
+            "name": "FoundryRelation: make CommentFactory",
+            "description": null
+        },
+        {
+            "id": "foundryrelation-customize-defaults",
+            "name": "FoundryRelation: customize defaults",
+            "description": null
+        },
+        {
+            "id": "foundryrelation-use-factory",
+            "name": "FoundryRelation: use factory",
+            "description": null
+        },
+        {
+            "id": "foundryrelation-relate-to-random-question",
+            "name": "FoundryRelation: relate to random question",
+            "description": null
+        },
+        {
+            "id": "foundryrelation-move-random-into-getdefaults",
+            "name": "FoundryRelation: move random into getDefaults()",
+            "description": null
+        },
+        {
+            "id": "foundryrelation-random-published-question",
+            "name": "FoundryRelation: random published question",
+            "description": null
+        },
+        {
+            "id": "foundryrelation-incorrect-relation-default",
+            "name": "FoundryRelation: Incorrect relation default",
+            "description": null
+        },
+        {
+            "id": "foundryrelation-fix-incorrect-relation",
+            "name": "FoundryRelation: Fix incorrect relation",
+            "description": null
         }
     ],
-    "sha": "aff42a078a2fbbe9217a3f3f71197051b9845752"
+    "sha": "06ad8076d59d4afaf7202a505ed81c9c8cc719f6"
 }
