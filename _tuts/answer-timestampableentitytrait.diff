@@ -1,0 +1,20 @@
+diff --git a/src/Entity/Answer.php b/src/Entity/Answer.php
+index 6433167a..2c220e0c 100644
+--- a/src/Entity/Answer.php
++++ b/src/Entity/Answer.php
+@@ -4,12 +4,15 @@ namespace App\Entity;
+ 
+ use App\Repository\AnswerRepository;
+ use Doctrine\ORM\Mapping as ORM;
++use Gedmo\Timestampable\Traits\TimestampableEntity;
+ 
+ /**
+  * @ORM\Entity(repositoryClass=AnswerRepository::class)
+  */
+ class Answer
+ {
++    use TimestampableEntity;
++
+     /**
+      * @ORM\Id
+      * @ORM\GeneratedValue

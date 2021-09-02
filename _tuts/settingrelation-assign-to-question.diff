@@ -1,5 +1,5 @@
 diff --git a/src/DataFixtures/AppFixtures.php b/src/DataFixtures/AppFixtures.php
-index 3f434a0f..45477690 100644
+index 206e57b6..285aef79 100644
 --- a/src/DataFixtures/AppFixtures.php
 +++ b/src/DataFixtures/AppFixtures.php
 @@ -21,11 +21,11 @@ class AppFixtures extends Fixture
@@ -8,10 +8,10 @@ index 3f434a0f..45477690 100644
          $question = QuestionFactory::createOne()->object();
 -        dd($question);
  
-         $comment = new Comment();
-         $comment->setContent('This question is the best? I wish... I knew the answer.');
-         $comment->setUsername('weaverryan');
-+        $comment->setQuestion($question);
+         $answer = new Answer();
+         $answer->setContent('This question is the best? I wish... I knew the answer.');
+         $answer->setUsername('weaverryan');
++        $answer->setQuestion($question);
  
-         $manager->persist($comment);
+         $manager->persist($answer);
  

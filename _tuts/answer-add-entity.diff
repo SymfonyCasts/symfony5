@@ -1,20 +1,20 @@
-diff --git a/src/Entity/Comment.php b/src/Entity/Comment.php
+diff --git a/src/Entity/Answer.php b/src/Entity/Answer.php
 new file mode 100644
-index 00000000..b8c024c3
+index 00000000..6433167a
 --- /dev/null
-+++ b/src/Entity/Comment.php
++++ b/src/Entity/Answer.php
 @@ -0,0 +1,58 @@
 +<?php
 +
 +namespace App\Entity;
 +
-+use App\Repository\CommentRepository;
++use App\Repository\AnswerRepository;
 +use Doctrine\ORM\Mapping as ORM;
 +
 +/**
-+ * @ORM\Entity(repositoryClass=CommentRepository::class)
++ * @ORM\Entity(repositoryClass=AnswerRepository::class)
 + */
-+class Comment
++class Answer
 +{
 +    /**
 +     * @ORM\Id
@@ -62,43 +62,43 @@ index 00000000..b8c024c3
 +        return $this;
 +    }
 +}
-diff --git a/src/Repository/CommentRepository.php b/src/Repository/CommentRepository.php
+diff --git a/src/Repository/AnswerRepository.php b/src/Repository/AnswerRepository.php
 new file mode 100644
-index 00000000..25dc4dec
+index 00000000..14e969b9
 --- /dev/null
-+++ b/src/Repository/CommentRepository.php
++++ b/src/Repository/AnswerRepository.php
 @@ -0,0 +1,50 @@
 +<?php
 +
 +namespace App\Repository;
 +
-+use App\Entity\Comment;
++use App\Entity\Answer;
 +use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 +use Doctrine\Persistence\ManagerRegistry;
 +
 +/**
-+ * @method Comment|null find($id, $lockMode = null, $lockVersion = null)
-+ * @method Comment|null findOneBy(array $criteria, array $orderBy = null)
-+ * @method Comment[]    findAll()
-+ * @method Comment[]    findBy(array $criteria, array $orderBy = null, $limit = null, $offset = null)
++ * @method Answer|null find($id, $lockMode = null, $lockVersion = null)
++ * @method Answer|null findOneBy(array $criteria, array $orderBy = null)
++ * @method Answer[]    findAll()
++ * @method Answer[]    findBy(array $criteria, array $orderBy = null, $limit = null, $offset = null)
 + */
-+class CommentRepository extends ServiceEntityRepository
++class AnswerRepository extends ServiceEntityRepository
 +{
 +    public function __construct(ManagerRegistry $registry)
 +    {
-+        parent::__construct($registry, Comment::class);
++        parent::__construct($registry, Answer::class);
 +    }
 +
 +    // /**
-+    //  * @return Comment[] Returns an array of Comment objects
++    //  * @return Answer[] Returns an array of Answer objects
 +    //  */
 +    /*
 +    public function findByExampleField($value)
 +    {
-+        return $this->createQueryBuilder('c')
-+            ->andWhere('c.exampleField = :val')
++        return $this->createQueryBuilder('a')
++            ->andWhere('a.exampleField = :val')
 +            ->setParameter('val', $value)
-+            ->orderBy('c.id', 'ASC')
++            ->orderBy('a.id', 'ASC')
 +            ->setMaxResults(10)
 +            ->getQuery()
 +            ->getResult()
@@ -107,10 +107,10 @@ index 00000000..25dc4dec
 +    */
 +
 +    /*
-+    public function findOneBySomeField($value): ?Comment
++    public function findOneBySomeField($value): ?Answer
 +    {
-+        return $this->createQueryBuilder('c')
-+            ->andWhere('c.exampleField = :val')
++        return $this->createQueryBuilder('a')
++            ->andWhere('a.exampleField = :val')
 +            ->setParameter('val', $value)
 +            ->getQuery()
 +            ->getOneOrNullResult()

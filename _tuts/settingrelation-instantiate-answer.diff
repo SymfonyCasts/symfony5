@@ -1,12 +1,12 @@
 diff --git a/src/DataFixtures/AppFixtures.php b/src/DataFixtures/AppFixtures.php
-index 0ade76a2..aa916d90 100644
+index 0ade76a2..05f3012e 100644
 --- a/src/DataFixtures/AppFixtures.php
 +++ b/src/DataFixtures/AppFixtures.php
 @@ -2,6 +2,7 @@
  
  namespace App\DataFixtures;
  
-+use App\Entity\Comment;
++use App\Entity\Answer;
  use App\Entity\Question;
  use App\Factory\QuestionFactory;
  use Doctrine\Bundle\FixturesBundle\Fixture;
@@ -14,11 +14,11 @@ index 0ade76a2..aa916d90 100644
              ->create()
          ;
  
-+        $comment = new Comment();
-+        $comment->setContent('This question is the best? I wish... I knew the answer.');
-+        $comment->setUsername('weaverryan');
++        $answer = new Answer();
++        $answer->setContent('This question is the best? I wish... I knew the answer.');
++        $answer->setUsername('weaverryan');
 +
-+        $manager->persist($comment);
++        $manager->persist($answer);
 +
          $manager->flush();
      }

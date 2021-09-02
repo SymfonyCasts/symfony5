@@ -1,8 +1,8 @@
-diff --git a/src/Factory/CommentFactory.php b/src/Factory/CommentFactory.php
-index 2a6a8944..d0823272 100644
---- a/src/Factory/CommentFactory.php
-+++ b/src/Factory/CommentFactory.php
-@@ -38,11 +38,8 @@ final class CommentFactory extends ModelFactory
+diff --git a/src/Factory/AnswerFactory.php b/src/Factory/AnswerFactory.php
+index 4783e71d..548f9c04 100644
+--- a/src/Factory/AnswerFactory.php
++++ b/src/Factory/AnswerFactory.php
+@@ -38,11 +38,8 @@ final class AnswerFactory extends ModelFactory
      protected function getDefaults(): array
      {
          return [

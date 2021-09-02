@@ -1,13 +1,13 @@
-diff --git a/src/Entity/Comment.php b/src/Entity/Comment.php
-index 3e7491a7..763ace48 100644
---- a/src/Entity/Comment.php
-+++ b/src/Entity/Comment.php
-@@ -30,6 +30,12 @@ class Comment
+diff --git a/src/Entity/Answer.php b/src/Entity/Answer.php
+index 2c220e0c..2e9331eb 100644
+--- a/src/Entity/Answer.php
++++ b/src/Entity/Answer.php
+@@ -30,6 +30,12 @@ class Answer
       */
      private $username;
  
 +    /**
-+     * @ORM\ManyToOne(targetEntity=Question::class, inversedBy="comments")
++     * @ORM\ManyToOne(targetEntity=Question::class, inversedBy="answer")
 +     * @ORM\JoinColumn(nullable=false)
 +     */
 +    private $question;
@@ -15,7 +15,7 @@ index 3e7491a7..763ace48 100644
      public function getId(): ?int
      {
          return $this->id;
-@@ -58,4 +64,16 @@ class Comment
+@@ -58,4 +64,16 @@ class Answer
  
          return $this;
      }
@@ -33,7 +33,7 @@ index 3e7491a7..763ace48 100644
 +    }
  }
 diff --git a/src/Entity/Question.php b/src/Entity/Question.php
-index 0bd44e04..e04b971b 100644
+index 0bd44e04..2e267587 100644
 --- a/src/Entity/Question.php
 +++ b/src/Entity/Question.php
 @@ -3,6 +3,8 @@
@@ -50,13 +50,13 @@ index 0bd44e04..e04b971b 100644
      private $votes = 0;
  
 +    /**
-+     * @ORM\OneToMany(targetEntity=Comment::class, mappedBy="question")
++     * @ORM\OneToMany(targetEntity=Answer::class, mappedBy="question")
 +     */
-+    private $comments;
++    private $answers;
 +
 +    public function __construct()
 +    {
-+        $this->comments = new ArrayCollection();
++        $this->answers = new ArrayCollection();
 +    }
 +
      public function getId(): ?int
@@ -68,29 +68,29 @@ index 0bd44e04..e04b971b 100644
      }
 +
 +    /**
-+     * @return Collection|Comment[]
++     * @return Collection|Answer[]
 +     */
-+    public function getComments(): Collection
++    public function getAnswers(): Collection
 +    {
-+        return $this->comments;
++        return $this->answers;
 +    }
 +
-+    public function addComment(Comment $comment): self
++    public function addAnswer(Answer $answer): self
 +    {
-+        if (!$this->comments->contains($comment)) {
-+            $this->comments[] = $comment;
-+            $comment->setQuestion($this);
++        if (!$this->answers->contains($answer)) {
++            $this->answers[] = $answer;
++            $answer->setQuestion($this);
 +        }
 +
 +        return $this;
 +    }
 +
-+    public function removeComment(Comment $comment): self
++    public function removeAnswer(Answer $answer): self
 +    {
-+        if ($this->comments->removeElement($comment)) {
++        if ($this->answers->removeElement($answer)) {
 +            // set the owning side to null (unless already changed)
-+            if ($comment->getQuestion() === $this) {
-+                $comment->setQuestion(null);
++            if ($answer->getQuestion() === $this) {
++                $answer->setQuestion(null);
 +            }
 +        }
 +

@@ -1,12 +1,12 @@
 diff --git a/src/DataFixtures/AppFixtures.php b/src/DataFixtures/AppFixtures.php
-index 45477690..884c48f8 100644
+index 285aef79..d6491a66 100644
 --- a/src/DataFixtures/AppFixtures.php
 +++ b/src/DataFixtures/AppFixtures.php
 @@ -4,6 +4,7 @@ namespace App\DataFixtures;
  
- use App\Entity\Comment;
+ use App\Entity\Answer;
  use App\Entity\Question;
-+use App\Factory\CommentFactory;
++use App\Factory\AnswerFactory;
  use App\Factory\QuestionFactory;
  use Doctrine\Bundle\FixturesBundle\Fixture;
  use Doctrine\Persistence\ObjectManager;
@@ -16,13 +16,13 @@ index 45477690..884c48f8 100644
  
 -        $question = QuestionFactory::createOne()->object();
 -
--        $comment = new Comment();
--        $comment->setContent('This question is the best? I wish... I knew the answer.');
--        $comment->setUsername('weaverryan');
--        $comment->setQuestion($question);
+-        $answer = new Answer();
+-        $answer->setContent('This question is the best? I wish... I knew the answer.');
+-        $answer->setUsername('weaverryan');
+-        $answer->setQuestion($question);
 -
--        $manager->persist($comment);
-+        CommentFactory::createMany(100);
+-        $manager->persist($answer);
++        AnswerFactory::createMany(100);
  
          $manager->flush();
      }

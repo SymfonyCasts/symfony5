@@ -1,8 +1,8 @@
-diff --git a/src/Factory/CommentFactory.php b/src/Factory/CommentFactory.php
-index 31e57f71..2de4ad67 100644
---- a/src/Factory/CommentFactory.php
-+++ b/src/Factory/CommentFactory.php
-@@ -40,7 +40,7 @@ final class CommentFactory extends ModelFactory
+diff --git a/src/Factory/AnswerFactory.php b/src/Factory/AnswerFactory.php
+index 566ce875..a4c23ce1 100644
+--- a/src/Factory/AnswerFactory.php
++++ b/src/Factory/AnswerFactory.php
+@@ -40,7 +40,7 @@ final class AnswerFactory extends ModelFactory
          return [
              'content' => self::faker()->text(),
              'username' => self::faker()->userName(),

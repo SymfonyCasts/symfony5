@@ -1,23 +1,23 @@
 diff --git a/src/DataFixtures/AppFixtures.php b/src/DataFixtures/AppFixtures.php
-index 43db2935..884c48f8 100644
+index 162daf28..d6491a66 100644
 --- a/src/DataFixtures/AppFixtures.php
 +++ b/src/DataFixtures/AppFixtures.php
 @@ -21,9 +21,7 @@ class AppFixtures extends Fixture
              ->create()
          ;
  
--        CommentFactory::createMany(100, [
+-        AnswerFactory::createMany(100, [
 -            'question' => QuestionFactory::random(),
 -        ]);
-+        CommentFactory::createMany(100);
++        AnswerFactory::createMany(100);
  
          $manager->flush();
      }
-diff --git a/src/Factory/CommentFactory.php b/src/Factory/CommentFactory.php
-index d0823272..31e57f71 100644
---- a/src/Factory/CommentFactory.php
-+++ b/src/Factory/CommentFactory.php
-@@ -40,6 +40,7 @@ final class CommentFactory extends ModelFactory
+diff --git a/src/Factory/AnswerFactory.php b/src/Factory/AnswerFactory.php
+index 548f9c04..566ce875 100644
+--- a/src/Factory/AnswerFactory.php
++++ b/src/Factory/AnswerFactory.php
+@@ -40,6 +40,7 @@ final class AnswerFactory extends ModelFactory
          return [
              'content' => self::faker()->text(),
              'username' => self::faker()->userName(),
