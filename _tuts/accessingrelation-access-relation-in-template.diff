@@ -15,7 +15,7 @@ index ed588e29..d8a6ecd4 100644
      }
  
 diff --git a/templates/question/show.html.twig b/templates/question/show.html.twig
-index 3993dd7d..156a57c6 100644
+index 8a478de5..17e417ce 100644
 --- a/templates/question/show.html.twig
 +++ b/templates/question/show.html.twig
 @@ -46,14 +46,14 @@
@@ -33,5 +33,5 @@ index 3993dd7d..156a57c6 100644
 -        {% for answer in answers %}
 +        {% for answer in question.answers %}
              <li class="mb-4">
-                 <div class="d-flex justify-content-center">
-                     <div class="mr-2 pt-2">
+                 <div class="row">
+                     <div class="col-1">

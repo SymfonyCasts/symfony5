@@ -1,13 +1,67 @@
 diff --git a/templates/question/show.html.twig b/templates/question/show.html.twig
-index 727f6c63..1cf29c59 100644
+index 727f6c63..410fb50f 100644
 --- a/templates/question/show.html.twig
 +++ b/templates/question/show.html.twig
-@@ -65,7 +65,7 @@
+@@ -55,36 +55,37 @@
+     <ul class="list-unstyled">
+         {% for answer in answers %}
+             <li class="mb-4">
+-                <div class="d-flex justify-content-center">
+-                    <div class="mr-2 pt-2">
++                <div class="row">
++                    <div class="col-1">
+                         <img src="{{ asset('images/tisha.png') }}" width="50" height="50" alt="Tisha avatar">
                      </div>
-                     <div
-                         class="vote-arrows flex-fill pt-2"
+-                    <div class="mr-3 pt-2">
++                    <div class="col-9">
+                         {{ answer|parse_markdown }}
+                         <p>-- Mallory</p>
+                     </div>
+-                    <div
+-                        class="vote-arrows flex-fill pt-2"
 -                        style="min-width: 90px;"
-+                        style="min-width: 120px;"
-                         {{ stimulus_controller('answer-vote', {
-                             url: path('answer_vote', {
-                                 id: 10
+-                        {{ stimulus_controller('answer-vote', {
+-                            url: path('answer_vote', {
+-                                id: 10
+-                            })
+-                        }) }}
+-                    >
+-                        <button
+-                            class="vote-up btn btn-link"
+-                            name="direction"
+-                            value="up"
+-                            {{ stimulus_action('answer-vote', 'clickVote') }}
+-                        ><i class="far fa-arrow-alt-circle-up"></i></button>
+-                        <button
+-                            class="vote-down btn btn-link"
+-                            name="direction"
+-                            value="down"
+-                            {{ stimulus_action('answer-vote', 'clickVote') }}
+-                        ><i class="far fa-arrow-alt-circle-down"></i></button>
+-                        <span>+ <span {{ stimulus_target('answer-vote', 'voteTotal') }}>6</span></span>
++                    <div class="col-2 text-end">
++                        <div
++                            class="vote-arrows"
++                            {{ stimulus_controller('answer-vote', {
++                                url: path('answer_vote', {
++                                    id: 10
++                                })
++                            }) }}
++                        >
++                            <button
++                                class="vote-up btn btn-link"
++                                name="direction"
++                                value="up"
++                                {{ stimulus_action('answer-vote', 'clickVote') }}
++                            ><i class="far fa-arrow-alt-circle-up"></i></button>
++                            <button
++                                class="vote-down btn btn-link"
++                                name="direction"
++                                value="down"
++                                {{ stimulus_action('answer-vote', 'clickVote') }}
++                            ><i class="far fa-arrow-alt-circle-down"></i></button>
++                            <span>+ <span {{ stimulus_target('answer-vote', 'voteTotal') }}>6</span></span>
++                        </div>
+                     </div>
+                 </div>
+             </li>

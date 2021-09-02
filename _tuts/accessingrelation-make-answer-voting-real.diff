@@ -41,15 +41,15 @@ index 7295caea..53a3c301 100644
      }
  }
 diff --git a/templates/question/show.html.twig b/templates/question/show.html.twig
-index 156a57c6..5e0d6121 100644
+index 17e417ce..15ba9462 100644
 --- a/templates/question/show.html.twig
 +++ b/templates/question/show.html.twig
 @@ -68,7 +68,7 @@
-                         style="min-width: 120px;"
-                         {{ stimulus_controller('answer-vote', {
-                             url: path('answer_vote', {
--                                id: 10
-+                                id: answer.id
-                             })
-                         }) }}
-                     >
+                             class="vote-arrows"
+                             {{ stimulus_controller('answer-vote', {
+                                 url: path('answer_vote', {
+-                                    id: 10
++                                    id: answer.id
+                                 })
+                             }) }}
+                         >

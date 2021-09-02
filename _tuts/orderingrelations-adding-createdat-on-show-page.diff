@@ -1,0 +1,12 @@
+diff --git a/templates/question/show.html.twig b/templates/question/show.html.twig
+index 15ba9462..608fa52e 100644
+--- a/templates/question/show.html.twig
++++ b/templates/question/show.html.twig
+@@ -64,6 +64,7 @@
+                         <p>-- {{ answer.username }}</p>
+                     </div>
+                     <div class="col-2 text-end">
++                        <small>{{ answer.createdAt|ago }}</small>
+                         <div
+                             class="vote-arrows"
+                             {{ stimulus_controller('answer-vote', {

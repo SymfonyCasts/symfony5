@@ -1,8 +1,8 @@
 diff --git a/src/Factory/AnswerFactory.php b/src/Factory/AnswerFactory.php
-index 4783e71d..fb2b7029 100644
+index 4783e71d..564aa01b 100644
 --- a/src/Factory/AnswerFactory.php
 +++ b/src/Factory/AnswerFactory.php
-@@ -38,11 +38,9 @@ final class AnswerFactory extends ModelFactory
+@@ -38,11 +38,10 @@ final class AnswerFactory extends ModelFactory
      protected function getDefaults(): array
      {
          return [
@@ -12,6 +12,7 @@ index 4783e71d..fb2b7029 100644
 -            'createdAt' => null, // TODO add DATETIME ORM type manually
 -            'updatedAt' => null, // TODO add DATETIME ORM type manually
 +            'username' => self::faker()->userName(),
++            'createdAt' => self::faker()->dateTimeBetween('-1 year'),
 +            'votes' => rand(-20, 50),
          ];
      }
