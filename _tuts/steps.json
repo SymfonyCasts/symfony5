@@ -1079,7 +1079,32 @@
             "id": "timestampable-make-another-migration",
             "name": "Timestampable: make another migration",
             "description": null
+        },
+        {
+            "id": "pre-relations-upgrade-packages",
+            "name": "PRE_RELATIONS: Upgrade packages",
+            "description": null
+        },
+        {
+            "id": "pre-relations-install-symfony-runtime",
+            "name": "PRE_RELATIONS: install symfony\/runtime",
+            "description": null
+        },
+        {
+            "id": "pre-relations-upgrading-recipes",
+            "name": "PRE_RELATIONS: upgrading recipes",
+            "description": null
+        },
+        {
+            "id": "pre-relations-refactor-to-stimulus",
+            "name": "PRE_RELATIONS: refactor to Stimulus",
+            "description": null
+        },
+        {
+            "id": "pre-relations-remove-sentry",
+            "name": "PRE_RELATIONS: remove sentry",
+            "description": null
         }
     ],
-    "sha": "be885987a346fb472cf04796e9d3a351ad1ff801"
+    "sha": "7bb76f882bd67a17b3c2e5018f4bb32578b2a277"
 }

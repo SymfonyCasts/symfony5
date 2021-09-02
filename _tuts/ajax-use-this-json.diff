@@ -1,5 +1,5 @@
 diff --git a/src/Controller/CommentController.php b/src/Controller/CommentController.php
-index d7b111a..c94477d 100644
+index d7b111ae..c94477d0 100644
 --- a/src/Controller/CommentController.php
 +++ b/src/Controller/CommentController.php
 @@ -22,6 +22,6 @@ class CommentController extends AbstractController

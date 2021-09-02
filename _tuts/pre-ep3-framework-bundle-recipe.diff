@@ -1,6 +1,6 @@
 diff --git a/config/bootstrap.php b/config/bootstrap.php
 deleted file mode 100644
-index 3164fd1..0000000
+index 3164fd1c..00000000
 --- a/config/bootstrap.php
 +++ /dev/null
 @@ -1,23 +0,0 @@
@@ -28,7 +28,7 @@ index 3164fd1..0000000
 -$_SERVER['APP_DEBUG'] = $_SERVER['APP_DEBUG'] ?? $_ENV['APP_DEBUG'] ?? 'prod' !== $_SERVER['APP_ENV'];
 -$_SERVER['APP_DEBUG'] = $_ENV['APP_DEBUG'] = (int) $_SERVER['APP_DEBUG'] || filter_var($_SERVER['APP_DEBUG'], FILTER_VALIDATE_BOOLEAN) ? '1' : '0';
 diff --git a/config/packages/framework.yaml b/config/packages/framework.yaml
-index 6089f4b..cad7f78 100644
+index 6089f4bd..cad7f780 100644
 --- a/config/packages/framework.yaml
 +++ b/config/packages/framework.yaml
 @@ -1,3 +1,4 @@
@@ -37,7 +37,7 @@ index 6089f4b..cad7f78 100644
      secret: '%env(APP_SECRET)%'
      #csrf_protection: true
 diff --git a/public/index.php b/public/index.php
-index f094a9b..3f8b90e 100644
+index f094a9b1..3f8b90e5 100644
 --- a/public/index.php
 +++ b/public/index.php
 @@ -1,10 +1,13 @@
@@ -70,7 +70,7 @@ index f094a9b..3f8b90e 100644
  }
  
 diff --git a/src/Kernel.php b/src/Kernel.php
-index 1cd0572..b016861 100644
+index 1cd05726..b0168617 100644
 --- a/src/Kernel.php
 +++ b/src/Kernel.php
 @@ -3,52 +3,36 @@
@@ -146,7 +146,7 @@ index 1cd0572..b016861 100644
      }
  }
 diff --git a/symfony.lock b/symfony.lock
-index eb05d94..e2955b6 100644
+index eb05d947..e2955b6b 100644
 --- a/symfony.lock
 +++ b/symfony.lock
 @@ -202,15 +202,14 @@

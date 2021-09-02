@@ -1,5 +1,5 @@
 diff --git a/public/js/question_show.js b/public/js/question_show.js
-index 7332aac..cb34680 100644
+index 7332aacd..cb346802 100644
 --- a/public/js/question_show.js
 +++ b/public/js/question_show.js
 @@ -9,7 +9,7 @@ $container.find('a').on('click', function(e) {
