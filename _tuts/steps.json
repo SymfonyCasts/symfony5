@@ -1104,7 +1104,12 @@
             "id": "pre-relations-remove-sentry",
             "name": "PRE_RELATIONS: remove sentry",
             "description": null
+        },
+        {
+            "id": "comment-add-entity",
+            "name": "Comment: Add entity",
+            "description": null
         }
     ],
-    "sha": "7bb76f882bd67a17b3c2e5018f4bb32578b2a277"
+    "sha": "6483d0923b23b7ab1114c6a323af97e54420ceee"
 }
