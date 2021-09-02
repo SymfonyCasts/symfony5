@@ -1,0 +1,26 @@
+diff --git a/src/Entity/Question.php b/src/Entity/Question.php
+index 2bcde200..d5966f22 100644
+--- a/src/Entity/Question.php
++++ b/src/Entity/Question.php
+@@ -5,6 +5,7 @@ namespace App\Entity;
+ use App\Repository\QuestionRepository;
+ use Doctrine\Common\Collections\ArrayCollection;
+ use Doctrine\Common\Collections\Collection;
++use Doctrine\Common\Collections\Criteria;
+ use Doctrine\ORM\Mapping as ORM;
+ use Gedmo\Mapping\Annotation as Gedmo;
+ use Gedmo\Timestampable\Traits\TimestampableEntity;
+@@ -156,9 +157,10 @@ class Question
+ 
+     public function getApprovedAnswers(): Collection
+     {
+-        return $this->answers->filter(function(Answer $answer) {
+-            return $answer->isApproved();
+-        });
++        $criteria = Criteria::create()
++            ->andWhere(Criteria::expr()->eq('status', Answer::STATUS_APPROVED));
++
++        return $this->answers->matching($criteria);
+     }
+ 
+     public function addAnswer(Answer $answer): self

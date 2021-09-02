@@ -1,0 +1,13 @@
+diff --git a/src/Entity/Question.php b/src/Entity/Question.php
+index cd74cc52..078c1353 100644
+--- a/src/Entity/Question.php
++++ b/src/Entity/Question.php
+@@ -50,7 +50,7 @@ class Question
+     private $votes = 0;
+ 
+     /**
+-     * @ORM\OneToMany(targetEntity=Answer::class, mappedBy="question")
++     * @ORM\OneToMany(targetEntity=Answer::class, mappedBy="question", fetch="EXTRA_LAZY")
+      * @ORM\OrderBy({"createdAt" = "DESC"})
+      */
+     private $answers;
