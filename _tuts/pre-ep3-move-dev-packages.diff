@@ -30,7 +30,7 @@ index def886ca..3ff978a4 100644
      "config": {
          "preferred-install": {
 diff --git a/composer.lock b/composer.lock
-index 020c254f..2d8397c5 100644
+index 4e7a5676..db6769c4 100644
 --- a/composer.lock
 +++ b/composer.lock
 @@ -4,7 +4,7 @@

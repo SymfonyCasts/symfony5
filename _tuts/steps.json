@@ -1109,7 +1109,22 @@
             "id": "comment-add-entity",
             "name": "Comment: Add entity",
             "description": null
+        },
+        {
+            "id": "comment-timestampableentitytrait",
+            "name": "Comment: TimestampableEntityTrait",
+            "description": null
+        },
+        {
+            "id": "comment-make-migration",
+            "name": "Comment: make:migration",
+            "description": null
+        },
+        {
+            "id": "comment-add-relation",
+            "name": "Comment: add relation",
+            "description": null
         }
     ],
-    "sha": "6483d0923b23b7ab1114c6a323af97e54420ceee"
+    "sha": "aff42a078a2fbbe9217a3f3f71197051b9845752"
 }

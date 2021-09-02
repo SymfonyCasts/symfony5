@@ -48,7 +48,7 @@ index 48ca72c0..d22a5659 100644
      }
  }
 diff --git a/composer.lock b/composer.lock
-index a04ed1b9..cde2eb4a 100644
+index a105b74b..cde2eb4a 100644
 --- a/composer.lock
 +++ b/composer.lock
 @@ -4,7 +4,7 @@
@@ -2154,7 +2154,7 @@ index a04ed1b9..cde2eb4a 100644
              },
              "funding": [
                  {
-@@ -3822,25 +3728,25 @@
+@@ -3822,7 +3728,7 @@
                      "type": "tidelift"
                  }
              ],
@@ -2163,53 +2163,7 @@ index a04ed1b9..cde2eb4a 100644
          },
          {
              "name": "symfony/cache-contracts",
--            "version": "v2.1.3",
-+            "version": "v2.4.0",
-             "source": {
-                 "type": "git",
-                 "url": "https://github.com/symfony/cache-contracts.git",
--                "reference": "9771a09d2e6b84ecb8c9f0a7dbc72ee92aeba009"
-+                "reference": "c0446463729b89dd4fa62e9aeecc80287323615d"
-             },
-             "dist": {
-                 "type": "zip",
--                "url": "https://api.github.com/repos/symfony/cache-contracts/zipball/9771a09d2e6b84ecb8c9f0a7dbc72ee92aeba009",
--                "reference": "9771a09d2e6b84ecb8c9f0a7dbc72ee92aeba009",
-+                "url": "https://api.github.com/repos/symfony/cache-contracts/zipball/c0446463729b89dd4fa62e9aeecc80287323615d",
-+                "reference": "c0446463729b89dd4fa62e9aeecc80287323615d",
-                 "shasum": ""
-             },
-             "require": {
-                 "php": ">=7.2.5",
--                "psr/cache": "^1.0"
-+                "psr/cache": "^1.0|^2.0|^3.0"
-             },
-             "suggest": {
-                 "symfony/cache-implementation": ""
-@@ -3848,7 +3754,7 @@
-             "type": "library",
-             "extra": {
-                 "branch-alias": {
--                    "dev-master": "2.1-dev"
-+                    "dev-main": "2.4-dev"
-                 },
-                 "thanks": {
-                     "name": "symfony/contracts",
-@@ -3885,7 +3791,7 @@
-                 "standards"
-             ],
-             "support": {
--                "source": "https://github.com/symfony/cache-contracts/tree/master"
-+                "source": "https://github.com/symfony/cache-contracts/tree/v2.4.0"
-             },
-             "funding": [
-                 {
-@@ -3901,20 +3807,20 @@
-                     "type": "tidelift"
-                 }
-             ],
--            "time": "2020-07-06T13:23:11+00:00"
-+            "time": "2021-03-23T23:28:01+00:00"
+@@ -3905,16 +3811,16 @@
          },
          {
              "name": "symfony/config",
@@ -3580,27 +3534,20 @@ index a04ed1b9..cde2eb4a 100644
              "homepage": "https://symfony.com",
              "keywords": [
                  "config",
-@@ -5585,7 +5467,80 @@
+@@ -5585,7 +5467,7 @@
                  "options"
              ],
              "support": {
 -                "source": "https://github.com/symfony/options-resolver/tree/5.1"
 +                "source": "https://github.com/symfony/options-resolver/tree/v5.3.7"
-+            },
-+            "funding": [
-+                {
-+                    "url": "https://symfony.com/sponsor",
-+                    "type": "custom"
-+                },
-+                {
-+                    "url": "https://github.com/fabpot",
-+                    "type": "github"
-+                },
-+                {
-+                    "url": "https://tidelift.com/funding/github/packagist/symfony/symfony",
-+                    "type": "tidelift"
-+                }
-+            ],
+             },
+             "funding": [
+                 {
+@@ -5601,24 +5483,97 @@
+                     "type": "tidelift"
+                 }
+             ],
+-            "time": "2020-05-23T13:08:13+00:00"
 +            "time": "2021-08-04T21:20:46+00:00"
 +        },
 +        {
@@ -3659,14 +3606,21 @@ index a04ed1b9..cde2eb4a 100644
 +            ],
 +            "support": {
 +                "source": "https://github.com/symfony/password-hasher/tree/v5.3.7"
-             },
-             "funding": [
-                 {
-@@ -5601,24 +5556,24 @@
-                     "type": "tidelift"
-                 }
-             ],
--            "time": "2020-05-23T13:08:13+00:00"
++            },
++            "funding": [
++                {
++                    "url": "https://symfony.com/sponsor",
++                    "type": "custom"
++                },
++                {
++                    "url": "https://github.com/fabpot",
++                    "type": "github"
++                },
++                {
++                    "url": "https://tidelift.com/funding/github/packagist/symfony/symfony",
++                    "type": "tidelift"
++                }
++            ],
 +            "time": "2021-08-17T15:45:42+00:00"
          },
          {
@@ -5220,29 +5174,23 @@ index a04ed1b9..cde2eb4a 100644
              "autoload": {
                  "psr-4": {
                      "Symfony\\Bundle\\DebugBundle\\": ""
-@@ -7802,86 +7800,10 @@
+@@ -7802,10 +7800,10 @@
                      "homepage": "https://symfony.com/contributors"
                  }
              ],
 -            "description": "Symfony DebugBundle",
--            "homepage": "https://symfony.com",
--            "support": {
++            "description": "Provides a tight integration of the Symfony Debug component into the Symfony full-stack framework",
+             "homepage": "https://symfony.com",
+             "support": {
 -                "source": "https://github.com/symfony/debug-bundle/tree/5.1"
--            },
--            "funding": [
--                {
--                    "url": "https://symfony.com/sponsor",
--                    "type": "custom"
--                },
--                {
--                    "url": "https://github.com/fabpot",
--                    "type": "github"
--                },
--                {
--                    "url": "https://tidelift.com/funding/github/packagist/symfony/symfony",
--                    "type": "tidelift"
--                }
--            ],
++                "source": "https://github.com/symfony/debug-bundle/tree/v5.3.4"
+             },
+             "funding": [
+                 {
+@@ -7821,127 +7819,51 @@
+                     "type": "tidelift"
+                 }
+             ],
 -            "time": "2020-05-20T17:43:50+00:00"
 -        },
 -        {
@@ -5293,8 +5241,7 @@ index a04ed1b9..cde2eb4a 100644
 -                }
 -            ],
 -            "description": "Symfony Inflector Component",
-+            "description": "Provides a tight integration of the Symfony Debug component into the Symfony full-stack framework",
-             "homepage": "https://symfony.com",
+-            "homepage": "https://symfony.com",
 -            "keywords": [
 -                "inflection",
 -                "pluralize",
@@ -5303,16 +5250,23 @@ index a04ed1b9..cde2eb4a 100644
 -                "symfony",
 -                "words"
 -            ],
-             "support": {
+-            "support": {
 -                "source": "https://github.com/symfony/inflector/tree/v5.1.0-RC2"
-+                "source": "https://github.com/symfony/debug-bundle/tree/v5.3.4"
-             },
-             "funding": [
-                 {
-@@ -7897,51 +7819,51 @@
-                     "type": "tidelift"
-                 }
-             ],
+-            },
+-            "funding": [
+-                {
+-                    "url": "https://symfony.com/sponsor",
+-                    "type": "custom"
+-                },
+-                {
+-                    "url": "https://github.com/fabpot",
+-                    "type": "github"
+-                },
+-                {
+-                    "url": "https://tidelift.com/funding/github/packagist/symfony/symfony",
+-                    "type": "tidelift"
+-                }
+-            ],
 -            "abandoned": "use `EnglishInflector` from the String component instead",
 -            "time": "2020-05-20T17:43:50+00:00"
 +            "time": "2021-07-21T12:40:44+00:00"
@@ -5726,13 +5680,6 @@ index a04ed1b9..cde2eb4a 100644
          }
      ],
      "aliases": [],
-@@ -8334,5 +8308,5 @@
-     "platform-overrides": {
-         "php": "7.4.1"
-     },
--    "plugin-api-version": "2.0.0"
-+    "plugin-api-version": "2.1.0"
- }
 diff --git a/symfony.lock b/symfony.lock
 index 6d31a3aa..03fb1839 100644
 --- a/symfony.lock

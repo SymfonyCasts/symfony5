@@ -29,7 +29,7 @@ index 9d98ace9..ef7e35c6 100644
          "sensio/framework-extra-bundle": "^6.0",
          "sentry/sentry-symfony": "^4.0",
 diff --git a/composer.lock b/composer.lock
-index fe0dbf1c..920e9a5d 100644
+index 47dbd49b..037d9ec9 100644
 --- a/composer.lock
 +++ b/composer.lock
 @@ -4,7 +4,7 @@

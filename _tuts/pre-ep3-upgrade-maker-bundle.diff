@@ -21,7 +21,7 @@ index 3ff978a4..9d98ace9 100644
      },
      "autoload": {
 diff --git a/composer.lock b/composer.lock
-index 2d8397c5..fe0dbf1c 100644
+index db6769c4..47dbd49b 100644
 --- a/composer.lock
 +++ b/composer.lock
 @@ -4,7 +4,7 @@
@@ -100,5 +100,5 @@ index 2d8397c5..fe0dbf1c 100644
 -        "php": "7.3.0"
 +        "php": "7.4.1"
      },
-     "plugin-api-version": "2.0.0"
+     "plugin-api-version": "2.1.0"
  }

@@ -11,7 +11,7 @@ index ef7e35c6..b82a6148 100644
          "sentry/sentry-symfony": "^4.0",
          "symfony/asset": "5.1.*",
 diff --git a/composer.lock b/composer.lock
-index 920e9a5d..eaa0b496 100644
+index 037d9ec9..8af8cf5e 100644
 --- a/composer.lock
 +++ b/composer.lock
 @@ -4,7 +4,7 @@
