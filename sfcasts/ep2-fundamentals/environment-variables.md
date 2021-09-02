@@ -28,7 +28,7 @@ installing a new package so I can see what its recipe does.
 Back on the docs, copy the `composer require` line, move over, and paste:
 
 ```terminal
-composer require "sentry/sentry-symfony:^3.4"
+composer require sentry/sentry-symfony
 ```
 
 It's downloading some packages and... interesting! It says:
