@@ -1,0 +1,44 @@
+diff --git a/src/Controller/QuestionController.php b/src/Controller/QuestionController.php
+index c4859a83..ed588e29 100644
+--- a/src/Controller/QuestionController.php
++++ b/src/Controller/QuestionController.php
+@@ -55,15 +55,6 @@ class QuestionController extends AbstractController
+         }
+ 
+         $answers = $question->getAnswers();
+-        foreach ($answers as $answer) {
+-            dump($answer);
+-        }
+-
+-        $answers = [
+-            'Make sure your cat is sitting `purrrfectly` still 🤣',
+-            'Honestly, I like furry shoes better than MY cat',
+-            'Maybe... try saying the spell backwards?',
+-        ];
+ 
+         return $this->render('question/show.html.twig', [
+             'question' => $question,
+diff --git a/templates/question/show.html.twig b/templates/question/show.html.twig
+index 1cf29c59..3993dd7d 100644
+--- a/templates/question/show.html.twig
++++ b/templates/question/show.html.twig
+@@ -60,8 +60,8 @@
+                         <img src="{{ asset('images/tisha.png') }}" width="50" height="50" alt="Tisha avatar">
+                     </div>
+                     <div class="mr-3 pt-2">
+-                        {{ answer|parse_markdown }}
+-                        <p>-- Mallory</p>
++                        {{ answer.content|parse_markdown }}
++                        <p>-- {{ answer.username }}</p>
+                     </div>
+                     <div
+                         class="vote-arrows flex-fill pt-2"
+@@ -84,7 +84,7 @@
+                             value="down"
+                             {{ stimulus_action('answer-vote', 'clickVote') }}
+                         ><i class="far fa-arrow-alt-circle-down"></i></button>
+-                        <span>+ <span {{ stimulus_target('answer-vote', 'voteTotal') }}>6</span></span>
++                        <span>+ <span {{ stimulus_target('answer-vote', 'voteTotal') }}>{{ answer.votes }}</span></span>
+                     </div>
+                 </div>
+             </li>

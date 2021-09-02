@@ -1,11 +1,11 @@
 diff --git a/src/Factory/AnswerFactory.php b/src/Factory/AnswerFactory.php
-index 566ce875..a4c23ce1 100644
+index 41b9faba..d6699c0b 100644
 --- a/src/Factory/AnswerFactory.php
 +++ b/src/Factory/AnswerFactory.php
-@@ -40,7 +40,7 @@ final class AnswerFactory extends ModelFactory
-         return [
+@@ -41,7 +41,7 @@ final class AnswerFactory extends ModelFactory
              'content' => self::faker()->text(),
              'username' => self::faker()->userName(),
+             'votes' => rand(-20, 50),
 -            'question' => QuestionFactory::random(),
 +            'question' => QuestionFactory::new()->unpublished()->create(),
          ];

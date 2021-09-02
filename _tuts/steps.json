@@ -1116,6 +1116,11 @@
             "description": null
         },
         {
+            "id": "pre-relations-design-tweaks",
+            "name": "PRE_RELATIONS: design tweaks",
+            "description": null
+        },
+        {
             "id": "answer-add-entity",
             "name": "Answer: Add entity",
             "description": null
@@ -1123,6 +1128,11 @@
         {
             "id": "answer-timestampableentitytrait",
             "name": "Answer: TimestampableEntityTrait",
+            "description": null
+        },
+        {
+            "id": "answer-default-votes",
+            "name": "Answer: default votes",
             "description": null
         },
         {
@@ -1194,7 +1204,37 @@
             "id": "foundryrelation-fix-incorrect-relation",
             "name": "FoundryRelation: Fix incorrect relation",
             "description": null
+        },
+        {
+            "id": "accessingrelation-findby-method",
+            "name": "AccessingRelation: findBy() method",
+            "description": null
+        },
+        {
+            "id": "accessingrelation-using-getanswers",
+            "name": "AccessingRelation: using ->getAnswers()",
+            "description": null
+        },
+        {
+            "id": "accessingrelation-loop-over-and-dump",
+            "name": "AccessingRelation: loop over and dump()",
+            "description": null
+        },
+        {
+            "id": "accessingrelation-pass-into-template",
+            "name": "AccessingRelation: pass into template",
+            "description": null
+        },
+        {
+            "id": "accessingrelation-access-relation-in-template",
+            "name": "AccessingRelation: access relation in template",
+            "description": null
+        },
+        {
+            "id": "accessingrelation-make-answer-voting-real",
+            "name": "AccessingRelation: make answer voting real",
+            "description": null
         }
     ],
-    "sha": "3e13ebe282aadfd228fa0085d66df831f95b0566"
+    "sha": "aea062dca918a9be8cac8204a1609ef76bf39e5f"
 }

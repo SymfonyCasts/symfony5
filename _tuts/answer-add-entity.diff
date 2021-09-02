@@ -1,9 +1,9 @@
 diff --git a/src/Entity/Answer.php b/src/Entity/Answer.php
 new file mode 100644
-index 00000000..6433167a
+index 00000000..74b76c85
 --- /dev/null
 +++ b/src/Entity/Answer.php
-@@ -0,0 +1,58 @@
+@@ -0,0 +1,75 @@
 +<?php
 +
 +namespace App\Entity;
@@ -33,6 +33,11 @@ index 00000000..6433167a
 +     */
 +    private $username;
 +
++    /**
++     * @ORM\Column(type="integer")
++     */
++    private $votes;
++
 +    public function getId(): ?int
 +    {
 +        return $this->id;
@@ -58,6 +63,18 @@ index 00000000..6433167a
 +    public function setUsername(string $username): self
 +    {
 +        $this->username = $username;
++
++        return $this;
++    }
++
++    public function getVotes(): ?int
++    {
++        return $this->votes;
++    }
++
++    public function setVotes(int $votes): self
++    {
++        $this->votes = $votes;
 +
 +        return $this;
 +    }

@@ -1,13 +1,13 @@
 diff --git a/src/Entity/Answer.php b/src/Entity/Answer.php
-index 2c220e0c..2e9331eb 100644
+index 267c9e5f..f5e2751b 100644
 --- a/src/Entity/Answer.php
 +++ b/src/Entity/Answer.php
-@@ -30,6 +30,12 @@ class Answer
+@@ -35,6 +35,12 @@ class Answer
       */
-     private $username;
+     private $votes = 0;
  
 +    /**
-+     * @ORM\ManyToOne(targetEntity=Question::class, inversedBy="answer")
++     * @ORM\ManyToOne(targetEntity=Question::class, inversedBy="answers")
 +     * @ORM\JoinColumn(nullable=false)
 +     */
 +    private $question;
@@ -15,7 +15,7 @@ index 2c220e0c..2e9331eb 100644
      public function getId(): ?int
      {
          return $this->id;
-@@ -58,4 +64,16 @@ class Answer
+@@ -75,4 +81,16 @@ class Answer
  
          return $this;
      }

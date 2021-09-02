@@ -1,0 +1,13 @@
+diff --git a/templates/question/show.html.twig b/templates/question/show.html.twig
+index 727f6c63..1cf29c59 100644
+--- a/templates/question/show.html.twig
++++ b/templates/question/show.html.twig
+@@ -65,7 +65,7 @@
+                     </div>
+                     <div
+                         class="vote-arrows flex-fill pt-2"
+-                        style="min-width: 90px;"
++                        style="min-width: 120px;"
+                         {{ stimulus_controller('answer-vote', {
+                             url: path('answer_vote', {
+                                 id: 10
