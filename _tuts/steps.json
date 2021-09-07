@@ -1469,7 +1469,57 @@
             "id": "complexmanytomany-add-2nd-migration",
             "name": "ComplexManyToMany: add 2nd migration",
             "description": null
+        },
+        {
+            "id": "complexfixtures-make-factory-questiontag",
+            "name": "ComplexFixtures: make:factory QuestionTag",
+            "description": null
+        },
+        {
+            "id": "complexfixtures-getdefaults",
+            "name": "ComplexFixtures: getDefaults()",
+            "description": null
+        },
+        {
+            "id": "complexfixtures-createmany-10",
+            "name": "ComplexFixtures: createMany(10)",
+            "description": null
+        },
+        {
+            "id": "complexfixtures-fix-taggedat-type",
+            "name": "ComplexFixtures: fix taggedAt type",
+            "description": null
+        },
+        {
+            "id": "complexfixtures-do-complex-relation-in-fixtures",
+            "name": "ComplexFixtures: do complex relation in fixtures",
+            "description": null
+        },
+        {
+            "id": "complexfixtures-add-many",
+            "name": "ComplexFixtures: add ->many()",
+            "description": null
+        },
+        {
+            "id": "complexfixtures-add-another-callback",
+            "name": "ComplexFixtures: add another callback",
+            "description": null
+        },
+        {
+            "id": "fixrelation-update-template",
+            "name": "FixRelation: update template",
+            "description": null
+        },
+        {
+            "id": "fixrelation-join-across-both-tables",
+            "name": "FixRelation: join across both tables",
+            "description": null
+        },
+        {
+            "id": "fixrelation-select-join-also",
+            "name": "FixRelation: select join also",
+            "description": null
         }
     ],
-    "sha": "75964a1f380cee0ad107793fd76cbf48a349af9f"
+    "sha": "3766e2f680cee53621a6edc7e7703c06dbeb4693"
 }
