@@ -1,0 +1,13 @@
+diff --git a/src/Repository/AnswerRepository.php b/src/Repository/AnswerRepository.php
+index 2a6ade7c..b83134a3 100644
+--- a/src/Repository/AnswerRepository.php
++++ b/src/Repository/AnswerRepository.php
+@@ -30,6 +30,8 @@ class AnswerRepository extends ServiceEntityRepository
+             ->orderBy('answer.votes', 'DESC')
+             ->innerJoin('answer.question', 'question')
+             ->addSelect('question')
++            ->andWhere('question.askedAt > :oneMonthAgo')
++            ->setParameter('oneMonthAgo', new \DateTimeImmutable('-1 month'))
+             ->setMaxResults(10)
+             ->getQuery()
+             ->getResult()

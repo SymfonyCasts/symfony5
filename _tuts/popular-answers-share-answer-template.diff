@@ -1,0 +1,103 @@
+diff --git a/templates/answers/_answer.html.twig b/templates/answers/_answer.html.twig
+new file mode 100644
+index 00000000..1ae379b3
+--- /dev/null
++++ b/templates/answers/_answer.html.twig
+@@ -0,0 +1,36 @@
++<li class="mb-4">
++    <div class="row">
++        <div class="col-1">
++            <img src="{{ asset('images/tisha.png') }}" width="50" height="50" alt="Tisha avatar">
++        </div>
++        <div class="col-9">
++            {{ answer.content|parse_markdown }}
++            <p>-- {{ answer.username }}</p>
++        </div>
++        <div class="col-2 text-end">
++            <small>{{ answer.createdAt|ago }}</small>
++            <div
++                class="vote-arrows"
++                {{ stimulus_controller('answer-vote', {
++                    url: path('answer_vote', {
++                        id: answer.id
++                    })
++                }) }}
++            >
++                <button
++                    class="vote-up btn btn-link"
++                    name="direction"
++                    value="up"
++                    {{ stimulus_action('answer-vote', 'clickVote') }}
++                ><i class="far fa-arrow-alt-circle-up"></i></button>
++                <button
++                    class="vote-down btn btn-link"
++                    name="direction"
++                    value="down"
++                    {{ stimulus_action('answer-vote', 'clickVote') }}
++                ><i class="far fa-arrow-alt-circle-down"></i></button>
++                <span><span {{ stimulus_target('answer-vote', 'voteTotal') }}>{{ answer.votes }}</span></span>
++            </div>
++        </div>
++    </div>
++</li>
+diff --git a/templates/answers/popularAnswers.html.twig b/templates/answers/popularAnswers.html.twig
+index c4e3c27f..1745f514 100644
+--- a/templates/answers/popularAnswers.html.twig
++++ b/templates/answers/popularAnswers.html.twig
+@@ -9,7 +9,7 @@
+ 
+         <ul class="list-unstyled">
+             {% for answer in answers %}
+-                <li>{{ answer.votes }}</li>
++                {{ include('answers/_answer.html.twig') }}
+             {% endfor %}
+         </ul>
+     </div>
+diff --git a/templates/question/show.html.twig b/templates/question/show.html.twig
+index b09809ac..45082ce7 100644
+--- a/templates/question/show.html.twig
++++ b/templates/question/show.html.twig
+@@ -54,42 +54,7 @@
+ 
+     <ul class="list-unstyled">
+         {% for answer in question.approvedAnswers %}
+-            <li class="mb-4">
+-                <div class="row">
+-                    <div class="col-1">
+-                        <img src="{{ asset('images/tisha.png') }}" width="50" height="50" alt="Tisha avatar">
+-                    </div>
+-                    <div class="col-9">
+-                        {{ answer.content|parse_markdown }}
+-                        <p>-- {{ answer.username }}</p>
+-                    </div>
+-                    <div class="col-2 text-end">
+-                        <small>{{ answer.createdAt|ago }}</small>
+-                        <div
+-                            class="vote-arrows"
+-                            {{ stimulus_controller('answer-vote', {
+-                                url: path('answer_vote', {
+-                                    id: answer.id
+-                                })
+-                            }) }}
+-                        >
+-                            <button
+-                                class="vote-up btn btn-link"
+-                                name="direction"
+-                                value="up"
+-                                {{ stimulus_action('answer-vote', 'clickVote') }}
+-                            ><i class="far fa-arrow-alt-circle-up"></i></button>
+-                            <button
+-                                class="vote-down btn btn-link"
+-                                name="direction"
+-                                value="down"
+-                                {{ stimulus_action('answer-vote', 'clickVote') }}
+-                            ><i class="far fa-arrow-alt-circle-down"></i></button>
+-                            <span><span {{ stimulus_target('answer-vote', 'voteTotal') }}>{{ answer.votes }}</span></span>
+-                        </div>
+-                    </div>
+-                </div>
+-            </li>
++            {{ include('answers/_answer.html.twig') }}
+         {% endfor %}
+     </ul>
+ </div>

@@ -1,0 +1,22 @@
+diff --git a/src/DataFixtures/AppFixtures.php b/src/DataFixtures/AppFixtures.php
+index 75546e19..90ad4b1c 100644
+--- a/src/DataFixtures/AppFixtures.php
++++ b/src/DataFixtures/AppFixtures.php
+@@ -29,6 +29,7 @@ class AppFixtures extends Fixture
+         });
+         AnswerFactory::new()->needsApproval()->many(20)->create();
+ 
++        /** @var Question $question */
+         $question = QuestionFactory::createOne()->object();
+ 
+         $tag1 = new Tag();
+@@ -36,6 +37,9 @@ class AppFixtures extends Fixture
+         $tag2 = new Tag();
+         $tag2->setName('monster trucks');
+ 
++        $question->addTag($tag1);
++        $question->addTag($tag2);
++
+         $manager->persist($tag1);
+         $manager->persist($tag2);
+ 

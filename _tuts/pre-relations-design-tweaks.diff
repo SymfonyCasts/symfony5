@@ -1,3 +1,48 @@
+diff --git a/templates/base.html.twig b/templates/base.html.twig
+index f575aef2..d3b9d4ce 100644
+--- a/templates/base.html.twig
++++ b/templates/base.html.twig
+@@ -13,12 +13,17 @@
+         {% endblock %}
+     </head>
+     <body>
+-        <nav class="navbar navbar-light bg-light" style="height: 100px;">
+-          <a class="navbar-brand" href="{{ path('app_homepage') }}">
+-            <i style="color: #444; font-size: 2rem;" class="pb-1 fad fa-cauldron"></i>
+-            <p class="pl-2 d-inline font-weight-bold" style="color: #444;">Cauldron Overflow</p>
+-          </a>
+-          <button class="btn btn-dark">Sign up</button>
++        <nav class="navbar navbar-expand-lg navbar-light bg-light px-1" style="height: 60px;">
++            <a class="navbar-brand" href="{{ path('app_homepage') }}">
++                <p class="pl-2 d-inline font-weight-bold" style="color: #444;">
++                    Cauldron Overflow</p>
++            </a>
++            <div class="collapse navbar-collapse">
++                <ul class="navbar-nav me-auto mb-2 mb-lg-0">
++                </ul>
++            </div>
++
++            <button class="btn btn-dark">Sign up</button>
+         </nav>
+ 
+         {% block body %}{% endblock %}
+diff --git a/templates/question/homepage.html.twig b/templates/question/homepage.html.twig
+index 3bc44f18..14273e95 100644
+--- a/templates/question/homepage.html.twig
++++ b/templates/question/homepage.html.twig
+@@ -1,10 +1,10 @@
+ {% extends 'base.html.twig' %}
+ 
+ {% block body %}
+-<div class="jumbotron-img jumbotron jumbotron-fluid">
++<div class="jumbotron-img p-2 mb-2">
+     <div class="container">
+         <h1 class="display-4">Your Questions Answered</h1>
+-        <p class="lead">And even answers for those questions you didn't think to ask!</p>
++        <div class="lead">And even answers for those questions you didn't think to ask!</div>
+     </div>
+ </div>
+ <div class="container">
 diff --git a/templates/question/show.html.twig b/templates/question/show.html.twig
 index 727f6c63..410fb50f 100644
 --- a/templates/question/show.html.twig

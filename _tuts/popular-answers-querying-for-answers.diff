@@ -1,0 +1,80 @@
+diff --git a/src/Controller/AnswerController.php b/src/Controller/AnswerController.php
+index 4c289ee0..8158e11b 100644
+--- a/src/Controller/AnswerController.php
++++ b/src/Controller/AnswerController.php
+@@ -3,6 +3,7 @@
+ namespace App\Controller;
+ 
+ use App\Entity\Answer;
++use App\Repository\AnswerRepository;
+ use Doctrine\ORM\EntityManagerInterface;
+ use Psr\Log\LoggerInterface;
+ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+@@ -14,9 +15,13 @@ class AnswerController extends AbstractController
+     /**
+      * @Route("/answers/popular", name="app_popular_answers")
+      */
+-    public function popularAnswers()
++    public function popularAnswers(AnswerRepository $answerRepository)
+     {
+-        return $this->render('answers/popularAnswers.html.twig');
++        $answers = $answerRepository->findMostPopular();
++
++        return $this->render('answers/popularAnswers.html.twig', [
++            'answers' => $answers
++        ]);
+     }
+ 
+     /**
+diff --git a/src/Repository/AnswerRepository.php b/src/Repository/AnswerRepository.php
+index 14e969b9..9571e5b8 100644
+--- a/src/Repository/AnswerRepository.php
++++ b/src/Repository/AnswerRepository.php
+@@ -19,22 +19,20 @@ class AnswerRepository extends ServiceEntityRepository
+         parent::__construct($registry, Answer::class);
+     }
+ 
+-    // /**
+-    //  * @return Answer[] Returns an array of Answer objects
+-    //  */
+-    /*
+-    public function findByExampleField($value)
++     /**
++      * @return Answer[] Returns an array of Answer objects
++      */
++    public function findMostPopular(): array
+     {
+-        return $this->createQueryBuilder('a')
+-            ->andWhere('a.exampleField = :val')
+-            ->setParameter('val', $value)
+-            ->orderBy('a.id', 'ASC')
++        return $this->createQueryBuilder('answer')
++            ->andWhere('answer.status = :approved')
++            ->setParameter('approved', Answer::STATUS_APPROVED)
++            ->orderBy('answer.votes', 'DESC')
+             ->setMaxResults(10)
+             ->getQuery()
+             ->getResult()
+         ;
+     }
+-    */
+ 
+     /*
+     public function findOneBySomeField($value): ?Answer
+diff --git a/templates/answers/popularAnswers.html.twig b/templates/answers/popularAnswers.html.twig
+index 87b74ac3..c4e3c27f 100644
+--- a/templates/answers/popularAnswers.html.twig
++++ b/templates/answers/popularAnswers.html.twig
+@@ -6,6 +6,12 @@
+ <div class="container my-md-4">
+     <div class="row">
+         <h1>Most Popular Answers</h1>
++
++        <ul class="list-unstyled">
++            {% for answer in answers %}
++                <li>{{ answer.votes }}</li>
++            {% endfor %}
++        </ul>
+     </div>
+ </div>
+ {% endblock %}

@@ -1,0 +1,15 @@
+diff --git a/src/DataFixtures/AppFixtures.php b/src/DataFixtures/AppFixtures.php
+index 90ad4b1c..14f514d7 100644
+--- a/src/DataFixtures/AppFixtures.php
++++ b/src/DataFixtures/AppFixtures.php
+@@ -37,8 +37,8 @@ class AppFixtures extends Fixture
+         $tag2 = new Tag();
+         $tag2->setName('monster trucks');
+ 
+-        $question->addTag($tag1);
+-        $question->addTag($tag2);
++        $tag1->addQuestion($question);
++        $tag2->addQuestion($question);
+ 
+         $manager->persist($tag1);
+         $manager->persist($tag2);

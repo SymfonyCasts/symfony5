@@ -1,0 +1,13 @@
+diff --git a/src/Repository/QuestionRepository.php b/src/Repository/QuestionRepository.php
+index 6adb14a4..1714f860 100644
+--- a/src/Repository/QuestionRepository.php
++++ b/src/Repository/QuestionRepository.php
+@@ -27,6 +27,8 @@ class QuestionRepository extends ServiceEntityRepository
+     {
+         return $this->addIsAskedQueryBuilder()
+             ->orderBy('q.askedAt', 'DESC')
++            ->leftJoin('q.tags', 'tag')
++            ->addSelect('tag')
+             ->getQuery()
+             ->getResult()
+         ;

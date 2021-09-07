@@ -1314,7 +1314,162 @@
             "id": "statusfield-add-criteria-logic",
             "name": "StatusField: add Criteria logic",
             "description": null
+        },
+        {
+            "id": "popular-answers-add-page",
+            "name": "Popular Answers: Add page",
+            "description": null
+        },
+        {
+            "id": "popular-answers-querying-for-answers",
+            "name": "Popular Answers: querying for answers",
+            "description": null
+        },
+        {
+            "id": "popular-answers-share-answer-template",
+            "name": "Popular Answers: share answer template",
+            "description": null
+        },
+        {
+            "id": "popular-answers-conditionally-render-question",
+            "name": "Popular Answers: Conditionally render question",
+            "description": null
+        },
+        {
+            "id": "popular-answers-answer-getquestiontext",
+            "name": "Popular Answers: Answer.getQuestionText",
+            "description": null
+        },
+        {
+            "id": "popular-answers-use-u-truncate",
+            "name": "Popular Answers: Use |u.truncate()",
+            "description": null
+        },
+        {
+            "id": "popular-answers-install-composer-require-twig-string-extra",
+            "name": "Popular Answers: install composer require twig\/string-extra",
+            "description": null
+        },
+        {
+            "id": "n-1-add-innerjoin",
+            "name": "N+1: Add innerJoin()",
+            "description": null
+        },
+        {
+            "id": "n-1-addselect",
+            "name": "N+1: addSelect()",
+            "description": null
+        },
+        {
+            "id": "n-1-add-andwhere-on-join",
+            "name": "N+1: Add andWhere() on JOIN",
+            "description": null
+        },
+        {
+            "id": "manytomany-make-entity-tag",
+            "name": "ManyToMany: make:entity Tag",
+            "description": null
+        },
+        {
+            "id": "manytomany-add-timestampableentity",
+            "name": "ManyToMany: Add TimestampableEntity",
+            "description": null
+        },
+        {
+            "id": "manytomany-add-relation",
+            "name": "ManyToMany: add relation",
+            "description": null
+        },
+        {
+            "id": "manytomany-create-objects-in-fixtures",
+            "name": "ManyToMany: create objects in fixtures",
+            "description": null
+        },
+        {
+            "id": "manytomany-relate-objects-in-fixtures",
+            "name": "ManyToMany: relate objects in fixtures",
+            "description": null
+        },
+        {
+            "id": "manytomany-set-inverse-side",
+            "name": "ManyToMany: Set inverse side",
+            "description": null
+        },
+        {
+            "id": "manytomany-remove-owning-sync",
+            "name": "ManyToMany: remove owning sync",
+            "description": null
+        },
+        {
+            "id": "manytomany-put-that-back",
+            "name": "ManyToMany: put that back",
+            "description": null
+        },
+        {
+            "id": "tagfixtures-make-factory",
+            "name": "TagFixtures: make:factory",
+            "description": null
+        },
+        {
+            "id": "tagfixtures-getdefaults",
+            "name": "TagFixtures: getDefaults()",
+            "description": null
+        },
+        {
+            "id": "tagfixtures-create-100-and-relate-to-question",
+            "name": "TagFixtures: Create 100 and relate to Question",
+            "description": null
+        },
+        {
+            "id": "tagfixtures-add-callback-to-fix-relation",
+            "name": "TagFixtures: add callback to fix relation",
+            "description": null
+        },
+        {
+            "id": "usingmanytomany-render-tags",
+            "name": "UsingManyToMany: Render tags",
+            "description": null
+        },
+        {
+            "id": "usingmanytomany-add-join-for-n-1",
+            "name": "UsingManyToMany: Add join for N+1",
+            "description": null
+        },
+        {
+            "id": "complexmanytomany-remove-question-tags-relation",
+            "name": "ComplexManyToMany: remove question\/tags relation",
+            "description": null
+        },
+        {
+            "id": "complexmanytomany-generate-questiontag",
+            "name": "ComplexManyToMany: generate QuestionTag",
+            "description": null
+        },
+        {
+            "id": "complexmanytomany-initialize-taggedat",
+            "name": "ComplexManyToMany: initialize taggedAt",
+            "description": null
+        },
+        {
+            "id": "complexmanytomany-make-migration",
+            "name": "ComplexManyToMany: make:migration",
+            "description": null
+        },
+        {
+            "id": "complexmanytomany-fix-migration",
+            "name": "ComplexManyToMany: fix migration",
+            "description": null
+        },
+        {
+            "id": "delete-me-2",
+            "name": "delete me 2",
+            "description": null
+        },
+        {
+            "id": "complexmanytomany-add-2nd-migration",
+            "name": "ComplexManyToMany: add 2nd migration",
+            "description": null
         }
     ],
-    "sha": "b32627cc7ce7711cddd05a62e0f8222af9f9e75b"
+    "sha": "75964a1f380cee0ad107793fd76cbf48a349af9f"
 }

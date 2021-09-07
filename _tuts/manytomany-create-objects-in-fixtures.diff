@@ -1,0 +1,29 @@
+diff --git a/src/DataFixtures/AppFixtures.php b/src/DataFixtures/AppFixtures.php
+index d0b308fa..75546e19 100644
+--- a/src/DataFixtures/AppFixtures.php
++++ b/src/DataFixtures/AppFixtures.php
+@@ -4,6 +4,7 @@ namespace App\DataFixtures;
+ 
+ use App\Entity\Answer;
+ use App\Entity\Question;
++use App\Entity\Tag;
+ use App\Factory\AnswerFactory;
+ use App\Factory\QuestionFactory;
+ use Doctrine\Bundle\FixturesBundle\Fixture;
+@@ -28,6 +29,16 @@ class AppFixtures extends Fixture
+         });
+         AnswerFactory::new()->needsApproval()->many(20)->create();
+ 
++        $question = QuestionFactory::createOne()->object();
++
++        $tag1 = new Tag();
++        $tag1->setName('dinosaurs');
++        $tag2 = new Tag();
++        $tag2->setName('monster trucks');
++
++        $manager->persist($tag1);
++        $manager->persist($tag2);
++
+         $manager->flush();
+     }
+ }
