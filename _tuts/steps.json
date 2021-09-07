@@ -1519,7 +1519,52 @@
             "id": "fixrelation-select-join-also",
             "name": "FixRelation: select join also",
             "description": null
+        },
+        {
+            "id": "pagerfanta-install-it",
+            "name": "Pagerfanta: install it",
+            "description": null
+        },
+        {
+            "id": "pagerfanta-return-querybuilder",
+            "name": "Pagerfanta: return QueryBuilder",
+            "description": null
+        },
+        {
+            "id": "pagerfanta-install-orm-adapter",
+            "name": "Pagerfanta: install orm adapter",
+            "description": null
+        },
+        {
+            "id": "pagerfanta-create-pagerfanta-pass-to-tpl",
+            "name": "Pagerfanta: create Pagerfanta + pass to tpl",
+            "description": null
+        },
+        {
+            "id": "pagerfanta-try-to-use-twig-function",
+            "name": "Pagerfanta: try to use Twig function",
+            "description": null
+        },
+        {
+            "id": "pagerfanta-install-twig-support",
+            "name": "Pagerfanta: install twig support",
+            "description": null
+        },
+        {
+            "id": "pagerfanta-set-current-page",
+            "name": "Pagerfanta: set current page",
+            "description": null
+        },
+        {
+            "id": "pagerfanta-use-bootstrap-5-theme",
+            "name": "Pagerfanta: use bootstrap 5 theme",
+            "description": null
+        },
+        {
+            "id": "pagerfanta-put-page-in-route",
+            "name": "Pagerfanta: put {page} in route",
+            "description": null
         }
     ],
-    "sha": "3766e2f680cee53621a6edc7e7703c06dbeb4693"
+    "sha": "6f9dd6f8b0b95a0da5381c41ee8b3771a13288a0"
 }

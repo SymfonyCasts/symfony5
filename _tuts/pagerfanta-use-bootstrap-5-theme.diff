@@ -1,0 +1,8 @@
+diff --git a/config/packages/pagerfanta.yaml b/config/packages/pagerfanta.yaml
+new file mode 100644
+index 00000000..ba9384a9
+--- /dev/null
++++ b/config/packages/pagerfanta.yaml
+@@ -0,0 +1,2 @@
++babdev_pagerfanta:
++    default_view: twitter_bootstrap5

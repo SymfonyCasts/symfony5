@@ -1,0 +1,13 @@
+diff --git a/templates/question/homepage.html.twig b/templates/question/homepage.html.twig
+index 9178649f..333f6acd 100644
+--- a/templates/question/homepage.html.twig
++++ b/templates/question/homepage.html.twig
+@@ -46,6 +46,8 @@
+             </div>
+         </div>
+         {% endfor %}
++
++        {{ pagerfanta(pager) }}
+     </div>
+ </div>
+ {% endblock %}
