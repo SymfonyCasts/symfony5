@@ -1,5 +1,5 @@
 diff --git a/src/DataFixtures/AppFixtures.php b/src/DataFixtures/AppFixtures.php
-index 0ade76a2..05f3012e 100644
+index 0ade76a2..a9574770 100644
 --- a/src/DataFixtures/AppFixtures.php
 +++ b/src/DataFixtures/AppFixtures.php
 @@ -2,6 +2,7 @@
@@ -10,7 +10,7 @@ index 0ade76a2..05f3012e 100644
  use App\Entity\Question;
  use App\Factory\QuestionFactory;
  use Doctrine\Bundle\FixturesBundle\Fixture;
-@@ -19,6 +20,12 @@ class AppFixtures extends Fixture
+@@ -19,6 +20,17 @@ class AppFixtures extends Fixture
              ->create()
          ;
  
@@ -18,7 +18,12 @@ index 0ade76a2..05f3012e 100644
 +        $answer->setContent('This question is the best? I wish... I knew the answer.');
 +        $answer->setUsername('weaverryan');
 +
++        $question = new Question();
++        $question->setName('How to un-disappear your wallet.');
++        $question->setQuestion('... I should not have done this...');
++
 +        $manager->persist($answer);
++        $manager->persist($question);
 +
          $manager->flush();
      }

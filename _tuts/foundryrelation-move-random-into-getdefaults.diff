@@ -1,14 +1,16 @@
 diff --git a/src/DataFixtures/AppFixtures.php b/src/DataFixtures/AppFixtures.php
-index 162daf28..d6491a66 100644
+index 407d9b5e..d6491a66 100644
 --- a/src/DataFixtures/AppFixtures.php
 +++ b/src/DataFixtures/AppFixtures.php
-@@ -21,9 +21,7 @@ class AppFixtures extends Fixture
+@@ -21,11 +21,7 @@ class AppFixtures extends Fixture
              ->create()
          ;
  
--        AnswerFactory::createMany(100, [
--            'question' => QuestionFactory::random(),
--        ]);
+-        AnswerFactory::createMany(100, function() {
+-            return [
+-                'question' => QuestionFactory::random(),
+-            ];
+-        });
 +        AnswerFactory::createMany(100);
  
          $manager->flush();

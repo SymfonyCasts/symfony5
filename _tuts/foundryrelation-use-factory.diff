@@ -1,5 +1,5 @@
 diff --git a/src/DataFixtures/AppFixtures.php b/src/DataFixtures/AppFixtures.php
-index 285aef79..d6491a66 100644
+index 575ef012..d6491a66 100644
 --- a/src/DataFixtures/AppFixtures.php
 +++ b/src/DataFixtures/AppFixtures.php
 @@ -4,6 +4,7 @@ namespace App\DataFixtures;
@@ -10,18 +10,22 @@ index 285aef79..d6491a66 100644
  use App\Factory\QuestionFactory;
  use Doctrine\Bundle\FixturesBundle\Fixture;
  use Doctrine\Persistence\ObjectManager;
-@@ -20,14 +21,7 @@ class AppFixtures extends Fixture
+@@ -20,18 +21,7 @@ class AppFixtures extends Fixture
              ->create()
          ;
  
--        $question = QuestionFactory::createOne()->object();
--
 -        $answer = new Answer();
 -        $answer->setContent('This question is the best? I wish... I knew the answer.');
 -        $answer->setUsername('weaverryan');
+-
+-        $question = new Question();
+-        $question->setName('How to un-disappear your wallet.');
+-        $question->setQuestion('... I should not have done this...');
+-
 -        $answer->setQuestion($question);
 -
 -        $manager->persist($answer);
+-        $manager->persist($question);
 +        AnswerFactory::createMany(100);
  
          $manager->flush();

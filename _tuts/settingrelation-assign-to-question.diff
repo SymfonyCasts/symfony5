@@ -1,17 +1,13 @@
 diff --git a/src/DataFixtures/AppFixtures.php b/src/DataFixtures/AppFixtures.php
-index 206e57b6..285aef79 100644
+index a9574770..575ef012 100644
 --- a/src/DataFixtures/AppFixtures.php
 +++ b/src/DataFixtures/AppFixtures.php
-@@ -21,11 +21,11 @@ class AppFixtures extends Fixture
-         ;
+@@ -28,6 +28,8 @@ class AppFixtures extends Fixture
+         $question->setName('How to un-disappear your wallet.');
+         $question->setQuestion('... I should not have done this...');
  
-         $question = QuestionFactory::createOne()->object();
--        dd($question);
- 
-         $answer = new Answer();
-         $answer->setContent('This question is the best? I wish... I knew the answer.');
-         $answer->setUsername('weaverryan');
 +        $answer->setQuestion($question);
- 
++
          $manager->persist($answer);
+         $manager->persist($question);
  
