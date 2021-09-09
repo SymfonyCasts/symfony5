@@ -1,131 +1,154 @@
 # The ManyToOne Relation
 
-Coming soon...
+Okay: we have a `Question` entity and table. We have an `Answer` entity and table.
+Yay for us! But what we *really* want to do is *relate* an `Answer` to a `Question`.
 
-Okay. We have a question and to the table, we have an insert entity and they will
+To do this... well... *forget* about Doctrine for a second. Let's just think about
+how this would look in a database. So: each answer belongs to a single question.
+We would normally model this in the database by adding a `question_id` column to
+the `answer` table that's a foreign key to the question's `id`. This would allow
+each question to have many answers and each answer to be related to exactly one
+question.
 
-Cool. But
+Ok! So... we need to add a new column to the `answer` table. The way we've done
+that so far in Doctrine is by adding a *property* to the entity class. And adding
+a relationship is *no* different.
 
-What we really want to do is relate an answer to a question. So forget about doctrine
-for a second. Let's just think how this would look in a database.
+## Generating the Answer.question ManyToOne Property
 
-No,
+So find your terminal and run:
 
-Each answer belongs to a single question. We would normally model this in the
-database by adding a question ID column to the answer table. That's a foreign key to
-a question. This will allow each question to have that many answers and each answer
-to be related to exactly one question. Okay. Ultimately, that's exactly what our
-database is going to look like, but we'll get there in a slightly different kind of
-simpler way. All right. So now back to thinking about doctrine so far, whenever we
-want to add a column to a table, we add a property to that entity and with the
-relationship, this is still true. We need to add a new property to answer. All right.
-So let's do it all. Run at the Symfony console,
+```terminal
+symfony console make:entity
+```
 
-Make entity.
+We need to update the `Answer` entity. Now, what should the new property be
+called... `question_id`? Actually, no. And this is one of the coolest, but trickiest
+things about Doctrine. Instead, call it simply `question`... because this property
+will hold an entire `Question` *object*... but more on that later.
 
-When it asks us to which entity you want, update, update, answer. Now, what should
-the new property name be? Question ID actually, no, and this is one of the coolest,
-but trickiest things about doctrine. Instead, just
+For the type, use a "fake" type called `relation`. This starts a wizard that will
+guide us through the process of adding a relationship. What class should this new
+property relate to? Easy: the `Question` entity.
 
-Use question.
+Ah, and *now* we see something awesome: a big table that explains the four types
+of relationships with an example of each of one. You can read through all of these,
+but the one *we* need is `ManyToOne`. Each `Answer` relates to one `Question`.
+And each `Question` can have many answers. That's... exactly what we want. Enter
+`ManyToOne`. This is actually the *king* of relationships: most of the time,
+this will be the one you want.
 
-We'll see why soon
+Is the `Answer.question` property allowed to be null? This is asking if we should
+be allowed to save an `Answer` to the database that is *not* related to a `Question`.
+For us, that's a "no". Every `Answer` *must* have a question... except... I guess...
+in the Hitchhiker's Guide to the Galaxy. Anyways, saying "no" will make the new column
+*required* in the database.
 
-For the type I'm going
+## Mapping the "Other" Side of the Relation
 
-To answer with a sort of fake relation to type. This starts a wizard that will guide
-us through the process of adding a relationship. All right. What classes should this
-entity to relate it to? So an answers, should it be related to a question?
+This next question is *super* interesting:
 
-Awesome.
+> Do you want to add a new property to `Question` so you can access/update `Answer`
+> objects from it.
 
-Now it explains the four types of relationships and give some examples of each of
-them. So you can read through all of these, but in this case, the one we want is many
-to one. Each answer relates to one question. Each question can have many answers.
-That's perfect. I'm going to select many to one, which is kind of the king of
-relationships. All right. Is the answer to that question of property allowed to be
-no. So can you have an answer that has no question? I'm going to say no. In other
-words, that's going to be required in the database.
+Here's the deal: every relationship can have two sides. Think about it: an `Answer`
+is related to one `Question`. But... you can also view the relationship from the
+other direction and say that a `Question` has many answers.
 
-Okay. Ask him, do you want to
+Regardless of whether we say "yes" or "no" to this question, we *will* be able
+to get and set the `Question` for an `Answer`. If we *do* say "yes", it simply means
+that we will *also* be able to access the relationship from the *other* direction...
+like by saying `$question->getAnswers()` to get all the answers for a given
+`Question`.
 
-Add a new property to question so you can access, update, answer objects from it. Now
-this really important. Each relationship can have two sides. If you think about it.
-So an answer has one question, but you can also view the relationship from the other
-direction and say that a question has many answers. No matter what we answer to this
-question, we will be able to get and set the question for an answer. If we say yes
-here, it simply means that we will also be able to say something like question-> get
-answers, to get all the answers for a given question.
+And... hey! Being able to say `$question->getAnswers()` sounds pretty handy!
+So let's say yes. There's no downside... except that this will generate a little
+bit more code.
 
-Hey, that sounds pretty convenient.
+What should that new property in the `Question` entity be called? Use the default
+`answers`.
 
-No, here in everything, we worked fine. But since being able to save the
-questionnaire, get answers seems pretty useful. Let's say, yes, there's no downside,
-except that it will generate a bit more finally. And then it says, what's the mission
-of the new field. Maybe instead of questions, instead of the question, that's easy.
-It suggests answers. Let's use that. And finally it asks you, if you wanted this
-thing called an orphan removal, this is a little bit more advanced and deals with
-like forum questions. You probably don't need it. So I'll say no, you can always
-change this later, directly in your entity and done. Okay. So we hit enter one more
-time to exit the wizard. All right, let's go look at the entities I committed before
-hitting recording for recording. Cause I'm going to get status. Ah, so both entities
-were updated. Let's open the answer entity first.
+*Finally* it asks a question about `orphanRemoval`. This is a bit more advanced...
+and you probably don't need it. If you *do* discover later that you need it, you
+can enable it manually inside your entity. I'll say no.
 
-Okay. Oh, and editing a new question property. But instead of having at, or I'm slack
-or I'm /column, it has RM /many to one, which then describes it. This is related to
-the question entity. And if you scroll to the bottom, it has just normal and get her
-in center methods. One key thing you'll notice. And we'll talk more about this in the
-next chapter. Is that when you send a question, you actually pass an object. Not just
-the idea, that question anyways, once go check out the question entity. All right. So
-if we scroll down all the way to here, beautiful. So question now has an answers
-property, which is a one to many relationship.
+And... done! Hit enter one more time to exit the wizard.
 
-And then down at the bottom
+## Checking out the Entity Changes
 
-That has to get her and set setter methods like get answers. Oh, except instead of
-having a set answers method, it has an add answer method and a remove answer method,
-which are just a little bit more convenient than having a set answers method. And
-there's one more thing this did up near the top of the class. It created a
-constructor and an initialize, the answers property to an array collection. So a high
-level, a question is going to have many answers. So we know that this is going to be
-an array or like a collection in doctrine for internal reasons. Instead of having
-answers, be an array, it's this array collection object. And then it's not too
-important. Or Ray collection looks and acts like an array. You can loop, for example,
-you can loop over it, but it has a couple of nice extra methods on it. But anyways,
-anytime you have any time, you have a relationship that whole is a collection of
-other items. You need to initialize it in your constructor. Like you see here, if you
-use them against the command that will be done for you. All right. So now I kind of
-want to point something out that we just saw. We generated a many to one
-relationship. We saw this on the answer entity,
+Let's go see what this did! I committed before recording, so I'll run
 
-But
+```terminal
+git status
+```
 
-In the question entity, it says one
+to check things out. Ooo, *both* entities were updated. Let's open `Answer`
+first... and... here's the new `question` property. It *looks* like any other
+property except that instead of having `ORM\Column` above it, it has `ORM\ManyToOne`
+and targets the `Question` entity.
 
-To many.
+Scroll to the bottom. Down here, it generated a normal getter and setter method.
 
-This is a key thing to understand a many to one relationship and a one to many
-relationship. Aren't two different types of relationships. They described the same
-tight relationship just from the two different sides. From the perspective of a
-question as a one to many, to the answer entity from answering to these eight, many
-to one to question, the point is when you see these two relationships, they're not
-really two different things. They're just the same thing. Seeing from two different
-directions. All right. So we have added as a new stuff to answer these. So let's go
-make a migration, current and Symfony consult make migration. And when that finishes
-it's been over and open up that new file. Okay. Let's check it out. Oh, beautiful.
-Check it out to table answer. Add question ID. So relationships were really cool
-because in the answer entity, we have a question property, but doctrine is smart
-enough when it creates the migration to turn it into a question I D column that will
-hold an integral, hold the, uh, ID because that's a foreign key to the ID property on
-question. In
+Let's go look at the `Question` entity. If we scroll... beautiful: this now has
+an `answers` property, which is a `OneToMany` relationship.
 
-Other words, the, all the, the
+And... all the way at the bottom, it generated a getter and setter method. Oh,
+well, instead of `setAnswers()`, it generated `addAnswer()` and `removeAnswer()`,
+which are just a bit more convenient, especially in Symfony if you're using the
+form component or the serializer.
 
-Table structure ultimately looks exactly like we expected. So the looks exactly like
-we expected the tricky, but honestly, awesome part is that in PHP
+## The ArrayCollection Object
 
-To relay
+Head back up near the top of this class. The command *also* generated a
+constructor method so that it could initialize the `answers` property to some
+`ArrayCollection` object.
 
-An answer to a question, we'll do that by setting an entire question object onto the
-question property, not an energy ID. Let's see exactly how to do that next.
+Ok, so we know that each `Question` will have many answers. So we know that the
+`answers` property will be an array... or some sort of collection. In Doctrine...
+for internal reasons, instead of setting the `answers` property to an array, it
+sets it to a `Collection` object. That's... not *too* important: the object
+looks an acts like an array - like, you can `foreach` over it. But it *does* have
+a few extra useful methods on it.
 
+Anyways, whenever you have a relationship that holds a "collection" of other
+items, you need to initialize that property to an `ArrayCollection` in your
+constructor. If you use the `make:entity` command, this will always be done for
+you.
+
+## ManyToOne vs OneToMany
+
+Oh, and I want to point something out. We generated a `ManyToOne` relationship. We
+can see this in the `Answer` entity. But... in the `Question` entity, it says
+`OneToMany`.
+
+This is a *key* thing to understand: a `ManyToOne` relationship and a `OneToMany`
+relationship are *not* actually two different types of relationships. Nope: they
+described the *same* relationship... just from the two different sides.
+
+Think about it: from the perspective of a `Question`, we have a "one question
+relates to many answers" relationship - a `OneToMany`. From the perspective of
+the `Answer` entity, that *same* relationship would be described as "many answers
+can relate to one question": a `ManyToOne`.
+
+The point is: when you see these two relationships, realize that they are *not*
+two different things: they're the same *one* relation seen from opposite sides.
+
+## The answer_id Foreign Key Column
+
+*Anyways*, we ran `make:entity` and it added one property to each class and a few
+methods. Nothing fancy. Time to generate the migration for this:
+
+```terminal
+symfony console make:migration
+```
+
+Let's go peek at the new file! How cool is this??? It's adding a `question_id`
+column to the `answer` table! Doctrine is smart: we added a `question` property
+to the `Answer` entity. But in the database, it added a `question_id` column that's
+a foreign key to the `id` column in the `question` table. In other words, the
+table structure looks *exactly* like we expected!
+
+The tricky, but honestly *awesome* thing, is that, in PHP, to relate an `Answer`
+to a `Question`, we're *not* going to set the `Answer.question` property to an
+integer `id`. Nope, we're going to set it to an entire `Question` *object*.
+Let's see exactly how to do that next.
