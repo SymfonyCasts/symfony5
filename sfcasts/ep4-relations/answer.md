@@ -1,88 +1,104 @@
 # The Answer Entity
 
-Coming soon...
+Oh hey there friends! Welcome back to part 2 of our Doctrine in Symfony series...
+Last time we mastered the basics, but good stuff! Creating an entity, migrations,
+fixtures, saving, querying and more. *This* time, we're going to do some *mega*
+study on Doctrine *relations*.
 
-New friends. Welcome back to part two of our doctrine in Symfony series. I can see
-that you didn't get enough. So last time we mastered the basics, creating an entity,
-migrations fixtures, saving entities, all that good stuff. This time, we're going to
-do some mega study on doctrine relations. So let's get our project set up to maximize
-your foreign key fund. Download the course code from this page to code along with me
-after unzipping the file, you will find a start directory with all the fancy files
-that you see here. Check out this.md file for all the fun details on how to get this
-project running. The last step will be to find the terminal, move into the project
-and run the Symfony serv-D. I'm using the Symfony binary to start a local web server.
-Let's go see our site spin over your browser.
+## Project Setup
 
-I'll find it at one through seven.
+So let's get our project set up. To maximize your foreign key fun, I recommend
+downloading the course code from this page and coding along with me. After unzipping
+the file, you'll find a `start/` directory with all the fancy files that you see
+here. Check out the `README.md` file for all the fun details on how to get this project
+running.
 
-That is zero.zero.one,:8,000. Oh, Hey, they're called turnover flow. This is a site
-where the budding industry of which is in wizards can come to ask questions. After
-they prematurely shipped, shipping their spells to production and turning their
-clients into small adorable frogs. These questions here are coming from the database.
-We built a question entity in the first tutorial, but if you click into a question,
-these answers down here. Yeah, these are totally hard-coded time to change that. So
-forget about the relationship part entirely between questions and answers for a
-second. It's really simple. Our site has answers. And so if we want to be able to
-store answers in the database, we need an answer entity. So you're in terminal, let's
-generate it. Runner Symfony console, make instigate. Now as a reminder, Symfony
-console is just a fancy way
+The last step will be to find a terminal, move into the project and run:
 
-Of saying bin console. If you're using,
+```terminal
+symfony serve -d
+```
 
-Uh, the Docky Docker and Symfony web server set up, set up, like I am, it's something
-we talked about in our first Symfony tutorial, 75 degrees, then using a Symfony
-console instead, make sure that your conflict man can communicate with your Docker
-services for us. That means they can talk to our database, which isn't technically
-needed for this command, but will be needed for other commands.
+I'm using the Symfony binary to start a local web server. Let's go see our site.
+Spin over to your browser and head to https://127.0.0.1:8000.
 
-Anyways, classmate
+Oh, hey there Cauldron Overflow! This is a site where the budding industry of witches
+and wizards can come to ask questions... after - sometimes - prematurely shipping
+their spells to production... and turning their clients into small adorable frogs.
+It could be worse.
 
-For Anthony, how about answer? And then we'll start adding a couple of basic
-properties to it. So I'll probably want a property called content to actually store
-the content of the answer itself. This is going to be a text to type strings are 2
-55. Our last texts can hold a lot of content.
+The questions on the homepage *are* coming from the database: we built a `Question`
+entity in the first tutorial. But if you click *into* a question... yea. These
+answers? These are *totally* hard-coded. Time to change that.
 
-So text,
+## Making the Answer Entity
 
-This can not be known the database, so it will be required. And it added that
-property. Let's also have a username property, which is going to be a string
-eventually in our security tutorial, we'll make this a relationship over to
-somebody's user and see, but for now, I'm just going to do a string username, 25, not
-all.
+But I want you to, for now, forget about any potential relationship between
+questions and answers. It's really simple: our site has answers! And so, if we want
+to be able to *store* those answers in the database, we need an `Answer` entity.
 
-And then one more, I'm going
+At your terminal, let's generate one. Run:
 
-To add a vote property, uh, cause you can upvote or downvote questions. So this will
-be an integer and we'll also make that not knowing a database and then done. So, and
-at one more time, boom, we should have a new answer entity before we generate the
-migration. Like it recommends let's go open up that class. There it is. Or entity
-answered at BHP. And so far there's nothing special here yet. It looks just like our
-other entity, by the way, if you're using a PHP eight
+```terminal
+symfony console make:entity
+```
 
-And then the command may
+Now, as a reminder, `symfony console` is just a fancy way of saying `php bin/console`.
+I'm using the Docker & Symfony web server integration. That's where the Symfony web
+server reads your `docker-compose.yaml` file and exposes environment variables to
+the services inside of it. We talked about that in the first Symfony 5 tutorial.
+By using `symfony console` instead of running `bin/console` directly, my commands
+will be able to talk to my Docker services... which for me is just a database.
+That's not needed for *this* command, but it will be for others.
 
-Have generated Peachtree attributes instead of annotations, I'm still using
-annotations here just in case some people are using PHP seven, the annotations or
-attributes makes no difference whatsoever. All right. Well, okay. Do you want to add,
-here is I'm going to say use timestamp of today. We talked about that in the last
-story, will it'll add a nice created that and updated that properties to this entity,
-which will automatically be updated. Oh, and one of the things I want to do since our
-votes is not, no, let's say votes = zero. So initialize votes two zero. Now let's
-generate the migration. So I'll run Symfony make migration because my database is.
-And as a reminder, this will actually look at your entities and do a diff between
-your entities. So for us, the question, the answer entity and the database, and
-generate the SQL needed to bring your database up to date. So I run that. Perfect.
-Generate a new file. Let's go check that out. It's in the migrations folder
+Anyways, run this and create a new entity called `Answer`. Let's give this a few
+basic properties, like `content` which will store the answer. Set this to a
+`text` type: the `string` type maxes out at 255 characters. And then we want "no"
+to nullable: that makes it required in the database.
 
-And perfect
+Let's also add a `username` property, which will be a string. Eventually, in the
+security tutorial, we'll change this to be a relationship over to a `User` entity.
+Use the 255 length and make it not nullable.
 
-Create table answer. And then it adds all of our columns are there. Okay. We'll run
-it by saying Symfony console doctrine, migrations
+Oh, and one more: a `votes` property that's an `integer` so that people can up vote
+and down vote this answer. Make this not nullable and... done! Hit enter one more
+time to finish.
 
-Migrate.
+## Timestampable and Default votes Value
 
-Yes. And useful. Cool. So we have a question table and an answer table. Next let's
-relate them.
+Before we generate the migration, go open up that class: `src/Entity/Answer.php`.
+So far,,, there's nothing special here: it looks just like the other entity. Oh,
+but by the way, if you're using PHP 8, then the command may have generated PHP8
+attributes instead of annotations. That's great! They work exactly the same and
+you should use attributes if you can.
 
-[inaudible].
+At the top of the class, add `use TimestampableEntity`. We talked about that in the
+last story: it adds nice `createdAt` and `updatedAt` properties that will be set
+automatically.
 
+Oh, and other thing: default the votes to zero. I made this column *not* nullable.
+Thanks to this, if we do *not* explicitly set the votes on a new entity, instead
+of getting a database error about `null` not being allowed, the `Answer` will
+save with `votes = 0`.
+
+## Making the Migration
+
+*Now* let's generate the migration. Find your terminal and run:
+
+```terminal
+symfony console make:migration
+```
+
+As a reminder, this command is smart: it looks at all of your entities *and* your
+*actual* database structure, and generates the SQL needed to make them match.
+Let's go check out that new file... it's in the `migrations/`. And... perfect!
+`CREATE TABLE answer`... and then it adds all of the columns.
+
+Run the migration with:
+
+```terminal
+symfony console doctrine:migrations:migrate
+```
+
+And... all good! Our database now has a `question` table *and* and `answer` table.
+Next, let's relate them.
