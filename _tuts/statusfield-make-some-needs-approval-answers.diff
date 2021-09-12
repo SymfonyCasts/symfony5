@@ -11,7 +11,7 @@ index cdc9fbd6..d0b308fa 100644
          $manager->flush();
      }
 diff --git a/src/Factory/AnswerFactory.php b/src/Factory/AnswerFactory.php
-index f87445f9..e5765eef 100644
+index e51d1aa9..fcbc98fa 100644
 --- a/src/Factory/AnswerFactory.php
 +++ b/src/Factory/AnswerFactory.php
 @@ -35,6 +35,11 @@ final class AnswerFactory extends ModelFactory
