@@ -3,3 +3,4 @@ chapters:
     - many-to-one
     - saving-relations
     - foundry-relations
+    - foundry-factory-relation
