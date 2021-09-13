@@ -15,15 +15,15 @@ symfony console make:factory
 Yup: we want to generate a factory for the `Answer` entity. Beautiful! Let's go check
 that out: `src/Factory/AnswerFactory.php`.
 
-Cool.The only work we need to do immediately is inside `getDefaults()`: the goal
+Cool. The only work we need to do immediately is inside `getDefaults()`. The goal
 here is to give every *required* property a default value... and we even have
-Faker available here to help us generate random data.
+Faker available here to help us generate some random stuff.
 
-Let's see: for `username`, we can use a `userName()` fake method. And for votes,
-instead of random number, use `numberBetween` -20 and 50. I'll delete
+Let's see: for `username`, we can use a `userName()` faker method. And for votes,
+instead of a random number, use `numberBetween` -20 and 50. I'll delete
 `updatedAt`... but keep `createdAt` so we can fake answers with a `dateTimeBetween()`
-`-1 year` and now, which is the default 2nd argument. That period is a typo - future
-me will find it.
+`-1 year` and now, which is the default 2nd argument. That period is a typo for
+future me to discover!
 
 Head back to `AppFixtures`. Let's remove *all* of this manual `Answer` and `Question`
 code. Replace it with `AnswerFactory::createMany(100)` to create 100 answers.
@@ -31,7 +31,7 @@ code. Replace it with `AnswerFactory::createMany(100)` to create 100 answers.
 ## Populating the Answer.question Property
 
 Over in `AnswerFactory`... let's fix that typo. Notice that, in `getDefaults()`,
-we are *not* setting the `question` property yet. And so, if you spin over to
+we are *not* setting the `question` property. And so, if you spin over to
 your terminal and run:
 
 ```terminal
@@ -45,11 +45,11 @@ with a `question` key set to `QuestionFactory::random()`, which is a *really* co
 method.
 
 With this setup, when we call `createMany()`, Foundry will first call `getDefaults()`,
-grab this array, add `question` to it, then will ultimately try to create the
+grab that array, add `question` to it, and then will ultimately try to create the
 `Answer` using *all* of those values.
 
 The `QuestionFactory::random()` method does what it sounds like: it grabs a random
-`Question` from the database. So yes, it *is* important that we create the
+`Question` from the database. So yes, it *is* now important that we create the
 questions first and then the answers after.
 
 Let's try this:
@@ -58,7 +58,7 @@ Let's try this:
 symfony console doctrine:fixtures:load
 ```
 
-Ok... no errors. Look at the database:
+Ok... no errors. Check out the database:
 
 ```terminal
 symfony console doctrine:query:sql 'SELECT * FROM answer'
@@ -66,18 +66,19 @@ symfony console doctrine:query:sql 'SELECT * FROM answer'
 
 ## Passing a Callback to Randomize Every Answer's Data
 
-And... sweet! We have 100 answers full of a lot of nice random data from Faker.
+And... sweet! We have 100 answers filled with a lot of nice random data from Faker.
 But... if you look closely, we have a teensy problem. This answer has `question_id`
 140... and so does this one... and this one! In fact, *all* 100 answers are related
 to the *same* `Question`. Whoops!
 
 Why? Because the `QuestionFactory::random()` method is called just *once*. It
-*did* fetch a random `Question`... and then immediately used that random question
+*did* fetch a random `Question`... and then used that same random question
 for all 100 answers.
 
 If you want a different value *per* `Answer`, you need to pass a callback function
-to this second argument instead of an array. That function will then *return*
-the array of data to use.
+to the second argument instead of an array. That function will then *return*
+the array of data to use. Foundry will execute the callback once for *each*
+`Answer`: so 100 times in total.
 
 Try it again: reload the fixtures:
 
@@ -92,12 +93,12 @@ Then query the `answer` table:
 symfony console doctrine:query:sql 'SELECT * FROM answer'
 ```
 
-Much better! 100 answers where *each* was related to a random question.
+Much better! 100 answers where *each* is related to a random question.
 
 ## Moving the "question" into getDefaults()
 
-But to make life easier, we can move this `question` value directly into the
-`AnswerFactory`. Copy this `question` line here and then change the fixtures
+But to make life easier, we can move this `question` value directly into
+`AnswerFactory`. Copy the `question` line.. and then change the fixtures
 code back to the very simple `AnswerFactory::createMany(100)`.
 
 Now in `AnswerFactory`, paste `question` set to `QuestionFactory::random()`.
@@ -105,5 +106,5 @@ This works because the `getDefaults()` method is called 100 times, once for *eac
 answer.
 
 Next: let's discover a key rule when using Foundry and relationships. A rule that,
-if you forget to follow it, can result in a bunch of random extra records in
+if you forget to follow it, might result in a *bunch* of random extra records in
 your database.
