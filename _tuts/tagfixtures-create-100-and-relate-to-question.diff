@@ -1,5 +1,5 @@
 diff --git a/src/DataFixtures/AppFixtures.php b/src/DataFixtures/AppFixtures.php
-index 14f514d7..08ba256a 100644
+index 70f488cb..91714fdd 100644
 --- a/src/DataFixtures/AppFixtures.php
 +++ b/src/DataFixtures/AppFixtures.php
 @@ -7,6 +7,7 @@ use App\Entity\Question;
@@ -23,9 +23,9 @@ index 14f514d7..08ba256a 100644
  
          QuestionFactory::new()
              ->unpublished()
-@@ -29,20 +34,6 @@ class AppFixtures extends Fixture
-         });
-         AnswerFactory::new()->needsApproval()->many(20)->create();
+@@ -33,20 +38,6 @@ class AppFixtures extends Fixture
+             ];
+         })->needsApproval()->many(20)->create();
  
 -        /** @var Question $question */
 -        $question = QuestionFactory::createOne()->object();

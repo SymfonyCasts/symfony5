@@ -27,40 +27,27 @@ index 4c289ee0..8158e11b 100644
  
      /**
 diff --git a/src/Repository/AnswerRepository.php b/src/Repository/AnswerRepository.php
-index 14e969b9..9571e5b8 100644
+index 7b3363a6..d9145365 100644
 --- a/src/Repository/AnswerRepository.php
 +++ b/src/Repository/AnswerRepository.php
-@@ -19,22 +19,20 @@ class AnswerRepository extends ServiceEntityRepository
-         parent::__construct($registry, Answer::class);
-     }
- 
--    // /**
--    //  * @return Answer[] Returns an array of Answer objects
--    //  */
--    /*
--    public function findByExampleField($value)
-+     /**
-+      * @return Answer[] Returns an array of Answer objects
-+      */
-+    public function findMostPopular(): array
-     {
--        return $this->createQueryBuilder('a')
--            ->andWhere('a.exampleField = :val')
--            ->setParameter('val', $value)
--            ->orderBy('a.id', 'ASC')
-+        return $this->createQueryBuilder('answer')
-+            ->andWhere('answer.status = :approved')
-+            ->setParameter('approved', Answer::STATUS_APPROVED)
-+            ->orderBy('answer.votes', 'DESC')
-             ->setMaxResults(10)
+@@ -37,4 +37,17 @@ class AnswerRepository extends ServiceEntityRepository
              ->getQuery()
-             ->getResult()
-         ;
+             ->getResult();
      }
--    */
- 
-     /*
-     public function findOneBySomeField($value): ?Answer
++
++    /**
++     * @return Answer[] Returns an array of Answer objects
++     */
++   public function findMostPopular(): array
++   {
++       return $this->createQueryBuilder('answer')
++           ->addCriteria(self::createApprovedCriteria())
++           ->orderBy('answer.votes', 'DESC')
++           ->setMaxResults(10)
++           ->getQuery()
++           ->getResult();
++   }
+ }
 diff --git a/templates/answers/popularAnswers.html.twig b/templates/answers/popularAnswers.html.twig
 index 87b74ac3..c4e3c27f 100644
 --- a/templates/answers/popularAnswers.html.twig

@@ -1,12 +1,16 @@
 diff --git a/src/DataFixtures/AppFixtures.php b/src/DataFixtures/AppFixtures.php
-index cdc9fbd6..d0b308fa 100644
+index cdc9fbd6..44d028c8 100644
 --- a/src/DataFixtures/AppFixtures.php
 +++ b/src/DataFixtures/AppFixtures.php
-@@ -26,6 +26,7 @@ class AppFixtures extends Fixture
+@@ -26,6 +26,11 @@ class AppFixtures extends Fixture
                  'question' => $questions[array_rand($questions)]
              ];
          });
-+        AnswerFactory::new()->needsApproval()->many(20)->create();
++        AnswerFactory::new(function() use ($questions) {
++            return [
++                'question' => $questions[array_rand($questions)]
++            ];
++        })->needsApproval()->many(20)->create();
  
          $manager->flush();
      }

@@ -1,5 +1,5 @@
 diff --git a/src/DataFixtures/AppFixtures.php b/src/DataFixtures/AppFixtures.php
-index d0b308fa..75546e19 100644
+index 44d028c8..86fe7f00 100644
 --- a/src/DataFixtures/AppFixtures.php
 +++ b/src/DataFixtures/AppFixtures.php
 @@ -4,6 +4,7 @@ namespace App\DataFixtures;
@@ -10,9 +10,9 @@ index d0b308fa..75546e19 100644
  use App\Factory\AnswerFactory;
  use App\Factory\QuestionFactory;
  use Doctrine\Bundle\FixturesBundle\Fixture;
-@@ -28,6 +29,16 @@ class AppFixtures extends Fixture
-         });
-         AnswerFactory::new()->needsApproval()->many(20)->create();
+@@ -32,6 +33,16 @@ class AppFixtures extends Fixture
+             ];
+         })->needsApproval()->many(20)->create();
  
 +        $question = QuestionFactory::createOne()->object();
 +

@@ -38,10 +38,10 @@ index 00000000..14139951
 +    }
 +}
 diff --git a/src/Entity/Question.php b/src/Entity/Question.php
-index d5966f22..de8adbb1 100644
+index 762ca173..b6262a76 100644
 --- a/src/Entity/Question.php
 +++ b/src/Entity/Question.php
-@@ -56,9 +56,15 @@ class Question
+@@ -57,9 +57,15 @@ class Question
       */
      private $answers;
  
@@ -57,7 +57,7 @@ index d5966f22..de8adbb1 100644
      }
  
      public function getId(): ?int
-@@ -184,4 +190,28 @@ class Question
+@@ -182,4 +188,28 @@ class Question
  
          return $this;
      }

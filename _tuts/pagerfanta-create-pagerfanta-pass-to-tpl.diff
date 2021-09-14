@@ -25,7 +25,7 @@ index 7776f881..17ce64f4 100644
      }
  
 diff --git a/templates/question/homepage.html.twig b/templates/question/homepage.html.twig
-index 5cb7a7ac..9178649f 100644
+index f967fe91..bf0e0617 100644
 --- a/templates/question/homepage.html.twig
 +++ b/templates/question/homepage.html.twig
 @@ -14,7 +14,7 @@

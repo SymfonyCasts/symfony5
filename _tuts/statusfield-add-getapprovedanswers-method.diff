@@ -30,6 +30,19 @@ index 078c1353..2bcde200 100644
      public function addAnswer(Answer $answer): self
      {
          if (!$this->answers->contains($answer)) {
+diff --git a/templates/question/homepage.html.twig b/templates/question/homepage.html.twig
+index b04b8653..6f0c9993 100644
+--- a/templates/question/homepage.html.twig
++++ b/templates/question/homepage.html.twig
+@@ -37,7 +37,7 @@
+                 </div>
+                 <a class="answer-link" href="{{ path('app_question_show', { slug: question.slug }) }}" style="color: #fff;">
+                     <p class="q-display-response text-center p-3">
+-                        <i class="fa fa-magic magic-wand"></i> {{ question.answers|length}} answers
++                        <i class="fa fa-magic magic-wand"></i> {{ question.approvedAnswers|length}} answers
+                     </p>
+                 </a>
+             </div>
 diff --git a/templates/question/show.html.twig b/templates/question/show.html.twig
 index 608fa52e..b09809ac 100644
 --- a/templates/question/show.html.twig

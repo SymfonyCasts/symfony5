@@ -1,5 +1,5 @@
 diff --git a/src/DataFixtures/AppFixtures.php b/src/DataFixtures/AppFixtures.php
-index 521ff7d4..faf9de16 100644
+index d6aa7292..01250127 100644
 --- a/src/DataFixtures/AppFixtures.php
 +++ b/src/DataFixtures/AppFixtures.php
 @@ -7,6 +7,7 @@ use App\Entity\Question;

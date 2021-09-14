@@ -1,12 +1,12 @@
 diff --git a/src/Repository/AnswerRepository.php b/src/Repository/AnswerRepository.php
-index 9571e5b8..61e1c26a 100644
+index d9145365..93106c67 100644
 --- a/src/Repository/AnswerRepository.php
 +++ b/src/Repository/AnswerRepository.php
-@@ -28,6 +28,7 @@ class AnswerRepository extends ServiceEntityRepository
-             ->andWhere('answer.status = :approved')
-             ->setParameter('approved', Answer::STATUS_APPROVED)
-             ->orderBy('answer.votes', 'DESC')
-+            ->innerJoin('answer.question', 'question')
-             ->setMaxResults(10)
-             ->getQuery()
-             ->getResult()
+@@ -46,6 +46,7 @@ class AnswerRepository extends ServiceEntityRepository
+        return $this->createQueryBuilder('answer')
+            ->addCriteria(self::createApprovedCriteria())
+            ->orderBy('answer.votes', 'DESC')
++           ->innerJoin('answer.question', 'question')
+            ->setMaxResults(10)
+            ->getQuery()
+            ->getResult();

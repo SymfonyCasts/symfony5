@@ -1,0 +1,21 @@
+diff --git a/src/Repository/AnswerRepository.php b/src/Repository/AnswerRepository.php
+index a521c861..7b3363a6 100644
+--- a/src/Repository/AnswerRepository.php
++++ b/src/Repository/AnswerRepository.php
+@@ -25,4 +25,16 @@ class AnswerRepository extends ServiceEntityRepository
+         return Criteria::create()
+             ->andWhere(Criteria::expr()->eq('status', Answer::STATUS_APPROVED));
+     }
++
++    /**
++     * @return Answer[]
++     */
++    public function findAllApproved(int $max = 10): array
++    {
++        return $this->createQueryBuilder('answer')
++            ->addCriteria(self::createApprovedCriteria())
++            ->setMaxResults($max)
++            ->getQuery()
++            ->getResult();
++    }
+ }
