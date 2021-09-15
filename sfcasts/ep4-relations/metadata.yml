@@ -5,6 +5,7 @@ chapters:
     - foundry-relations
     - foundry-factory-relation
     - fetching-relations
+    - owning-vs-inverse
     - orderby-extra-lazy
     - answer-status
     - collection-criteria
