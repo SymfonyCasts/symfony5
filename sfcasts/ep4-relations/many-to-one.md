@@ -87,21 +87,31 @@ first... and... here's the new `question` property. It *looks* like any other
 property except that instead of having `ORM\Column` above it, it has `ORM\ManyToOne`
 and targets the `Question` entity.
 
+[[[ code('20254f6f4b') ]]]
+
 Scroll to the bottom. Down here, it generated a normal getter and setter method.
+
+[[[ code('44a21d1360') ]]]
 
 Let's go look at the `Question` entity. If we scroll... beautiful: this now has
 an `answers` property, which is a `OneToMany` relationship.
+
+[[[ code('6cdac9c530') ]]]
 
 And... all the way at the bottom, it generated a getter and setter method. Oh,
 well, instead of `setAnswers()`, it generated `addAnswer()` and `removeAnswer()`,
 which are just a bit more convenient, especially in Symfony if you're using the
 form component or the serializer.
 
+[[[ code('645af7f557') ]]]
+
 ## The ArrayCollection Object
 
 Head back up near the top of this class. The command *also* generated a
 constructor method so that it could initialize the `answers` property to some
 `ArrayCollection` object.
+
+[[[ code('c62f5af78d') ]]]
 
 Ok, so we know that each `Question` will have many answers. So we know that the
 `answers` property will be an array... or some sort of collection. In Doctrine...
@@ -142,11 +152,15 @@ methods. Nothing fancy. Time to generate the migration for this:
 symfony console make:migration
 ```
 
-Let's go peek at the new file! How cool is this??? It's adding a `question_id`
-column to the `answer` table! Doctrine is smart: we added a `question` property
-to the `Answer` entity. But in the database, it added a `question_id` column that's
-a foreign key to the `id` column in the `question` table. In other words, the
-table structure looks *exactly* like we expected!
+Let's go peek at the new file! How cool is this??? 
+
+[[[ code('26741d9731') ]]]
+
+It's adding a `question_id` column to the `answer` table! Doctrine is smart: 
+we added a `question` property to the `Answer` entity. But in the database, 
+it added a `question_id` column that's a foreign key to the `id` column 
+in the `question` table. In other words, the table structure looks *exactly* 
+like we expected!
 
 The tricky, but honestly *awesome* thing, is that, in PHP, to relate an `Answer`
 to a `Question`, we're *not* going to set the `Answer.question` property to an

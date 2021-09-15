@@ -66,6 +66,8 @@ Oh, and one more: a `votes` property that's an `integer` so that people can up v
 and down vote this answer. Make this not nullable and... done! Hit enter one more
 time to finish.
 
+[[[ code('62646f5a12') ]]]
+
 ## Timestampable and Default votes Value
 
 Before we generate the migration, go open up that class: `src/Entity/Answer.php`.
@@ -78,10 +80,14 @@ At the top of the class, add `use TimestampableEntity`. We talked about that in 
 last tutorial: it adds nice `createdAt` and `updatedAt` properties that will be set
 automatically.
 
+[[[ code('daeeb24196') ]]]
+
 Oh, and one other thing: default the votes to zero. I made this column *not* nullable
 in the database. Thanks to this `= 0`, if we do *not* set the votes on a new
 answer, instead of getting a database error about `null` not being allowed,
 the `Answer` will save with `votes = 0`.
+
+[[[ code('df4aa4d8f6') ]]]
 
 ## Making the Migration
 
@@ -95,6 +101,8 @@ As a reminder, this command is smart: it looks at all of your entities *and* you
 *actual* database structure, and generates the SQL needed to make them match.
 Go check out that new file... it's in the `migrations/` directory. And... perfect!
 `CREATE TABLE answer`... and then it adds all of the columns.
+
+[[[ code('21f5e51fbf') ]]]
 
 Run the migration with:
 
