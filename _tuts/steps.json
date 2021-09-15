@@ -1381,8 +1381,28 @@
             "description": null
         },
         {
-            "id": "n-1-add-andwhere-on-join",
-            "name": "N+1: Add andWhere() on JOIN",
+            "id": "or-join-re-work-answers-layout",
+            "name": "OR-JOIN: re-work answers layout",
+            "description": null
+        },
+        {
+            "id": "or-join-add-search-box",
+            "name": "OR-JOIN: Add search box",
+            "description": null
+        },
+        {
+            "id": "or-join-like-query",
+            "name": "OR-JOIN: LIKE query",
+            "description": null
+        },
+        {
+            "id": "or-join-render-value-in-input",
+            "name": "OR-JOIN: render value in input",
+            "description": null
+        },
+        {
+            "id": "or-join-add-or-that-leverages-joined-table",
+            "name": "OR-JOIN: add OR that leverages JOINed table",
             "description": null
         },
         {
@@ -1586,5 +1606,5 @@
             "description": null
         }
     ],
-    "sha": "73e825ea1e5d7da8b2c3757bdb6432a95c52ffd2"
+    "sha": "72b92a0738b1d99ba755c51c0753d7376ddc4a7b"
 }

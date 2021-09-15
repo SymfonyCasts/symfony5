@@ -1,5 +1,5 @@
 diff --git a/src/Controller/AnswerController.php b/src/Controller/AnswerController.php
-index 4c289ee0..8158e11b 100644
+index afb2c474..7521c414 100644
 --- a/src/Controller/AnswerController.php
 +++ b/src/Controller/AnswerController.php
 @@ -3,6 +3,7 @@
@@ -17,10 +17,10 @@ index 4c289ee0..8158e11b 100644
 -    public function popularAnswers()
 +    public function popularAnswers(AnswerRepository $answerRepository)
      {
--        return $this->render('answers/popularAnswers.html.twig');
+-        return $this->render('answer/popularAnswers.html.twig');
 +        $answers = $answerRepository->findMostPopular();
 +
-+        return $this->render('answers/popularAnswers.html.twig', [
++        return $this->render('answer/popularAnswers.html.twig', [
 +            'answers' => $answers
 +        ]);
      }
@@ -48,10 +48,10 @@ index 7b3363a6..d9145365 100644
 +           ->getResult();
 +   }
  }
-diff --git a/templates/answers/popularAnswers.html.twig b/templates/answers/popularAnswers.html.twig
+diff --git a/templates/answer/popularAnswers.html.twig b/templates/answer/popularAnswers.html.twig
 index 87b74ac3..c4e3c27f 100644
---- a/templates/answers/popularAnswers.html.twig
-+++ b/templates/answers/popularAnswers.html.twig
+--- a/templates/answer/popularAnswers.html.twig
++++ b/templates/answer/popularAnswers.html.twig
 @@ -6,6 +6,12 @@
  <div class="container my-md-4">
      <div class="row">

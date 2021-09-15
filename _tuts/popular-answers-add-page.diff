@@ -1,5 +1,5 @@
 diff --git a/src/Controller/AnswerController.php b/src/Controller/AnswerController.php
-index 53a3c301..4c289ee0 100644
+index 53a3c301..afb2c474 100644
 --- a/src/Controller/AnswerController.php
 +++ b/src/Controller/AnswerController.php
 @@ -11,6 +11,14 @@ use Symfony\Component\Routing\Annotation\Route;
@@ -11,17 +11,17 @@ index 53a3c301..4c289ee0 100644
 +     */
 +    public function popularAnswers()
 +    {
-+        return $this->render('answers/popularAnswers.html.twig');
++        return $this->render('answer/popularAnswers.html.twig');
 +    }
 +
      /**
       * @Route("/answers/{id}/vote", methods="POST", name="answer_vote")
       */
-diff --git a/templates/answers/popularAnswers.html.twig b/templates/answers/popularAnswers.html.twig
+diff --git a/templates/answer/popularAnswers.html.twig b/templates/answer/popularAnswers.html.twig
 new file mode 100644
 index 00000000..87b74ac3
 --- /dev/null
-+++ b/templates/answers/popularAnswers.html.twig
++++ b/templates/answer/popularAnswers.html.twig
 @@ -0,0 +1,11 @@
 +{% extends 'base.html.twig' %}
 +

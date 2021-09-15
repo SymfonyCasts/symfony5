@@ -1,0 +1,12 @@
+diff --git a/templates/answer/popularAnswers.html.twig b/templates/answer/popularAnswers.html.twig
+index f2bbd5b5..dd3d431f 100644
+--- a/templates/answer/popularAnswers.html.twig
++++ b/templates/answer/popularAnswers.html.twig
+@@ -11,6 +11,7 @@
+             <input
+                 type="search"
+                 name="q"
++                value="{{ app.request.query.get('q') }}"
+                 class="form-control"
+                 placeholder="Search..."
+                 aria-label="Search"
