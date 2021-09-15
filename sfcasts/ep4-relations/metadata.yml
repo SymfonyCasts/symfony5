@@ -4,3 +4,7 @@ chapters:
     - saving-relations
     - foundry-relations
     - foundry-factory-relation
+    - fetching-relations
+    - orderby-extra-lazy
+    - answer-status
+    - collection-criteria
