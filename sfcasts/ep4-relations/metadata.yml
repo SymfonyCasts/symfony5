@@ -10,3 +10,8 @@ chapters:
     - orderby-extra-lazy
     - answer-status
     - collection-criteria
+    - popular-answers
+    - join-n-plus-one
+    - search-form
+    - relationship-types
+    - many-to-many
