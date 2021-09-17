@@ -1,105 +1,136 @@
-# Owning Vs Inverse
+# Owning Vs Inverse Sides of a Relation
 
-Coming soon...
+There's a, kind of, complex topic in Doctrine relations that we need to talk about.
+It's the "owning versus inverse side" of a relationship.
 
-There's a kind of complex topic in doctrine relations that we need to talk about is
-the owning versus inverse side of a relationship. We know that you can see each
-relation from two different sides. Question is a one to many to answers in the same
-relation can be seen as an answer is many to one to question. So what's the big deal
-we already know that we can read from both sides. We can say `$answer->getQuestion()`
-or we can say `$question->getAnswers()`. No problem. But can you set data
-from both directions? Well, in `AnswerFactory`, when we originally started playing
-with relationships, we prove that you can say `$answer->setQuestion()` to set the
-relationship, but now let's try the other direction. I'm going to do this in plain
-PHP to playing PHP for clarity.
+We already know that any relation can be seen from two different sides: `Question`
+is a `OneToMany` to `Answer`... and that same relation can be seen as an `Answer`
+that is `ManyToOne` to `Question`.
 
-I'll paste in some code here. Uh, so very simple. I'm using a question factory to
-create one question. I'm just kind of being lazy and letting it do that. Then I'm
-creating, creating two different answer objects entirely by hand, and then a
-persisting, both of the answers.
+So... what's the big deal? We already know that we can *read* data from both sides:
+we can say `$answer->getQuestion()` and we can also say `$question->getAnswers()`.
 
-I don't need to persist the question because the question factory takes care of that
-for me.
+## Setting the Other Side of the Relation
 
-So, so far the, this question and these two answers are not related to each other. So
-not surprisingly, if we run the 
+But can you *set* data from both sides? In `AnswerFactory`, when we originally
+started playing with this relationship, we proved that you can say
+`$answer->setQuestion()` and Doctrine *does* correctly save that to the database.
 
-```terminal
-symfony console doctrine:fixtures:load
-```
+Now let's try the *other* direction. I'm going to paste in some plain PHP code
+here to keep things simple. This uses the `QuestionFactory` to create one
+`Question`... I'm using it because I'm kinda lazy. Then I'm creating two
+`Answer` objects by hand and persisting them. I don't need to also persist the
+`Question` because the `QuestionFactory` saves it entirely.
 
-we get our favorite error which is that the question_id column can not be no on the answer table.
-Cool. So let's relate these, but this time, instead of saying, `$answer1->setQuestion()`
-like, would it be for let's say `$question->addAnswer($answer1)` and
-then `$question->addAnswer($answer2)` so we're setting them in the
-relationship from the other direction. All right. Try again
+At this point, the `Question` and these two answers are *not* related to each other.
+So, not surprisingly, if we run the:
 
 ```terminal
 symfony console doctrine:fixtures:load
 ```
 
-and okay. No errors. It looks like that worked to be sure I'm going to run 
+we get our favorite error: the `question_id` column cannot be null on the `answer`
+table. Cool! So let's relate these. But this time, instead of saying,
+`$answer1->setQuestion()`, set it with `$question->addAnswer($answer1)`...
+and `$question->addAnswer($answer2)`.
 
-```terminal
-symfony console doctrine:qeary:sql 'SELECT * FROM answer'
-```
+If you think about it... this is *really* saying the same thing as setting it
+from the other direction: this question *has* these two answers.
 
-And if we
-look beautiful, here is our last two answers right here. Oh, apparently I used answer
-one for both of these silly Ryan, but anyways, we can see each of these answers is
-correctly related to a question. Alright. So it turns out you can set data from both
-sides. The two sides of the relationship apparently behave identically chapter over.
-
-Uh, I wish what you just saw is a bit of a lie inside the question class, find the ad
-`addAnswer()` method. This was generated for us by the `make:entity` command. You check this
-out it first checks to see if first X to see if the answers property already contains
-the answer. Just to make sure it doesn't get added, uh, just to avoid a duplication.
-If it's, if this question is not already inside the answers collection, it of course
-adds it to the answers collection, but then it calls `$answer->setQuestion()`. This
-that is very important. It's synchronizing or setting the other side of the
-relationship.
-
-So if an answer is added to a question, that question is also set onto the answer. So
-here's the key thing. Comment out this line and then go reload the fixtures again.
+Let's see if it saves! Run the fixtures:
 
 ```terminal-silent
 symfony console doctrine:fixtures:load
 ```
 
-Error con question and D cannot be no, it did not relate the question in the answer
-properly. This is what I wanted to talk about. Each relation has two different sides
-and these have a name, the owning side and the inverse side for a many to one and one
-to many relationship. The owning side is always the `ManyToOne` side, and it's kind
-of easy to remember. The owning side is where the column lives in the database. So
-the database would know that the `answer` table has a `question_id` column. So this is
-the owning side of the relationship. The `OneToMany` is called the inverse side. This
-is important because when you save doctrine only looks for the data on the owning
-side of the relationship. It only looks at the question property on the answer
-entity, when it figures out how to say this stuff, it completely ignores any of the
-data on the inverse side. The inverse side of the relationship solely exists for the
-convenience of us reading that data. So right now we are only setting the inverse
-side of in the relationship. And so when it saves the answer, it does not link the
-answer to this question.
+And... no errors! It looks like it worked! Double-check by with
 
-And in general, the inverse side of a relationship is entirely optional. The make
-entity command asked us if we wanted to map this side of the relationship, we can
-delete everything inside this class related to answers, and the relationship would
-still be set up in the database and we could still use it. We just wouldn't be able
-to say, `$question->getAnswers()` I'm telling you all this so that you
-can avoid potential WTF moments if you relate objects, but they mysteriously don't
-actually safe. Fortunately, the `make:entity` command takes care of all this ugliness
-for us by generating really smart, `addAnswer()`, and `removeAnswer()` methods that
-synchronize the owning side of the relationship. Let's put back the `$answer->setQuestion()`
-question so that we can, once again, safely set the data from either side back in the
-fixtures. Now that we've learned all of this, let's delete all of our custom code and
-I'm going to head back over and one more time, just get a fresh set of fixtures. 
+> SELECT * FROM answer
+
+```terminal-silent
+symfony console doctrine:query:sql 'SELECT * FROM answer'
+```
+
+Let's see... yea! Here are the new answers. Oh, apparently I called them *both*
+"answer 1" - silly Ryan. But more importantly, each of these answers *is* correctly
+related to a `Question`.
+
+Ok! so it turns out you *can* set data from both sides. The two sides of the
+relationship apparently behave identically.
+
+At this point, you're probably saying to yourself:
+
+> Why is Ryan taking so much time to show us that things work exactly like we expect
+> them too?
+
+## The "setters" Synchronize the Other Side of the Relation
+
+Great question! Because... they *don't* really work like we just saw. Well,
+let me show you.
+
+Open the `Question` class and find the `addAnswer()` method. This was generated for
+us by the `make:entity` command. It first checks to see if first the `$answers`
+property *already* contains this answer.... just to avoid a duplication. If it
+does *not*, it, of course, *adds* it to that property. But it *also* does something
+else, something very important: `$answer->setQuestion($this)`. Yup, it sets the
+*other* side of the relation.
+
+So if an `Answer` is added to a `Question`, that `Question` is *also* set *onto*
+that `Answer`. Now, watch what happens if we comment-out this line... and then go
+reload the fixtures:
 
 ```terminal-silent
 symfony console doctrine:fixtures:load
 ```
 
-All right, next, when we call `$question->getAnswers()`, which we're currently doing
-inside of our template. What order is it returning those answers? And can we control
-that order? Plus we'll learn a config trick to optimize what query is made. When all
-we need to do is count the number of items in a relation.
+An error! The `question_id` column cannot be null on the `answer` table! It
+did *not* relate the `Question` to the `Answer` properly.
 
+## Owning vs Inverse
+
+*This* is what I wanted to talk about. Each relation has two different sides and
+these sides have a name: the owning side and the inverse side. For a `ManyToOne`
+and `OneToMany` relationship, the owning side is always the `ManyToOne` side. And
+it's easy to remember: the owning side is where the foreign key column lives in the
+database. In this case, the `answer` table will have a `question_id` column so
+*this* is the "owning" side.
+
+The `OneToMany` side is called the inverse side.
+
+Why is this important? It's important because, when Doctrine saves an entity, it
+*only* looks at the data on the *owning* side of a relationship. Yup, it looks
+at the `$question` property on the `Answer` entity to figure out what to save
+to the database. It completely *ignores* the data on the inverse side. Really,
+the inverse side exists *solely* for the convenience of us reading that data:
+the convenience of being able to say `$question->getAnswers()`.
+
+So right now, we are *only* setting the inverse side of the relationship. And so,
+when it saves the `Answer`, it does *not* link the `Answer` to this `Question`.
+
+## Inverse Side is Optional
+
+And actually, the inverse side of a relationship is entirely *optional*. The
+`make:entity` command asked us if we wanted to map this side of the relationship.
+We could delete *everything* inside of `Question` that's related to answers, and
+the relationship would *still* be set up in the database and we could *still* use
+it. We just wouldn't be able to say, `$question->getAnswers()`.
+
+I'm telling you all this so that you can avoid potential WTF moments if you relate
+two objects... but they mysteriously don't save. Fortunately, the `make:entity`
+command takes care of all this ugliness *for* us by generating really smart
+`addAnswer()` and `removeAnswer()` methods that synchronize the owning side of the
+relationship. So unless you don't use it or start deleting code, you shouldn't
+really need to think about this whole owning versus inverse thing.
+
+Put back the `$answer->setQuestion()` code so that we can, once again, safely set
+the data from either side. Back in the fixtures, now that we've learned all of this,
+delete the custom code. And then, let's reload our fixtures:
+
+```terminal-silent
+symfony console doctrine:fixtures:load
+```
+
+Next: when we call `$question->getAnswers()`... which we're currently doing inside
+of our template, what *order* is it returning those answers? And can we control that
+order? Plus we'll learn a config trick to optimize the query that's made when all
+we need to do is *count* the number of items in a relationship.
