@@ -27,7 +27,7 @@ answers `WHERE` the `question_id` matches this question, pass `question` set to
 the `$question` *object*. Remember: by this point, Doctrine has *already* used
 the `slug` in the URL to query for the `Question` object.
 
-[[[ code('8f5c37ed92) ]]]
+[[[ code('8f5c37ed92') ]]]
 
 The important thing here is that, when we call `findBy()`, we *don't*
 say `'question_id' => $question`... or `'question' => $question->getId()`.
@@ -40,7 +40,7 @@ Behind the scenes, Doctrine will be smart enough to query `WHERE` the
 
 Let's dump & die the `$answers` variable... and go see what it looks like. Refresh.
 
-[[[ code(93167a7c9a) ]]]
+[[[ code('93167a7c9a') ]]]
 
 Yes! This dumps an array of answers! Apparently this question is only related
 to *two* answers. Let's go pick a different one with more answers... cool!
