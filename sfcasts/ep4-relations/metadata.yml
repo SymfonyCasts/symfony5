@@ -15,3 +15,10 @@ chapters:
     - search-form
     - relationship-types
     - many-to-many
+    - many-to-many-factory
+    - many-to-many-joins
+    - complex-many-to-many
+    - broken-migration
+    - foundry-phd
+    - complex-many-joins
+    - pagination
