@@ -17,25 +17,25 @@ started playing with this relationship, we proved that you can say
 `$answer->setQuestion()` and Doctrine *does* correctly save that to the database.
 
 Now let's try the *other* direction. I'm going to paste in some plain PHP code
-here to keep things simple. This uses the `QuestionFactory` to create one
-`Question`... I'm using it because I'm kinda lazy. Then I'm creating two
-`Answer` objects by hand and persisting them. I don't need to also persist the
-`Question` because the `QuestionFactory` saves it entirely.
+to play with. This uses the `QuestionFactory` to create one `Question` - I'm
+using it because I'm kinda lazy - and then creates two `Answer` objects by hand
+and persists them. We don't need to persist the `Question` because the
+`QuestionFactory` saves it entirely.
 
 At this point, the `Question` and these two answers are *not* related to each other.
-So, not surprisingly, if we run the:
+So, not surprisingly, if we run:
 
 ```terminal
 symfony console doctrine:fixtures:load
 ```
 
 we get our favorite error: the `question_id` column cannot be null on the `answer`
-table. Cool! So let's relate these. But this time, instead of saying,
-`$answer1->setQuestion()`, set it with `$question->addAnswer($answer1)`...
+table. Cool! Let's relate them! But this time, instead of saying,
+`$answer1->setQuestion()`, do it with `$question->addAnswer($answer1)`...
 and `$question->addAnswer($answer2)`.
 
-If you think about it... this is *really* saying the same thing as setting it
-from the other direction: this question *has* these two answers.
+If you think about it... this is *really* saying the same thing as when we set
+the relationship from the other direction: this `Question` *has* these two answers.
 
 Let's see if it saves! Run the fixtures:
 
@@ -43,7 +43,7 @@ Let's see if it saves! Run the fixtures:
 symfony console doctrine:fixtures:load
 ```
 
-And... no errors! It looks like it worked! Double-check by with
+And... no errors! I think it worked! Double-check with:
 
 > SELECT * FROM answer
 
@@ -52,24 +52,24 @@ symfony console doctrine:query:sql 'SELECT * FROM answer'
 ```
 
 Let's see... yea! Here are the new answers. Oh, apparently I called them *both*
-"answer 1" - silly Ryan. But more importantly, each of these answers *is* correctly
+"answer 1" - silly Ryan. But more importantly, each answer *is* correctly
 related to a `Question`.
 
 Ok! so it turns out you *can* set data from both sides. The two sides of the
 relationship apparently behave identically.
 
-At this point, you're probably saying to yourself:
+Now, at this point, you might be saying to yourself:
 
-> Why is Ryan taking so much time to show us that things work exactly like we expect
-> them too?
+> Why is this guy taking so much time to show me that something works
+> exactly like I expect it too?
 
 ## The "setters" Synchronize the Other Side of the Relation
 
-Great question! Because... they *don't* really work like we just saw. Well,
-let me show you.
+Great question! Because... this *doesn't* really work like we just saw. Let me
+show you.
 
 Open the `Question` class and find the `addAnswer()` method. This was generated for
-us by the `make:entity` command. It first checks to see if first the `$answers`
+us by the `make:entity` command. It first checks to see if the `$answers`
 property *already* contains this answer.... just to avoid a duplication. If it
 does *not*, it, of course, *adds* it to that property. But it *also* does something
 else, something very important: `$answer->setQuestion($this)`. Yup, it sets the
@@ -84,7 +84,7 @@ symfony console doctrine:fixtures:load
 ```
 
 An error! The `question_id` column cannot be null on the `answer` table! It
-did *not* relate the `Question` to the `Answer` properly.
+did *not* relate the `Question` to the `Answer` properly!
 
 ## Owning vs Inverse
 
@@ -113,14 +113,14 @@ And actually, the inverse side of a relationship is entirely *optional*. The
 `make:entity` command asked us if we wanted to map this side of the relationship.
 We could delete *everything* inside of `Question` that's related to answers, and
 the relationship would *still* be set up in the database and we could *still* use
-it. We just wouldn't be able to say, `$question->getAnswers()`.
+it. We just wouldn't be able to say `$question->getAnswers()`.
 
 I'm telling you all this so that you can avoid potential WTF moments if you relate
 two objects... but they mysteriously don't save. Fortunately, the `make:entity`
 command takes care of all this ugliness *for* us by generating really smart
 `addAnswer()` and `removeAnswer()` methods that synchronize the owning side of the
-relationship. So unless you don't use it or start deleting code, you shouldn't
-really need to think about this whole owning versus inverse thing.
+relationship. So unless you don't use `make:entity` or start deleting code, you
+won't need to think about this problem on a day-to-day basis.
 
 Put back the `$answer->setQuestion()` code so that we can, once again, safely set
 the data from either side. Back in the fixtures, now that we've learned all of this,
@@ -131,6 +131,6 @@ symfony console doctrine:fixtures:load
 ```
 
 Next: when we call `$question->getAnswers()`... which we're currently doing inside
-of our template, what *order* is it returning those answers? And can we control that
-order? Plus we'll learn a config trick to optimize the query that's made when all
-we need to do is *count* the number of items in a relationship.
+of our template, what *order* is it returning those answers? And can we *control*
+that order? Plus we'll learn a config trick to optimize the query that's made when
+all we need to do is *count* the number of items in a relationship.
