@@ -1,142 +1,164 @@
-# Answer Status
+# Filtering to Return only Approved Answers
 
-Coming soon...
+As a wonderful as our users are, sometimes we need to mark an answer as spam.
+Or, maybe in the future, we might add a system that notices too many links in an
+answer and marks it as "needs approval". So each answer will be one of three
+statuses: needs approval, spam, or approved. And answers with the approved status
+should actually be visible on the site.
 
-Sometimes as a wonderful as our users are, we need to mark an answer as spam work.
-Maybe in theory, we might add a system later that notices links included in an answer
-and marks it as needs approval. So each answer will be one of three statuses needs,
-approval, spam, or approved, and only be the last one should actually be visible on
-the site. So right now, inside of our answer entity, we don't have any way to track
-the status. So let's add a new property to this class. So at your console run
+## Adding the Answer status Property
+
+Right now, inside of our `Answer` entity, we don't have any way to track the
+`status`. So let's add a new property to this class. At your console run:
 
 ```terminal
 symfony console make:entity
 ```
 
-We're going to ask to update the `Answer`
-entity, we'll add a new field called `status`. I'm going to make this a `string` field.
-It's going to be kind of an `ENUM` field with the length of just `15`, because we will
-know the, this only hold a couple, uh, one of a couple of short values and not
-knowing the database. Perfect. Can enter going to finish that last immediately run
+We're going to update the `Answer` entity. Add a new field called `status` and
+make it a `string` type. This property is going to be, kind of an `ENUM` field:
+it'll hold one of three possible short status strings. Set the length to 15,
+which will be more than enough to hold those. Make this required in the database
+and... done!
+
+Generate the migration immediately:
 
 ```terminal
 symfony console make:migration
 ```
 
-Awesome. And go double check that migration just to make sure it doesn't contain any
-surprises. Looks good. Alter table, uh, answer, add status. Beautiful. So I'll close
-that and send it back over and run 
+Let's go double check that migration *just* to make sure it doesn't contain any
+surprises. It looks good:
+
+> ALTER TABLE answer ADD status.
+
+Beautiful. Close that, spin back to your terminal and run:
 
 ```terminal
-symfony console doctrine:migrations:migrate.
+symfony console doctrine:migrations:migrate
 ```
 
-Awesome. All right. Since we have three different statuses, I'm going to add
-constants for each one. Now, if you're using PHP 8.1, it actually has a built-in ENUM
-type, which you can totally use if you want to. So I'm at a 
-`public const STATUS_NEEDS_APPROVAL = ''`. I'll set this to just `needs_approval`. As you'll see in a second, this
-will be the actual string we store in the database. And then I'll paste that twice to
-make the other two statuses, which are `spam` and `approved` setting each of those to a
-simple string.
+Because we have exactly three possible statuses, I'm going to add a constant for
+each one. Now, if you're using PHP 8.1, you could use the new `enum` type to
+help with this - and you totally should. But either way, you'll ultimately store
+a string in the database.
 
-Awesome. Next I'm going to default each status down here to `self::STATUS_NEEDS_APPROVAL`
-So if we don't set it, that will be the default status. And finally, down
-here on `setStatus()`, we can do a little sanity check. If someone calls us they value.
-That's not one of those three constants. We should throw an exception. So if not in
-`in_array($status, [])`, and then I'll create a little array here with those three statuses. So
-it looks a little odd way, but we'll say `self::STATUS_NEEDS_APPROVAL`, 
-`self::STATUS_SPAM`, or `self::STATUS_APPROVED`. So if it's not inside that array, then we will throw
-in a new `InvalidArgumentException()`, and I'll put a little error message here about
-invalid status, the %s status. Beautiful. So little gatekeeping to make sure
-that we only have a valid status. All right, so we've created this new status
-property. Good for us. Now open up `src/Factory/AnswerFactory` and for simplicity
-down here and get the false, I'm going to set `status` to `Answer::STATUS_APPROVED`. So if
-we ever create some answer fixtures, let's make them approve by default so that they
-actually show up on the site. But I do want to actually create a couple of, um, but
-in reality, in my test data, I'm going to want a mixture of approved and needs
-approval and not approved answers. Okay?
+Add `public const STATUS_NEEDS_APPROVAL = 'needs_approval'`. I just made up that
+`needs_approval` part - that's what will be stored in the database. Copy that,
+paste it twice, and create the other two status: `spam` and `approved`, setting
+each to a simple string
 
-So to do that, I'm going to create a new state changing method inside of here. I'm
-going to say public function `needsApproval()`. This is going to return self. And here,
-this is a founder feature. We can say, return `$this->addState()` and change the
-`status` to `Answer::STATUS_NEEDS_APPROVAL`. So thanks to this new, it
-`needsApproval()` method. What we can do is we can go into our fixtures class, so 
-`src/DataFixtures/`, and right after we create our 100 answers, which thanks to get
-defaults are going to be approved. That's also create some needs approval answers by
-saying, `AnswerFactory::new()` to give us a new instance of answer.
-Factory `->needsApproval()`, and then `->many()` that's great 20 of them, and
-then `->create()` that's it. So as a reminder, um, so the needs approval here, we'll set
-the status to needs approval. This will say that we want to create 20 and then, uh,
-we'll actually create them as a reminder, thanks to the get defaults method. This is
-going to, uh, create a new unpublished question to relate this to, um, it's actually
-not what I want.
+Awesome. Next, default the `status` property down here to
+`self::STATUS_NEEDS_APPROVAL`.
 
-I really want to relate this to one of the questions I've already created. So let's
-use the same trick that we used up here for our other answer factories. So when we
-create new here, we can pass it the callable of attributes to use. So I'll pass that
-a callable. I'll make sure I use `$questions` and then we can return that same thing
-here. So great. 20 new needs approval answers that are set to this random question.
-Phew. All right. Let's call over here and reload. The fixtures
+*Finally*, down on `setStatus()`, let's add a sanity check: if someone passes
+a status that is *not* one of those three, we should throw an exception. So
+if not in `in_array($status, [])`... and then I'll create an array with the
+three constants: `self::STATUS_NEEDS_APPROVAL`, `self::STATUS_SPAM` and
+`self::STATUS_APPROVED`. So if it's *not* inside that array, then we throw a
+new `InvalidArgumentException()` with a nice message inside.
+
+A little gatekeeping to make sure that we always have a valid status.
+
+## Creating Approved and Non-Approved Answer Fixtures
+
+The new `status` property is done. Next open `src/Factory/AnswerFactory.php`.
+Down in `getDefaults()`, set `status` to `Answer::STATUS_APPROVED`.
+
+So when we create answers via the factory, let's make them approved by default so
+they actually show up on the site.
+
+But I actually *do* want a mixture of approved and not approved answers in my
+fixtures to make sure things are working. To allow that, add a new method:
+`public function`, how about, `needsApproval()` that will return `self`. Inside,
+return `$this->addState()` and pass this an array with `status` set to
+`Answer::STATUS_NEEDS_APPROVAL`.
+
+Thanks to this new method, in our fixtures class - so
+`src/DataFixtures/AppFixtures.php` - right after we create 100 answers, which
+thanks to `getDefaults` are going to be approved, let's also create some "needs
+approval" answers. Do that with `AnswerFactory::new()` - to get a new instance of
+`AnswerFactory`, `->needsApproval()`, `->many()` to say that we want 20, and finally
+`->create()`.
+
+Thanks to the `getDefaults()` method, for each `Answer`, this will create a new,
+unpublished question to relate to... which is actually not what we want: we want
+to relate this to one of the questions we've already created. Let's use the same
+trick we used before. Inside the `new()` method, we can pass a callable. Use the
+`$questions` variable to get it into scope and then paste.
+
+So this will create 20 new, "needs approval" answers that are set to a random
+published question. Phew! Let's get these loaded: at your terminal, run:
 
 ```terminal
 symfony console doctrine:fixtures:load
 ```
 
-Awesome. No errors.
+No errors!
 
-Cool. But how do we actually hide these from the front end? So let's go back to our
-homepage here and perfect. This first one for me has 10 answers. So that's probably
-good. Chances are that out of these 10 answers, at least one of them is actually, uh,
-needs approval and should not be shown. So how can we hide these right now inside of
-a `show.html.twig` to get these were saying `question.answers`. So this is
-calling `$question->getAnswers()`, which of course returns all of the answers. So
-if we wanted to, we could go back into `QuestionController` inside the `show()` action,
-and we could do a custom query using the answer. Pository where the question = this
-answer and status = approved. Well, that's lame. I don't want to do that. I still
-want to be able to use my nice little shortcut methods inside the template.
+## Creating Question::getApprovedAnswers()
 
-It makes my life so much easier and we can do this. So when the question class,
-anywhere inside of here, but I'm going to go right after `getAnswers()`, create a new
-callback function, `getApprovedAnswers()`. This is going to return a `Collection`, just
-like `getAnswers()`. But inside of here, what we're actually going to do is loop over
-the answers and remove any that are not approved. Now I could do this with like a
-`foreach` method, but there's actually a helper method on the, uh, collection object
-that we can do this. So check this out. We can say return `$this->answers->filter()`. And
-then we can pass this a call back with an `$answer` argument. So what's going to happen
-is that, um, this callback is going to be executed for every single each answer
-inside of the answers collection. And if we return true, it will be included in the
-final collection that's returned. And if we returned false, it won't. So we're taking
-the answers collection and filtering it. Now inside of here, we basically want to
-check to see if this answer's status is approved. I'm actually going to add a little
-helper method for that inside of `Answer`,
 
-Sun here, I'm going to add public function `isApproved()`. This will return a
-boolean and we'll say return `$this->status === self::STATUS_APPROVED`.
+Cool. *But*m how do we actually *hide* the non-approved answers from the frontend?
 
-Now we're in question. This just makes our code here a little bit easier and we can
-say conclude this answer. If `$answer->isApproved()`. So we now have a new method instead
-of question, that will only return as the approved answers. All we need to do now is
-use this our template. So when it `show.html.twig`, we're gonna use this in two
-different spots, `question.approvedAnswers`, and `questioned.approvedAnswers`.
-And then also on the homepage. I don't want to forget there. We're counting them in
-the homepage. We're going to want this to also show only the approved answers count.
-So approved answers. Okay.
+Go back to the homepage here find a question with a lot of answers. This one has
+ten, so there's a *pretty* good chance that one of these 10 is not approved and
+should be hidden. But how *can* we hide that?
 
-Yeah.
+Right now, inside of a `show.html.twig`, we get these by saying `question.answers`.
+So this is calling `$question->getAnswers()`, which, of course, returns *all* of
+the related answers.
 
-All right. Moment of truth. Right now we have 10 answers on this question. I'm
-guessing at least one of those is not approved when I refresh, oh, it's still 10 as
-well. Probably all of those are actually approved as rotten luck. Let's go back here.
-Find one of these other ones that has a lot of answers on it. Perfect. You saw on
-this page from my old refresh, it still said 11, but when I actually got into here,
-there was six. And most importantly, if we open up the profiler for doctrine, we can
-see, I don't run. Don't do that. Okay.
+We *could* solve this by going back to `QuestionController` and, in the `show()`
+action, executing a custom query through the `AnswerRepository` where question
+equals this answer *and* status = approved... and *then* passing that array
+into the template.
 
-So it works, but there is a performance problem with this. If you open up the profile
-for this and look at the query, we are still queering for all of the answers where
-question_id = 457. So in this case, but then we're only actually rendering the six
-approved once that's wasteful. What we really want is some way to have this nice get
-approved answers method, but make it only for the answers we need instead of querying
-for all of them and then filtering them in PHP. Is that possible? Yes. Via a nice
-little criteria system.
+But... that's lame! I don't want to do that! I *still* want to be able to use a
+nice shortcut method inside my template - it makes my life so much easier! So
+here's how.
 
+In the `Question` class... anywhere, but right after `getAnswers()` makes sense,
+create a new function called `getApprovedAnswers()`. This will return a `Collection`,
+just like `getAnswers()` - that's the common interface that all collections implement.
+
+Inside, we're going to loop over the answers and *remove* any that are *not* approved.
+We could do this with a `foreach` method... but there's actually a helper method
+on the `Collection` object for exactly this.
+
+We can say return `$this->answers->filter()` and pass this a callback with an
+`$answer` argument. This callback will be executed one time for *every* `Answer`
+object inside the answers collection. If we return true, it will be included in the
+final collection that's returned. And if we return false, it won't. So we're taking
+the answers collection and filtering it.
+
+Inside the callback, we need to check if this answer's status is "approved". Instead
+of doing that here, let's add a helper method for that inside of `Answer`.
+
+Down here, add `public function isApproved()` and return a boolean. Inside, we
+need return `$this->status === self::STATUS_APPROVED`.
+
+Back over in `Question`, it's easy: include this answer if `$answer->isApproved()`.
+
+Sweet! We now have a new method inside of `Question` that will only return the
+*approved* answers. All we need to do *now* is use this our template. In
+`show.html.twig`, use it in both spots: `question.approvedAnswers`... and
+`question.approvedAnswers`.
+
+There's also a spot on the homepage where we show the count... make sure to use
+`question.approvedAnswers` here too.
+
+Ok! moment of truth. Right now we have 10 answers on this question. When I refresh..
+oh, it's still 10! We either have a bug... or that was bad luck and this question
+has only *approved* answers. Click back. Find one of these other questions that has
+a lot of answers. Let's see... try this one. We got it! This question originally
+had 11 answers, but now that we're only showing *approved* answers, we only see 6.
+
+So... this works! *But*.... there's a performance problem... and you may have
+spotted it. Open up the profiler to see the queries. We're still querying for all
+of the answers `WHERE question_id = 457`. But then... we're only rendering the six
+*approved* answers. That's wasteful! What we *really* want is some way to have this
+nice `getApprovedAnswers()` method... but make it query *only* for the approved
+answers... instead of querying for *all* of them and then filtering in PHP.
+
+Is that possible? Yes! Via a nice "criteria" system.
