@@ -11,7 +11,7 @@ library that allows us to say `|ago`.
 
 When we refresh now... oh! We get an error:
 
-> The `Question` object cannot be found by the `@Route` annotation.
+> The `Question` object cannot be found by the `@ParamConverter` annotation.
 
 That's a fancy way of saying that no `Question` for the `slug` in the URL could
 found in the database. And *that's* because I reloaded my fixtures. Go to
