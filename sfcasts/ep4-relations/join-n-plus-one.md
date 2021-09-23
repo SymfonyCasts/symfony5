@@ -20,8 +20,8 @@ here.
 
 This is a classic problem with this is a really easy problem to happen when you're
 using doctrine. Thanks to the lazy loading in our answer controller. We just queered
-for the answers. Then as we're looping over those answers and rendering_answer that
-HTML twig. We simply sent, answered that question text and answer that question about
+for the answers. Then as we're looping over those answers and rendering `_answer.html.twig`
+We simply sent, `answer.questionText` and `answer.question.slug`
 slug at this moment. That's when it made that extra query for the question data
 related to this answer, we didn't even realize it. We actually caused a second year
 or really a second query per answer. That's a terrible explanation.
@@ -31,24 +31,24 @@ need so many queries and maybe it's not really a problem, but if you can, but
 avoiding extra queries when you can, is always a good thing. So let's think about a
 normal database. How would we solve this? Well, just thinking about the query, what I
 would do is I would, so when I select all the most popular answers, I would do an
-inner join over to the question table and also grab the question data at the same
+`INNER JOIN` over to the question table and also grab the question data at the same
 time. In other words, we can make a single query here that will grab all of the
 answers data and the question data all with one query. And we add a join with
-doctrine, absolutely head over here to answer repository and trying to find most
-popular method.
+doctrine, absolutely head over here to `AnswerRepository` and trying to 
+`findMostPopular()` method.
 
-It's this simple. We want to do an inner join. So let's say arrow, inner join. And
-then you just say, answer that question. So you just answered that question with
-comma question. So you do here is you basically tell doctrine, Hey, I want you to
-join a cross the answer dot question relationship. You don't need to tell it how to
+It's this simple. We want to do an `INNER JOIN`. So let's say `->innerJoin()`. And
+then you just say, `answer.question`. So you just answered that question with
+comma `question`. So you do here is you basically tell doctrine, Hey, I want you to
+join a cross the `answer.question` relationship. You don't need to tell it how to
 join like you would do in a normal query cause doctrine didn't figure that out for
-us. It looks at the question property and answer realizes that that's a relationship
+us. It looks at the `$question` property and `Answer` realizes that that's a relationship
 over to the question table and we'll handle creating this, uh, generating the SQL for
 this. Join for us.
 
 Now, the second argument here, isn't really important yet, but this will become the
 alias to the question results. If we need it further in the query in the same way
-that answers the alias to the answer table up here. All right, so let's try it. I'll
+that `answer` the alias to the answer table up here. All right, so let's try it. I'll
 close the profiler refresh and we still have a queries that didn't work. Let's open
 up the profiler. Let's see here. If you look at our first query, there is the inner
 join. It does say inner join over to question. And of course it set up the on
@@ -64,15 +64,15 @@ and question data all at once. The second situation is when you want to join ove
 across relationship so that you can filter the results or order the query based on
 something in that joint table. And we're going to see that in a minute. The point is,
 if you trying to select more data, then you need to actually say that in the query.
-And you do that by saying, add select. And then you reference the alias to the table.
-You want to select, so question now, two things about this known, as I'm not saying a
-question that ID or a question that's a slug. I'm just saying question, which means
+And you do that by saying, `->addSelect()`. And then you reference the alias to the table.
+You want to select, so `question` now, two things about this known, as I'm not saying a
+`question.id` or a `question.slug`. I'm just saying question, which means
 grab every firm thing from the question table that I kind of confused anything about
 this is that this isn't going to change what this method returns. This method is
-still going to return an array of answer objects, but that each answer object is
-already going to have the question data preloaded onto it. So check this out. If I
+still going to return an array of `Answer` objects, but that each `Answer` object is
+already going to have the `Question` data preloaded onto it. So check this out. If I
 refresh the page still works exactly like before, because that method still returns
-an array of answer objects, but our query is down to one.
+an array of `Answer` objects, but our query is down to one.
 
 Since we're now grabbing all of the data that we need with that one original query.
 Once we start trying to render the question for each answer, doctor realizes that
