@@ -90,7 +90,7 @@ But it *also* does something else, something very important:
 So if an `Answer` is added to a `Question`, that `Question` is *also* set *onto*
 that `Answer`. Now, watch what happens if we comment-out this line... 
 
-[[[ code('6fe86bbd49) ]]]
+[[[ code('6fe86bbd49') ]]]
 
 and then go reload the fixtures:
 
