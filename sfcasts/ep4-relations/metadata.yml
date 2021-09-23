@@ -11,6 +11,7 @@ chapters:
     - answer-status
     - collection-criteria
     - popular-answers
+    - string-component
     - join-n-plus-one
     - search-form
     - relationship-types
