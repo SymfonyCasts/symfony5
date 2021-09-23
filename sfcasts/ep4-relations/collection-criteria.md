@@ -1,70 +1,97 @@
-# Collection Criteria
+# Collection Criteria for Custom Relation Queries
 
-Coming soon...
+When we render the answers for a question, we only want to render the *approved*
+answers. I got clever and did this by adding a `getApprovedAnswers()` method. It
+loops over *all* of the answers but then returns only the *approved* ones.
 
-Whenever we run to the answers for a question we only want to render the approved
-answers. I got clever in did this by adding a `getApprovedAnswers()` method. And it
-loops over all the answers then returns only the ones who status is approved. The
-problem is performance. It's pretty silly that we're querying for all of the answers
-for this question, just so that we can render some of it. If there are only a few
-non-approved answers, no big deal, but if we get a lot of spam and had many
-non-approved answers, this page could start logging like really slowly. Imagine it
-querying for 200 answers only to render six. Unfortunately it's not like we can grab
-the answer repository service from inside of this method and create a custom query.
-So are we stuck? Do we need to back up into our controller, do the custom query for
-the answers here and then pass them into the template. Fortunately, no doctrine has a
-special criteria system for just this situation. It allows us to describe how we want
-to filter the answers so that it can do the query for us.
+The *problem* with this approach is... performance. It's pretty silly to query
+for *every* `Answer` object related to this question... and then only render
+*some* of them.
 
-It looks like this, remove the filter stuff entirely instead say `$criteria = Criteria`,
-get the one from `Doctrine/Collections`, `::create()`. And then this kind
-of looks like the query builder. So it has `->andWhere()` method, but the big difference is
-inside of here. We're going to use the criteria, uh, and a criteria expression. So
-we'll say a `Criteria::expr()`, and then he uses `->eq()` function for
-equals, and then you'll pass this `status`. They feel that you want to compare it to,
-and then the value you want to look at, which is going to be `Answer::STATUS_APPROVED`
-So you see what I mean? It's kind of similar to the query builder and it
-ultimately gives us an object that describes our query to use this 
-`$this->answers->matching($criteria)`, and then pass it criteria. So I find the criteria syntax to
-be a little bit cryptic, but it's usually pretty easy to get the job done. Let's go
-see if it works, refresh the page. And let's open up the profiler, look at the
-queries for this. And yes, we have six results now. And after we refresh, yes, still
-six results. We're still filtering out the unapproved answers, but check out the
-queries for this page. That's what we want it inquiries for all answers that match
-this question and who status = approved. Even the count query above this is correct.
+Realistically, if there are only ever a *few* non-approved answers, this is no big
+deal. But if it's possible that a question could have *many* non-approved answers,
+this page could *really* slow down. Imagine querying for 200 answers because some
+SPAM bot hit our site... only to render 6 of them.
 
-So that's the criteria system. And other than getting a little bit fancier with the
-expressions you can create, that's basically it. If you don't like having the query
-logic in your entity, I don't blame you. You can always move it into your repository,
-copying this criteria code and then open up `src/Repository/AnswerRepository`.
-Since this criteria relates to answers, I'm going to delete this example code. And
-instead of creating a public static function Called `createApprovedCriteria()`, which
-will of course return a `Criteria` object. And I'll paste my logic in here and we can
-just return this. So the reason I'm making this public static is because I want to be
-able to call this from my question entities. So it needs to be static. And
-technically static is just fine. Cause it's not like this needs to use the, this
-variable to do anything.
+Unfortunately, because we're in an entity, we can't simply grab the `AnswerRepository`
+service from inside of this method and create a custom query. So, are we stuck? Do
+we need to back up into our controller and do the custom query for the answers there?
 
-Anyways. Now we have this back and question. We can simplify this to return 
-`$this->answers->matching(AnswerRepository::createApprovedCriteria())`
-Cool. If you go back to the site and try now still six questions, it still
-works. One cool thing about these criteria objects is that you can also reuse them
-with the query builder. For example, suppose you need to create a custom that returns
-10 approved answers. Let's add a new method for this. So normally we normally do this
-by saying something like public function `findAllApproved()`, maybe an `int $max = 10`
-argument and this whole return and array. Although more specifically now at all, PHP
-documentation out there to advertise that with this really is, is it going to return
-an array of answers? Anyways, inside of here, we create the cream query builder like
-normal. We say, return `$this->createQueryBuilder()`, pass it, aliens `answer`.
+Fortunately, no. These Doctrine Collection objects have a few tricks up their sleeves,
+including a special "criteria" system for *just* this situation. It allows us to
+*describe* how we want to filter the answers and then it *uses* that when it queries!
 
-Then this point, if we wanted to, um, filter by the status, we would normally say 
-`->andWhere('answer.status = ?')` and then fill in the rest of the details. Of course, we
-want to do that without duplicating the logic of up here. So we can actually use this
-criteria by saying `->addCriteria()` and then `self::createApprovedCriteria()`.
-That's it. From here, we can finish the query like normal, I'll say `setMaxResults($max)`,
-and then `->getQuery()->getResult()`. I won't use this right now, but
-hopefully you get the idea next. Let's add a new page to our site that shows the most
-popular answers. This will give us a great example to learn about and solve the N
-plus one problem. We'll solve it by adding a join by printing a custom query that
-joins across our relationship.
+## Creating the Criteria Expression
 
+Remove the filter stuff entirely... and instead say `$criteria = Criteria` - the
+one from `Doctrine\Collections` - `::create()`. Then, this object "kind of" looks
+like a query builder. For example, it has an `->andWhere()` method. The big difference
+is what we put inside of this. Instead of a simple string, we need to use a criteria
+"expression": `Criteria::expr()`, `->eq()` for equals and pass this `status` the
+property that we want to use in the WHERE. For the second arg, pass
+`Answer::STATUS_APPROVED`.
+
+This `Criteria` object now "describes" how we want to filter the answers. To use
+it, say `$this->answers->matching($criteria)`.
+
+For me, the criteria syntax - especially the expression stuff - is a little
+cryptic... but it's still usually pretty easy to create whatever logic I need.
+And, most importantly, it gets the job done.
+
+Check it out: we have 6 approved answer now. After we refresh... ok good: this
+*still* renders 6 answers. Open the Doctrine profiler to look at the queries.
+And... amazing! When we call the `getApprovedAnswers()` method, it now queries
+from answer where `question_id` equals this question *and* `status = 'approved`!
+Event the `COUNT()` query *above* this does that!
+
+So... *that's* the criteria system! And other than getting a little bit fancier with
+the expressions you create, it's just that simple and powerful. It's one of my
+favorite secrets inside of Doctrine.
+
+## Moving Criteria Logic into the Repository
+
+By the way, if you don't like having the query logic in your entity, I don't blame
+you! But no worries:we can move it into our repository. Copy the criteria code and
+then open up `src/Repository/AnswerRepository.php` since this criteria relates to
+answers. I'll delete the example code and replace it with a new public
+*static* function called `createApprovedCriteria()`. This will, of course, return a
+`Criteria` object. Paste the logic and return this.
+
+There are two reasons I'm making this *static*. First, because I want to be able
+to call this from my `Question` entity. And since I can't inject service *objects*
+into an entity, the only way to do that is by making this method static. And second...
+this method *can* be static! It doesn't need to use the `$this` variable to call
+any methods on the repository.
+
+
+Anyways, now that we have this, back in `Question` we can simplify this to return
+`$this->answers->matching(AnswerRepository::createApprovedCriteria())`.
+
+Cool! If you go back to the site and try it now... still 6 questions: it still
+works.
+
+## Using Criteria in a QueryBuilder
+
+One other cool thing about these `Criteria` objects is that you can reuse them
+with the query builder. For example, suppose we need to create a custom that returns
+10 approved answers. Add a new method for this: `public function findAllApproved()`
+with an `int $max = 10` argument... and this will return and array. Though, more
+specifically, I'll advertise in PHPDoc that this will return an array of `Answer`
+objects.
+
+Anyways, inside, create the query builder like normal: return
+`$this->createQueryBuilder()` and pass it `answer` for the alias. To filter for
+only approved answers, we would normally say `->andWhere('answer.status = :status')`.
+But... I want to do this *without* duplicating the approved logic that we've
+already written in the criteria method. Fortunately, you can put a criteria
+*into* a `QueryBuilder` by saying `->addCriteria()` and then
+`self::createApprovedCriteria()`.
+
+Cool huh? from here, we can finish the query like normal:
+`->setMaxResults($max)` and then `->getQuery()->getResult()`.
+
+I won't *use* this method right now, but hopefully you get the idea.
+
+Next: let's add a new page to our site that shows the most popular answers. This
+will give us a great example to learn more about -then solve-  the N+1 problem.
+We'll solve it by creating a custom query that *joins* across our relationship.
