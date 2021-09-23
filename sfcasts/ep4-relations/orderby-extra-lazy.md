@@ -9,6 +9,8 @@ will give us  a `DateTime` object... and you can't just print a `DateTime`. But
 you *can* pipe it to the `date()` filter. Or in the last tutorial, we installed a
 library that allows us to say `|ago`.
 
+[[[ code('4629aa6ee4') ]]]
+
 When we refresh now... oh! We get an error:
 
 > The `Question` object cannot be found by the `@ParamConverter` annotation.
@@ -34,6 +36,8 @@ The easiest thing that you *can* control is how the answers are ordered. Go into
 the `Question` class and scroll up to the `$answers` property. To control the order
 add `@ORM\OrderBy()` and pass this an array with `{"createdAt" = "DESC"}`.
 
+[[[ code('0043abcee5') ]]]
+
 That's it! Go back, refresh and... perfect! These are now ordered with the
 newest first!
 
@@ -44,8 +48,11 @@ for each question. Well... kind of: they all say 6 because that number is still
 hardcoded. Let's fix that.
 
 Open the template for this: `templates/question/homepage.html.twig`... and I'll
-search for "6". Here it is. Replace this with `{{ question.answers|length }}`. So
-we get the collection of answers and then count them. Simple enough! And if we
+search for "6". Here it is. Replace this with `{{ question.answers|length }}`
+
+[[[ code('b1e2f8233b') ]]]
+
+So we get the collection of answers and then count them. Simple enough! And if we
 try it... this works: two answers, six answers, eight answers.
 
 But check out the web debug toolbar. Woh! We suddenly have a *lot* of queries.
@@ -71,6 +78,8 @@ is count them!
 If you find yourself in this situation, there *is* a solution. In the `Question`
 class, at the end of the `OneToMany()`, pass a new option called `fetch=""` set
 to `EXTRA_LAZY`.
+
+[[[ code('351175cd84') ]]]
 
 Watch what happens. Right now we have 21 queries. When we refresh, we *still* have
 21 queries. But open up the profiler. The first query is still the same. But

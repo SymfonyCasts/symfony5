@@ -4,8 +4,13 @@ There's a, kind of, complex topic in Doctrine relations that we need to talk abo
 It's the "owning versus inverse side" of a relationship.
 
 We already know that any relation can be seen from two different sides: `Question`
-is a `OneToMany` to `Answer`... and that same relation can be seen as an `Answer`
-that is `ManyToOne` to `Question`.
+is a `OneToMany` to `Answer`... 
+
+[[[ code('f6c15afd22') ]]]
+
+and that same relation can be seen as an `Answer` that is `ManyToOne` to `Question`.
+
+[[[ code('d223381ad5') ]]]
 
 So... what's the big deal? We already know that we can *read* data from both sides:
 we can say `$answer->getQuestion()` and we can also say `$question->getAnswers()`.
@@ -22,6 +27,8 @@ using it because I'm kinda lazy - and then creates two `Answer` objects by hand
 and persists them. We don't need to persist the `Question` because the
 `QuestionFactory` saves it entirely.
 
+[[[ code('6fb83958c7') ]]]
+
 At this point, the `Question` and these two answers are *not* related to each other.
 So, not surprisingly, if we run:
 
@@ -33,6 +40,8 @@ we get our favorite error: the `question_id` column cannot be null on the `answe
 table. Cool! Let's relate them! But this time, instead of saying,
 `$answer1->setQuestion()`, do it with `$question->addAnswer($answer1)`...
 and `$question->addAnswer($answer2)`.
+
+[[[ code('085a87f361') ]]]
 
 If you think about it... this is *really* saying the same thing as when we set
 the relationship from the other direction: this `Question` *has* these two answers.
@@ -68,16 +77,22 @@ Now, at this point, you might be saying to yourself:
 Great question! Because... this *doesn't* really work like we just saw. Let me
 show you.
 
-Open the `Question` class and find the `addAnswer()` method. This was generated for
-us by the `make:entity` command. It first checks to see if the `$answers`
-property *already* contains this answer.... just to avoid a duplication. If it
-does *not*, it, of course, *adds* it to that property. But it *also* does something
-else, something very important: `$answer->setQuestion($this)`. Yup, it sets the
-*other* side of the relation.
+Open the `Question` class and find the `addAnswer()` method. 
+
+[[[ code('4eafd16798') ]]]
+
+This was generated for us by the `make:entity` command. It first checks to see 
+if the `$answers` property *already* contains this answer.... just to avoid 
+a duplication. If it does *not*, it, of course, *adds* it to that property. 
+But it *also* does something else, something very important: 
+`$answer->setQuestion($this)`. Yup, it sets the *other* side of the relation.
 
 So if an `Answer` is added to a `Question`, that `Question` is *also* set *onto*
-that `Answer`. Now, watch what happens if we comment-out this line... and then go
-reload the fixtures:
+that `Answer`. Now, watch what happens if we comment-out this line... 
+
+[[[ code('6fe86bbd49) ]]]
+
+and then go reload the fixtures:
 
 ```terminal-silent
 symfony console doctrine:fixtures:load
@@ -123,8 +138,15 @@ relationship. So unless you don't use `make:entity` or start deleting code, you
 won't need to think about this problem on a day-to-day basis.
 
 Put back the `$answer->setQuestion()` code so that we can, once again, safely set
-the data from either side. Back in the fixtures, now that we've learned all of this,
-delete the custom code. And then, let's reload our fixtures:
+the data from either side. 
+
+[[[ code('9c9d7805be') ]]]
+
+Back in the fixtures, now that we've learned all of this, delete the custom code. 
+
+[[[ code('3458f1064e') ]]]
+
+And then, let's reload our fixtures:
 
 ```terminal-silent
 symfony console doctrine:fixtures:load
