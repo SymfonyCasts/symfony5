@@ -28,7 +28,11 @@ symfony console make:migration
 ```
 
 Let's go double check that *just* to make sure it doesn't contain any
-surprises. It looks good:
+surprises
+
+[[[ code('302489e86e') ]]]
+
+It looks good:
 
 > ALTER TABLE answer ADD status.
 
@@ -48,8 +52,12 @@ Add `public const STATUS_NEEDS_APPROVAL = 'needs_approval'`. I just made up that
 paste it twice, and create the other two statuses: `spam` and `approved`, setting
 each to a simple string.
 
+[[[ code('af15ae541a') ]]]
+
 Awesome. Now default the `status` property down here to `self::STATUS_NEEDS_APPROVAL`:
 comments will "need approval" unless we say otherwise.
+
+[[[ code('7a8c87442f') ]]]
 
 *Finally*, down on `setStatus()`, let's add a sanity check: if someone passes
 a status that is *not* one of those three, we should throw an exception. So
@@ -58,12 +66,16 @@ three constants: `self::STATUS_NEEDS_APPROVAL`, `self::STATUS_SPAM` and
 `self::STATUS_APPROVED`. So if it's *not* inside that array, then throw a
 new `InvalidArgumentException()` with a nice message.
 
+[[[ code('ec81e8f352') ]]]
+
 A little gatekeeping to make sure that we always have a valid status.
 
 ## Creating Approved and Non-Approved Answer Fixtures
 
 Now that the new `status` property is done, open `src/Factory/AnswerFactory.php`.
 Down in `getDefaults()`, set `status` to `Answer::STATUS_APPROVED`.
+
+[[[ code('a6e3830039') ]]]
 
 So when we create answers via the factory, let's make them approved by default so
 they show up on the site.
@@ -73,6 +85,8 @@ fixtures to make sure things are working. To allow that, add a new method:
 `public function`, how about, `needsApproval()`, that will return `self`. Inside,
 return `$this->addState()` and pass this an array with `status` set to
 `Answer::STATUS_NEEDS_APPROVAL`.
+
+[[[ code('b94335efa5') ]]]
 
 Now go open the fixtures class: `src/DataFixtures/AppFixtures.php`. These 100
 answers, thanks to `getDefaults()`, will all be approved. Let's *also* save
@@ -85,6 +99,8 @@ unpublished question to relate to... which is actually not what we want: we want
 to relate this to one of the questions we've already created. Let's use the same
 trick we used before. Inside the `new()` method, we can pass a callable. Use the
 `$questions` variable to get it into scope... and then paste.
+
+[[[ code('e0f06c7fcf') ]]]
 
 So this will create 20 new, "needs approval" answers that are set to a random
 published `Question`. Phew! Let's get these loaded. At your terminal, run:
@@ -104,8 +120,13 @@ Go back to the homepage... and find a question with a lot of answers. This one h
 should be hidden. But how *can* we hide those answers?
 
 Inside of `show.html.twig`, we get the answers by saying `question.answers`.
+
+[[[ code('505d106172') ]]]
+
 So this is calling `$question->getAnswers()`, which, of course, returns *all* of
 the related answers.
+
+[[[ code('73fdaffca6') ]]]
 
 We *could* solve this by going back to `QuestionController` and, in the `show()`
 action, executing a custom query through the `AnswerRepository` where question
@@ -121,6 +142,8 @@ create a new function called `getApprovedAnswers()`. This will return a `Collect
 just like `getAnswers()`: `Collection` is the common interface that `ArrayCollection`
 and `PersistentCollection` both implement.
 
+[[[ code('d5d5b1bb4e') ]]]
+
 Inside, we're going to loop over the answers and *remove* any that are *not* approved.
 We could do this with a `foreach` loop... but there's a helper method on
 `Collection` for exactly this.
@@ -131,21 +154,31 @@ object inside the answers collection. If we return true, it will be included in 
 final collection that's returned. And if we return false, it won't. So we're taking
 the answers collection and filtering it.
 
+[[[ code('5299771a96') ]]]
+
 Inside the callback, we need to check if this answer's status is "approved". Instead
 of doing that here, let's add a helper method inside of `Answer`.
 
 Down here, add `public function isApproved()` that will return a boolean. Inside, we
 need return `$this->status === self::STATUS_APPROVED`.
 
+[[[ code('6abb67fb11') ]]]
+
 Back over in `Question`, it's easy: include this answer if `$answer->isApproved()`.
+
+[[[ code('c419457b13') ]]]
 
 Sweet! We now have a new method inside of `Question` that will only return
 *approved* answers. All we need to do *now* is use this our template. In
 `show.html.twig`, use it in both spots: `question.approvedAnswers`... and
 `question.approvedAnswers`.
 
+[[[ code('875214e15f') ]]]
+
 There's also a spot on the homepage where we show the count... make sure to use
 `question.approvedAnswers` here too.
+
+[[[ code('1404b9c4a3') ]]]
 
 Ok! Moment of truth. Right now we have 10 answers on this question. When I refresh...
 oh, it's still 10! Boo. We either have a bug... or that was bad luck and this question
