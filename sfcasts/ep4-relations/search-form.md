@@ -1,103 +1,115 @@
-# Search Form
+# Search, the Request Object & OR Query Logic
 
-Coming soon...
+New mission: let's add a search box to this answers page. Head over to
+`popularAnswers.html.twig`. We don't actually need a row here... so I'm going
+to simplify my markup: move this `<ul>` to the bottom. Cool. Now we can give this
+`div` on top a `d-flex` class to and also `justify-content-between`. This will
+let us have this `<h1>` on the left and a search form on the right.
 
-New mission. Let's add a search box to this answers page, head over to our 
-`popularAnswers.html.twig, but actually we don't really need a row here. So I'm going
-to kind of simplify my markup up a little bit, move this `<ul>` for the bottom. Cool.
+## Adding the Search Form
 
-Now we can give this div on top a `d-flex` class to make it explain flex and 
-`justify-content-between`, because what I'm gonna do is I'm gonna have this `<h1>` on the left
-and then on the right side of the page, let's add a form. Now the form is going to
-submit right to our `AnswerController` right here. So I'm going to set the action to
-curly curly `path('app_popular_answers')`. I'm going to leave off the `method=""` , which
-is going to make this submit via `GET` requests, which is appropriate for a search
-inside. We're using one field. So I'm going to have `<input type="search">`, And then
-break this on multiple lines to add a name it's called `name="q"`. That's the name
-we'll use to fetch that data. When we submit classical's `form-control` to make it look
-nice, a `placeholder=""`, and even even an `aria-label=""`, which is for accessibility since I
-don't actually have a real label on this field. Okay. Refresh now looks awesome.
+Add the `form` tag. This form will submit right to this `AnswerController` route.
+So set the action to `{{ path('app_popular_answers') }}`. I'm going to *not*
+add a `method=""` attribute, because that defaults to `GET`, which is what you
+want for a search form.
 
-And if we fill in the box and hit enter,
+Inside, add the search field: `<input type="search">`. I'll break this on multiple
+lines. Add `name="q"` - that `q` could be anything, but we'll read that from our
+controller - a `class`, a `placeholder` and an `aria-label=""` for accessibility
+since we don't have a *real* label for this field.
 
-We come right back to this cage page, but now they `?q=bananas` on the
-URL. Of course the results don't change because we're not using that in our code
-yet. So let's do that head into `AnswerController`. So here's the plan. We're going to
-read that `?q=` from the URL, pass that string into `findMostPopular()` as
-an argument, and then use that inside of the query to add a where `answer.content`,
-like whatever that search term is. So a fuzzy search, but inside of our controller,
-how can we read the `?q=` from the URL? How do we do that in Symfony?
-Whenever you want to read anything from the request like parameters, post data or
-headers, you need Symfonys `Request` object. It holds all of this. And if you're in a
-controller, it's easy to get, add a new request argument type into with new org type
-of the `Request`. The one from H to give you found HTTP foundation and then call off
-`$request`. Very simply. If you have an ARG arguments, your controller that's type
-hinted with Symfonys request, class Symfony will pass you it's request object. This
-has a number of methods on it to get all kinds of different data. Um, but it's fairly
-easy to work with three query parameters. We say `$request->query->get()`,
-and then the query parameter. We want to fetch off of that. If it's not there that
-will return. No.
+Okay: refresh now. Looks awesome! And if we fill in the box and hit enter...
+we come *right* back to this page, but now with `?q=bananas` on the URL. The results
+don't change because we're not *reading* that query parameter in our code yet.
+So let's do that.
 
-Alright. Over inside of our repository, let's add a new `string $search` argument. I'll
-let it be known that it's optional and also so that it accepts no values. And then
-we're going to kind of do this in pieces here. So I'm gonna say `$queryBuilder =` the
-first part and I'll stop after the `addSelect()` and at the bottom, say 
-`return $queryBuilder`, and then the rest of it. I fix my typo. The reason I'm splitting into two
-pieces is we only want to apply the search logic. If a search term was actually fast
-in. So splitting it, lets us say, if `$search`, then we can add our where. So say 
-`$queryBuilder->andWhere()` instead of here, I'll say `answer.content`. That's the field
-we're going to look at, `LIKE`, and then pass, uh, the actual search term as a while as
-a placeholder. So I'll say `:searchTerm`, but that could be anything. And
-actually passing that and revalue say `->setParameter('searchTerm', ...)`  and pass in these
-`$search`. Um, variable. Except if we do is that, oh, except we also need to put the
-percents around this. So it looks a little funny, but that's what we want. So, so
-we'll say we're answer that content like, and then the search term will be surrounded
-by percent. So it's a fuzzy search.
+## Symfony's Request Object
 
-All right, let's try it clear the question mark `q=` from the URL at first. So here's
-our normal results. Let's search for this can secretary and Got it.
+Head into `AnswerController`. Here's the plan: we're going to read that `?q=` from
+the URL, pass that string into `findMostPopular()` as an argument, and then use that
+inside of the query to add a where `answer.content LIKE` that search term. So
+a fuzzy search.
 
-The result actually became the second result down here. But if you watch closely,
-this third result actually changed was actually fine, but different word here to
-search for it and make it even more obvious. There you go. That's much more obvious.
-So it is working, uh, of course not that obvious that we're filtering because we are
-not rendering the search term in the search box. So what's fix that over in 
-`popularAnswers.html.twig` at a `value=""`. Now we could actually pass the query
-parameter from the controller into our template as a variable. But in this case, we
-can also cheat the request. Object is available in every template via `app.request`
-So then we can say the same thing `.query.get('q')` now
-beautiful. It shows up, but our search could be smarter. Well, we want to make our
-search really smart and powerful.
+But inside of the controller, how *can* we read the `?q=` from the URL in Symfony?
+Whenever you need to read *anything* from the request - like query parameters, post
+data, headers or cookies, you need Symfony's `Request` object: it holds *all* of
+this.
 
-We should use something like elastic search, but to make it a little bit cooler,
-let's also return results that match the question text. So for example, maybe clear
-out the queue, let's search for something with that big Niecy, most word on it, which
-is inside that first question, but hit enter. Now that result disappears because
-we're not searching any question, text, no surprise over an `AnswerRepository` let's
-change things. So think about what we really want to have here is an or aware, cause
-I want to say where `answer.content LIKE :searchTerm` or the questions or the
-question is like that search term. So what you might expect me to do here is say
-something like or where, because there is a `orWhere()` method, but I never wants you
-to use that method. The reason is it gets tricky knowing where the, where the
-parentheses should go in the query. If you kind of get my meaning, if we use an 
-`orWhere()` down here instead, I want you to always use andWhere, but inside of an where
-you can literally write or statements. So I can say 
-`answer.content LIKE :searchTerm OR`, and then just put another expression right here. 
-Now what I want to actually
-search in this case is I want to search on the `$question` property of our `Question`
-entity.
+And if you're in a controller, it's easy to get! Add a new argument type-hinted
+with `Request` - the one `HttpFoundation`. You can *call* the argument anything,
+but use `$request` to avoid being crazy.
 
-And since we have joined over to the `Question`, entity and Eylea set, his `question` has
-this. We can actually reference that `question` alias, to say `question.question LIKE`
-can use that same `:searchTerm`. That's it. When we refresh now, yes.
-That first result shows back up and check out the query for this page. It's pretty
-sweet. Let me actually say view formatted query. So we're inter joining over to
-question and then look at the where statement. We actually remember where actually
-checking, or actually only returning things where the status is approved. And because
-we put the order statement inside of that and where these are surrounded by
-parentheses, which is really important that those parentheses weren't there, it would
-actually, this order would actually mess things up. So next we've mastered the many
-to one relationship, which is actually the same as the one to many relationship. Ooh,
-we got a two for one. Now let's master the other major type of relationship, a many
-to many.
+Here's how this works, it's pretty simple: *if* you have an argument on a controller
+that's type-hinted with Symfon's `Request` class, Symfony will pass you the `Request`
+object. This class has a *bunch* of methods on it to get *anything* you need on
+the request. To fetch a query parameter, use `$request->query->get()` and then
+the name: `q`. If that query parameter isn't there, this will return null.
 
+Over in the repository, add a new `string $search` argument... I'll let it be
+optional, in part, so that it accepts a `null` value. For the query, let's do
+it in pieces. Add `$queryBuilder =` the first part... and stop after the
+`addSelect()`. At the bottom `return $queryBuilder` and then the rest. I'll... fix
+my typo.
+
+The reason we're splitting this into two pieces is that we only want to apply the
+search logic *if* a search term was actually passed. Splitting it lets us say
+if `$search`, then, `$queryBuilder->andWhere()` with `answer.content` - that's the
+field we're going to search inside of - `LIKE :searchTerm`. That `searchTerm`
+could be anything: it's just a placeholder that we fill in by saying
+`->setParameter('searchTerm', $search)`. Except... to be a fuzzy search, we need
+to put `%` on each side. I know, it looks funny, but that's exactly what we want.
+
+Let's try it! Clear the `?q=` from the URL first. Cool: we have our normal,
+non-filtered results. Copy a word from a question to search for. And... got it!
+The result became the *second* result... but this *third* result is new. But let's
+search a different word to make it even more obvious. That *definitely* worked.
+
+## Using the Request Object in Twig
+
+Though... it's not very obvious that we're filtering because we're not rendering
+the search term in the search box. Open up `popularAnswers.html.twig` and add a
+`value=""`. To render the current search term, we *could* read the query parameter
+in the controller and pass it into our template as a variable. But in this case,
+we can cheat because the request object is available in every template a
+`app.request`. So we can say `app.request.query.get('q')`.
+
+Now... beautiful! That shows up.
+
+## Filtering Across a Join
+
+*But*, our search could be smarter! Well, we wanted to make our search *really* smart,
+we should probably use something like Elasticsearch. But to make our search a
+*little* bit cooler, let's *also* return results that match the *question's* text.
+
+For example, clear out the search term... and let's search for something that's
+in the first *question*. Hit enter. That result disappears because we're *not*
+searching the question text.
+
+Over in `AnswerRepository`, let's think. We want to query where
+`answer.content LIKE :searchTerm` *or* the question's text is `LIKE :searchTerm`.
+
+The `QueryBuilder` *does* have an `orWhere()` method. Big win, right!
+
+Actually... not quite: I *never* use that method. The reason is that it gets tricky
+to get the parentheses correct in a query when using `orWhere()`. I'll show you what
+I mean in a minute. But, the point is that if you need an `OR` in a query, you
+should *still* use `andWhere()`. Yup, we can say: `answer.content LIKE :searchTerm OR`
+and then pass another expression. We want to search on the `$question` property
+of the `Question` entity. And since we joined over to the `Question` entity
+and aliased it to `question`, we can say `question.question LIKE` and use that
+same `:searchTerm` placeholder.
+
+That's it. When we refresh now... yes! That first result showed back up! And check
+out the query for this page, it's pretty sweet.... and easier to see in the formatted
+version. Check out the WHERE clause. I totally forgot that we were *already*
+filtering WHERE `status = approved`. But because we put the `OR` statement *inside*
+of the `andWhere()`, Doctrine surrounded the entire search part with parentheses.
+If we had used `orWhere()`, this wouldn't have happened... and our query logic
+would have been wrong: it would have allowed non-approved answers to be returned
+as long the search term matched the question text.
+
+Ok! We've mastered the `ManyToOne` relationship, which is actually the same as
+the `OneToMany` relationship. We got two for one! That means that there are only
+two more relationships to learn about: `OneToOne` and `ManyToMany`. Except...
+that's not true: we really only have *one* more relationship to learn about. Next:
+we'll find out that there are really only *two* types of relationships.
