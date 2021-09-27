@@ -1,61 +1,74 @@
-# Relationship Types
+# The 4 (2?) Possible Relation Types
 
-Coming soon...
+Officially, there are *four* types of possible relations in Doctrine: `ManyToOne`,
+`OneToMany`, `OneToOne` and `ManyToMany`. But... I say that's a lite! In reality,
+there are only *two* types.
 
-Oh, officially speaking, there are four types of relations, possible relations and
-doctrine, many to one, one to many one-to-one and many to many, but in reality, there
-are only two types of relationships. Let me explain. We already know that a many to
-one relationship and a one to many relationship are really just the same
-relationship, just seen from two different sides. So if many to one in once many of
-the same, then our four relationships is really down to just three relationships, but
-the one-to-one relationship is also kind of not a real relationship. For example, you
-might use a one-to-one relationship from a `User` class to a `Profile` entity, which
-maybe holds more user about that. More information about that user and the database.
-Your user table would have a `profile_id` form foreign key count, which if you think
-about it looks exactly like a many to one relation and it is in reality, a one-to-one
-relationship is exactly the same as a many to one, except that doctrine puts a unique
-key on that `profile_id` column to prevent that same profile from being, being linked
-to multiple users. But really they're the same thing. And by the way, I don't really
-like one-to-one relationships.
+Let me explain. We already know that a `ManyToOne` relationship and a `OneToMany`
+relationship are really just the *same* relationship seen from the two different
+sides. So that means that instead of four different types of relations, there
+are really only three.
 
-I tend to just put everything in one table because it reduces complexity, but it can
-make sense. Sometimes if I have a bunch of extra data that you rarely use and are
-worried about performance anyways, this means that many to one, one to many in
-one-to-one are all just these same relationship that that only leaves many to many
-relationship, which is a bit different. So let's build one. Let's imagine that every
-question can get tagged with some tax in order to store tags, the database let's make
-a tag and Steve, so find your console 
+## OneToOne is ManyToOne in Disguise
+
+But... the `OneToOne` relationship is... kind of *not* a real relationship.
+
+For example, you might use a `OneToOne` relationship from a `User` entity to a
+`Profile` entity... which maybe holds *more* data about that user. If you did this,
+in the database, your `user` table would have a `profile_id` foreign key column.
+But wait: isn't that *exactly* how a `ManyToOne` relation looks like?
+
+Yup! In reality, a `OneToOne` relationship is the same as a `ManyToOne`, except
+that Doctrine puts a unique key on that `profile_id` column to prevent a single
+profile from being being linked to multiple users. But... that's really the only
+difference!
+
+And, by the way, I try to avoid `OneToOne` relationships. Instead of splitting user
+data across two different entities, I tend to just put them all in one to reduce
+complexity. Splitting into two different entities *could* help performance, but
+I think it's almost always more of a bother than a help. Wait until you have
+performance problems and *then* debug the cause.
+
+## Generating the Tag Entity
+
+Anyways, this means that `ManyToOne`, `OneToMany` and `OneToOne` are all just the
+same relationship. And so *that* leaves only `ManyToMany`, which *is* a bit different.
+So let's build one! Imagine that every `Question` can get tagged with text
+descriptors.
+
+In order to store tags in the database, let's make a `Tag`. Spin over to your
+console and run:
 
 ```terminal
 symfony console make:entity
 ```
 
-I'll call this new entity `Tag` and are going to make it real simple. 
-I'll give it a `name` that would be a `string` type `255` length,
+Call the new entity `Tag`... and it's going to be *real* simple: a single field
+called `name` that will be a `string` type, `255` length, not nullable. Hit
+enter again to finish up.
 
-Not nullable the database and that's it I'll hit enter to finish. Before I run that
-migration, let's go open up that `Tag` class because you guys know that I love to use
-`TimestampableEntity`. Now, if you want it to, you can also add a `slug` column here. I
-won't do that because we already showed an example in the last tutorial of how you
-can add a slug. That's automatically generated off of some other property. So I'll
-just leave that for you. But we now have a functional tag as a declasse. So let's go
-generate a migration for this 
+Before I run that migration, open up the new `Tag` class... because you *know*
+that I love to use `TimestampableEntity`.
+
+We could also add a `slug` column if we wanted to be able to go to a nice url
+like `/tags/{slug}` to show all the questions related a slug. I *won't* do that
+mostly because we shows how to do that in the last tutorial, how to generate a
+`slug` automatically from some other property.
+
+*But*, we now have a functional `Tag` entity. So let's generate a migration for this:
 
 ```terminal
 symfony console make:migration
 ```
 
-Okay, beautiful. And
-then go check out that migration to make sure nothing funny snuck into it. And it
-looks beautifully Moring, great table tag with an ID and a name and created that
-updated at columns. Now that I'm happy, let's go run migration with 
+Beautiful! Go give it a quick peek to make sure nothing funny snuck in. Nope!
+That looks boring: `CREATE TABLE tag` with `id`, `name` and the date fields.
+So go run it:
 
 ```terminal
 symfony console doctrine:migrations:migrate
 ```
 
-Awesome. So every question think about every question
-could have many texts and one tag could be related to multiple questions. In other
-words, this is a many to many relationship. Let's generate that with that next and
-see what it looks like.
-
+Awesomesauce. So let's think about our goal: each `Question` could have many tags...
+and each `Tag` could be related to maany questions. In other words, this is a
+*many* to *many* relationship. Next: let's generate that and see what it looks like!

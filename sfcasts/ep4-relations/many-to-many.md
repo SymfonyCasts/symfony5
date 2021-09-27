@@ -1,159 +1,84 @@
-# Many To Many
+# ManyToMany Relation
 
-Coming soon...
-
-Okay. So each question is going to be able to have many tags. You can almost imagine
-them being rendered at below the question, but then each tag could be related to many
-questions. OMG we need a many to many relationship, but don't take my word for it.
-Let's pretend we haven't figured this out yet. We just know that we want to be able
-to set tag objects onto a question object. In other words, we want our question class
-to have a tags property. Well, as add that, find your terminal in 
+Each `Question` is going to be able to have many tags: we're going to render the
+list of tags below each question. But *then*, each tag could *also* be related
+to many different question. OMG! We need a `ManyToMany` relationship! But don't take
+my word for it, let's pretend that we haven't figured which relationship we need
+yet: we just know that we want to be able to set multiple `Tag` objects onto a
+`Question` object. In other words, we want our `Question` class to have a *tags*
+property. Well, let's add that! Find your terminal and run:
 
 ```terminal
 symfony console make:entity
 ```
 
-for which entity to edit. You could actually choose `Question` or `Tag`. It
-really won't make much difference, but conceptually, we're thinking that we want to
-edit the question and state so that we can add a new property called `tags`. Let's
-once again, use the fake, uh, field type called `relationship`. So it'll walk us
-through the process. Okay. What class should this entity be related to? This is
-going to be related to the `Tag` entity. And just like before we see our big, a big
-table, you're describing the relationship, this is what can help you figure out which
-type you need. So if you zoom in on many to many here, it says, each question can
-have many tag objects and each tag can also relate to many question objects that
-describes our situation perfectly.
+For which entity to edit, we could actually choose `Question` or `Tag`... it
+won't make much difference. But in my mind, right now I want to edit the
+`Question` entity in order to add a new property called `tags`. Once again,
+use the fake type called `relation` to activate the relationship wizard.
 
-So let's answer many too many and then asks us just like with our other relationship.
-Do we want to add a new property to tag so that we can access or update question
-objects from it? It's basically saying, Hey, would it be convenient for you to have a
-`$tag->getQuestions()`, method, and maybe a water. Maybe it wouldn't, but let's say
-yes, this will make a generate the other side of the relationship. We'll see that in
-a second. What field? What problem? What's the name of the prop? Which would that
-property name be called? `questions` sounds perfect. So I'll leave it and done. You can
-say updated both the `Question` and `Tag` classes and I'll hit enter to exit the wizard.
-All right, let's go check out the entities. Start in question. Awesome. No surprise.
-It added a new `$tags` property, which will hold a collection of `Tag` objects.
+Okay: what class should this entity be related to? We want to relate to the `Tag`
+entity. Just like before, we see the big nice table describing the different
+relationships. If you focus on `ManyToMany`, it says:
 
-And as we mentioned before, whenever you have a relationship, a doctrine that holds a
-collection of things, whether that's a collection of answers or a collection of tags
-in the construct method, you need to initialize it to an array collection that's
-taken care of for us. I just wanted to point that up. Now have above this. It says,
-if they may need the money that targets the `Tag` class, if you scroll down to the
-bottom, it really looks a lot like the answers, uh, relation. There's a good tags
-method and then an `addTag()` and a `removeTag()`. If you look over at the `Tag` and see
-things look pretty much the same, we have a `$questions` property, which is in this lies
-to an array collection. It is also a many to many, and it points that the question
-class you focus on the class. It has `getQuestions()`. `addQuestion()` and 
-`removeQuestion()`. Okay, Well, let's see how this is going to look in the database to find
-your terminal and generate the migration with 
+> Each question can have many `Tag` objects and each `Tag` can also
+> relate to many `Question` objects.
+
+That describes our situation perfectly. Answer `ManyToMany`. Next, it asks
+a familiar question:
+
+> Do we want to add a new property to `Tag` so that we can access or update
+> `Question` objects from it?
+
+It's basically saying:
+
+> Hey! Would it be convenient for you to have a `$tag->getQuestions()` method.
+
+I'm not *so* sure that'll be useful... but let's say yes: it doesn't hurt anything.
+This will cause it to generate the *other* side of the relationship: we'll see
+that code in a minute. What should the property be called inside `Tag`? `questions`
+sounds perfect.
+
+And... we're done! Hit enter to exit the wizard. Let's go check out the entities!
+Start in `Question`. Awesome. No surprise: it added a new `$tags` property, which
+will hold a *collection* of `Tag` objects. And as we mentioned before, whenever you
+have a relationship that holds a "collection" of things - whether that's a collection
+of answers or a collection of tags, in the construct method, you need to initialize
+it to an `ArrayCollection`. That's taken care of for us.
+
+Above the property, we have a `ManyToMany` to tags... and if you scroll to the
+bottom, of the class, we have a `getTags()`, `addTag()` and `removeTag()` methods.
+If you're thinking that this looks a *lot* like the code generated for a
+`OneToMany` relationship, you're right!
+
+Now let's check out the `Tag` class. Things here... well... they look pretty much
+the same! We have a `$questions` property... which is initialized to an
+`ArrayCollection`. It is *also* a `ManyToMany` and points to the `Question` class.
+And below, it has `getQuestions()`, `addQuestion()` and  `removeQuestion()`.
+
+Now that we've seen what this look like in PHP, let's generate the migration:
 
 ```terminal
 symfony console make:migration
 ```
 
-Once it finishes, spin over and open that new file, let's see wall. It creates a
-brand new table called a `question_tag` that new table has only two columns, eight
-`question_id`, foreign key, and a `tag_id` foreign key. That is it.
+Once it finishes... spin over and open that new file. And... woh! It creates a
+brand new table! It's called `question_tag`... and it has only *two* columns: a
+`question_id` foreign key column and a `tag_id` foreign key column. That's it.
 
-Even how side of doctrine. This is how you build a many to many relationship, any re
-in a database. You do it with what's called a join table
+And... this makes sense! Even outside of Doctrine, this is how you build a
+`ManyToMany` relationship: you create a "join table" that keeps track of which
+tags are related to which questions.
 
-With doctrine. It's no different, except that doctrine is going to handle the heavy
-lifting of inserting and removing records on this table. For us, I'll show you, but
-first let's spin back over to our terminal and run
+With Doctrine, it's no different... except that Doctrine is going to handle the
+heavy lifting of inserting and removing records to and from this table *for* us.
+We'll see that in a minute.
+
+But before I forget, head back to your terminal and run this migration:
 
 ```terminal
 symfony console doctrine:migrations:migrate
 ```
 
-to add that new joint table. Okay, let's see how we can relate
-these objects in action. So open up our `src/DataFixtures/AppFixtures.php` class.
-We're going to discrete a couple of objects by hand. So first I'll say 
-`$question = QuestionFactory::createOne()` So I'll kind of create a question, the
-lazy way using my factory. Then I'm going to create two tag objects. I'll just paste
-their code here
-
-To tag objects for something that I spend a lot of time thinking about along with my
-four year old. And then to actually say these on your own call `$manager->persist($tag1)`,
-uh, Taiwan and `$manager->persists($tag2)` Awesome. So right now it's going to great.
-One new question and two new tags, but they're not going to be related to the
-database. So how do we relate them? Well, don't think at all about this join table
-that was created almost pretend like that doesn't even exist. Just think I want to
-relate these two `Tag` objects to this question.
-
-And so the way to do this is by saying $question->addTag($tag1)` `$question-addTag($tag2)`
-That's it let's go over that are fixtures,
-
-```terminal
-symfony console doctrine:fixtures:load
-```
-
-and no errors. What's up in the 
-
-```terminal
-symfony console doctrine:query:sql 'SELECT * FROM tag'
-```
-
-let's first select star from tech. No surprise. We have two entries inside of that table.
-Now `SELECT * FROM question_tag`, the join table inside of there.
-
-```terminal-silent
-symfony console doctrine:query:sql 'SELECT * FROM question_tag'
-```
-
-Yes, it actually is. When we, we have two rows inside of here, this is this first one
-is relating the first tag to that question. And this is relating the second tag to
-that question. How cool is that? We simply relate the objects in PHP in doctrine
-handles inserting the rows as needed into the joint table. If we saved all this stuff
-and then down here, it said, question arrow, remove tag tab one, and saved again.
-This would actually cause doctrine to delete that this first row in that table, by
-the way, like with many to one and one to many relationships, a many to many has an
-owning side.
-
-And in inverse side, because we originally modified the question entity and added a
-`$tags` property. This is the owning side. It's actually determined because you can see
-that it's pointing to the other side by saying `inversedBy=""`. So it's pointing to the
-inverse side of the relationship. Then over in `Tag`, this is the inverse side of the
-relationship. And you can see it's saying `mappedBy="tags"` is basically saying to find
-the owning side, go look at the `$tags` property in `Question`. This means that the fact
-that this has an owning an inverse side of the relationships, it means that
-technically speaking, when we want to relate a tag and question me only way to do it
-is by setting the `Question` `$tags` property.
-
-If we changed this logic to be `$tag1->addQuestion($question)`, and 
-`$tag2->$tag1->addQuestion($question)` So only. So set the inverse side that wouldn't work well,
-actually it will work for the same reason that we saw before, but let's try it. So
-reload the fixtures and oh, 
-
-```terminal-silent
-symfony console doctrine:fixtures:load
-```
-
-we actually get an area this is related to Foundry. So it
-says `$tag->addQuestion()` argument. One question. It must be a type question proxy
-given. So when you create an object with a Foundry, like up here, it actually returns
-a proxy object that wraps your two true question object. It doesn't normally matter,
-but if you start mixing Foundry code with non Foundry code, sometimes you can get
-that air anyways in con `->object()` method. And now this will be a pure `Question` object.
-Anyways, wondering we reload the fixtures again, it works. And more importantly, if
-we created a joint table, we still have two rows in there, meaning that we were able
-to relate tag and questions by setting the inverse side, which is exactly the
-opposite of what I said.
-
-But this only works because our entity code was generated smart. If you look at any
-tag and state and go down to the `addQuestion()` method. Yep. It calls 
-`$question->addTag($this)` We saw this exact same thing with the question, answer relationship. When we
-call, add question, it sets the owning side of the relationship. That is why this
-saved. Watch. If we commented this line out, then reload. The fixtures. 
-
-```terminal-silent
-symfony console doctrine:fixtures:load
-```
-
-This time he joined table is empty. We do have to `Tag` objects. It's just that when they were, they
-weren't ever related to the database because the owning side of their relationship
-was never set. So let's put that back again. Thanks to the generated code for make
-and state. You shouldn't ever really need to think about this. I just want you to
-keep it in mind next. Let us do something. I'm not sure what it is back. Mm.
-
+Next: let's see our relationship in action, by relating questions and tags in
+PHP and watching Doctrine automatically inserts rows into the join table.
