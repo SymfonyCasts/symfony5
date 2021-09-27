@@ -15,7 +15,7 @@ When we refresh now... oh! We get an error:
 
 > The `Question` object cannot be found by the `@ParamConverter` annotation.
 
-That's a fancy way of saying that no `Question` for the `slug` in the URL could
+That's a fancy way of saying that no `Question` for the `slug` in the URL could be
 found in the database. And *that's* because I reloaded my fixtures. Go to
 the homepage, refresh... and click into a fresh question. Actually, let me try a
 different one... I want something with several answers. Perfect. And each answer
