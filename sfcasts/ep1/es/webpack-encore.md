@@ -37,7 +37,8 @@ Y también yarn:
 yarn -v
 ```
 
-***TIP Si no tienes Node o Yarn instalado - ve manuales oficiales sobre como
+***TIP
+Si no tienes Node o Yarn instalado - ve manuales oficiales sobre como
 instalarlos para _tu_ SO. Para Node, ve https://nodejs.org/en/download/ y para
 Yarn: https://classic.yarnpkg.com/en/docs/install . Recomendamos utilizar Yarn en la
 versión 1.x para seguir este tutorial.
