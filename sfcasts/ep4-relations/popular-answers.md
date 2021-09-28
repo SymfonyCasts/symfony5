@@ -6,25 +6,38 @@ for *all* questions on our site.
 ## Creating the Route, Controller & Template
 
 Open `AnswerController` and create a new public function called `popularAnswers()`.
+
+[[[ code('022647b9cb') ]]]
+
 Add an `@Route()` above this - or use the `Route` attribute if you're on PHP 8 -
 with the URL `/answers/popular`. Immediately give this a name so we can link to it:
 `app_popular_answers`.
 
+[[[ code('8b8880b54c') ]]]
+
 Inside, render a template: `answer/popularAnswers.html.twig`.
+
+[[[ code('6f3a1946f6') ]]]
 
 Now, copy that template name and, down in the `templates/` directory, create the
 new `answer/` folder... and inside, the new file: `popularAnswers.html.twig`.
 I'll paste in a little structure to get us started.
 
+[[[ code('7193e18f1f') ]]]
+
 This extends `base.html.twig`, overrides the `title` block to customize the title...
 and in the `body` block, adds some basic structure. Let's put an `<h1>` that says
 "Most Popular Answers".
+
+[[[ code('4dbe7149bc') ]]]
 
 Before we try this, open up `base.html.twig` so we can link to this. Scroll down a
 little. Inside of the `navbar`, we have an empty `<ul>` that's just *waiting* for
 a link. Add an `<li>` with `class="nav-item"`... and an `a` tag inside with `href`
 set to our new page: `path('app_popular_answers')`. Say "Answers" for the link
 text... and this needs `class="nav-link"`.
+
+[[[ code('67021c1523') ]]]
 
 *Now* let's try this thing. Refresh... and click the link. Hello normal, boring,
 but *functional* page.
@@ -41,19 +54,34 @@ Open up `AnswerRepository`. At the bottom, add the method. Let's call it
 PHPDoc to advertise that, more specifically, this will return an array of
 `Answer` objects.
 
+[[[ code('5f69449e12') ]]]
+
 Inside, it's a simple query: return `$this->createQueryBuilder('answer')`,
 `->addCriteria()` and reuse `self::createApprovedCriteria()` so that this only returns
-*approved* answers. Then `->orderBy('answer.votes', 'DESC')`, `->setMaxResults(10)`
+*approved* answers. 
+
+[[[ code('b2aee92e9a') ]]]
+
+Then `->orderBy('answer.votes', 'DESC')`, `->setMaxResults(10)`
 to only return the top 10 answers, `->getQuery()`, `->getResult()`.
 
+[[[ code('ae4d9d9600') ]]]
+
 Beautiful! Back in the controller, autowire `AnswerRepository $answerRepository`,
-and then we can say `$answers = $answerRepository->findMostPopular()`. Add a
-second argument to `render()` so that we can pass an `answers` variable to Twig
+and then we can say `$answers = $answerRepository->findMostPopular()`. 
+
+[[[ code('4b6397ae4e') ]]]
+
+Add a second argument to `render()` so that we can pass an `answers` variable to Twig
 set to this array of answers.
+
+[[[ code('dab86b98f3') ]]]
 
 In the template, add a `ul` and loop over `answers` with
 `{% for answer in answers %}`. Let's start real simple: render `answer.votes`
 so we can at *least* make sure that we have the most popular on top.
+
+[[[ code('ae3fc63b6a') ]]]
 
 Spin over to your browser, refresh and... got it! 10 answers with the most highly
 voted on top.
@@ -66,12 +94,18 @@ Select everything inside the `for` loop - the entire `<li>` that renders a singl
 answer - and copy it. Then, in the `templates/answer/` directory, create a new file
 called `_answer.html.twig`... and paste!
 
+[[[ code('1337459dc8') ]]]
+
 Back in `show.html.twig`, delete all of this and replace it with
 `{{ include('answer/_answer.html.twig') }}`.
+
+[[[ code('9058a78f62') ]]]
 
 Now copy *that* line and, in the popular answers template, repeat this! The new
 template *includes* the `<li>` element... so this will fit perfectly inside of
 our `ul`.
+
+[[[ code('549da015cd') ]]]
 
 ## Conditionally Rendering the Answer's Question
 
@@ -82,15 +116,21 @@ that on the question show page - that would be redundant - but we *do* want it h
 To allow that, in `popularAnswers.html.twig`, add a second argument to `include()`
 and pass in a new variable called `showQuestion` set to `true`.
 
+[[[ code('351b19f353') ]]]
+
 In `_answer.html.twig`, we can use that: if `showQuestion|default(false)` and `endif`.
 Thanks to the `default` filter, if this variable is *not* passed, instead of an
 error, it'll default to false.
+
+[[[ code('a878988869') ]]]
 
 Inside, add an `<a>` tag with `href=""` set to `{{ path('app_question_show') }}`:
 the route to the question show page. This route needs a `slug` parameter set to
 `answer.question.slug`. Also give this some classes: `mb-1` and `link-secondary"`.
 For the text, say `<strong>` "Question" and then print the question text:
 `answer.question.question`.
+
+[[[ code('b9536f1cb5') ]]]
 
 That *does* look funny, but... it's correct: `answer.question` gives us the `Question`
 object... then the last part reads *its* `question` property.
