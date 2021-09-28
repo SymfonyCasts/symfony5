@@ -1,79 +1,80 @@
-# Many To Many Factory
+# Handling ManyToMany in Foundry
 
-Coming soon...
-
-Now that we've seen how we can relate a `Tag` objects and `Question` objects. Let's use
-Foundry to properly create some fresh tag fixture data. Start by generating the `Tag`
-factory
+Now that we've seen how we can relate `Tag` objects and `Question` objects, let's
+use Foundry to properly create some fresh `Tag` fixture data. Start by generating
+the `Tag` factory
 
 ```terminal
 symfony console make:factory
 ```
 
-And we want to generate the one for `Tag`. Beautiful
-go about that class `src/Factory/TagFactory.php`. And remember our only job is to make
-sure that we have good default values for all of the required properties. So for
-name, uh, instead of using `texts()`, we can actually use `->word` and like I've done before
-I'm going to remove updated at, but I'll set `createdAt` that to it 
-`self::faker->dateTimeBetween('-1 year')`
+And... we want to generate the one for `Tag`. Beautiful!
 
-Cool things to that. At the top of the fixtures, we can very simply say we can create
-a hundred random tags with `TagFactory::createMany(100)`. And then what I want to do down
-here for these 20 questions is I want to relate each of these 20 questions to eight
-random number of these texts. Here's how we can do this. So first I'm going to pass a
-second argument here. The second argument is attribute overrides. Second argument
-here and think about it. The property that we want to pop it on question is texts. So
-we'll set `tags`, `=>`, and we'll set this to me. Array or collection of tags
-that we want to use. What I'm going to do is I'm going to use actually 
-`TagFactory::randomRange()` and pass this zero and five. This is a cool
-function. It's going to return zero to five random tags. So each question will have a
-different amount of random tags, pretty handy. There is a process, small problem
-with this, which you might spot, but let's try it. It's been over reload, the
-fixtures
+Go check out that class: `src/Factory/TagFactory.php`. Remember, our only job is
+to make sure that we have good default values for all of the required properties.
+For `name`, instead of using `text()`, we can use `->word()`. And like I've done
+before, I'm going to remove `updatedAt` but set `createdAt` to
+`self::faker->dateTimeBetween('-1 year')`.
+
+Now that we have this, at the top of the fixtures class, we can create 100
+random tags with `TagFactory::createMany(100)`. I *love* doing that!
+
+Below, for these 20 published questions, I want to relate *each* one to a random
+number of tags. To do that, pass a second argument: this is an array of attribute
+*overrides*. Let's think: the property we want to set on each `Question` object
+is called `tags`. So pass `tags` `=>` some collection of tags. Let's pass this a
+*new* function: `TagFactory::randomRange(0, 5)`.
+
+This is pretty cool: it will return 0 to 5 random tags from the database, giving
+each question a different *number* of random tags. There *is* small problem with
+this - and maybe you see it, but let's try it. anyways.
+
+Spin over and reload the fixtures:
 
 ```terminal
 symfony console doctrine:fixtures:load
 ```
 
-Awesome. And then let's check the database. I'll first say 
+Awesome. And now... check the database. I'll first say:
 
 ```terminal
-symofny console doctrine:query:sql 'SELECT * FROM tag'
+symfony console doctrine:query:sql 'SELECT * FROM tag'
 ```
 
-just so we can see that. Yep. We do have All a hundred tags. Actually.
-We have 102 tags. Let me go down there and delete my extra code down here. We don't
-really need that anymore. Anyways, it created a hundred tags. Let's also the joint
-table question_tag
+Yep! We *do* have 100 tags. Actually, we have 102 tags. Go the bottom of the fixtures
+class and delete our code from earlier: we don't really need that anymore.
+
+Anyways, this created a 100 tags. Now check the join table:
 
 ```terminal-silent
-symofny console doctrine:query:sql 'SELECT * FROM question_tag'
+symfony console doctrine:query:sql 'SELECT * FROM question_tag'
 ```
 
-and Did it work
-And okay, we get 20 tags, which seems a little bit low. And if you look closely,
-everyone is tagged to the same tag. So you might not have 20. You actually might have
-zero, or you might have 40 or 60 or 80, but those are all different examples of the
-same problem And problem we made earlier. Remember because I'm passing an array here.
-This tag factor in random range is only called once. So my situation, it happened to
-find one random tag and then assign that one tag to all 20 questions, which is why we
-ended up with 28 Rutgers inside of here. We know the fix, change this into a call
-back. That returns that array. All right, let's try that again. Reload the fixtures.
+And... *did* work... though if we're assigning 0 to 5 tags to *each* of 20 questions...
+20 *total* seems a little low. And... it *is*! Look closely: every row is related
+to the *same* tag.
+
+Of course! We hit the problem before. Because we're passing an array of attributes,
+the `TagFactory::randomRange()` method is only called *once*. So in my situation,
+it this returned *one* random tag... and then assigned that one tag to all 20
+questions... which is why we ended up with 20 rows.
+
+We know the fix: change this into a callback... that *returns* that array. Try
+it again:
 
 ```terminal-silent
 symfony console doctrine:fixtures:load
 ```
 
-And I want that some query the question tag table
+And then query the joint table:
 
 ```terminal-silent
-symofny console doctrine:query:sql 'SELECT * FROM question_tag'
+symfony console doctrine:query:sql 'SELECT * FROM question_tag'
 ```
 
-and util I have 41 years will vary
-somewhere between zero and a hundred based on the randomness, but you can have a look
-here and you can see that every question is related to a random tag and some
-questions have multiple tags. All the ones only have one tag. This one has four tags.
-So it's perfect. Next each published question is now related to zero to five tags. So
-let's render the tags on the front end.
+Sweet! 41 results seems right on! And we can see that each question is related to
+different tags... and a different *number* of tags: some only have one, this one
+has 4. So it's perfect.
 
+Next: each published question is now related to 0 to 5 tags. Time to render the
+ManyToMany relationship on the frontend!
