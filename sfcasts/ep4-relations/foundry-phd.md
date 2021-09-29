@@ -1,95 +1,21 @@
-# Foundry Phd
+# Doing Crazy things with Foundry & Fixtures
 
 Coming soon...
 
-We no longer have a many to many relationship between a `Question` and `Tag`. Instead,
-each `Question` has many `QuestionTag` objects in each `QuestionTag` object is related
-to one `Tag`. This means that setting any using this relation, the relationship between
-`Question` and `Tag` just changed a bit. Let's update the fixtures to reflect this first.
-Since we now have a `QuestionTag` entity, we are going to be creating and persisting
-`QuestionTag` objects directly. So let's generate a Foundry factory for it at your
-terminal run 
-
-```terminal
-symfony console make:factory
-```
-
-to generate the `QuestionTagFactory`.
-Awesome. Go open that up. `src/Factory/QuestionTagFactory` and in get the
-faults as usual. Our job is to add all the required fields. So a lot to do here. It's
-a set `question` to `QuestionFactory::new()`, and I'm actually going to do
-the same thing for `tag` setting that to `TagFactory::new()`. So as a
-reminder, the `new()` method describes a new instance of the `QuestionFactory` object. So
-we're assigning the `question` attribute to the `QuestionFactory`
-instance. We talked earlier about how, about how that's better than doing something
-like create one, because when you set a relationship property to a factory instance,
-you won't actually create a question until it needs to.
-
-So with the setup, what I'm saying is if someone creates a Question tag, somebody
-uses the `QuestionTagFactory` and doesn't override any of the attributes. What this
-will do is create a brand new `Question` and a brand new `Tag` watch. You can see us,
-let's go into our fixtures. And we'll just, we'll say a `QuestionTagFactory::createMany(10)`
-So a great quiet 10 question, factory objects. And I'm going to put a
-return statement here because some of this code down here is currently broken. All
-right. So let's try to fix here. 
-
-```terminal
-symfony console doctrine:fixtures:load
-```
-
-to see if
-this works and it doesn't, but for kind of an unrelated reason, check this out. It
-says, question tag set, tagged at argument. One must be a type of date, time
-immutable, date time given. So this is a little bit subtle and it's kind of related
-to faker.
-
-So in faker, when you say `self::faker()->datetime()`, that gives you
-a `DateTime` object. But if you look at our `QuestionTag` and state, when we generated
-our `taggedAt` field, we be sent to a doctrine, `datetime_immutable` type. Basically what
-that means is instead of, uh, that property being a `DateTime` object, it's going to
-be a `DateTimeImmutable` object, really the same thing, except that `DateTimeImmutable`,
-can't be changed. It's not that important. Anyways, the point is our type and on our
-setter is `DateTimeImmutable`, but we're trying to pass in a `DateTime` instance, which
-isn't the same. So the easiest way to fix this is to just update our fixtures to be a
-little smarter. So we can say `DateTimeImmutable::createFromMutable()`,
-which is a method just from the situation where you can pass it a daytime immutable,
-and it will create a `DateTime` and I'll create a `DateTimeImmutable` from it. Anyways, if
-we reload the fixtures now, 
-
-```terminal-silent
-symfony console doctrine:fixtures:load
-```
-
-no airs run 
-
-```terminal
-symfony console doctrine:query:sql 'SELECT * FROM question_tag'
-```
-
-and awesome. You can see 10 entries inside of that table and to prove that it was creating.
-
-And if you, the question table, 
-
-```terminal-silent
-symfony console doctrine:query:sql 'SELECT * FROM question'
-```
-
-you could see 10 entries in there as well. That
-proves that each time we created a question tag, it's creating a brand new question,
-because if you look over at fixtures at, at this point, we haven't actually created
-any questions. So this works, but that's not really what we want. We want to take.
-Well, we actually want is, are the published questions were down or created down here
-to be related to some random tags. We don't want to create more random questions up
-here. So I'm going to believe the return save and add that `QuestionTagFactory` line.
-So the way we were doing this before is we had this call back and we said, okay, set
+We want to take. Well, we
+actually want is, are the published questions were down or created down here to be
+related to some random tags. We don't want to create more random questions up here.
+So I'm going to believe the return save and add that `QuestionTagFactory` line. So
+the way we were doing this before is we had this call back and we said, okay, set
 the tags property to a zero to five random tag objects. But our question entity does
-not have a `tags` property anymore. Our question into now is a `questionTags` property.
-Okay. So let's change this to how about `questionTags` And then is set to, and we
-could say a `QuestionTagFactory::randomRange()` here, but that would
+not have a `tags` property anymore. Our question into now is a `questionTags`
+property. Okay. So let's change this to how about `questionTags` And then is set
+to, and we could say a `QuestionTagFactory::randomRange()` here, but that would
 require us to create those question tags above here first, which I don't really want
 to do. So I'm gonna say `QuestionTagFactory::new()`. So we're going to set the
 `questionTags` property to a `QuestionTagFactory` that this isn't making sense yet.
-It's okay. Stick with me.
+It's okay. Stick with me
+
 
 There is one small problem with this, but this is mostly correct. So what this is
 going to do is it's going to tell Foundry to use this `QuestionTagFactory` instance,
@@ -99,7 +25,7 @@ creating a new `Question`, the question attribute is actually going to be overri
 whatever question is currently being created. So in other words, this will not cause
 a new question to be created in the database. It will relate it to, to whatever
 question object is currently being created. Now I said, there is one small problem
-with this and we'll see it right here. 
+with this and we'll see it right here.
 
 ```terminal-silent
 symfony console doctrine:fixtures:load
@@ -114,7 +40,7 @@ So what I'm going to do here is say `->many()` what this basically says, we stil
 `QuestionTagFactory` instance, more or less, but it's configured to return many items
 now onto this property.
 
-25 living the fixtures now. 
+25 living the fixtures now.
 
 ```terminal-silent
 symfony console doctrine:fixtures:load
@@ -122,7 +48,7 @@ symfony console doctrine:fixtures:load
 
 Oh, and they'll tell us how many we want. Well, we can
 actually give it a random range here or, uh, create anywhere from one to five new
-question tag objects, somebody go over now and run the fixtures. 
+question tag objects, somebody go over now and run the fixtures.
 
 ```terminal-silent
 symfony console doctrine:fixtures:load
@@ -130,7 +56,7 @@ symfony console doctrine:fixtures:load
 
 It works
 
-And he was a really cool thing. If we `SELECT * FROM question`, 
+And he was a really cool thing. If we `SELECT * FROM question`,
 
 ```terminal-silent
 symfony console doctrine:query:sql 'SELECT * FROM question'
@@ -140,7 +66,7 @@ we only have 25
 entries in here. That's the correct amount. That's the 20 up here and then a five
 down here. So this question tag factory did not create new questions like you did a
 second ago. All the new question tags are related to these 20 questions. We can see
-that by queering. `SELECT * FROM question_tag`. 
+that by queering. `SELECT * FROM question_tag`.
 
 ```terminal-silent
 symfony console doctrine:query:sql 'SELECT * FROM question_tag'
@@ -166,13 +92,13 @@ kind of nuts. But what we can do here is we can just pass. We can override the `
 for this instead of to `TagFactory::random()` to grab one existing random
 `Tag`.
 
-So for reload fixtures now, 
+So for reload fixtures now,
 
 ```terminal-silent
 symfony console doctrine:fixtures:load
 ```
 
-and then query for tag table, 
+and then query for tag table,
 
 ```terminal-silent
 symfony console doctrine:query:sql 'SELECT * FROM tag'
@@ -180,7 +106,7 @@ symfony console doctrine:query:sql 'SELECT * FROM tag'
 
 as we're back to just 99 tags,
 but there's still one tiny problem. And maybe you saw it's a little bit subtle. If we
-select from question tag, 
+select from question tag,
 
 ```terminal-silent
 symfony console doctrine:query:sql 'SELECT * FROM question_tag'
@@ -201,7 +127,7 @@ if we reload the fixtures
 symfony console doctrine:fixtures:load
 ```
 
-And then the square from question tag. 
+And then the square from question tag.
 
 ```terminal-silent
 symfony console doctrine:query:sql 'SELECT * FROM question_tag'
@@ -222,13 +148,13 @@ example, a hundred question tags Were each one Is related to a random tag And al
 random question. So if you did this, then you can actually simplify things a whole
 lot.
 
-So if we try this 
+So if we try this
 
 ```terminal-silent
 symfony console doctrine:fixtures:load
 ```
 
-No errors, and if you look inside of the question tag table, 
+No errors, and if you look inside of the question tag table,
 
 ```terminal-silent
 symfony console doctrine:query:sql 'SELECT * FROM question_tag'
@@ -238,4 +164,3 @@ we get
 basically the same result. We get a hundred question tags and each of these is
 related to a random question and a random tag. All right, next, let's fix the front
 end where we use this relationship. Now that we've changed it.
-

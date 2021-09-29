@@ -21,6 +21,7 @@ chapters:
     - many-to-many-joins
     - complex-many-to-many
     - broken-migration
+    - question-tag-fixtures
     - foundry-phd
     - complex-many-joins
     - pagination
