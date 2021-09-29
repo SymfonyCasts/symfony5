@@ -1,139 +1,158 @@
-# Broken Migration
+# When a Migration Falls Apart
 
-Coming soon...
+Our new migration file is pretty cool! We created an *entirely* new entity -
+`QuestionTag` - with a relationship to `Question` and a relationship to `Tag`.
+But this massive change in PHP didn't translate into much in the database: the
+migration basically adds a new `id` column add a new `taggedAt` column to the
+`question_tag` table.
 
-Our new migration is kind of cool. We created an entirely new entity `QuestionTag`
-with the relationship to `Question` and in relationship to `Tag`, but in reality, doing
-this didn't change much in the database. This migration basically just adds a new `id`
-column to the `question_tag` table, add a new `taggedAt`, come to the `question_tag` table
-on. Unfortunately, when we executed the migration, it blew up in our face. The reason
-is that right now, the `question_tag` table already has data in it. And so when we told
-the `question_tag` a table to add a new `tagged_at` daytime column, that can't be `NULL`, it
-didn't know what value to use for those existing rows in the table.
+Unfortunately... when we *executed* that migration, it blew up in our face! The reason
+is that, right now, the `question_tag` table already has data in it! And so when
+we told the `question_tag` table to add a new `tagged_at` `DATETIME` column that
+can't be `NULL`... it didn't know what value to *use* for the existing rows in the
+table! And so... it exploded!
 
-If you haven't actually, uh, deployed your, uh, question tag tables in the database
-yet, then this isn't actually a problem because your `question_tag` table wouldn't have
-any data in it, the moment that this executes. And so if you want to fix this, you
-can basically drop your database, recreate your database, and run all of your
-migrations. And you'd be happy. But I want to pretend like our `question_tag` table has
-been deployed to the database and it does have, uh, data in it. And I want this
-migration to actually work when we run it on production. So for the fix for this is
-actually fairly simple. When we add the tag that instead of saying `DATETIME NOT NULL`
-know, say `DATETIME DEFAULT NOW()` we're doing this temporarily. So temporarily, we're
-going to, uh, have it default, all those values to whatever the current data is.
+If you haven't actually deployed your `question_tag` table to production, then
+this isn't a real problem... because, when you *do* finally deploy, this table
+won't have any data in it the moment that this executes. In that case, all you
+need to do is fix your local setup. You can do this dropping your database,
+recreating it... and running all of your migrations from the beginning. We'll
+see how to do that in a minute.
 
-The question now is how do we test that change? If you go and run the migration
-again, 
+But... I want to pretend like our `question_tag` table *has* been deployed to the
+database and it *does* have data in it. And I want to fix this migration so that
+it does *not* explode when we run it on production.
+
+## Fixing the Migration
+
+The fix for the migration is fairly simple. When we add the `tagged_at` column,
+instead of saying `DATETIME NOT NULL`, say `DATETIME DEFAULT NOW()`.
+
+This is a *temporary* change: it will allow us to add that new column and give the
+existing rows a default value. Then, in a separate migration that we'll create
+in a few minutes, we can *then* safely make that column `NOT NULL`.
+
+## How to Test a Half-Executed Migration?
+
+*Anyways*, now that we've fixed the migration, how can we run it again? Well,
+try the obvious:
 
 ```terminal
 symfony console doctrine:migrations:migrate
 ```
 
-it's going to fail for a different reason. Alter table question tag, drop form
-key fail. So the problem is that a second ago, when it first failed, it ran these
-first two lines successfully and then failed on the third line. This means that our
-migration is in a very strange state. It's sort of half run. Now, if we're using
-Postgres, this isn't a problem. And I'll explain why. In our case, it is a problem
-three years, what I want to do just to be totally safe. Here's my plan. I want us to
-put the database back to exactly where it was a second ago before we made any of the
-changes to our entities or ran this migration. Once we've done that, then we'll run
-this migration to make sure that this full migration works.
+It fails again! But for a different reason: `ALTER TABLE question_tag`, dropping
+the foreign key failed.
 
-So check it out. I'm going to have him run terminal and run,
+Here's the problem. When we *first* ran this migration, these first two lines
+*did* executed successfully. And then the *third* line failed. This means that our
+migration is in a very strange state... it's sort of "half" executed.
+
+
+Now, if we're using PostgreSQL, this is *not* a problem. Each migration is wrapped
+in a transaction. This means that, if *any* of the queries fail, they will *all*
+be reverted. Unfortunately, while this works *great* in PostgreSQL, MySQL does
+*not* support that coolness. So if you *are* PostgreSQL, you rock and the migration
+command we ran a minute ago *did* work for you.
+
+Ok, but back to *our* reality. To test test this migration, we need to do a, sort
+of, "manual" rollback: we're going to put our database back into the state it
+was *before* we made any changes to our entities or ran this migration.
+Once we've done that, *then* we'll run this migration to make sure it works.
+
+At your terminal, run;
 
 ```terminal
 git status
 ```
 
-So I committed before we started making all the changes to our question tag entity. I'm
-going to add everything to git. 
+Before we created the `QuestionTag` entity, I committed everything to `git`.
+Add the new files:
 
 ```terminal-silent
 git add src migrations/
 ```
 
-You can see it's ready to be committed, 
+And run:
 
 ```terminal
 git status
 ```
 
-but then I want to say,
+again. Yup: everything is ready to be committed. Now, *remove* these changes
+with:
 
 ```terminal
 git stash
 ```
 
-If we're not familiar with that command, that's actually
-going to remove all of these changes entirely from my project temporarily to watch me
-go over here. I see the migration has gone. Our new joint entity is completely gone.
-I'm doing this because now we can put the database back to where it was a second ago.
-So I'll say 
+If you're not familiar with that command, it removes all of the changes from your
+project and "stashes" them somewhere so we can put them back later. If we check
+the code... the migration is gone... and so is the new entity. Now that our
+code is back to its "old" state, we can reset the database.
+
+Start by dropping it entirely:
 
 ```terminal
 symfony console doctrine:database:drop --force
 ```
 
-completely dropped the database. We'll create completely recreated anyways, 
+And then re-recreate it:
 
 ```terminal-silent
 symfony console doctrine:database:create
 ```
 
-and then run it.
+And *then* migrate:
 
 ```terminal
 symfony console doctrine:migrations:migrate
 ```
 
-that executes all the migrations up to this point, which
-is back when we had a many to many relationship finally, to mimic production let's
-run
+This executes all the migrations up to this point, which is back when we had the
+`ManyToMany` relationship. Finally, to mimic production where we have data in
+the join table, run:
 
 ```terminal
 symfony console doctrine:fixtures:load
 ```
 
-So that our `question_tag` take join table
-has data in it. Perfect. Now it's what back all of our agendas by again, saying 
+Perfect! *Now* bring back all of our changes by saying:
 
 ```terminal
 git stash pop
 ```
 
-awesome. Everything is back.
-
-So now let's try this entire migration again with our change to default now. So
+Awesome! Everything is back! Finally, we can *now* test the new migration again:
 
 ```terminal
 symfony console doctrine:migrations:migrate
 ```
 
-and it works. So it added that new
-column without actually failing. The only kind of small problem is is that the small
-problem is that thanks to this change right now in the database, the `tagged_at` column
-is no is not required. So we're going to run right, run one more migration to fix
-this throw on 
+## Migrating Again to add NOT NULL
+
+And... it works! It added that new column *without* failing. The only small problem
+is that, right now, in the database, the `tagged_at` column is *not* required:
+it *allows* null... which is not what we want. But fixing this is easy: ask
+Doctrine to generate one more migration:
 
 ```terminal
 symfony console make:migration
 ```
 
-This is really cool. It's going to
-look at our new `QuestionTag` entity realized that the `taggedAt` column does isn't
-quite set up correctly and it generates a new migration that's altered table.
-Question tag, change, tag that to daytime. Not no, and this is fine. This is safe.
+This is really cool: it looked at the new `QuestionTag` entity, *realized* that
+the `tagged_at` column isn't set up correctly, and generates a new migration
+with `ALTER TABLE question_tag CHANGE tagged_at` to `NOT NULL`. Run this:
 
 ```terminal-silent
 symfony console doctrine:migrations:migrate
 ```
 
-You're on this time because we have already given all the existing rows a real date.
-So it works. Okay.
+And... it works!
 
-So re factoring our relationship between `Question` and `Tag` to a new `QuestionTag`
-entity was fairly straightforward though. The migration was a little bit tricky, but
-thanks to this change, how we save and use this relationship has just changed. So
-next let's update our fixtures to get those working while doing that. We're going to
-do some crazy stuff with Foundry.
-
+So refactoring the relationship between `Question` and `Tag` to include a new
+`QuestionTag` entity didn't *really* change the structure of the database... though
+this migration *did* cause a headache. However, in PHP, how we save and *use*
+this relationship *did* change substantially. So next, let's update our fixtures
+to work with the new structure. To do this... we're going to do some *crazy*
+stuff with Foundry to turn you into a fixtures expert.
