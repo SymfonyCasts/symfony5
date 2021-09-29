@@ -6,16 +6,22 @@ But before we do, this `answer.question.question` thing is bothering me: it look
 kind of confusing. Let's make this more clear by adding a custom method to our `Answer`
 class.
 
+[[[ code('361cffffba') ]]]
+
 ## Adding Answer::getQuestionText() for Clarity
 
 Open `src/Entity/Answer.php`. It doesn't matter where... but right by
 `getQuestion()` makes sense, add a new method: public function `getQuestionText()`,
 which will return a `string`.
 
+[[[ code('2e896d88d2') ]]]
+
 On a high level, this method makes me happy! If I have an `Answer` object, there's
 a good chance that I might want to easily get the question text *related* to this
 answer. Inside, I'll start by coding defensively: if not `$this->getQuestion()` -
 so if there is *no* related `Question` object, return empty quotes.
+
+[[[ code('19323fc8b0') ]]]
 
 Now, you might be screaming:
 
@@ -31,8 +37,12 @@ At the bottom, return `$this->getQuestion->getQuestion()`... but cast that to a
 `string`, just in case it's `null`... which, again, isn't likely since that property
 is required in the database, but it *is* technically possible.
 
+[[[ code('ef6420e690') ]]]
+
 Thanks to the new method, over in `_answer.html.twig`, we can change this to
 `{{ answer.questionText }}`.
+
+[[[ code('c8f97ca976') ]]]
 
 *So* much nicer. But... the front-end still looks weird. So let's shorten the
 question string!
@@ -44,6 +54,8 @@ In Twig, we have a special filter called `|u`. This filter leverages Symfony's
 basically an object that *wraps* this string... and gives you access to a bunch
 of useful methods. One of those methods is called `truncate()`. This means we can
 say `.truncate()`. Pass this 80 and `'...`.
+
+[[[ code('464111dec1') ]]]
 
 So *if* the string is longer than 80 characters, truncate it and add a `...` to
 the end. I love it!
