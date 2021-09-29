@@ -1,92 +1,116 @@
-# Complex Many To Many
+# ManyToMany... with Extra Fields on the Join Table?
 
-Coming soon...
+The `ManyToMany` relationship is unique in Doctrine because *Doctrine* actually
+creates & manages a table - the join table - for us. This is the *only* time
+in Doctrine where we have a table... but not corresponding entity class.
 
-Okay. So a many to many relationship is unique in doctrine because doctrine and
-creates and handles the `question_tag`, join table for us.
+But what if we needed to add more *columns* to this table? Like a `tagged_at`
+`DateTime` column? Excellent question! And the answer is... that's not possible!
+I'm serious! But, it's by design. As soon as you need even *one* extra column on
+this join table, you need to *stop* using a `ManyToMany` relationship. Instead,
+you need to create an *entity* for the join table and relate that entity manually
+to `Question` and `Tag`.
 
-But what we wanted to add more columns to this table, like a `tagged_at` DateTime
-column. Excellent question. And the answer is that's not possible. I'm serious, but
-it's by design. As soon as you need even one extra column on this table on this joint
-table, you need to stop using a many to many relationship. Instead, you need to
-create an actual `QuestionTag` entity manually and relate it to the `Question` and `Tag`
-entities. Well, let's try this. I'll admit it's actually easier to do this from the
-beginning than to try to refactor a many to many relationship into that. So before
-you create a many-to-many relationship, try to think if you might need extra comms in
-the future. And if you do start with the solution that we're going to use anyways,
-I'm actually going to back up and in the `Question` entity, I'm going to remove
-everything related to ags. So the property, the line, the constructor and the
-getter, et cetera, fits inside of the `Tag` and see I'm going to do the same thing for
-questions. So I'm going to remove E get her and set her methods and a top or move the
-property and we can delete the entire constructor. So we've we saw the question
-entity. We saw a tag, unstable. They are no longer related at all.
+Let's see what this looks like. but, it's actually easier to do this from the
+beginning than to try to refactor a `ManyToMany` relationship *into* this new
+situation. So before you create a `ManyToMany`, try to think if you might need
+extra columns in the future. And if you *will* need them, *start* with the solution
+that we're about to see.
 
-Okay. Now we're going to sort of put that relationship back, but would they enjoy
-where they new entity in between them?
+## Undoing the ManyToMany
 
-So spend over your terminal Aaron's 
+To start, I'm actually going to hit the rewind button on our code and *remove*
+the `ManyToMany`. In `Question`, delete everything related to tags. So, the property,
+the constructor and the getter and setter methods.
+
+Inside of `Tag`, do the same thing for questions: delete the methods and, on top,
+the delete property and the entire constructor.
+
+So we *still* have a `Question` entity and a `Tag` entity... but they're no longer
+related at *all*.
+
+## Generating the Join Entity
+
+*Now* we're going to put this relationship *back*, but with a new entity that
+represents the join table. Find your terminal and run:
 
 ```terminal
 symfony console make:entity
 ```
 
-let's call this an
-entity `QuestionTag`, and it's going to have at least two properties. We need a
-`question` property. This is going to be a many to one relationship over to Question,
-but I'll ask you to have `relations` so we can go to the wizard. This would relate to
-the `Question` entity, and we want a `ManyToOne` relationship. Each question tag
-relates to one question. Each question, have many question tag objects. So I'll say
-`ManyToOne` is the property allowed to be nullable? No. And then do we want to add
-a new property question? So we can say questionnaire or get `questionTags` that
-might actually be handy. So I'll say yes. And we'll call that property question tags
-and I'll say no to orphan removal. Cool. The other property we're definitely going to
-need is a `tag` property.
+Let's call this entity `QuestionTag`, but if there's a more descriptive name for
+your situation, use that. This entity will have at *least* two properties for
+the relation to `Question` and the relation to `Tag`.
 
-And this will definitely be a `ManyToOne`. That's just how this works and able to
-relate it to the `Tag` and state. Um, I'll say no for nullable in this case, I'm
-actually going to say no to the, uh, mapping the other side, I'm doing this in part
-just so you can see what differences makes. But I think also having a tag object and
-saying, get question tags is maybe not going to be convenient. So I'm going to say
-no. And perfect. That's the minimum amount that we need on that new `QuestionTag`
-entity. We need a many to one relationship to question and a many to one relationship
-to tech. Now we can start adding whatever other fields we want. So I'll add a `taggedAt`,
-and I'll make this be a `datetime_immutable` property that can't be known in the
-database and perfect. I'll hit enter a one more time to stop there. All right, let's
-go check out this new class. So `src/Entity/QuestionTag`. It looks for us
-beautifully boring. There's a `question` property that's many to one, a `Question`, a
-`tag` company that's many to one to `Tag` and a tag at any tag that property.
+Start with the `question` property... and use the `relation` type to trigger the
+wizard. This will relate to the `Question` entity... and it's going to be a
+`ManyToOne`: each `QuestionTag` relates to one `Question` and each `Question`
+could have many `QuestionTag` objects.
 
-And of course inside the `Question` entity by scroll all the way up, because we mapped
-the other side. It has a one to many to `QuestionTag` back in `QuestionTag` before
-where you do the migration, let's give our `$taggedAt` a default value. So I'll, I'll
-create a `__construct()` method. And we can just say `$this->taggedAt = new \DateTimeImmutable()`
-which will default to right now. Perfect. Okay. So we just made some
-change our database. So let's run the Mo let's execute migration, 
+Is the property allowed to be nullable? No... and then do we want to add a new
+property to `Question` so we can say `$uquestion->getQuestionTags()`? That
+*probably* will be handy, so say yes. Call that property `$questionTags`. Finally,
+say "no" to orphan removal.
+
+Cool. The other property - the `tag` property - will be exactly the same: a
+`ManyToOne`, related to `Tag`, say "no" for nullable and, in this case, I'm
+going to say "no" to generating the *other* side of the relationship. I'm doing
+this mostly so we can see an example of a relationship where only *one* side
+is mapped. But we also aren't going to need that shortcut method for what we're
+building. So say "no".
+
+And... perfect! That is the *minimum* that we need on the new `QuestionTag`
+entity: we need a `ManyToOne` relationship to `Question` and a `ManyToOne`
+relationship to `Tag`. So *now* we can start adding whatever *other* fields we want.
+I'll add a `taggedAt`... and make this a `datetime_immutable` property that
+can't be null in the database. Hit enter a one more time to stop the command.
+
+Ok! Let's go check out the new class: `src/Entity/QuestionTag.php`. It looks...
+beautifully boring! It has a `question` property that's a `ManyToOne` to
+`Question`, a `tag` property that's a `ManyToOne` to `Tag` and a `taggedAt`
+date property.
+
+Inside `Question`... scroll all the way up. Because we decided to map *this* side
+of the relationships as well, this has a `OneToMany` relationship to the join
+entity.
+
+Back in `QuestionTag`, before we generate the migration, let's give our `$taggedAt`
+a default value. Create a `public function __construct()` and, inside,
+`$this->taggedAt = new \DateTimeImmutable()` which will default to "now".
+
+## How this Looks Different / the Same in the Database
+
+Ok - migration time! At your terminal, make it:
 
 ```terminal
 symfony console make:migration
 ```
 
-and then go check that new migration out. Cause this is really cool.
-If you look down here, it looks like there's a lot of queries, but look closely.
+And then go open up the new file... cause this is really cool! It *looks* like
+there are a lot of queries to change from the old ManyToMany structure to our
+*new* structure.
 
-All it's doing is altering the question, tag tables. So we already had a question tag
-table, so we don't need to drop it and create a new one. All we need to do is tweak
-it and you can see it drops to foreign key constraints. It's actually a dropping the
-`question_id` and a `tag_id` foreign key constraint off the old table, but then it
-actually just adds them back down here. So these first two lines basically drop
-foreign key. And these last two lines basically re it. So they're kind of doing
-nothing. The only real thing that's happening inside of here is altered table.
-Question tag is it adds a true `id` auto increment column, and it adds are `taggedAt` so
-yeah, they had the exact effect that we wanted by creating this new question, tag
-entity and giving it a many to one relationship to the two other entities. We
-basically recreated the exact same database structure, a many-to-many relationship.
-It's really just a shortcut to doing this setup.
+But look closely: all it's *really* doing is altering the `question_tag` table.
+So we *already* had a `question_tag` table thanks to the `ManyToMany`. So we
+don't need to drop that table and create a new one: all the migration needs todo
+is *tweak* it. It drops the `question_id` and `tag_id` foreign key constraint from
+the table... but then adds them back down here. So the first two lines and last
+two lines cancel each other out.
 
-All right. So let's try running that migration 
+This means that the only *real* thing that happens is `ALTER TABLE question_tag`
+to add a true `id` autoincrement column, and the `tagged_at` column. Yup, we just
+did a *massive* refactoring of our entity code: replacing the `ManyToMany` with
+a new entity and two new relationships. But in the database... we have almost
+the exact same structure! In reality, a `ManyToMany` relationship is just a
+shortcut to the more complex setup that we just finished.
+
+So now that we understand that, from the database's perspective, not much is
+changing, let's run the migration to make those tweaks:
 
 ```terminal
 symfony console doctrine:migrations:migrate
 ```
 
-We riots, oh, it fails
+And... it fails! Rut roo. Next: let's find out why this migration failed. And,
+more importantly, how we can fix it and safely test is so that we know the
+migration will *not* fail when we deploy to production.
