@@ -182,4 +182,5 @@ We get 100 question tags, each related to a random `Question` and a random `Tag`
 It's not *exactly* the same as we had before, but it's probably close enough,
 and much simpler.
 
-Next: let's fix the frontend to use the refactored `QuestionTag` relationship.
+Next: let's fix the frontend *and* our JOIN to use the refactored
+`QuestionTag` relationship.

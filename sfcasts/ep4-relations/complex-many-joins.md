@@ -1,47 +1,64 @@
-# Complex Many Joins
+# JOINing Across Multiple Relationships
 
-Coming soon...
+We decided to change the relationship between `Question` and `Tag` from a true
+`ManyToMany` to a relationship where we have a join entity in between that allows
+us to add more fields to the join table.
 
-We decided to change the relationship between `Question` and `Tag` from a true many
-many-to-many to a relationship where we have a join entity in between that allows us
-to add more fields to this join table
+In the database... this didn't change much: we have the same join table and foreign
+keys as before. But un PHP, it *did* change things. In `Question`, instead of a
+`$tags` property, which returned a collection of `Tag` objects, we now have a
+`$questionTags` property, which returns a collection of `QuestionTag` objects.
+This change almost *certainly* broke our frontend.
 
-In the database. This didn't actually change much. We basically had the same join
-table and foreign keys as before when a PHP, it did change things in `Question` instead
-of eight `$tags` property, which returned a collection of `Tag` objects. We now have a
-`$questionTags` property, which returns in collection of `QuestionTag` objects. This
-change almost certainly broke our front end. We're only running the tags on the
-homepage. So let's open up that template `templates/question/homepage.html.twig`
-twig. And let's see where Derek `tag in question.tags`. So we don't, that's not
-going to work anymore because there is no `tags` property. Instead, that's going to be
-`questionTags`. And then this is not going to be a `tag`. This is going to be a
-`questionTag` object inside of here. We can not say `questionTag.tag` to reach
-across it's relationship, that name. So still fairly straight forward. It's just a
-little bit more, uh, code to reach across both relationships. All right. Let's
-refresh and see what happens and whoa, semantical error. So tag where Q dot asked
-that question has no association named tag. So that sounds like a query air. And sure
-enough, if we scroll down, it's coming from our `QuestionRepository`. So let's go up
-and up that `src/Repository/QuestionRepository` and perfect. Here it is right here
-in order to solve our end plus one problem
+We're only rendering the tags on the homepage.... so let's open up that template
+`templates/question/homepage.html.twig`. Here it is: for `tag in question.tags`.
+That's not going to work anymore because there *is* no `tags` property. Though,
+if you want to be clever, you *could* create a `getTags()` method that loops over
+the `questionTags` property and returns an array of the related `Tag` objects.
 
-Before one question had ate many to many tags relationship. We get join right across
-that relationship by saying `q.tags` referencing the `tags` property. But now we need
-to do two joins to get to the `tags` table. So no problem we'll change the `q.tags` to
-`q.questionTags`, alias that to `question_tag`, and then we'll do an inner join
-from `QuestionTag` to `Tag`. So `->innerJoin('question_tag.tag')`, and we'll alias that
-to `tag`. And then on here, we're still selecting the tag table. Cool refresh again.
-And oh, another error. This one's a bit more confusing. The paired object of entity
-result with alias tag was not found the parent alias is questioned tag.
+Or... you can fix it here to use `questionTags in questionTag`. Then say
+`questionTag.tag` to reach across that relationship.
 
-So what this is trying to say is that it doesn't like that weird selecting the tag
-data, but we're not selecting the question tag data that kind of confuses things. The
-solution is easy enough. We just need to select both. So you can actually pass an
-array to add select. And then we'll select both question tag and tag. Alright, try
-now. And we're back. Whew. Let's check out what the query looks like. It's this big
-first one right here. So this is awesome. So we select from question left during a
-question tag, enter, join it over to tag and then exhibit a second question.
+So still fairly straightforward... just a bit more code to reach across both
+relationships.
 
-Question tag and the tag data right there. Okay. Team. There's just one last topic I
-want to cover. And it's actually, I admit not strictly related to relations. Let's
-add page nation to our homepage.
+Let's refresh and see what happens. And... whoa!
 
+> Semantical error: near `tag WHERE q.askedAt`: Class `Question` has no association
+> named `tags`.
+
+So that sounds like a query error... but let's look down the stack trace. Yup!
+It's coming from `QuestionRepository`.
+
+## Joining Across Two Entities
+
+Go open that up: `src/Repository/QuestionRepository.php`... here it is. To solve
+the N+1 problem, we were able to joined directly across `q.tags`. Now we need
+*two* joins to get to the `tag` table.
+
+No problem: change `q.tags` to `q.questionTags` and alias that to `question_tag`.
+Then do an inner join from `QuestionTag` to `Tag`: `->innerJoin('question_tag.tag')`
+and alias that to `tag`.
+
+Cool! And we're still selecting the `tag` data, so that looks good to me.
+
+Refresh again and... another error! This one... is a bit more confusing.
+
+> The parent object of entity result with alias `tag` was not found. The parent
+> alias is `question_tag`.
+
+This is trying to say is that it doesn't like that we're selecting the `tag`
+data... but we're *not* selecting the `question_tag` data that's *between*
+`Question` and `Tag`. Doing that *is* legal in SQL... but it messes up how
+Doctrine creates the objects, so isn't allowed.
+
+The solution is easy enough: select both. You can actually pass an array to
+`addSelect()` to select both `question_tag` and `tag`.
+
+Try it now. And... we're back! Woo! Check out what the query looks like... it's
+this big first one. So cool: we select from `question` left join to`question_tag`,
+inner join over to `tag`... and grab all of that daata.
+
+
+Okay team: there's just *one* last topic I want to cover... and, I admit, it's not
+*strictly* related to relations. Let's add pagination to our homepage.

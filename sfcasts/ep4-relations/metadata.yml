@@ -25,3 +25,4 @@ chapters:
     - foundry-phd
     - complex-many-joins
     - pagination
+    - pager-links
