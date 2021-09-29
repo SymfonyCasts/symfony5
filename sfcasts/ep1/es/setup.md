@@ -41,10 +41,6 @@ Esto *simplemente* descarga un archivo ejecutable y, para mi, lo guarda en mi ca
 home. Para poder hacerlo ejecutable en *cualquier* lugar en el sistema, Voy a seguir
 el consejo del comando y lo moveré a otro lugar:
 
-This downloads a *single* executable file and, for me, puts it into my home directory.
-To make it so that I can run this executable from *anywhere* on my system, I'll
-follow the command's advice and move the file somewhere else:
-
 ```terminal-silent
 mv /Users/weaverryan/.symfony/bin/symfony /usr/local/bin/symfony
 ```

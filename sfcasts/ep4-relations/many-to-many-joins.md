@@ -1,68 +1,75 @@
-# Many To Many Joins
+# Joining Across a ManyToMany
 
-Coming soon...
+Each published question now relates to 0 to 5 random tags. Over on the homepage, let's
+render the list of tags for each question under its vote count.
 
-Each publish questions now related to zero to five random texts. Cool. Over here on
-the homepage, I want to render each tag under the vote for the question under the
-vote count doing this is really nothing special using this relationship. There's
-really nothing special. Open up the template for this page 
-`templates/question/homepage.html.twig`, and let's see down here right after the vote string
-area, we can say `{% for tag in question.tags %}`. It's that easy. Our question object
-has a `tags` property. We know that that's going to return us all of the related tag
-objects. In reality, it's going to need to query across the join table and then the
-tag table to get that data. But we don't care. We just need to say `question.tags`
-which means give me all the tag objects for this question. This is really no
-different than how we could say `question.answers` to get all of the answers for a
-question. So inside of here, what we're dealing with is a `Tag` object. So I will
-instead of a `<span>` print `{{ tag.name }}`, and then I'll give us a couple of classes so that
-it looks kind of cool.
+## Rendering the ManyToMany Relation
 
-Awesome. Let's try that refresh and the hair we go, but check out the queries on this
-page. There are 41 queries. Yikes. If you open this up, we have another N plus one
-problem. So this first query here is from the question tables. This is returned to
-us. All of the questions. Yay. This second query here is, is, uh, actually selecting
-the tagged data for a specific question. This is actually being caused by the
-`question.tags` line being called for one of the questions. Then if you keep looking
-down, let's skip this one. We then have that same query. The next question and the
-same. Where are you for the next question and the same query for the next problem
-question. We also have extra queries for the, uh, coming to answer each question, but
-you can ignore this, but I want to focus on now is that we have the N plus one
-problem. When we try to render the tags for each question and we fixed this
-absolutely
+And I'm happy to report that *using* a ManyToMany relationship... isn't anything
+special. Open up the template for this page: `templates/question/homepage.html.twig`.
+Down here... right after the vote string, add `{% for tag in question.tags %}`.
 
-We had this problem before on the answers page and we fix it inside of our answer
-repository. Here we go by enjoining over, across the question relationship, and then
-selecting the question table. We can do the exact same thing in this case. So the
-controller for this page is `src/Controller/QuestionController` and its `homepage()`.
-So you can see when we fence the questions we're already using a custom query called
-custom repository method called `findAllAskedOrderedByNewest()`. So let's open up
-the `QuestionRepository` and look at that. Okay, awesome. Here it is. So it's pretty
-easy. It just makes sure that The `askedAt` is not no that's this ad is asked
-CareerBuilder and then orders it from the, uh, or does it with the newest first.
+It's that easy: our `Question` object has a `tags` property that will return a
+collection of all the related `Tag` objects. Behind the scenes, to *get* this
+data, Doctrine will need to query across the join table *and* the `tag` table.
+But... we don't really care about that! We just get to say `question.tags` and
+that returns all the `Tag` objects for this `Question`. It's really no different
+than how we could say `question.answers` to get all of the answers for a question.
 
-So all we need to do here is add a joint, but this is interesting in the database. We
-need to join from `question` to `question_tag` and then from `question_tag` over to `tag`.
-So we actually need two joints, but in doctrine, we get to pretend like that join
-table doesn't exist. Doctor wants us to think about, to pretend that there really is
-a direct relationship. The database directly from `question` over to `tag`. What I mean
-is to do this join. All we need to say is `leftJoin()` Because we want you to get the
-many tags for this question,
+So inside the loop, we're dealing with a `Tag` object. Add a span, print
+`{{ tag.name }}`... and then I'll give this a couple of classes to make it look
+cool.
 
-`q.tags`. So that's it. We referenced the `tags` property on the `question`, and
-then doctrine is going to figure out how to join over to that. And that is the second
-area of this. I'll put `tag`. This becomes the alias of the data on the tag table. And
-then to actually select that data just like before, we're going to say, `addSelect('tag')`
-So joining across a many to many relationship is no different than joining
-across eight, many to one relationship, except that you kind of have to pretend like
-that joined table doesn't exist. You always just, when you join, you always just
-reference the name of the property that you want to join across, let doctrine do the
-heavy lifting. So let's try it right now. We have 41 queries when we refresh yes.
-Down to one, let's open up the profiler and look at that first query. It's pretty
-awesome. So what it selects, all of the question data is requiring from question and
-then it took care of left joining over the question tag and then left joining again
-over to tag and then selecting the tag data. So cool. Next the question tag table
-that join table has only two columns on it. Question ID and tag ID one four. Wanted
-to add more columns to this, like a tag that add date. There's no entity class for
-this table. So is adding a third or fourth column even possible? The answer is yes,
-but it does require some changes.
+Let's try this thing! Refresh and... done! We're *awesome*.
 
+## Joining in a Query with a ManyToMany
+
+But check out the queries on this page: there are 41! Yikes! If you open this up,
+we have another N+1 problem. This first query is from the `question` table: it
+returns all of the questions. This second query selects the `tag` data for a
+*specific* `question`... this is triggered when the `question.tags` line is executed.
+Then... if you keep looking down - skip this one - we have that same query for the
+next question... and the same query for the next... and the next. We *also* have
+extra queries for counting the answers for each question, but ignore those right now.
+
+So... when we render the tags for each question, we have the N+1 query problem!
+When we had this problem before on the answers page, we fixed it inside of
+`AnswerRepository`... by joining across the `question` relationship and then
+*selecting* the `question` data. We can do the *exact* same thing again.
+
+The controller for this page is `src/Controller/QuestionController.php`... it's
+the `homepage()` method. To fetch the questions, we're already calling a custom
+repository method called `findAllAskedOrderedByNewest()`.
+
+Let's go find that: open up `QuestionRepository`. Here it is. So far, it's pretty
+simple: it makes sure that the `askedAt` is not null - that's this
+`addIsAskedQueryBuilder()` part - and then orders the newest first.
+
+To fix the N+1 problem, we need to add a join. And *this* is where things get
+interesting. In the database, we need to join from `question` to `question_tag`...
+and then join from `question_tag` over to `tag`. So we actually need *two*
+joins.
+
+But in Doctrine, we get to *pretend* like that join table doesn't exist: Doctrine
+wants us to pretend that there is a *direct* relationship from `question` to `tag`.
+What I mean is, to do the join, all we need is `->leftJoin()` - because we want
+to get the *many* tags for this question - `q.tags`, `tag`.
+
+That's it. We reference the `tags` property on `question`... and let *Doctrine*
+figure out how to join over to that. The second argument - `tag` - becomes the
+alias to the data on the `tag` table. We need that to select its data:
+`addSelect('tag')`.
+
+So... yup! Joining across a `ManyToMany` relationship is *no* different than joining
+across a `ManyToOne` relationship: you reference the relation property and Doctrine
+does the heavy lifting.
+
+Try it now. We have 41 queries and... when we refresh... yes! Down to 21! Open up
+the profiler and look at that first query... it's pretty awesome. It selects all
+of the `question` data... and then took care of left joining over to `question_tag`,
+left joining *again* over to `tag` and *then* selecting the tag data. *So* cool!
+
+Next: the `question_tag` table - the join table - only has 2 columns: `question_id`
+and `tag_id`. What if we wanted to add more columns to this? Like a `taggedAt`
+date column? There's no entity class for this table... so is adding a 3rd or 4th
+column even possible? The answer is yes: but it *does* require some changes.

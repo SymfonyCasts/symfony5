@@ -69,9 +69,6 @@ creando este archivo dentro del directorio `Controller/`, su namespace debe ser
 Perfecto! Ahora, porque en `routes.yaml` decidimos nombrar al método `homepage`, crealo 
 aquí: `public function homepage()`.
 
-Perfect! Now, because in `routes.yaml` we decided to call the method `homepage`,
-create that here: `public function homepage()`.
-
 [[[ code('a74e0fbea7') ]]]
 
 ## Los Controladores Deben Regresar Una Respuesta
