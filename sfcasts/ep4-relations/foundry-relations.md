@@ -15,6 +15,8 @@ symfony console make:factory
 Yup: we want to generate a factory for the `Answer` entity. Beautiful! Let's go check
 that out: `src/Factory/AnswerFactory.php`.
 
+[[[ code('6ec0870011') ]]]
+
 Cool. The only work we need to do immediately is inside `getDefaults()`. The goal
 here is to give every *required* property a default value... and we even have
 Faker available here to help us generate some random stuff.
@@ -25,8 +27,12 @@ instead of a random number, use `numberBetween` -20 and 50. I'll delete
 `-1 year` and now, which is the default 2nd argument. That period is a typo for
 future me to discover!
 
+[[[ code('5f494e3375') ]]]
+
 Head back to `AppFixtures`. Let's remove *all* of this manual `Answer` and `Question`
 code. Replace it with `AnswerFactory::createMany(100)` to create 100 answers.
+
+[[[ code('8a7609ba08') ]]]
 
 ## Populating the Answer.question Property
 
@@ -43,6 +49,8 @@ symfony console doctrine:fixtures:load
 To fix this, in `AppFixtures`, pass a 2nd argument to `createMany()`: an array
 with a `question` key set to `QuestionFactory::random()`, which is a *really* cool
 method.
+
+[[[ code('b957457533') ]]]
 
 With this setup, when we call `createMany()`, Foundry will first call `getDefaults()`,
 grab that array, add `question` to it, and then will ultimately try to create the
@@ -80,6 +88,8 @@ to the second argument instead of an array. That function will then *return*
 the array of data to use. Foundry will execute the callback once for *each*
 `Answer`: so 100 times in total.
 
+[[[ code('1c28a5660b') ]]]
+
 Try it again: reload the fixtures:
 
 ```terminal-silent
@@ -101,9 +111,13 @@ But to make life easier, we can move this `question` value directly into
 `AnswerFactory`. Copy the `question` line.. and then change the fixtures
 code back to the very simple `AnswerFactory::createMany(100)`.
 
+[[[ code('1c28a5660b') ]]]
+
 Now in `AnswerFactory`, paste `question` set to `QuestionFactory::random()`.
 This works because the `getDefaults()` method is called 100 times, once for *each*
 answer.
+
+[[[ code('ddd0f4e1be') ]]]
 
 Next: let's discover a key rule when using Foundry and relationships. A rule that,
 if you forget to follow it, might result in a *bunch* of random extra records in
