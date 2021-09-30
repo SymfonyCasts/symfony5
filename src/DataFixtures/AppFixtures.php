@@ -28,6 +28,8 @@ class AppFixtures extends Fixture
         $question->setName('How to un-disappear your wallet.');
         $question->setQuestion('... I should not have done this...');
 
+        $answer->setQuestion($question);
+
         $manager->persist($answer);
         $manager->persist($question);
 
