@@ -9,7 +9,7 @@ $container.find('a').on('click', function(e) {
     $.ajax({
         url: '/comments/10/vote/'+$link.data('direction'),
         method: 'POST'
-    }).then(function(response) {
-        $container.find('.js-vote-total').text(response.votes);
+    }).then(function(data) {
+        $container.find('.js-vote-total').text(data.votes);
     });
 });
