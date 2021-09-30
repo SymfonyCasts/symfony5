@@ -14,4 +14,12 @@ class QuestionController
     {
         return new Response('What a bewitching controller we have conjured!');
     }
+
+    /**
+     * @Route("/questions/how-to-tie-my-shoes-with-magic")
+     */
+    public function show()
+    {
+        return new Response('Future page to show a question!');
+    }
 }
