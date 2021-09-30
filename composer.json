@@ -12,7 +12,6 @@
         "knplabs/knp-markdown-bundle": "^1.8",
         "knplabs/knp-time-bundle": "^1.11",
         "sensio/framework-extra-bundle": "^6.0",
-        "sentry/sentry-symfony": "^4.0",
         "stof/doctrine-extensions-bundle": "^1.4",
         "symfony/asset": "5.3.*",
         "symfony/console": "5.3.*",
