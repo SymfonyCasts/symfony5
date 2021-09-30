@@ -52,4 +52,12 @@ class QuestionController extends AbstractController
             'answers' => $answers,
         ]);
     }
+
+    /**
+     * @Route("/questions/new")
+     */
+    public function new()
+    {
+        return new Response('Time for some Doctrine magic!');
+    }
 }
