@@ -6,8 +6,11 @@ pretty easy... but it might feel weird if you're used to working with databases
 *directly*.
 
 Open up `src/DataFixtures/AppFixtures.php`. We're using Foundry to add rich fixtures,
-or fake data, into our project. But to see how relationships work, let's do some
-good ol' fashioned manual coding.
+or fake data, into our project. 
+
+[[[ code('fb51f73d5a') ]]]
+
+But to see how relationships work, let's do some good ol' fashioned manual coding.
 
 ## Creating some Dummy Question and Answer Objects
 
@@ -15,8 +18,12 @@ Start by creating a new `Answer` object... and populate it with enough data
 to get it to save. Repeat this to create a new `Question` object... and *also* give
 that some data.
 
+[[[ code('83c19971e3') ]]]
+
 Save these boring objects to the database by calling `$manager->persist()` on
 both of them.
+
+[[[ code('32d40b8142') ]]]
 
 Cool. If we stop now, these objects won't be related... and the `Answer` won't
 even save! Try it:
@@ -49,11 +56,15 @@ That's because we made `question_id` required: it was one of the questions that
 up the `Answer` class and find the `question` property. It's this
 `JoinColumn(nullable=false)`: that makes the `question_id` column required.
 
+[[[ code('32d40b8142') ]]]
+
 # Relating an Answer to a Question
 
 Anyways, the thing we want to know is: how can I relate this `Answer` to this
 `Question`? How do we say that the `Answer` belongs to the `Question`? It's as
 simple as `$answer->setQuestion($question)`.
+
+[[[ code('136fd0896a') ]]]
 
 Notice that we do *not* say `$question->getId()`. We're not passing the *ID* to the
 `question` property, we're setting the entire `Question` *object* onto the
