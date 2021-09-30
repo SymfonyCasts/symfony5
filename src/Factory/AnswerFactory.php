@@ -42,7 +42,7 @@ final class AnswerFactory extends ModelFactory
             'username' => self::faker()->userName(),
             'createdAt' => self::faker()->dateTimeBetween('-1 year'),
             'votes' => rand(-20, 50),
-            'question' => QuestionFactory::random(),
+            'question' => QuestionFactory::new()->unpublished()->create(),
         ];
     }
 
