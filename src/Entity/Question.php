@@ -51,6 +51,7 @@ class Question
 
     /**
      * @ORM\OneToMany(targetEntity=Answer::class, mappedBy="question")
+     * @ORM\OrderBy({"createdAt" = "DESC"})
      */
     private $answers;
 
