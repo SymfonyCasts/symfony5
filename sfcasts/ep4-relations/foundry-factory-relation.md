@@ -20,6 +20,8 @@ Above, on the `createMany()` call, add a `$questions =` before this. Back down h
 add a `use` to the callback so that the `$questions` variable is accessible...
 then leverage `array_rand()` to grab a random item.
 
+[[[ code('734d389e54') ]]]
+
 Let's make sure this works! Reload the fixtures and...
 
 ```terminal-silent
@@ -48,6 +50,8 @@ question. We can do this by saying `QuestionFactory::new()` - to create a
 There's no magic here: `unpublished()` is a method we created in the first tutorial:
 it changes the `askedAt` value to `null`. Then, to actually *create* the `Question`
 from the factory, add `->create()`.
+
+[[[ code('735f28c521') ]]]
 
 This is *totally* legal: it will create a new unpublished `Question`, save it to
 the database and then that `Question` will be used as the `question` key when
@@ -81,6 +85,8 @@ related to one of the 20 published questions. But it also means that, along the
 way, 100 extra questions were created, saved to the database... then never used.
 
 What's the fix? Simple: remove `->create()`.
+
+[[[ code('7f9b7d3509') ]]]
 
 This means that the `question` key is now set to a `QuestionFactory` object. The
 `new()` method returns a new `QuestionFactory` instance... and then the

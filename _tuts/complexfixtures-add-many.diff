@@ -1,13 +1,13 @@
 diff --git a/src/DataFixtures/AppFixtures.php b/src/DataFixtures/AppFixtures.php
-index 4be9a5dd..32cc5356 100644
+index 7988a663..eb60d0e1 100644
 --- a/src/DataFixtures/AppFixtures.php
 +++ b/src/DataFixtures/AppFixtures.php
-@@ -22,7 +22,7 @@ class AppFixtures extends Fixture
+@@ -20,7 +20,7 @@ class AppFixtures extends Fixture
+ 
+         $questions = QuestionFactory::createMany(20, function() {
              return [
-                 'questionTags' => QuestionTagFactory::new([
-                     'tag' => TagFactory::random()
--                ]),
-+                ])->many(1, 5),
+-                'questionTags' => QuestionTagFactory::new(),
++                'questionTags' => QuestionTagFactory::new()->many(1, 5),
              ];
          });
  
