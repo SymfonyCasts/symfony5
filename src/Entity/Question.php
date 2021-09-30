@@ -154,6 +154,13 @@ class Question
         return $this->answers;
     }
 
+    public function getApprovedAnswers(): Collection
+    {
+        return $this->answers->filter(function(Answer $answer) {
+            return $answer->isApproved();
+        });
+    }
+
     public function addAnswer(Answer $answer): self
     {
         if (!$this->answers->contains($answer)) {
