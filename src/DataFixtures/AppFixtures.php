@@ -21,7 +21,9 @@ class AppFixtures extends Fixture
             ->create()
         ;
 
-        AnswerFactory::createMany(100);
+        AnswerFactory::createMany(100, [
+            'question' => QuestionFactory::random(),
+        ]);
 
         $manager->flush();
     }
