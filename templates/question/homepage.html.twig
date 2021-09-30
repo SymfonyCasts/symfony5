@@ -24,8 +24,8 @@
                             <div class="vote-arrows vote-arrows-alt flex-fill pt-2" style="min-width: 90px;">
                                 <span>{{ question.votesString}} votes</span>
                             </div>
-                            {% for tag in question.tags %}
-                                <span class="badge rounded-pill bg-light text-dark">{{ tag.name }}</span>
+                            {% for questionTag in question.questionTags %}
+                                <span class="badge rounded-pill bg-light text-dark">{{ questionTag.tag.name }}</span>
                             {% endfor %}
                         </div>
                         <div class="col">
