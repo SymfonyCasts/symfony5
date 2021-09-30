@@ -16,7 +16,7 @@
                                 <small>
                                     {% if question.askedAt %}
                                         Asked <br>
-                                        {{ question.askedAt|date('Y-m-d H:i:s') }}
+                                        {{ question.askedAt|ago }}
                                     {% else %}
                                         (unpublished)
                                     {% endif %}
