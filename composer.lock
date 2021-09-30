@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "a0bf18df36ee4b5ccd3425aa841b6f87",
+    "content-hash": "67eeec951599e7da43ea30abd2afa79b",
     "packages": [
         {
             "name": "babdev/pagerfanta-bundle",
@@ -2151,6 +2151,56 @@
             ],
             "support": {
                 "source": "https://github.com/pagerfanta-packages/core/tree/v3.3.0"
+            },
+            "time": "2021-07-25T22:37:42+00:00"
+        },
+        {
+            "name": "pagerfanta/doctrine-orm-adapter",
+            "version": "v3.3.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/pagerfanta-packages/doctrine-orm-adapter.git",
+                "reference": "ba04d2eb87cd54fcfe9d8a84c3e1d0cc306c6169"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/pagerfanta-packages/doctrine-orm-adapter/zipball/ba04d2eb87cd54fcfe9d8a84c3e1d0cc306c6169",
+                "reference": "ba04d2eb87cd54fcfe9d8a84c3e1d0cc306c6169",
+                "shasum": ""
+            },
+            "require": {
+                "doctrine/orm": "^2.8",
+                "pagerfanta/core": "^3.0",
+                "php": "^7.4 || ^8.0",
+                "symfony/deprecation-contracts": "^2.1"
+            },
+            "require-dev": {
+                "doctrine/cache": "^1.11 || ^2.0",
+                "phpunit/phpunit": "^9.5",
+                "symfony/cache": "^4.4 || ^5.2 || ^6.0",
+                "symfony/phpunit-bridge": "^5.3"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "Pagerfanta\\Doctrine\\ORM\\": "./"
+                },
+                "exclude-from-classmap": [
+                    "Tests/"
+                ]
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "description": "Pagerfanta adapter for Doctrine ORM",
+            "keywords": [
+                "doctrine",
+                "orm",
+                "pagerfanta"
+            ],
+            "support": {
+                "source": "https://github.com/pagerfanta-packages/doctrine-orm-adapter/tree/v3.3.0"
             },
             "time": "2021-07-25T22:37:42+00:00"
         },
