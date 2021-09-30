@@ -1,0 +1,124 @@
+WEBVTT
+
+00:00:01.006 --> 00:00:03.046 align:middle
+Guardemos nuestro progreso hasta ahora
+
+00:00:03.396 --> 00:00:08.546 align:middle
+Voy a limpiar la pantalla y ejecutaré: git status
+Interesante
+
+00:00:08.776 --> 00:00:13.106 align:middle
+Hay algunos archivos nuevos aquí que yo no creé
+
+00:00:13.646 --> 00:00:17.836 align:middle
+No te preocupes: Vamos a hablar precisamente de eso
+en el siguiente capítulo
+
+00:00:18.816 --> 00:00:21.076 align:middle
+Agrega todo con: git add .
+
+00:00:22.106 --> 00:00:23.086 align:middle
+Normalmente...
+
+00:00:23.166 --> 00:00:25.376 align:middle
+Este comando puede ser peligroso -
+
+00:00:25.506 --> 00:00:29.466 align:middle
+accidentalmente podríamos agregar algunos archivos
+que no queremos al commit!
+
+00:00:31.126 --> 00:00:35.846 align:middle
+Afortunadamente, nuestro proyecto viene con
+un archivo .gitignore precargado
+
+00:00:36.096 --> 00:00:41.676 align:middle
+que ignora cosas importantes como vendor/
+y otras rutas de las cuales hablaremos más tarde
+
+00:00:41.766 --> 00:00:45.776 align:middle
+Por ejemplo, var/ contiene el caché y los archivos de logs
+
+00:00:46.646 --> 00:00:49.026 align:middle
+El punto es, que Symfony nos cuida la espalda.
+
+00:00:51.346 --> 00:00:59.276 align:middle
+Guarda los cambios con: git commit -m "Lo estamos
+haciendo en grande con esto de Symfony" Puedes interactuar
+
+00:00:59.276 --> 00:01:01.756 align:middle
+de dos maneras diferentes con tu aplicación de Symfony.
+
+00:01:02.116 --> 00:01:04.526 align:middle
+La primera es al cargar una página en tu navegador.
+
+00:01:04.896 --> 00:01:09.976 align:middle
+La segunda es con un útil comando llamado bin/console.
+
+00:01:10.496 --> 00:01:16.006 align:middle
+En tu terminal, ejecuta: php bin/console ¡Orale!
+
+00:01:16.236 --> 00:01:20.236 align:middle
+Este comando enlista un montón de cosas diversas que
+puedes hacer con eso
+
+00:01:20.956 --> 00:01:23.276 align:middle
+incluidas múltiples herramientas de depuración.
+
+00:01:24.046 --> 00:01:30.226 align:middle
+Ahora, para desmitificar este asunto un poco, existe literalmente
+un directorio bin/ en nuestra aplicación
+
+00:01:30.526 --> 00:01:32.986 align:middle
+con un archivo llamado console adentro.
+
+00:01:34.106 --> 00:01:39.536 align:middle
+Así que esta cosa bin/console no es un comando global
+que se ha instalado en nuestro sistema:
+
+00:01:39.856 --> 00:01:43.376 align:middle
+Estamos, literalmente ejecutando un archivo PHP.
+
+00:01:45.606 --> 00:01:48.216 align:middle
+El comando bin/console puede hacer muchas cosas -
+
+00:01:48.216 --> 00:01:51.366 align:middle
+y descubriremos mis características favoritas
+a lo largo del camino.
+
+00:01:51.696 --> 00:01:55.346 align:middle
+Por ejemplo, ¿Quieres ver un listado para cada ruta
+en tu aplicación?
+
+00:01:55.986 --> 00:02:01.726 align:middle
+Ejecuta: php bin/console debug:router Sip!
+
+00:02:01.976 --> 00:02:03.786 align:middle
+Ahí están nuestras dos rutas...
+
+00:02:03.986 --> 00:02:07.846 align:middle
+además de otra que Symfony agrega automáticamente
+durante el desarrollo.
+
+00:02:09.216 --> 00:02:13.696 align:middle
+La herramienta bin/console contiene
+muchos comandos útiles como este.
+
+00:02:14.266 --> 00:02:18.456 align:middle
+Pero la lista de comandos que soporta no es estática.
+
+00:02:19.186 --> 00:02:21.576 align:middle
+Nuevos comandos pueden ser agregados por nosotros...
+
+00:02:22.116 --> 00:02:25.896 align:middle
+O por nuevos paquetes que instalemos en nuestro proyecto.
+
+00:02:26.366 --> 00:02:29.316 align:middle
+Este es mi "no tan sutil" presagio.
+
+00:02:30.446 --> 00:02:36.276 align:middle
+A continuación: Hablemos de Symfony Flex, alias con Composer
+y el sistema de recetas.
+
+00:02:36.886 --> 00:02:40.786 align:middle
+Básicamente, las herramientas que hacen a Symfony
+verdaderamente único.
