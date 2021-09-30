@@ -68,11 +68,15 @@ EOF
     /**
      * @Route("/questions/{slug}", name="app_question_show")
      */
-    public function show($slug, MarkdownHelper $markdownHelper)
+    public function show($slug, MarkdownHelper $markdownHelper, EntityManagerInterface $entityManager)
     {
         if ($this->isDebug) {
             $this->logger->info('We are in debug mode!');
         }
+
+        $repository = $entityManager->getRepository(Question::class);
+        $question = $repository->findOneBy(['slug' => $slug]);
+        dd($question);
 
         $answers = [
             'Make sure your cat is sitting `purrrfectly` still 🤣',
