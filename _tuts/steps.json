@@ -1436,6 +1436,11 @@
             "description": null
         },
         {
+            "id": "manytomany-use-object",
+            "name": "ManyToMany: use ->object()",
+            "description": null
+        },
+        {
             "id": "manytomany-remove-owning-sync",
             "name": "ManyToMany: remove owning sync",
             "description": null
@@ -1541,8 +1546,18 @@
             "description": null
         },
         {
+            "id": "complexfixtures-also-set-tag",
+            "name": "ComplexFixtures: also set tag",
+            "description": null
+        },
+        {
             "id": "complexfixtures-add-another-callback",
             "name": "ComplexFixtures: add another callback",
+            "description": null
+        },
+        {
+            "id": "complexfixtures-simplify-it",
+            "name": "ComplexFixtures: simplify it",
             "description": null
         },
         {
@@ -1606,5 +1621,5 @@
             "description": null
         }
     ],
-    "sha": "72b92a0738b1d99ba755c51c0753d7376ddc4a7b"
+    "sha": "70e009e70cb38f49c1259f40850ebd132bc801dd"
 }
