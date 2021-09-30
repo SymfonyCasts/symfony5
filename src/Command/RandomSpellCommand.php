@@ -31,11 +31,23 @@ class RandomSpellCommand extends Command
             $io->note(sprintf('Hi %s!', $yourName));
         }
 
-        if ($input->getOption('option1')) {
-            // ...
+        $spells = [
+            'alohomora',
+            'confundo',
+            'engorgio',
+            'expecto patronum',
+            'expelliarmus',
+            'impedimenta',
+            'reparo',
+        ];
+
+        $spell = $spells[array_rand($spells)];
+
+        if ($input->getOption('yell')) {
+            $spell = strtoupper($spell);
         }
 
-        $io->success('You have a new command! Now make it your own! Pass --help to see your options.');
+        $io->success($spell);
 
         return 0;
     }
