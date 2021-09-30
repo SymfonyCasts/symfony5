@@ -1,4 +1,15 @@
 <li class="mb-4">
+    {% if showQuestion|default(false) %}
+        <a
+            href="{{ path('app_question_show', {
+                slug: answer.question.slug
+            }) }}"
+            class="mb-1 link-secondary"
+        >
+            <strong>Question:</strong>
+            {{ answer.question.question }}
+        </a>
+    {% endif %}
     <div class="row">
         <div class="col-1">
             <img src="{{ asset('images/tisha.png') }}" width="50" height="50" alt="Tisha avatar">
