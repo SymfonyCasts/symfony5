@@ -1,0 +1,322 @@
+WEBVTT
+
+00:00:01.026 --> 00:00:06.026 align:middle
+Vamos a instalar un paquete totalmente nuevo dentro de
+nuestra aplicación llamada "security checker".
+
+00:00:06.416 --> 00:00:11.916 align:middle
+El security checker es una herramienta que revisa
+las dependencias de tu aplicación y te dice
+
+00:00:11.916 --> 00:00:15.696 align:middle
+si alguna de estas tiene vulnerabilidades
+de seguridad conocidas.
+
+00:00:16.496 --> 00:00:20.166 align:middle
+Pero, confidencialmente, tan genial como lo es...
+
+00:00:20.316 --> 00:00:26.016 align:middle
+la verdadera razón por la que quiero instalar
+esta librería es por ser una buena forma de ver
+
+00:00:26.016 --> 00:00:29.146 align:middle
+el importantísimo sistema de "recetas" de Symfony.
+
+00:00:30.056 --> 00:00:35.116 align:middle
+En tu terminal, ejecuta: composer require sec-checker
+En una aplicación real,
+
+00:00:35.236 --> 00:00:40.586 align:middle
+probablemente deberías pasar --dev para
+agregar esto a tus dependencias dev...
+
+00:00:40.636 --> 00:00:42.216 align:middle
+pero eso no nos preocupa a nosotros.
+
+00:00:42.866 --> 00:00:45.866 align:middle
+No obstante, hay algo extraño aquí.
+
+00:00:46.306 --> 00:00:47.426 align:middle
+Específicamente...
+
+00:00:47.626 --> 00:00:51.336 align:middle
+¡sec-checker no es un nombre de paquete válido!
+
+00:00:51.716 --> 00:00:57.556 align:middle
+En el mundo de Composer, cada paquete
+debe ser algo/algo-más:
+
+00:00:57.856 --> 00:00:59.766 align:middle
+No puede ser solamente sec-checker.
+
+00:01:00.216 --> 00:01:02.036 align:middle
+Entonces que diantres está pasando?
+
+00:01:02.766 --> 00:01:05.766 align:middle
+De vuelta en PhpStorm, abre composer.json.
+
+00:01:06.416 --> 00:01:11.126 align:middle
+Cuando iniciamos el proyecto, teníamos solo algunas
+dependencias en este archivo.
+
+00:01:11.766 --> 00:01:14.516 align:middle
+Uno de estas es symfony/flex.
+
+00:01:14.916 --> 00:01:21.756 align:middle
+Este es un plugin de Composer que agrega
+dos características especiales al mismo Composer
+
+00:01:21.756 --> 00:01:24.006 align:middle
+La primera se llama "aliases"
+
+00:01:25.186 --> 00:01:31.146 align:middle
+En tu navegador, ve a http://flex.symfony.com
+para encontrar una larga página llena de paquetes
+
+00:01:31.196 --> 00:01:33.206 align:middle
+Busca security.
+
+00:01:34.516 --> 00:01:37.026 align:middle
+Aún mejor, busca sec-checker.
+
+00:01:37.586 --> 00:01:46.146 align:middle
+Bingo! La misma dice que hay un paquete llamado
+sensiolabs/security-checker y tiene aliases
+
+00:01:46.146 --> 00:01:51.496 align:middle
+de sec-check, sec-checker,
+security-checker y algunas más.
+
+00:01:52.026 --> 00:01:56.536 align:middle
+El sistema de alias es simple:
+debido a que tenemos Symfony Flex instalado
+
+00:01:56.896 --> 00:02:00.456 align:middle
+podemos ejecutar composer require security-checker,
+
+00:02:00.736 --> 00:02:05.316 align:middle
+Y lo que hará será descargar
+sensiolabs/security-checker.
+
+00:02:06.146 --> 00:02:09.666 align:middle
+Puedes ver esto en la terminal:
+requerimos sec-checker,
+
+00:02:10.036 --> 00:02:14.426 align:middle
+pero finalmente descargó
+sensiolabs/security-checker.
+
+00:02:14.866 --> 00:02:18.716 align:middle
+Eso es también lo que Composer agregó
+a nuestro archivo composer.json.
+
+00:02:19.916 --> 00:02:23.456 align:middle
+Entonces... los aliases simplemente funcionan
+como atajos...
+
+00:02:23.896 --> 00:02:25.696 align:middle
+¡pero eso es algo fantástico!
+
+00:02:26.136 --> 00:02:29.756 align:middle
+Casi que puedes adivinar un alias cuando
+quieres instalar algo.
+
+00:02:30.236 --> 00:02:31.206 align:middle
+Quieres un logger?
+
+00:02:31.676 --> 00:02:35.906 align:middle
+Ejecuta composer require logger para
+conseguir el logger recomendado
+
+00:02:36.676 --> 00:02:38.006 align:middle
+Necesitas envíar correos?
+
+00:02:38.956 --> 00:02:40.486 align:middle
+composer require mailer.
+
+00:02:43.226 --> 00:02:44.276 align:middle
+Necesitas comer un pastel?
+
+00:02:44.486 --> 00:02:46.156 align:middle
+composer require cake!
+
+00:02:46.926 --> 00:02:51.506 align:middle
+La segunda característica que Flex agrega a
+Composer es la más importante.
+
+00:02:51.786 --> 00:02:53.406 align:middle
+Es el sistema de recetas.
+
+00:02:53.406 --> 00:03:00.306 align:middle
+En la terminal, después de instalar
+el paquete, nos menciona: Symfony operations:
+
+00:03:00.486 --> 00:03:05.656 align:middle
+1 receta de configuración para
+sensiolabs/security-checker. 
+
+00:03:06.396 --> 00:03:07.006 align:middle
+Interesante.
+
+00:03:07.466 --> 00:03:11.276 align:middle
+Ejecuta: git status Wow!
+
+00:03:12.056 --> 00:03:16.876 align:middle
+Esperábamos que composer.json y
+composer.lock fueran modificados...
+
+00:03:16.996 --> 00:03:18.636 align:middle
+así es como composer funciona.
+
+00:03:19.026 --> 00:03:22.626 align:middle
+Pero algo también modificó
+al archivo symfony.lock...
+
+00:03:23.156 --> 00:03:28.276 align:middle
+y agregó un archivo totalmente nuevo
+security_checker.yaml!
+
+00:03:29.036 --> 00:03:34.236 align:middle
+Bien, primero, symfony.lock es un
+archivo que es gestionado por Flex.
+
+00:03:34.236 --> 00:03:37.796 align:middle
+No necesitas preocuparte por ello
+pero debes guardar sus cambios.
+
+00:03:38.286 --> 00:03:41.946 align:middle
+Mantiene una gran lista de cuáles
+recetas se han instalado.
+
+00:03:43.356 --> 00:03:45.136 align:middle
+Entonces, ¿Quién creó el otro archivo?
+
+00:03:45.696 --> 00:03:50.476 align:middle
+Abre:
+config/packages/security_checker.yaml.
+
+00:03:50.976 --> 00:03:54.886 align:middle
+Cada paquete que instalas
+puede tener una receta de Flex.
+
+00:03:55.516 --> 00:03:58.096 align:middle
+Esta idea es maravillosamente simple.
+
+00:03:59.006 --> 00:04:03.986 align:middle
+En lugar de decirle a la gente que instale
+un paquete y después crear este archivo,
+
+00:04:03.986 --> 00:04:10.446 align:middle
+y actualizar este otro archivo para hacer
+que las cosas funcionen, Flex ejecuta una receta que...
+
+00:04:10.646 --> 00:04:12.676 align:middle
+¡hace todo esto por ti!
+
+00:04:13.226 --> 00:04:18.306 align:middle
+Este archivo ha sido agregado por la receta
+sensiolabs/security-checker!
+
+00:04:18.836 --> 00:04:23.106 align:middle
+No necesitas preocuparte por lo que contiene
+este archivo por el momento.
+
+00:04:23.596 --> 00:04:28.536 align:middle
+El punto es, que gracias a este archivo
+ya tenemos un nuevo comando bin/console.
+
+00:04:29.166 --> 00:04:34.766 align:middle
+Ejecuta: php bin/console Ves el comando
+security:check?
+
+00:04:35.396 --> 00:04:37.176 align:middle
+No estaba ahí hace un segundo.
+
+00:04:37.756 --> 00:04:40.836 align:middle
+Está ahora ahí gracias al nuevo archivo YAML.
+
+00:04:41.626 --> 00:04:49.066 align:middle
+Pruébalo: php bin/console security:check
+No hay paquetes con vulnerabilidades conocidas!
+
+00:04:49.376 --> 00:04:57.036 align:middle
+Genial!, aquí está el panorama general: gracias al sistema
+de recetas, cada vez que instales una librería,
+
+00:04:57.276 --> 00:05:03.966 align:middle
+Flex revisará si esa librería tiene una receta
+y si la tiene, la instalará.
+
+00:05:03.966 --> 00:05:12.086 align:middle
+Una receta puede hacer muchas cosas, como agregar archivos,
+crear directorios o incluso modificar algunos archivos,
+
+00:05:12.576 --> 00:05:15.366 align:middle
+como agregar nuevas líneas a tu archivo .gitignore
+
+00:05:16.496 --> 00:05:19.196 align:middle
+El sistema de recetas cambia las reglas del juego
+
+00:05:19.716 --> 00:05:25.816 align:middle
+Me encanta, ya que cada vez que necesito una nueva
+librería, todo lo que tengo que hacer es instalarla.
+
+00:05:25.816 --> 00:05:29.176 align:middle
+No necesito agregar archivos de configuración
+o modificar algo
+
+00:05:29.316 --> 00:05:32.556 align:middle
+ya que la receta automatiza
+todo ese trabajo aburrido
+
+00:05:33.046 --> 00:05:36.266 align:middle
+De hecho, esta receta hizo
+algo más que no nos dimos cuenta.
+
+00:05:36.816 --> 00:05:42.306 align:middle
+En la terminal, ejecuta:
+git diff composer.json Esperábamos
+
+00:05:42.306 --> 00:05:45.936 align:middle
+que Composer agregara esta nueva linea
+a la sección "require".
+
+00:05:46.136 --> 00:05:49.906 align:middle
+Pero también hay una nueva línea
+en la sección "scripts".
+
+00:05:50.276 --> 00:05:52.456 align:middle
+Eso fue realizado por la receta.
+
+00:05:53.026 --> 00:05:58.006 align:middle
+Gracias a esto, cada vez que ejecutes:
+composer install Después de terminar,
+
+00:05:58.256 --> 00:06:00.776 align:middle
+automáticamente ejecutará el comando
+security checker.
+
+00:06:02.036 --> 00:06:07.646 align:middle
+El punto es: para usar el comando security checker,
+lo único que teníamos que hacer era...
+
+00:06:07.896 --> 00:06:08.686 align:middle
+Instalarlo.
+
+00:06:08.996 --> 00:06:11.916 align:middle
+Su receta se hizo cargo del resto de la configuración.
+
+00:06:13.136 --> 00:06:15.126 align:middle
+Ahora... si te estás preguntando: Oye!
+
+00:06:15.346 --> 00:06:17.386 align:middle
+Dónde rayos vive esta receta?
+
+00:06:17.686 --> 00:06:18.486 align:middle
+Puedo verla?
+
+00:06:19.136 --> 00:06:24.326 align:middle
+Esa es una gran pregunta!
+
+00:06:24.326 --> 00:06:25.636 align:middle
+Veámoslo a continuación.
