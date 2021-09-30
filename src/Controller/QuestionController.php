@@ -68,7 +68,7 @@ EOF
     /**
      * @Route("/questions/{slug}", name="app_question_show")
      */
-    public function show($slug, MarkdownHelper $markdownHelper, EntityManagerInterface $entityManager)
+    public function show($slug, EntityManagerInterface $entityManager)
     {
         if ($this->isDebug) {
             $this->logger->info('We are in debug mode!');
