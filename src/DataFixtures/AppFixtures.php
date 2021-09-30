@@ -40,6 +40,9 @@ class AppFixtures extends Fixture
         $tag2 = new Tag();
         $tag2->setName('monster trucks');
 
+        $question->addTag($tag1);
+        $question->addTag($tag2);
+
         $manager->persist($tag1);
         $manager->persist($tag2);
 
