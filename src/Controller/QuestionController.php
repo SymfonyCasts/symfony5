@@ -92,4 +92,12 @@ EOF
             'answers' => $answers,
         ]);
     }
+
+    /**
+     * @Route("/questions/{slug}/vote", name="app_question_vote", methods="POST")
+     */
+    public function questionVote(Question $question)
+    {
+        dd($question);
+    }
 }
