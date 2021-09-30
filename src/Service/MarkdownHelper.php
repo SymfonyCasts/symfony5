@@ -6,8 +6,8 @@ class MarkdownHelper
 {
     public function parse(string $source): string
     {
-        $parsedQuestionText = $cache->get('markdown_'.md5($questionText), function() use ($questionText, $markdownParser) {
-            return $markdownParser->transformMarkdown($questionText);
+        return $cache->get('markdown_'.md5($source), function() use ($source, $markdownParser) {
+            return $markdownParser->transformMarkdown($source);
         });
     }
 }
