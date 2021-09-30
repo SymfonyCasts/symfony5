@@ -157,7 +157,7 @@ class Question
     {
         if (!$this->answers->contains($answer)) {
             $this->answers[] = $answer;
-            $answer->setQuestion($this);
+            //$answer->setQuestion($this);
         }
 
         return $this;
