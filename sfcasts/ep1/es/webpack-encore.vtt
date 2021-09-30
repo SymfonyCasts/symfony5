@@ -1,0 +1,204 @@
+WEBVTT
+
+00:00:01.036 --> 00:00:05.626 align:middle
+Nuestra configuración de CSS y JavaScript está
+correcta: tenemos el directorio public/
+
+00:00:05.666 --> 00:00:09.906 align:middle
+con los archivos app.css y question_show.js.
+
+00:00:09.976 --> 00:00:16.606 align:middle
+Dentro de nuestros templates - por ejemplo
+base.html.twig - incluimos los archivos
+
+00:00:16.606 --> 00:00:19.086 align:middle
+con la etiqueta tradicional link o script.
+
+00:00:19.596 --> 00:00:24.166 align:middle
+Claro, utilizamos la función {{ asset() }},
+pero esta no hace nada importante.
+
+00:00:24.696 --> 00:00:28.136 align:middle
+Symfony para nada está tocando nuestros
+archivos del frontend.
+
+00:00:28.876 --> 00:00:29.476 align:middle
+Eso está bien.
+
+00:00:29.846 --> 00:00:35.266 align:middle
+Pero si quieres ponerte serio con el desarrollo
+de frontend - como utilizar un framework
+
+00:00:35.266 --> 00:00:38.866 align:middle
+como React o Vue - necesitas llevarlo
+al siguiente nivel.
+
+00:00:39.216 --> 00:00:43.196 align:middle
+Para hacerlo, vamos a utilizar una librería
+de Node llamada Webpack:
+
+00:00:43.486 --> 00:00:47.456 align:middle
+la cual es una herramienta estándar en la industria
+para el manejo de los archivos del frontend.
+
+00:00:47.896 --> 00:00:51.856 align:middle
+Combina y unifica tus archivos
+CSS y JavaScript...
+
+00:00:52.306 --> 00:00:56.046 align:middle
+aunque eso es solo la punta del
+iceberg de lo que puede hacer.
+
+00:00:57.186 --> 00:01:02.876 align:middle
+Pero... para hacer que Webpack funcione en realidad
+bien necesitas de mucha configuración complicada.
+
+00:01:03.446 --> 00:01:10.086 align:middle
+Asi que, en el mundo de Symfony, utilizamos
+una grandiosa librería llamada Webpack Encore.
+
+00:01:10.546 --> 00:01:14.096 align:middle
+Es una capa ligera por encima
+de Webpack que...
+
+00:01:14.156 --> 00:01:15.026 align:middle
+¡Lo hace más fácil!
+
+00:01:15.466 --> 00:01:18.996 align:middle
+Y tenemos todo un tutorial gratuito
+aquí en SymfonyCasts.
+
+00:01:19.376 --> 00:01:21.736 align:middle
+Pero tengamos un curso rápido ahora mismo.
+
+00:01:22.326 --> 00:01:26.486 align:middle
+Primero, asegúrate que tienes node
+instalado: Y también yarn:
+
+00:01:27.016 --> 00:01:30.026 align:middle
+Yarn es un gestor de paquetes para Node...
+
+00:01:30.486 --> 00:01:32.376 align:middle
+básicamente es un Composer para Node.
+
+00:01:33.056 --> 00:01:38.646 align:middle
+Antes de que instalemos Encore, asegúrate de
+guardar todos tus cambios - Yo ya lo hice.
+
+00:01:39.416 --> 00:01:43.666 align:middle
+Luego corre: composer require encore Espera...
+
+00:01:43.666 --> 00:01:47.556 align:middle
+hace un minuto dije que Encore es una
+librería de Node.
+
+00:01:47.786 --> 00:01:50.846 align:middle
+Entonces, por qué lo estamos instalando
+con Composer?
+
+00:01:51.846 --> 00:01:52.606 align:middle
+Excelente pregunta!
+
+00:01:53.156 --> 00:01:56.376 align:middle
+Este comando en realidad no instala Encore.
+
+00:01:56.896 --> 00:02:01.986 align:middle
+Nop, instala un diminuto bundle
+llamado webpack-encore-bundle,
+
+00:02:02.316 --> 00:02:05.406 align:middle
+el cual ayuda a integrar nuestra app
+de Symfony con Webpack Encore.
+
+00:02:06.036 --> 00:02:11.486 align:middle
+Lo mejor de esto es que el bundle
+contiene una receta muy útil.
+
+00:02:11.996 --> 00:02:15.566 align:middle
+Mira esto, corre: git status Wow!
+
+00:02:16.146 --> 00:02:18.766 align:middle
+La receta hizo bastante por nosotros!
+
+00:02:19.176 --> 00:02:22.796 align:middle
+Algo interesante es que modificó nuestro
+archivo .gitignore.
+
+00:02:23.786 --> 00:02:25.286 align:middle
+Ábrelo en tu editor.
+
+00:02:26.446 --> 00:02:32.116 align:middle
+Bien! Ahora ignoramos node_modules/ - el
+cual es la version de Node
+
+00:02:32.116 --> 00:02:34.816 align:middle
+del directory vendor/
+- y algunas otras rutas.
+
+00:02:35.386 --> 00:02:39.086 align:middle
+La receta también agregó algunos archivos YAML,
+los cuales ayudan a configurar algunas cosas -
+
+00:02:39.226 --> 00:02:40.946 align:middle
+pero en realidad no necesitas verlos.
+
+00:02:41.486 --> 00:02:47.516 align:middle
+Lo más importante que hizo la receta fue
+darnos estos 2 archivos: package.json -
+
+00:02:47.986 --> 00:02:53.436 align:middle
+el cual es el composer.json de
+Node - y webpack.config.js,
+
+00:02:53.916 --> 00:02:56.696 align:middle
+el cual es el archivo de configuración para Webpack Encore.
+
+00:02:57.316 --> 00:02:59.146 align:middle
+Revisa el archivo package.json.
+
+00:03:00.286 --> 00:03:03.456 align:middle
+Esto le dice a Node qué librerías debería
+descargar
+
+00:03:03.796 --> 00:03:06.136 align:middle
+y ya tiene las cosas básicas que necesitamos.
+
+00:03:06.686 --> 00:03:10.836 align:middle
+Aún más importante: @symfony/webpack-encore.
+
+00:03:12.046 --> 00:03:19.746 align:middle
+Para decirle a Node que instale esas dependencias,
+corre: yarn install Este comando lee package.json
+
+00:03:19.866 --> 00:03:26.156 align:middle
+y descarga un montón de archivos y directorios
+dentro de la nueva carpeta node_modules/.
+
+00:03:26.796 --> 00:03:30.816 align:middle
+Puede tomar algunos minutos en descargar todo
+y construir un par de paquetes.
+
+00:03:31.756 --> 00:03:34.586 align:middle
+Cuando termine, vas a ver dos cosas nuevas.
+
+00:03:35.216 --> 00:03:40.986 align:middle
+Primero, tienes un nuevo y flamante directorio
+node_modules/ con demasiadas cosas en él.
+
+00:03:41.476 --> 00:03:43.856 align:middle
+Y esto ya está siendo ignorado por git.
+
+00:03:44.946 --> 00:03:51.766 align:middle
+Segundo, creó un archivo yarn.lock, el cual
+tiene la misma función que composer.lock.
+
+00:03:52.186 --> 00:03:56.736 align:middle
+Asi que... debes hacer commit del archivo
+yarn.lock, pero no te preocupes por él.
+
+00:03:57.606 --> 00:03:59.486 align:middle
+Ok, Encore está instalado!
+
+00:04:00.246 --> 00:04:03.706 align:middle
+A continuación, vamos a refactorizar nuestra
+configuración del fronted para utilizarlo.
