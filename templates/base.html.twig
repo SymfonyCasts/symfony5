@@ -13,12 +13,17 @@
         {% endblock %}
     </head>
     <body>
-        <nav class="navbar navbar-light bg-light" style="height: 100px;">
-          <a class="navbar-brand" href="{{ path('app_homepage') }}">
-            <i style="color: #444; font-size: 2rem;" class="pb-1 fad fa-cauldron"></i>
-            <p class="pl-2 d-inline font-weight-bold" style="color: #444;">Cauldron Overflow</p>
-          </a>
-          <button class="btn btn-dark">Sign up</button>
+        <nav class="navbar navbar-expand-lg navbar-light bg-light px-1" style="height: 60px;">
+            <a class="navbar-brand" href="{{ path('app_homepage') }}">
+                <p class="pl-2 d-inline font-weight-bold" style="color: #444;">
+                    Cauldron Overflow</p>
+            </a>
+            <div class="collapse navbar-collapse">
+                <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                </ul>
+            </div>
+
+            <button class="btn btn-dark">Sign up</button>
         </nav>
 
         {% block body %}{% endblock %}
