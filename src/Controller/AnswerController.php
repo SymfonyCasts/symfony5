@@ -4,16 +4,15 @@ namespace App\Controller;
 
 use Psr\Log\LoggerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
-use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\Annotation\Route;
 
-class CommentController extends AbstractController
+class AnswerController extends AbstractController
 {
     /**
-     * @Route("/comments/{id}/vote", methods="POST", name="answer_vote")
+     * @Route("/answers/{id}/vote", methods="POST", name="answer_vote")
      */
-    public function commentVote($id, LoggerInterface $logger, Request $request)
+    public function answerVote($id, LoggerInterface $logger, Request $request)
     {
         $data = json_decode($request->getContent(), true);
         $direction = $data['direction'] ?? 'up';
