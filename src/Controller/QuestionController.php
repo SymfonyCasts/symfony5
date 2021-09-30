@@ -73,7 +73,7 @@ EOF
     /**
      * @Route("/questions/{slug}", name="app_question_show")
      */
-    public function show(Question $question, EntityManagerInterface $entityManager)
+    public function show(Question $question)
     {
         if ($this->isDebug) {
             $this->logger->info('We are in debug mode!');
