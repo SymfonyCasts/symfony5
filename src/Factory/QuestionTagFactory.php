@@ -40,7 +40,7 @@ final class QuestionTagFactory extends ModelFactory
         return [
             'question' => QuestionFactory::new(),
             'tag' => TagFactory::new(),
-            'taggedAt' => self::faker()->datetime(),
+            'taggedAt' => \DateTimeImmutable::createFromMutable(self::faker()->datetime()),
         ];
     }
 
