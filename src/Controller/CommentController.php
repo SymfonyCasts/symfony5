@@ -22,6 +22,6 @@ class CommentController extends AbstractController
             $currentVoteCount = rand(0, 5);
         }
 
-        return new JsonResponse(['votes' => $currentVoteCount]);
+        return $this->json(['votes' => $currentVoteCount]);
     }
 }
