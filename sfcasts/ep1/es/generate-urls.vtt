@@ -1,0 +1,265 @@
+WEBVTT
+
+00:00:01.066 --> 00:00:03.346 align:middle
+Vuelve a la página "show" para una cuestión.
+
+00:00:03.916 --> 00:00:05.996 align:middle
+El logo de arriba es un link...
+
+00:00:06.276 --> 00:00:08.666 align:middle
+que no va a ninguna parte aún.
+
+00:00:09.036 --> 00:00:11.376 align:middle
+Este debería llevarnos a la página de inicio.
+
+00:00:11.776 --> 00:00:16.796 align:middle
+Como forma parte del layout,
+el link vive en base.html.twig.
+
+00:00:17.976 --> 00:00:21.376 align:middle
+Aquí está: navbar-brand con href="#".
+
+00:00:21.426 --> 00:00:27.566 align:middle
+Para hacer que esto nos lleve a la página de inicio,
+podemos simplemente cambiarlo a /, ¿cierto?
+
+00:00:28.036 --> 00:00:33.086 align:middle
+Podrías hacerlo, pero en Symfony,
+una mejor forma es pedirle a Symfony
+
+00:00:33.086 --> 00:00:36.736 align:middle
+que genere una URL hacia esta ruta.
+
+00:00:37.106 --> 00:00:42.836 align:middle
+De esta forma, si decidimos cambiar esta URL en el
+futuro, todos nuestros links se actualizarán automáticamente.
+
+00:00:43.576 --> 00:00:46.566 align:middle
+Para ver cómo hacer esto, ve a
+tu terminal y corre:
+
+00:00:46.566 --> 00:00:53.086 align:middle
+php bin/console debug:router Esto muestra
+un listado de cada ruta del sistema...
+
+00:00:53.086 --> 00:00:58.076 align:middle
+¡y hey! Desde la última vez que lo corrimos,
+hay un montón de rutas nuevas.
+
+00:00:58.546 --> 00:01:03.776 align:middle
+Estas alimentan a la barra de herramientas debug
+y el profiler y son agregadas automáticamente
+
+00:01:03.776 --> 00:01:07.256 align:middle
+por el WebProfilerBundle cuando estamos en modo dev.
+
+00:01:08.316 --> 00:01:12.156 align:middle
+De todas formas, lo que realmente quiero ver
+es la columna "Name".
+
+00:01:12.556 --> 00:01:18.136 align:middle
+Toda ruta tiene un nombre interno,
+incluyendo las dos rutas que hicimos.
+
+00:01:18.526 --> 00:01:23.646 align:middle
+Aparentemente sus nombres son
+app_question_homepage y app_question_show.
+
+00:01:24.206 --> 00:01:25.266 align:middle
+Pero... eh...
+
+00:01:25.266 --> 00:01:26.876 align:middle
+¿De dónde vinieron?
+
+00:01:26.876 --> 00:01:29.496 align:middle
+¡No recuerdo haber escrito ninguno de éstos!
+
+00:01:29.556 --> 00:01:35.176 align:middle
+Entonces... A cada ruta debe serle dada
+un nombre interno.
+
+00:01:35.646 --> 00:01:38.036 align:middle
+Pero cuando usas rutas en anotación...
+
+00:01:38.396 --> 00:01:45.166 align:middle
+te deja hacer trampa: elige un nombre por ti
+basado en la clase y método del controlador...
+
+00:01:45.166 --> 00:01:46.606 align:middle
+¡Lo cual es asombroso!
+
+00:01:47.056 --> 00:01:51.066 align:middle
+Pero... tan pronto como necesitas generar
+la URL de una ruta,
+
+00:01:51.266 --> 00:01:58.386 align:middle
+yo recomiendo darle un nombre explícito,
+en lugar de depender de este nombre autogenerado,
+
+00:01:58.686 --> 00:02:01.776 align:middle
+el cual podría cambiar de repente
+si le cambias el nombre al método.
+
+00:02:02.516 --> 00:02:06.506 align:middle
+Para darle un nombre a una ruta, agrega name="" y...
+
+00:02:06.806 --> 00:02:08.166 align:middle
+Que tal: app_homepage.
+
+00:02:08.166 --> 00:02:13.656 align:middle
+Me gusta mantener los nombres de mis rutas
+cortos, pero app_ lo hace lo suficientemente largo
+
+00:02:13.846 --> 00:02:17.926 align:middle
+como para poder realizar una búsqueda a partir
+de esta cadena si alguna vez lo necesito.
+
+00:02:18.546 --> 00:02:22.136 align:middle
+Ahora, si corremos debug:router nuevamente: ¡Bien!
+
+00:02:22.406 --> 00:02:24.486 align:middle
+Tomamos el control del nombre de nuestra ruta.
+
+00:02:25.316 --> 00:02:30.236 align:middle
+Copia el nombre app_homepage y
+luego vuelve a base.html.twig.
+
+00:02:30.876 --> 00:02:34.366 align:middle
+El objetivo es simple, queremos decir: ¡Hey symfony!
+
+00:02:34.716 --> 00:02:39.336 align:middle
+¿Puedes por favor decirme la
+URL para la ruta app_homepage?
+
+00:02:39.776 --> 00:02:42.456 align:middle
+Para hacer esto en Twig, usa {{ path()
+}} y pásale el nombre de la ruta.
+
+00:02:42.666 --> 00:02:45.436 align:middle
+¡Eso es todo!
+
+00:02:46.276 --> 00:02:48.936 align:middle
+Cuando volvemos y refrescamos...
+
+00:02:49.246 --> 00:02:51.566 align:middle
+Ahora esto va hacia la página principal.
+
+00:02:52.236 --> 00:02:55.586 align:middle
+En la página principal, tenemos
+dos preguntas escritas a mano...
+
+00:02:55.996 --> 00:02:59.546 align:middle
+y cada una tiene dos links que
+actualmente no van a ninguna parte.
+
+00:03:00.486 --> 00:03:01.516 align:middle
+¡Arreglémoslos!
+
+00:03:01.566 --> 00:03:09.016 align:middle
+Paso uno: ahora que queremos generar una
+URL de esta ruta, encuentra la ruta
+
+00:03:09.016 --> 00:03:12.196 align:middle
+y agrega name="app_question_show".
+
+00:03:12.976 --> 00:03:18.076 align:middle
+Copia esto y abre el template:
+templates/question/homepage.html.twig.
+
+00:03:19.286 --> 00:03:20.246 align:middle
+Veamos...
+
+00:03:20.246 --> 00:03:28.326 align:middle
+Justo debajo de la parte de votar, aquí está el
+primer link a una pregunta que dice "Reversing a spell".
+
+00:03:30.606 --> 00:03:35.806 align:middle
+Quita el signo numeral, agrega {{ path()
+}} y pega app_question_show.
+
+00:03:36.416 --> 00:03:38.706 align:middle
+Pero... no podemos detenernos aquí.
+
+00:03:39.276 --> 00:03:42.486 align:middle
+¡Si probamos la página ahora, un error glorioso!
+
+00:03:42.916 --> 00:03:47.176 align:middle
+Algunos parámetros obligatorios están
+faltando - "slug" ¡Eso tiene sentido!
+
+00:03:47.476 --> 00:03:52.256 align:middle
+¡No podemos simplemente decir "genera
+la URL hacia app_question_show"
+
+00:03:52.686 --> 00:03:55.536 align:middle
+porque esa ruta tiene un comodín!
+
+00:03:55.946 --> 00:03:59.616 align:middle
+Symfony necesita saber qué
+valor debería usar para {slug}.
+
+00:04:00.546 --> 00:04:01.536 align:middle
+¿Cómo le decimos?
+
+00:04:01.826 --> 00:04:05.426 align:middle
+Agrega un segundo parámetro a path() con {}.
+
+00:04:05.426 --> 00:04:10.556 align:middle
+El {} es un array asociativo de Twig...
+
+00:04:11.116 --> 00:04:13.266 align:middle
+nuevamente, tal como en JavaScript.
+
+00:04:13.896 --> 00:04:15.966 align:middle
+Pásale slug igual a...
+
+00:04:16.186 --> 00:04:16.876 align:middle
+Veamos...
+
+00:04:17.146 --> 00:04:21.816 align:middle
+Esta es una pregunta escrita a mano por el
+momento, así que escribe reversing-a-spell.
+
+00:04:21.816 --> 00:04:28.266 align:middle
+Cópialo todo, porque hay un link más
+aquí abajo para la misma pregunta.
+
+00:04:31.586 --> 00:04:32.826 align:middle
+Para la segunda pregunta...
+
+00:04:32.826 --> 00:04:36.636 align:middle
+Pégalo nuevamente, pero cámbialo a
+pausing-a-spell para igualar el nombre.
+
+00:04:37.046 --> 00:04:38.496 align:middle
+Copiaré eso...
+
+00:04:38.496 --> 00:04:40.696 align:middle
+Encuentra la última ocurrencia...
+
+00:04:41.116 --> 00:04:41.676 align:middle
+Y pégalo,
+
+00:04:42.576 --> 00:04:46.546 align:middle
+Más adelante, cuando implementemos una base
+de datos, vamos a mejorar esto
+
+00:04:46.846 --> 00:04:49.646 align:middle
+y evitaremos repetirnos tantas veces.
+
+00:04:50.086 --> 00:04:52.586 align:middle
+¡Pero! Si volvemos, refrescamos...
+
+00:04:52.916 --> 00:04:55.626 align:middle
+¡Y hacemos click en el link, funciona!
+
+00:04:57.546 --> 00:05:01.266 align:middle
+Ambas páginas van hacia la misma ruta,
+pero con un valor diferente para el slug.
+
+00:05:01.266 --> 00:05:07.886 align:middle
+A continuación, llevemos nuestro sitio al
+siguiente nivel, al crear una interface API JSON
+
+00:05:08.086 --> 00:05:10.436 align:middle
+que consumiremos con JavaScript.
