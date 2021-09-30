@@ -2,30 +2,46 @@
 
 So let's render some answer data! Delete the old, hardcoded `$answers` and the
 `foreach`. Perfect: we're now passing this collection of `Answer` objects
-into the template. Let's go open this template... because it'll probably need
-a few tweaks: `templates/question/show.html.twig`.
+into the template:
+
+[[[ code('c79b45556a') ]]]
+
+Let's go open this template... because it'll probably need a few tweaks: 
+`templates/question/show.html.twig`.
 
 If you scroll down a bit - here it is - we loop over the `answers` variable. That
 *will* still work: the Doctrine collection *is* something that we can loop over.
 But the `answer` variable will now be an `Answer` *object*. So, to get the content,
-use `answer.content`. We can also remove the hardcoded username and replace it
-with `answer.username`.
+use `answer.content`:
+
+[[[ code('37a827d667') ]]]
+
+We can also remove the hardcoded username and replace it with `answer.username`:
+
+[[[ code('be28ec0c82') ]]]
 
 And there's... one more spot. The vote count is hardcoded. Change that to
-`answer.votes`.
+`answer.votes`:
+
+[[[ code('8739452fb8') ]]]
 
 Ok! Let's see how it looks. Refresh and... alright! We have dynamic answers!
 
 ## Fetching the Answers Directly in Twig
 
 But... we're *still* doing too much work! Head back to the controller and completely
-remove the `$answers` variable. Why are we doing this? Well, we know that we can
-say `$question->getAnswers()` to get all the answers for a question. And since we're
-passing a `$question` object into the template... we can call that method directly
-from Twig!
+remove the `$answers` variable:
+
+[[[ code('920384fd39') ]]]
+
+Why are we doing this? Well, we know that we can say `$question->getAnswers()` 
+to get all the answers for a question. And since we're passing a `$question` 
+object into the template... we can call that method directly from Twig!
 
 In `show.html.twig`, we don't have an `answers` variable anymore. That's ok because
-we can say `question.answers`.
+we can say `question.answers`:
+
+[[[ code('27efe4400f') ]]]
 
 As reminder, when we say `question.answers`, Twig will first try to access the
 `$answers` property directly. But because it's private, it will *then* call the
@@ -33,7 +49,9 @@ As reminder, when we say `question.answers`, Twig will first try to access the
 were using a few minutes ago in our controller.
 
 Back in the template, we need to update one more spot: the `answer|length` that
-renders the *number* of answers. Change this to `question.answers`.
+renders the *number* of answers. Change this to `question.answers`:
+
+[[[ code('15d4882139') ]]]
 
 Refresh now and... we're still good! If you open the Doctrine profiler, we have
 the same 2 queries. But now this second query is literally being made from
@@ -50,7 +68,9 @@ actually work!
 
 Before I recorded this tutorial, I refactored the JavaScript logic for this into
 Stimulus. If you want to check that out, it lives in
-`assets/controllers/answer-vote_controller.js`.
+`assets/controllers/answer-vote_controller.js`:
+
+[[[ code('c80307e141') ]]]
 
 The important thing for *us* is that, when we click the vote button, it makes an
 Ajax call to `src/Controller/AnswerController.php`: to the `answerVote` method.
@@ -61,7 +81,9 @@ To make the voting system *truly* work, start in `show.html.twig`. The way that
 our Stimulus JavaScript knows what URL to send the Ajax call to is via this
 `url` *variable* that we pass into that controller. It's generating a URL to the
 `answer_vote` route... which is the route above the target controller. Right now,
-for the `id` wildcard... we're passing in a hardcoded 10. Change that to `answer.id`.
+for the `id` wildcard... we're passing in a hardcoded 10. Change that to `answer.id`:
+
+[[[ code('4ef830fd6e') ]]]
 
 Back in the controller, we need to take this `id` and query for the `Answer` object.
 The *laziest* way to do that is by adding an `Answer $answer` argument. Doctrine will
@@ -72,6 +94,8 @@ Remove this TODO stuff... and for the "up" direction, say
 `$answer->setVotes($answer->getVotes() + 1)`. Use the same thing for the down
 direction with *minus* one.
 
+[[[ code('02aebca627') ]]]
+
 If you want to create fancier methods inside `Answer` so that you can say things
 like `$answer->upVote()`, you *totally* should. We did that in the `Question`
 entity in the last tutorial.
@@ -81,6 +105,8 @@ left to do *now* is save the new vote count to the database. To do that, we
 need the entity manager. Autowire that as a new argument -
 `EntityManagerInterface $entityManager` - and, before the `return`, call
 `$entityManager->flush()`.
+
+[[[ code('a5af261658') ]]]
 
 Ok team! Test drive time! Refresh. Everything still looks good so... let's vote!
 Yes! That made a successful Ajax call and the vote increased by 1. More importantly,
