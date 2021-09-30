@@ -10,3 +10,19 @@ chapters:
     - orderby-extra-lazy
     - answer-status
     - collection-criteria
+    - popular-answers
+    - string-component
+    - join-n-plus-one
+    - search-form
+    - relationship-types
+    - many-to-many
+    - many-to-many-saving
+    - many-to-many-factory
+    - many-to-many-joins
+    - complex-many-to-many
+    - broken-migration
+    - question-tag-fixtures
+    - foundry-phd
+    - complex-many-joins
+    - pagination
+    - pager-links
