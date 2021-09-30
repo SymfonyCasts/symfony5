@@ -32,7 +32,7 @@ EOF
 
         $question->setVotes(rand(-20, 50));
 
-        $entityManager->persist($question);
+        $manager->persist($question);
 
         $manager->flush();
     }
