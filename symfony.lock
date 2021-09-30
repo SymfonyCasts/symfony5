@@ -438,6 +438,9 @@
             "config/routes.yaml"
         ]
     },
+    "symfony/runtime": {
+        "version": "v5.3.4"
+    },
     "symfony/security-core": {
         "version": "v5.0.7"
     },
