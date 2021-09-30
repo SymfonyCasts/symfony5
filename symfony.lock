@@ -202,15 +202,14 @@
         ]
     },
     "symfony/framework-bundle": {
-        "version": "4.4",
+        "version": "5.1",
         "recipe": {
             "repo": "github.com/symfony/recipes",
             "branch": "master",
-            "version": "4.4",
-            "ref": "23ecaccc551fe2f74baf613811ae529eb07762fa"
+            "version": "5.1",
+            "ref": "ffcb76bab779154c0a7d8cddb9f448c2c45a4e50"
         },
         "files": [
-            "config/bootstrap.php",
             "config/packages/cache.yaml",
             "config/packages/framework.yaml",
             "config/packages/test/framework.yaml",
