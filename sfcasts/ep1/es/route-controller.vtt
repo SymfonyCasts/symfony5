@@ -1,0 +1,317 @@
+WEBVTT
+
+00:00:01.056 --> 00:00:02.876 align:middle
+La página que estamos viendo ahora...
+
+00:00:03.106 --> 00:00:04.736 align:middle
+La cual es súper divertida...
+
+00:00:04.766 --> 00:00:06.506 align:middle
+e incluso cambia de color...
+
+00:00:06.996 --> 00:00:09.026 align:middle
+está aquí solo para decir "Hola!".
+
+00:00:09.716 --> 00:00:16.416 align:middle
+Symfony muestra está página porque, en realidad,
+nuestra aplicación aun no tiene ninguna página.
+
+00:00:16.866 --> 00:00:17.616 align:middle
+Cambiemos eso.
+
+00:00:18.296 --> 00:00:19.656 align:middle
+Cada framework web...
+
+00:00:20.106 --> 00:00:21.296 align:middle
+en cualquier lenguaje...
+
+00:00:21.476 --> 00:00:26.526 align:middle
+tiene la misma labor principal: brindarte
+un sistema de ruteo -> controlador:
+
+00:00:26.906 --> 00:00:29.776 align:middle
+un sistema de dos pasos para construir páginas.
+
+00:00:30.576 --> 00:00:38.356 align:middle
+La ruta define la URL de la página y en él controlador
+es donde escribimos código PHP para construir
+
+00:00:38.356 --> 00:00:41.496 align:middle
+esa página, como HTML ó JSON.
+
+00:00:42.226 --> 00:00:44.526 align:middle
+Abre config/routes.yaml.
+
+00:00:45.666 --> 00:00:48.156 align:middle
+Mira! ya tenemos un ejemplo!
+
+00:00:49.016 --> 00:00:50.146 align:middle
+Descomentarízalo.
+
+00:00:51.016 --> 00:00:54.136 align:middle
+Si no te es familiar el formato YAML,
+es súper amigable:
+
+00:00:54.506 --> 00:00:59.356 align:middle
+es un formato de configuración tipo llave-valor
+que se separa mediante dos puntos.
+
+00:01:00.066 --> 00:01:01.816 align:middle
+La identación también es importante.
+
+00:01:02.826 --> 00:01:08.656 align:middle
+Esto crea una simple ruta donde la URL
+es /. El controlador apunta
+
+00:01:08.656 --> 00:01:12.076 align:middle
+a una función que va a construir esta
+página...
+
+00:01:12.596 --> 00:01:15.436 align:middle
+en realidad, esto apunta a un método de una clase.
+
+00:01:16.236 --> 00:01:20.526 align:middle
+En general, esta ruta dice: cuando el usuario
+vaya a la homepage,
+
+00:01:20.786 --> 00:01:25.416 align:middle
+por favor ejecuta el método index de la
+clase DefaultController.
+
+00:01:26.066 --> 00:01:29.816 align:middle
+Ah, y puedes ignorar esa llave index
+que está al principio del archivo
+
+00:01:30.106 --> 00:01:32.186 align:middle
+es solo el nombre interno de la ruta...
+
+00:01:32.186 --> 00:01:34.216 align:middle
+y aun no es importante.
+
+00:01:34.966 --> 00:01:38.746 align:middle
+El proyecto que estamos construyendo se llama
+"Cauldron Overflow".
+
+00:01:39.306 --> 00:01:44.166 align:middle
+Originalmente queríamos crear un sitio donde
+los desarrolladores puedan hacer preguntas
+
+00:01:44.416 --> 00:01:47.106 align:middle
+y otros desarrolladores pudieran responderlas
+pero...
+
+00:01:47.336 --> 00:01:49.006 align:middle
+alguien ya nos ganó...
+
+00:01:49.326 --> 00:01:51.046 align:middle
+hace como... unos 10 años.
+
+00:01:51.466 --> 00:01:55.646 align:middle
+así como cualquier otro impresionante startup, estamos
+pivoteando!
+
+00:01:56.386 --> 00:02:00.516 align:middle
+Hemos notado que muchos magos accidentalmente
+se han hecho explotar...
+
+00:02:01.166 --> 00:02:05.376 align:middle
+o invocan dragones que exhalan fuego
+cuando en realidad querían
+
+00:02:05.406 --> 00:02:08.766 align:middle
+crear una pequeña fogata para azar
+malvaviscos.
+
+00:02:09.496 --> 00:02:15.996 align:middle
+así que... Cauldron Overflow está aquí para
+convertirse en el lugar donde magos y hechiceros
+
+00:02:15.996 --> 00:02:19.686 align:middle
+pueden preguntar y responder sobre desventuras
+mágicas.
+
+00:02:20.456 --> 00:02:25.126 align:middle
+En la homepage, eventualmente vamos a
+listar algunas de las preguntas más recientes.
+
+00:02:25.476 --> 00:02:30.866 align:middle
+Asi que vamos a cambiar la clase del controlador
+a QuestionController y el método a homepage.
+
+00:02:31.846 --> 00:02:38.436 align:middle
+Ok, la ruta está lista: define la URL y apunta
+al controlador que va a construir la página.
+
+00:02:39.306 --> 00:02:42.236 align:middle
+Ahora... necesitamos crear ese controlador!
+
+00:02:42.996 --> 00:02:46.666 align:middle
+Dentro del directorio src/ ya existe el
+directorio Controller/
+
+00:02:46.896 --> 00:02:47.946 align:middle
+pero está vacío.
+
+00:02:48.696 --> 00:02:52.096 align:middle
+Haré click derecho aquí y seleccionaré
+"Nueva clase PHP".
+
+00:02:52.536 --> 00:02:54.196 align:middle
+Llamalo QuestionController.
+
+00:02:55.006 --> 00:02:56.146 align:middle
+Ooh, mira esto.
+
+00:02:56.576 --> 00:02:58.816 align:middle
+El namespace ya está ahí!
+
+00:02:59.096 --> 00:03:00.656 align:middle
+Sorprendente!
+
+00:03:01.086 --> 00:03:06.296 align:middle
+Esto es gracias a la configuración de Composer
+en el PhpStorm que agregamos en el último capítulo.
+
+00:03:07.206 --> 00:03:13.316 align:middle
+Así está la cosa: cada clase que creamos dentro
+del directorio src/ va a requerir un namespace.
+
+00:03:13.706 --> 00:03:16.766 align:middle
+y... por alguna razón que no es muy importante,
+
+00:03:17.036 --> 00:03:22.636 align:middle
+el namespace debe iniciar con App\ y continuar
+con el nombre del directorio donde vive el archivo.
+
+00:03:23.446 --> 00:03:26.546 align:middle
+Como estamos creando este archivo dentro
+del directorio Controller,
+
+00:03:26.976 --> 00:03:30.346 align:middle
+su namespace debe ser App\Controller.
+
+00:03:30.986 --> 00:03:33.766 align:middle
+PhpStorm va a autocompletar esto siempre.
+
+00:03:34.426 --> 00:03:40.836 align:middle
+Perfecto! Ahora, porque en routes.yaml
+decidimos nombrar al método homepage,
+
+00:03:41.076 --> 00:03:44.166 align:middle
+crealo aquí: public function homepage().
+
+00:03:44.886 --> 00:03:46.986 align:middle
+y... felicitaciones!
+
+00:03:47.176 --> 00:03:53.146 align:middle
+estás dentro de una función del controlador,
+el cual algunas veces es llamado "acción"...
+
+00:03:53.286 --> 00:03:54.496 align:middle
+solo para confundirnos.
+
+00:03:55.376 --> 00:03:59.056 align:middle
+Nuestro trabajo aquí es simple: construir esa página.
+
+00:03:59.806 --> 00:04:05.456 align:middle
+Podemos escribir cualquier código para hacerlo - como
+ejecutar queries en la base de datos, cachear cosas,
+
+00:04:05.696 --> 00:04:08.926 align:middle
+realizar llamados a APIs, minar criptomonedas...
+
+00:04:09.096 --> 00:04:15.676 align:middle
+lo que sea. La única regla es que la función del controlador
+debe regresar un objeto del tipo Symfony Response.
+
+00:04:16.126 --> 00:04:18.546 align:middle
+escribe return new Response().
+
+00:04:19.246 --> 00:04:21.756 align:middle
+PhpStorm intenta autocompletar esto...
+
+00:04:21.896 --> 00:04:25.106 align:middle
+pero existen multiples clases Response en
+nuestra app.
+
+00:04:25.686 --> 00:04:30.206 align:middle
+La que queremos es la
+Symfony\Component\HttpFoundation.
+
+00:04:30.966 --> 00:04:36.946 align:middle
+HttpFoundation es una de las
+partes - o "componentes" - más importantes en Symfony.
+
+00:04:37.456 --> 00:04:39.096 align:middle
+Presiona tab para autocompletarlo.
+
+00:04:39.636 --> 00:04:41.556 align:middle
+Pero detente! Viste eso?
+
+00:04:42.166 --> 00:04:47.406 align:middle
+Como dejamos que PhpStorm autocompletara
+esa clase por nosotros, escribió Response,
+
+00:04:47.576 --> 00:04:52.436 align:middle
+pero también agregó la declaración de esa
+clase al principio del archivo!
+
+00:04:52.756 --> 00:04:58.486 align:middle
+Esa es una de las mejores funciones de PhpStorm
+y lo utilizaré bastante.
+
+00:04:58.896 --> 00:05:04.056 align:middle
+Me verás constantement escribir una clase
+y dejar que PhpStorm la autocomplete.
+
+00:05:04.346 --> 00:05:08.016 align:middle
+para que agregue la declaración en el archivo
+por mi.
+
+00:05:08.666 --> 00:05:14.396 align:middle
+Dentro de new Response(), agrega algo de texto:
+Pero qué controlador tan embrujado hemos conjurado!
+
+00:05:15.206 --> 00:05:16.266 align:middle
+Y... listo!
+
+00:05:16.676 --> 00:05:18.836 align:middle
+Acabamos de crear nuestra primera página!
+
+00:05:19.506 --> 00:05:20.116 align:middle
+Vamos a probarla!
+
+00:05:20.866 --> 00:05:24.606 align:middle
+Cuando vamos a la homepage, debería ejecutar
+nuestra función del controlador...
+
+00:05:24.966 --> 00:05:26.226 align:middle
+la cual regresa el mensaje.
+
+00:05:26.876 --> 00:05:27.606 align:middle
+Encuentra tu navegador.
+
+00:05:28.006 --> 00:05:29.446 align:middle
+Ya estamos en la homepage...
+
+00:05:29.576 --> 00:05:30.936 align:middle
+así que solo refresca.
+
+00:05:32.196 --> 00:05:34.776 align:middle
+Saluda a nuestra primerísima página.
+
+00:05:35.246 --> 00:05:41.786 align:middle
+Lo sé, no hay mucho que ver aun, pero acabamos
+de cubrir la parte más fundamental
+
+00:05:41.786 --> 00:05:44.496 align:middle
+de Symfony: el sistema ruta-controlador.
+
+00:05:45.316 --> 00:05:50.216 align:middle
+A continuación, hagamos nuestra ruta más
+elegante al usar algo llamado anotaciones.
+
+00:05:50.886 --> 00:05:55.396 align:middle
+También vamos a crear una segunda página con
+una ruta que utiliza comodines.
+
