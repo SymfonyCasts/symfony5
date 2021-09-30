@@ -1,5 +1,5 @@
 diff --git a/src/Factory/TagFactory.php b/src/Factory/TagFactory.php
-index db258755..913f16cc 100644
+index db258755..045cb375 100644
 --- a/src/Factory/TagFactory.php
 +++ b/src/Factory/TagFactory.php
 @@ -38,10 +38,8 @@ final class TagFactory extends ModelFactory
@@ -10,7 +10,7 @@ index db258755..913f16cc 100644
 -            'name' => self::faker()->text(),
 -            'createdAt' => null, // TODO add DATETIME ORM type manually
 -            'updatedAt' => null, // TODO add DATETIME ORM type manually
-+            'name' => self::faker()->word,
++            'name' => self::faker()->word(),
 +            'createdAt' => self::faker()->dateTimeBetween('-1 year'),
          ];
      }
