@@ -95,7 +95,7 @@ class Question
         return $this;
     }
 
-    public function getVotes(): ?int
+    public function getVotes(): int
     {
         return $this->votes;
     }
