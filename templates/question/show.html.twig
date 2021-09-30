@@ -1,5 +1,6 @@
 {% extends 'base.html.twig' %}
 
+{% block body %}
 <h1>{{ question }}</h1>
 
 {# oh, I'm just a comment hiding here #}
@@ -15,4 +16,5 @@
         <li>{{ answer }}</li>
     {% endfor %}
 </ul>
+{% endblock %}
 
