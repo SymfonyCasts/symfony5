@@ -1,8 +1,8 @@
 diff --git a/src/DataFixtures/AppFixtures.php b/src/DataFixtures/AppFixtures.php
-index 85c5aa02..70f488cb 100644
+index 00f2e3a7..cc695897 100644
 --- a/src/DataFixtures/AppFixtures.php
 +++ b/src/DataFixtures/AppFixtures.php
-@@ -41,8 +41,8 @@ class AppFixtures extends Fixture
+@@ -40,8 +40,8 @@ class AppFixtures extends Fixture
          $tag2 = new Tag();
          $tag2->setName('monster trucks');
  
