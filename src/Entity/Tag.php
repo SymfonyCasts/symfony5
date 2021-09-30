@@ -66,7 +66,7 @@ class Tag
     {
         if (!$this->questions->contains($question)) {
             $this->questions[] = $question;
-            //$question->addTag($this);
+            $question->addTag($this);
         }
 
         return $this;
