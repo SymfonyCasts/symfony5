@@ -1,0 +1,380 @@
+WEBVTT
+
+00:00:01.156 --> 00:00:03.776 align:middle
+Muy bien: Así es como funciona todo esto.
+
+00:00:04.036 --> 00:00:10.326 align:middle
+La receta agregó una nuevo directorio assets/
+con un par de archivos CSS y JS como ejemplo.
+
+00:00:11.166 --> 00:00:16.416 align:middle
+El archivo app.js básicamente hace un
+console.log() de algo.
+
+00:00:16.596 --> 00:00:19.226 align:middle
+El app.css cambia el color del fondo a
+gris ligero.
+
+00:00:20.236 --> 00:00:25.796 align:middle
+Webpack Encore está completamente configurado
+por un solo archivo: webpack.config.js.
+
+00:00:26.196 --> 00:00:30.446 align:middle
+No hablaremos mucho sobre este archivo -
+lo vamos a guardar para el tutorial sobre Encore -
+
+00:00:30.806 --> 00:00:36.676 align:middle
+pero ya está configurado para apuntar a los
+archivos app.js y app.css:
+
+00:00:37.586 --> 00:00:39.966 align:middle
+Encore sabe que necesita procesarlos.
+
+00:00:41.136 --> 00:00:47.366 align:middle
+Para ejecutar Encore, ve a tu terminal
+y corre: yarn watch Este es un atajo
+
+00:00:47.366 --> 00:00:51.406 align:middle
+para correr yarn run encore dev -- watch.
+
+00:00:52.166 --> 00:00:53.506 align:middle
+¿Qué hace esto?
+
+00:00:53.976 --> 00:01:00.906 align:middle
+Lee esos dos archivos en assets/, hace algo
+de procesamiento, y emite una versión construida
+
+00:01:00.906 --> 00:01:04.606 align:middle
+de cada uno dentro del nuevo directorio public/build/.
+
+00:01:05.466 --> 00:01:08.126 align:middle
+Aquí está el archivo app.css ya construido...
+
+00:01:08.516 --> 00:01:11.076 align:middle
+y el archivo app.js.
+
+00:01:11.816 --> 00:01:16.336 align:middle
+Si corriéramos Encore en modo de producción
+- el cual es solamente otro comando -
+
+00:01:16.706 --> 00:01:19.116 align:middle
+minificaría el contenido de cada archivo.
+
+00:01:19.866 --> 00:01:23.796 align:middle
+Ocurren muchas otras cosas interesantes,
+pero esta es la idea básica:
+
+00:01:24.336 --> 00:01:29.946 align:middle
+ponemos el código en el directorio assets/, pero
+apuntamos a los archivos construidos en nuestros templates.
+
+00:01:29.986 --> 00:01:36.466 align:middle
+Por ejemplo, en base.html.twig, en vez de
+apuntar al viejo archivo app.css,
+
+00:01:36.696 --> 00:01:40.116 align:middle
+queremos apuntar al que está
+en el directorio build/.
+
+00:01:40.766 --> 00:01:45.156 align:middle
+Eso es muy simple, pero WebpackEncoreBundle
+tiene un atajo
+
+00:01:45.156 --> 00:01:52.386 align:middle
+para hacerlo incluso más fácil: {{
+encore_entry_link_tags() }} y pasa este "app",
+
+00:01:52.896 --> 00:01:58.276 align:middle
+porque ese es el nombre del archivo
+fuente - se le llama "entry" en el mundo de Webpack.
+
+00:01:59.226 --> 00:02:05.166 align:middle
+Abajo, agrega la etiqueta script con
+{{ encore_entry_script_tags('app') }}.
+
+00:02:06.156 --> 00:02:06.766 align:middle
+¡Vamos a probarlo!
+
+00:02:07.276 --> 00:02:08.656 align:middle
+Ve al navegador y refresca.
+
+00:02:09.456 --> 00:02:10.416 align:middle
+¿Funcionó?
+
+00:02:10.706 --> 00:02:13.296 align:middle
+¡Lo hizo! El color de fondo es gris...
+
+00:02:13.556 --> 00:02:22.176 align:middle
+y si abro la consola,
+ahí está el log: Hello Webpack Encore!
+
+00:02:23.696 --> 00:02:27.886 align:middle
+Si miras la fuente HTML,
+ahí no está ocurriendo nada especial:
+
+00:02:28.186 --> 00:02:33.976 align:middle
+tenemos una simple etiqueta link apuntando
+a /build/app.css.
+
+00:02:33.976 --> 00:02:38.076 align:middle
+Ahora que esto está funcionando, vamos a
+mover nuestro CSS hacia el nuevo sistema.
+
+00:02:38.826 --> 00:02:47.206 align:middle
+Abre public/css/app.css, copia todo esto,
+luego haz click derecho y borrar el archivo.
+
+00:02:50.026 --> 00:02:54.936 align:middle
+Ahora abre el nuevo app.css
+dentro de assets/ y pega.
+
+00:02:55.686 --> 00:02:58.116 align:middle
+Tan pronto como hago eso, cuando refresco...
+
+00:02:58.496 --> 00:03:01.786 align:middle
+¡Funciona! ¡Nuestro CSS está de vuelta!
+
+00:03:02.296 --> 00:03:09.506 align:middle
+La razón es que - si revisas tu terminal - yarn watch
+está observando a nuestros archivos por cambios.
+
+00:03:10.186 --> 00:03:15.376 align:middle
+Tan pronto modificamos el archivo app.css,
+esto vuelve a leer el archivo
+
+00:03:15.546 --> 00:03:18.896 align:middle
+y arroja una nueva versión dentro
+del directorio public/build.
+
+00:03:19.636 --> 00:03:21.816 align:middle
+Esa es la razón por la cual corremos esto
+en segundo plano.
+
+00:03:22.496 --> 00:03:25.326 align:middle
+Hagamos lo mismo para nuestro
+JavaScript particular.
+
+00:03:25.866 --> 00:03:32.396 align:middle
+Abre question_show.js y, en vez de tener un
+archivo JavaScript específico por página -
+
+00:03:32.836 --> 00:03:38.456 align:middle
+donde solo incluimos esto en nuestra página "show"
+- para mantener las cosas simples, voy a poner esto
+
+00:03:38.526 --> 00:03:43.576 align:middle
+dentro del nuevo app.js, el cual es
+cargado en cada página.
+
+00:03:44.326 --> 00:03:48.016 align:middle
+Luego ve a borrar el directorio public/js/
+completamente...
+
+00:03:48.656 --> 00:03:50.346 align:middle
+y public/css/.
+
+00:03:51.776 --> 00:03:59.826 align:middle
+También abre templates/question/show.html.twig
+y, al final, remueve la vieja etiqueta script.
+
+00:04:00.926 --> 00:04:04.956 align:middle
+Con algo de suerte, Encore ya reconstruyó mi app.js.
+
+00:04:05.066 --> 00:04:12.216 align:middle
+Asi que si damos click para ver una pregunta -
+Voy a refrescar solo para estar seguros - y...
+
+00:04:12.216 --> 00:04:13.486 align:middle
+da click en los íconos para votar.
+
+00:04:14.926 --> 00:04:18.096 align:middle
+¡Si! Todavía funciona.
+
+00:04:18.096 --> 00:04:22.356 align:middle
+Ya que estamos usando Encore, existen algunas
+cosas muy interesantes que podemos hacer.
+
+00:04:22.966 --> 00:04:29.686 align:middle
+Esta es una: en vez de enlazar a una CDN o
+descargar jQuery directamente en nuestro proyecto
+
+00:04:29.686 --> 00:04:36.786 align:middle
+y agregarlo al commit, podemos importar jQuery e
+instalarlo en nuestro directorio node_modules/...
+
+00:04:37.276 --> 00:04:43.716 align:middle
+lo cual es exactamente como lo haríamos en PHP:
+Instalamos una librería pública
+
+00:04:43.716 --> 00:04:46.996 align:middle
+dentro de vendor/ en vez de descargarla
+manualmente.
+
+00:04:47.776 --> 00:04:52.946 align:middle
+Para hacer eso, abre una nueva terminal
+y corre: yarn add jquery --
+
+00:04:52.946 --> 00:05:01.456 align:middle
+dev Esto es lo equivalente a correr el comando
+composer require: Agrega jquery al archivo package.json
+
+00:05:01.716 --> 00:05:04.556 align:middle
+y lo descarga dentro de node_modules/.
+
+00:05:05.106 --> 00:05:07.406 align:middle
+La parte -- dev no es importante.
+
+00:05:08.686 --> 00:05:14.836 align:middle
+Después, dentro de base.html.twig, remueve
+por completo jQuery del layout.
+
+00:05:14.836 --> 00:05:18.326 align:middle
+Si regresas a tu navegador y refrescas la
+página ahora...
+
+00:05:23.226 --> 00:05:28.356 align:middle
+Está completamente roto: $ no está
+definido... Viniendo de app.js.
+
+00:05:29.366 --> 00:05:34.486 align:middle
+Eso tiene sentido: Solamente descargamos
+jQuery en nuestro directorio node_modules -
+
+00:05:35.166 --> 00:05:39.786 align:middle
+aquí puedes encontrar un directorio llamado
+jquery - pero aún no lo estamos usando.
+
+00:05:40.556 --> 00:05:42.786 align:middle
+¿Cómo lo utilizamos?
+
+00:05:42.786 --> 00:05:49.036 align:middle
+Dentro de app.js, descomentariza la línea del
+import: import $ from 'jquery'.
+
+00:05:49.606 --> 00:05:55.796 align:middle
+Esto "carga" el paquete jquery que instalamos
+y lo asigna a la variable $.
+
+00:05:56.356 --> 00:06:01.416 align:middle
+Todas esas variables $ de más abajo están haciendo
+referencia al valor que importamos.
+
+00:06:02.346 --> 00:06:12.076 align:middle
+Esta es la parte realmente interesante: sin hacer
+ningún otro cambio, cuando refrescamos, ¡Funciona!
+
+00:06:12.666 --> 00:06:16.016 align:middle
+Webpack se dio cuenta que estamos importando jquery
+
+00:06:16.386 --> 00:06:22.006 align:middle
+y automáticamente lo empaquetó dentro
+del archivo app.js final.
+
+00:06:22.536 --> 00:06:26.226 align:middle
+Importamos las cosas que necesitamos,
+y Webpack se encarga de...
+
+00:06:26.486 --> 00:06:27.916 align:middle
+empaquetar todo.
+
+00:06:28.796 --> 00:06:32.046 align:middle
+Podemos hacer lo mismo para el CSS de Boostrap.
+
+00:06:32.046 --> 00:06:36.356 align:middle
+En base.html.twig, arriba, elimina
+la etiqueta que enlaza a Bootstrap.
+
+00:06:37.416 --> 00:06:41.776 align:middle
+Nada nuevo, cuando refrescamos,
+nuestro sitio se ve terrible.
+
+00:06:41.776 --> 00:06:48.156 align:middle
+Para arreglarlo, encuentra tu terminal
+y corre: yarn add bootstrap --
+
+00:06:48.156 --> 00:06:53.236 align:middle
+dev Esto descarga el paquete de bootstrap
+dentro de node_modules/.
+
+00:06:53.806 --> 00:06:57.386 align:middle
+Este paquete contiene ambos JavaScript y CSS.
+
+00:06:57.386 --> 00:06:59.176 align:middle
+Queremos activar el CSS.
+
+00:06:59.866 --> 00:07:07.356 align:middle
+Para hacerlo, abre app.css y, en la parte de arriba,
+utiliza la vieja y confiable sintaxis @import.
+
+00:07:07.356 --> 00:07:11.136 align:middle
+Dentro de las comillas, escribe ~bootstrap.
+
+00:07:11.696 --> 00:07:17.146 align:middle
+En CSS, la ~ es una forma especial de decir
+que quieres cargar el CSS
+
+00:07:17.196 --> 00:07:20.926 align:middle
+del paquete de bootstrap dentro de node_modules/.
+
+00:07:21.696 --> 00:07:23.926 align:middle
+Ve al navegador, refresca y...
+
+00:07:24.166 --> 00:07:25.836 align:middle
+estamos de vuelta!
+
+00:07:26.366 --> 00:07:30.916 align:middle
+Webpack vio el import, tomó el CSS
+del paquete de bootstrap,
+
+00:07:31.266 --> 00:07:34.846 align:middle
+y lo incluyó en el archivo app.css final.
+
+00:07:35.156 --> 00:07:36.296 align:middle
+¿Qué tan bueno es eso?
+
+00:07:36.966 --> 00:07:39.936 align:middle
+Esto es solo el comienzo de lo que
+Webpack Encore puede hacer.
+
+00:07:40.526 --> 00:07:45.096 align:middle
+También puede minificar tus archivos para
+producción, puede compilar código Sass o LESS,
+
+00:07:45.476 --> 00:07:51.566 align:middle
+viene con soporte para React y Vue.js, maneja
+versiones para los archivos y más.
+
+00:07:52.026 --> 00:07:55.366 align:middle
+Para aprender más, mira nuestro tutorial
+gratuito sobre Webpack Encore.
+
+00:07:55.966 --> 00:07:58.096 align:middle
+Y... ¡Eso es todo para este tutorial!
+
+00:07:58.536 --> 00:08:01.196 align:middle
+¡Felicitaciones por llegar al final junto conmigo!
+
+00:08:01.786 --> 00:08:05.126 align:middle
+Ahora ya entiendes las partes
+más importantes de Symfony.
+
+00:08:05.706 --> 00:08:10.716 align:middle
+En el siguiente tutorial, vamos a hacer crecer
+incluso aún más tu potencial de Symfony
+
+00:08:10.866 --> 00:08:14.116 align:middle
+al revelar el secreto de los servicios.
+
+00:08:14.416 --> 00:08:16.196 align:middle
+Serás imparable.
+
+00:08:16.916 --> 00:08:22.056 align:middle
+Como siempre, si tienes preguntas,
+problemas o tienes una historia divertida -
+
+00:08:22.266 --> 00:08:26.856 align:middle
+especialmente si involucra a tu gato - nos
+encantaría escuchar sobre ti en los comentarios.
+
+00:08:27.666 --> 00:08:29.196 align:middle
+Muy bien amigos - ¡Nos vemos la próxima vez!
