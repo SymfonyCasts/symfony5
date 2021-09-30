@@ -64,6 +64,7 @@
                         <p>-- {{ answer.username }}</p>
                     </div>
                     <div class="col-2 text-end">
+                        <small>{{ answer.createdAt|ago }}</small>
                         <div
                             class="vote-arrows"
                             {{ stimulus_controller('answer-vote', {
