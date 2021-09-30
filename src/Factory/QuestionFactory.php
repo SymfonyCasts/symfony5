@@ -36,7 +36,7 @@ opening the front door and walking out! I've been out all afternoon
 Does anyone have a spell to call your pants back?
 EOF
             ,
-            'askedAt' => rand(1, 10) > 2 ? self::faker()->dateTimeBetween('-100 days', '-1 days') : null,
+            'askedAt' => rand(1, 10) > 2 ? self::faker()->dateTimeBetween('-100 days', '-1 minute') : null,
             'votes' => rand(-20, 50),
         ];
     }
