@@ -29,6 +29,14 @@ class QuestionController extends AbstractController
     }
 
     /**
+     * @Route("/questions/new")
+     */
+    public function new()
+    {
+        return new Response('Time for some Doctrine magic!');
+    }
+
+    /**
      * @Route("/questions/{slug}", name="app_question_show")
      */
     public function show($slug, MarkdownHelper $markdownHelper)
@@ -51,13 +59,5 @@ class QuestionController extends AbstractController
             'questionText' => $parsedQuestionText,
             'answers' => $answers,
         ]);
-    }
-
-    /**
-     * @Route("/questions/new")
-     */
-    public function new()
-    {
-        return new Response('Time for some Doctrine magic!');
     }
 }
