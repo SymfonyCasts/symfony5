@@ -63,10 +63,28 @@
                         {{ answer|parse_markdown }}
                         <p>-- Mallory</p>
                     </div>
-                    <div class="vote-arrows flex-fill pt-2 js-vote-arrows" style="min-width: 90px;">
-                        <button class="vote-up btn btn-link" name="direction" value="up"><i class="far fa-arrow-alt-circle-up"></i></button>
-                        <button class="vote-down btn btn-link" name="direction" value="down"><i class="far fa-arrow-alt-circle-down"></i></button>
-                        <span>+ <span class="js-vote-total">6</span></span>
+                    <div
+                        class="vote-arrows flex-fill pt-2"
+                        style="min-width: 90px;"
+                        {{ stimulus_controller('answer-vote', {
+                            url: path('answer_vote', {
+                                id: 10
+                            })
+                        }) }}
+                    >
+                        <button
+                            class="vote-up btn btn-link"
+                            name="direction"
+                            value="up"
+                            {{ stimulus_action('answer-vote', 'clickVote') }}
+                        ><i class="far fa-arrow-alt-circle-up"></i></button>
+                        <button
+                            class="vote-down btn btn-link"
+                            name="direction"
+                            value="down"
+                            {{ stimulus_action('answer-vote', 'clickVote') }}
+                        ><i class="far fa-arrow-alt-circle-down"></i></button>
+                        <span>+ <span {{ stimulus_target('answer-vote', 'voteTotal') }}>6</span></span>
                     </div>
                 </div>
             </li>
