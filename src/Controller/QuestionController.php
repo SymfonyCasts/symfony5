@@ -55,7 +55,9 @@ class QuestionController extends AbstractController
         }
 
         $answers = $question->getAnswers();
-        dd($answers);
+        foreach ($answers as $answer) {
+            dump($answer);
+        }
 
         $answers = [
             'Make sure your cat is sitting `purrrfectly` still 🤣',
