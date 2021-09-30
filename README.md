@@ -42,6 +42,7 @@ Next, build the database and execute the migrations with:
 # but its aware of your database container
 symfony console doctrine:database:create
 symfony console doctrine:migrations:migrate
+symfony console doctrine:fixtures:load
 ```
 
 (If you get an error about "MySQL server has gone away", just wait
