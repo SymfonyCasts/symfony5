@@ -27,6 +27,7 @@
         "twig/twig": "^2.12|^3.0"
     },
     "require-dev": {
+        "doctrine/doctrine-fixtures-bundle": "^3.3",
         "symfony/debug-bundle": "5.1.*",
         "symfony/maker-bundle": "^1.15",
         "symfony/var-dumper": "5.1.*",
