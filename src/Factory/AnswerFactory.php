@@ -38,11 +38,10 @@ final class AnswerFactory extends ModelFactory
     protected function getDefaults(): array
     {
         return [
-            // TODO add your default values here (https://symfony.com/bundles/ZenstruckFoundryBundle/current/index.html#model-factories)
             'content' => self::faker()->text(),
-            'username' => self::faker()->text(),
-            'createdAt' => null, // TODO add DATETIME ORM type manually
-            'updatedAt' => null, // TODO add DATETIME ORM type manually
+            'username' => self::faker()->userName(),
+            'createdAt' => self::faker()->dateTimeBetween('-1 year'),
+            'votes' => rand(-20, 50),
         ];
     }
 
