@@ -27,6 +27,17 @@ class AppFixtures extends Fixture
             ];
         });
 
+        $question = QuestionFactory::createOne();
+        $answer1 = new Answer();
+        $answer1->setContent('answer 1');
+        $answer1->setUsername('weaverryan');
+        $answer2 = new Answer();
+        $answer2->setContent('answer 1');
+        $answer2->setUsername('weaverryan');
+
+        $manager->persist($answer1);
+        $manager->persist($answer2);
+
         $manager->flush();
     }
 }
