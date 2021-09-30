@@ -1,0 +1,369 @@
+WEBVTT
+
+00:00:01.086 --> 00:00:05.106 align:middle
+Estamos teniendo un muy buen progreso -
+Deberías estar orgulloso!
+
+00:00:05.726 --> 00:00:15.156 align:middle
+Veamos qué archivos hemos modificado:
+Agrega todo. Y haz commit, Porque ahora quiero
+
+00:00:15.156 --> 00:00:19.246 align:middle
+instalar una de mis herramientas de symfony
+favoritas.
+
+00:00:19.876 --> 00:00:24.746 align:middle
+Corre: composer require profiler
+-- dev. Estoy usando --dev
+
+00:00:24.836 --> 00:00:27.586 align:middle
+porque el profiler es una herramienta
+
+00:00:27.586 --> 00:00:32.156 align:middle
+que sólo necesitaremos mientras estamos en
+desarrollo: No será usada en producción.
+
+00:00:32.606 --> 00:00:37.176 align:middle
+Esto significa que Composer lo agrega a
+la sección require-dev de composer.json.
+
+00:00:37.176 --> 00:00:41.956 align:middle
+No es tan importante, pero es la
+forma correcta de hacerlo.
+
+00:00:41.956 --> 00:00:47.776 align:middle
+Y... en este punto, no debería sorprendernos
+que esto ha instalado una receta!
+
+00:00:48.416 --> 00:00:51.076 align:middle
+Corre: git status. Oh, wow!
+
+00:00:51.586 --> 00:00:53.396 align:middle
+Agregó tres archivos de configuración.
+
+00:00:53.966 --> 00:00:56.986 align:middle
+Gracias a éstos, el módulo
+funcionará al instante.
+
+00:00:57.596 --> 00:01:00.526 align:middle
+Pruébalo: de vuelta a tu navegador, refresca la página.
+
+00:01:01.206 --> 00:01:03.766 align:middle
+Saluda a la barra de herramientas debug!
+
+00:01:04.236 --> 00:01:06.496 align:middle
+La dichosa barrita en la parte inferior.
+
+00:01:07.106 --> 00:01:11.316 align:middle
+Ahora esto aparecerá en cada
+página HTML mientras estamos desarrollando.
+
+00:01:11.806 --> 00:01:18.556 align:middle
+Nos muestra el código de status, cuál controlador
+y ruta usamos, velocidad, memoria, llamadas Twig
+
+00:01:18.626 --> 00:01:23.406 align:middle
+e incluso más íconos aparecerán a medida
+que empezamos a usar más partes de symfony.
+
+00:01:23.406 --> 00:01:27.146 align:middle
+La mejor parte es que puedes hacer click
+en cualquier de estos íconos para saltar...
+
+00:01:27.446 --> 00:01:28.546 align:middle
+al profiler.
+
+00:01:29.266 --> 00:01:35.516 align:middle
+Esta es básicamente la version expandida de
+la barra de herramientas y está llena de información
+
+00:01:35.516 --> 00:01:40.086 align:middle
+sobre la carga de la página, incluyendo
+la información del request, response
+
+00:01:40.626 --> 00:01:43.316 align:middle
+e incluso una maravillosa pestaña de performance.
+
+00:01:43.516 --> 00:01:46.996 align:middle
+Esta no solo es una buena manera
+de hacer un debug del performance
+
+00:01:46.996 --> 00:01:49.596 align:middle
+de tu aplicación, también es una gran manera...
+
+00:01:49.996 --> 00:01:53.056 align:middle
+de simplemente entender qué está sucediendo
+dentro de Symfony.
+
+00:01:54.416 --> 00:01:56.906 align:middle
+Hay otras secciones
+para Twig, configuración,
+
+00:01:57.056 --> 00:02:02.126 align:middle
+cacheo y eventualmente habrá una pestaña
+para ver las queries a la base de datos.
+
+00:02:02.886 --> 00:02:08.716 align:middle
+A propósito, esto no es solo para páginas
+HTML: también puedes acceder al profiler
+
+00:02:08.716 --> 00:02:11.426 align:middle
+para las llamadas AJAX que haces a tu app.
+
+00:02:11.866 --> 00:02:13.246 align:middle
+Te mostraré cómo más adelante.
+
+00:02:13.806 --> 00:02:17.686 align:middle
+Cuando instalamos el profiler, también
+obtuvimos otra herramienta útil llamada dump().
+
+00:02:18.266 --> 00:02:20.496 align:middle
+Haré click en atrás un par de veces para ir a la página.
+
+00:02:21.046 --> 00:02:25.856 align:middle
+Abre el controlador:
+src/Controller/QuestionController.php.
+
+00:02:25.856 --> 00:02:28.176 align:middle
+Imagina que queremos ver una variable.
+
+00:02:28.486 --> 00:02:30.366 align:middle
+Normalmente, usaría var_dump().
+
+00:02:30.876 --> 00:02:35.806 align:middle
+En vez de ello, usa dump() y vamos a
+imprimir el $slug y...
+
+00:02:35.926 --> 00:02:38.936 align:middle
+qué tal el propio objeto $this.
+
+00:02:38.936 --> 00:02:41.586 align:middle
+Cuando refrescamos, órale!
+
+00:02:42.146 --> 00:02:45.046 align:middle
+Funciona exactamente como var_dump() excepto...
+
+00:02:45.046 --> 00:02:47.366 align:middle
+muchísimo más bello y útil.
+
+00:02:48.086 --> 00:02:51.186 align:middle
+El controlador aparentemente
+tiene una propiedad llamada container...
+
+00:02:51.336 --> 00:02:53.946 align:middle
+y podemos ir más y más profundo.
+
+00:02:56.406 --> 00:02:57.976 align:middle
+Y si eres muy haragán...
+
+00:02:58.176 --> 00:02:59.246 align:middle
+Cómo la mayoría de nosotros lo es...
+
+00:02:59.666 --> 00:03:03.936 align:middle
+también puedes usar dd() lo cual
+significa dump() y luego die().
+
+00:03:04.696 --> 00:03:05.866 align:middle
+Ahora cuando refrescamos...
+
+00:03:06.666 --> 00:03:08.706 align:middle
+hace el dump, pero también termina la ejecución en la página.
+
+00:03:09.286 --> 00:03:13.076 align:middle
+Hemos perfeccionado el desarrollo
+basado en dump-and-die
+
+00:03:13.076 --> 00:03:14.646 align:middle
+Creo que deberíamos estar orgullosos?
+
+00:03:15.626 --> 00:03:16.696 align:middle
+Cámbialo de vuelta a dump()...
+
+00:03:16.956 --> 00:03:18.976 align:middle
+y sólo hagamos dump($this).
+
+00:03:20.146 --> 00:03:23.526 align:middle
+Hay otra librería que podemos
+instalar para herramientas de debug.
+
+00:03:23.876 --> 00:03:26.326 align:middle
+Esta es menos importante - pero de todas
+formas buena para tener en cuenta.
+
+00:03:26.626 --> 00:03:32.426 align:middle
+En tu terminal, corre: composer require
+debug Esta vez no estoy usando -- dev
+
+00:03:32.616 --> 00:03:36.766 align:middle
+porque esto instalará algo que sí
+quiero en producción.
+
+00:03:37.426 --> 00:03:41.056 align:middle
+Esto instala el DebugBundle - eso no es
+algo que necesitemos en producción -
+
+00:03:41.056 --> 00:03:44.996 align:middle
+pero también instala Monolog, que es
+una librería de logueo.
+
+00:03:45.426 --> 00:03:48.246 align:middle
+Y probablemente sí querramos loguear
+cosas en producción.
+
+00:03:48.246 --> 00:03:52.286 align:middle
+Antes de hablar de lo que esto
+nos dió, hecha un vistazo al nombre
+
+00:03:52.286 --> 00:03:55.426 align:middle
+del paquete que instaló: debug-pack.
+
+00:03:55.916 --> 00:04:01.376 align:middle
+Esta no es la primera vez que hemos instalado
+una librería con "pack" en su nombre.
+
+00:04:01.376 --> 00:04:07.356 align:middle
+Un "pack" es un concepto especial en Symfony: Es
+como un tipo de paquete "falso" cuya única función es
+
+00:04:07.356 --> 00:04:10.106 align:middle
+ayudar a instalar varios paquetes al mismo tiempo.
+
+00:04:10.716 --> 00:04:13.966 align:middle
+Echale un vistazo: copia el nombre del
+paquete, busca tu navegador,
+
+00:04:14.316 --> 00:04:18.206 align:middle
+y ve a https://github.com/symfony/debug-pack.
+
+00:04:18.926 --> 00:04:22.526 align:middle
+Orale! No es nada más que un
+archivo composer.json!
+
+00:04:23.076 --> 00:04:27.266 align:middle
+Esto nos da una manera fácil de
+instalar solo este paquete...
+
+00:04:27.266 --> 00:04:30.346 align:middle
+pero en realidad obtener todas estas librerías.
+
+00:04:30.946 --> 00:04:33.906 align:middle
+Así que gracias a esto, tenemos dos nuevas
+cosas en nuestra aplicación.
+
+00:04:33.946 --> 00:04:35.786 align:middle
+La primera es un logguer!
+
+00:04:35.786 --> 00:04:37.506 align:middle
+Si refrescamos la página...
+
+00:04:37.706 --> 00:04:42.696 align:middle
+y hacemos click en el profiler,
+tenemos la sección "Logs"
+
+00:04:42.696 --> 00:04:45.346 align:middle
+que nos muestra todos los logs para este request.
+
+00:04:46.316 --> 00:04:49.726 align:middle
+Estos también son guardados en
+el archivo var/log/dev.log
+
+00:04:50.816 --> 00:04:52.656 align:middle
+La segunda cosa nueva en nuestra aplicación es...
+
+00:04:52.926 --> 00:04:57.996 align:middle
+bueno... si miraste atentamente,
+el dump() desapareció de la página!
+
+00:04:58.576 --> 00:05:02.716 align:middle
+El DebugBundle integra la función dump()
+incluso más dentro de Symfony.
+
+00:05:03.376 --> 00:05:07.266 align:middle
+Ahora si usamos dump(), en vez de
+imprimirlo en la mitad de la página,
+
+00:05:07.446 --> 00:05:09.886 align:middle
+lo pone aquí abajo en la barra de herramientas debug.
+
+00:05:10.376 --> 00:05:12.146 align:middle
+Puedes hacer click en ella para
+ver una versión más grande.
+
+00:05:12.696 --> 00:05:14.126 align:middle
+No es tan importante...
+
+00:05:14.126 --> 00:05:19.776 align:middle
+Es solo otro ejemplo de cómo Symfony
+se vuelve más listo a medida que instalas más cosas.
+
+00:05:19.776 --> 00:05:21.066 align:middle
+Oh, ya que estamos hablando de ello,
+
+00:05:21.336 --> 00:05:24.976 align:middle
+el DebugBundle nos dió un nuevo
+comando de la consola.
+
+00:05:25.456 --> 00:05:30.956 align:middle
+En tu terminal, corre: php bin/console
+server:dump Esto inicia un pequeño servidor
+
+00:05:30.956 --> 00:05:31.666 align:middle
+detrás de escena.
+
+00:05:34.436 --> 00:05:39.456 align:middle
+Ahora, siempre que se ejecute dump() en nuestro
+código, aún se muestra en nuestra barra de herramientas...
+
+00:05:40.096 --> 00:05:43.056 align:middle
+Pero también se imprime en la terminal!
+
+00:05:43.616 --> 00:05:48.226 align:middle
+Esa es una excelente manera de ver
+información pedida en los requests de AJAX.
+
+00:05:48.276 --> 00:05:50.126 align:middle
+Presionaré Control-C para detenerlo.
+
+00:05:51.246 --> 00:05:55.366 align:middle
+Oh, y hablando de estos "packs",
+si abres el archivo composer.json,
+
+00:05:55.656 --> 00:06:01.456 align:middle
+el único problema con los packs es que
+aquí sólo vemos debug-pack version 1.0:
+
+00:06:01.906 --> 00:06:05.146 align:middle
+no podemos controlar las versiones
+de los paquetes de dentro.
+
+00:06:05.486 --> 00:06:08.066 align:middle
+Simplemente obtienes cualquiera que sea
+la versión que el pack solicita.
+
+00:06:08.146 --> 00:06:10.986 align:middle
+Si necesitas mas control, no hay problema...
+
+00:06:11.266 --> 00:06:17.436 align:middle
+Sólo extrae el pack: composer
+unpack symfony/debug-pack
+
+00:06:17.876 --> 00:06:23.166 align:middle
+Eso hace exactamente lo que esperas: quita
+debug-pack de composer.json
+
+00:06:23.466 --> 00:06:28.296 align:middle
+y agrega los paquetes subyacentes,
+como debug-bundle y monolog.
+
+00:06:29.276 --> 00:06:32.576 align:middle
+Ah, y como el profiler-pack es una dependencia
+
+00:06:32.576 --> 00:06:35.306 align:middle
+del debug-pack, está en ambos lugares.
+
+00:06:35.676 --> 00:06:38.286 align:middle
+Removeré el extra del require.
+
+00:06:39.366 --> 00:06:44.616 align:middle
+A continuación, hagamos nuestro sitio más bello
+incluyendo CSS en nuestra aplicación.
