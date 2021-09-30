@@ -35,6 +35,9 @@ class AppFixtures extends Fixture
         $answer2->setContent('answer 1');
         $answer2->setUsername('weaverryan');
 
+        $question->addAnswer($answer1);
+        $question->addAnswer($answer2);
+
         $manager->persist($answer1);
         $manager->persist($answer2);
 
