@@ -31,7 +31,8 @@
         "symfony/debug-bundle": "5.1.*",
         "symfony/maker-bundle": "^1.15",
         "symfony/var-dumper": "5.1.*",
-        "symfony/web-profiler-bundle": "5.1.*"
+        "symfony/web-profiler-bundle": "5.1.*",
+        "zenstruck/foundry": "^1.1"
     },
     "config": {
         "preferred-install": {

@@ -96,6 +96,9 @@
     "doctrine/sql-formatter": {
         "version": "1.1.0"
     },
+    "fakerphp/faker": {
+        "version": "v1.13.0"
+    },
     "friendsofphp/proxy-manager-lts": {
         "version": "v1.0.3"
     },
@@ -118,7 +121,7 @@
         "version": "v1.11.0"
     },
     "laminas/laminas-code": {
-        "version": "3.5.1"
+        "version": "4.0.0"
     },
     "laminas/laminas-eventmanager": {
         "version": "3.3.0"
@@ -322,6 +325,9 @@
     "symfony/http-kernel": {
         "version": "v5.0.4"
     },
+    "symfony/inflector": {
+        "version": "v5.1.2"
+    },
     "symfony/maker-bundle": {
         "version": "1.0",
         "recipe": {
@@ -372,6 +378,12 @@
     },
     "symfony/polyfill-uuid": {
         "version": "v1.15.0"
+    },
+    "symfony/property-access": {
+        "version": "v5.1.2"
+    },
+    "symfony/property-info": {
+        "version": "v5.1.2"
     },
     "symfony/psr-http-message-bridge": {
         "version": "2.1",
@@ -491,5 +503,8 @@
     },
     "twig/twig": {
         "version": "v3.0.1"
+    },
+    "zenstruck/foundry": {
+        "version": "v1.1.0"
     }
 }
