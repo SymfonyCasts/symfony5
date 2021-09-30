@@ -1,6 +1,6 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Question: {{ question }}{% endblock %}
+{% block title %}Question: {{ question.name }}{% endblock %}
 
 {% block body %}
 <div class="container">
@@ -26,10 +26,10 @@
                             </div>
                         </div>
                         <div class="col">
-                            <h1 class="q-title-show">{{ question }}</h1>
+                            <h1 class="q-title-show">{{ question.name }}</h1>
                             <div class="q-display p-3">
                                 <i class="fa fa-quote-left mr-3"></i>
-                                <p class="d-inline">{{ questionText|raw }}</p>
+                                <p class="d-inline">{{ question.question }}</p>
                                 <p class="pt-4"><strong>--Tisha</strong></p>
                             </div>
                         </div>
