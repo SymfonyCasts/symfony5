@@ -21,10 +21,16 @@ share the same question, you might have *less* than 11 queries - but it's still
 not great.
 
 This is a classic problem that's *really* easy to trigger when using a nice system
-like Doctrine. In `AnswerController`, we simply query for the answers. Then, as
-we loop over them and render `_answer.html.twig`, we innocently render
-`answer.questionText` and `answer.question.slug`. It doesn't look like much, but
-*those* lines trigger an extra query.
+like Doctrine. In `AnswerController`, we simply query for the answers. 
+
+[[[ code('75517f9480') ]]]
+
+Then, as we loop over them and render `_answer.html.twig`, we innocently render
+`answer.questionText` and `answer.question.slug`. 
+
+[[[ code('53b214d98c') ]]]
+
+It doesn't look like much, but *those* lines trigger an extra query.
 
 The point is: we end up with a lot of queries on this page and, in theory, we
 shouldn't need so many! Let's think: in a normal database, how would we solve
@@ -37,6 +43,8 @@ Yup, one query to return both the answer *and* question data.
 Can we add a join with Doctrine? Of course! Head over to `AnswerRepository`,
 to the `findMostPopular()` method. It's this simple: `->innerJoin()` passing
 this `answer.question` and then `question`.
+
+[[[ code('1bf87ff746') ]]]
 
 Remember: `answer` is the alias we're using for our `Answer` entity. So the
 `answer.question` part refers to the `question` *property* on the `Answer` class.
@@ -81,6 +89,8 @@ joined table. We'll see that in a minute.
 The point is: if you want to select more data, then you need to actually *say*
 that in the query. You do that with `->addSelect()` and then the alias to the
 entity: `question`.
+
+[[[ code('99f289b1a4') ]]]
 
 Two important things here. First, notice that I'm not saying `question.id`,
 `question.slug` or even `question.*`: I'm just saying `question`. This tells
