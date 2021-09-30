@@ -9,7 +9,7 @@
 
         <ul class="list-unstyled">
             {% for answer in answers %}
-                <li>{{ answer.votes }}</li>
+                {{ include('answer/_answer.html.twig') }}
             {% endfor %}
         </ul>
     </div>
