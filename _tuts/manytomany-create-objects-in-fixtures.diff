@@ -1,5 +1,5 @@
 diff --git a/src/DataFixtures/AppFixtures.php b/src/DataFixtures/AppFixtures.php
-index 44d028c8..86fe7f00 100644
+index 44d028c8..97e61c76 100644
 --- a/src/DataFixtures/AppFixtures.php
 +++ b/src/DataFixtures/AppFixtures.php
 @@ -4,6 +4,7 @@ namespace App\DataFixtures;
@@ -14,7 +14,7 @@ index 44d028c8..86fe7f00 100644
              ];
          })->needsApproval()->many(20)->create();
  
-+        $question = QuestionFactory::createOne()->object();
++        $question = QuestionFactory::createOne();
 +
 +        $tag1 = new Tag();
 +        $tag1->setName('dinosaurs');
