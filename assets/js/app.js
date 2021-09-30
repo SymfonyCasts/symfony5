@@ -9,7 +9,7 @@
 import '../css/app.css';
 
 // Need jQuery? Install it with "yarn add jquery", then uncomment to import it.
-// import $ from 'jquery';
+import $ from 'jquery';
 
 /**
  * Simple (ugly) code to handle the comment vote up/down
