@@ -99,6 +99,13 @@ EOF
      */
     public function questionVote(Question $question, Request $request)
     {
-        dd($question, $request->request->all());
+        $direction = $request->request->get('direction');
+
+        if ($direction === 'up') {
+            $question->setVotes($question->getVotes() + 1);
+        } elseif ($direction === 'down') {
+            $question->setVotes($question->getVotes() - 1);
+        }
+        dd($question);
     }
 }
