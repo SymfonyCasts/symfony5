@@ -75,7 +75,11 @@ EOF
         }
 
         $repository = $entityManager->getRepository(Question::class);
+        /** @var Question|null $question */
         $question = $repository->findOneBy(['slug' => $slug]);
+        if (!$question) {
+            throw $this->createNotFoundException(sprintf('no question found for slug "%s"', $slug));
+        }
         dd($question);
 
         $answers = [
