@@ -20,7 +20,7 @@ class AppFixtures extends Fixture
 
         $questions = QuestionFactory::createMany(20, function() {
             return [
-                'questionTags' => QuestionTagFactory::new(),
+                'questionTags' => QuestionTagFactory::new()->many(1, 5),
             ];
         });
 
