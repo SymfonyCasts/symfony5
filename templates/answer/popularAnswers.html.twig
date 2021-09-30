@@ -6,6 +6,12 @@
 <div class="container my-md-4">
     <div class="row">
         <h1>Most Popular Answers</h1>
+
+        <ul class="list-unstyled">
+            {% for answer in answers %}
+                <li>{{ answer.votes }}</li>
+            {% endfor %}
+        </ul>
     </div>
 </div>
 {% endblock %}
