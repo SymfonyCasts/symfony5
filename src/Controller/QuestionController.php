@@ -29,9 +29,10 @@ class QuestionController extends AbstractController
     {
         $repository = $entityManager->getRepository(Question::class);
         $questions = $repository->findAll();
-        dd($questions);
 
-        return $this->render('question/homepage.html.twig');
+        return $this->render('question/homepage.html.twig', [
+            'questions' => $questions,
+        ]);
     }
 
     /**
