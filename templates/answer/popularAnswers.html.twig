@@ -4,16 +4,16 @@
 
 {% block body %}
 <div class="container my-md-4">
-    <div class="row">
+    <div>
         <h1>Most Popular Answers</h1>
-
-        <ul class="list-unstyled">
-            {% for answer in answers %}
-                {{ include('answer/_answer.html.twig', {
-                    showQuestion: true
-                }) }}
-            {% endfor %}
-        </ul>
     </div>
+
+    <ul class="list-unstyled">
+        {% for answer in answers %}
+            {{ include('answer/_answer.html.twig', {
+                showQuestion: true
+            }) }}
+        {% endfor %}
+    </ul>
 </div>
 {% endblock %}
