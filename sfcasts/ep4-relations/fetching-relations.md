@@ -14,13 +14,20 @@ for querying, like `findBy()` where we can find all the answers in the database 
 match some criteria, like `WHERE votes = 5` *or* `WHERE question_id =` the id of
 some question.
 
+[[[ code('7c790bd9d7') ]]]
+
 Open the controller for this page: `src/Controller/QuestionController.php`...
 it's the `show()` action. Autowire the `AnswerRepository` service as an argument.
+
+[[[ code('475c60904b') ]]]
+
 Then, below, say `$answers = $answerRepository->findBy()` and pass this an array
 that should be used to build the `WHERE` statement in the query. To find all the
 answers `WHERE` the `question_id` matches this question, pass `question` set to
 the `$question` *object*. Remember: by this point, Doctrine has *already* used
 the `slug` in the URL to query for the `Question` object.
+
+[[[ code('8f5c37ed92') ]]]
 
 The important thing here is that, when we call `findBy()`, we *don't*
 say `'question_id' => $question`... or `'question' => $question->getId()`.
@@ -32,6 +39,9 @@ Behind the scenes, Doctrine will be smart enough to query `WHERE` the
 `question_id` column matches the `id` from this object.
 
 Let's dump & die the `$answers` variable... and go see what it looks like. Refresh.
+
+[[[ code('93167a7c9a') ]]]
+
 Yes! This dumps an array of answers! Apparently this question is only related
 to *two* answers. Let's go pick a different one with more answers... cool!
 This question is related to *four* answers. That's, checks math, twice as interesting.
@@ -46,6 +56,8 @@ entire `Question` *object* into the query.
 Now that we've done that... let's do something easier! Remove the `AnswerRepository`
 argument entirely... and instead say `$answers = $question->getAnswers()`. I'll
 put the `dd($answers)` back.
+
+[[[ code('7e8af84538') ]]]
 
 When we ran the `make:entity` command, it asked us if we wanted to *also* add an
 `$answers` property to the `Question` class. We said yes, which generated some
@@ -80,6 +92,8 @@ This feature is called "lazy loading".
 
 Check this out: back in `QuestionController`, remove the `dd()`... and `foreach`
 over the `$answers` collection. Inside, do a normal `dump()` of the `$answer` variable.
+
+[[[ code('52351f0125') ]]]
 
 It's pretty crazy, but the moment that we `foreach` over the `$answers` collection -
 so the moment that we actually start *using* the answers data - Doctrine will
