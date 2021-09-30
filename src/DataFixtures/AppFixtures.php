@@ -33,7 +33,7 @@ class AppFixtures extends Fixture
             ];
         })->needsApproval()->many(20)->create();
 
-        $question = QuestionFactory::createOne();
+        $question = QuestionFactory::createOne()->object();
 
         $tag1 = new Tag();
         $tag1->setName('dinosaurs');
