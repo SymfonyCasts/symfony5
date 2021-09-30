@@ -162,6 +162,9 @@
             "config/packages/dev/debug.yaml"
         ]
     },
+    "symfony/debug-pack": {
+        "version": "v1.0.7"
+    },
     "symfony/dependency-injection": {
         "version": "v5.0.4"
     },
@@ -219,7 +222,7 @@
         ]
     },
     "symfony/http-client": {
-        "version": "v5.0.11"
+        "version": "v5.1.11"
     },
     "symfony/http-client-contracts": {
         "version": "v2.3.1"
@@ -238,9 +241,6 @@
             "version": "1.0",
             "ref": "fadbfe33303a76e25cb63401050439aa9b1a9c7f"
         }
-    },
-    "symfony/mime": {
-        "version": "v5.0.4"
     },
     "symfony/monolog-bridge": {
         "version": "v5.0.4"
@@ -262,11 +262,11 @@
     "symfony/options-resolver": {
         "version": "v5.0.7"
     },
-    "symfony/polyfill-intl-idn": {
-        "version": "v1.13.1"
+    "symfony/polyfill-intl-grapheme": {
+        "version": "v1.17.1"
     },
     "symfony/polyfill-intl-normalizer": {
-        "version": "v1.22.1"
+        "version": "v1.17.1"
     },
     "symfony/polyfill-mbstring": {
         "version": "v1.13.1"
@@ -275,7 +275,7 @@
         "version": "v1.13.1"
     },
     "symfony/polyfill-php80": {
-        "version": "v1.22.1"
+        "version": "v1.17.1"
     },
     "symfony/polyfill-uuid": {
         "version": "v1.15.0"
@@ -317,6 +317,9 @@
     },
     "symfony/stopwatch": {
         "version": "v5.0.4"
+    },
+    "symfony/string": {
+        "version": "v5.1.2"
     },
     "symfony/translation-contracts": {
         "version": "v2.0.1"
