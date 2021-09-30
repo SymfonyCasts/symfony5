@@ -145,6 +145,9 @@
     "pagerfanta/doctrine-orm-adapter": {
         "version": "v3.3.0"
     },
+    "pagerfanta/twig": {
+        "version": "v3.3.0"
+    },
     "php": {
         "version": "7.2.5"
     },
