@@ -29,7 +29,7 @@
                             <h1 class="q-title-show">{{ question.name }}</h1>
                             <div class="q-display p-3">
                                 <i class="fa fa-quote-left mr-3"></i>
-                                <p class="d-inline">{{ question.question }}</p>
+                                <p class="d-inline">{{ question.question|parse_markdown }}</p>
                                 <p class="pt-4"><strong>--Tisha</strong></p>
                             </div>
                         </div>
