@@ -22,8 +22,8 @@ final class QuestionFactory extends ModelFactory
     protected function getDefaults(): array
     {
         return [
-            'name' => 'Missing pants',
-            'slug' => 'missing-pants-'.rand(0, 1000),
+            'name' => self::faker()->realText(50),
+            'slug' => self::faker()->slug,
             'question' => <<<EOF
 Hi! So... I'm having a *weird* day. Yesterday, I cast a spell
 to make my dishes wash themselves. But while I was casting it,
