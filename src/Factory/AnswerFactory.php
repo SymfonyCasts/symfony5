@@ -43,6 +43,7 @@ final class AnswerFactory extends ModelFactory
             'createdAt' => self::faker()->dateTimeBetween('-1 year'),
             'votes' => rand(-20, 50),
             'question' => QuestionFactory::new()->unpublished(),
+            'status' => Answer::STATUS_APPROVED,
         ];
     }
 
