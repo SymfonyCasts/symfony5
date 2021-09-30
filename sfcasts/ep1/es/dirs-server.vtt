@@ -1,0 +1,268 @@
+WEBVTT
+
+00:00:01.226 --> 00:00:04.216 align:middle
+Uno de mis objetivos principales
+en este tutorial será
+
+00:00:04.216 --> 00:00:08.636 align:middle
+ayudarte a entender realmente cómo
+funciona Symfony, tu aplicación.
+
+00:00:08.676 --> 00:00:12.076 align:middle
+Para empezar, echemos un vistazo a
+la estructura de carpetas.
+
+00:00:13.006 --> 00:00:16.586 align:middle
+Hay solo 3 directorios que
+debes tener en cuenta.
+
+00:00:17.056 --> 00:00:22.196 align:middle
+Primero, public/ es el documento raíz:
+el cual contendrá todos los archivos
+
+00:00:22.196 --> 00:00:24.806 align:middle
+que deben ser accesibles por un navegador.
+
+00:00:25.046 --> 00:00:28.966 align:middle
+Y... por ahora hay uno solo: index.php.
+
+00:00:29.176 --> 00:00:35.026 align:middle
+Éste se llama el "front controller": un
+término complejo que los programadores inventaron
+
+00:00:35.026 --> 00:00:38.776 align:middle
+para decir que este archivo es el que
+ejecuta tu servidor web.
+
+00:00:38.996 --> 00:00:43.536 align:middle
+Pero, en realidad, salvo poner
+archivos CSS o imágenes en public/,
+
+00:00:43.826 --> 00:00:46.226 align:middle
+casi nunca tendrás que pensar en ello.
+
+00:00:46.226 --> 00:00:49.236 align:middle
+Así que... En realidad te mentí.
+
+00:00:49.736 --> 00:00:55.866 align:middle
+Hay en verdad sólo dos directorios que
+debes tener en cuenta: config/ y src/.
+
+00:00:56.366 --> 00:00:57.356 align:middle
+config/ tiene...
+
+00:00:57.556 --> 00:00:58.756 align:middle
+ehh... perritos?
+
+00:00:59.296 --> 00:01:06.106 align:middle
+No, config/ tiene archivos de configuración
+y src/ es donde tu código PHP estará.
+
+00:01:06.536 --> 00:01:07.996 align:middle
+Es así de simple.
+
+00:01:09.236 --> 00:01:10.776 align:middle
+Dónde está Symfony?
+
+00:01:11.276 --> 00:01:14.226 align:middle
+Nuestro proyecto comenzó con un archivo composer.json,
+
+00:01:14.626 --> 00:01:19.906 align:middle
+el cual contiene todas las librerías de terceros
+que nuestra aplicación necesita.
+
+00:01:20.866 --> 00:01:25.906 align:middle
+Detrás de escenas, el comando symfony new
+utilizó a composer para instalarlas...
+
+00:01:26.356 --> 00:01:30.386 align:middle
+lo cual es una forma sofisticada de decir
+que Composer descargó un montón
+
+00:01:30.386 --> 00:01:32.946 align:middle
+de librerías dentro del directorio vendor/...
+
+00:01:33.436 --> 00:01:36.356 align:middle
+incluyendo Symfony.
+
+00:01:36.426 --> 00:01:39.896 align:middle
+Más adelante hablaremos de los otros
+archivos y directorios
+
+00:01:40.106 --> 00:01:41.936 align:middle
+pero éstos todavía no nos importan.
+
+00:01:41.936 --> 00:01:47.516 align:middle
+Hace algunos minutos, usamos PHP
+para iniciar un servidor web local.
+
+00:01:47.996 --> 00:01:51.656 align:middle
+Bien. Pero presiona Ctrl+C para salir del mismo.
+
+00:01:52.326 --> 00:01:57.556 align:middle
+Por qué? Porque esa herramienta binaria
+symfony que instalamos viene
+
+00:01:57.556 --> 00:01:59.666 align:middle
+con un servidor local mucho mas poderoso.
+
+00:02:00.536 --> 00:02:03.526 align:middle
+Ejecuta: symfony serve Eso es todo.
+
+00:02:03.776 --> 00:02:08.786 align:middle
+La primera vez que lo corres, podría
+preguntarte sobre instalar un certificado.
+
+00:02:09.436 --> 00:02:10.226 align:middle
+Esto es opcional.
+
+00:02:10.636 --> 00:02:16.716 align:middle
+Si lo instalas - yo lo hice - iniciará
+el servidor web con https.
+
+00:02:17.496 --> 00:02:21.716 align:middle
+Sip, tienes https local con cero esfuerzo.
+
+00:02:22.536 --> 00:02:25.676 align:middle
+Una vez que corre, ve a tu
+navegador y refresca.
+
+00:02:26.776 --> 00:02:32.706 align:middle
+Funciona! Y ese pequeño candado
+prueba que estamos usando https.
+
+00:02:33.546 --> 00:02:39.096 align:middle
+Para parar el servidor, solo presiona Control +
+C. Puedes ver todas estas opciones de comando
+
+00:02:39.096 --> 00:02:45.096 align:middle
+al ejectuar: symfony serve --help Como por ejemplo,
+formas de controlar el número de puerto
+
+00:02:45.886 --> 00:02:55.236 align:middle
+Cuando uso este comando, usualmente corro: symfony
+serve -d. -d significa correr como un daemon.
+
+00:02:55.886 --> 00:03:01.916 align:middle
+Hace exactamente lo mismo excepto
+que ahora corre en segundo plano...
+
+00:03:02.066 --> 00:03:04.386 align:middle
+lo que significa que puedo seguir usando
+esta terminal.
+
+00:03:05.326 --> 00:03:11.476 align:middle
+Si corro: symfony server:status Me muestra
+que el servidor está corriendo y
+
+00:03:11.476 --> 00:03:13.706 align:middle
+symfony server:stop Lo apagará.
+
+00:03:14.396 --> 00:03:20.426 align:middle
+Iniciemoslo de nuevo: Ok: estamos a punto
+de comenzar a escribir un montón de código...
+
+00:03:20.766 --> 00:03:23.676 align:middle
+así que quiero asegurarme de que tu editor
+está listo para trabajar.
+
+00:03:24.346 --> 00:03:28.316 align:middle
+Y, claro, puedes usar cualquier editor
+que tu quieras.
+
+00:03:28.946 --> 00:03:31.596 align:middle
+Pero mi mejor recomendación es PhpStorm!
+
+00:03:32.296 --> 00:03:36.186 align:middle
+En serio, hace que desarrollar en
+Symfony sea un sueño!
+
+00:03:36.486 --> 00:03:41.296 align:middle
+Y no, las buenas personas de PhpStorm
+no me están pagando para decir esto...
+
+00:03:41.626 --> 00:03:46.946 align:middle
+aunque... sí patrocinan a varios
+desarrolladores de código libre en PHP...
+
+00:03:46.946 --> 00:03:48.586 align:middle
+lo que lo hace aún mejor.
+
+00:03:49.606 --> 00:03:53.366 align:middle
+Para tener un fantástico PhpStorm,
+tienes que hacer dos cosas.
+
+00:03:53.416 --> 00:03:59.826 align:middle
+Primero, abre Preferencias, selecciona
+"Complementos" y click en "Marketplace".
+
+00:04:01.656 --> 00:04:02.986 align:middle
+Haz una búsqueda por "Symfony".
+
+00:04:04.836 --> 00:04:07.056 align:middle
+Este plugin es increíble...
+
+00:04:07.676 --> 00:04:10.986 align:middle
+probado por casi 4 millones de descargas.
+
+00:04:11.316 --> 00:04:16.306 align:middle
+Esto nos dará toda clase de auto-completes
+e inteligencia extra para Symfony.
+
+00:04:16.496 --> 00:04:19.976 align:middle
+Si no lo tienes aún, instálalo.
+
+00:04:20.266 --> 00:04:25.636 align:middle
+Deberías también instalar los plugins
+"PHP Annotations" y "PHP toolbox".
+
+00:04:26.566 --> 00:04:28.786 align:middle
+Si realizas una búsqueda por "php toolbox"...
+
+00:04:29.346 --> 00:04:32.906 align:middle
+puedes ver los tres de ellos.
+
+00:04:33.406 --> 00:04:35.416 align:middle
+Instálalos y luego reinicia PhpStorm.
+
+00:04:36.966 --> 00:04:41.876 align:middle
+Una vez reiniciado, vuelve a Preferencias
+y haz una búsqueda por Symfony.
+
+00:04:43.426 --> 00:04:50.926 align:middle
+Además de instalar este plugin, tienes que
+habilitarlo en cada proyecto.
+
+00:04:52.326 --> 00:04:54.176 align:middle
+Haz click en Habilitar y luego Aplicar.
+
+00:04:55.546 --> 00:04:57.396 align:middle
+Dice que tienes que reiniciar PhpStorm...
+
+00:04:57.546 --> 00:04:59.116 align:middle
+pero no creo que eso sea necesario.
+
+00:05:00.526 --> 00:05:06.956 align:middle
+La segunda cosa que tienes que hacer en PhpStorm
+es buscar Composer y encontrar la sección
+
+00:05:06.956 --> 00:05:09.616 align:middle
+"Idiomas y Frameworks", "PHP", "Composer".
+
+00:05:10.036 --> 00:05:16.156 align:middle
+Asegúrate de que la opción "Sincronizar ajustes
+IDE con composer.json" está activada...
+
+00:05:16.436 --> 00:05:19.906 align:middle
+lo cual automáticamente configura algunas
+funciones útiles.
+
+00:05:20.996 --> 00:05:22.246 align:middle
+Haz click en "Ok" y...
+
+00:05:22.446 --> 00:05:24.166 align:middle
+estamos listos!
+
+00:05:24.846 --> 00:05:29.436 align:middle
+A continuación, vamos a crear nuestra primerísima
+página y veremos de qué se trata symfony.
