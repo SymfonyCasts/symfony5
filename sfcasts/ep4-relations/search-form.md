@@ -6,6 +6,8 @@ to simplify my markup: move this `<ul>` to the bottom. Cool. Now we can give thi
 `div` on top a `d-flex` class and also `justify-content-between`. This will
 let us have this `<h1>` on the left and a search form on the right.
 
+[[[ code('314142e663') ]]]
+
 ## Adding the Search Form
 
 Add the `form` tag. This will submit right to this `AnswerController` route.
@@ -13,10 +15,14 @@ So set the action to `{{ path('app_popular_answers') }}`. I'm going to *not*
 add a `method=""` attribute, because that defaults to `GET`, which is what you
 want for a search form.
 
+[[[ code('7bb0ffa7d4') ]]]
+
 Inside, add the search field: `<input type="search">`. I'll break this on multiple
 lines. Add `name="q"` - that `q` could be anything, but we'll read that from our
 controller - a `class`, a `placeholder` and an `aria-label=""` for accessibility
 since we don't have a *real* label for this field.
+
+[[[ code('2579f956ec') ]]]
 
 By the way, I'm not using the Symfony's form component because we haven't talked
 about it yet... but also because this form is *so* simple that it's overkill anyways.
@@ -42,19 +48,31 @@ And if you're in a controller, it's easy to get! Add a new argument type-hinted
 with `Request` - the one from `HttpFoundation`. You can *call* the argument anything,
 but I'll use `$request` to avoid being crazy.
 
+[[[ code('f50435ba1d') ]]]
+
 Here's how this works, it's pretty simple: *if* you have an argument to your controller
 that's *type-hinted* with Symfony's `Request` class, Symfony will pass you the
 `Request` object. This class has a *bunch* of methods on it to get *anything* you
 need from the request. To fetch a query parameter, use `$request->query->get()`
 and then the name: `q`. If that query parameter isn't there, this will return null.
 
+[[[ code('e07f9c1193') ]]]
+
 ## Adding The Fuzzy LIKE Search
 
 Over in the repository, add a new `string $search` argument... I'll let it be
-optional, in part, so that it accepts a `null` value. For the query, let's do
-it in pieces. Add `$queryBuilder =` the first part... and stop after the
-`addSelect()`. At the bottom `return $queryBuilder` and then the rest. I'll... fix
-my typo.
+optional, in part, so that it accepts a `null` value. 
+
+[[[ code('5eac661e6b') ]]]
+
+For the query, let's do it in pieces. Add `$queryBuilder =` the first part... 
+and stop after the `addSelect()`. 
+
+[[[ code('b13d9d9370') ]]]
+
+At the bottom `return $queryBuilder` and then the rest. I'll... fix my typo.
+
+[[[ code('b13d9d9370') ]]]
 
 The reason we're splitting this into two pieces is that we only want to apply the
 search logic *if* a search term was actually passed. Splitting it lets us say
@@ -63,6 +81,8 @@ field we're going to search inside of - `LIKE :searchTerm`. That `searchTerm`
 could be anything: it's just a placeholder that we fill in by saying
 `->setParameter('searchTerm', $search)`. Except... to be a fuzzy search, we need
 to put `%` on each side. I know, it looks funny, but that's exactly what we want.
+
+[[[ code('cbea21d03c') ]]]
 
 Let's try it! Clear the `?q=` from the URL first. Cool: we have our normal,
 non-filtered results. Copy a word from an answer to search for. And... got it!
@@ -78,6 +98,8 @@ the search term in the search box. Open up `popularAnswers.html.twig` and add a
 in the controller and pass it into our template as a variable. But in this case,
 we can cheat because the request object is available in every template via
 `app.request`. So we can say `app.request.query.get('q')`.
+
+[[[ code('9e2ffc57a9') ]]]
 
 Now... much better.
 
@@ -104,6 +126,8 @@ WHERE statement, you should *still* use `andWhere()`. Yup, we can say:
 search on the `$question` property of the `Question` entity. And since we joined
 over to the `Question` entity and aliased it to `question`, we can say
 `question.question LIKE` and use that same `:searchTerm` placeholder.
+
+[[[ code('7c65b06828') ]]]
 
 That's it! When we refresh now... yes! That first result showed back up! And check
 out the query for this page, it's pretty sweet.... and easier to see in the formatted
