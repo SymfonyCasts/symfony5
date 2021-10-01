@@ -1,0 +1,15 @@
+diff --git a/templates/security/login.html.twig b/templates/security/login.html.twig
+index 5476c970..cb661355 100644
+--- a/templates/security/login.html.twig
++++ b/templates/security/login.html.twig
+@@ -22,6 +22,10 @@
+                     <input type="password" name="password" id="inputPassword" class="form-control" required>
+                 </div>
+ 
++                <input type="hidden" name="_csrf_token"
++                    value="{{ csrf_token('authenticate') }}"
++                >
++
+                 <div class="col-12">
+                     <button class="btn btn-lg btn-primary float-end" type="submit">
+                         Sign in

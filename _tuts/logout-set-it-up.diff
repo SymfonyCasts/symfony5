@@ -1,0 +1,30 @@
+diff --git a/config/packages/security.yaml b/config/packages/security.yaml
+index 18c35ff8..e20cd65f 100644
+--- a/config/packages/security.yaml
++++ b/config/packages/security.yaml
+@@ -23,6 +23,8 @@ security:
+             provider: app_user_provider
+             custom_authenticator: App\Security\LoginFormAuthenticator
+ 
++            logout: true
++
+             # activate different ways to authenticate
+             # https://symfony.com/doc/current/security.html#firewalls-authentication
+ 
+diff --git a/src/Controller/SecurityController.php b/src/Controller/SecurityController.php
+index 9d3c9c47..ee79725e 100644
+--- a/src/Controller/SecurityController.php
++++ b/src/Controller/SecurityController.php
+@@ -18,4 +18,12 @@ class SecurityController extends AbstractController
+             'error' => $authenticationUtils->getLastAuthenticationError(),
+         ]);
+     }
++
++    /**
++     * @Route("/logout")
++     */
++    public function logout()
++    {
++        throw new \Exception('logout() should never be reached');
++    }
+ }

@@ -1,0 +1,17 @@
+diff --git a/templates/security/login.html.twig b/templates/security/login.html.twig
+index cb661355..3cb3b9fb 100644
+--- a/templates/security/login.html.twig
++++ b/templates/security/login.html.twig
+@@ -22,6 +22,12 @@
+                     <input type="password" name="password" id="inputPassword" class="form-control" required>
+                 </div>
+ 
++                <div class="checkbox mb-3">
++                    <label>
++                        <input type="checkbox" name="_remember_me"> Remember me
++                    </label>
++                </div>
++
+                 <input type="hidden" name="_csrf_token"
+                     value="{{ csrf_token('authenticate') }}"
+                 >

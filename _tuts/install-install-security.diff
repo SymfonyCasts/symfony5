@@ -1,5 +1,5 @@
 diff --git a/composer.json b/composer.json
-index 4cf8d18e..73be5016 100644
+index 6694a524..64b3ea1f 100644
 --- a/composer.json
 +++ b/composer.json
 @@ -23,6 +23,7 @@
@@ -9,17 +9,17 @@ index 4cf8d18e..73be5016 100644
 +        "symfony/security-bundle": "5.3.*",
          "symfony/stopwatch": "5.3.*",
          "symfony/twig-bundle": "5.3.*",
-         "symfony/webpack-encore-bundle": "^1.7",
+         "symfony/ux-chartjs": "^1.3",
 diff --git a/composer.lock b/composer.lock
-index 50b6526e..cabf26bc 100644
+index 0ede5913..5120efa7 100644
 --- a/composer.lock
 +++ b/composer.lock
 @@ -4,7 +4,7 @@
          "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
          "This file is @generated automatically"
      ],
--    "content-hash": "3d99e62293d52f34e8e4a086049a8988",
-+    "content-hash": "01ca6ef12f0a247ca2a9c79df3127518",
+-    "content-hash": "e576169e889194ed24d16b0fe67b39d1",
++    "content-hash": "18b07c276518842c62f3a819d4115dab",
      "packages": [
          {
              "name": "babdev/pagerfanta-bundle",
@@ -530,13 +530,13 @@ index 50b6526e..cabf26bc 100644
              "name": "symfony/service-contracts",
              "version": "v2.4.0",
 diff --git a/config/bundles.php b/config/bundles.php
-index ba854603..f54b1589 100644
+index 4bcab33d..4ba3c832 100644
 --- a/config/bundles.php
 +++ b/config/bundles.php
-@@ -18,4 +18,5 @@ return [
-     Zenstruck\Foundry\ZenstruckFoundryBundle::class => ['dev' => true, 'test' => true],
+@@ -19,4 +19,5 @@ return [
      Stof\DoctrineExtensionsBundle\StofDoctrineExtensionsBundle::class => ['all' => true],
      BabDev\PagerfantaBundle\BabDevPagerfantaBundle::class => ['all' => true],
+     Symfony\UX\Chartjs\ChartjsBundle::class => ['all' => true],
 +    Symfony\Bundle\SecurityBundle\SecurityBundle::class => ['all' => true],
  ];
 diff --git a/config/packages/security.yaml b/config/packages/security.yaml
@@ -574,7 +574,7 @@ index 00000000..cafbb2ce
 +        # - { path: ^/admin, roles: ROLE_ADMIN }
 +        # - { path: ^/profile, roles: ROLE_USER }
 diff --git a/symfony.lock b/symfony.lock
-index cbc01a55..c608a045 100644
+index 87a820fb..43dbe9c3 100644
 --- a/symfony.lock
 +++ b/symfony.lock
 @@ -326,6 +326,9 @@

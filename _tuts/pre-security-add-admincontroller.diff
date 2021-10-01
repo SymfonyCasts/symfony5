@@ -1,0 +1,41 @@
+diff --git a/src/Controller/AdminController.php b/src/Controller/AdminController.php
+new file mode 100644
+index 00000000..067084b4
+--- /dev/null
++++ b/src/Controller/AdminController.php
+@@ -0,0 +1,18 @@
++<?php
++
++namespace App\Controller;
++
++use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
++use Symfony\Component\HttpFoundation\Response;
++use Symfony\Component\Routing\Annotation\Route;
++
++class AdminController extends AbstractController
++{
++    /**
++     * @Route("/admin", name="admin_dashboard")
++     */
++    public function dashboard()
++    {
++        return $this->render('admin/dashboard.html.twig');
++    }
++}
+diff --git a/templates/admin/dashboard.html.twig b/templates/admin/dashboard.html.twig
+new file mode 100644
+index 00000000..22e833b5
+--- /dev/null
++++ b/templates/admin/dashboard.html.twig
+@@ -0,0 +1,11 @@
++{% extends 'base.html.twig' %}
++
++{% block title %}Admin Dashboard{% endblock %}
++
++{% block body %}
++<div class="container my-md-4">
++    <div class="d-flex justify-content-between">
++        <h1>Admin Dashboard</h1>
++    </div>
++</div>
++{% endblock %}

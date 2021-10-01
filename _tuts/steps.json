@@ -26,6 +26,16 @@
             "description": null
         },
         {
+            "id": "pre-security-add-admincontroller",
+            "name": "PRE_SECURITY: Add AdminController",
+            "description": null
+        },
+        {
+            "id": "pre-security-admin-graphs",
+            "name": "PRE_SECURITY: Admin graphs",
+            "description": null
+        },
+        {
             "id": "install-install-security",
             "name": "Install: install security",
             "description": null
@@ -141,6 +151,11 @@
             "description": null
         },
         {
+            "id": "logout-set-it-up",
+            "name": "Logout: Set it up",
+            "description": null
+        },
+        {
             "id": "password-implement-interface",
             "name": "Password: implement interface",
             "description": null
@@ -179,7 +194,77 @@
             "id": "password-use-passwordcredentials",
             "name": "Password: Use PasswordCredentials",
             "description": null
+        },
+        {
+            "id": "csrf-add-to-form",
+            "name": "CSRF: add to form",
+            "description": null
+        },
+        {
+            "id": "csrf-pass-badge",
+            "name": "CSRF: Pass badge",
+            "description": null
+        },
+        {
+            "id": "rememberme-activate-system",
+            "name": "RememberMe: Activate system",
+            "description": null
+        },
+        {
+            "id": "rememberme-add-checkbox",
+            "name": "RememberMe: add checkbox",
+            "description": null
+        },
+        {
+            "id": "rememberme-add-badge",
+            "name": "RememberMe: Add badge",
+            "description": null
+        },
+        {
+            "id": "rememberme-always-enable",
+            "name": "RememberMe: always enable",
+            "description": null
+        },
+        {
+            "id": "rememberme-enable-always-on-badge",
+            "name": "RememberMe: enable always on badge",
+            "description": null
+        },
+        {
+            "id": "rememberme-add-signature-properties",
+            "name": "RememberMe: add signature_properties",
+            "description": null
+        },
+        {
+            "id": "accesscontrol-uncomment",
+            "name": "AccessControl: Uncomment",
+            "description": null
+        },
+        {
+            "id": "accesscontrol-change-to-role-user",
+            "name": "AccessControl: change to ROLE_USER",
+            "description": null
+        },
+        {
+            "id": "entrypoint-implement-interface-in-authenticator",
+            "name": "Entrypoint: implement interface in authenticator",
+            "description": null
+        },
+        {
+            "id": "entrypoint-make-auth-dummyauthenticator",
+            "name": "Entrypoint: make:auth DummyAuthenticator",
+            "description": null
+        },
+        {
+            "id": "entrypoint-tweak-authenticator",
+            "name": "Entrypoint: tweak authenticator",
+            "description": null
+        },
+        {
+            "id": "entrypoint-choose-entry-point",
+            "name": "Entrypoint: choose entry_point",
+            "description": null
         }
     ],
-    "sha": "3e57872e214f11b016c5a005e8e3e97db5144e1c"
+    "sha": "20466e150b449e8d129e9d992f4f04ccea9b83cd"
 }
