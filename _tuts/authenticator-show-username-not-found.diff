@@ -1,0 +1,22 @@
+diff --git a/config/packages/security.yaml b/config/packages/security.yaml
+index 419e8a74..18c35ff8 100644
+--- a/config/packages/security.yaml
++++ b/config/packages/security.yaml
+@@ -1,6 +1,9 @@
+ security:
+     # https://symfony.com/doc/current/security/authenticator_manager.html
+     enable_authenticator_manager: true
++
++    hide_user_not_found: false
++
+     # https://symfony.com/doc/current/security.html#c-hashing-passwords
+     password_hashers:
+         Symfony\Component\Security\Core\User\PasswordAuthenticatedUserInterface: 'auto'
+diff --git a/translations/security.en.yaml b/translations/security.en.yaml
+index ca991c69..fa3cdd19 100644
+--- a/translations/security.en.yaml
++++ b/translations/security.en.yaml
+@@ -1 +1,2 @@
+-"Invalid credentials.": "Invalid email or password entered!"
++"Invalid credentials.": "Invalid password!"
++"Username could not be found.": "Email not found!"

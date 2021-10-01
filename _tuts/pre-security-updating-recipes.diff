@@ -1,0 +1,26 @@
+diff --git a/config/packages/webpack_encore.yaml b/config/packages/webpack_encore.yaml
+index dee527a0..fa2e39d6 100644
+--- a/config/packages/webpack_encore.yaml
++++ b/config/packages/webpack_encore.yaml
+@@ -8,7 +8,7 @@ webpack_encore:
+     script_attributes:
+         defer: true
+         # Uncomment (also under link_attributes) if using Turbo Drive
+-        # https://turbo.hotwire.dev/handbook/drive#reloading-when-assets-change
++        # https://turbo.hotwired.dev/handbook/drive#reloading-when-assets-change
+         # 'data-turbo-track': reload
+     # link_attributes:
+         # Uncomment if using Turbo Drive
+diff --git a/symfony.lock b/symfony.lock
+index 91d63c80..cbc01a55 100644
+--- a/symfony.lock
++++ b/symfony.lock
+@@ -433,7 +433,7 @@
+             "repo": "github.com/symfony/recipes",
+             "branch": "master",
+             "version": "1.9",
+-            "ref": "404714014dd6ff7de9aa0f9582d592147359e617"
++            "ref": "0f274572ea315eb3b5884518a50ca43f211b4534"
+         },
+         "files": [
+             "assets/app.js",

@@ -1,0 +1,24 @@
+diff --git a/src/Controller/SecurityController.php b/src/Controller/SecurityController.php
+index febc7afe..011b4977 100644
+--- a/src/Controller/SecurityController.php
++++ b/src/Controller/SecurityController.php
+@@ -9,12 +9,10 @@ use Symfony\Component\Routing\Annotation\Route;
+ class SecurityController extends AbstractController
+ {
+     /**
+-     * @Route("/security", name="security")
++     * @Route("/login", name="app_login")
+      */
+-    public function index(): Response
++    public function login(): Response
+     {
+-        return $this->render('security/index.html.twig', [
+-            'controller_name' => 'SecurityController',
+-        ]);
++        return $this->render('security/login.html.twig');
+     }
+ }
+diff --git a/templates/security/index.html.twig b/templates/security/login.html.twig
+similarity index 100%
+rename from templates/security/index.html.twig
+rename to templates/security/login.html.twig

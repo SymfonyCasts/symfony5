@@ -1,0 +1,185 @@
+{
+    "steps": [
+        {
+            "id": "start",
+            "name": "start",
+            "description": null
+        },
+        {
+            "id": "pre-security-update-php-deps",
+            "name": "PRE_SECURITY: update php deps",
+            "description": null
+        },
+        {
+            "id": "pre-security-updating-recipes",
+            "name": "PRE_SECURITY: updating recipes",
+            "description": null
+        },
+        {
+            "id": "pre-security-upgrade-node-deps",
+            "name": "PRE_SECURITY: upgrade node deps",
+            "description": null
+        },
+        {
+            "id": "pre-security-fix-collapse-nav",
+            "name": "PRE_SECURITY: fix collapse nav",
+            "description": null
+        },
+        {
+            "id": "install-install-security",
+            "name": "Install: install security",
+            "description": null
+        },
+        {
+            "id": "user-make-user",
+            "name": "User: make:user",
+            "description": null
+        },
+        {
+            "id": "user-add-firstname-property",
+            "name": "User: add firstName property",
+            "description": null
+        },
+        {
+            "id": "user-make-migration",
+            "name": "User: make:migration",
+            "description": null
+        },
+        {
+            "id": "user-make-factory",
+            "name": "User: make:factory",
+            "description": null
+        },
+        {
+            "id": "user-customize-defaults",
+            "name": "User: customize defaults",
+            "description": null
+        },
+        {
+            "id": "user-create-some-fixtures",
+            "name": "User: create some fixtures",
+            "description": null
+        },
+        {
+            "id": "loginform-make-controller",
+            "name": "LoginForm: make:controller",
+            "description": null
+        },
+        {
+            "id": "loginform-change-to-login",
+            "name": "LoginForm: change to \/login",
+            "description": null
+        },
+        {
+            "id": "loginform-customize-template",
+            "name": "LoginForm: customize template",
+            "description": null
+        },
+        {
+            "id": "loginform-link-to-it",
+            "name": "LoginForm: link to it",
+            "description": null
+        },
+        {
+            "id": "authenticator-make-auth-empty",
+            "name": "Authenticator: make:auth empty",
+            "description": null
+        },
+        {
+            "id": "authenticator-dd-in-supports",
+            "name": "Authenticator: dd() in supports()",
+            "description": null
+        },
+        {
+            "id": "authenticator-fill-in-supports",
+            "name": "Authenticator: fill in supports()",
+            "description": null
+        },
+        {
+            "id": "authenticator-return-initial-passport",
+            "name": "Authenticator: return initial Passport",
+            "description": null
+        },
+        {
+            "id": "authenticator-query-manually-for-user",
+            "name": "Authenticator: query manually for user",
+            "description": null
+        },
+        {
+            "id": "authenticator-complete-password-check",
+            "name": "Authenticator: complete password check",
+            "description": null
+        },
+        {
+            "id": "authenticator-dd-on-success-fail",
+            "name": "Authenticator: dd on success\/fail",
+            "description": null
+        },
+        {
+            "id": "authenticator-redirect-on-success",
+            "name": "Authenticator: redirect on success",
+            "description": null
+        },
+        {
+            "id": "authenticator-set-error-to-session-redirect",
+            "name": "Authenticator: set error to session, redirect",
+            "description": null
+        },
+        {
+            "id": "authenticator-print-error-on-login",
+            "name": "Authenticator: print error on \/login",
+            "description": null
+        },
+        {
+            "id": "authenticator-translate-bad-credentials",
+            "name": "Authenticator: Translate bad credentials",
+            "description": null
+        },
+        {
+            "id": "authenticator-show-username-not-found",
+            "name": "Authenticator: show username not found",
+            "description": null
+        },
+        {
+            "id": "password-implement-interface",
+            "name": "Password: implement interface",
+            "description": null
+        },
+        {
+            "id": "password-make-user-add-password",
+            "name": "Password: make:user add password",
+            "description": null
+        },
+        {
+            "id": "password-fix-getpassword",
+            "name": "Password: fix getPassword()",
+            "description": null
+        },
+        {
+            "id": "password-make-migration",
+            "name": "Password: make:migration",
+            "description": null
+        },
+        {
+            "id": "password-add-plainpassword",
+            "name": "Password: add plainPassword",
+            "description": null
+        },
+        {
+            "id": "password-add-plainpassword-to-factory",
+            "name": "Password: add plainPassword to factory",
+            "description": null
+        },
+        {
+            "id": "password-hash-in-factory",
+            "name": "Password: hash in factory",
+            "description": null
+        },
+        {
+            "id": "password-use-passwordcredentials",
+            "name": "Password: Use PasswordCredentials",
+            "description": null
+        }
+    ],
+    "sha": "3e57872e214f11b016c5a005e8e3e97db5144e1c"
+}

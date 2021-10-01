@@ -1,0 +1,14 @@
+diff --git a/templates/base.html.twig b/templates/base.html.twig
+index ce6f4a33..ececba56 100644
+--- a/templates/base.html.twig
++++ b/templates/base.html.twig
+@@ -29,6 +29,9 @@
+                         <li class="nav-item">
+                             <a class="nav-link" href="{{ path('app_popular_answers') }}">Answers</a>
+                         </li>
++                        <li class="nav-item">
++                            <a class="nav-link" href="{{ path('app_login') }}">Log In</a>
++                        </li>
+                     </ul>
+ 
+                     <button class="btn btn-dark">Sign up</button>

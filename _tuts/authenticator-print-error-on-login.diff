@@ -1,0 +1,39 @@
+diff --git a/src/Controller/SecurityController.php b/src/Controller/SecurityController.php
+index 011b4977..9d3c9c47 100644
+--- a/src/Controller/SecurityController.php
++++ b/src/Controller/SecurityController.php
+@@ -5,14 +5,17 @@ namespace App\Controller;
+ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+ use Symfony\Component\HttpFoundation\Response;
+ use Symfony\Component\Routing\Annotation\Route;
++use Symfony\Component\Security\Http\Authentication\AuthenticationUtils;
+ 
+ class SecurityController extends AbstractController
+ {
+     /**
+      * @Route("/login", name="app_login")
+      */
+-    public function login(): Response
++    public function login(AuthenticationUtils $authenticationUtils): Response
+     {
+-        return $this->render('security/login.html.twig');
++        return $this->render('security/login.html.twig', [
++            'error' => $authenticationUtils->getLastAuthenticationError(),
++        ]);
+     }
+ }
+diff --git a/templates/security/login.html.twig b/templates/security/login.html.twig
+index 89670b39..5476c970 100644
+--- a/templates/security/login.html.twig
++++ b/templates/security/login.html.twig
+@@ -9,6 +9,10 @@
+             <form method="post" class="row g-3">
+                 <h1 class="h3 mb-3 font-weight-normal">Please sign in</h1>
+ 
++                {% if error %}
++                    <div class="alert alert-danger">{{ error.messageKey|trans(error.messageData, 'security') }}</div>
++                {% endif %}
++
+                 <div class="col-12">
+                     <label for="inputEmail">Email</label>
+                     <input type="email" name="email" id="inputEmail" class="form-control" required autofocus>

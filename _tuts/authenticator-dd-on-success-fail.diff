@@ -1,0 +1,27 @@
+diff --git a/src/Security/LoginFormAuthenticator.php b/src/Security/LoginFormAuthenticator.php
+index c5d33a1e..23da95b4 100644
+--- a/src/Security/LoginFormAuthenticator.php
++++ b/src/Security/LoginFormAuthenticator.php
+@@ -46,19 +46,19 @@ class LoginFormAuthenticator extends AbstractAuthenticator
+                 return $user;
+             }),
+             new CustomCredentials(function($credentials, User $user) {
+-                dd($credentials, $user);
++                return $credentials === 'tada';
+             }, $password)
+         );
+     }
+ 
+     public function onAuthenticationSuccess(Request $request, TokenInterface $token, string $firewallName): ?Response
+     {
+-        // TODO: Implement onAuthenticationSuccess() method.
++        dd('success');
+     }
+ 
+     public function onAuthenticationFailure(Request $request, AuthenticationException $exception): ?Response
+     {
+-        // TODO: Implement onAuthenticationFailure() method.
++        dd('failure', $exception);
+     }
+ 
+ //    public function start(Request $request, AuthenticationException $authException = null): Response

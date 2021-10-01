@@ -1,0 +1,22 @@
+diff --git a/src/DataFixtures/AppFixtures.php b/src/DataFixtures/AppFixtures.php
+index 3244aa15..6d56f7d3 100644
+--- a/src/DataFixtures/AppFixtures.php
++++ b/src/DataFixtures/AppFixtures.php
+@@ -9,6 +9,7 @@ use App\Factory\AnswerFactory;
+ use App\Factory\QuestionFactory;
+ use App\Factory\QuestionTagFactory;
+ use App\Factory\TagFactory;
++use App\Factory\UserFactory;
+ use Doctrine\Bundle\FixturesBundle\Fixture;
+ use Doctrine\Persistence\ObjectManager;
+ 
+@@ -44,6 +45,9 @@ class AppFixtures extends Fixture
+             ];
+         })->needsApproval()->many(20)->create();
+ 
++        UserFactory::createOne(['email' => 'abraca_admin@example.com']);
++        UserFactory::createMany(10);
++
+         $manager->flush();
+     }
+ }

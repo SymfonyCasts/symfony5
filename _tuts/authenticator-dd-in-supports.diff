@@ -1,0 +1,13 @@
+diff --git a/src/Security/LoginFormAuthenticator.php b/src/Security/LoginFormAuthenticator.php
+index 6122624c..54f44f2c 100644
+--- a/src/Security/LoginFormAuthenticator.php
++++ b/src/Security/LoginFormAuthenticator.php
+@@ -13,7 +13,7 @@ class LoginFormAuthenticator extends AbstractAuthenticator
+ {
+     public function supports(Request $request): ?bool
+     {
+-        // TODO: Implement supports() method.
++        dd('supports!');
+     }
+ 
+     public function authenticate(Request $request): PassportInterface
