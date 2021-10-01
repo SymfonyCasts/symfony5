@@ -1,9 +1,0 @@
-diff --git a/config/packages/dev/cache.yaml b/config/packages/dev/cache.yaml
-new file mode 100644
-index 00000000..90963ea0
---- /dev/null
-+++ b/config/packages/dev/cache.yaml
-@@ -0,0 +1,3 @@
-+framework:
-+    cache:
-+        app: cache.adapter.filesystem

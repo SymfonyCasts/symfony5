@@ -1,7 +1,0 @@
-diff --git a/.env.local b/.env.local
-new file mode 100644
-index 00000000..acd984d8
---- /dev/null
-+++ b/.env.local
-@@ -0,0 +1 @@
-+SENTRY_DSN=https://7f45741877f3498eab0ae2bee6463d57@o372370.ingest.sentry.io/5186941
