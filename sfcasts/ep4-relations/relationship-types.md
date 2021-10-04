@@ -48,8 +48,13 @@ Call the new entity `Tag`... and it's going to be *real* simple: a single field
 called `name` that will be a `string` type, `255` length, not nullable. Hit
 enter again to finish up.
 
-Before I generate that migration, open up the new `Tag` class... because you *know*
-that I love to use `TimestampableEntity`.
+Before I generate that migration, open up the new `Tag` class... 
+
+[[[ code('c9d5bff55d') ]]]
+
+because you *know* that I love to use `TimestampableEntity`.
+
+[[[ code('2f217209d2') ]]]
 
 We could also add a `slug` column if we wanted to be able to go to a nice url
 like `/tags/{slug}` to show all the questions related a slug. I *won't* do that...
@@ -64,6 +69,9 @@ symfony console make:migration
 
 Beautiful! Go give it a quick peek to make sure nothing funny snuck in. Nope!
 That looks boring: `CREATE TABLE tag` with `id`, `name` and the date fields.
+
+[[[ code('2f217209d2') ]]]
+
 Go run it:
 
 ```terminal
