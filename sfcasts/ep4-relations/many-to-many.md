@@ -46,15 +46,25 @@ have a relationship that holds a "collection" of things - whether that's a colle
 of answers or a collection of tags - in the `__construct` method, you need to initialize
 it to an `ArrayCollection`. That's taken care of for us.
 
+[[[ code('1d300be9f1') ]]]
+
 Above the property, we have a `ManyToMany` to tags... and if you scroll to the
 bottom of the class, we have `getTags()`, `addTag()` and `removeTag()` methods.
+
+[[[ code('9065119b0b') ]]]
+
 If you're thinking that this looks a *lot* like the code generated for a
 `OneToMany` relationship, you're right!
 
 Now let's check out the `Tag` class. Things here... well... they look pretty much
 the same! We have a `$questions` property... which is initialized to an
 `ArrayCollection`. It is *also* a `ManyToMany` and points to the `Question` class.
+
+[[[ code('aecbc1f458') ]]]
+
 And below, it has `getQuestions()`, `addQuestion()` and  `removeQuestion()`.
+
+[[[ code('d3212e3fd4') ]]]
 
 Now that we've seen what this look like in PHP, let's generate the migration:
 
@@ -65,6 +75,8 @@ symfony console make:migration
 Once it finishes... spin over and open that new file. And... woh! It creates a
 brand new *table*? It's called `question_tag`... and it has only *two* columns: a
 `question_id` foreign key column and a `tag_id` foreign key column. That's it.
+
+[[[ code('a34dc7559b') ]]]
 
 And... this makes sense! Even outside of Doctrine, *this* is how you build a
 `ManyToMany` relationship: you create a "join table" that keeps track of which
