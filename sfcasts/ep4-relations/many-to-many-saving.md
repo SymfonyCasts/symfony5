@@ -9,8 +9,12 @@ by hand. Start with `$question = QuestionFactory::createOne()` to create a quest
 the lazy way - using our factory. Then I'll paste in some code that creates two
 `Tag` objects for some very important topics to my 4 year old son.
 
+[[[ code('8ddff45c03') ]]]
+
 To actually *save* these, we need to call `$manager->persist($tag1)` and
 `$manager->persist($tag2)`.
+
+[[[ code('728945b649') ]]]
 
 ## Relating the Objects
 
@@ -24,6 +28,8 @@ like that doesn't even exist. Instead, like we've done with the other relationsh
 
 Doing *that* is pretty simple: `$question->addTag($tag1)` and
 `$question->addTag($tag2)`.
+
+[[[ code('eda0806ff8') ]]]
 
 That's it! Let's try this thing! Reload the fixtures:
 
@@ -70,20 +76,27 @@ the owning side. Because we decided to update the `Question` entity when we ran
 you know is that it points to the *other* side by saying `inversedBy=""`. So
 it's pointing to the *other* side of the relationship as the *inverse* side.
 
+[[[ code('a97db4fb71') ]]]
+
 Then, over in `Tag`, this is the inverse side. And you can see that it says
 `mappedBy="tags"`. This says:
 
 > The owning side - or "mapped side" - is the `tags` property over in the
 > `Question` entity.
 
+[[[ code('6196dd9023') ]]]
+
 But... remember: this distinction isn't *that* important. *Technically* speaking,
 when we want to relate a `Tag` and `Question`, the only way to do that is by
 setting the owning side: setting the `$tags` property on `Question`.
 
 So let's do an experiment: change the code to be `$tag1->addQuestion($question)`
-and `$tag2->addQuestion($question)`. So we're now setting the *inverse* side
-of the relationship *only*. In theory, this should *not* save correctly. But
-let's try it: reload the fixtures.
+and `$tag2->addQuestion($question)`.
+
+[[[ code('e3803d11ee') ]]]
+
+So we're now setting the *inverse* side of the relationship *only*. In theory, 
+this should *not* save correctly. But let's try it: reload the fixtures.
 
 ```terminal-silent
 symfony console doctrine:fixtures:load
@@ -99,6 +112,8 @@ When you create an object with Foundry, like up here, it actually returns a
 `Proxy` object that *wraps* the true `Question` object. It doesn't normally matter,
 but if you start mixing Foundry code with non-Foundry code, sometimes you can get
 this error. To fix it, add `->object()`.
+
+[[[ code('18914cc000') ]]]
 
 This will now be a *pure* `Question` object.
 
@@ -119,11 +134,18 @@ We still have two rows! That means that we *were* able to relate `Tag` and
 exactly the opposite of what I said.
 
 But... this only works because our entity code is smart. Look at the `Tag`
-class... and go down to the `addQuestion()` method. Yep, it calls
-`$question->addTag($this)`. We saw this *exact* same thing with the `Question`
-`Answer` relationship. When we call, `addQuestion()`, *it* handles setting the
-owning side of the relationship. *That* is why this saved. Watch: if we comment
-this line out... reload the fixtures...
+class... and go down to the `addQuestion()` method. 
+
+[[[ code('1adc45c3cb') ]]]
+
+Yep, it calls `$question->addTag($this)`. We saw this *exact* same thing 
+with the `Question` `Answer` relationship. When we call, `addQuestion()`, 
+*it* handles setting the owning side of the relationship. *That* is why 
+this saved. Watch: if we comment this line out... 
+
+[[[ code('a0fc665637') ]]]
+
+reload the fixtures...
 
 ```terminal-silent
 symfony console doctrine:fixtures:load
@@ -132,6 +154,8 @@ symfony console doctrine:fixtures:load
 ... and query the join table, it's empty! We *do* have 2 `Tag` objects...
 but they are not related to any questions in the database because we never set
 the owning side of the relationship. So... let's put that code back.
+
+[[[ code('5c13d63731') ]]]
 
 Next: let's use Foundry to create a bunch of `Tag` objects and randomly relate them
 to questions.
