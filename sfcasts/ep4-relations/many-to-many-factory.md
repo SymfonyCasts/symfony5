@@ -10,20 +10,28 @@ symfony console make:factory
 
 And... we want to generate the one for `Tag`. Beautiful!
 
+[[[ code('fdb8989a0a') ]]]
+
 Go check out that class: `src/Factory/TagFactory.php`. Remember: our only job is
 to make sure that we have good default values for all of the required properties.
 For `name`, instead of using `text()`, we can use `->word()`. And like I've done
 before, I'm going to remove `updatedAt`... but set `createdAt` to
 `self::faker->dateTimeBetween('-1 year')`.
 
+[[[ code('5779b575a2') ]]]
+
 Now that we have this, at the top of the fixtures class, we can create 100
 random tags with `TagFactory::createMany(100)`. I *love* doing that!
+
+[[[ code('faf192d75d') ]]]
 
 Below, for these 20 published questions, I want to relate *each* one to a random
 number of tags. To do that, pass a second argument: this is an array of attribute
 *overrides*. Let's think: the property we want to set on each `Question` object
 is called `tags`. So pass `tags` `=>` some collection of tags. To get that
 collection, let's pass this a *new* function: `TagFactory::randomRange(0, 5)`.
+
+[[[ code('64ca34cc58') ]]]
 
 This is pretty cool: it will return 0 to 5 random tags from the database, giving
 each question a different *number* of random tags. There *is* a small problem with
@@ -60,8 +68,11 @@ the `TagFactory::randomRange()` method is only called *once*. So in my situation
 this returned *one* random `Tag`... and then assigned that one `Tag` to all 20
 questions... which is why we ended up with 20 rows.
 
-We know the fix: change this to a callback... that *returns* that array. Try
-it again:
+We know the fix: change this to a callback... that *returns* that array. 
+
+[[[ code('8bbffd7982') ]]]
+
+Try it again:
 
 ```terminal-silent
 symfony console doctrine:fixtures:load
