@@ -9,6 +9,8 @@ And I'm happy to report that *using* a ManyToMany relationship... isn't anything
 special. Open up the template for this page: `templates/question/homepage.html.twig`.
 Down here... right after the vote string, add `{% for tag in question.tags %}`.
 
+[[[ code('4588a437be') ]]]
+
 It's that easy: our `Question` object has a `tags` property that will return a
 collection of all the related `Tag` objects. Behind the scenes, to *get* this
 data, Doctrine will need to query across the join table *and* the `tag` table.
@@ -19,6 +21,8 @@ than how we could say `question.answers` to get all of the answers for a questio
 So inside the loop, we're dealing with a `Tag` object. Add a span, print
 `{{ tag.name }}`... and then I'll give this a couple of classes to make it look
 cool.
+
+[[[ code('9f63fbe17d') ]]]
 
 Let's try this thing! Refresh and... done! We're *awesome*.
 
@@ -38,12 +42,18 @@ When we had this problem before on the answers page, we fixed it inside of
 *selecting* the `question` data. We can do the *exact* same thing again.
 
 The controller for this page is `src/Controller/QuestionController.php`... it's
-the `homepage()` method. To fetch the questions, we're already calling a custom
-repository method called `findAllAskedOrderedByNewest()`.
+the `homepage()` method. 
+
+[[[ code('3464f2faa3') ]]]
+
+To fetch the questions, we're already calling a custom repository method 
+called `findAllAskedOrderedByNewest()`.
 
 Let's go find that: open up `QuestionRepository`. Here it is. So far, it's pretty
 simple: it makes sure that the `askedAt` is not null - that's this
 `addIsAskedQueryBuilder()` part - and then orders the newest first.
+
+[[[ code('44043eee38') ]]]
 
 To fix the N+1 problem, we need to add a join. And *this* is where things get
 interesting. In the database, we need to join from `question` to `question_tag`...
@@ -55,10 +65,14 @@ wants us to pretend that there is a *direct* relationship from `question` to `ta
 What I mean is, to do the join, all we need is `->leftJoin()` - because we want
 to get the *many* tags for this question - `q.tags`, `tag`.
 
+[[[ code('8c4beae393') ]]]
+
 That's it. We reference the `tags` property on `question`... and let *Doctrine*
 figure out how to join over to that. The second argument - `tag` - becomes the
 alias to the data on the `tag` table. We need that to select its data:
 `addSelect('tag')`.
+
+[[[ code('5ba8368244') ]]]
 
 So... yup! Joining across a `ManyToMany` relationship is *no* different than joining
 across a `ManyToOne` relationship: you reference the relation property and Doctrine
