@@ -1,0 +1,52 @@
+diff --git a/src/Security/Voter/QuestionVoter.php b/src/Security/Voter/QuestionVoter.php
+index 561aa62b..d03fbc4b 100644
+--- a/src/Security/Voter/QuestionVoter.php
++++ b/src/Security/Voter/QuestionVoter.php
+@@ -2,6 +2,8 @@
+ 
+ namespace App\Security\Voter;
+ 
++use App\Entity\Question;
++use App\Entity\User;
+ use Symfony\Component\Security\Core\Authentication\Token\TokenInterface;
+ use Symfony\Component\Security\Core\Authorization\Voter\Voter;
+ use Symfony\Component\Security\Core\User\UserInterface;
+@@ -10,30 +12,28 @@ class QuestionVoter extends Voter
+ {
+     protected function supports(string $attribute, $subject): bool
+     {
+-        // replace with your own logic
+         // https://symfony.com/doc/current/security/voters.html
+-        return in_array($attribute, ['POST_EDIT', 'POST_VIEW'])
++        return in_array($attribute, ['EDIT'])
+             && $subject instanceof \App\Entity\Question;
+     }
+ 
+     protected function voteOnAttribute(string $attribute, $subject, TokenInterface $token): bool
+     {
++        /** @var User $user */
+         $user = $token->getUser();
+         // if the user is anonymous, do not grant access
+         if (!$user instanceof UserInterface) {
+             return false;
+         }
+ 
++        if (!$subject instanceof Question) {
++            throw new \Exception('Wrong type somehow passed');
++        }
++
+         // ... (check conditions and return true to grant permission) ...
+         switch ($attribute) {
+-            case 'POST_EDIT':
+-                // logic to determine if the user can EDIT
+-                // return true or false
+-                break;
+-            case 'POST_VIEW':
+-                // logic to determine if the user can VIEW
+-                // return true or false
+-                break;
++            case 'EDIT':
++                return $user === $subject->getOwner();
+         }
+ 
+         return false;

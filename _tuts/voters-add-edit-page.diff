@@ -1,0 +1,63 @@
+diff --git a/src/Controller/QuestionController.php b/src/Controller/QuestionController.php
+index 84b57818..97b63c18 100644
+--- a/src/Controller/QuestionController.php
++++ b/src/Controller/QuestionController.php
+@@ -67,6 +67,16 @@ class QuestionController extends AbstractController
+         ]);
+     }
+ 
++    /**
++     * @Route("/questions/edit/{slug}", name="app_question_edit")
++     */
++    public function edit(Question $question)
++    {
++        return $this->render('question/edit.html.twig', [
++            'question' => $question,
++        ]);
++    }
++
+     /**
+      * @Route("/questions/{slug}/vote", name="app_question_vote", methods="POST")
+      */
+diff --git a/templates/question/edit.html.twig b/templates/question/edit.html.twig
+new file mode 100644
+index 00000000..ba7fffc9
+--- /dev/null
++++ b/templates/question/edit.html.twig
+@@ -0,0 +1,17 @@
++{% extends 'base.html.twig' %}
++
++{% block title %}Edit Question: {{ question.name }}{% endblock %}
++
++{% block body %}
++<div class="container">
++    <div class="row">
++        <div class="col-12">
++            <h1 class="my-4">Edit Question</h1>
++
++            <blockquote>{{ question.question }}</blockquote>
++
++            TODO
++        </div>
++    </div>
++</div>
++{% endblock %}
+diff --git a/templates/question/show.html.twig b/templates/question/show.html.twig
+index dfc564c6..1ce1fd06 100644
+--- a/templates/question/show.html.twig
++++ b/templates/question/show.html.twig
+@@ -34,7 +34,13 @@
+                             </div>
+                         </div>
+                         <div class="col">
+-                            <h1 class="q-title-show">{{ question.name }}</h1>
++                            <div class="d-flex justify-content-between">
++                                <h1 class="q-title-show">{{ question.name }}</h1>
++
++                                <a href="{{ path('app_question_edit', {
++                                    slug: question.slug
++                                }) }}" class="btn btn-secondary btn-sm mb-2">Edit</a>
++                            </div>
+                             <div class="q-display p-3">
+                                 <i class="fa fa-quote-left mr-3"></i>
+                                 <p class="d-inline">{{ question.question|parse_markdown }}</p>

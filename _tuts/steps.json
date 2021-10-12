@@ -36,6 +36,11 @@
             "description": null
         },
         {
+            "id": "pre-security-add-user-api-controller",
+            "name": "PRE_SECURITY: add user api controller",
+            "description": null
+        },
+        {
             "id": "install-install-security",
             "name": "Install: install security",
             "description": null
@@ -264,7 +269,392 @@
             "id": "entrypoint-choose-entry-point",
             "name": "Entrypoint: choose entry_point",
             "description": null
+        },
+        {
+            "id": "easierform-extend-abstractloginformauthenticator",
+            "name": "EasierForm: Extend AbstractLoginFormAuthenticator",
+            "description": null
+        },
+        {
+            "id": "easierform-remove-extra-methods",
+            "name": "EasierForm: remove extra methods",
+            "description": null
+        },
+        {
+            "id": "targetpathtrait-use-it",
+            "name": "TargetPathTrait: use it!",
+            "description": null
+        },
+        {
+            "id": "form-login-enable-it",
+            "name": "form_login: enable it",
+            "description": null
+        },
+        {
+            "id": "form-login-configure-entry-point",
+            "name": "form_login: configure entry_point",
+            "description": null
+        },
+        {
+            "id": "form-login-configure-form-field-names",
+            "name": "form_login: configure form field names",
+            "description": null
+        },
+        {
+            "id": "form-login-render-last-username",
+            "name": "form_login: render last username",
+            "description": null
+        },
+        {
+            "id": "form-login-enable-csrf",
+            "name": "form_login: enable csrf",
+            "description": null
+        },
+        {
+            "id": "denyincontroller-require-role-user",
+            "name": "DenyInController: require ROLE_USER",
+            "description": null
+        },
+        {
+            "id": "denyincontroller-role-admin",
+            "name": "DenyInController: ROLE_ADMIN",
+            "description": null
+        },
+        {
+            "id": "denyincontroller-throw-exception",
+            "name": "DenyInController: throw exception",
+            "description": null
+        },
+        {
+            "id": "denyincontroller-isgranted",
+            "name": "DenyInController: @IsGranted()",
+            "description": null
+        },
+        {
+            "id": "denyincontroller-change-to-role-user",
+            "name": "DenyInController: change to ROLE_USER",
+            "description": null
+        },
+        {
+            "id": "roles-protect-via-role-admin",
+            "name": "Roles: Protect via ROLE_ADMIN",
+            "description": null
+        },
+        {
+            "id": "roles-add-role-admin-user",
+            "name": "Roles: add ROLE_ADMIN user",
+            "description": null
+        },
+        {
+            "id": "roles-add-admin-link-in-twig",
+            "name": "Roles: add admin link in Twig",
+            "description": null
+        },
+        {
+            "id": "roles-conditional-log-in-out-links",
+            "name": "Roles: conditional log in\/out links",
+            "description": null
+        },
+        {
+            "id": "specialattributes-show-is-authenticated-fully",
+            "name": "SpecialAttributes: Show IS_AUTHENTICATED_FULLY",
+            "description": null
+        },
+        {
+            "id": "specialattributes-add-admin-login-page",
+            "name": "SpecialAttributes: Add \/admin\/login page",
+            "description": null
+        },
+        {
+            "id": "specialattributes-use-public-access",
+            "name": "SpecialAttributes: Use PUBLIC_ACCESS",
+            "description": null
+        },
+        {
+            "id": "userobject-require-user-on-vote",
+            "name": "UserObject: require user on vote",
+            "description": null
+        },
+        {
+            "id": "userobject-this-getuser",
+            "name": "UserObject: $this->getUser()",
+            "description": null
+        },
+        {
+            "id": "userobject-use-getemail",
+            "name": "UserObject: Use getEmail()",
+            "description": null
+        },
+        {
+            "id": "userobject-create-basecontroller",
+            "name": "UserObject: create BaseController",
+            "description": null
+        },
+        {
+            "id": "userobject-add-method-getuser",
+            "name": "UserObject: add @method getUser()",
+            "description": null
+        },
+        {
+            "id": "userobject-fetch-in-twig",
+            "name": "UserObject: fetch in Twig",
+            "description": null
+        },
+        {
+            "id": "userobject-copy-in-nav-dropdown",
+            "name": "UserObject: Copy in nav dropdown",
+            "description": null
+        },
+        {
+            "id": "userobject-dynamic-menu",
+            "name": "UserObject: dynamic menu",
+            "description": null
+        },
+        {
+            "id": "userobject-custom-method",
+            "name": "UserObject: Custom method",
+            "description": null
+        },
+        {
+            "id": "userobject-user-displayname",
+            "name": "UserObject: User.displayName",
+            "description": null
+        },
+        {
+            "id": "userobject-fetch-in-service",
+            "name": "UserObject: fetch in service",
+            "description": null
+        },
+        {
+            "id": "hierarchy-add-admin-comments",
+            "name": "Hierarchy: Add \/admin\/comments",
+            "description": null
+        },
+        {
+            "id": "hierarchy-add-role-hierarchy",
+            "name": "Hierarchy: Add role_hierarchy",
+            "description": null
+        },
+        {
+            "id": "impersonation-activate-switch-user",
+            "name": "Impersonation: activate switch_user",
+            "description": null
+        },
+        {
+            "id": "impersonation-add-role-to-hierarchy",
+            "name": "Impersonation: add role to hierarchy",
+            "description": null
+        },
+        {
+            "id": "impersonation-red-header",
+            "name": "Impersonation: red header",
+            "description": null
+        },
+        {
+            "id": "impersonation-link-to-exit-impersonation",
+            "name": "Impersonation: Link to exit impersonation",
+            "description": null
+        },
+        {
+            "id": "api-api-me-endpoint",
+            "name": "API: \/api\/me endpoint",
+            "description": null
+        },
+        {
+            "id": "api-install-serializer",
+            "name": "API: install serializer",
+            "description": null
+        },
+        {
+            "id": "api-user-a-serializer-group",
+            "name": "API: User a serializer group",
+            "description": null
+        },
+        {
+            "id": "api-user-in-javascript",
+            "name": "API: user in JavaScript",
+            "description": null
+        },
+        {
+            "id": "registration-install-form-validator",
+            "name": "Registration: install form & validator",
+            "description": null
+        },
+        {
+            "id": "registration-make-registration-form",
+            "name": "Registration: make:registration-form",
+            "description": null
+        },
+        {
+            "id": "registration-tweak-template",
+            "name": "Registration: tweak template",
+            "description": null
+        },
+        {
+            "id": "registration-style-button",
+            "name": "Registration: style button",
+            "description": null
+        },
+        {
+            "id": "registration-form-theme",
+            "name": "Registration: form theme",
+            "description": null
+        },
+        {
+            "id": "manualauth-wire-service",
+            "name": "ManualAuth: wire service",
+            "description": null
+        },
+        {
+            "id": "manualauth-add-authenticator-arg",
+            "name": "ManualAuth: add authenticator arg",
+            "description": null
+        },
+        {
+            "id": "manualauth-wire-arg",
+            "name": "ManualAuth: wire arg",
+            "description": null
+        },
+        {
+            "id": "voters-relate-question-user",
+            "name": "Voters: Relate Question & User",
+            "description": null
+        },
+        {
+            "id": "voters-make-migration",
+            "name": "Voters: make:migration",
+            "description": null
+        },
+        {
+            "id": "voters-fix-fixtures",
+            "name": "Voters: fix fixtures",
+            "description": null
+        },
+        {
+            "id": "voters-update-homepage",
+            "name": "Voters: update homepage",
+            "description": null
+        },
+        {
+            "id": "voters-update-show-page",
+            "name": "Voters: update show page",
+            "description": null
+        },
+        {
+            "id": "voters-sneak-in-email",
+            "name": "Voters: sneak in email",
+            "description": null
+        },
+        {
+            "id": "voters-add-edit-page",
+            "name": "Voters: add edit page",
+            "description": null
+        },
+        {
+            "id": "voters-manual-security-in-controller",
+            "name": "Voters: manual security in controller",
+            "description": null
+        },
+        {
+            "id": "voters-use-voter-in-controller",
+            "name": "Voters: use voter in controller",
+            "description": null
+        },
+        {
+            "id": "voters-make-voter",
+            "name": "Voters: make:voter",
+            "description": null
+        },
+        {
+            "id": "voters-customize-voter",
+            "name": "Voters: customize voter",
+            "description": null
+        },
+        {
+            "id": "voters-use-voter-in-twig",
+            "name": "Voters: use voter in Twig",
+            "description": null
+        },
+        {
+            "id": "throttling-enable-it",
+            "name": "Throttling: enable it",
+            "description": null
+        },
+        {
+            "id": "throttling-install-rate-limiter",
+            "name": "Throttling: install rate limiter",
+            "description": null
+        },
+        {
+            "id": "listener-add-user-isverified",
+            "name": "Listener: Add User.isVerified",
+            "description": null
+        },
+        {
+            "id": "listener-bootstrap-subscriber-class",
+            "name": "Listener: Bootstrap subscriber class",
+            "description": null
+        },
+        {
+            "id": "listener-listen-and-dump-event",
+            "name": "Listener: listen and dump event",
+            "description": null
+        },
+        {
+            "id": "listener-change-priority",
+            "name": "Listener: change priority",
+            "description": null
+        },
+        {
+            "id": "listener-check-passport-type",
+            "name": "Listener: check Passport type",
+            "description": null
+        },
+        {
+            "id": "listener-check-user-type",
+            "name": "Listener: check User type",
+            "description": null
+        },
+        {
+            "id": "listener-throw-authenticationexception",
+            "name": "Listener: throw AuthenticationException",
+            "description": null
+        },
+        {
+            "id": "listener-custom-message-exception",
+            "name": "Listener: Custom message exception",
+            "description": null
+        },
+        {
+            "id": "listener-add-custom-exception-class",
+            "name": "Listener: Add custom exception class",
+            "description": null
+        },
+        {
+            "id": "listener-listen-to-loginfailureevent",
+            "name": "Listener: listen to LoginFailureEvent",
+            "description": null
+        },
+        {
+            "id": "listener-check-for-exception-type",
+            "name": "Listener: check for exception type",
+            "description": null
+        },
+        {
+            "id": "listener-add-fake-verify-email-page",
+            "name": "Listener: Add fake verify email page",
+            "description": null
+        },
+        {
+            "id": "listener-redirect-when-not-verified",
+            "name": "Listener: redirect when not verified",
+            "description": null
+        },
+        {
+            "id": "listener-make-all-users-verified",
+            "name": "Listener: make all users verified",
+            "description": null
         }
     ],
-    "sha": "20466e150b449e8d129e9d992f4f04ccea9b83cd"
+    "sha": "9e34c119af4761b1fa7118dc39b278efca21f404"
 }

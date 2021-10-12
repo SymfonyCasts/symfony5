@@ -1,0 +1,38 @@
+diff --git a/src/EventSubscriber/CheckVerifiedUserSubscriber.php b/src/EventSubscriber/CheckVerifiedUserSubscriber.php
+index 9b5b66d1..896d4b7f 100644
+--- a/src/EventSubscriber/CheckVerifiedUserSubscriber.php
++++ b/src/EventSubscriber/CheckVerifiedUserSubscriber.php
+@@ -3,6 +3,7 @@
+ namespace App\EventSubscriber;
+ 
+ use App\Entity\User;
++use App\Repository\AccountNotVerifiedAuthenticationException;
+ use Symfony\Component\EventDispatcher\EventSubscriberInterface;
+ use Symfony\Component\Security\Core\Exception\AccessDeniedException;
+ use Symfony\Component\Security\Core\Exception\AuthenticationException;
+@@ -25,9 +26,7 @@ class CheckVerifiedUserSubscriber implements EventSubscriberInterface
+         }
+ 
+         if (!$user->isVerified()) {
+-            throw new CustomUserMessageAuthenticationException(
+-                'Please verify your account before logging in.'
+-            );
++            throw new AccountNotVerifiedAuthenticationException();
+         }
+     }
+ 
+diff --git a/src/Repository/AccountNotVerifiedAuthenticationException.php b/src/Repository/AccountNotVerifiedAuthenticationException.php
+new file mode 100644
+index 00000000..718c9f1f
+--- /dev/null
++++ b/src/Repository/AccountNotVerifiedAuthenticationException.php
+@@ -0,0 +1,9 @@
++<?php
++
++namespace App\Repository;
++
++use Symfony\Component\Security\Core\Exception\AuthenticationException;
++
++class AccountNotVerifiedAuthenticationException extends AuthenticationException
++{
++}

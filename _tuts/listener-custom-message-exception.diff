@@ -1,0 +1,23 @@
+diff --git a/src/EventSubscriber/CheckVerifiedUserSubscriber.php b/src/EventSubscriber/CheckVerifiedUserSubscriber.php
+index 97b8e711..9b5b66d1 100644
+--- a/src/EventSubscriber/CheckVerifiedUserSubscriber.php
++++ b/src/EventSubscriber/CheckVerifiedUserSubscriber.php
+@@ -6,6 +6,7 @@ use App\Entity\User;
+ use Symfony\Component\EventDispatcher\EventSubscriberInterface;
+ use Symfony\Component\Security\Core\Exception\AccessDeniedException;
+ use Symfony\Component\Security\Core\Exception\AuthenticationException;
++use Symfony\Component\Security\Core\Exception\CustomUserMessageAuthenticationException;
+ use Symfony\Component\Security\Http\Authenticator\Passport\UserPassportInterface;
+ use Symfony\Component\Security\Http\Event\CheckPassportEvent;
+ 
+@@ -24,7 +25,9 @@ class CheckVerifiedUserSubscriber implements EventSubscriberInterface
+         }
+ 
+         if (!$user->isVerified()) {
+-            throw new AuthenticationException();
++            throw new CustomUserMessageAuthenticationException(
++                'Please verify your account before logging in.'
++            );
+         }
+     }
+ 

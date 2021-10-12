@@ -1,0 +1,13 @@
+diff --git a/src/EventSubscriber/CheckVerifiedUserSubscriber.php b/src/EventSubscriber/CheckVerifiedUserSubscriber.php
+index bbf1e1b7..481b28bf 100644
+--- a/src/EventSubscriber/CheckVerifiedUserSubscriber.php
++++ b/src/EventSubscriber/CheckVerifiedUserSubscriber.php
+@@ -15,7 +15,7 @@ class CheckVerifiedUserSubscriber implements EventSubscriberInterface
+     public static function getSubscribedEvents()
+     {
+         return [
+-            CheckPassportEvent::class => 'onCheckPassport',
++            CheckPassportEvent::class => ['onCheckPassport', -10],
+         ];
+     }
+ }

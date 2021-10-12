@@ -1,0 +1,27 @@
+diff --git a/src/Controller/QuestionController.php b/src/Controller/QuestionController.php
+index e7d6de8d..a59c12f8 100644
+--- a/src/Controller/QuestionController.php
++++ b/src/Controller/QuestionController.php
+@@ -10,6 +10,7 @@ use Doctrine\ORM\EntityManagerInterface;
+ use Pagerfanta\Doctrine\ORM\QueryAdapter;
+ use Pagerfanta\Pagerfanta;
+ use Psr\Log\LoggerInterface;
++use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
+ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+ use Symfony\Component\HttpFoundation\Request;
+ use Symfony\Component\HttpFoundation\Response;
+@@ -45,13 +46,10 @@ class QuestionController extends AbstractController
+ 
+     /**
+      * @Route("/questions/new")
++     * @IsGranted("ROLE_ADMIN")
+      */
+     public function new()
+     {
+-        if (!$this->isGranted('ROLE_ADMIN')) {
+-            throw $this->createAccessDeniedException('No access for you!');
+-        }
+-
+         return new Response('Sounds like a GREAT feature for V2!');
+     }
+ 

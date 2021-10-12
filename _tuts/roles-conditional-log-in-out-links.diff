@@ -1,0 +1,32 @@
+diff --git a/src/Controller/SecurityController.php b/src/Controller/SecurityController.php
+index 9968f201..c448eb4f 100644
+--- a/src/Controller/SecurityController.php
++++ b/src/Controller/SecurityController.php
+@@ -21,7 +21,7 @@ class SecurityController extends AbstractController
+     }
+ 
+     /**
+-     * @Route("/logout")
++     * @Route("/logout", name="app_logout")
+      */
+     public function logout()
+     {
+diff --git a/templates/base.html.twig b/templates/base.html.twig
+index 988a17ab..7ce87a7d 100644
+--- a/templates/base.html.twig
++++ b/templates/base.html.twig
+@@ -36,8 +36,12 @@
+                         {% endif %}
+                     </ul>
+ 
+-                    <a class="nav-link text-black-50" href="{{ path('app_login') }}">Log In</a>
+-                    <button class="btn btn-dark">Sign up</button>
++                    {% if is_granted('ROLE_USER') %}
++                        <a class="nav-link text-black-50" href="{{ path('app_logout') }}">Log Out</a>
++                    {% else %}
++                        <a class="nav-link text-black-50" href="{{ path('app_login') }}">Log In</a>
++                        <button class="btn btn-dark">Sign up</button>
++                    {% endif %}
+                 </div>
+             </div>
+         </nav>

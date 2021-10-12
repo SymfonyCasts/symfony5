@@ -1,0 +1,24 @@
+diff --git a/src/EventSubscriber/CheckVerifiedUserSubscriber.php b/src/EventSubscriber/CheckVerifiedUserSubscriber.php
+index 6b5e7c7d..bbf1e1b7 100644
+--- a/src/EventSubscriber/CheckVerifiedUserSubscriber.php
++++ b/src/EventSubscriber/CheckVerifiedUserSubscriber.php
+@@ -3,10 +3,19 @@
+ namespace App\EventSubscriber;
+ 
+ use Symfony\Component\EventDispatcher\EventSubscriberInterface;
++use Symfony\Component\Security\Http\Event\CheckPassportEvent;
+ 
+ class CheckVerifiedUserSubscriber implements EventSubscriberInterface
+ {
++    public function onCheckPassport(CheckPassportEvent $event)
++    {
++        dd($event);
++    }
++
+     public static function getSubscribedEvents()
+     {
++        return [
++            CheckPassportEvent::class => 'onCheckPassport',
++        ];
+     }
+ }

@@ -1,0 +1,14 @@
+diff --git a/config/packages/security.yaml b/config/packages/security.yaml
+index 7d679145..8972a8dd 100644
+--- a/config/packages/security.yaml
++++ b/config/packages/security.yaml
+@@ -25,6 +25,9 @@ security:
+             form_login:
+                 login_path: app_login
+                 check_path: app_login
++                username_parameter: email
++                password_parameter: password
++
+             custom_authenticator:
+             #    - App\Security\LoginFormAuthenticator
+                 - App\Security\DummyAuthenticator

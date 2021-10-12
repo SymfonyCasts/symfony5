@@ -1,0 +1,43 @@
+diff --git a/src/Controller/SecurityController.php b/src/Controller/SecurityController.php
+index c448eb4f..25fc848b 100644
+--- a/src/Controller/SecurityController.php
++++ b/src/Controller/SecurityController.php
+@@ -27,4 +27,12 @@ class SecurityController extends AbstractController
+     {
+         throw new \Exception('logout() should never be reached');
+     }
++
++    /**
++     * @Route("/verify/email", name="app_verify_email")
++     */
++    public function verifyEmail()
++    {
++        return $this->render('security/verify-email.html.twig');
++    }
+ }
+diff --git a/templates/security/verify-email.html.twig b/templates/security/verify-email.html.twig
+new file mode 100644
+index 00000000..8358e257
+--- /dev/null
++++ b/templates/security/verify-email.html.twig
+@@ -0,0 +1,20 @@
++{% extends 'base.html.twig' %}
++
++{% block title %}Verify Email{% endblock %}
++
++{% block body %}
++<div class="container">
++    <div class="row">
++        <div class="login-form bg-light mt-4 p-4">
++            <h1 class="h3 mb-3 font-weight-normal">Verify your Email</h1>
++
++            <p>
++                A verification email was sent - please click it to enable your
++                account before logging in.
++            </p>
++
++            <a href="#" class="btn btn-primary">Re-send Email</a>
++        </div>
++    </div>
++</div>
++{% endblock %}

@@ -1,0 +1,39 @@
+diff --git a/src/Security/LoginFormAuthenticator.php b/src/Security/LoginFormAuthenticator.php
+index d92c4967..dcfb69ff 100644
+--- a/src/Security/LoginFormAuthenticator.php
++++ b/src/Security/LoginFormAuthenticator.php
+@@ -34,11 +34,6 @@ class LoginFormAuthenticator extends AbstractLoginFormAuthenticator
+         $this->router = $router;
+     }
+ 
+-    public function supports(Request $request): ?bool
+-    {
+-        return ($request->getPathInfo() === '/login' && $request->isMethod('POST'));
+-    }
+-
+     public function authenticate(Request $request): PassportInterface
+     {
+         $email = $request->request->get('email');
+@@ -73,22 +68,6 @@ class LoginFormAuthenticator extends AbstractLoginFormAuthenticator
+         );
+     }
+ 
+-    public function onAuthenticationFailure(Request $request, AuthenticationException $exception): ?Response
+-    {
+-        $request->getSession()->set(Security::AUTHENTICATION_ERROR, $exception);
+-
+-        return new RedirectResponse(
+-            $this->router->generate('app_login')
+-        );
+-    }
+-
+-    public function start(Request $request, AuthenticationException $authException = null): Response
+-    {
+-        return new RedirectResponse(
+-            $this->router->generate('app_login')
+-        );
+-    }
+-
+     protected function getLoginUrl(Request $request): string
+     {
+         return $this->router->generate('app_login');

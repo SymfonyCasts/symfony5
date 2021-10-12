@@ -1,0 +1,19 @@
+diff --git a/src/Controller/AdminController.php b/src/Controller/AdminController.php
+index 3bb0f008..b019cedf 100644
+--- a/src/Controller/AdminController.php
++++ b/src/Controller/AdminController.php
+@@ -62,4 +62,14 @@ class AdminController extends AbstractController
+     {
+         return new Response('Pretend admin login page, that should be public');
+     }
++
++    /**
++     * @Route("/admin/comments")
++     */
++    public function adminComments()
++    {
++        $this->denyAccessUnlessGranted('ROLE_COMMENT_ADMIN');
++
++        return new Response('Pretend comments admin page');
++    }
+ }

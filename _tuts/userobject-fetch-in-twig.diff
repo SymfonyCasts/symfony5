@@ -1,0 +1,12 @@
+diff --git a/templates/base.html.twig b/templates/base.html.twig
+index d70a104f..305ab34e 100644
+--- a/templates/base.html.twig
++++ b/templates/base.html.twig
+@@ -37,6 +37,7 @@
+                     </ul>
+ 
+                     {% if is_granted('IS_AUTHENTICATED_FULLY') %}
++                        {{ app.user.firstName }}
+                         <a class="nav-link text-black-50" href="{{ path('app_logout') }}">Log Out</a>
+                     {% else %}
+                         <a class="nav-link text-black-50" href="{{ path('app_login') }}">Log In</a>

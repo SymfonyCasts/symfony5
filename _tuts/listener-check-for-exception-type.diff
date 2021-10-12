@@ -1,0 +1,15 @@
+diff --git a/src/EventSubscriber/CheckVerifiedUserSubscriber.php b/src/EventSubscriber/CheckVerifiedUserSubscriber.php
+index 296c0fef..c71a1707 100644
+--- a/src/EventSubscriber/CheckVerifiedUserSubscriber.php
++++ b/src/EventSubscriber/CheckVerifiedUserSubscriber.php
+@@ -33,7 +33,9 @@ class CheckVerifiedUserSubscriber implements EventSubscriberInterface
+ 
+     public function onLoginFailure(LoginFailureEvent $event)
+     {
+-        dd($event);
++        if (!$event->getException() instanceof AccountNotVerifiedAuthenticationException) {
++            return;
++        }
+     }
+ 
+     public static function getSubscribedEvents()

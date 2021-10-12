@@ -1,0 +1,12 @@
+diff --git a/config/packages/security.yaml b/config/packages/security.yaml
+index 8972a8dd..dcce0a94 100644
+--- a/config/packages/security.yaml
++++ b/config/packages/security.yaml
+@@ -27,6 +27,7 @@ security:
+                 check_path: app_login
+                 username_parameter: email
+                 password_parameter: password
++                enable_csrf: true
+ 
+             custom_authenticator:
+             #    - App\Security\LoginFormAuthenticator

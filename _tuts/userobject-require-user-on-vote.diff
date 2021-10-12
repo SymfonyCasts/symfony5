@@ -1,0 +1,40 @@
+diff --git a/src/Controller/AnswerController.php b/src/Controller/AnswerController.php
+index f7932e39..3b98316c 100644
+--- a/src/Controller/AnswerController.php
++++ b/src/Controller/AnswerController.php
+@@ -6,6 +6,7 @@ use App\Entity\Answer;
+ use App\Repository\AnswerRepository;
+ use Doctrine\ORM\EntityManagerInterface;
+ use Psr\Log\LoggerInterface;
++use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
+ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+ use Symfony\Component\HttpFoundation\Request;
+ use Symfony\Component\Routing\Annotation\Route;
+@@ -28,6 +29,7 @@ class AnswerController extends AbstractController
+ 
+     /**
+      * @Route("/answers/{id}/vote", methods="POST", name="answer_vote")
++     * @IsGranted("ROLE_USER")
+      */
+     public function answerVote(Answer $answer, LoggerInterface $logger, Request $request, EntityManagerInterface $entityManager)
+     {
+diff --git a/templates/question/show.html.twig b/templates/question/show.html.twig
+index 287dd556..7b7608f8 100644
+--- a/templates/question/show.html.twig
++++ b/templates/question/show.html.twig
+@@ -22,6 +22,7 @@
+                                     {% endif %}
+                                 </small>
+ 
++                                {% if is_granted('ROLE_USER') %}
+                                 <form action="{{ path('app_question_vote', { slug: question.slug }) }}" method="POST">
+                                     <div class="vote-arrows vote-arrows-alt flex-fill pt-2" style="min-width: 90px;">
+                                         <button class="vote-up btn btn-link" name="direction" value="up"><i class="far fa-arrow-alt-circle-up"></i></button>
+@@ -29,6 +30,7 @@
+                                         <span>{{ question.votesString }}</span>
+                                     </div>
+                                 </form>
++                                {% endif %}
+                             </div>
+                         </div>
+                         <div class="col">

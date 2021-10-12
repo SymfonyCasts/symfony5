@@ -1,0 +1,48 @@
+diff --git a/src/Controller/UserController.php b/src/Controller/UserController.php
+index d027dac7..b614b9e6 100644
+--- a/src/Controller/UserController.php
++++ b/src/Controller/UserController.php
+@@ -14,6 +14,8 @@ class UserController extends AbstractController
+      */
+     public function apiMe()
+     {
+-        return $this->json($this->getUser());
++        return $this->json($this->getUser(), 200, [], [
++            'groups' => ['user:read']
++        ]);
+     }
+ }
+diff --git a/src/Entity/User.php b/src/Entity/User.php
+index bec83c8f..ed7ca9e6 100644
+--- a/src/Entity/User.php
++++ b/src/Entity/User.php
+@@ -6,6 +6,7 @@ use App\Repository\UserRepository;
+ use Doctrine\ORM\Mapping as ORM;
+ use Symfony\Component\Security\Core\User\PasswordAuthenticatedUserInterface;
+ use Symfony\Component\Security\Core\User\UserInterface;
++use Symfony\Component\Serializer\Annotation\Groups;
+ 
+ /**
+  * @ORM\Entity(repositoryClass=UserRepository::class)
+@@ -16,11 +17,13 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
+      * @ORM\Id
+      * @ORM\GeneratedValue
+      * @ORM\Column(type="integer")
++     * @Groups("user:read")
+      */
+     private $id;
+ 
+     /**
+      * @ORM\Column(type="string", length=180, unique=true)
++     * @Groups("user:read")
+      */
+     private $email;
+ 
+@@ -31,6 +34,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
+ 
+     /**
+      * @ORM\Column(type="string", length=255, nullable=true)
++     * @Groups("user:read")
+      */
+     private $firstName;
+ 

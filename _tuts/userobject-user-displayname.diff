@@ -1,0 +1,33 @@
+diff --git a/src/Entity/User.php b/src/Entity/User.php
+index d64c7fe4..bec83c8f 100644
+--- a/src/Entity/User.php
++++ b/src/Entity/User.php
+@@ -156,9 +156,14 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
+     public function getAvatarUri(int $size = 32): string
+     {
+         return 'https://ui-avatars.com/api/?' . http_build_query([
+-            'name' => $this->getFirstName() ?: $this->getEmail(),
++            'name' => $this->getDisplayName(),
+             'size' => $size,
+             'background' => 'random',
+         ]);
+     }
++
++    public function getDisplayName(): string
++    {
++        return $this->getFirstName() ?: $this->getEmail();
++    }
+ }
+diff --git a/templates/base.html.twig b/templates/base.html.twig
+index 2d8e492b..8cd96a85 100644
+--- a/templates/base.html.twig
++++ b/templates/base.html.twig
+@@ -47,7 +47,7 @@
+                             >
+                                 <img
+                                     src="{{ app.user.avatarUri }}"
+-                                    alt="{{ app.user.firstName }} Avatar">
++                                    alt="{{ app.user.displayName }} Avatar">
+                             </button>
+                             <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="user-dropdown">
+                                 <li>

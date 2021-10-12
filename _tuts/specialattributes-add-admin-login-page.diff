@@ -1,0 +1,17 @@
+diff --git a/src/Controller/AdminController.php b/src/Controller/AdminController.php
+index 9b5cb9bd..3bb0f008 100644
+--- a/src/Controller/AdminController.php
++++ b/src/Controller/AdminController.php
+@@ -54,4 +54,12 @@ class AdminController extends AbstractController
+             'chart2' => $chart2,
+         ]);
+     }
++
++    /**
++     * @Route("/admin/login")
++     */
++    public function adminLogin()
++    {
++        return new Response('Pretend admin login page, that should be public');
++    }
+ }

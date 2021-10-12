@@ -1,0 +1,28 @@
+diff --git a/src/Controller/UserController.php b/src/Controller/UserController.php
+index b614b9e6..70a52921 100644
+--- a/src/Controller/UserController.php
++++ b/src/Controller/UserController.php
+@@ -9,7 +9,7 @@ use Symfony\Component\Routing\Annotation\Route;
+ class UserController extends AbstractController
+ {
+     /**
+-     * @Route("/api/me")
++     * @Route("/api/me", name="app_user_api_me")
+      * @IsGranted("ROLE_USER")
+      */
+     public function apiMe()
+diff --git a/templates/base.html.twig b/templates/base.html.twig
+index 4107613a..6b3e7660 100644
+--- a/templates/base.html.twig
++++ b/templates/base.html.twig
+@@ -12,7 +12,9 @@
+             {{ encore_entry_script_tags('app') }}
+         {% endblock %}
+     </head>
+-    <body>
++    <body {{ stimulus_controller('user-api', {
++        url: path('app_user_api_me')
++    }) }}>
+         <nav
+             class="navbar navbar-expand-lg navbar-light bg-light px-1"
+             {{ is_granted('ROLE_PREVIOUS_ADMIN') ? 'style="background-color: red !important"' }}

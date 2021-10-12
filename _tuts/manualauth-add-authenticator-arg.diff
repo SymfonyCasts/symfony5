@@ -1,0 +1,29 @@
+diff --git a/src/Controller/RegistrationController.php b/src/Controller/RegistrationController.php
+index 8a022201..af76c2b6 100644
+--- a/src/Controller/RegistrationController.php
++++ b/src/Controller/RegistrationController.php
+@@ -10,13 +10,14 @@ use Symfony\Component\HttpFoundation\Response;
+ use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
+ use Symfony\Component\Routing\Annotation\Route;
+ use Symfony\Component\Security\Http\Authentication\UserAuthenticatorInterface;
++use Symfony\Component\Security\Http\Authenticator\FormLoginAuthenticator;
+ 
+ class RegistrationController extends AbstractController
+ {
+     /**
+      * @Route("/register", name="app_register")
+      */
+-    public function register(Request $request, UserPasswordHasherInterface $userPasswordHasher, UserAuthenticatorInterface $userAuthenticator): Response
++    public function register(Request $request, UserPasswordHasherInterface $userPasswordHasher, UserAuthenticatorInterface $userAuthenticator, FormLoginAuthenticator $formLoginAuthenticator): Response
+     {
+         $user = new User();
+         $form = $this->createForm(RegistrationFormType::class, $user);
+@@ -38,6 +39,8 @@ class RegistrationController extends AbstractController
+ 
+             $userAuthenticator->authenticateUser(
+                 $user,
++                $formLoginAuthenticator,
++                $request
+             );
+ 
+             return $this->redirectToRoute('app_homepage');

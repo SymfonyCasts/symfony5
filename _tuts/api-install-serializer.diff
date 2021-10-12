@@ -1,0 +1,425 @@
+diff --git a/composer.json b/composer.json
+index 64b3ea1f..1f4e6606 100644
+--- a/composer.json
++++ b/composer.json
+@@ -7,6 +7,7 @@
+         "ext-iconv": "*",
+         "babdev/pagerfanta-bundle": "^3.3",
+         "composer/package-versions-deprecated": "^1.11",
++        "doctrine/annotations": "^1.0",
+         "doctrine/doctrine-bundle": "^2.1",
+         "doctrine/doctrine-migrations-bundle": "^3.0",
+         "doctrine/orm": "^2.7",
+@@ -14,6 +15,7 @@
+         "knplabs/knp-time-bundle": "^1.11",
+         "pagerfanta/doctrine-orm-adapter": "^3.3",
+         "pagerfanta/twig": "^3.3",
++        "phpdocumentor/reflection-docblock": "^5.2",
+         "sensio/framework-extra-bundle": "^6.0",
+         "stof/doctrine-extensions-bundle": "^1.4",
+         "symfony/asset": "5.3.*",
+@@ -22,8 +24,11 @@
+         "symfony/flex": "^1.3.1",
+         "symfony/framework-bundle": "5.3.*",
+         "symfony/monolog-bundle": "^3.0",
++        "symfony/property-access": "5.3.*",
++        "symfony/property-info": "5.3.*",
+         "symfony/runtime": "5.3.*",
+         "symfony/security-bundle": "5.3.*",
++        "symfony/serializer": "5.3.*",
+         "symfony/stopwatch": "5.3.*",
+         "symfony/twig-bundle": "5.3.*",
+         "symfony/ux-chartjs": "^1.3",
+diff --git a/composer.lock b/composer.lock
+index db4b8e22..4a8f7784 100644
+--- a/composer.lock
++++ b/composer.lock
+@@ -4,7 +4,7 @@
+         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
+         "This file is @generated automatically"
+     ],
+-    "content-hash": "18b07c276518842c62f3a819d4115dab",
++    "content-hash": "f30e534ea25fcd00ff63a38e4bb3fa1f",
+     "packages": [
+         {
+             "name": "babdev/pagerfanta-bundle",
+@@ -2260,6 +2260,165 @@
+             },
+             "time": "2021-07-25T22:42:23+00:00"
+         },
++        {
++            "name": "phpdocumentor/reflection-common",
++            "version": "2.2.0",
++            "source": {
++                "type": "git",
++                "url": "https://github.com/phpDocumentor/ReflectionCommon.git",
++                "reference": "1d01c49d4ed62f25aa84a747ad35d5a16924662b"
++            },
++            "dist": {
++                "type": "zip",
++                "url": "https://api.github.com/repos/phpDocumentor/ReflectionCommon/zipball/1d01c49d4ed62f25aa84a747ad35d5a16924662b",
++                "reference": "1d01c49d4ed62f25aa84a747ad35d5a16924662b",
++                "shasum": ""
++            },
++            "require": {
++                "php": "^7.2 || ^8.0"
++            },
++            "type": "library",
++            "extra": {
++                "branch-alias": {
++                    "dev-2.x": "2.x-dev"
++                }
++            },
++            "autoload": {
++                "psr-4": {
++                    "phpDocumentor\\Reflection\\": "src/"
++                }
++            },
++            "notification-url": "https://packagist.org/downloads/",
++            "license": [
++                "MIT"
++            ],
++            "authors": [
++                {
++                    "name": "Jaap van Otterdijk",
++                    "email": "opensource@ijaap.nl"
++                }
++            ],
++            "description": "Common reflection classes used by phpdocumentor to reflect the code structure",
++            "homepage": "http://www.phpdoc.org",
++            "keywords": [
++                "FQSEN",
++                "phpDocumentor",
++                "phpdoc",
++                "reflection",
++                "static analysis"
++            ],
++            "support": {
++                "issues": "https://github.com/phpDocumentor/ReflectionCommon/issues",
++                "source": "https://github.com/phpDocumentor/ReflectionCommon/tree/2.x"
++            },
++            "time": "2020-06-27T09:03:43+00:00"
++        },
++        {
++            "name": "phpdocumentor/reflection-docblock",
++            "version": "5.2.2",
++            "source": {
++                "type": "git",
++                "url": "https://github.com/phpDocumentor/ReflectionDocBlock.git",
++                "reference": "069a785b2141f5bcf49f3e353548dc1cce6df556"
++            },
++            "dist": {
++                "type": "zip",
++                "url": "https://api.github.com/repos/phpDocumentor/ReflectionDocBlock/zipball/069a785b2141f5bcf49f3e353548dc1cce6df556",
++                "reference": "069a785b2141f5bcf49f3e353548dc1cce6df556",
++                "shasum": ""
++            },
++            "require": {
++                "ext-filter": "*",
++                "php": "^7.2 || ^8.0",
++                "phpdocumentor/reflection-common": "^2.2",
++                "phpdocumentor/type-resolver": "^1.3",
++                "webmozart/assert": "^1.9.1"
++            },
++            "require-dev": {
++                "mockery/mockery": "~1.3.2"
++            },
++            "type": "library",
++            "extra": {
++                "branch-alias": {
++                    "dev-master": "5.x-dev"
++                }
++            },
++            "autoload": {
++                "psr-4": {
++                    "phpDocumentor\\Reflection\\": "src"
++                }
++            },
++            "notification-url": "https://packagist.org/downloads/",
++            "license": [
++                "MIT"
++            ],
++            "authors": [
++                {
++                    "name": "Mike van Riel",
++                    "email": "me@mikevanriel.com"
++                },
++                {
++                    "name": "Jaap van Otterdijk",
++                    "email": "account@ijaap.nl"
++                }
++            ],
++            "description": "With this component, a library can provide support for annotations via DocBlocks or otherwise retrieve information that is embedded in a DocBlock.",
++            "support": {
++                "issues": "https://github.com/phpDocumentor/ReflectionDocBlock/issues",
++                "source": "https://github.com/phpDocumentor/ReflectionDocBlock/tree/master"
++            },
++            "time": "2020-09-03T19:13:55+00:00"
++        },
++        {
++            "name": "phpdocumentor/type-resolver",
++            "version": "1.5.1",
++            "source": {
++                "type": "git",
++                "url": "https://github.com/phpDocumentor/TypeResolver.git",
++                "reference": "a12f7e301eb7258bb68acd89d4aefa05c2906cae"
++            },
++            "dist": {
++                "type": "zip",
++                "url": "https://api.github.com/repos/phpDocumentor/TypeResolver/zipball/a12f7e301eb7258bb68acd89d4aefa05c2906cae",
++                "reference": "a12f7e301eb7258bb68acd89d4aefa05c2906cae",
++                "shasum": ""
++            },
++            "require": {
++                "php": "^7.2 || ^8.0",
++                "phpdocumentor/reflection-common": "^2.0"
++            },
++            "require-dev": {
++                "ext-tokenizer": "*",
++                "psalm/phar": "^4.8"
++            },
++            "type": "library",
++            "extra": {
++                "branch-alias": {
++                    "dev-1.x": "1.x-dev"
++                }
++            },
++            "autoload": {
++                "psr-4": {
++                    "phpDocumentor\\Reflection\\": "src"
++                }
++            },
++            "notification-url": "https://packagist.org/downloads/",
++            "license": [
++                "MIT"
++            ],
++            "authors": [
++                {
++                    "name": "Mike van Riel",
++                    "email": "me@mikevanriel.com"
++                }
++            ],
++            "description": "A PSR-5 based resolver of Class names, Types and Structural Element Names",
++            "support": {
++                "issues": "https://github.com/phpDocumentor/TypeResolver/issues",
++                "source": "https://github.com/phpDocumentor/TypeResolver/tree/1.5.1"
++            },
++            "time": "2021-10-02T14:08:47+00:00"
++        },
+         {
+             "name": "psr/cache",
+             "version": "1.0.1",
+@@ -5696,6 +5855,108 @@
+             ],
+             "time": "2021-09-26T16:35:00+00:00"
+         },
++        {
++            "name": "symfony/serializer",
++            "version": "v5.3.8",
++            "source": {
++                "type": "git",
++                "url": "https://github.com/symfony/serializer.git",
++                "reference": "a877799b1e94f792208bea68295f6675027c92be"
++            },
++            "dist": {
++                "type": "zip",
++                "url": "https://api.github.com/repos/symfony/serializer/zipball/a877799b1e94f792208bea68295f6675027c92be",
++                "reference": "a877799b1e94f792208bea68295f6675027c92be",
++                "shasum": ""
++            },
++            "require": {
++                "php": ">=7.2.5",
++                "symfony/deprecation-contracts": "^2.1",
++                "symfony/polyfill-ctype": "~1.8",
++                "symfony/polyfill-php80": "^1.16"
++            },
++            "conflict": {
++                "doctrine/annotations": "<1.12",
++                "phpdocumentor/reflection-docblock": "<3.2.2",
++                "phpdocumentor/type-resolver": "<1.4.0",
++                "symfony/dependency-injection": "<4.4",
++                "symfony/property-access": "<4.4",
++                "symfony/property-info": "<5.3",
++                "symfony/yaml": "<4.4"
++            },
++            "require-dev": {
++                "doctrine/annotations": "^1.12",
++                "phpdocumentor/reflection-docblock": "^3.2|^4.0|^5.0",
++                "symfony/cache": "^4.4|^5.0",
++                "symfony/config": "^4.4|^5.0",
++                "symfony/dependency-injection": "^4.4|^5.0",
++                "symfony/error-handler": "^4.4|^5.0",
++                "symfony/filesystem": "^4.4|^5.0",
++                "symfony/form": "^4.4|^5.0",
++                "symfony/http-foundation": "^4.4|^5.0",
++                "symfony/http-kernel": "^4.4|^5.0",
++                "symfony/mime": "^4.4|^5.0",
++                "symfony/property-access": "^4.4.9|^5.0.9",
++                "symfony/property-info": "^5.3",
++                "symfony/uid": "^5.1",
++                "symfony/validator": "^4.4|^5.0",
++                "symfony/var-dumper": "^4.4|^5.0",
++                "symfony/var-exporter": "^4.4|^5.0",
++                "symfony/yaml": "^4.4|^5.0"
++            },
++            "suggest": {
++                "psr/cache-implementation": "For using the metadata cache.",
++                "symfony/config": "For using the XML mapping loader.",
++                "symfony/mime": "For using a MIME type guesser within the DataUriNormalizer.",
++                "symfony/property-access": "For using the ObjectNormalizer.",
++                "symfony/property-info": "To deserialize relations.",
++                "symfony/var-exporter": "For using the metadata compiler.",
++                "symfony/yaml": "For using the default YAML mapping loader."
++            },
++            "type": "library",
++            "autoload": {
++                "psr-4": {
++                    "Symfony\\Component\\Serializer\\": ""
++                },
++                "exclude-from-classmap": [
++                    "/Tests/"
++                ]
++            },
++            "notification-url": "https://packagist.org/downloads/",
++            "license": [
++                "MIT"
++            ],
++            "authors": [
++                {
++                    "name": "Fabien Potencier",
++                    "email": "fabien@symfony.com"
++                },
++                {
++                    "name": "Symfony Community",
++                    "homepage": "https://symfony.com/contributors"
++                }
++            ],
++            "description": "Handles serializing and deserializing data structures, including object graphs, into array structures or other formats like XML and JSON.",
++            "homepage": "https://symfony.com",
++            "support": {
++                "source": "https://github.com/symfony/serializer/tree/v5.3.8"
++            },
++            "funding": [
++                {
++                    "url": "https://symfony.com/sponsor",
++                    "type": "custom"
++                },
++                {
++                    "url": "https://github.com/fabpot",
++                    "type": "github"
++                },
++                {
++                    "url": "https://tidelift.com/funding/github/packagist/symfony/symfony",
++                    "type": "tidelift"
++                }
++            ],
++            "time": "2021-09-17T08:55:39+00:00"
++        },
+         {
+             "name": "symfony/service-contracts",
+             "version": "v2.4.0",
+@@ -6919,6 +7180,64 @@
+                 }
+             ],
+             "time": "2021-09-17T08:44:23+00:00"
++        },
++        {
++            "name": "webmozart/assert",
++            "version": "1.10.0",
++            "source": {
++                "type": "git",
++                "url": "https://github.com/webmozarts/assert.git",
++                "reference": "6964c76c7804814a842473e0c8fd15bab0f18e25"
++            },
++            "dist": {
++                "type": "zip",
++                "url": "https://api.github.com/repos/webmozarts/assert/zipball/6964c76c7804814a842473e0c8fd15bab0f18e25",
++                "reference": "6964c76c7804814a842473e0c8fd15bab0f18e25",
++                "shasum": ""
++            },
++            "require": {
++                "php": "^7.2 || ^8.0",
++                "symfony/polyfill-ctype": "^1.8"
++            },
++            "conflict": {
++                "phpstan/phpstan": "<0.12.20",
++                "vimeo/psalm": "<4.6.1 || 4.6.2"
++            },
++            "require-dev": {
++                "phpunit/phpunit": "^8.5.13"
++            },
++            "type": "library",
++            "extra": {
++                "branch-alias": {
++                    "dev-master": "1.10-dev"
++                }
++            },
++            "autoload": {
++                "psr-4": {
++                    "Webmozart\\Assert\\": "src/"
++                }
++            },
++            "notification-url": "https://packagist.org/downloads/",
++            "license": [
++                "MIT"
++            ],
++            "authors": [
++                {
++                    "name": "Bernhard Schussek",
++                    "email": "bschussek@gmail.com"
++                }
++            ],
++            "description": "Assertions to validate method input/output with nice error messages.",
++            "keywords": [
++                "assert",
++                "check",
++                "validate"
++            ],
++            "support": {
++                "issues": "https://github.com/webmozarts/assert/issues",
++                "source": "https://github.com/webmozarts/assert/tree/1.10.0"
++            },
++            "time": "2021-03-09T10:59:23+00:00"
+         }
+     ],
+     "packages-dev": [
+diff --git a/symfony.lock b/symfony.lock
+index 43dbe9c3..adad4325 100644
+--- a/symfony.lock
++++ b/symfony.lock
+@@ -151,6 +151,15 @@
+     "php": {
+         "version": "7.2.5"
+     },
++    "phpdocumentor/reflection-common": {
++        "version": "2.2.0"
++    },
++    "phpdocumentor/reflection-docblock": {
++        "version": "5.2.2"
++    },
++    "phpdocumentor/type-resolver": {
++        "version": "1.5.1"
++    },
+     "psr/cache": {
+         "version": "1.0.1"
+     },
+@@ -393,6 +402,9 @@
+     "symfony/security-http": {
+         "version": "v5.3.8"
+     },
++    "symfony/serializer": {
++        "version": "v5.3.8"
++    },
+     "symfony/service-contracts": {
+         "version": "v2.0.1"
+     },
+@@ -491,6 +503,9 @@
+     "twig/twig": {
+         "version": "v3.0.1"
+     },
++    "webmozart/assert": {
++        "version": "1.10.0"
++    },
+     "zenstruck/callback": {
+         "version": "v1.4.0"
+     },

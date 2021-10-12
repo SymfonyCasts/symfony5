@@ -1,0 +1,36 @@
+diff --git a/src/Controller/AnswerController.php b/src/Controller/AnswerController.php
+index f7e4d7ac..084b0703 100644
+--- a/src/Controller/AnswerController.php
++++ b/src/Controller/AnswerController.php
+@@ -3,6 +3,7 @@
+ namespace App\Controller;
+ 
+ use App\Entity\Answer;
++use App\Entity\User;
+ use App\Repository\AnswerRepository;
+ use Doctrine\ORM\EntityManagerInterface;
+ use Psr\Log\LoggerInterface;
+@@ -11,7 +12,7 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+ use Symfony\Component\HttpFoundation\Request;
+ use Symfony\Component\Routing\Annotation\Route;
+ 
+-class AnswerController extends AbstractController
++class AnswerController extends BaseController
+ {
+     /**
+      * @Route("/answers/popular", name="app_popular_answers")
+diff --git a/src/Controller/BaseController.php b/src/Controller/BaseController.php
+new file mode 100644
+index 00000000..531ffe19
+--- /dev/null
++++ b/src/Controller/BaseController.php
+@@ -0,0 +1,9 @@
++<?php
++
++namespace App\Controller;
++
++use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
++
++class BaseController extends AbstractController
++{
++}

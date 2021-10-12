@@ -1,0 +1,29 @@
+diff --git a/templates/base.html.twig b/templates/base.html.twig
+index 305ab34e..0c8cd83d 100644
+--- a/templates/base.html.twig
++++ b/templates/base.html.twig
+@@ -37,6 +37,24 @@
+                     </ul>
+ 
+                     {% if is_granted('IS_AUTHENTICATED_FULLY') %}
++                        <div class="dropdown">
++                            <button
++                                class="dropdown-toggle btn"
++                                type="button"
++                                id="user-dropdown"
++                                data-bs-toggle="dropdown"
++                                aria-expanded="false"
++                            >
++                                <img
++                                    src="https://ui-avatars.com/api/?name=John+Doe&size=32&background=random"
++                                    alt="John Doe Avatar">
++                            </button>
++                            <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="user-dropdown">
++                                <li>
++                                    <a class="dropdown-item" href="#">Log Out</a>
++                                </li>
++                            </ul>
++                        </div>
+                         {{ app.user.firstName }}
+                         <a class="nav-link text-black-50" href="{{ path('app_logout') }}">Log Out</a>
+                     {% else %}

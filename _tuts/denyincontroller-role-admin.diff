@@ -1,0 +1,13 @@
+diff --git a/src/Controller/QuestionController.php b/src/Controller/QuestionController.php
+index 416c5bf8..3b782b37 100644
+--- a/src/Controller/QuestionController.php
++++ b/src/Controller/QuestionController.php
+@@ -48,7 +48,7 @@ class QuestionController extends AbstractController
+      */
+     public function new()
+     {
+-        $this->denyAccessUnlessGranted('ROLE_USER');
++        $this->denyAccessUnlessGranted('ROLE_ADMIN');
+ 
+         return new Response('Sounds like a GREAT feature for V2!');
+     }

@@ -1,0 +1,56 @@
+diff --git a/src/DataFixtures/AppFixtures.php b/src/DataFixtures/AppFixtures.php
+index dd15f94c..f2f56a4c 100644
+--- a/src/DataFixtures/AppFixtures.php
++++ b/src/DataFixtures/AppFixtures.php
+@@ -17,9 +17,22 @@ class AppFixtures extends Fixture
+ {
+     public function load(ObjectManager $manager)
+     {
++        UserFactory::createOne([
++            'email' => 'abraca_admin@example.com',
++            'roles' => ['ROLE_ADMIN']
++        ]);
++        UserFactory::createOne([
++            'email' => 'abraca_user@example.com',
++        ]);
++        UserFactory::createMany(10);
++
+         TagFactory::createMany(100);
+ 
+-        $questions = QuestionFactory::createMany(20);
++        $questions = QuestionFactory::createMany(20, function() {
++            return [
++                'owner' => UserFactory::random(),
++            ];
++        });
+ 
+         QuestionTagFactory::createMany(100, function() {
+             return [
+@@ -45,15 +58,6 @@ class AppFixtures extends Fixture
+             ];
+         })->needsApproval()->many(20)->create();
+ 
+-        UserFactory::createOne([
+-            'email' => 'abraca_admin@example.com',
+-            'roles' => ['ROLE_ADMIN']
+-        ]);
+-        UserFactory::createOne([
+-            'email' => 'abraca_user@example.com',
+-        ]);
+-        UserFactory::createMany(10);
+-
+         $manager->flush();
+     }
+ }
+diff --git a/src/Factory/QuestionFactory.php b/src/Factory/QuestionFactory.php
+index cae31b67..2e85cf21 100644
+--- a/src/Factory/QuestionFactory.php
++++ b/src/Factory/QuestionFactory.php
+@@ -50,6 +50,7 @@ final class QuestionFactory extends ModelFactory
+             ),
+             'askedAt' => self::faker()->dateTimeBetween('-100 days', '-1 minute'),
+             'votes' => rand(-20, 50),
++            'owner' => UserFactory::new(),
+         ];
+     }
+ 

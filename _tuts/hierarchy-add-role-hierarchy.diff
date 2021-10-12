@@ -1,0 +1,14 @@
+diff --git a/config/packages/security.yaml b/config/packages/security.yaml
+index f38ab35d..10e06c56 100644
+--- a/config/packages/security.yaml
++++ b/config/packages/security.yaml
+@@ -4,6 +4,9 @@ security:
+ 
+     hide_user_not_found: false
+ 
++    role_hierarchy:
++        ROLE_ADMIN: ['ROLE_COMMENT_ADMIN']
++
+     # https://symfony.com/doc/current/security.html#c-hashing-passwords
+     password_hashers:
+         Symfony\Component\Security\Core\User\PasswordAuthenticatedUserInterface: 'auto'

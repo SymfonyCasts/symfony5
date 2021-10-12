@@ -11,7 +11,7 @@ index 6694a524..64b3ea1f 100644
          "symfony/twig-bundle": "5.3.*",
          "symfony/ux-chartjs": "^1.3",
 diff --git a/composer.lock b/composer.lock
-index 0ede5913..5120efa7 100644
+index 47564281..db4b8e22 100644
 --- a/composer.lock
 +++ b/composer.lock
 @@ -4,7 +4,7 @@
@@ -23,7 +23,7 @@ index 0ede5913..5120efa7 100644
      "packages": [
          {
              "name": "babdev/pagerfanta-bundle",
-@@ -4374,6 +4374,79 @@
+@@ -4380,6 +4380,79 @@
              ],
              "time": "2021-03-31T07:20:47+00:00"
          },
@@ -103,7 +103,7 @@ index 0ede5913..5120efa7 100644
          {
              "name": "symfony/polyfill-intl-grapheme",
              "version": "v1.23.1",
-@@ -5198,6 +5271,425 @@
+@@ -5204,6 +5277,425 @@
              ],
              "time": "2021-06-30T13:49:12+00:00"
          },

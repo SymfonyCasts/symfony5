@@ -1,0 +1,18 @@
+diff --git a/templates/base.html.twig b/templates/base.html.twig
+index 1f14ba9c..4107613a 100644
+--- a/templates/base.html.twig
++++ b/templates/base.html.twig
+@@ -53,6 +53,13 @@
+                                     alt="{{ app.user.displayName }} Avatar">
+                             </button>
+                             <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="user-dropdown">
++                                {% if is_granted('ROLE_PREVIOUS_ADMIN') %}
++                                    <li>
++                                        <a class="dropdown-item" href="{{ path('app_homepage', {
++                                            '_switch_user': '_exit'
++                                        }) }}">Exit Impersonation</a>
++                                    </li>
++                                {% endif %}
+                                 <li>
+                                     <a class="dropdown-item" href="{{ path('app_logout') }}">Log Out</a>
+                                 </li>

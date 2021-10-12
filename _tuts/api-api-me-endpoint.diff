@@ -1,0 +1,25 @@
+diff --git a/src/Controller/UserController.php b/src/Controller/UserController.php
+new file mode 100644
+index 00000000..d027dac7
+--- /dev/null
++++ b/src/Controller/UserController.php
+@@ -0,0 +1,19 @@
++<?php
++
++namespace App\Controller;
++
++use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
++use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
++use Symfony\Component\Routing\Annotation\Route;
++
++class UserController extends AbstractController
++{
++    /**
++     * @Route("/api/me")
++     * @IsGranted("ROLE_USER")
++     */
++    public function apiMe()
++    {
++        return $this->json($this->getUser());
++    }
++}

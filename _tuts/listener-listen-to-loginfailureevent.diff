@@ -1,0 +1,29 @@
+diff --git a/src/EventSubscriber/CheckVerifiedUserSubscriber.php b/src/EventSubscriber/CheckVerifiedUserSubscriber.php
+index 896d4b7f..296c0fef 100644
+--- a/src/EventSubscriber/CheckVerifiedUserSubscriber.php
++++ b/src/EventSubscriber/CheckVerifiedUserSubscriber.php
+@@ -10,6 +10,7 @@ use Symfony\Component\Security\Core\Exception\AuthenticationException;
+ use Symfony\Component\Security\Core\Exception\CustomUserMessageAuthenticationException;
+ use Symfony\Component\Security\Http\Authenticator\Passport\UserPassportInterface;
+ use Symfony\Component\Security\Http\Event\CheckPassportEvent;
++use Symfony\Component\Security\Http\Event\LoginFailureEvent;
+ 
+ class CheckVerifiedUserSubscriber implements EventSubscriberInterface
+ {
+@@ -30,10 +31,16 @@ class CheckVerifiedUserSubscriber implements EventSubscriberInterface
+         }
+     }
+ 
++    public function onLoginFailure(LoginFailureEvent $event)
++    {
++        dd($event);
++    }
++
+     public static function getSubscribedEvents()
+     {
+         return [
+             CheckPassportEvent::class => ['onCheckPassport', -10],
++            LoginFailureEvent::class => 'onLoginFailure',
+         ];
+     }
+ }

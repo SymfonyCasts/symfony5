@@ -1,0 +1,13 @@
+diff --git a/templates/registration/register.html.twig b/templates/registration/register.html.twig
+index 20af9214..7591458b 100644
+--- a/templates/registration/register.html.twig
++++ b/templates/registration/register.html.twig
+@@ -15,7 +15,7 @@
+                     }) }}
+                     {{ form_row(registrationForm.agreeTerms) }}
+ 
+-                    <button type="submit" class="btn">Register</button>
++                    <button type="submit" class="btn btn-primary">Register</button>
+                 {{ form_end(registrationForm) }}
+             </div>
+         </div>

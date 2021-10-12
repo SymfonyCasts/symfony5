@@ -1,0 +1,13 @@
+diff --git a/config/packages/security.yaml b/config/packages/security.yaml
+index cd281862..7d679145 100644
+--- a/config/packages/security.yaml
++++ b/config/packages/security.yaml
+@@ -21,7 +21,7 @@ security:
+         main:
+             lazy: true
+             provider: app_user_provider
+-            #entry_point: App\Security\LoginFormAuthenticator
++            entry_point: form_login
+             form_login:
+                 login_path: app_login
+                 check_path: app_login

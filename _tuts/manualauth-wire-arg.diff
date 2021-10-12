@@ -1,0 +1,12 @@
+diff --git a/config/services.yaml b/config/services.yaml
+index dd93030b..9f67ce5d 100644
+--- a/config/services.yaml
++++ b/config/services.yaml
+@@ -13,6 +13,7 @@ services:
+         autoconfigure: true # Automatically registers your services as commands, event subscribers, etc.
+         bind:
+             bool $isDebug: '%kernel.debug%'
++            $formLoginAuthenticator: '@security.authenticator.form_login.main'
+ 
+     # makes classes in src/ available to be used as services
+     # this creates a service per class whose id is the fully-qualified class name

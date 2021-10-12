@@ -1,0 +1,24 @@
+diff --git a/src/EventSubscriber/CheckVerifiedUserSubscriber.php b/src/EventSubscriber/CheckVerifiedUserSubscriber.php
+index fb884204..eb2c97f2 100644
+--- a/src/EventSubscriber/CheckVerifiedUserSubscriber.php
++++ b/src/EventSubscriber/CheckVerifiedUserSubscriber.php
+@@ -2,6 +2,7 @@
+ 
+ namespace App\EventSubscriber;
+ 
++use App\Entity\User;
+ use Symfony\Component\EventDispatcher\EventSubscriberInterface;
+ use Symfony\Component\Security\Core\Exception\AccessDeniedException;
+ use Symfony\Component\Security\Http\Authenticator\Passport\UserPassportInterface;
+@@ -15,6 +16,11 @@ class CheckVerifiedUserSubscriber implements EventSubscriberInterface
+         if (!$passport instanceof UserPassportInterface) {
+             throw new \Exception('Unexpected passport type');
+         }
++
++        $user = $passport->getUser();
++        if (!$user instanceof User) {
++            throw new \Exception('Unexpected user type');
++        }
+     }
+ 
+     public static function getSubscribedEvents()

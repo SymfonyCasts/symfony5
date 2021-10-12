@@ -1,0 +1,17 @@
+diff --git a/src/Controller/BaseController.php b/src/Controller/BaseController.php
+index 531ffe19..2ce410a2 100644
+--- a/src/Controller/BaseController.php
++++ b/src/Controller/BaseController.php
+@@ -2,8 +2,12 @@
+ 
+ namespace App\Controller;
+ 
++use App\Entity\User;
+ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+ 
++/**
++ * @method User getUser()
++ */
+ class BaseController extends AbstractController
+ {
+ }

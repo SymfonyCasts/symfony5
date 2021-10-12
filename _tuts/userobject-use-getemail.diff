@@ -1,0 +1,13 @@
+diff --git a/src/Controller/AnswerController.php b/src/Controller/AnswerController.php
+index 10e1da31..f7e4d7ac 100644
+--- a/src/Controller/AnswerController.php
++++ b/src/Controller/AnswerController.php
+@@ -34,7 +34,7 @@ class AnswerController extends AbstractController
+     public function answerVote(Answer $answer, LoggerInterface $logger, Request $request, EntityManagerInterface $entityManager)
+     {
+         $logger->info('{user} is voting on answer {answer}!', [
+-            'user' => $this->getUser()->getUserIdentifier(),
++            'user' => $this->getUser()->getEmail(),
+             'answer' => $answer->getId(),
+         ]);
+ 

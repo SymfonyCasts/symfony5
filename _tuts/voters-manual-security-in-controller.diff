@@ -1,0 +1,16 @@
+diff --git a/src/Controller/QuestionController.php b/src/Controller/QuestionController.php
+index 97b63c18..b3ad854d 100644
+--- a/src/Controller/QuestionController.php
++++ b/src/Controller/QuestionController.php
+@@ -72,6 +72,11 @@ class QuestionController extends AbstractController
+      */
+     public function edit(Question $question)
+     {
++        $this->denyAccessUnlessGranted('ROLE_USER');
++        if ($question->getOwner() !== $this->getUser()) {
++            throw $this->createAccessDeniedException('You are not the owner!');
++        }
++
+         return $this->render('question/edit.html.twig', [
+             'question' => $question,
+         ]);

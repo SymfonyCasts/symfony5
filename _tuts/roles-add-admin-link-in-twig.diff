@@ -1,0 +1,16 @@
+diff --git a/templates/base.html.twig b/templates/base.html.twig
+index 3f732721..988a17ab 100644
+--- a/templates/base.html.twig
++++ b/templates/base.html.twig
+@@ -29,6 +29,11 @@
+                         <li class="nav-item">
+                             <a class="nav-link" href="{{ path('app_popular_answers') }}">Answers</a>
+                         </li>
++                        {% if is_granted('ROLE_ADMIN') %}
++                        <li class="nav-item">
++                            <a class="nav-link" href="{{ path('admin_dashboard') }}">Admin</a>
++                        </li>
++                        {% endif %}
+                     </ul>
+ 
+                     <a class="nav-link text-black-50" href="{{ path('app_login') }}">Log In</a>

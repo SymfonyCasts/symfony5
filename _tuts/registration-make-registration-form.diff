@@ -1,0 +1,154 @@
+diff --git a/src/Controller/RegistrationController.php b/src/Controller/RegistrationController.php
+new file mode 100644
+index 00000000..2d3843ab
+--- /dev/null
++++ b/src/Controller/RegistrationController.php
+@@ -0,0 +1,45 @@
++<?php
++
++namespace App\Controller;
++
++use App\Entity\User;
++use App\Form\RegistrationFormType;
++use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
++use Symfony\Component\HttpFoundation\Request;
++use Symfony\Component\HttpFoundation\Response;
++use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
++use Symfony\Component\Routing\Annotation\Route;
++
++class RegistrationController extends AbstractController
++{
++    /**
++     * @Route("/register", name="app_register")
++     */
++    public function register(Request $request, UserPasswordHasherInterface $userPasswordHasher): Response
++    {
++        $user = new User();
++        $form = $this->createForm(RegistrationFormType::class, $user);
++        $form->handleRequest($request);
++
++        if ($form->isSubmitted() && $form->isValid()) {
++            // encode the plain password
++            $user->setPassword(
++            $userPasswordHasher->hashPassword(
++                    $user,
++                    $form->get('plainPassword')->getData()
++                )
++            );
++
++            $entityManager = $this->getDoctrine()->getManager();
++            $entityManager->persist($user);
++            $entityManager->flush();
++            // do anything else you need here, like send an email
++
++            return $this->redirectToRoute('app_homepage');
++        }
++
++        return $this->render('registration/register.html.twig', [
++            'registrationForm' => $form->createView(),
++        ]);
++    }
++}
+diff --git a/src/Entity/User.php b/src/Entity/User.php
+index ed7ca9e6..ea6f4593 100644
+--- a/src/Entity/User.php
++++ b/src/Entity/User.php
+@@ -4,12 +4,14 @@ namespace App\Entity;
+ 
+ use App\Repository\UserRepository;
+ use Doctrine\ORM\Mapping as ORM;
++use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
+ use Symfony\Component\Security\Core\User\PasswordAuthenticatedUserInterface;
+ use Symfony\Component\Security\Core\User\UserInterface;
+ use Symfony\Component\Serializer\Annotation\Groups;
+ 
+ /**
+  * @ORM\Entity(repositoryClass=UserRepository::class)
++ * @UniqueEntity(fields={"email"}, message="There is already an account with this email")
+  */
+ class User implements UserInterface, PasswordAuthenticatedUserInterface
+ {
+diff --git a/src/Form/RegistrationFormType.php b/src/Form/RegistrationFormType.php
+new file mode 100644
+index 00000000..957e5883
+--- /dev/null
++++ b/src/Form/RegistrationFormType.php
+@@ -0,0 +1,55 @@
++<?php
++
++namespace App\Form;
++
++use App\Entity\User;
++use Symfony\Component\Form\AbstractType;
++use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
++use Symfony\Component\Form\Extension\Core\Type\PasswordType;
++use Symfony\Component\Form\FormBuilderInterface;
++use Symfony\Component\OptionsResolver\OptionsResolver;
++use Symfony\Component\Validator\Constraints\IsTrue;
++use Symfony\Component\Validator\Constraints\Length;
++use Symfony\Component\Validator\Constraints\NotBlank;
++
++class RegistrationFormType extends AbstractType
++{
++    public function buildForm(FormBuilderInterface $builder, array $options): void
++    {
++        $builder
++            ->add('email')
++            ->add('agreeTerms', CheckboxType::class, [
++                'mapped' => false,
++                'constraints' => [
++                    new IsTrue([
++                        'message' => 'You should agree to our terms.',
++                    ]),
++                ],
++            ])
++            ->add('plainPassword', PasswordType::class, [
++                // instead of being set onto the object directly,
++                // this is read and encoded in the controller
++                'mapped' => false,
++                'attr' => ['autocomplete' => 'new-password'],
++                'constraints' => [
++                    new NotBlank([
++                        'message' => 'Please enter a password',
++                    ]),
++                    new Length([
++                        'min' => 6,
++                        'minMessage' => 'Your password should be at least {{ limit }} characters',
++                        // max length allowed by Symfony for security reasons
++                        'max' => 4096,
++                    ]),
++                ],
++            ])
++        ;
++    }
++
++    public function configureOptions(OptionsResolver $resolver): void
++    {
++        $resolver->setDefaults([
++            'data_class' => User::class,
++        ]);
++    }
++}
+diff --git a/templates/registration/register.html.twig b/templates/registration/register.html.twig
+new file mode 100644
+index 00000000..61b1b48a
+--- /dev/null
++++ b/templates/registration/register.html.twig
+@@ -0,0 +1,17 @@
++{% extends 'base.html.twig' %}
++
++{% block title %}Register{% endblock %}
++
++{% block body %}
++    <h1>Register</h1>
++
++    {{ form_start(registrationForm) }}
++        {{ form_row(registrationForm.email) }}
++        {{ form_row(registrationForm.plainPassword, {
++            label: 'Password'
++        }) }}
++        {{ form_row(registrationForm.agreeTerms) }}
++
++        <button type="submit" class="btn">Register</button>
++    {{ form_end(registrationForm) }}
++{% endblock %}

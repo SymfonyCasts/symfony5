@@ -1,0 +1,25 @@
+diff --git a/templates/base.html.twig b/templates/base.html.twig
+index 0c8cd83d..b1bdaebc 100644
+--- a/templates/base.html.twig
++++ b/templates/base.html.twig
+@@ -46,17 +46,15 @@
+                                 aria-expanded="false"
+                             >
+                                 <img
+-                                    src="https://ui-avatars.com/api/?name=John+Doe&size=32&background=random"
+-                                    alt="John Doe Avatar">
++                                    src="https://ui-avatars.com/api/?name={{ app.user.firstName|url_encode }}&size=32&background=random"
++                                    alt="{{ app.user.firstName }} Avatar">
+                             </button>
+                             <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="user-dropdown">
+                                 <li>
+-                                    <a class="dropdown-item" href="#">Log Out</a>
++                                    <a class="dropdown-item" href="{{ path('app_logout') }}">Log Out</a>
+                                 </li>
+                             </ul>
+                         </div>
+-                        {{ app.user.firstName }}
+-                        <a class="nav-link text-black-50" href="{{ path('app_logout') }}">Log Out</a>
+                     {% else %}
+                         <a class="nav-link text-black-50" href="{{ path('app_login') }}">Log In</a>
+                         <button class="btn btn-dark">Sign up</button>

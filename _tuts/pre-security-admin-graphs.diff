@@ -28,7 +28,7 @@ index 4cf8d18e..6694a524 100644
          "symfony/yaml": "5.3.*",
          "twig/extra-bundle": "^2.12|^3.0",
 diff --git a/composer.lock b/composer.lock
-index 50b6526e..0ede5913 100644
+index d3dc8fc9..47564281 100644
 --- a/composer.lock
 +++ b/composer.lock
 @@ -4,7 +4,7 @@
@@ -40,7 +40,7 @@ index 50b6526e..0ede5913 100644
      "packages": [
          {
              "name": "babdev/pagerfanta-bundle",
-@@ -5804,6 +5804,91 @@
+@@ -5810,6 +5810,91 @@
              ],
              "time": "2021-07-21T12:40:44+00:00"
          },
