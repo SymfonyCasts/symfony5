@@ -76,7 +76,7 @@ Inside `Question`... scroll all the way up. Because we also decided to map *this
 side of the relationships, this has a `OneToMany` relationship to the join
 entity. 
 
-[[[ code('30bf8adc87') ]]]
+[[[ code('78246f160a') ]]]
 
 But there were *no* changes to the `Tag` entity, since we decided *not*
 to map the other side of *that* relationship.
