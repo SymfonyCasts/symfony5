@@ -26,6 +26,8 @@ it does *not* explode when we run it on production.
 The fix for the migration is fairly simple. When we add the `tagged_at` column,
 instead of saying `DATETIME NOT NULL`, say `DATETIME DEFAULT NOW()`.
 
+[[[ code('7f16c75d1e') ]]]
+
 This is a *temporary* change: it will allow us to add that new column and give the
 existing rows a default value. Then, in a separate migration that we'll create
 in a few minutes, we can *then* safely make that column `NOT NULL`.
@@ -139,7 +141,11 @@ symfony console make:migration
 
 This is really cool: it looked at the new `QuestionTag` entity, *realized* that
 the `tagged_at` column isn't set up correctly, and generated a new migration
-with `ALTER TABLE question_tag CHANGE tagged_at` to `NOT NULL`. Run this:
+with `ALTER TABLE question_tag CHANGE tagged_at` to `NOT NULL`. 
+
+[[[ code('6536e04e33') ]]]
+
+Run this:
 
 ```terminal-silent
 symfony console doctrine:migrations:migrate
