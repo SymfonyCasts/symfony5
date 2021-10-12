@@ -70,14 +70,22 @@ beautifully boring! It has a `question` property that's a `ManyToOne` to
 `Question`, a `tag` property that's a `ManyToOne` to `Tag` and a `taggedAt`
 date property.
 
+[[[ code('30bf8adc87') ]]]
+
 Inside `Question`... scroll all the way up. Because we also decided to map *this*
 side of the relationships, this has a `OneToMany` relationship to the join
-entity. But there were *no* changes to the `Tag` entity, since we decided *not*
+entity. 
+
+[[[ code('30bf8adc87') ]]]
+
+But there were *no* changes to the `Tag` entity, since we decided *not*
 to map the other side of *that* relationship.
 
 Back in `QuestionTag`, before we generate the migration, let's give our `$taggedAt`
 a default value. Create a `public function __construct()` and, inside, say
 `$this->taggedAt = new \DateTimeImmutable()` which will default to "now".
+
+[[[ code('a0c72969f1') ]]]
 
 ## How this Looks Different / the Same in the Database
 
@@ -90,6 +98,8 @@ symfony console make:migration
 And then go open up the new file... cause this is really cool! It *looks* like
 there are a lot of queries to change from the old `ManyToMany` structure to our
 *new* structure.
+
+[[[ code('f04b631b37') ]]]
 
 But look closer. We *already* had a `question_tag` table thanks to the
 `ManyToMany` relationship. So we don't need to drop that table and create a new
