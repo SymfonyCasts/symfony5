@@ -734,7 +734,22 @@
             "id": "scheb-tweak-qr-code",
             "name": "Scheb: Tweak QR Code",
             "description": null
+        },
+        {
+            "id": "scheb-customize-controller",
+            "name": "Scheb: customize controller",
+            "description": null
+        },
+        {
+            "id": "scheb-copy-in-base-template",
+            "name": "Scheb: Copy in base template",
+            "description": null
+        },
+        {
+            "id": "scheb-customize-template",
+            "name": "Scheb: customize template",
+            "description": null
         }
     ],
-    "sha": "7c348078dfed0b29a47b91e642446d25a035ca9e"
+    "sha": "045aea82fb32b2ccd71ce54e854320969ca1138e"
 }
