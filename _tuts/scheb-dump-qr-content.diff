@@ -1,0 +1,12 @@
+diff --git a/src/Controller/SecurityController.php b/src/Controller/SecurityController.php
+index f15c2cc8..b514fc3f 100644
+--- a/src/Controller/SecurityController.php
++++ b/src/Controller/SecurityController.php
+@@ -52,6 +52,6 @@ class SecurityController extends BaseController
+             $entityManager->flush();
+         }
+ 
+-        dd($user);
++        dd($totpAuthenticator->getQRContent($user));
+     }
+ }

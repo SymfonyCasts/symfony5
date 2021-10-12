@@ -1,0 +1,9 @@
+diff --git a/config/packages/scheb_2fa.yaml b/config/packages/scheb_2fa.yaml
+index 27ff6b8a..d96e1ca0 100644
+--- a/config/packages/scheb_2fa.yaml
++++ b/config/packages/scheb_2fa.yaml
+@@ -8,3 +8,4 @@ scheb_two_factor:
+         - Symfony\Component\Security\Http\Authenticator\Token\PostAuthenticationToken
+     totp:
+         enabled: true
++        issuer: 'Cauldron Overflow'

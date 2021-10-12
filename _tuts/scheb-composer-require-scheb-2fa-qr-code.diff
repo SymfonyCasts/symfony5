@@ -1,0 +1,470 @@
+diff --git a/composer.json b/composer.json
+index c0309c23..c6fea984 100644
+--- a/composer.json
++++ b/composer.json
+@@ -17,6 +17,7 @@
+         "pagerfanta/twig": "^3.3",
+         "phpdocumentor/reflection-docblock": "^5.2",
+         "scheb/2fa-bundle": "^5.12",
++        "scheb/2fa-qr-code": "^5.12",
+         "scheb/2fa-totp": "^5.12",
+         "sensio/framework-extra-bundle": "^6.0",
+         "stof/doctrine-extensions-bundle": "^1.4",
+diff --git a/composer.lock b/composer.lock
+index 4404159a..8a6e09f8 100644
+--- a/composer.lock
++++ b/composer.lock
+@@ -4,7 +4,7 @@
+         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
+         "This file is @generated automatically"
+     ],
+-    "content-hash": "cacf2e644b03b48548b1d1b0aa67157c",
++    "content-hash": "1338149fc3b8b95c2958f772f6e1fc3c",
+     "packages": [
+         {
+             "name": "babdev/pagerfanta-bundle",
+@@ -89,6 +89,59 @@
+             ],
+             "time": "2021-08-01T16:55:32+00:00"
+         },
++        {
++            "name": "bacon/bacon-qr-code",
++            "version": "2.0.4",
++            "source": {
++                "type": "git",
++                "url": "https://github.com/Bacon/BaconQrCode.git",
++                "reference": "f73543ac4e1def05f1a70bcd1525c8a157a1ad09"
++            },
++            "dist": {
++                "type": "zip",
++                "url": "https://api.github.com/repos/Bacon/BaconQrCode/zipball/f73543ac4e1def05f1a70bcd1525c8a157a1ad09",
++                "reference": "f73543ac4e1def05f1a70bcd1525c8a157a1ad09",
++                "shasum": ""
++            },
++            "require": {
++                "dasprid/enum": "^1.0.3",
++                "ext-iconv": "*",
++                "php": "^7.1 || ^8.0"
++            },
++            "require-dev": {
++                "phly/keep-a-changelog": "^1.4",
++                "phpunit/phpunit": "^7 | ^8 | ^9",
++                "squizlabs/php_codesniffer": "^3.4"
++            },
++            "suggest": {
++                "ext-imagick": "to generate QR code images"
++            },
++            "type": "library",
++            "autoload": {
++                "psr-4": {
++                    "BaconQrCode\\": "src/"
++                }
++            },
++            "notification-url": "https://packagist.org/downloads/",
++            "license": [
++                "BSD-2-Clause"
++            ],
++            "authors": [
++                {
++                    "name": "Ben Scholzen 'DASPRiD'",
++                    "email": "mail@dasprids.de",
++                    "homepage": "https://dasprids.de/",
++                    "role": "Developer"
++                }
++            ],
++            "description": "BaconQrCode is a QR code generator for PHP.",
++            "homepage": "https://github.com/Bacon/BaconQrCode",
++            "support": {
++                "issues": "https://github.com/Bacon/BaconQrCode/issues",
++                "source": "https://github.com/Bacon/BaconQrCode/tree/2.0.4"
++            },
++            "time": "2021-06-18T13:26:35+00:00"
++        },
+         {
+             "name": "beberlei/assert",
+             "version": "v3.3.1",
+@@ -278,6 +331,53 @@
+             ],
+             "time": "2021-09-13T08:41:34+00:00"
+         },
++        {
++            "name": "dasprid/enum",
++            "version": "1.0.3",
++            "source": {
++                "type": "git",
++                "url": "https://github.com/DASPRiD/Enum.git",
++                "reference": "5abf82f213618696dda8e3bf6f64dd042d8542b2"
++            },
++            "dist": {
++                "type": "zip",
++                "url": "https://api.github.com/repos/DASPRiD/Enum/zipball/5abf82f213618696dda8e3bf6f64dd042d8542b2",
++                "reference": "5abf82f213618696dda8e3bf6f64dd042d8542b2",
++                "shasum": ""
++            },
++            "require-dev": {
++                "phpunit/phpunit": "^7 | ^8 | ^9",
++                "squizlabs/php_codesniffer": "^3.4"
++            },
++            "type": "library",
++            "autoload": {
++                "psr-4": {
++                    "DASPRiD\\Enum\\": "src/"
++                }
++            },
++            "notification-url": "https://packagist.org/downloads/",
++            "license": [
++                "BSD-2-Clause"
++            ],
++            "authors": [
++                {
++                    "name": "Ben Scholzen 'DASPRiD'",
++                    "email": "mail@dasprids.de",
++                    "homepage": "https://dasprids.de/",
++                    "role": "Developer"
++                }
++            ],
++            "description": "PHP 7.1 enum implementation",
++            "keywords": [
++                "enum",
++                "map"
++            ],
++            "support": {
++                "issues": "https://github.com/DASPRiD/Enum/issues",
++                "source": "https://github.com/DASPRiD/Enum/tree/1.0.3"
++            },
++            "time": "2020-10-02T16:03:48+00:00"
++        },
+         {
+             "name": "doctrine/annotations",
+             "version": "1.13.2",
+@@ -1644,6 +1744,81 @@
+             },
+             "time": "2020-07-30T16:57:33+00:00"
+         },
++        {
++            "name": "endroid/qr-code",
++            "version": "3.9.7",
++            "source": {
++                "type": "git",
++                "url": "https://github.com/endroid/qr-code.git",
++                "reference": "94563d7b3105288e6ac53a67ae720e3669fac1f6"
++            },
++            "dist": {
++                "type": "zip",
++                "url": "https://api.github.com/repos/endroid/qr-code/zipball/94563d7b3105288e6ac53a67ae720e3669fac1f6",
++                "reference": "94563d7b3105288e6ac53a67ae720e3669fac1f6",
++                "shasum": ""
++            },
++            "require": {
++                "bacon/bacon-qr-code": "^2.0",
++                "khanamiryan/qrcode-detector-decoder": "^1.0.5",
++                "myclabs/php-enum": "^1.5",
++                "php": "^7.3||^8.0",
++                "symfony/options-resolver": "^3.4||^4.4||^5.0",
++                "symfony/property-access": "^3.4||^4.4||^5.0"
++            },
++            "require-dev": {
++                "endroid/quality": "^1.5.2",
++                "setasign/fpdf": "^1.8"
++            },
++            "suggest": {
++                "ext-gd": "Required for generating PNG images",
++                "roave/security-advisories": "Avoids installation of package versions with vulnerabilities",
++                "setasign/fpdf": "Required to use the FPDF writer.",
++                "symfony/security-checker": "Checks your composer.lock for vulnerabilities"
++            },
++            "type": "library",
++            "extra": {
++                "branch-alias": {
++                    "dev-master": "3.x-dev"
++                }
++            },
++            "autoload": {
++                "psr-4": {
++                    "Endroid\\QrCode\\": "src/"
++                }
++            },
++            "notification-url": "https://packagist.org/downloads/",
++            "license": [
++                "MIT"
++            ],
++            "authors": [
++                {
++                    "name": "Jeroen van den Enden",
++                    "email": "info@endroid.nl"
++                }
++            ],
++            "description": "Endroid QR Code",
++            "homepage": "https://github.com/endroid/qr-code",
++            "keywords": [
++                "bundle",
++                "code",
++                "endroid",
++                "php",
++                "qr",
++                "qrcode"
++            ],
++            "support": {
++                "issues": "https://github.com/endroid/qr-code/issues",
++                "source": "https://github.com/endroid/qr-code/tree/3.9.7"
++            },
++            "funding": [
++                {
++                    "url": "https://github.com/endroid",
++                    "type": "github"
++                }
++            ],
++            "time": "2021-04-20T19:10:54+00:00"
++        },
+         {
+             "name": "friendsofphp/proxy-manager-lts",
+             "version": "v1.0.5",
+@@ -1826,6 +2001,61 @@
+             },
+             "time": "2021-06-22T11:23:22+00:00"
+         },
++        {
++            "name": "khanamiryan/qrcode-detector-decoder",
++            "version": "1.0.5.2",
++            "source": {
++                "type": "git",
++                "url": "https://github.com/khanamiryan/php-qrcode-detector-decoder.git",
++                "reference": "04fdd58d86a387065f707dc6d3cc304c719910c1"
++            },
++            "dist": {
++                "type": "zip",
++                "url": "https://api.github.com/repos/khanamiryan/php-qrcode-detector-decoder/zipball/04fdd58d86a387065f707dc6d3cc304c719910c1",
++                "reference": "04fdd58d86a387065f707dc6d3cc304c719910c1",
++                "shasum": ""
++            },
++            "require": {
++                "php": ">=5.6"
++            },
++            "require-dev": {
++                "phpunit/phpunit": "^5.7 | ^7.5 | ^8.0 | ^9.0"
++            },
++            "type": "library",
++            "autoload": {
++                "psr-4": {
++                    "Zxing\\": "lib/"
++                },
++                "files": [
++                    "lib/Common/customFunctions.php"
++                ]
++            },
++            "notification-url": "https://packagist.org/downloads/",
++            "license": [
++                "MIT",
++                "Apache-2.0"
++            ],
++            "authors": [
++                {
++                    "name": "Ashot Khanamiryan",
++                    "email": "a.khanamiryan@gmail.com",
++                    "homepage": "https://github.com/khanamiryan",
++                    "role": "Developer"
++                }
++            ],
++            "description": "QR code decoder / reader",
++            "homepage": "https://github.com/khanamiryan/php-qrcode-detector-decoder/",
++            "keywords": [
++                "barcode",
++                "qr",
++                "zxing"
++            ],
++            "support": {
++                "issues": "https://github.com/khanamiryan/php-qrcode-detector-decoder/issues",
++                "source": "https://github.com/khanamiryan/php-qrcode-detector-decoder/tree/1.0.5.2"
++            },
++            "time": "2021-07-13T18:46:38+00:00"
++        },
+         {
+             "name": "knplabs/knp-markdown-bundle",
+             "version": "1.9.0",
+@@ -2185,6 +2415,66 @@
+             ],
+             "time": "2021-10-01T21:08:31+00:00"
+         },
++        {
++            "name": "myclabs/php-enum",
++            "version": "1.8.3",
++            "source": {
++                "type": "git",
++                "url": "https://github.com/myclabs/php-enum.git",
++                "reference": "b942d263c641ddb5190929ff840c68f78713e937"
++            },
++            "dist": {
++                "type": "zip",
++                "url": "https://api.github.com/repos/myclabs/php-enum/zipball/b942d263c641ddb5190929ff840c68f78713e937",
++                "reference": "b942d263c641ddb5190929ff840c68f78713e937",
++                "shasum": ""
++            },
++            "require": {
++                "ext-json": "*",
++                "php": "^7.3 || ^8.0"
++            },
++            "require-dev": {
++                "phpunit/phpunit": "^9.5",
++                "squizlabs/php_codesniffer": "1.*",
++                "vimeo/psalm": "^4.6.2"
++            },
++            "type": "library",
++            "autoload": {
++                "psr-4": {
++                    "MyCLabs\\Enum\\": "src/"
++                }
++            },
++            "notification-url": "https://packagist.org/downloads/",
++            "license": [
++                "MIT"
++            ],
++            "authors": [
++                {
++                    "name": "PHP Enum contributors",
++                    "homepage": "https://github.com/myclabs/php-enum/graphs/contributors"
++                }
++            ],
++            "description": "PHP Enum implementation",
++            "homepage": "http://github.com/myclabs/php-enum",
++            "keywords": [
++                "enum"
++            ],
++            "support": {
++                "issues": "https://github.com/myclabs/php-enum/issues",
++                "source": "https://github.com/myclabs/php-enum/tree/1.8.3"
++            },
++            "funding": [
++                {
++                    "url": "https://github.com/mnapoli",
++                    "type": "github"
++                },
++                {
++                    "url": "https://tidelift.com/funding/github/packagist/myclabs/php-enum",
++                    "type": "tidelift"
++                }
++            ],
++            "time": "2021-07-05T08:18:36+00:00"
++        },
+         {
+             "name": "pagerfanta/core",
+             "version": "v3.3.0",
+@@ -2818,6 +3108,55 @@
+             },
+             "time": "2021-10-11T09:04:22+00:00"
+         },
++        {
++            "name": "scheb/2fa-qr-code",
++            "version": "v5.12.1",
++            "source": {
++                "type": "git",
++                "url": "https://github.com/scheb/2fa-qr-code.git",
++                "reference": "40acc4a37ff55489e6e6f43fc40f030b82ab1d5d"
++            },
++            "dist": {
++                "type": "zip",
++                "url": "https://api.github.com/repos/scheb/2fa-qr-code/zipball/40acc4a37ff55489e6e6f43fc40f030b82ab1d5d",
++                "reference": "40acc4a37ff55489e6e6f43fc40f030b82ab1d5d",
++                "shasum": ""
++            },
++            "require": {
++                "endroid/qr-code": "^3.0",
++                "scheb/2fa-bundle": "self.version"
++            },
++            "type": "library",
++            "autoload": {
++                "psr-4": {
++                    "Scheb\\TwoFactorBundle\\": ""
++                }
++            },
++            "notification-url": "https://packagist.org/downloads/",
++            "license": [
++                "MIT"
++            ],
++            "authors": [
++                {
++                    "name": "Christian Scheb",
++                    "email": "me@christianscheb.de"
++                }
++            ],
++            "description": "Extends scheb/2fa-bundle with the ability to render QR-codes for Google Authenticator or TOTP",
++            "homepage": "https://github.com/scheb/2fa",
++            "keywords": [
++                "2fa",
++                "Authentication",
++                "qr-code",
++                "symfony",
++                "two-factor",
++                "two-step"
++            ],
++            "support": {
++                "source": "https://github.com/scheb/2fa-qr-code/tree/v5.12.1"
++            },
++            "time": "2021-08-23T18:40:18+00:00"
++        },
+         {
+             "name": "scheb/2fa-totp",
+             "version": "v5.12.1",
+diff --git a/symfony.lock b/symfony.lock
+index e1735d14..b890ed9a 100644
+--- a/symfony.lock
++++ b/symfony.lock
+@@ -2,6 +2,9 @@
+     "babdev/pagerfanta-bundle": {
+         "version": "v3.3.0"
+     },
++    "bacon/bacon-qr-code": {
++        "version": "2.0.4"
++    },
+     "beberlei/assert": {
+         "version": "v3.3.1"
+     },
+@@ -11,6 +14,9 @@
+     "composer/package-versions-deprecated": {
+         "version": "1.11.99"
+     },
++    "dasprid/enum": {
++        "version": "1.0.3"
++    },
+     "doctrine/annotations": {
+         "version": "1.0",
+         "recipe": {
+@@ -106,6 +112,9 @@
+     "doctrine/sql-formatter": {
+         "version": "1.1.0"
+     },
++    "endroid/qr-code": {
++        "version": "3.9.7"
++    },
+     "fakerphp/faker": {
+         "version": "v1.13.0"
+     },
+@@ -115,6 +124,9 @@
+     "gedmo/doctrine-extensions": {
+         "version": "v2.4.41"
+     },
++    "khanamiryan/qrcode-detector-decoder": {
++        "version": "1.0.5.2"
++    },
+     "knplabs/knp-markdown-bundle": {
+         "version": "1.8.1"
+     },
+@@ -136,6 +148,9 @@
+     "monolog/monolog": {
+         "version": "2.0.2"
+     },
++    "myclabs/php-enum": {
++        "version": "1.8.3"
++    },
+     "nikic/php-parser": {
+         "version": "v4.3.0"
+     },
+@@ -191,6 +206,9 @@
+             "config/packages/scheb_2fa.yaml"
+         ]
+     },
++    "scheb/2fa-qr-code": {
++        "version": "v5.12.1"
++    },
+     "scheb/2fa-totp": {
+         "version": "v5.12.1"
+     },

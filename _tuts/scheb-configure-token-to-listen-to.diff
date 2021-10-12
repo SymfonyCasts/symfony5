@@ -1,0 +1,10 @@
+diff --git a/config/packages/scheb_2fa.yaml b/config/packages/scheb_2fa.yaml
+index 6b6135ae..23b59e7f 100644
+--- a/config/packages/scheb_2fa.yaml
++++ b/config/packages/scheb_2fa.yaml
+@@ -5,4 +5,4 @@ scheb_two_factor:
+         # If you're using guard-based authentication, you have to use this one:
+         # - Symfony\Component\Security\Guard\Token\PostAuthenticationGuardToken
+         # If you're using authenticator-based security (introduced in Symfony 5.1), you have to use this one:
+-        # - Symfony\Component\Security\Http\Authenticator\Token\PostAuthenticationToken
++        - Symfony\Component\Security\Http\Authenticator\Token\PostAuthenticationToken

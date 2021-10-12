@@ -1,0 +1,33 @@
+diff --git a/src/Entity/User.php b/src/Entity/User.php
+index 27def377..6dd65d04 100644
+--- a/src/Entity/User.php
++++ b/src/Entity/User.php
+@@ -6,6 +6,7 @@ use App\Repository\UserRepository;
+ use Doctrine\Common\Collections\ArrayCollection;
+ use Doctrine\Common\Collections\Collection;
+ use Doctrine\ORM\Mapping as ORM;
++use Scheb\TwoFactorBundle\Model\Totp\TotpConfiguration;
+ use Scheb\TwoFactorBundle\Model\Totp\TotpConfigurationInterface;
+ use Scheb\TwoFactorBundle\Model\Totp\TwoFactorInterface;
+ use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
+@@ -232,17 +233,17 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface, TwoFact
+ 
+     public function isTotpAuthenticationEnabled(): bool
+     {
+-        // TODO: Implement isTotpAuthenticationEnabled() method.
++        return $this->totpSecret ? true : false;
+     }
+ 
+     public function getTotpAuthenticationUsername(): string
+     {
+-        // TODO: Implement getTotpAuthenticationUsername() method.
++        return $this->getUserIdentifier();
+     }
+ 
+     public function getTotpAuthenticationConfiguration(): ?TotpConfigurationInterface
+     {
+-        // TODO: Implement getTotpAuthenticationConfiguration() method.
++        return new TotpConfiguration($this->totpSecret, TotpConfiguration::ALGORITHM_SHA1, 30, 6);
+     }
+ 
+     public function setTotpSecret(?string $totpSecret): self

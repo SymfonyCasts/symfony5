@@ -1,0 +1,56 @@
+diff --git a/src/Controller/SecurityController.php b/src/Controller/SecurityController.php
+index 25fc848b..f15c2cc8 100644
+--- a/src/Controller/SecurityController.php
++++ b/src/Controller/SecurityController.php
+@@ -2,12 +2,15 @@
+ 
+ namespace App\Controller;
+ 
++use Doctrine\ORM\EntityManagerInterface;
++use Scheb\TwoFactorBundle\Security\TwoFactor\Provider\Totp\TotpAuthenticatorInterface;
++use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
+ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+ use Symfony\Component\HttpFoundation\Response;
+ use Symfony\Component\Routing\Annotation\Route;
+ use Symfony\Component\Security\Http\Authentication\AuthenticationUtils;
+ 
+-class SecurityController extends AbstractController
++class SecurityController extends BaseController
+ {
+     /**
+      * @Route("/login", name="app_login")
+@@ -35,4 +38,20 @@ class SecurityController extends AbstractController
+     {
+         return $this->render('security/verify-email.html.twig');
+     }
++
++    /**
++     * @Route("/authentication/2fa/enable", name="app_2fa_enable")
++     * @IsGranted("ROLE_USER")
++     */
++    public function enable2fa(TotpAuthenticatorInterface $totpAuthenticator, EntityManagerInterface $entityManager)
++    {
++        $user = $this->getUser();
++        if (!$user->isTotpAuthenticationEnabled()) {
++            $user->setTotpSecret($totpAuthenticator->generateSecret());
++
++            $entityManager->flush();
++        }
++
++        dd($user);
++    }
+ }
+diff --git a/templates/base.html.twig b/templates/base.html.twig
+index 6b3e7660..d53a04e8 100644
+--- a/templates/base.html.twig
++++ b/templates/base.html.twig
+@@ -62,6 +62,9 @@
+                                         }) }}">Exit Impersonation</a>
+                                     </li>
+                                 {% endif %}
++                                <li>
++                                    <a class="dropdown-item" href="{{ path('app_2fa_enable') }}">Enble 2fa</a>
++                                </li>
+                                 <li>
+                                     <a class="dropdown-item" href="{{ path('app_logout') }}">Log Out</a>
+                                 </li>

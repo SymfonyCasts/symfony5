@@ -654,7 +654,87 @@
             "id": "listener-make-all-users-verified",
             "name": "Listener: make all users verified",
             "description": null
+        },
+        {
+            "id": "scheb-install-bundle",
+            "name": "Scheb: install bundle",
+            "description": null
+        },
+        {
+            "id": "scheb-configure-security-yaml",
+            "name": "Scheb: configure security.yaml",
+            "description": null
+        },
+        {
+            "id": "scheb-configure-token-to-listen-to",
+            "name": "Scheb: configure token to listen to",
+            "description": null
+        },
+        {
+            "id": "scheb-composer-require-scheb-2fa-totp",
+            "name": "Scheb: composer require scheb\/2fa-totp",
+            "description": null
+        },
+        {
+            "id": "scheb-activate-totp",
+            "name": "Scheb: activate totp",
+            "description": null
+        },
+        {
+            "id": "scheb-add-twofactorinterface-to-user",
+            "name": "Scheb: Add TwoFactorInterface to User",
+            "description": null
+        },
+        {
+            "id": "scheb-add-totpsecret-user-property",
+            "name": "Scheb: Add totpSecret User property",
+            "description": null
+        },
+        {
+            "id": "scheb-remove-getter",
+            "name": "Scheb: Remove getter",
+            "description": null
+        },
+        {
+            "id": "scheb-make-migration",
+            "name": "Scheb: make:migration",
+            "description": null
+        },
+        {
+            "id": "scheb-finish-twofactorinterface",
+            "name": "Scheb: Finish TwoFactorInterface",
+            "description": null
+        },
+        {
+            "id": "scheb-controller-to-activate-2fa",
+            "name": "Scheb: controller to activate 2fa",
+            "description": null
+        },
+        {
+            "id": "scheb-dump-qr-content",
+            "name": "Scheb: Dump QR Content",
+            "description": null
+        },
+        {
+            "id": "scheb-composer-require-scheb-2fa-qr-code",
+            "name": "Scheb: composer require scheb\/2fa-qr-code",
+            "description": null
+        },
+        {
+            "id": "scheb-add-image-controller",
+            "name": "Scheb: Add image controller",
+            "description": null
+        },
+        {
+            "id": "scheb-render-qr-code",
+            "name": "Scheb: render QR Code",
+            "description": null
+        },
+        {
+            "id": "scheb-tweak-qr-code",
+            "name": "Scheb: Tweak QR Code",
+            "description": null
         }
     ],
-    "sha": "9e34c119af4761b1fa7118dc39b278efca21f404"
+    "sha": "7c348078dfed0b29a47b91e642446d25a035ca9e"
 }

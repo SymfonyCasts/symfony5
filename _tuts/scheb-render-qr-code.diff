@@ -1,0 +1,34 @@
+diff --git a/src/Controller/SecurityController.php b/src/Controller/SecurityController.php
+index 95f85aff..b1de9f81 100644
+--- a/src/Controller/SecurityController.php
++++ b/src/Controller/SecurityController.php
+@@ -53,7 +53,7 @@ class SecurityController extends BaseController
+             $entityManager->flush();
+         }
+ 
+-        dd($totpAuthenticator->getQRContent($user));
++        return $this->render('security/enable2fa.html.twig');
+     }
+ 
+     /**
+diff --git a/templates/security/enable2fa.html.twig b/templates/security/enable2fa.html.twig
+new file mode 100644
+index 00000000..7eca7d7a
+--- /dev/null
++++ b/templates/security/enable2fa.html.twig
+@@ -0,0 +1,15 @@
++{% extends 'base.html.twig' %}
++
++{% block title %}2fa Activation{% endblock %}
++
++{% block body %}
++<div class="container">
++    <div class="row">
++        <div class="login-form bg-light mt-4 p-4">
++            <h1 class="h3 mb-3 font-weight-normal">Use Authy or Google Authenticator to Scan the QR Code</h1>
++
++            <img src="{{ path('app_qr_code') }}" alt="2fa QR Code">
++        </div>
++    </div>
++</div>
++{% endblock %}
