@@ -1,0 +1,13 @@
+diff --git a/templates/base.html.twig b/templates/base.html.twig
+index f51c5052..ffe4d91f 100644
+--- a/templates/base.html.twig
++++ b/templates/base.html.twig
+@@ -69,7 +69,7 @@
+                         </div>
+                     {% else %}
+                         <a class="nav-link text-black-50" href="{{ path('app_login') }}">Log In</a>
+-                        <a href="#" class="btn btn-dark">Sign up</a>
++                        <a href="{{ path('app_register') }}" class="btn btn-dark">Sign up</a>
+                     {% endif %}
+                 </div>
+             </div>

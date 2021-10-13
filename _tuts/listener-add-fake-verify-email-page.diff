@@ -1,25 +1,25 @@
-diff --git a/src/Controller/SecurityController.php b/src/Controller/SecurityController.php
-index c448eb4f..25fc848b 100644
---- a/src/Controller/SecurityController.php
-+++ b/src/Controller/SecurityController.php
-@@ -27,4 +27,12 @@ class SecurityController extends AbstractController
-     {
-         throw new \Exception('logout() should never be reached');
+diff --git a/src/Controller/RegistrationController.php b/src/Controller/RegistrationController.php
+index 186daef2..1eb42432 100644
+--- a/src/Controller/RegistrationController.php
++++ b/src/Controller/RegistrationController.php
+@@ -85,4 +85,12 @@ class RegistrationController extends AbstractController
+ 
+         return $this->redirectToRoute('app_login');
      }
 +
 +    /**
-+     * @Route("/verify/email", name="app_verify_email")
++     * @Route("/verify/resend", name="app_verify_resend_email")
 +     */
-+    public function verifyEmail()
++    public function resendVerifyEmail()
 +    {
-+        return $this->render('security/verify-email.html.twig');
++        return $this->render('security/resend_verify_email.html.twig');
 +    }
  }
-diff --git a/templates/security/verify-email.html.twig b/templates/security/verify-email.html.twig
+diff --git a/templates/security/resend_verify_email.html.twig b/templates/security/resend_verify_email.html.twig
 new file mode 100644
 index 00000000..8358e257
 --- /dev/null
-+++ b/templates/security/verify-email.html.twig
++++ b/templates/security/resend_verify_email.html.twig
 @@ -0,0 +1,20 @@
 +{% extends 'base.html.twig' %}
 +

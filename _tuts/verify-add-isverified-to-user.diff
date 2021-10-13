@@ -1,0 +1,33 @@
+diff --git a/src/Entity/User.php b/src/Entity/User.php
+index 1d55938a..4927ee5f 100644
+--- a/src/Entity/User.php
++++ b/src/Entity/User.php
+@@ -54,6 +54,11 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
+      */
+     private $questions;
+ 
++    /**
++     * @ORM\Column(type="boolean")
++     */
++    private $isVerified;
++
+     public function __construct()
+     {
+         $this->questions = new ArrayCollection();
+@@ -214,4 +219,16 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
+ 
+         return $this;
+     }
++
++    public function getIsVerified(): ?bool
++    {
++        return $this->isVerified;
++    }
++
++    public function setIsVerified(bool $isVerified): self
++    {
++        $this->isVerified = $isVerified;
++
++        return $this;
++    }
+ }

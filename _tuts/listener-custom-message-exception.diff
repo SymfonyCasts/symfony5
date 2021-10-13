@@ -1,5 +1,5 @@
 diff --git a/src/EventSubscriber/CheckVerifiedUserSubscriber.php b/src/EventSubscriber/CheckVerifiedUserSubscriber.php
-index 97b8e711..9b5b66d1 100644
+index f6be6d8f..7ac66cb0 100644
 --- a/src/EventSubscriber/CheckVerifiedUserSubscriber.php
 +++ b/src/EventSubscriber/CheckVerifiedUserSubscriber.php
 @@ -6,6 +6,7 @@ use App\Entity\User;
@@ -13,7 +13,7 @@ index 97b8e711..9b5b66d1 100644
 @@ -24,7 +25,9 @@ class CheckVerifiedUserSubscriber implements EventSubscriberInterface
          }
  
-         if (!$user->isVerified()) {
+         if (!$user->getIsVerified()) {
 -            throw new AuthenticationException();
 +            throw new CustomUserMessageAuthenticationException(
 +                'Please verify your account before logging in.'

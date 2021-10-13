@@ -501,6 +501,11 @@
             "description": null
         },
         {
+            "id": "registration-add-link",
+            "name": "Registration: add link",
+            "description": null
+        },
+        {
             "id": "manualauth-wire-service",
             "name": "ManualAuth: wire service",
             "description": null
@@ -576,6 +581,51 @@
             "description": null
         },
         {
+            "id": "verify-add-isverified-to-user",
+            "name": "Verify: add isVerified to User",
+            "description": null
+        },
+        {
+            "id": "verify-default-to-false",
+            "name": "Verify: default to false",
+            "description": null
+        },
+        {
+            "id": "verify-make-migration",
+            "name": "Verify: make:migration",
+            "description": null
+        },
+        {
+            "id": "verify-update-fixtures",
+            "name": "Verify: update fixtures",
+            "description": null
+        },
+        {
+            "id": "verify-install-verify-bundle",
+            "name": "Verify: install verify bundle",
+            "description": null
+        },
+        {
+            "id": "verify-empty-verify-controller",
+            "name": "Verify: empty verify controller",
+            "description": null
+        },
+        {
+            "id": "verify-generate-component-signature",
+            "name": "Verify: generate component signature",
+            "description": null
+        },
+        {
+            "id": "verify-fill-in-1st-part-of-verify",
+            "name": "Verify: fill in 1st part of verify",
+            "description": null
+        },
+        {
+            "id": "verify-finish-verify-controller",
+            "name": "Verify: finish verify controller",
+            "description": null
+        },
+        {
             "id": "throttling-enable-it",
             "name": "Throttling: enable it",
             "description": null
@@ -586,8 +636,8 @@
             "description": null
         },
         {
-            "id": "listener-add-user-isverified",
-            "name": "Listener: Add User.isVerified",
+            "id": "delete-me-1",
+            "name": "delete me 1",
             "description": null
         },
         {
@@ -751,5 +801,5 @@
             "description": null
         }
     ],
-    "sha": "045aea82fb32b2ccd71ce54e854320969ca1138e"
+    "sha": "517bf6710312363696485a56c033512356bbc7d4"
 }

@@ -1,0 +1,37 @@
+diff --git a/migrations/Version20211012235912.php b/migrations/Version20211012235912.php
+new file mode 100644
+index 00000000..e6770269
+--- /dev/null
++++ b/migrations/Version20211012235912.php
+@@ -0,0 +1,31 @@
++<?php
++
++declare(strict_types=1);
++
++namespace DoctrineMigrations;
++
++use Doctrine\DBAL\Schema\Schema;
++use Doctrine\Migrations\AbstractMigration;
++
++/**
++ * Auto-generated Migration: Please modify to your needs!
++ */
++final class Version20211012235912 extends AbstractMigration
++{
++    public function getDescription(): string
++    {
++        return '';
++    }
++
++    public function up(Schema $schema): void
++    {
++        // this up() migration is auto-generated, please modify it to your needs
++        $this->addSql('ALTER TABLE user ADD is_verified TINYINT(1) NOT NULL');
++    }
++
++    public function down(Schema $schema): void
++    {
++        // this down() migration is auto-generated, please modify it to your needs
++        $this->addSql('ALTER TABLE user DROP is_verified');
++    }
++}

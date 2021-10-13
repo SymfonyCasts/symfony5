@@ -12,7 +12,7 @@ index 9968f201..c448eb4f 100644
      public function logout()
      {
 diff --git a/templates/base.html.twig b/templates/base.html.twig
-index 988a17ab..7ce87a7d 100644
+index ccfe0e61..382493d9 100644
 --- a/templates/base.html.twig
 +++ b/templates/base.html.twig
 @@ -36,8 +36,12 @@
@@ -20,12 +20,12 @@ index 988a17ab..7ce87a7d 100644
                      </ul>
  
 -                    <a class="nav-link text-black-50" href="{{ path('app_login') }}">Log In</a>
--                    <button class="btn btn-dark">Sign up</button>
+-                    <a href="#" class="btn btn-dark">Sign up</a>
 +                    {% if is_granted('ROLE_USER') %}
 +                        <a class="nav-link text-black-50" href="{{ path('app_logout') }}">Log Out</a>
 +                    {% else %}
 +                        <a class="nav-link text-black-50" href="{{ path('app_login') }}">Log In</a>
-+                        <button class="btn btn-dark">Sign up</button>
++                        <a href="#" class="btn btn-dark">Sign up</a>
 +                    {% endif %}
                  </div>
              </div>

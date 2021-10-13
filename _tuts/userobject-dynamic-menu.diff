@@ -1,5 +1,5 @@
 diff --git a/templates/base.html.twig b/templates/base.html.twig
-index 0c8cd83d..b1bdaebc 100644
+index 49e6cfe8..21543177 100644
 --- a/templates/base.html.twig
 +++ b/templates/base.html.twig
 @@ -46,17 +46,15 @@
@@ -22,4 +22,4 @@ index 0c8cd83d..b1bdaebc 100644
 -                        <a class="nav-link text-black-50" href="{{ path('app_logout') }}">Log Out</a>
                      {% else %}
                          <a class="nav-link text-black-50" href="{{ path('app_login') }}">Log In</a>
-                         <button class="btn btn-dark">Sign up</button>
+                         <a href="#" class="btn btn-dark">Sign up</a>

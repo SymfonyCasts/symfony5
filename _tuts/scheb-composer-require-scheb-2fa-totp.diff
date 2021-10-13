@@ -1,5 +1,5 @@
 diff --git a/composer.json b/composer.json
-index 5206ac34..c0309c23 100644
+index ad52c762..6d648d23 100644
 --- a/composer.json
 +++ b/composer.json
 @@ -17,6 +17,7 @@
@@ -11,15 +11,15 @@ index 5206ac34..c0309c23 100644
          "stof/doctrine-extensions-bundle": "^1.4",
          "symfony/asset": "5.3.*",
 diff --git a/composer.lock b/composer.lock
-index 776049ad..4404159a 100644
+index 8d7d376f..69d6a171 100644
 --- a/composer.lock
 +++ b/composer.lock
 @@ -4,7 +4,7 @@
          "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
          "This file is @generated automatically"
      ],
--    "content-hash": "8e4b235346eef814d193ac0ef50e3509",
-+    "content-hash": "cacf2e644b03b48548b1d1b0aa67157c",
+-    "content-hash": "bf3fef476c9cb7750fbdee6ed7821e95",
++    "content-hash": "fcb082e11314d896f7d98f58c9ec9271",
      "packages": [
          {
              "name": "babdev/pagerfanta-bundle",
@@ -310,9 +310,9 @@ index 776049ad..4404159a 100644
          {
              "name": "stof/doctrine-extensions-bundle",
              "version": "v1.6.0",
-@@ -7541,6 +7800,145 @@
-             ],
-             "time": "2021-07-29T06:20:01+00:00"
+@@ -7591,6 +7850,145 @@
+             },
+             "time": "2021-05-05T18:08:21+00:00"
          },
 +        {
 +            "name": "thecodingmachine/safe",
@@ -457,7 +457,7 @@ index 776049ad..4404159a 100644
              "name": "twig/extra-bundle",
              "version": "v3.3.3",
 diff --git a/symfony.lock b/symfony.lock
-index 7d32b08f..e1735d14 100644
+index f405786d..b456ce13 100644
 --- a/symfony.lock
 +++ b/symfony.lock
 @@ -2,6 +2,9 @@
@@ -507,6 +507,6 @@ index 7d32b08f..e1735d14 100644
 +    "thecodingmachine/safe": {
 +        "version": "v1.3.3"
 +    },
-     "twig/extra-bundle": {
-         "version": "v3.0.1"
+     "symfonycasts/verify-email-bundle": {
+         "version": "v1.5.0"
      },

@@ -1,8 +1,8 @@
 diff --git a/src/Entity/User.php b/src/Entity/User.php
-index 716bf1b2..27def377 100644
+index 5311d671..9e1559f9 100644
 --- a/src/Entity/User.php
 +++ b/src/Entity/User.php
-@@ -245,11 +245,6 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface, TwoFact
+@@ -254,11 +254,6 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface, TwoFact
          // TODO: Implement getTotpAuthenticationConfiguration() method.
      }
  

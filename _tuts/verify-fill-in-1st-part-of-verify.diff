@@ -1,0 +1,60 @@
+diff --git a/src/Controller/RegistrationController.php b/src/Controller/RegistrationController.php
+index 35b29569..b5bd7fd5 100644
+--- a/src/Controller/RegistrationController.php
++++ b/src/Controller/RegistrationController.php
+@@ -4,11 +4,13 @@ namespace App\Controller;
+ 
+ use App\Entity\User;
+ use App\Form\RegistrationFormType;
++use App\Repository\UserRepository;
+ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+ use Symfony\Component\HttpFoundation\Request;
+ use Symfony\Component\HttpFoundation\Response;
+ use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
+ use Symfony\Component\Routing\Annotation\Route;
++use SymfonyCasts\Bundle\VerifyEmail\Exception\VerifyEmailExceptionInterface;
+ use SymfonyCasts\Bundle\VerifyEmail\VerifyEmailHelperInterface;
+ 
+ class RegistrationController extends AbstractController
+@@ -56,8 +58,25 @@ class RegistrationController extends AbstractController
+     /**
+      * @Route("/verify", name="app_verify_email")
+      */
+-    public function verifyUserEmail(): Response
++    public function verifyUserEmail(Request $request, VerifyEmailHelperInterface $verifyEmailHelper, UserRepository $userRepository): Response
+     {
+-        // TODO
++        $user = $userRepository->find($request->query->get('id'));
++        if (!$user) {
++            throw $this->createNotFoundException();
++        }
++
++        try {
++            $verifyEmailHelper->validateEmailConfirmation(
++                $request->getUri(),
++                $user->getId(),
++                $user->getEmail(),
++            );
++        } catch (VerifyEmailExceptionInterface $e) {
++            $this->addFlash('error', $e->getReason());
++
++            return $this->redirectToRoute('app_register');
++        }
++
++        dd('TODO');
+     }
+ }
+diff --git a/templates/base.html.twig b/templates/base.html.twig
+index 5a0a66be..20e33155 100644
+--- a/templates/base.html.twig
++++ b/templates/base.html.twig
+@@ -78,6 +78,9 @@
+         {% for flash in app.flashes('success') %}
+             <div class="alert alert-success">{{ flash }}</div>
+         {% endfor %}
++        {% for flash in app.flashes('error') %}
++            <div class="alert alert-danger">{{ flash }}</div>
++        {% endfor %}
+ 
+         {% block body %}{% endblock %}
+         <footer class="mt-5 p-3 text-center">

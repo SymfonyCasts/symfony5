@@ -1,8 +1,8 @@
 diff --git a/src/Controller/SecurityController.php b/src/Controller/SecurityController.php
-index 95f85aff..b1de9f81 100644
+index 884942c5..348d8085 100644
 --- a/src/Controller/SecurityController.php
 +++ b/src/Controller/SecurityController.php
-@@ -53,7 +53,7 @@ class SecurityController extends BaseController
+@@ -45,7 +45,7 @@ class SecurityController extends BaseController
              $entityManager->flush();
          }
  

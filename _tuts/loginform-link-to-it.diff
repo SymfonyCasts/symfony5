@@ -1,5 +1,5 @@
 diff --git a/templates/base.html.twig b/templates/base.html.twig
-index ce6f4a33..3f732721 100644
+index 7cf4365b..d22fea84 100644
 --- a/templates/base.html.twig
 +++ b/templates/base.html.twig
 @@ -31,6 +31,7 @@
@@ -7,6 +7,6 @@ index ce6f4a33..3f732721 100644
                      </ul>
  
 +                    <a class="nav-link text-black-50" href="{{ path('app_login') }}">Log In</a>
-                     <button class="btn btn-dark">Sign up</button>
+                     <a href="#" class="btn btn-dark">Sign up</a>
                  </div>
              </div>

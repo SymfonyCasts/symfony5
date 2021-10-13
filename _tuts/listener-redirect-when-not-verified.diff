@@ -1,5 +1,5 @@
 diff --git a/src/EventSubscriber/CheckVerifiedUserSubscriber.php b/src/EventSubscriber/CheckVerifiedUserSubscriber.php
-index c71a1707..f6842cc6 100644
+index 3cfe267e..b0b55ed6 100644
 --- a/src/EventSubscriber/CheckVerifiedUserSubscriber.php
 +++ b/src/EventSubscriber/CheckVerifiedUserSubscriber.php
 @@ -5,6 +5,8 @@ namespace App\EventSubscriber;
@@ -31,7 +31,7 @@ index c71a1707..f6842cc6 100644
          }
 +
 +        $response = new RedirectResponse(
-+            $this->router->generate('app_verify_email')
++            $this->router->generate('app_verify_resend_email')
 +        );
 +        $event->setResponse($response);
      }
