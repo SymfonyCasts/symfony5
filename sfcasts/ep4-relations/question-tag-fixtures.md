@@ -17,9 +17,14 @@ symfony console make:factory
 ```
 
 And choose `QuestionTag`. Go open that up: `src/Factory/QuestionTagFactory.php`.
+
+[[[ code('7a4699feea') ]]]
+
 In `getDefaults()`, our job, as usual, is to add all the required fields. Set
 `question` to `QuestionFactory::new()` and do the same thing for `tag`, setting that
 to `TagFactory::new()`.
+
+[[[ code('3cc2d7e0b6') ]]]
 
 As a reminder, the `new()` method returns a `QuestionFactory` instance. So we're
 assigning the `question` attribute to a `QuestionFactory` object. We talked
@@ -33,6 +38,8 @@ to create the `Question` object... but only if it *needs* to.
 We can see this. Open up the fixtures class and say
 `QuestionTagFactory::createMany(10)`. I'm going to put a `return` statement here
 because some of the code below is currently broken.
+
+[[[ code('fcd528fde7') ]]]
 
 Let's try this:
 
@@ -60,6 +67,8 @@ to pass a `DateTime` instance... which isn't the same. The easiest way to fix
 this is to update the fixtures. Wrap the value with
 `DateTimeImmutable::createFromMutable()`... which is a method that exists *just*
 for this situation.
+
+[[[ code('b6f66eeffb') ]]]
 
 And if we reload the fixtures now...
 
