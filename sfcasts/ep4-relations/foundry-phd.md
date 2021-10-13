@@ -55,7 +55,7 @@ Foundry to *set* each attribute onto the object. And while it's true that
 we don't have a `setQuestionTags()` method, we *do* have `addQuestionTag()` and
 `removeQuestionTag()`, which the accessor is smart enough to use.
 
-So, the *real* problem here is simpler: `QuestionTagFactory::create()` says that
+So, the *real* problem here is simpler: `QuestionTagFactory::new()` says that
 we want to create a *single* `QuestionTag` and set it onto `questionTags`. But we
 need an *array*. *That* confused the property accessor. To fix this, add `->many()`.
 
@@ -169,6 +169,9 @@ An easier way to do this would be to create 100 tags, 20 published questions
 and *then*, down here, use the `QuestionTagFactory` to create, for example, 100
 `QuestionTag` objects where each one is related to a random `Tag` and also a random
 `Question`.
+
+Then, above, when we create the Questions... we can just create normal, boring
+`Question` objects... because the `QuestionTag` stuff is handled below.
 
 If we try this:
 
