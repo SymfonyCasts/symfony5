@@ -1,5 +1,5 @@
 diff --git a/src/Security/LoginFormAuthenticator.php b/src/Security/LoginFormAuthenticator.php
-index 3cfa5054..40454896 100644
+index f42b6c92..40454896 100644
 --- a/src/Security/LoginFormAuthenticator.php
 +++ b/src/Security/LoginFormAuthenticator.php
 @@ -11,6 +11,7 @@ use Symfony\Component\Routing\RouterInterface;
@@ -14,7 +14,7 @@ index 3cfa5054..40454896 100644
  
      public function onAuthenticationFailure(Request $request, AuthenticationException $exception): ?Response
      {
--        dd('failure', $exception);
+-        dd('failure');
 +        $request->getSession()->set(Security::AUTHENTICATION_ERROR, $exception);
 +
 +        return new RedirectResponse(

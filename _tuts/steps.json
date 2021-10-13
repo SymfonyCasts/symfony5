@@ -121,8 +121,8 @@
             "description": null
         },
         {
-            "id": "authenticator-complete-password-check",
-            "name": "Authenticator: complete password check",
+            "id": "delete-me-2",
+            "name": "delete me 2",
             "description": null
         },
         {
@@ -801,5 +801,5 @@
             "description": null
         }
     ],
-    "sha": "517bf6710312363696485a56c033512356bbc7d4"
+    "sha": "3bea5064c9ef57a651f14e932ca439a326fa655d"
 }
