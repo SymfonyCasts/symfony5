@@ -23,7 +23,7 @@ index 011b4977..9d3c9c47 100644
      }
  }
 diff --git a/templates/security/login.html.twig b/templates/security/login.html.twig
-index 89670b39..5476c970 100644
+index 89670b39..80d9ad2d 100644
 --- a/templates/security/login.html.twig
 +++ b/templates/security/login.html.twig
 @@ -9,6 +9,10 @@
@@ -31,7 +31,7 @@ index 89670b39..5476c970 100644
                  <h1 class="h3 mb-3 font-weight-normal">Please sign in</h1>
  
 +                {% if error %}
-+                    <div class="alert alert-danger">{{ error.messageKey|trans(error.messageData, 'security') }}</div>
++                    <div class="alert alert-danger">{{ error.messageKey }}</div>
 +                {% endif %}
 +
                  <div class="col-12">

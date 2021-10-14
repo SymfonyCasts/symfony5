@@ -13,7 +13,7 @@ index d027dac7..b614b9e6 100644
      }
  }
 diff --git a/src/Entity/User.php b/src/Entity/User.php
-index bec83c8f..ed7ca9e6 100644
+index ca69f230..d2abee86 100644
 --- a/src/Entity/User.php
 +++ b/src/Entity/User.php
 @@ -6,6 +6,7 @@ use App\Repository\UserRepository;

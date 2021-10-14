@@ -1,5 +1,5 @@
 diff --git a/src/Entity/User.php b/src/Entity/User.php
-index 9e1559f9..ed1379db 100644
+index ac4f2312..a5e14ead 100644
 --- a/src/Entity/User.php
 +++ b/src/Entity/User.php
 @@ -6,6 +6,7 @@ use App\Repository\UserRepository;

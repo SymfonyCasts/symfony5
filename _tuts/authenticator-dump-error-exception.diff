@@ -1,0 +1,13 @@
+diff --git a/src/Security/LoginFormAuthenticator.php b/src/Security/LoginFormAuthenticator.php
+index f42b6c92..3cfa5054 100644
+--- a/src/Security/LoginFormAuthenticator.php
++++ b/src/Security/LoginFormAuthenticator.php
+@@ -64,7 +64,7 @@ class LoginFormAuthenticator extends AbstractAuthenticator
+ 
+     public function onAuthenticationFailure(Request $request, AuthenticationException $exception): ?Response
+     {
+-        dd('failure');
++        dd('failure', $exception);
+     }
+ 
+ //    public function start(Request $request, AuthenticationException $authException = null): Response

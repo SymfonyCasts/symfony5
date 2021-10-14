@@ -11,16 +11,16 @@ index c78e40d4..f53f6887 100644
              # activate different ways to authenticate
              # https://symfony.com/doc/current/security.html#firewalls-authentication
 diff --git a/templates/security/login.html.twig b/templates/security/login.html.twig
-index 3cb3b9fb..cb661355 100644
+index ab38a422..cb661355 100644
 --- a/templates/security/login.html.twig
 +++ b/templates/security/login.html.twig
 @@ -22,12 +22,6 @@
                      <input type="password" name="password" id="inputPassword" class="form-control" required>
                  </div>
  
--                <div class="checkbox mb-3">
+-                <div class="form-check mb-3">
 -                    <label>
--                        <input type="checkbox" name="_remember_me"> Remember me
+-                        <input type="checkbox" name="_remember_me" class="form-check-input"> Remember me
 -                    </label>
 -                </div>
 -

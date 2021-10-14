@@ -1,14 +1,14 @@
 diff --git a/templates/security/login.html.twig b/templates/security/login.html.twig
-index cb661355..3cb3b9fb 100644
+index cb661355..ab38a422 100644
 --- a/templates/security/login.html.twig
 +++ b/templates/security/login.html.twig
 @@ -22,6 +22,12 @@
                      <input type="password" name="password" id="inputPassword" class="form-control" required>
                  </div>
  
-+                <div class="checkbox mb-3">
++                <div class="form-check mb-3">
 +                    <label>
-+                        <input type="checkbox" name="_remember_me"> Remember me
++                        <input type="checkbox" name="_remember_me" class="form-check-input"> Remember me
 +                    </label>
 +                </div>
 +

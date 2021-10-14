@@ -1,0 +1,13 @@
+diff --git a/templates/security/login.html.twig b/templates/security/login.html.twig
+index 80d9ad2d..5476c970 100644
+--- a/templates/security/login.html.twig
++++ b/templates/security/login.html.twig
+@@ -10,7 +10,7 @@
+                 <h1 class="h3 mb-3 font-weight-normal">Please sign in</h1>
+ 
+                 {% if error %}
+-                    <div class="alert alert-danger">{{ error.messageKey }}</div>
++                    <div class="alert alert-danger">{{ error.messageKey|trans(error.messageData, 'security') }}</div>
+                 {% endif %}
+ 
+                 <div class="col-12">

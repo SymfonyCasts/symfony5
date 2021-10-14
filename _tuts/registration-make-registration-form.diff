@@ -50,7 +50,7 @@ index 00000000..2d3843ab
 +    }
 +}
 diff --git a/src/Entity/User.php b/src/Entity/User.php
-index ed7ca9e6..ea6f4593 100644
+index d2abee86..dff62bbe 100644
 --- a/src/Entity/User.php
 +++ b/src/Entity/User.php
 @@ -4,12 +4,14 @@ namespace App\Entity;

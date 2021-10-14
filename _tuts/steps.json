@@ -136,6 +136,16 @@
             "description": null
         },
         {
+            "id": "authenticator-dump-error-exception",
+            "name": "Authenticator: dump error exception",
+            "description": null
+        },
+        {
+            "id": "authenticator-hide-user-not-found-false",
+            "name": "Authenticator: hide_user_not_found: false",
+            "description": null
+        },
+        {
             "id": "authenticator-set-error-to-session-redirect",
             "name": "Authenticator: set error to session, redirect",
             "description": null
@@ -143,6 +153,11 @@
         {
             "id": "authenticator-print-error-on-login",
             "name": "Authenticator: print error on \/login",
+            "description": null
+        },
+        {
+            "id": "authenticator-translate-error",
+            "name": "Authenticator: translate error",
             "description": null
         },
         {
@@ -801,5 +816,5 @@
             "description": null
         }
     ],
-    "sha": "3bea5064c9ef57a651f14e932ca439a326fa655d"
+    "sha": "e1e985021bba7db02b48f7abb38d8ae517e6e96b"
 }
