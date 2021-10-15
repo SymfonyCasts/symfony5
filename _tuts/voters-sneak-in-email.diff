@@ -1,8 +1,8 @@
 diff --git a/templates/question/show.html.twig b/templates/question/show.html.twig
-index 6d8d6924..dfc564c6 100644
+index fc13eefd..6f8b274a 100644
 --- a/templates/question/show.html.twig
 +++ b/templates/question/show.html.twig
-@@ -38,7 +38,7 @@
+@@ -36,7 +36,7 @@
                              <div class="q-display p-3">
                                  <i class="fa fa-quote-left mr-3"></i>
                                  <p class="d-inline">{{ question.question|parse_markdown }}</p>

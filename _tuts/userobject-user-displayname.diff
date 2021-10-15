@@ -19,7 +19,7 @@ index 8769dc7c..ca69f230 100644
 +    }
  }
 diff --git a/templates/base.html.twig b/templates/base.html.twig
-index 4e0bb675..3bd1c933 100644
+index a05acf80..71bdff5b 100644
 --- a/templates/base.html.twig
 +++ b/templates/base.html.twig
 @@ -47,7 +47,7 @@

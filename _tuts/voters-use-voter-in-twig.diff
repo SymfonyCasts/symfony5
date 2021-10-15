@@ -1,8 +1,8 @@
 diff --git a/templates/question/show.html.twig b/templates/question/show.html.twig
-index 1ce1fd06..2185d7f1 100644
+index b90d6c86..e512ff26 100644
 --- a/templates/question/show.html.twig
 +++ b/templates/question/show.html.twig
-@@ -37,9 +37,11 @@
+@@ -35,9 +35,11 @@
                              <div class="d-flex justify-content-between">
                                  <h1 class="q-title-show">{{ question.name }}</h1>
  

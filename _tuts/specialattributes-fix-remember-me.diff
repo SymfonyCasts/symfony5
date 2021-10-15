@@ -1,0 +1,13 @@
+diff --git a/config/packages/security.yaml b/config/packages/security.yaml
+index 79a9940b..bc68d71d 100644
+--- a/config/packages/security.yaml
++++ b/config/packages/security.yaml
+@@ -38,7 +38,7 @@ security:
+             remember_me:
+                 secret: '%kernel.secret%'
+                 signature_properties: [password]
+-                #always_remember_me: true
++                always_remember_me: true
+ 
+             # activate different ways to authenticate
+             # https://symfony.com/doc/current/security.html#firewalls-authentication

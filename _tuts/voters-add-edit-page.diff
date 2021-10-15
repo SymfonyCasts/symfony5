@@ -43,10 +43,10 @@ index 00000000..ba7fffc9
 +</div>
 +{% endblock %}
 diff --git a/templates/question/show.html.twig b/templates/question/show.html.twig
-index dfc564c6..1ce1fd06 100644
+index 6f8b274a..b90d6c86 100644
 --- a/templates/question/show.html.twig
 +++ b/templates/question/show.html.twig
-@@ -34,7 +34,13 @@
+@@ -32,7 +32,13 @@
                              </div>
                          </div>
                          <div class="col">

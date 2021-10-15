@@ -12,7 +12,7 @@ index b614b9e6..70a52921 100644
       */
      public function apiMe()
 diff --git a/templates/base.html.twig b/templates/base.html.twig
-index 570e0454..f51c5052 100644
+index aaa95dfc..35696097 100644
 --- a/templates/base.html.twig
 +++ b/templates/base.html.twig
 @@ -12,7 +12,9 @@

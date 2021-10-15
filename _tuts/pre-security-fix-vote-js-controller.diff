@@ -1,0 +1,17 @@
+diff --git a/assets/controllers/answer-vote_controller.js b/assets/controllers/answer-vote_controller.js
+index a861ae81..c7333e9a 100644
+--- a/assets/controllers/answer-vote_controller.js
++++ b/assets/controllers/answer-vote_controller.js
+@@ -11,9 +11,9 @@ export default class extends Controller {
+         event.preventDefault();
+         const button = event.currentTarget;
+ 
+-        axios.post(this.urlValue, {
+-            data: JSON.stringify({ direction: button.value })
+-        })
++        axios.post(this.urlValue, JSON.stringify({
++            direction: button.value
++        }))
+             .then((response) => {
+                 this.voteTotalTarget.innerHTML = response.data.votes;
+             })

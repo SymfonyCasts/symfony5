@@ -1,0 +1,13 @@
+diff --git a/src/Security/DummyAuthenticator.php b/src/Security/DummyAuthenticator.php
+index 8c401138..863e66c0 100644
+--- a/src/Security/DummyAuthenticator.php
++++ b/src/Security/DummyAuthenticator.php
+@@ -13,7 +13,7 @@ class DummyAuthenticator extends AbstractAuthenticator
+ {
+     public function supports(Request $request): ?bool
+     {
+-        // TODO: Implement supports() method.
++        return false;
+     }
+ 
+     public function authenticate(Request $request): PassportInterface

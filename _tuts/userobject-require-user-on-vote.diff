@@ -1,5 +1,5 @@
 diff --git a/src/Controller/AnswerController.php b/src/Controller/AnswerController.php
-index f7932e39..3b98316c 100644
+index f7932e39..26c4eb75 100644
 --- a/src/Controller/AnswerController.php
 +++ b/src/Controller/AnswerController.php
 @@ -6,6 +6,7 @@ use App\Entity\Answer;
@@ -14,27 +14,27 @@ index f7932e39..3b98316c 100644
  
      /**
       * @Route("/answers/{id}/vote", methods="POST", name="answer_vote")
-+     * @IsGranted("ROLE_USER")
++     * @IsGranted("IS_AUTHENTICATED_REMEMBERED")
       */
      public function answerVote(Answer $answer, LoggerInterface $logger, Request $request, EntityManagerInterface $entityManager)
      {
-diff --git a/templates/question/show.html.twig b/templates/question/show.html.twig
-index 287dd556..7b7608f8 100644
---- a/templates/question/show.html.twig
-+++ b/templates/question/show.html.twig
-@@ -22,6 +22,7 @@
-                                     {% endif %}
-                                 </small>
- 
-+                                {% if is_granted('ROLE_USER') %}
-                                 <form action="{{ path('app_question_vote', { slug: question.slug }) }}" method="POST">
-                                     <div class="vote-arrows vote-arrows-alt flex-fill pt-2" style="min-width: 90px;">
-                                         <button class="vote-up btn btn-link" name="direction" value="up"><i class="far fa-arrow-alt-circle-up"></i></button>
-@@ -29,6 +30,7 @@
-                                         <span>{{ question.votesString }}</span>
-                                     </div>
-                                 </form>
-+                                {% endif %}
-                             </div>
-                         </div>
-                         <div class="col">
+diff --git a/templates/answer/_answer.html.twig b/templates/answer/_answer.html.twig
+index 64567f1d..75c9a670 100644
+--- a/templates/answer/_answer.html.twig
++++ b/templates/answer/_answer.html.twig
+@@ -20,6 +20,7 @@
+         </div>
+         <div class="col-2 text-end">
+             <small>{{ answer.createdAt|ago }}</small>
++            {% if is_granted('IS_AUTHENTICATED_REMEMBERED') %}
+             <div
+                 class="vote-arrows"
+                 {{ stimulus_controller('answer-vote', {
+@@ -42,6 +43,7 @@
+                 ><i class="far fa-arrow-alt-circle-down"></i></button>
+                 <span><span {{ stimulus_target('answer-vote', 'voteTotal') }}>{{ answer.votes }}</span></span>
+             </div>
++            {% endif %}
+         </div>
+     </div>
+ </li>

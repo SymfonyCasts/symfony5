@@ -1,5 +1,5 @@
 diff --git a/templates/question/show.html.twig b/templates/question/show.html.twig
-index 7b7608f8..6d8d6924 100644
+index 287dd556..fc13eefd 100644
 --- a/templates/question/show.html.twig
 +++ b/templates/question/show.html.twig
 @@ -11,7 +11,7 @@
@@ -11,7 +11,7 @@ index 7b7608f8..6d8d6924 100644
                              <div class="mt-3">
                                  <small>
                                      {% if question.askedAt %}
-@@ -38,7 +38,7 @@
+@@ -36,7 +36,7 @@
                              <div class="q-display p-3">
                                  <i class="fa fa-quote-left mr-3"></i>
                                  <p class="d-inline">{{ question.question|parse_markdown }}</p>

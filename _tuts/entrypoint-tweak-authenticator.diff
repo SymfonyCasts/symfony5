@@ -1,8 +1,8 @@
 diff --git a/src/Security/DummyAuthenticator.php b/src/Security/DummyAuthenticator.php
-index 8c401138..d4ce25b2 100644
+index 863e66c0..d4ce25b2 100644
 --- a/src/Security/DummyAuthenticator.php
 +++ b/src/Security/DummyAuthenticator.php
-@@ -8,12 +8,13 @@ use Symfony\Component\Security\Core\Authentication\Token\TokenInterface;
+@@ -8,8 +8,9 @@ use Symfony\Component\Security\Core\Authentication\Token\TokenInterface;
  use Symfony\Component\Security\Core\Exception\AuthenticationException;
  use Symfony\Component\Security\Http\Authenticator\AbstractAuthenticator;
  use Symfony\Component\Security\Http\Authenticator\Passport\PassportInterface;
@@ -13,11 +13,6 @@ index 8c401138..d4ce25b2 100644
  {
      public function supports(Request $request): ?bool
      {
--        // TODO: Implement supports() method.
-+        return false;
-     }
- 
-     public function authenticate(Request $request): PassportInterface
 @@ -31,14 +32,8 @@ class DummyAuthenticator extends AbstractAuthenticator
          // TODO: Implement onAuthenticationFailure() method.
      }

@@ -36,6 +36,11 @@
             "description": null
         },
         {
+            "id": "pre-security-fix-vote-js-controller",
+            "name": "PRE_SECURITY: fix vote js controller",
+            "description": null
+        },
+        {
             "id": "pre-security-add-user-api-controller",
             "name": "PRE_SECURITY: add user api controller",
             "description": null
@@ -276,6 +281,11 @@
             "description": null
         },
         {
+            "id": "entrypoint-supports-false",
+            "name": "Entrypoint: supports() false",
+            "description": null
+        },
+        {
             "id": "entrypoint-tweak-authenticator",
             "name": "Entrypoint: tweak authenticator",
             "description": null
@@ -373,6 +383,16 @@
         {
             "id": "specialattributes-show-is-authenticated-fully",
             "name": "SpecialAttributes: Show IS_AUTHENTICATED_FULLY",
+            "description": null
+        },
+        {
+            "id": "specialattributes-fix-remember-me",
+            "name": "SpecialAttributes: fix remember me",
+            "description": null
+        },
+        {
+            "id": "special-attributes-is-authenticated-remembered",
+            "name": "Special Attributes: IS_AUTHENTICATED_REMEMBERED",
             "description": null
         },
         {
@@ -816,5 +836,5 @@
             "description": null
         }
     ],
-    "sha": "e1e985021bba7db02b48f7abb38d8ae517e6e96b"
+    "sha": "7c089cb251f6e4b7167fdffaa109f2f6167b367e"
 }

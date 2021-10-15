@@ -1,11 +1,11 @@
 diff --git a/templates/base.html.twig b/templates/base.html.twig
-index 9c8a1d49..49e6cfe8 100644
+index 0766b691..4b55e2ae 100644
 --- a/templates/base.html.twig
 +++ b/templates/base.html.twig
 @@ -37,6 +37,24 @@
                      </ul>
  
-                     {% if is_granted('IS_AUTHENTICATED_FULLY') %}
+                     {% if is_granted('IS_AUTHENTICATED_REMEMBERED') %}
 +                        <div class="dropdown">
 +                            <button
 +                                class="dropdown-toggle btn"
