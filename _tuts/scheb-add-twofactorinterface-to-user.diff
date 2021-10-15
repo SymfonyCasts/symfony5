@@ -1,5 +1,5 @@
 diff --git a/src/Entity/User.php b/src/Entity/User.php
-index 080b6112..7e97fff6 100644
+index ef8d54a0..4b206ce0 100644
 --- a/src/Entity/User.php
 +++ b/src/Entity/User.php
 @@ -6,6 +6,8 @@ use App\Repository\UserRepository;
@@ -20,7 +20,7 @@ index 080b6112..7e97fff6 100644
  {
      /**
       * @ORM\Id
-@@ -231,4 +233,19 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
+@@ -234,4 +236,19 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
  
          return $this;
      }

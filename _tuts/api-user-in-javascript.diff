@@ -1,28 +1,32 @@
 diff --git a/src/Controller/UserController.php b/src/Controller/UserController.php
-index b614b9e6..70a52921 100644
+index c8eeb58d..e47ce00c 100644
 --- a/src/Controller/UserController.php
 +++ b/src/Controller/UserController.php
-@@ -9,7 +9,7 @@ use Symfony\Component\Routing\Annotation\Route;
- class UserController extends AbstractController
+@@ -8,7 +8,7 @@ use Symfony\Component\Routing\Annotation\Route;
+ class UserController extends BaseController
  {
      /**
 -     * @Route("/api/me")
 +     * @Route("/api/me", name="app_user_api_me")
-      * @IsGranted("ROLE_USER")
+      * @IsGranted("IS_AUTHENTICATED_REMEMBERED")
       */
      public function apiMe()
 diff --git a/templates/base.html.twig b/templates/base.html.twig
-index aaa95dfc..35696097 100644
+index aaa95dfc..3b3d4604 100644
 --- a/templates/base.html.twig
 +++ b/templates/base.html.twig
-@@ -12,7 +12,9 @@
+@@ -12,7 +12,13 @@
              {{ encore_entry_script_tags('app') }}
          {% endblock %}
      </head>
 -    <body>
-+    <body {{ stimulus_controller('user-api', {
-+        url: path('app_user_api_me')
-+    }) }}>
++    <body
++        {% if is_granted('IS_AUTHENTICATED_REMEMBERED') %}
++            {{ stimulus_controller('user-api', {
++                url: path('app_user_api_me')
++            }) }}
++        {% endif %}
++    >
          <nav
              class="navbar navbar-expand-lg navbar-light bg-light px-1"
              {{ is_granted('ROLE_PREVIOUS_ADMIN') ? 'style="background-color: red !important"' }}

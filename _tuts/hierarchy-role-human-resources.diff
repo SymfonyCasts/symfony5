@@ -1,13 +1,14 @@
 diff --git a/config/packages/security.yaml b/config/packages/security.yaml
-index fd985b2d..aa4357e4 100644
+index 077294b9..67a19957 100644
 --- a/config/packages/security.yaml
 +++ b/config/packages/security.yaml
-@@ -5,7 +5,7 @@ security:
+@@ -5,7 +5,8 @@ security:
      hide_user_not_found: false
  
      role_hierarchy:
--        ROLE_ADMIN: ['ROLE_COMMENT_ADMIN', 'ROLE_USER_ADMIN']
-+        ROLE_ADMIN: ['ROLE_COMMENT_ADMIN', 'ROLE_USER_ADMIN', 'ROLE_ALLOWED_TO_SWITCH']
-         ROLE_HUMAN_RESOURCES: ['ROLE_USER_ADMIN']
+-        ROLE_ADMIN: ['ROLE_COMMENT_ADMIN']
++        ROLE_ADMIN: ['ROLE_COMMENT_ADMIN', 'ROLE_USER_ADMIN']
++        ROLE_HUMAN_RESOURCES: ['ROLE_USER_ADMIN']
  
      # https://symfony.com/doc/current/security.html#c-hashing-passwords
+     password_hashers:

@@ -1,10 +1,10 @@
 diff --git a/src/EventSubscriber/CheckVerifiedUserSubscriber.php b/src/EventSubscriber/CheckVerifiedUserSubscriber.php
-index 3cfe267e..b0b55ed6 100644
+index b83a58f0..b2ffafc8 100644
 --- a/src/EventSubscriber/CheckVerifiedUserSubscriber.php
 +++ b/src/EventSubscriber/CheckVerifiedUserSubscriber.php
 @@ -5,6 +5,8 @@ namespace App\EventSubscriber;
  use App\Entity\User;
- use App\Repository\AccountNotVerifiedAuthenticationException;
+ use App\Security\AccountNotVerifiedAuthenticationException;
  use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 +use Symfony\Component\HttpFoundation\RedirectResponse;
 +use Symfony\Component\Routing\RouterInterface;

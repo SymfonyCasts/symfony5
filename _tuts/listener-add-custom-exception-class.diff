@@ -1,12 +1,12 @@
 diff --git a/src/EventSubscriber/CheckVerifiedUserSubscriber.php b/src/EventSubscriber/CheckVerifiedUserSubscriber.php
-index 7ac66cb0..bf943cb2 100644
+index 7ac66cb0..6d22e33c 100644
 --- a/src/EventSubscriber/CheckVerifiedUserSubscriber.php
 +++ b/src/EventSubscriber/CheckVerifiedUserSubscriber.php
 @@ -3,6 +3,7 @@
  namespace App\EventSubscriber;
  
  use App\Entity\User;
-+use App\Repository\AccountNotVerifiedAuthenticationException;
++use App\Security\AccountNotVerifiedAuthenticationException;
  use Symfony\Component\EventDispatcher\EventSubscriberInterface;
  use Symfony\Component\Security\Core\Exception\AccessDeniedException;
  use Symfony\Component\Security\Core\Exception\AuthenticationException;
@@ -21,15 +21,15 @@ index 7ac66cb0..bf943cb2 100644
          }
      }
  
-diff --git a/src/Repository/AccountNotVerifiedAuthenticationException.php b/src/Repository/AccountNotVerifiedAuthenticationException.php
+diff --git a/src/Security/AccountNotVerifiedAuthenticationException.php b/src/Security/AccountNotVerifiedAuthenticationException.php
 new file mode 100644
-index 00000000..718c9f1f
+index 00000000..1ab5e8a1
 --- /dev/null
-+++ b/src/Repository/AccountNotVerifiedAuthenticationException.php
++++ b/src/Security/AccountNotVerifiedAuthenticationException.php
 @@ -0,0 +1,9 @@
 +<?php
 +
-+namespace App\Repository;
++namespace App\Security;
 +
 +use Symfony\Component\Security\Core\Exception\AuthenticationException;
 +

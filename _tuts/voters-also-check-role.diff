@@ -1,0 +1,34 @@
+diff --git a/src/Security/Voter/QuestionVoter.php b/src/Security/Voter/QuestionVoter.php
+index d03fbc4b..4024ab9d 100644
+--- a/src/Security/Voter/QuestionVoter.php
++++ b/src/Security/Voter/QuestionVoter.php
+@@ -6,10 +6,18 @@ use App\Entity\Question;
+ use App\Entity\User;
+ use Symfony\Component\Security\Core\Authentication\Token\TokenInterface;
+ use Symfony\Component\Security\Core\Authorization\Voter\Voter;
++use Symfony\Component\Security\Core\Security;
+ use Symfony\Component\Security\Core\User\UserInterface;
+ 
+ class QuestionVoter extends Voter
+ {
++    private Security $security;
++
++    public function __construct(Security $security)
++    {
++        $this->security = $security;
++    }
++
+     protected function supports(string $attribute, $subject): bool
+     {
+         // https://symfony.com/doc/current/security/voters.html
+@@ -30,6 +38,10 @@ class QuestionVoter extends Voter
+             throw new \Exception('Wrong type somehow passed');
+         }
+ 
++        if ($this->security->isGranted('ROLE_ADMIN')) {
++            return true;
++        }
++
+         // ... (check conditions and return true to grant permission) ...
+         switch ($attribute) {
+             case 'EDIT':

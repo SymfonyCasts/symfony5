@@ -1,8 +1,8 @@
 diff --git a/config/packages/security.yaml b/config/packages/security.yaml
-index 077294b9..9fecffc1 100644
+index 67a19957..fd985b2d 100644
 --- a/config/packages/security.yaml
 +++ b/config/packages/security.yaml
-@@ -43,6 +43,8 @@ security:
+@@ -44,6 +44,8 @@ security:
                  signature_properties: [password]
                  always_remember_me: true
  

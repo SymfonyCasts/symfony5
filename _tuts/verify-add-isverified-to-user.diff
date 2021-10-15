@@ -1,5 +1,5 @@
 diff --git a/src/Entity/User.php b/src/Entity/User.php
-index cbcc0348..33c7eae2 100644
+index 9ec46f75..b14f510f 100644
 --- a/src/Entity/User.php
 +++ b/src/Entity/User.php
 @@ -54,6 +54,11 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
@@ -14,7 +14,7 @@ index cbcc0348..33c7eae2 100644
      public function __construct()
      {
          $this->questions = new ArrayCollection();
-@@ -214,4 +219,16 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
+@@ -217,4 +222,16 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
  
          return $this;
      }

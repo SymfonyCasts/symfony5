@@ -1,8 +1,8 @@
 diff --git a/src/Controller/UserController.php b/src/Controller/UserController.php
-index d027dac7..b614b9e6 100644
+index a5b6cfa7..c8eeb58d 100644
 --- a/src/Controller/UserController.php
 +++ b/src/Controller/UserController.php
-@@ -14,6 +14,8 @@ class UserController extends AbstractController
+@@ -13,6 +13,8 @@ class UserController extends BaseController
       */
      public function apiMe()
      {
@@ -13,7 +13,7 @@ index d027dac7..b614b9e6 100644
      }
  }
 diff --git a/src/Entity/User.php b/src/Entity/User.php
-index ca69f230..d2abee86 100644
+index ca69f230..6e8c7df8 100644
 --- a/src/Entity/User.php
 +++ b/src/Entity/User.php
 @@ -6,6 +6,7 @@ use App\Repository\UserRepository;
@@ -46,3 +46,13 @@ index ca69f230..d2abee86 100644
       */
      private $firstName;
  
+@@ -153,6 +157,9 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
+         return $this;
+     }
+ 
++    /**
++     * @Groups("user:read")
++     */
+     public function getAvatarUri(int $size = 32): string
+     {
+         return 'https://ui-avatars.com/api/?' . http_build_query([

@@ -33,7 +33,7 @@ index 3d8dcb9d..7548390c 100644
 +    }
  }
 diff --git a/src/Entity/User.php b/src/Entity/User.php
-index dff62bbe..cbcc0348 100644
+index d697b8cb..9ec46f75 100644
 --- a/src/Entity/User.php
 +++ b/src/Entity/User.php
 @@ -3,6 +3,8 @@
@@ -80,7 +80,7 @@ index dff62bbe..cbcc0348 100644
      }
  
      /**
-@@ -162,14 +174,44 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
+@@ -165,14 +177,44 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
      public function getAvatarUri(int $size = 32): string
      {
          return 'https://ui-avatars.com/api/?' . http_build_query([

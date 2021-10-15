@@ -1,8 +1,8 @@
 diff --git a/templates/base.html.twig b/templates/base.html.twig
-index 35696097..d0b14d7d 100644
+index 3b3d4604..4303253b 100644
 --- a/templates/base.html.twig
 +++ b/templates/base.html.twig
-@@ -69,7 +69,7 @@
+@@ -73,7 +73,7 @@
                          </div>
                      {% else %}
                          <a class="nav-link text-black-50" href="{{ path('app_login') }}">Log In</a>

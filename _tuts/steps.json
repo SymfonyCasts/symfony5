@@ -471,6 +471,11 @@
             "description": null
         },
         {
+            "id": "hierarchy-role-human-resources",
+            "name": "Hierarchy: ROLE_HUMAN_RESOURCES",
+            "description": null
+        },
+        {
             "id": "impersonation-activate-switch-user",
             "name": "Impersonation: activate switch_user",
             "description": null
@@ -616,6 +621,11 @@
             "description": null
         },
         {
+            "id": "voters-also-check-role",
+            "name": "Voters: also check role",
+            "description": null
+        },
+        {
             "id": "verify-add-isverified-to-user",
             "name": "Verify: add isVerified to User",
             "description": null
@@ -736,8 +746,8 @@
             "description": null
         },
         {
-            "id": "listener-make-all-users-verified",
-            "name": "Listener: make all users verified",
+            "id": "delete-me-3",
+            "name": "delete me 3",
             "description": null
         },
         {
@@ -836,5 +846,5 @@
             "description": null
         }
     ],
-    "sha": "7c089cb251f6e4b7167fdffaa109f2f6167b367e"
+    "sha": "38d67b6e94f9654a16db80b3aafff1eb5b4e2e8d"
 }

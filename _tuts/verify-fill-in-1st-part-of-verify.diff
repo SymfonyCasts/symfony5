@@ -45,10 +45,10 @@ index 35b29569..b5bd7fd5 100644
      }
  }
 diff --git a/templates/base.html.twig b/templates/base.html.twig
-index 58609f38..56b8e1c2 100644
+index 001ca94b..080e5c52 100644
 --- a/templates/base.html.twig
 +++ b/templates/base.html.twig
-@@ -78,6 +78,9 @@
+@@ -82,6 +82,9 @@
          {% for flash in app.flashes('success') %}
              <div class="alert alert-success">{{ flash }}</div>
          {% endfor %}

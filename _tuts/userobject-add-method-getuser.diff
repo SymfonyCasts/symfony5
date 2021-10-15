@@ -1,5 +1,5 @@
 diff --git a/src/Controller/BaseController.php b/src/Controller/BaseController.php
-index 531ffe19..2ce410a2 100644
+index ec4bfc73..ff3541ff 100644
 --- a/src/Controller/BaseController.php
 +++ b/src/Controller/BaseController.php
 @@ -2,8 +2,12 @@
@@ -12,6 +12,6 @@ index 531ffe19..2ce410a2 100644
 +/**
 + * @method User getUser()
 + */
- class BaseController extends AbstractController
+ abstract class BaseController extends AbstractController
  {
  }

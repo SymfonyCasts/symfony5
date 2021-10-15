@@ -41,10 +41,10 @@ index c448eb4f..4ce2b551 100644
 +    }
  }
 diff --git a/templates/base.html.twig b/templates/base.html.twig
-index 56b8e1c2..2e50520b 100644
+index 080e5c52..440359b5 100644
 --- a/templates/base.html.twig
 +++ b/templates/base.html.twig
-@@ -62,6 +62,9 @@
+@@ -66,6 +66,9 @@
                                          }) }}">Exit Impersonation</a>
                                      </li>
                                  {% endif %}

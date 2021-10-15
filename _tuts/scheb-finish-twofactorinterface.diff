@@ -1,5 +1,5 @@
 diff --git a/src/Entity/User.php b/src/Entity/User.php
-index ac4f2312..a5e14ead 100644
+index faffab0d..4496d222 100644
 --- a/src/Entity/User.php
 +++ b/src/Entity/User.php
 @@ -6,6 +6,7 @@ use App\Repository\UserRepository;
@@ -10,7 +10,7 @@ index ac4f2312..a5e14ead 100644
  use Scheb\TwoFactorBundle\Model\Totp\TotpConfigurationInterface;
  use Scheb\TwoFactorBundle\Model\Totp\TwoFactorInterface;
  use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
-@@ -241,17 +242,17 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface, TwoFact
+@@ -244,17 +245,17 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface, TwoFact
  
      public function isTotpAuthenticationEnabled(): bool
      {

@@ -1,8 +1,8 @@
 diff --git a/config/packages/security.yaml b/config/packages/security.yaml
-index 50f369bc..ea82a652 100644
+index 67e0d8e7..b0ea2589 100644
 --- a/config/packages/security.yaml
 +++ b/config/packages/security.yaml
-@@ -46,6 +46,10 @@ security:
+@@ -47,6 +47,10 @@ security:
  
              switch_user: true
  
@@ -13,7 +13,7 @@ index 50f369bc..ea82a652 100644
              # activate different ways to authenticate
              # https://symfony.com/doc/current/security.html#firewalls-authentication
  
-@@ -55,6 +59,11 @@ security:
+@@ -56,6 +60,11 @@ security:
      # Easy way to control access for large sections of your site
      # Note: Only the *first* access control that matches will be used
      access_control:

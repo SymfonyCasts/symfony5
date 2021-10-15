@@ -1,8 +1,8 @@
 diff --git a/config/packages/security.yaml b/config/packages/security.yaml
-index 0d15cd8b..50f369bc 100644
+index aa4357e4..67e0d8e7 100644
 --- a/config/packages/security.yaml
 +++ b/config/packages/security.yaml
-@@ -25,6 +25,7 @@ security:
+@@ -26,6 +26,7 @@ security:
              lazy: true
              provider: app_user_provider
              entry_point: form_login
