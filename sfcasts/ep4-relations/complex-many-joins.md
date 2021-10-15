@@ -19,6 +19,8 @@ the `questionTags` property and returns an array of the related `Tag` objects.
 Or... you can fix it here to use `questionTag in questionTags`. Then say
 `questionTag.tag` to reach across that relationship.
 
+[[[ code('a1eeb24b8f') ]]]
+
 So still fairly straightforward... just a bit more code to go across both
 relationships.
 
@@ -40,6 +42,8 @@ No problem: change `q.tags` to `q.questionTags` and alias that to `question_tag`
 Then do an inner join from `QuestionTag` to `Tag` - `->innerJoin('question_tag.tag')` -
 and alias that to `tag`.
 
+[[[ code('28d2abb971') ]]]
+
 Cool! And we're still selecting the `tag` data... so that looks good to me.
 
 Refresh again and... another error! This one... is even more confusing.
@@ -54,6 +58,8 @@ Doctrine creates the objects, so it doesn't allow it.
 
 The solution is easy enough: select both. You can actually pass an array to
 `addSelect()` to select `question_tag` *and* `tag`.
+
+[[[ code('6158efe8d7') ]]]
 
 Try it now. And... we're back! Woo! Check out what the query looks like... it's
 this big first one. So cool: we select from `question` left join to `question_tag`,
