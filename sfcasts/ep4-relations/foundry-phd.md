@@ -29,6 +29,8 @@ the objects we need.
 Anyways, set `questionTags` to `QuestionTagFactory::new()`. So, to an *instance*
 of this factory.
 
+[[[ code('88645dc9cf') ]]]
+
 There *is* a problem with this... but it's *mostly* correct. And... it's kind of
 crazy! This tells Foundry to use this `QuestionTagFactory` instance to create a new
 `QuestionTag` object. *Normally* when we use `QuestionFactory`, it creates a
@@ -61,6 +63,8 @@ need an *array*. *That* confused the property accessor. To fix this, add `->many
 
 This "basically" returns a factory instance that's now configured to create
 *multiple* objects. Pass 1, 5 to create anywhere from 1 to 5 `QuestionTag` objects.
+
+[[[ code('0bb2b7de16') ]]]
 
 Try the fixtures again:
 
@@ -105,6 +109,8 @@ The fix... is both nuts and simple: pass an array to `new()` to override the
 `tag` attribute. Set it to `TagFactory::random()` to grab `one` existing random
 `Tag`.
 
+[[[ code('ec3b9e88de') ]]]
+
 Reload the fixtures again:
 
 ```terminal-silent
@@ -137,7 +143,11 @@ Yup, this is the *same* problem we've seen multiple times before... I'm trying t
 make this mistake a *ton* of times in this tutorial, so that you *never* experience
 it.
 
-Refactor this to use a callback. Then, reload the fixtures:
+Refactor this to use a callback. 
+
+[[[ code('2f37dea517') ]]]
+
+Then, reload the fixtures:
 
 ```terminal-silent
 symfony console doctrine:fixtures:load
@@ -170,8 +180,12 @@ and *then*, down here, use the `QuestionTagFactory` to create, for example, 100
 `QuestionTag` objects where each one is related to a random `Tag` and also a random
 `Question`.
 
+[[[ code('89894207a2') ]]]
+
 Then, above, when we create the Questions... we can just create normal, boring
 `Question` objects... because the `QuestionTag` stuff is handled below.
+
+[[[ code('a78e44d669') ]]]
 
 If we try this:
 
