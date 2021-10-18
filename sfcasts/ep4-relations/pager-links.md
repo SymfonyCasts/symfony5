@@ -91,7 +91,7 @@ looks much better.
 
 ## Putting the {page} Into the Route
 
-Let's try one more thing. What if, instead of having `?q=2` on the URL, we wanted
+Let's try one more thing. What if, instead of having `?page=2` on the URL, we wanted
 a URL like `/2`. So where the page is *inside* the main part of the URL.
 
 That's... no problem. Over in `QuestionController`, add a new `{page}` to the URL.
