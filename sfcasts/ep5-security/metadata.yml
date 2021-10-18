@@ -1,6 +1,7 @@
 chapters:
     - install
     - make-user
+    - user-entity
     - login-form
     - firewalls-authenticator
     - passport
