@@ -44,8 +44,13 @@ Ok: nothing too interesting... though it *did* automatically enable the new bund
 ## Pagers Work with QueryBuilders
 
 The controller for the homepage lives at `src/Controller/QuestionController.php`:
-the `homepage` action. We're calling this custom repository method, which returns
-an array of `Question` objects.
+the `homepage` action. 
+
+[[[ code('00bb3ffb45') ]]]
+
+We're calling this custom repository method, which returns an array of `Question` objects.
+
+[[[ code('c6b3c88f3f') ]]]
 
 The biggest difference when using a paginator is that *we* will no longer execute
 the query directly. Instead, our job will be to create a `QueryBuilder` and pass
@@ -55,11 +60,18 @@ up the limit and offset parts of the query, and *then* execute it.
 In other words, to prep for Pagerfanta, instead of returning an array of `Question`
 objects, we need to return a `QueryBuilder`. Rename the method to
 `createAskedOrderedByNewestQueryBuilder()` - good luck thinking of a longer name
-than that - and it will return a `QueryBuilder`. Inside, all we need to do is
-remove `getQuery()` and `getResult()`.
+than that - and it will return a `QueryBuilder`. 
+
+[[[ code('6c3e33f02c') ]]]
+
+Inside, all we need to do is remove `getQuery()` and `getResult()`.
+
+[[[ code('6b122e3d7e') ]]]
 
 Back over in the controller, change this to `$queryBuilder` equals
 `$repository->createAskedOrderedByNewestQueryBuilder()`.
+
+[[[ code('c1f5b0a40c') ]]]
 
 We're ready!
 
@@ -72,6 +84,8 @@ because we're using Doctrine, create a new `QueryAdapter` and pass in our
 
 Cool: `$pagerfanta = new Pagerfanta()`... and `new QueryAdapter()`... huh.
 PhpStorm isn't finding that class!
+
+[[[ code() ]]]
 
 This is a... kind of weird... but also really cool thing about the Pagerfanta
 packages. Go back to library's documentation and click "Pagination Adapters".
@@ -96,13 +110,23 @@ Once PhpStorm indexes the new code... try `new QueryAdapter()` again. We have it
 Pass this `$queryBuilder`. We can also configure a few things, like
 `->setMaxPerPage(5)`. I'm using 5 per page so that pagination is *really* obvious.
 
+[[[ code('5bb9f5f679') ]]]
+
 ## Looping Over a Pagerfanta
 
 For the template, instead of passing a `questions` variable, we're going to pass
 a `pager` variable set to the `$pagerfanta` object.
 
+[[[ code('004867e203') ]]]
+
 Now, pop into the homepage template... and scroll up. We *were* looping over the
-`questions` array. What do we do now? Loop over `pager`: `for question in pager`.
+`questions` array. 
+
+[[[ code('62eae0dcb3') ]]]
+
+What do we do now? Loop over `pager`: `for question in pager`.
+
+[[[ code('266770acaa') ]]]
 
 Yup, we can treat the `Pagerfanta` object like an *array*. The *moment* that we
 loop, Pagerfanta will execute the query it needs to get the results for the current
