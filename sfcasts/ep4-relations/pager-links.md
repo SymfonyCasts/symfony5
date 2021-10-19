@@ -13,7 +13,7 @@ Let's try it! Refresh and... bah!
 
 > Unknown `pagerfanta()` Function
 
-## Installing the Pagerfanta Twig Librari
+## Installing the Pagerfanta Twig Library
 
 This is *another* feature that's a - sort of-  "plugin" for Pagerfanta. Click back
 to the library's docs and go to "Installation and set up". It lists a bunch of
