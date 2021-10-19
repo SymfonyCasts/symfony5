@@ -7,6 +7,8 @@ links?
 Pagerfanta makes this delightfully easy. Scroll down. After the `endfor`, render
 the pagination links with `{{ pagerfanta(pager) }}`.
 
+[[[ code('5f445bac64') ]]]
+
 Let's try it! Refresh and... bah!
 
 > Unknown `pagerfanta()` Function
@@ -44,6 +46,8 @@ Then, below, add `$pagerfanta->setCurrentPage()` passing
 `$request->query->get('page', 1)` so that this returns `1` if there is *no*
 `?q=` on the URL.
 
+[[[ code('afbcb40f1a') ]]]
+
 One small word of warning. At the time of recording, you can't *switch* these two
 lines. You need to set the max for the page and *then* the current page. If you swap
 them, weird things happen. This may get fixed, but to be safe, put the lines in
@@ -76,6 +80,8 @@ Inside, paste the root key, then set `default_view:` to `twitter_bootstrap5`.
 Before recording, I dug into the documentation to discover that this is one of
 the valid values.
 
+[[[ code('9e3865e172') ]]]
+
 Let's check it! Refresh and... huh... nothing changes: it's still rendering
 *exactly* like before. I wonder if Symfony didn't see my new config file.
 Let's manually clear the cache to be sure:
@@ -107,6 +113,8 @@ So: only match this route if `{page}` is a *digit* of any length. If we go to
 `/foo`, this route won't match. Give the controller an `int $page` argument and
 default it to 1. This will allow the user to go to *just* `/`... and `$page` will
 be 1.
+
+[[[ code('2360ec884c') ]]]
 
 Below, pass the `$page` variable in directly. And... we don't need the request
 object at all anymore.
