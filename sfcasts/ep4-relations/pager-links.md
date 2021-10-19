@@ -119,6 +119,8 @@ be 1.
 Below, pass the `$page` variable in directly. And... we don't need the request
 object at all anymore.
 
+[[[ code('b9e3983169') ]]]
+
 Phew! Let's try it! Refresh. It jumped back to page 1 because we're not reading
 the page from the query parameter anymore. Click page 2. Yes! It's `/2`... then
 `/3`! So cool!
