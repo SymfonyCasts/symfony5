@@ -71,7 +71,7 @@ I'm using - the old and new security systems live side-by-side and you get to *c
 which one you want! When you set `enable_authenticator_manager` to `true`, you are
 activating the *new* system. Yay! Shiny! If you're working on a legacy project and
 need to learn the *old* system, check out our Symfony 4 security tutorial. It's pretty
-cool too... I guess.
+cool too!
 
 ## Authentication & Authorization
 
