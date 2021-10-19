@@ -8,9 +8,8 @@ to jiggle the door handles.
 The *other* reason is that, once we make it to the maintenance shed on other side
 of the compound, we're going to explore Symfony's new security system, called
 the "authenticator" system. Ooh. If you've used the old system, you'll feel right
-at home. If you're new to Symfony security, slow clap! You chose a great time
-to start. The new system is easier to learn and understand... but it's also more
-powerful.
+at home. If you're new to Symfony security, you chose a great time to start. The 
+new system is easier to learn and understand... but it's also more powerful.
 
 ## Project Setup
 
