@@ -85,8 +85,6 @@ because we're using Doctrine, create a new `QueryAdapter` and pass in our
 Cool: `$pagerfanta = new Pagerfanta()`... and `new QueryAdapter()`... huh.
 PhpStorm isn't finding that class!
 
-[[[ code() ]]]
-
 This is a... kind of weird... but also really cool thing about the Pagerfanta
 packages. Go back to library's documentation and click "Pagination Adapters".
 The Pagerfanta library can be used to paginate a *lot* of different things.
