@@ -49,7 +49,7 @@ system.
 That's no fun, so let's install one! Go back to your terminal and run:
 
 ```terminal
-composer requires security
+composer require security
 ```
 
 This installs Symfony's security bundle. After it finishes... run:
