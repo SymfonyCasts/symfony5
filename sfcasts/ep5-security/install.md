@@ -28,7 +28,7 @@ I'm going to use the `symfony` binary for this:
 symfony serve -d
 ```
 
-This starts up a new server at `127.0.0.1:8000`. Open that in your browser... or
+This starts up a new server at https://127.0.0.1:8000. Open that in your browser... or
 be lazy and run:
 
 ```terminal
@@ -60,18 +60,26 @@ git status
 
 to see what its recipe did. In addition to the normal stuff, it added one new
 configuration file: `security.yaml`. Let's go check that out:
-`config/packages/security.yaml`. As you hopefully guessed by its name, this
-file powers the security system! By the time we're done, each section in here
-will be simple and boring to you. I *love* when programming stuff is boring.
+`config/packages/security.yaml`:
+
+[[[ code('1bd870f3b8') ]]]
+
+As you hopefully guessed by its name, this file powers the security system!
+By the time we're done, each section in here will be simple and boring to you.
+I *love* when programming stuff is boring.
 
 ## enable_authenticator_manager
 
-Oh, but see this `enable_authenticator_manager` key? In Symfony 5.3 - the version
-I'm using - the old and new security systems live side-by-side and you get to *choose*
-which one you want! When you set `enable_authenticator_manager` to `true`, you are
-activating the *new* system. Yay! Shiny! If you're working on a legacy project and
-need to learn the *old* system, check out our Symfony 4 security tutorial. It's pretty
-cool too!
+Oh, but see this `enable_authenticator_manager` key?
+
+[[[ code('880f2debfa') ]]]
+
+In Symfony 5.3 - the version I'm using - the old and new security systems live
+side-by-side and you get to *choose* which one you want! When you set
+`enable_authenticator_manager` to `true`, you are activating the *new* system.
+Yay! Shiny! If you're working on a legacy project and need to learn the *old*
+system, check out our [Symfony 4 Security](https://symfonycasts.com/screencast/symfony4-security)
+tutorial. It's pretty cool too!
 
 ## Authentication & Authorization
 
