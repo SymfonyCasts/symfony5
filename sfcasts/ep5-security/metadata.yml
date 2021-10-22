@@ -5,6 +5,7 @@ chapters:
     - login-form
     - firewalls-authenticator
     - passport
+    - user-query-credentials
     - success-user-provider
     - auth-errors
     - errors-logout
