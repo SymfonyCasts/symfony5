@@ -10,7 +10,7 @@ since we want to *really* learn security, let's do this step-by-step... mostly b
 hand.
 
 Before we start thinking about authenticating the user, we *first* need to build
-a log in page, which... if you think about it... has nothing to do with security!
+a login page, which... if you think about it... has nothing to do with security!
 It's just a normal Symfony route, controller & template that renders a form. Let's
 cheat a little to make this. Run:
 
@@ -19,25 +19,41 @@ symfony console make:controller
 ```
 
 Answer `SecurityController`. Cool! Go open up the new class:
-`src/Controller/SecurityController.php`. Nothing too fancy here. Let's customize
-this to be a login page: set the URL to `/login`, call the route `app_login` and
-rename the *method* to `login()`. For the template, call it
-`security/login.html.twig`... and don't pass any variables right now.
+`src/Controller/SecurityController.php`:
+
+[[[ code('24aee2e699') ]]]
+
+Nothing too fancy here. Let's customize this to be a login page: set the URL
+to `/login`, call the route `app_login` and rename the *method* to `login()`:
+
+[[[ code('087856b4a0') ]]]
+
+For the template, call it `security/login.html.twig`... and don't pass any
+variables right now:
+
+[[[ code('4920e303c7') ]]]
 
 Down in the `templates/` directory, open `templates/security/`... and rename the
-template to `login.html.twig`.
+template to `login.html.twig`:
+
+[[[ code('8bf913ebce') ]]]
 
 To get started, I'm going to completely replace this template and paste in
-a new structure: you can copy this from the code block on this page. There's nothing
-fancy here: we extend `base.html.twig`, override the `title` block... then we have
-a form that submits a POST right back to `/login`. It doesn't have an `action`
+a new structure: you can copy this from the code block on this page:
+
+[[[ code('2aa7be2247') ]]]
+
+There's nothing fancy here: we extend `base.html.twig`, override the `title` block...
+then we have a form that submits a POST right back to `/login`. It doesn't have an `action`
 attribute, which means it submits back to this same URL. The form has two
 fields - input `name="email"` and input `name="password"` - and a submit button...
 all with Bootstrap 5 classes to look nice.
 
 Let's add a link to this page from `base.html.twig`. Search for sign up. Cool.
 Right *before* this, add a link with `{{ path('app_login') }}`, say "Log In"...
-and give *this* some classes to make it look nice.
+and give *this* some classes to make it look nice:
+
+[[[ code('b38c40d998') ]]]
 
 Let's check it out! Refresh the home page... and click the link. Hello log
 in page!
