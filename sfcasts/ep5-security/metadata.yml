@@ -11,7 +11,7 @@ chapters:
     - errors-logout
     - user-password
     - csrf-token
-    - rememeber-me
+    - remember-me
     - access-control
     - entry-point
     - abstract-login-form-authenticator
