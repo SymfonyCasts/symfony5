@@ -1,5 +1,5 @@
 diff --git a/config/packages/security.yaml b/config/packages/security.yaml
-index 67e0d8e7..b0ea2589 100644
+index 67e0d8e7..3cfafeb3 100644
 --- a/config/packages/security.yaml
 +++ b/config/packages/security.yaml
 @@ -47,6 +47,10 @@ security:
@@ -19,7 +19,7 @@ index 67e0d8e7..b0ea2589 100644
      access_control:
 +        # This makes the logout route accessible during two-factor authentication. Allows the user to
 +        # cancel two-factor authentication, if they need to.
-+        - { path: ^/logout, role: IS_AUTHENTICATED_ANONYMOUSLY }
++        - { path: ^/logout, role: PUBLIC_ACCESS }
 +        # This ensures that the form can only be accessed when two-factor authentication is in progress.
 +        - { path: ^/2fa, role: IS_AUTHENTICATED_2FA_IN_PROGRESS }
          - { path: ^/admin/login, roles: PUBLIC_ACCESS }
