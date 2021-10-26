@@ -1,78 +1,111 @@
-# Auth Errors
+# When Authentication Fails
 
-Coming soon...
+Go back to the login form. What happens if we *fail* login? Right now, there are
+two ways to fail: if we can't find a `User` for the email *or* if the password is
+incorrect. Let's try a wrong password first.
 
-Go back to the log and form. What happens if we fail login right now, there are two
-ways to fail. Logging in first is if we can't find a `User` for the email and the
-second is if the password is wrong, let's try wrong password first. So we use our
-real users from the database and then just some other password. Yep. We hit our `dd()`
-this comes from `onAuthenticationFailure()`. So no matter how we fail authentication,
-we end up here and we're past an `$exception` argument. Let's also dump that. All right,
-go back and refresh. Cool. It's a `BadCredentialsException`. All right. So here's the
-deal. If authentication fails, no matter how it fails, we're going to get some sort
-of `AuthenticationException`, bad credentials. Exception is actually a subclass of
-that. And so is `UserNotFoundException` that we're throwing from our custom user
-loader. All of these exception classes have one important thing in common. I'll
-actually hold command or control to open up `UserNotFoundException` to see it. All
-of these authentication exceptions have a special `getMessageKey()` method That
-contains a safe explanation of why authentication failed.
+## onAuthenticationFailure & AuthenticationException
 
-Alright, so since we were throwing, `UserNotFoundException`, if we try wrong, E if
-we enter a wrong email, let's actually go see that on a log and form. So,
+Enter a real email from the database... and then any password that *isn't* "tada".
+And... yep! We hit the `dd()`... that comes from `onAuthenticationFailure()`.
 
-But in some invalid email address and enter an, oh, this is a little surprising. We
-still get a `BadCredentialsException` I was kind of expecting us to get our user not
-found exception. And for the most part, that's how this works. If you throw some sort
-of authentication exception during the authentic authenticate process, that exception
-is passed to you down in `onAuthenticationFailure()`. So you can use it to figure out what
-went wrong. However, the `UserNotFoundException` is a special case on some sites you
-might, when the user enters an invalid email address, you might not want to expose
-whether or not that email was found or not in your system.
+So no matter *how* we fail authentication, we end up here and we're passed an
+`$exception` argument. Let's also dump that. Head back... and refresh. Cool!
+It's a `BadCredentialsException`.
 
-Some sites, this is called user a numeration. So for some sites exposing that that
-email wasn't was, or wasn't found could be a problem on other sites. You do want to
-expose that the email wasn't found cause it helps the user figure out what's going
-wrong. So by default, we do Symfony converts that `UserNotFoundException` to a bad
-credentials exception so that no matter how you fail on occasion, you get kind of the
-same error message. If you do want to differentiate those two, you can do it, go into
-`config/packages/security.yaml`. And anywhere on here, we're going to add a 
-`hide_user_not_found` option set to `false`. This tells Symfony not to try to convert this
-`UserNotFoundException` to a `BadCredentialsException`. I refresh now, boom, there
-we get, let me see. Our `UserNotFoundException` is now being passed to us.
+This is cool. If authentication fails - no matter *how* it fails - we're going to
+end up here with some sort of `AuthenticationException`. `BadCredentialsException`
+is a *subclass* of that.... as is the `UserNotFoundException` that we're
+throwing from our user loader callback.
 
-All right. So let's think down, down here, when we fell off on occasion, what do we
-want to do? Like our job in this method is as you can see, to return a `Response`
-object for a long inform, what we want to do is redirect back to the login page and
-show the error two, in order to show the error let's stash this exception into these
-temporarily into the session, check it out to get the session we can say, 
-`$request->getSession()`. And then we will say `->set()`, and we can really use whatever key we
-want here, but there's kind of a standard key that we use instead of Symfony to store
-authentication errors. And you can get it from a constant, so type into a `Security`
-class, the one from Symfony components, and then use an `AUTHENTICATION_ERROR` key on
-there in the past at the entire exception object.
+All of these exception classes have one important thing in common. Hold Command or
+Ctrl to open up `UserNotFoundException` to see it. All of these authentication
+exceptions have a special `getMessageKey()` method that contains a *safe* explanation
+of why authentication failed. We can use this to tell the user what went wrong.
 
-Now they've got that stored in the session. We're just going to redirect back to the
-login page. So I'll cheat and copy my `RedirectResponse` from earlier and change the
-route to `app_login`. Okay. So this will redirect back to the login page, which means
-that over inside of our login controller, we need read that air and then show it. So
-the most straightforward way to do this would be to grab the session and read out
-this key. It's actually even easier than that. Symfony provides a service to fats
-that, to get, to grab that key automatically. So I had a new argument type ended with
-`AuthenticationUtils` and then it passed the second argument to render and let's pass
-in an `error` variable set to `$authenticationUtils->getLastAuthenticationError()`
-That's just a shortcut to read that key off of the session.
+## hide_user_not_found: Showing Invalid Username/Email Errors
 
-So what this err variable is going to be is literally this authentication exception
-object, and remember it to fig to get each of all those authentication exception
-objects, have a get message, key method that will explain what went wrong. This means
-that in our `template/security/login.html.twig`, we can render that. So right after the
-H one, we'll say if `error` and Def and here I'll add a div `alert-danger`, and inside of
-say `error.messageKey`. You don't want to use `error.message` because if you have some
-sort of internal database error or something like that, and I would actually print
-that database message, erudite message key is always guaranteed to be a safe message
-to show to your users. All right, let's try this refresh. And as we're on /login and
-we see username could not be found, that's the built-in message. If the user can't be
-loaded, but I'll admit that's not a super great message since we are using an email,
-not a username. So let's learn how to customize these error messages next and add a
-way to log out.
+So here's the big picture: when authentication fails, it's because *something*
+threw an `AuthenticationException` or one of its sub-classes. And so, since
+we're throwing a `UserNotFoundException` when an unknown email is entered... if
+we try to log in with a bad email, *that* exception should be passed to
+`onAuthenticationFailure()`.
 
+Let's test that theory. At the login form, enter some invented email... and... submit.
+Oh! We *still* get a `BadCredentialsException`! I was expecting this to be the
+*actual* exception that was thrown: the `UserNotFoundException`.
+
+For the most part... that *is* how this works. If you throw an
+`AuthenticationException` during the authenticator process, that exception *is* passed
+to you down in `onAuthenticationFailure()`. Then you can use it to figure out what
+went wrong. However, `UserNotFoundException` is a special case. On some sites, when
+the user enters a *valid* email address but a wrong password, you might *not* want
+to tell the user that email *was* in fact found. So you say "Invalid credentials"
+both if the email wasn't found *or* if the password was incorrect.
+
+This problem is called user enumeration: it's where someone can test emails on your
+login form to figure out which people have accounts and which don't. For some
+sites, you definitely do *not* want to expose that information.
+
+And so, to be safe, Symfony converts `UserNotFoundException` to a
+`BadCredentialsException` so that entering an invalid email or invalid password
+both give the same error message. However, if you *do* want to be able to say
+"Invalid email" - which is much more helpful to your users - you *can* do this.
+
+Open up `config/packages/security.yaml`. And, anywhere under the root `security`
+key, add a `hide_user_not_found` option set to `false`. This tells Symfony to *not*
+convert `UserNotFoundException` to a `BadCredentialsException`.
+
+If we refresh now... boom! Our `UserNotFoundException` is now being passed directly
+to `onAuthenticationFailure()`.
+
+## Storing the Authentication Error in the Session
+
+Ok, so let's think. Down in `onAuthenticationFailure()`... what do we want to do?
+Our job in this method is, as you can see, to return a `Response` object. For
+a login form, what we probably want to do is redirect the user *back* to the login
+page but show an error.
+
+To be able to do that, let's stash this exception - which holds the error message -
+into the session. Say `$request->getSession()->set()`. We can really use whatever
+key we want... but there's a standard key that's used to store authentication
+errors. You can read it from a constant: `Security` - the one from the Symfony
+Security component - `::AUTHENTICATION_ERROR`. Pass `$exception` to the second
+argument.
+
+Now that the error is in the session, let's redirect back to the login page. I'll
+cheat and copy the `RedirectResponse` from earlier... and change the route to
+`app_login`.
+
+## AuthenticationUtils: Rendering the Error
+
+Cool! Next, inside `LoginController`, we need to read that error and render it. The
+most straightforward way to do that would be to grab the session and read out this
+key. But... it's even easier than that! Symfony provides a service that will grab
+the key from the session automatically. Add a new argument type-hinted with
+`AuthenticationUtils`... and then give `render()` a second argument. Let's pass
+an `error` variable to Twig set to
+`$authenticationUtils->getLastAuthenticationError()`. That's just a shortcut to
+read that key off of the session.
+
+This means that the `error` variable is literally going to be an
+`AuthenticationException` *object*. And remember, to figure out what went wrong,
+all `AuthenticationException` objects have a `getMessageKey()` method that returns
+an explanation.
+
+In `templates/security/login.html.twig`, let's render that. Right after the `h1`,
+say if `error`, then add a `div` with `alert alert-danger`. Inside render
+`error.messageKey`. You don't want to use `error.message` because if you had some
+sort of internal error - like a database connection error - that message might
+contain sensitive details. But `error.messageKey` is guaranteed to be safe.
+
+Testing time! Refresh! Yes! We're redirected back to `/login` and we see:
+
+> Username could not be found
+
+That's the message if the `User` object can't be loaded: the error that comes
+form `UserNotFoundException`. It's... not a great message... since our users are
+logging in with an email, not a username.
+
+So next, let's learn how to customize these error messages *and* add a way to log
+out.
