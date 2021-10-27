@@ -1,73 +1,82 @@
 # Hashing Plain Password & PasswordCredentials
 
-Coming soon...
+The process of saving a user's password always looks like this: start with a
+plain-text password, hash that, *then* save the hashed version onto the `User`.
+This is something we're going to do in the fixtures... but we'll also do this
+on a registration form we'll build later... and you would also need it on a
+change password form.
 
-and then pass in the plain password right
-here and of directly onto the password property. That would totally work, but it's
-often convenient.
+## Adding a plainPassword Field
 
-To be able to temporarily store the plain password on the user object on a
-non-persistent property and then hash it before saving. So this is not an optional
-step here, but check it out. What I'm going to do is on top, I'm going to add a new
-`private $plainPassword` property. The key thing here is this is not persistent.
-It's just a temporary property we can use during registration, for example, as a
-place to store the user's password.
+To make this easier, I'm going to do something optional. In `User`, up on top, add
+a new `private $plainPassword` property. The *key* thing is that this property will
+*not* be persisted to the database: it's just a temporary property that we can use
+during, for example, registration, to store the plain password.
 
-Now down below, we're going to add, I'll just add a getter and setter for this. So
-I'll go to code generate or Command + N on the Mac, go to getter and setter in
-generated for `$plainPassword`. And I'll even add a little, a normal string return type
-to get my password. So just say normal field. Now, one thing, if you do have a plain
-password, a property like this, you want to find `eraseCredentials()` and set
-`$this->plainPassword` to null this is not really that important, but bef after, uh, but a
-race Prudential's is called before the user is stored to the session. So it's just a
-way for us to know a find out any sensitive information so that it doesn't actual
-accidentally get stored somewhere.
+Below, I'll go to code generate - or Command + N on a Mac - to generate the getter
+and setter for this. The getter will return a nullable `string`.
 
-Okay. So now inside of our `UserFactory`, this is pretty cool. Instead of, uh, setting
-the `password` field, we're going to set the `plainPassword` field to "tada". Now, if we
-just stopped now, it would set this property, but then the `password` property would
-stay. No, and it would explodes saving users in the database. So what we're going to
-do here is basically after our object is fully done, after Foundry's done in
-stanchion or object, we're going to run some extra code that reads this plain
-password and hashes it. We can do that down here and then initialize method. And I
-adding an `afterInstantiation()` hook. This is pretty cool. So I'm just called
-`$this->afterInstantiation()`, pass it a callback. And instead of here, we can say if
-`$user->getPlainPassword()`, but it should have a `plainPassword`, but technically we
-can override that when we use the, uh, uh, factory, then `$user->setPassword()`
-And for this, we're going to pass in the hashed password, which we can get
-by saying `$this->passwordHasher->hashPassword()`. And this takes two arguments, the
-user that we're trying to hash so `$user,` and then whatever the claimed password is,
-which is going to be nicely stored on the `getPlainPassword()` method. All right, here
-we go.
+Now, if you *do* have a `plainPassword` property like this, you'll want to find
+`eraseCredentials()` and set  `$this->plainPassword` to null. This... is not really
+*that* important. After authentication is successful, Symfony calls `eraseCredentials()`.
+It's... just a way for you to "clear out any sensitive information" on your `User`
+class once you're done with authentication. Technically we will never *set*
+`plainPassword` during authentication... so it doesn't matter. But, again, it's
+a safe thing to do.
 
-All right. So let's try this spin over. And we let our fixtures since many
+# Hashing the Password in the Fixtures
+
+Back inside `UserFactory` instead of setting the `password` property, we're going
+to set `plainPassword` to "tada".
+
+If we just stopped now, it would set this property... but then the `password` property
+would stay null... and it would explode in the database because that column is
+required.
+
+So after Foundry has finished instantiating the object, we're going to run some extra
+code that reads the `plainPassword` and hashes it. We can do that down here in the
+`initialize()` method... via an `afterInstantiation()` hook.
+
+This is pretty cool: call `$this->afterInstantiation()`, pass it a callback and,
+inside say if `$user->getPlainPassword()` - just in case it gets overridden to
+`null` - then `$user->setPassword()`. Generate the hash with
+`$this->passwordHasher->hashPassword()`. This takes two arguments: the user that
+we're trying to hash - so `$user` - and then whatever the plain password is, so
+`$user->getPlainPassword()`.
+
+Done! Let's try this. Find your terminal and run:
 
 ```terminal
 symfony console doctrine:fixtures:load
 ```
 
-and this will take a little bit longer than before because
-hashing passwords is actually CPU intensive and it works. Let's check the user table.
-So any
+This will take a bit longer than before because hashing passwords is actually CPU
+intensive. But... it works! Check the `user` table:
 
 ```terminal
 symfony console doctrine:query:sql 'SELECT * FROM user'
 ```
 
-and awesome. Every user has a
-hashed version of the password. Now on our last job is here. Is that on logging? We
-need to safely, we need to actually check this. So we need to safely hash the plain
-password. We need to hash the submitted plain password and safely check to see if it
-matches the user's hashed password in the database.
+And... got it!. Every user has a hashed version of the password!
 
-Well, actually we don't need to do this. Symfony is going to do it automatically.
-Check it out, place the `CustomCredentials` with a new `PasswordCredentials` and pass
-it. The plain text password. That's it. Try this head over. Log in. Let's use our
-real user add Rocca admin, add example.com. Copy that. And let's use a invalid
-password. First invalid password entered, and now try to get off. It works when you
-return it. Password credentials Symfony automatically reads that hash as the plain
-text submitted password and securely compares it to the hash password for this user
-in the database. It does all of that work for us. This is all possible. Thanks to be
-security systems, powerful listener system. Let's learn more about that next and see
-how we can leverage it to add CSF our protection to our log and form with about two
-lines of code.
+## Validating the Password: PasswordCredentials
+
+*Finally* we're ready to *check* the user's password inside our authenticator.
+To do this, we need to hash the submitted plain password then safely *compare*
+the two hashes.
+
+Well *we*  don't need to do this... because Symfony is going to do it automatically.
+Check it out: replace `CustomCredentials` with a new `PasswordCredentials` and pass
+it the plain-text submitted password.
+
+That's it! Try it. Log in using our real user - `abraca_admin@example.com` - I'll
+copy that, then some *wrong* password. Nice! Invalid password! Now enter the
+*real* password `tada`. It works!
+
+That's awesome! When you put a `PasswordCredentials` inside your `Passport`,
+Symfony automatically uses that to compare the submitted password to the hashed
+password for the user in the database. I *love* that.
+
+This is all possible. Thanks to a powerful event listener system inside of security.
+Let's learn more about that next and see how we can leverage it to add CSRF
+protection to our login form... with about two lines of code.
