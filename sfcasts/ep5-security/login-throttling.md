@@ -12,8 +12,13 @@ enable it. So you can do that by saying log-in throttling true.
 
 If you stop right there and refresh any page, you're going to get that air. It says,
 this requires the rate limiter component. Cool. Let's copy that composer require line
-spin or whatever terminal and Ron composer required. Symfony /rate limiter. This
-package has a also installed something called Symfony the lock, which has a recipe
+spin or whatever terminal and Ron 
+
+```terminal
+composer require symfony/rate-limiter
+```
+
+This package has a also installed something called Symfony the lock, which has a recipe
 I'll run, get status to see what it did. Interesting. So create a new config
 packages, lock.yaml file, and also modified our dot inf. So in order to sort of keep
 track of, who's been trying to log in the log and throttling system needs to store

@@ -27,7 +27,10 @@ class doesn't have any public properties. Hence we get nothing back,
 
 But a real application. If I'm building an API, I'm going to use Symfony serializer
 components to help me out here. So let's go get that installed air command line run
-composer require Symfony serializer.
+
+```terminal
+composer require symfony/serializer
+```
 
 This is salsa face serializer pack, which basically takes of installing Symfony
 serializer components as well as a couple of other libraries that help us serializer,

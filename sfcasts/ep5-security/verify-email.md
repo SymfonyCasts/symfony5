@@ -26,6 +26,11 @@ related to the database inside of source factory user factory, just to make life
 simpler. I'm going to say is verified true. So by default, any users to be great will
 be verified, but I won't. I'll worry about reloading my fixtures later. Okay. So to
 have an email confirmation system, we can leverage a bundle or your terminal run
+
+```terminal
+composer require symfonycasts/verify-email-bundle
+```
+
 composer require Symfony casts. Hey, I know them /and verify email bundle. Ooh,
 beautiful. This moment gives us a couple of services that are going to help us
 generate a signed URL and then validate that signed URL afterwards, to get this

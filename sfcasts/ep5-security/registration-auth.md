@@ -14,6 +14,10 @@ that's in part because it's, hasn't changed much since our Symfony for tutorial.
 We're not going to go into too much detail about it right now, but we do need it in
 order to run this command. So let's install both of those packages.
 
+```terminal
+composer require form validator
+```
+
 Awesome. When that finishes run, make registration form again. Cool. All right. So
 first question is, do we want to add a unique entity validation annotation to your
 user class to make sure duplicate accounts aren't created you almost definitely want
