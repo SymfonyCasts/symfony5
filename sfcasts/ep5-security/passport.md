@@ -1,7 +1,7 @@
 # Authenticator & The Passport
 
 On a basic level, authenticating a user when we submit the login form is... pretty
-simple. We're need to read the submitted `email`, query the database for that
+simple. We need to read the submitted `email`, query the database for that
 `User` object... and eventually check the user's password.
 
 ## Symfony's Security Doesn't Happen in a Controller
@@ -26,13 +26,16 @@ will "contains authentication info that we know how to process"? The answer to
 that is: whenever the user submits the login form.
 
 Inside of `supports()` return true if `$request->getPathInfo()` - that's a fancy
-method to get the current URL - equals `'/login'` *and* if
-`$request->isMethod('POST')`.
+method to get the current URL - equals `/login` *and* if `$request->isMethod('POST')`:
+
+[[[ code('7d0098ac83') ]]]
 
 So *if* the current request is a POST to `/login`, we want to try to authenticate
 the user. If not, we want to allow the request to continue like normal.
 
-To see what happens next, down in `authenticate()`, `dd('authenticate')`
+To see what happens next, down in `authenticate()`, `dd('authenticate')`:
+
+[[[ code('743dc917b8') ]]]
 
 Testing time! Go refresh the homepage. Yup! The `supports()` method returned
 `false`... and the page kept loading like normal. In the web debug toolbar, we have
@@ -53,37 +56,53 @@ case of a login form, that would be a password. Since our users don't actually
 ## The Passport Object: UserBadge & Credentials
 
 We communicate these two things by returning a `Passport` object: return new
-`Passport()`. This simple object is basically just a container for things
-called "badges"... where a badge is a little piece of information that goes into
-the passport. The two most important badges are `UserBadge` and some sort of
-"credentials badge" that helps prove that this user *is* who they say they are.
+`Passport()`:
+
+[[[ code('7ff1720cce') ]]]
+
+This simple object is basically just a container for things called "badges"...
+where a badge is a little piece of information that goes into the passport.
+The two most important badges are `UserBadge` and some sort of "credentials badge"
+that helps prove that this user *is* who they say they are.
 
 Start by grabbing the POSTed email and password:
 `$email = $request->request->get('email')`. If you haven't seen it before,
 `$request->request->get()` is how you read `POST` data in Symfony. In the login
 template, the name of the field is `email`... so we read the `email` POST field.
 Copy and paste this line to create a `$password` variable that reads the
-`password` field from the form.
+`password` field from the form:
+
+[[[ code('5143281c67') ]]]
 
 Next, inside of the `Passport`, the first argument is always the `UserBadge`. Say
-`new UserBadge()` and pass this our "user identifier". For us, that's the `$email`.
+`new UserBadge()` and pass this our "user identifier". For us, that's the `$email`:
+
+[[[ code('21f09737a4') ]]]
+
 We'll talk *very* soon about how this is used.
 
 The second argument to `Passport` is some sort of "credentials". Eventually we're
 going to pass it a `PasswordCredentials()`.... but since our users don't have passwords
 yet, use a new `CustomCredentials()`. Pass this a callback with a `$credentials`
-arguments and a `$user` argument type-hinted with our `User` class. Symfony will
-execute our callback and allow *us* to manually "check the credentials" for this
-user... whatever that means in our app. To start, `dd($credentials, $user)`. Oh, and
-`CustomCredentials` needs a second argument - which is whatever our "credentials"
-are. For us, that's `$password`. If this `CustomCredentials` thing is a little fuzzy,
-don't worry: we really need to see this in action.
+arguments and a `$user` argument type-hinted with our `User` class:
+
+[[[ code('cc26c9624a') ]]]
+
+Symfony will execute our callback and allow *us* to manually "check the credentials"
+for this user... whatever that means in our app. To start, `dd($credentials, $user)`.
+Oh, and `CustomCredentials` needs a second argument - which is whatever our "credentials"
+are. For us, that's `$password`:
+
+[[[ code('f033f60434') ]]]
+
+If this `CustomCredentials` thing is a little fuzzy, don't worry: we really need to see
+this in action.
 
 But on a high level... it's kind of cool. We return a `Passport` object, which
 says *who* the user is - identified by their `email` - and some sort of a
 "credentials process" that will *prove* that the user is who they say they are.
 
-Ok: with *just* this, let's try it. Go back to the log in form and re-submit.
+Ok: with *just* this, let's try it. Go back to the login form and re-submit.
 Remember: we filled in the form using an email address that *does* exist in our
 database.
 
