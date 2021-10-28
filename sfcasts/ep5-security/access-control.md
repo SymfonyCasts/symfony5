@@ -5,42 +5,38 @@ Coming soon...
 We've talked a lot about authentication, the process of logging in things that work.
 We now can log in. In fact, I'm already logged in. Whoo. So let's get our first dose
 of authorization. That's where you deny access to different parts of our site. The
-easiest way to deny access is actually right inside of config, packages, security
-that Yemen it's via access control Took it out on uncomment. This first access
+easiest way to deny access is actually right inside of `config/packages/security.yaml`
+it's via `access_control:` Took it out on uncomment. This first access
 control right here,
 
-The path is a regular expression. So this basically says if you were out, starts with
-/admin, so /admin or /admin star, then only allow access at the user has role_admin.
+The path is a regular expression. So this basically says if URL, starts with
+`/admin`, so `/admin` or `/admin*`, then only allow access at the user has ROLE_ADMIN.
 We'll talk more about roles in a second, but our user does not have that role. So
 let's try to go to a URL. Let's try to go to a URL that matches this path. We
 actually do have a small admin section on our site, which we can get to by going to
-/admin. So let's try it, make sure you're logged in, logged in and go to /admin and
-access denied. We get kicked out with a 4 0 3 air
+`/admin`. So let's try it, make sure you're logged in, logged in and go to `/admin` and
+access denied. We get kicked out with a 403 error
 
-[inaudible]
+On production. You can customize what the 403 error page looks like in addition to
+customizing what the 404 error page it looks like. All right. So let's talk about
+this roll stuff here. So very simply open up your `User` class `src/Entity/User.php`
+Here's how this works. The moment that we log in Symfony calls this `getRoles()`,
+method. This is part of `UserInterface`. We return an array of whatever roles this
+user should have. The `make:user` command generated this in such a way that we always
+have at least one role called `ROLE_USER`
 
-On production. You can customize what the 4 0 3 error page looks like in addition to
-customizing what the 4 0 4 error page it looks like. All right. So let's talk about
-this roll stuff here. So very simply open up your user class source entity, user dot
-PHP. Here's how this works. The moment that we log in Symfony calls this get roles,
-method. This is part of user interface. We return an array of whatever roles this
-user should have. The make user command generated this in such a way that we always
-have at least one role called role_user
-
-[inaudible].
-
-So, as a reminder, this rules property is an array property that stores as JSON in
+So, as a reminder, this `$roles` property is an array property that stores as JSON in
 the database. So the database, you can give your users as many roles as you want so
 far when we've created our, we haven't given them any rules yet. So our world's
 property is empty, but thanks to how they get roles. Method is written. Our user will
 at least have role on our store user. It's done this way because all users need to
-have at least one role. So by convention, we always give them at least role_user. The
-only rule about these roles strings that they must start with role underscore. And
+have at least one role. So by convention, we always give them at least ROLE_USER. The
+only rule about these roles strings that they must start with `ROLE_`. And
 later in this tutorial, we'll understand why. Anyways, the moment we log in simply
-calls get roles. We return the array of roles and it stores those. We can actually
+calls `getRoles()`. We return the array of roles and it stores those. We can actually
 see this down on the web debug toolbar. If we click on the icon there, we can see
-roles, role_user. So then when we go to /admin, this matches our first access control
-here. It checks to see if we have role admin, we don't, and it denies access. Now,
+roles, `ROLE_USER`. So then when we go to `/admin`, this matches our first access control
+here. It checks to see if we have `ROLE_ADMIN`, we don't, and it denies access. Now,
 one key thing about the way access control works. And we'll see this a little bit.
 We'll talk more about this later is that only one rule ever matches. So if you ever
 had a, uh, two entries like this, if I went to /admin, that would match the first
