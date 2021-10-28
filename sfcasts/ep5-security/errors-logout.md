@@ -1,18 +1,18 @@
 # Customize Error Messages & Adding Logout
 
 When we fail login, we store the `AuthenticationException` in the session - which
-explains what went wrong - and redirect to the login page. On that page, we read
-that *out* of the session using this nice `AuthenticationUtils` service and
-ultimately, in the template, call the `getMessageKey()` method on that exception
-to renders a safe message that describes *why* authenticated failed. For example,
-if we entered an email that doesn't exist, we see:
+explains what went wrong - and then redirect to the login page. On *that* page, we
+read that exception *out* of the session using this nice `AuthenticationUtils`
+service and ultimately, in the template, call the `getMessageKey()` method
+to render a safe message that describes *why* authentication failed. For example,
+if we enter an email that doesn't exist, we see:
 
-> Username could not be found
+> Username could not be found.
 
 On a technical level, this means that the `User` object could not be found. Cool...
 but for us, this isn't a great message because we're logging in via an *email*.
-Also, if enter a *valid* user - `abraca_admin@example.com` with an invalid
-password, we see
+Also, if we enter a *valid* user - `abraca_admin@example.com` - with an invalid
+password, we see:
 
 > Invalid credentials
 
@@ -24,67 +24,68 @@ So how can we customize these? The answer is both simple and... maybe a bit surp
 We *translate* them. Check it out: over in the template, after `messageKey`, add
 `|trans` to translate it. Pass this two arguments. The first is `error.messageData`.
 This isn't too important... but in the translation world, sometimes your translations
-can have "wildcard" values in them... and you pass in the values for those here.
-The second argument is called a "translation domain"... which is almost like a
-translation category. pass `security`.
+can have "wildcard" values in them... and you pass in the values for those wildcards
+here. The second argument is called a "translation domain"... which is almost like
+a translation category. Pass `security`.
 
 If you *do* have a multi-lingual site, all of the core authentication messages have
 *already* been translated to other languages... and those translations are available
-in a domain called `security`. So by using this here, if you switched your site
-to Spanish, you would instantly get Spanish authentication messages.
+in a domain called `security`. So by using the `security` domain here, if we switched
+the site to Spanish, we would instantly get Spanish authentication messages.
 
-If we stopped now... absolutely nothing would change! But now, because we're
-going through the translator, we have the opportunity to "translate" these strings
+If we stopped now... absolutely nothing would change! But because we're going
+through the translator, we have the *opportunity* to "translate" these strings
 from English to... *different* English!
 
 In the `translations/` directory - which you should automatically have because
 the translation component is already installed - create a new file called
-`security.en.yaml`: `security` is because we're using the `security` translation
-domain and `en` is for English. You can also create `.xlf` translation files - YAML
-is easier for what we need to do.
+`security.en.yaml`: `security` because we're using the `security` translation
+domain and `en` for English. You can also create `.xlf` translation files - YAML
+is just easier for what we need to do.
 
-Now, copy the *exact* error message including the period, paste that, I'll wrap
-in quotes to be safe, and set it to something different like:
+Now, copy the *exact* error message including the period, paste - I'll wrap
+it in quotes to be safe - and set it to something different like:
 
 > Invalid password entered!
 
 Cool! Let's try it again. Log in as `abraca_admin@example.com` with an invalid
 password and... much better! Let's try with a bad email.
 
-Ok, repeat the process: copy the message, go over to the translation file and change
-it to something a bit more user-friendly like:
+Ok, repeat the process: copy the message, go over to the translation file, paste...
+and change it to something a bit more user-friendly like:
 
 > Email not found!
 
 Let's try it again: same email, any password and... got it! Email not found.
 
 Okay! Our authenticator is done! We load the `User` from the email, check their
-password and handle both success and failure. We *are* going to add more stuff to
-this later - including checking real user passwords - but this *is* fully functional.
+password and handle both success and failure. Booya! We *are* going to add more
+stuff to this later - including checking real user passwords - but this *is*
+fully functional.
 
 ## Logging Out
 
-Let's add a way to log out. So... like if the user goes to `/logout`, they get
-logged it. This starts exactly like you might expect: we need a route & controller.
+Let's add a way to log out. So... like if the user goes to `/logout`, they get...
+logged it! This starts exactly like you expect: we need a route & controller.
 
 Inside of `SecurityController`, I'll copy the `login()` method, paste, change it
-to `/logout`,  `app_logout` and call the *method* `logout` also. Then, to log
-the user out... I want you to put no zero code in this method. Actually, I'll
+to `/logout`, `app_logout` and call the *method* `logout`. To *perform* the logging
+out itself... we're going to put absolutely no code in this method. Actually, I'll
 throw a new `\Exception()` that says "logout should never be reached".
 
 Let me explain. Logging out works a bit like logging in. Instead of putting some
 logic in the controller, we're going activate something on our firewall that says:
 
-> If the user goes to /logout, please intercept that request, log out the user,
+> Hey! If the user goes to `/logout`, please intercept that request, log out the user,
 > and redirect them somewhere else.
 
 To activate that magic, open up `config/packages/security.yaml`. Anywhere under our
-firewall, add `logout: true`. Internally, this activates a "listener" that's looks
+firewall, add `logout: true`. Internally, this activates a "listener" that looks
 for any requests to `/logout`.
 
 ## Configuring logout
 
-And actually, instead of just saying, `logout: true`, you can customize how this
+And actually, instead of just saying `logout: true`, you can customize how this
 works. Find your terminal and run:
 
 
@@ -104,19 +105,19 @@ But since we have `/logout` here... and that matches our `/logout` right here,
 this *should* work. By the way, you might be wondering why we needed to create
 a route and controller at all! Great question! We actually *don't* need a controller,
 it will never be called. But we *do* need a route. If we *didn't* have one, the
-routing system would trigger a 404 error before the logout system could work its
-magic. Plus, it's nice to have a route so we can generate URLs to it.
+routing system would trigger a 404 error *before* the logout system could work its
+magic. Plus, it's nice to have a route so we can generate a URL to it.
 
-Ok: let's test this thing! Let's log in first: `abraca_admin@example.com` and
+Ok: let's test this thing! Log in first: `abraca_admin@example.com` and
 password `tada`. Awesome: we *are* authenticated. Manually go to `/logout` and...
-got it! We are now logged out! The default behavior of the system is to log us
-out and redirect back to the homepage. If you need to customize that, there
-are a few options. First, under the `logout` key, you can change `target` to some
-other URL or route name.
+we are now logged out! The default behavior of the system is to log us out and
+redirect back to the homepage. If you need to customize that, there are a few
+options. First, under the `logout` key, you can change `target` to some other
+URL or route name.
 
 But we can also hook into the logout process via an event listener, a topic that
 we'll talk about towards the end of the tutorial.
 
-Next: let's add give each user a *real* password. This will involve hashing
+Next: let's give each user a *real* password. This will involve hashing
 passwords so we can securely store them in the database and then *checking*
 those hashed passwords during authentication. Symfony makes both of these easy.
