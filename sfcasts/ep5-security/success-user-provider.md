@@ -75,7 +75,7 @@ Fortunately... this is *not* a real problem. Why? Because at the beginning of ev
 request, Symfony also *refreshes* the user. Well, actually our "user provider" does
 this. Back in `security.yaml`, remember that user provider thingy? Yep it has *two*
 jobs. First, if we give it an email, it knows how to find that user. If we only
-pass a single argument to `UserBadge` - like this - then the user provider does
+pass a single argument to `UserBadge`  then the user provider does
 the hard work of loading the `User` from the database.
 
 But the user provider also has a *second* job. At the start of every request, it
