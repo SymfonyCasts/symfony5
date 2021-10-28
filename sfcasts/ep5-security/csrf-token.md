@@ -1,85 +1,97 @@
-# Csrf Token
+# Security Listener System & Csrf Protection
 
-Coming soon...
+After we return the `Passport` object, we know that two things happen. First, the
+`UserBadge` is used to get the `User` object. In our case, because we passed this
+a second argument, it just calls our function and we do the work. But if you only
+pass one argument, then the user provider does the work.
 
-After we returned the `Passport` object. We know that two things happen. The `UserBadge`
-is used to get the `User` object in our case because we pass the second argument. It
-just calls our function and we do the work. But earlier we found out that it also
-works by just doing this and that case. It relies on our user provider to use the
-email, to load the user. The second thing is that the credentials badge is resolved.
-Originally it did this by executing our callback. Now it checks the user's password.
-In reality, after authenticate the security system, dispatches Several events, and
-there are a bunch of listeners to the events that do different work. We're going to
-see a full list of these listeners later and even add our own listeners to the
-system. But let's look at a few of them. I'm going to hit shift, shift and load some
-core files from Symfony. First one is called `UserProviderListener`. Make sure you
-have included non project items and Open it up. This is called after we return our
-passport and its job is to use the `UserProvider` to load the user from the user
-batch. So check it out. It checks to see if the password has a `UserBadge`, which it
-will,
+The second thing that happens is that the "credentials badge" is "resolved". Originally
+it did this by executing our callback. Now it checks the user's password in the
+database.
 
-And then check to see if a badge has a user loader. That's basically, if we had
-passed that second argument to, um, user badge, this is the user loader. If it has
-that, then it does nothing, but if it doesn't then down here, it actually sets the
-user loader. It sets that call back to use the `loadUserByIdentifier()` method on this
-era user provider. This is a little technical, but basically this is what kind of,
-this is what causes our user provider in `security.yaml`. So you be responsible for
-loading the user from the database or wherever Let's check one other class. So I'll
-close this one and hit shift shift, say `PasswordCredentials`, and opened up that
-class. This as the name suggests, Oh, you know what? For a `CheckCredentialsListener`
-this as the name suggests is responsible for checking the password on the
-badge. Okay?
+## The Event System in Action
 
-So as you can see, it checks to see if the bass, if the passport. So the 
-`PasswordCredentials`, even though its name doesn't sound like it is actually just another one
-of those badges, that's on the passport. So this checks to see if the password has
-that badge. And if it does it grabs that badge grabs the password off of it, which is
-going to be the plain text and then a password. And eventually way down here, it
-actually uses the password Hasher to verify that the password is correct. So this
-contains all of that password hashing logic. So your password always has at least
-these two badges, your User badge, and also some sort of credentials badge. And what
-property of badges is that they must be resolved. You can see that in 
-`CheckCredentialsListener`, after it finished is actually checking the password at calls,
-`$badge->markResolved()`. If for some reason, this chat credentials listener was
-never called and due to some misconfiguration, the badge would remain unresolved and
-that would actually cause authentication to fail. This means that you can always
-confidently just return passer kennels here, and you don't have to worry about did
-something actually check that if nothing checked it authentication will fail.
+All of this is powered by a really cool event system. After our `authenticate()`
+method, the security system dispatches several events... and there are a set of
+*listeners* to these events that do different work. We're going to see a full list of
+these listeners later... and even add our *own* listeners to the system.
 
-Now, what really gets interesting here is that in addition to these two badges, we
-can also add more badges to our passport that activate more super powers in the
-system. For example, one good thing to have on a log and form is a CSRF protection.
-Basically you add a hidden field to your form that contains a CSRF token. Then on
-submit, validate that tote, validate that token. Let's do this Anywhere inside your
-forum. Let's add an input `type="hidden"`,
+## UserProviderListener
 
-And then `name="_csrf_token"`. This name could be anything, but this is a
-standard name then for the value degeneracy SF token. And there's a CSRF and say
-curly, curly `csrf_token()`. And then you're gonna pass it here. A string. We're going to
-use the string `authenticate` again. This could be anything as well. It's almost like a
-category for the CSRF token, but this is the standard one that's used for security.
-Actually, that's not true. We do need to use authenticate there. Now that we have
-this field, I'll copy the, the name of it over in our `LoginFormAuthenticator`, we
-basically want to do is read this field from the post data and then ask Symfony is
-this CSRF token valid? Fortunately, we don't actually need to do that by hand.
+But let's look at a few of them. Hit Shift + Shift so we can load some core files
+from Symfony. The first is called `UserProviderListener`. Make sure to "include
+non project items"... and open it up.
 
-It's actually a third argument to our passport, which is an array of any other badges
-that we want to add to it. So I'll pass this an array, and then I'm going to pass a
-new `CsrfTokenBadge()`. This, uh, has two arguments. The first one is the CSRF token
-ID. So we're going to say "authenticate", this just needs to match whatever we used.
-One regenerated the token. And the second thing is going to be the actual value. So
-that's going to be `$request->request->get()` and then the name of our field `_csrf_token`
-That's all we need to do internally. That's going to activate a listener.
-That's going to validate that. Or if for some reason that listener wasn't valid, then
-it would be, we don't need that. All right, let's try it. Go to login and let's
-inspect an element on here and we should see, there we go.
+This is called after we return our `Passport`. It first checks to make sure the
+`Passport` has a `UserBadge` - it always will in any normal situation - and then
+*grabs* that object. It *then* checks to see if the badge has a "user loader":
+that's the function that we're passing to the second argument of our `UserBadge`.
+If the badge *already* has a user loader, like in our case, it does nothing. But
+if it does *not*, it *sets* the user loader to the `loadUserByIdentifier()` method
+on our user provider.
 
-Nice new CSRF token put in any email address and any password. And then I'm going to
-mess with the CSRF token here. We'll just delete a couple of characters off of it and
-then sign it beautiful before any other validation happens. It checks the CSM token.
-It says invalid CSRF token. If we don't mess with it and just leave it alone and use
-any email and password beautiful. The email that finally got past that CSRF token
-validation. So next let's leverage Symfony's remember me system to allow users to
-stay logged in for a long time. This feature also leverages the listener system that
-we just saw.
+It's... a little technical... but *this* is what causes our user provider in
+`security.yaml` to be responsible for loading the user if we only pass one argument
+to `UserBadge`.
 
+## CheckCredentialsListener
+
+Let's check one other class. Close this one and hit Shift + Shift to open
+`CheckCredentialsListener`. As the name suggests, *this* is responsible for checking
+the user's "credentials". It first checks to see if the `Passport` has a
+`PasswordCredentials` badge. Even though its name doesn't sound like it, the
+"credentials" objects are just badges... like any other badge. So this checks to
+see if the `Passport` has that badge and if it *does*, it grabs the badge, reads
+the plain-text password off of it, and, eventually way down here, uses the password
+hasher to *verify* that the password is correct. So this contains *all* of that
+password hashing logic. Below, this listener also handles the `CustomCredentials`
+badge.
+
+## Badges Must be Resolved
+
+So your `Passport` always has at least these two badges: the `UserBadge` and also
+some sort of "credentials badge". One important property of badges is that each one
+must be "resolved". You can see this in `CheckCredentialsListener`. After it finishes
+checking the password, it calls `$badge->markResolved()`. If, for some reason,
+this `CheckCredentialsListener` was never called due to some misconfiguration...
+the badge would *remain* "unresolved" and that would actually cause authentication
+to *fail*. Yup, after calling the listeners, Symfony checks to make sure that all
+badges have been resolved. This means that you can confidently return
+`PasswordCredentials` and not have to wonder if something *did* actually verify
+that password.
+
+## Adding CSRF Protection
+
+And here's where things start to get more interesting. In addition to these
+two badges, we can also add *more* badges to our `Passport` to activate more super
+powers. For example, one good thing to have on a login form is CSRF protection.
+Basically you add a hidden field to your form that contains a CSRF token... then,
+on submit, you *validate* that token.
+
+Let's do this. Anywhere inside your form, add an input `type="hidden"`,
+`name="_csrf_token"` - this name could be anything, but this is a standard name -
+then `value="{{ csrf_token() }}"`. Pass this the string "authenticate".
+
+That `authenticate` could *also* be anything... it's like a unique name for this form.
+
+Now that we have the field, copy its name and head over to `LoginFormAuthenticator`.
+Here, we need to read that field from the POST data and then ask Symfony: "is
+this CSRF token valid"? Well, in reality, that second part will happen automatically.
+
+How? The `Passport` object has a *third* argument: an array of any *other* badges
+that we want to add. Add one: a new `CsrfTokenBadge()`. This needs two things.
+The first is the CSRF token ID. Say `authenticate`: this just needs to match whatever
+we used in the form. The second argument is the submitted value, which is
+`$request->request->get()` and the name of our field: `_csrf_token`.
+
+And... we're done! Internally, a listener will notice this badge, validate the
+CSRF token and *resolve* the badge.
+
+Let's try it! Go to `/login`, inspect the form... and find the hidden field. There
+it is. Enter any email, any password... but mess with the CSRF token value. Hit
+"Sign in" and... yes! Invalid CSRF Token! Now if we *don't* mess with the token...
+and use any email and password... beautiful! The CSRF token was valid... so it
+continued to the email error.
+
+Next: let's leverage Symfony's "remember me" system to allow users to stay logged
+in for a long time. This feature *also* leverages the listener system and a badge.
