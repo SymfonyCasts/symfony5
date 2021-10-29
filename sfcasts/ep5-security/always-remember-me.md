@@ -1,69 +1,108 @@
 # Always Remember Me & "signature_properties"
 
-Coming soon..
+Now that we've got the remember me system work, let's play with it! Instead of
+giving the user the option to do "remember me", could we... just enable it automatically
+in all situations?
 
-though. If you want to, one of the things you can do is instead of giving the user
-to option to do remember me, you can just enable it automatically for them. So in
-this case, you don't need to remember me chat box so we can just delete that entirely.
-And then there's two ways that you can force. Remember me the first way is to put
-it inside of, um, as an option in security. That animal `always_remember_me: true`.
-Sure. In this case, your authenticator is still needs to return to remember me badge,
-but it's no longer going to look for that checkbox. As long as it sees this badge,
-it will add the cookie. It will add the cookie. The other way that you can enable
-the remember me, badge always is via the badge itself. So comma,
+Sure! In this case, we no longer need a remember me checkbox... so we delete that
+entirely.
 
-Oh,
+## always_remember_me: true
 
-I'll fix my type of always. Remember me anyways, comment that out. And then an inside
-of your log and form authentic here on the badge itself, you can call a method called
-`enable()`, which also returns an instance of itself. This basically says I don't care
-about any other setting or any other check box. I definitely want the remember me
-system to be enable
+There are two ways that you can "force" the remember me system to *always* set a
+cookie... even though the checkbox isn't there. The first is in `security.yaml`:
+set `always_remember_me:` to `true`. Yes, I *totally* just misspelled `remember`...
+don't do that!
 
-Cool. I want to try that out, but you can take my word for it that actually I'll try
-it out. Let me clear the session ID and the remember me cookie. And this time when we
-log in, oh, invalid CSRF token. Let me refresh the page again. That's because I
-cleared my session ID and beautiful. We have the, remember me a token. Now, one thing
-that you need to be careful with, remember me tokens is that if a bad user somehow
-got access to my system, like they stole my password. They could stay logged in.
-Thanks to remember me cookie. They could stay logged in for a long time. Even if we
-figured out what happened and changed our password. That's because these cookies are
-like free tickets and they will work until they expire. No matter what, like one year
-from now
+With this, our authenticator *still* needs to add a `RememberMeBadge`, but the
+system will *no* longer look for that checkbox. As long as it sees this badge, it
+will add the cookie.
 
-To, if you want to avoid that, you can do something very cool in `security.yaml`, you
-can add a property here called uh, often called `signature_properties` and set that to
-how about password? What this means is that when it creates the, remember me cookie,
-it's going to call the it's going to call, uh, it's going to use the password
-property off of our user as sort of an ingredient to that signature. And then when
-the remember me, cookie is used later, it will read the hash, the hash password off
-of the cookie. And if it doesn't match the hash password in the database, the cookie
-won't work. In other words, any properties that you list here for any properties that
-you list here, if those properties change in the database, they remember me, cookie
-won't work. So all I all I would need to do once I regained access to my account is
-changed my password and all our memory cookies would stop working, check it out.
-Whenever you make that change, it will actually invalidate the rumor meat cookies for
-all users. You can see it as if I, the way the session ID and reload see it
-invalidated at all right? So let's log in
+## Enabling on the RememberMeBadge
 
-So that we get a new, remember me cookie with the hashed password information on it.
+The *other* way that you can enable the remember me cookie in all situations is
+via the badge itself. Comment-out the new option. Well... let me fix my typo
+and *then* comment it out.
 
-And now under normal conditions, things work just like normal. I can believe the
-session ID refresh, and I'm still logged in, but now let's change the user's password
-in the database. So to do this, I'm going to run
+Inside of `LoginFormAuthenticator`, on the badge itself, you can call `->enable()`...
+which returns the badge instance. This says:
+
+> I don't care about any other setting or the checkbox: I *definitely* want the
+> remember me system to add a cookie.
+
+Let's try it! Clear the session *and* `REMEMBERME` cookies. This time when we
+login... oh invalid CSRF token! That's because I just killed my session without
+refreshing - silly Ryan! Refresh and try again.
+
+Beautiful! We have the `REMEMBERME` cookie!
+
+## Securing Remember Me Cookies: Invalidate on User Data Change
+
+There *is* one thing that you need to be careful with when it comes to remember
+me cookies. If a bad user somehow got access to my account - like they stole my
+password - then they could, of course, log in. Normally, that sucks... but as
+soon as I found out, I can change my password, which will log them out.
+
+But... if that bad user has has a `REMEMEBERME` cookie... then even if I change
+my password, they will *stay* logged in until that cookie hits its expiration...
+which could be a long time from now. These cookies are like free authentication
+tickets: and they keep working - no matter what we do - until they expire.
+
+Fortunately, in the new authenticator system, there's a really cool way to
+avoid this. In `security.yaml`, below `remember_me`, add a new option called
+`signature_properties` set to an array with `password` inside.
+
+Let me explain. When Symfony creates the remember me cookie, it creates a "signature"
+that proves that this cookie is valid. Thanks to this config, it will now fetch the
+`password` property off of our `User` and include that in the signature. Then, when
+that cookie is used to *authenticate*, Symfony will try to re-create the signature
+using the `password` of the `User` that's currently in the database. If the `password`
+in the database doesn't match the `password` that was originally used to create the
+cookie, it won't work.
+
+In other words, for any properties in this list, if even *one* of these changes
+in the database on that `User`, *all* remember me cookies for that user will
+instantly be invalidated.
+
+So if a bad user steals my account, I need to do is change my password and that
+bad user will get kicked out.
+
+This is *super* cool to see in action. Refresh the page. If you tweak the
+`signature_properties` config, that will invalidate *all* `REMEMBERME` cookies
+on your entire system - so make sure to get the config right when you first set
+things up. Watch: if I delete the session cookie and refresh... yup! I'm *not*
+authenticated: the `REMEMBERME` cookie didn't work. It's still there... but it's
+non-functional.
+
+Let's log in - with our normal email address... and password... so that we get a
+new remember me cookie that's created with the hashed password.
+
+Cool! And now, under normal conditions, things will work just like normal. I can
+delete the session cookie, refresh, and I'm still logged in.
+
+But *now*, let's change the user's password in the database. We can cheat and do
+this on the command line:
 
 ```terminal
 symfony console doctrine:query:sql 'UPDATE user SET password="foo" WHERE email = "abraca_admin@example.com"'
 ```
 
-And we'll just say Fu again, which won't
-work for anything because this is really supposed to hold a hash password. And I'll
-say where email = we'll use Avalara admin, at example, that come beautiful. So that
-just changed my password in the database imitating what would happen if I changed the
-password on my account? Now, if we are the bad user, next time we actually come back
-to the site. Suddenly we're logged out and see the, remember me cookies there. But
-the remember me cookie doesn't work because our password in the database changed.
-That's a powerful feature. All right, let me reload my fixtures to reset my password.
-And then once that's done, let's go log in again, as Agra admin, at example.com acid
-TETA util next it's time to deny access. Let's look at access control, the simplest
+Setting the password to `foo` is utter nonsense... since this column needs to hold
+a hashed password... but it'll be ok for our purposes. Hit it and... awesome!
+This imitated what would happen if I changed the password in my account.
+
+Now, if we are the *bad* user,the next time we come back to the site... suddenly
+we're logged out! Party over! The remember me cookie is there... but it's not
+working. I *love* this feature of the remember me system.
+
+Let's go back... and reload our fixtures to fix my password:
+
+```terminal-silent
+symfony console doctrine:fixtures:load
+```
+
+And... once that's done, let's go log in again as `abraca_admin@example.com`,
+password `tada`.
+
+Next: it's time to *deny* access! Let's look at `access_control`: the simplest
 way to block access to entire sections of your site.
