@@ -13,6 +13,7 @@ chapters:
     - password-credentials
     - csrf-token
     - remember-me
+    - always-remember-me
     - access-control
     - entry-point
     - abstract-login-form-authenticator
