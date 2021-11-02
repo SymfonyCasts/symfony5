@@ -35,9 +35,9 @@ required.
 
 So after Foundry has finished instantiating the object, we need to run some extra
 code that reads the `plainPassword` and hashes it. We can do that down here in the
-`initialize()` method... via an `afterInstantiation()` hook.
+`initialize()` method... via an "after instantiation" hook.
 
-This is pretty cool: call `$this->afterInstantiation()`, pass it a callback and,
+This is pretty cool: call `$this->afterInstantiate()`, pass it a callback and,
 inside say if `$user->getPlainPassword()` - just in case we override that to
 `null` - then `$user->setPassword()`. Generate the hash with
 `$this->passwordHasher->hashPassword()` passing the user that we're trying to

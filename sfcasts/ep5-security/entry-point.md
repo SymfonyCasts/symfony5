@@ -1,83 +1,107 @@
-# Entry Point
+# The Entry Point: Inviting Users to Log In
 
-Coming soon...
+Log back in using `abraca_admin@example.com` and password `tada`. When we go to
+`/admin`, like we saw earlier, we get access denied. This is because of the
+`access_control`... and the fact that our user does *not* have a `ROLE_ADMIN`,
 
-Let's see what just happened again. First let's actually log back in 
-abraca_admin@example.com password to that. When we go to `/admin`, like we saw earlier, we get
-access tonight. This is, this is because of the access control and the fact that our
-user does not have a `ROLE_ADMIN`,
+But if we change this to `ROLE_USER` - a role that we *do* have - then access is
+granted... and we get to see some *pretty* impressive graphs.
 
-But if we change this to `ROLE_USER`, a role that we do have then access, granted,
-those are very impressive stats, but now I'm going to log out. So go manually 
-`/logout` and go back to `/admin` question is what should happen when an a, so when I go to
-/admin, I should not have access to that page. And that's true. I don't have access
-and I get a 401 status code. So on production, the user would see a 401 error
-page, but wait, let's think that is not what we want. The event anonymous user tries
-to access a protected page on our site instead of an error, we want to invite them to
-log in. In other words, we want to redirect them to the login page. That's how every
-site on the planet works. Okay.
+Let's try one more thing. Log out - so manually go to `/logout`. Now that we are
+*not* logged in, if I went directly to `/admin`: what should happen?
 
-In order to figure out what to do when an anonymous user accesses a protected page
-like this, each firewall defined something called an entry point. An entry point is
-literally a function that says here's what we should do with the user. When an
-anonymous user access as a protected page, every authenticator under our firewall may
-or may not provide an entry point. Right now, we have two authenticators. We have our
-custom log in form of care. And also the remember me authenticator and neither of
-those provide an entry point, which is why instead of redirecting the user to a page
-or doing something different, we just get a 401, error, there are some built in
-authenticators like `form_login`, which we'll talk about soon that do provide an
-authenticator and we'll see that. But anyways, none of ours provides an entry point.
+Well, right now, we get a *big* error page with a 401 status code. But... that's
+not what we want! If an anonymous user tries to access a protected page on our site,
+instead of an error, we want to *invite* them to log in. Because we have a login
+form, it means that we want to redirect to the login page.
 
-So let's add one, open up your `LoginFormAuthenticator` `src/Security/LoginFormAuthenticator`
-If you want your authenticator to provide an entry point, you need to
-implement a new interface. So say implements, `AuthenticationEntryPointInterface`.
-This requires you to have one new method, which we actually already have down here.
-It's called `start()` on, come at the `start()` method inside. Very simply. We're going to
-redirect the log-in page. I'll steal the code pop here. Exactly. And that's it. And
-as soon as we implement that interface, the security system is going to see that. And
-if an anonymous user tries to access a protected page, it's going to call our start
-method and we're going to redirect to the log in page, watch refresh, boom. It knocks
-us over to the log-in page, but there's one important thing to understand about entry
-points. F every firewall can have only one entry point. Think about it at the moment
-we go to `/admin` as an anonymous user. We're not trying to log in via, uh, we're not
-trying to log in via a login form or an API token or anything else. We are anonymous.
-And so the firewall
+## Hello Entrypoint!
 
-Needs to know what one thing it should do for the user Right now, since only one of
-our two authenticators is providing an entry point. It knows to use this one, but if
-we had, what, if that were not the case, we would get an air here. Let me show you.
-Let's generate a second custom authenticator 
+To figure out what to do when an anonymous user accesses a protected page, each
+firewall defined something called an "entry point". The entry point of a firewall
+is literally a function that says:
+
+> Here's what we should when an anonymous user tries to access a protected page!
+
+Every authenticator under our firewall may or may *not* "provide" an entry point.
+Right now, we have two authenticators: our custom `LoginFormAuthenticator` and
+also the `remember_me` authenticator. But neither of those provide an entry point,
+which is why instead of redirecting the user to a page... or doing something different,
+we get this generic 401. Some built-in authenticators - like `form_login`, which
+we'll talk about soon - *do* provide an authenticator... and we'll see that.
+
+## Making our Authenticator an Entrypoint
+
+But anyways, none of our authenticators provide an entry point... so let's add one!
+
+Open up our authenticator: `src/Security/LoginFormAuthenticator.php`. If you want
+your authenticator to provide an entry point, all you need to is implement a new
+interface. So implements `AuthenticationEntryPointInterface`.
+
+This requires the class to have one new method... which we actually already have
+down here. It's called `start()`. Uncomment the method. Then, inside, very simply,
+we're going to redirect the log-in page. I'll steal the code from above and...
+done!
+
+As *soon* as an authenticator implements this interface, the security system will
+notice this and start using it. Literally, if an anonymous user tries to access a
+protected page, it will now call our `start()` method... and we're going to redirect
+them to the login page.
+
+Watch: refresh! Boom! It knocks us over to the login page.
+
+## A Firewall has Exactly ONE Entry Point
+
+But there's *one* important thing to understand about entry points. Each firewall
+can have only *one* of them. Think about: at the moment we go to `/admin` as
+an anonymous user.... we're not trying to log in via a login form... or via an
+API token. We're truly anonymous. And so, if we *did* have multiple authenticators
+that each provided an entry point, our firewall wouldn't know which to choose. It
+needs *one* entrypoint for *all* cases.
+
+Right now, since only *one* of our two authenticators is providing an entry point,
+kt knows to use this one. But if that were *not* the case? Let's actually see
+what would happen. Find your terminal. Let's generate a *second* custom authenticator:
 
 ```terminal
 symfony console make:auth
 ```
 
-We'll generate
-an empty authenticator, and I'm going to call it just `DummyAuthenticator`.
+Generate an empty authenticator: call it `DummyAuthenticator`.
 
-Beautiful. As you can see, is it generated in a new class called `DummyAuthenticator`
-and it actually updated a `custom_authenticator:` to now accept an array of
-authenticators. Now, both of our custom authenticators are active to start inside
-`supports()`. I'm just going to return false without authenticators, not ever actually
-going to do anything. Now, if we stopped right here and I tried to go to /admin, it
-would still hit our entry, our one entry point and redirect a log in page. But now
-let's implement `AuthenticationEntryPointInterface` Then go down here on common,
-out the start method. And for the body, I'm just going to do a `dd()`. Tell me
-DummyAuthenticators::start. This won't actually be executed. So at this point, the
-security system is going to notice that we have two authenticators that each have an
-entry point. And so when we refresh any page, we get a gigantic air because you have
-multiple authenticators in firewall main. You need to set the `entry_point:` key to one
-of your authenticators. And it tells me that the two authenticators that have 
-`entry_points:`. So in other words, it's making us choose. So I'm going to copy this entry
-point key here, and then anywhere under our firewall, I'll say, enter your blank
-colon. And then I'll point that to my authentic air. Technically I can point this to
-any class that implements authentication entry point interface. But usually I put
-those, I put that inside of my authenticator.
+Beautiful! Like last time, this created a new class called `DummyAuthenticator`...
+and it also updated `custom_authenticator` in `security.yaml` to use *both* custom
+classes.
 
-Now let me go back to `/admin`. It works fine. It knows to choose the entry point from
-our `LoginFormAuthenticator`. Next speaking of our log in form authenticator, we've
-been doing too much work inside of here. Let's leverage a special base class from
-Symfony that will let us delete a bunch of coat. We're also going to learn about
-something called the target path trait, a way to intelligently redirect the user on
-success.
+In the new class, inside `supports()`, return false. We're... not going to turn
+this into a *real* authenticator.
 
+If we stopped right now... and tried to go to `/admin`, it would *still* use the
+entrypoint from `LoginFormAuthenticator`. But now implement
+`AuthenticationEntryPointInterface`... and then go down... and uncomment the
+`start()` method. For the body, just `dd()` a message... because this won't ever
+be executed.
+
+Ok: at this point, the firewall will notice that we have *two* authenticators that
+*each* provide an entry point. And so, when we refresh any page, it panics!
+
+> Because you have multiple authenticators in firewall "main", you need to set the
+> `entry_point:` key to one of your authenticators.
+
+And it helpfully tells me that the two authenticators that we have. In other words,
+it's making us choose.
+
+Copy the `entry_point` key... then, anywhere under the firewall, say
+`entry_point:` and then point to the `LoginFormAuthenticator` service.
+
+Technically we can point this to *any* service that implements
+`AuthenticationEntryPointInterface`... but usually put that in my authenticator.
+
+*Now*... if we go back to `/admin`.... it works fine! It knows to choose the entry
+point from `LoginFormAuthenticator`.
+
+Speaking of `LoginFormAuthenticator`... um... we've been doing *way* too much
+work inside of it! That's my bad - we're doing things the hard way for... ya know...
+learning! But next, let's leverage a special base class from Symfony that will let
+us delete a *bunch* of code. We're also going to learn about something called the
+`TargetPathTrait`: an intelligently way to redirect the user on success.
