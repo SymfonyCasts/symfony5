@@ -1,11 +1,21 @@
 # Customize Error Messages & Adding Logout
 
 When we fail login, we store the `AuthenticationException` in the session - which
-explains what went wrong - and then redirect to the login page. On *that* page, we
-read that exception *out* of the session using this nice `AuthenticationUtils`
-service and ultimately, in the template, call the `getMessageKey()` method
-to render a safe message that describes *why* authentication failed. For example,
-if we enter an email that doesn't exist, we see:
+explains what went wrong - and then redirect to the login page:
+
+[[[ code('9252e2de82') ]]]
+
+On *that* page, we read that exception *out* of the session using this nice
+`AuthenticationUtils` service:
+
+[[[ code('1c1ebcec46') ]]]
+
+And ultimately, in the template, call the `getMessageKey()` method to render
+a safe message that describes *why* authentication failed:
+
+[[[ code('2a83126eb5') ]]]
+
+For example, if we enter an email that doesn't exist, we see:
 
 > Username could not be found.
 
@@ -14,7 +24,7 @@ but for us, this isn't a great message because we're logging in via an *email*.
 Also, if we enter a *valid* user - `abraca_admin@example.com` - with an invalid
 password, we see:
 
-> Invalid credentials
+> Invalid credentials.
 
 That's a better message... but it's not super friendly.
 
@@ -26,7 +36,9 @@ We *translate* them. Check it out: over in the template, after `messageKey`, add
 This isn't too important... but in the translation world, sometimes your translations
 can have "wildcard" values in them... and you pass in the values for those wildcards
 here. The second argument is called a "translation domain"... which is almost like
-a translation category. Pass `security`.
+a translation category. Pass `security`:
+
+[[[ code('cbbe36edc0') ]]]
 
 If you *do* have a multi-lingual site, all of the core authentication messages have
 *already* been translated to other languages... and those translations are available
@@ -48,6 +60,8 @@ it in quotes to be safe - and set it to something different like:
 
 > Invalid password entered!
 
+[[[ code('54fa2fd217') ]]]
+
 Cool! Let's try it again. Log in as `abraca_admin@example.com` with an invalid
 password and... much better! Let's try with a bad email.
 
@@ -56,7 +70,11 @@ and change it to something a bit more user-friendly like:
 
 > Email not found!
 
-Let's try it again: same email, any password and... got it! Email not found.
+[[[ code('5a99fcf551') ]]]
+
+Let's try it again: same email, any password and... got it!
+
+> Email not found.
 
 Okay! Our authenticator is done! We load the `User` from the email, check their
 password and handle both success and failure. Booya! We *are* going to add more
@@ -69,9 +87,15 @@ Let's add a way to log out. So... like if the user goes to `/logout`, they get..
 logged it! This starts exactly like you expect: we need a route & controller.
 
 Inside of `SecurityController`, I'll copy the `login()` method, paste, change it
-to `/logout`, `app_logout` and call the *method* `logout`. To *perform* the logging
-out itself... we're going to put absolutely no code in this method. Actually, I'll
-throw a new `\Exception()` that says "logout should never be reached".
+to `/logout`, `app_logout` and call the *method* `logout`:
+
+[[[ code('3568dae894') ]]]
+
+To *perform* the logging out itself... we're going to put absolutely no code
+in this method. Actually, I'll throw a new `\Exception()` that says
+"logout() should never be reached":
+
+[[[ code('34d6cf405b') ]]]
 
 Let me explain. Logging out works a bit like logging in. Instead of putting some
 logic in the controller, we're going activate something on our firewall that says:
@@ -80,8 +104,11 @@ logic in the controller, we're going activate something on our firewall that say
 > and redirect them somewhere else.
 
 To activate that magic, open up `config/packages/security.yaml`. Anywhere under our
-firewall, add `logout: true`. Internally, this activates a "listener" that looks
-for any requests to `/logout`.
+firewall, add `logout: true`:
+
+[[[ code('4e44f617e9') ]]]
+
+Internally, this activates a "listener" that looks for any requests to `/logout`.
 
 ## Configuring logout
 
@@ -106,7 +133,7 @@ this *should* work. By the way, you might be wondering why we needed to create
 a route and controller at all! Great question! We actually *don't* need a controller,
 it will never be called. But we *do* need a route. If we *didn't* have one, the
 routing system would trigger a 404 error *before* the logout system could work its
-magic. Plus, it's nice to have a route so we can generate a URL to it.
+magic. Plus, it's nice to have a route, so we can generate a URL to it.
 
 Ok: let's test this thing! Log in first: `abraca_admin@example.com` and
 password `tada`. Awesome: we *are* authenticated. Manually go to `/logout` and...
@@ -119,5 +146,5 @@ But we can also hook into the logout process via an event listener, a topic that
 we'll talk about towards the end of the tutorial.
 
 Next: let's give each user a *real* password. This will involve hashing
-passwords so we can securely store them in the database and then *checking*
+passwords, so we can securely store them in the database and then *checking*
 those hashed passwords during authentication. Symfony makes both of these easy.
