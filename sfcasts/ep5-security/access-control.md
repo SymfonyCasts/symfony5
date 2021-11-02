@@ -1,16 +1,17 @@
 # Denying Access, access_control & Roles
 
 We've now talked a *lot* about authentication: the process of logging in. And...
-we *are*, in fact, logged in right now. So let's get our first look at
-*authorization*. That's where you deny access to different parts of our site.
+we're *even* logged in right now. So let's get our first look at *authorization*.
+That's the fun part where we get to run around and deny access to different parts of
+our site.
 
 ## Hello access_control
 
-The easiest way to deny access is actually right inside of
+The easiest way to kick someone out of your party is actually right inside of
 `config/packages/security.yaml`. It's via `access_control`. Un-comment the
 first entry.
 
-Ok: the `path` is a regular expression. So this basically says:
+The `path` is a regular expression. So this basically says:
 
 > If a URL starts with `/admin` - so `/admin` or `/admin*` - then I shall deny
 > access unless the user has `ROLE_ADMIN`.
@@ -22,32 +23,32 @@ in... then go to `/admin`. Access denied. I've *never* been so happy to be rejec
 We get kicked out with a 403 error.
 
 On production, you can customize what this 403 error page looks like... in addition
-to customizing what the 404 error page looks like.
+to customizing the 404 error page or 422.
 
 ## Roles! User::getRoles()
 
-So let's talk about the "roles" stuff. Open up the `User` class:
-`src/Entity/User.php`. Here's how this works. The moment that we login, Symfony calls
-this `getRoles()` method - this is part of `UserInterface`. We return an array of
+So let's talk about these "roles" thingies. Open up the `User` class:
+`src/Entity/User.php`. Here's how this works. The moment we login, Symfony calls
+this `getRoles()` method, which is part of `UserInterface`. We return an array of
 *whatever* roles this user should have. The `make:user` command generated this so
-that we *always* a role called `ROLE_USER`... plus any extra roles stored on the
-`$this->roles` property. That property is holds an *array*... which is stored in
-the database as JSON.
+that we *always* have a role called `ROLE_USER`... plus any extra roles stored on
+the `$this->roles` property. That property holds an *array* of strings... which
+are stored in the database as JSON.
 
 This means that we can give each user as *many* roles as we want. So far, when we've
 created our users, we haven't given them *any* roles yet... so our `roles` property
-is empty. But thanks to how the `getRoles()` method is written, our user will at
-*least* have `ROLE_USER`. The `make:user` command generated the code like this
+is empty. But thanks to how the `getRoles()` method is written, every user at
+*least* has `ROLE_USER`. The `make:user` command generated the code like this
 because *all* users need to have a least *one* role... otherwise they wander around
-like half-dead zombie users. It isn't pretty.
+our site like half-dead zombie users. It's... not pretty.
 
-So, by convention, we always give them at *least* `ROLE_USER`. Oh, and the only
+So, by convention, we always give a user at *least* `ROLE_USER`. Oh, and the only
 *rule* about *roles* - that's a mouthful - is that they must start with `ROLE_`.
 Later in the tutorial, we'll learn why.
 
-*Anyways*, the moment we login, Symfony calls `getRoles()`, we return the array of
-roles and it stores them. We can actually seem if we click the security icon on the
-web debug toolbar. Yup! Roles: `ROLE_USER`.
+*Anyways*, the moment we log in, Symfony calls `getRoles()`, we return the array of
+roles and it stores them. We can actually see this if we click the security icon
+on the web debug toolbar. Yup! Roles: `ROLE_USER`.
 
 So then, when we go to `/admin`, this matches our first `access_control` entry, it
 checks to see if we have `ROLE_ADMIN`, we don't, and it denies access.
@@ -59,21 +60,22 @@ will ever be matched on a request.
 
 For example, suppose you had two access controls like this. If we went to `/admin`,
 that would match the *first* rule and *only* use the first rule. It works like
-routing: it goes down the access control list line-by-line and as soon as it finds
-the *first* match, it stops, and uses *only* that line.
+routing: it goes down the access control list one-by-one and as soon as it finds
+the *first* match, it stops, and uses *only* that entry.
 
 This will *help* us later when we deny access to *all* of a section *except* for
-one URL. But for now, just be aware of this!
+one URL. But for now, just be aware of it!
 
 And... that's it. Access controls give us a *really* easy way to secure entire
 sections of our site. But it's just *one* way to deny access. Soon we'll talk
-about how we can deny access on a controller-by-controller basis.
+about how we can deny access on a controller-by-controller basis, which I really
+like.
 
 But before we do, I know that if I try to access this page without `ROLE_ADMIN`,
-I get the 403 forbidden error. But what if I try to access to this page as an
-*anonymous* user? Go to `/logout`? Cool. We're now *not* logged in.
+I get the 403 forbidden error. But what if I try to access this page as an
+*anonymous* user? Go to `/logout`? We're now *not* logged in.
 
-Go back to `/admin`. Whoa! An error!
+Go back to `/admin` and... whoa! An error!
 
 > Full authentication is required to access this resource.
 
