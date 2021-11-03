@@ -9,25 +9,36 @@ form.
 ## Adding a plainPassword Field
 
 To make this easier, I'm going to do something optional. In `User`, up on top, add
-a new `private $plainPassword` property. The *key* thing is that this property will
-*not* be persisted to the database: it's just a temporary property that we can use
-during, for example, registration, to store the plain password.
+a new `private $plainPassword` property:
 
-Below, I'll go to Code -> Generate - or Command + N on a Mac - to generate the getter
-and setter for this. The getter will return a nullable `string`.
+[[[ code('3039188a5b') ]]]
+
+The *key* thing is that this property will *not* be persisted to the database:
+it's just a temporary property that we can use during, for example, registration,
+to store the plain password.
+
+Below, I'll go to "Code"->"Generate" - or `Command`+`N` on a Mac - to generate
+the getter and setter for this. The getter will return a nullable `string`:
+
+[[[ code('648a12326d') ]]]
 
 Now, if you *do* have a `plainPassword` property, you'll want to find
-`eraseCredentials()` and set `$this->plainPassword` to null. This... is not really
-*that* important. After authentication is successful, Symfony calls
-`eraseCredentials()`. It's... just a way for you to "clear out any sensitive
-information" on your `User` object once authentication is done. Technically we
-will never *set* `plainPassword` during authentication... so it doesn't matter.
-But, again, it's a safe thing to do.
+`eraseCredentials()` and set `$this->plainPassword` to null:
+
+[[[ code('706879f074') ]]]
+
+This... is not really *that* important. After authentication is successful,
+Symfony calls `eraseCredentials()`. It's... just a way for you to "clear out any
+sensitive information" on your `User` object once authentication is done.
+Technically we will never *set* `plainPassword` during authentication... so it
+doesn't matter. But, again, it's a safe thing to do.
 
 # Hashing the Password in the Fixtures
 
 Back inside `UserFactory`, instead of setting the `password` property, set
-`plainPassword` to "tada".
+`plainPassword` to "tada":
+
+[[[ code('d7696c3fe7') ]]]
 
 If we just stopped now, it would set this property... but then the `password` property
 would stay `null`... and it would explode in the database because that column is
@@ -35,14 +46,18 @@ required.
 
 So after Foundry has finished instantiating the object, we need to run some extra
 code that reads the `plainPassword` and hashes it. We can do that down here in the
-`initialize()` method... via an "after instantiation" hook.
+`initialize()` method... via an "after instantiation" hook:
+
+[[[ code('b54d0979fd') ]]]
 
 This is pretty cool: call `$this->afterInstantiate()`, pass it a callback and,
 inside say if `$user->getPlainPassword()` - just in case we override that to
 `null` - then `$user->setPassword()`. Generate the hash with
 `$this->passwordHasher->hashPassword()` passing the user that we're trying to
 hash - so `$user` - and then whatever the plain password is:
-`$user->getPlainPassword()`.
+`$user->getPlainPassword()`:
+
+[[[ code('5917e3424d') ]]]
 
 Done! Let's try this. Find your terminal and run:
 
@@ -67,7 +82,9 @@ that with the hash in the database.
 
 Well *we* don't need to do this... because Symfony is going to do it automatically.
 Check it out: replace `CustomCredentials` with a new `PasswordCredentials` and pass
-it the plain-text submitted password.
+it the plain-text submitted password:
+
+[[[ code('b991369992') ]]]
 
 That's it! Try it. Log in using our real user - `abraca_admin@example.com` - I'll
 copy that, then some *wrong* password. Nice! Invalid password! Now enter the
