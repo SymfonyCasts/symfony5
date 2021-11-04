@@ -18,6 +18,7 @@ chapters:
     - entry-point
     - abstract-login-form-authenticator
     - form-login
+    - form-login-options
     - deny-access-controller
     - dynamic-roles
     - is-auth
