@@ -1,5 +1,5 @@
 diff --git a/templates/answer/popularAnswers.html.twig b/templates/answer/popularAnswers.html.twig
-index f2bbd5b5..dd3d431f 100644
+index f2bbd5b..dd3d431 100644
 --- a/templates/answer/popularAnswers.html.twig
 +++ b/templates/answer/popularAnswers.html.twig
 @@ -11,6 +11,7 @@

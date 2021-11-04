@@ -1,5 +1,5 @@
 diff --git a/composer.json b/composer.json
-index 30e458ad..c0f42158 100644
+index 30e458a..c0f4215 100755
 --- a/composer.json
 +++ b/composer.json
 @@ -31,7 +31,8 @@
@@ -13,7 +13,7 @@ index 30e458ad..c0f42158 100644
      "config": {
          "preferred-install": {
 diff --git a/composer.lock b/composer.lock
-index ea462cd5..67394220 100644
+index 3c68700..8484f13 100644
 --- a/composer.lock
 +++ b/composer.lock
 @@ -4,7 +4,7 @@
@@ -646,7 +646,7 @@ index ea462cd5..67394220 100644
      ],
      "aliases": [],
 diff --git a/config/bundles.php b/config/bundles.php
-index a9ebfeb2..883e9af5 100644
+index a9ebfeb..883e9af 100644
 --- a/config/bundles.php
 +++ b/config/bundles.php
 @@ -16,4 +16,5 @@ return [
@@ -656,7 +656,7 @@ index a9ebfeb2..883e9af5 100644
 +    Zenstruck\Foundry\ZenstruckFoundryBundle::class => ['dev' => true, 'test' => true],
  ];
 diff --git a/symfony.lock b/symfony.lock
-index 01c0beaf..fd849010 100644
+index 01c0bea..fd84901 100644
 --- a/symfony.lock
 +++ b/symfony.lock
 @@ -96,6 +96,9 @@

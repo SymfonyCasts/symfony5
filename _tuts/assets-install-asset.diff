@@ -1,93 +1,31 @@
 diff --git a/composer.json b/composer.json
-index 4804bb2d..2d243e06 100644
+index 9a15a28..4cb5b47 100755
 --- a/composer.json
 +++ b/composer.json
 @@ -7,6 +7,7 @@
          "ext-iconv": "*",
          "easycorp/easy-log-handler": "^1.0.7",
-         "sensio/framework-extra-bundle": "^5.5",
+         "sensio/framework-extra-bundle": "^6.0",
 +        "symfony/asset": "5.0.*",
          "symfony/console": "5.0.*",
          "symfony/debug-bundle": "5.0.*",
          "symfony/dotenv": "5.0.*",
 diff --git a/composer.lock b/composer.lock
-index 1f6a74aa..dad647f9 100644
+index 5e8bef1..1ab6cae 100644
 --- a/composer.lock
 +++ b/composer.lock
 @@ -4,7 +4,7 @@
          "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
          "This file is @generated automatically"
      ],
--    "content-hash": "d6e37dadf4e656e7c4eeb14f49eff771",
-+    "content-hash": "d02c8cd9bfe4b5aca3e3f3cbb608746c",
+-    "content-hash": "c2f915d7895ab25c9dd7138a81b59e10",
++    "content-hash": "fca94d2e0cd8445c2fabb6a08c7264cf",
      "packages": [
          {
              "name": "doctrine/annotations",
-@@ -156,6 +156,61 @@
-             ],
-             "time": "2020-05-25T17:44:05+00:00"
-         },
-+        {
-+            "name": "easycorp/easy-log-handler",
-+            "version": "v1.0.9",
-+            "source": {
-+                "type": "git",
-+                "url": "https://github.com/EasyCorp/easy-log-handler.git",
-+                "reference": "224e1dfcf9455aceee89cd0af306ac097167fac1"
-+            },
-+            "dist": {
-+                "type": "zip",
-+                "url": "https://api.github.com/repos/EasyCorp/easy-log-handler/zipball/224e1dfcf9455aceee89cd0af306ac097167fac1",
-+                "reference": "224e1dfcf9455aceee89cd0af306ac097167fac1",
-+                "shasum": ""
-+            },
-+            "require": {
-+                "monolog/monolog": "~1.6|~2.0",
-+                "php": ">=7.1",
-+                "symfony/yaml": "^3.4|^4.0|^5.0"
-+            },
-+            "type": "library",
-+            "autoload": {
-+                "psr-4": {
-+                    "EasyCorp\\EasyLog\\": "src"
-+                }
-+            },
-+            "notification-url": "https://packagist.org/downloads/",
-+            "license": [
-+                "MIT"
-+            ],
-+            "authors": [
-+                {
-+                    "name": "Javier Eguiluz",
-+                    "email": "javiereguiluz@gmail.com"
-+                },
-+                {
-+                    "name": "Project Contributors",
-+                    "homepage": "https://github.com/EasyCorp/easy-log-handler"
-+                }
-+            ],
-+            "description": "A handler for Monolog that optimizes log messages to be processed by humans instead of software. Improve your productivity with logs that are easy to understand.",
-+            "homepage": "https://github.com/EasyCorp/easy-log-handler",
-+            "keywords": [
-+                "easy",
-+                "log",
-+                "logging",
-+                "monolog",
-+                "productivity"
-+            ],
-+            "support": {
-+                "issues": "https://github.com/EasyCorp/easy-log-handler/issues",
-+                "source": "https://github.com/EasyCorp/easy-log-handler/tree/master"
-+            },
-+            "abandoned": true,
-+            "time": "2019-10-24T07:13:31+00:00"
-+        },
-         {
-             "name": "monolog/monolog",
-             "version": "2.2.0",
-@@ -536,6 +591,79 @@
+@@ -587,6 +587,79 @@
              },
-             "time": "2019-12-27T08:57:19+00:00"
+             "time": "2021-10-20T09:43:03+00:00"
          },
 +        {
 +            "name": "symfony/asset",
@@ -166,7 +104,7 @@ index 1f6a74aa..dad647f9 100644
              "name": "symfony/cache",
              "version": "v5.0.11",
 diff --git a/symfony.lock b/symfony.lock
-index 2cf45743..fcd35e11 100644
+index 2cf4574..fcd35e1 100644
 --- a/symfony.lock
 +++ b/symfony.lock
 @@ -14,6 +14,9 @@

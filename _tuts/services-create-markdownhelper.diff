@@ -1,6 +1,6 @@
 diff --git a/src/Service/MarkdownHelper.php b/src/Service/MarkdownHelper.php
 new file mode 100644
-index 00000000..83a6d7d6
+index 0000000..83a6d7d
 --- /dev/null
 +++ b/src/Service/MarkdownHelper.php
 @@ -0,0 +1,13 @@

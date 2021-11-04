@@ -1,5 +1,5 @@
 diff --git a/composer.json b/composer.json
-index 48ca72c0..d22a5659 100644
+index 48ca72c..d22a565 100755
 --- a/composer.json
 +++ b/composer.json
 @@ -14,25 +14,25 @@
@@ -48,7 +48,7 @@ index 48ca72c0..d22a5659 100644
      }
  }
 diff --git a/composer.lock b/composer.lock
-index a105b74b..cde2eb4a 100644
+index 1b4d828..b657af5 100644
 --- a/composer.lock
 +++ b/composer.lock
 @@ -4,7 +4,7 @@
@@ -1735,39 +1735,6 @@ index a105b74b..cde2eb4a 100644
          },
          {
              "name": "ralouphie/getallheaders",
-@@ -3243,16 +3136,16 @@
-         },
-         {
-             "name": "sensio/framework-extra-bundle",
--            "version": "v6.1.1",
-+            "version": "v6.1.5",
-             "source": {
-                 "type": "git",
-                 "url": "https://github.com/sensiolabs/SensioFrameworkExtraBundle.git",
--                "reference": "8ef75e99f20332f2725587896364f7079b53de95"
-+                "reference": "62c5909f49cf74dccdf50a294511cc24be2f969c"
-             },
-             "dist": {
-                 "type": "zip",
--                "url": "https://api.github.com/repos/sensiolabs/SensioFrameworkExtraBundle/zipball/8ef75e99f20332f2725587896364f7079b53de95",
--                "reference": "8ef75e99f20332f2725587896364f7079b53de95",
-+                "url": "https://api.github.com/repos/sensiolabs/SensioFrameworkExtraBundle/zipball/62c5909f49cf74dccdf50a294511cc24be2f969c",
-+                "reference": "62c5909f49cf74dccdf50a294511cc24be2f969c",
-                 "shasum": ""
-             },
-             "require": {
-@@ -3315,9 +3208,9 @@
-             ],
-             "support": {
-                 "issues": "https://github.com/sensiolabs/SensioFrameworkExtraBundle/issues",
--                "source": "https://github.com/sensiolabs/SensioFrameworkExtraBundle/tree/v6.1.1"
-+                "source": "https://github.com/sensiolabs/SensioFrameworkExtraBundle/tree/v6.1.5"
-             },
--            "time": "2021-02-23T11:50:58+00:00"
-+            "time": "2021-05-31T10:40:46+00:00"
-         },
-         {
-             "name": "sentry/sdk",
 @@ -3377,23 +3270,23 @@
          },
          {
@@ -5681,7 +5648,7 @@ index a105b74b..cde2eb4a 100644
      ],
      "aliases": [],
 diff --git a/symfony.lock b/symfony.lock
-index 6d31a3aa..03fb1839 100644
+index 6d31a3a..03fb183 100644
 --- a/symfony.lock
 +++ b/symfony.lock
 @@ -35,6 +35,9 @@

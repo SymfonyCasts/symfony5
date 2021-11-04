@@ -1,5 +1,5 @@
 diff --git a/src/Controller/CommentController.php b/src/Controller/CommentController.php
-index d9535f13..98af1c4b 100644
+index d9535f1..98af1c4 100644
 --- a/src/Controller/CommentController.php
 +++ b/src/Controller/CommentController.php
 @@ -9,7 +9,7 @@ use Symfony\Component\Routing\Annotation\Route;

@@ -1,5 +1,5 @@
 diff --git a/src/DataFixtures/AppFixtures.php b/src/DataFixtures/AppFixtures.php
-index 44d028c8..97e61c76 100644
+index 44d028c..97e61c7 100644
 --- a/src/DataFixtures/AppFixtures.php
 +++ b/src/DataFixtures/AppFixtures.php
 @@ -4,6 +4,7 @@ namespace App\DataFixtures;

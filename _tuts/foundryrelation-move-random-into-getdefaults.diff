@@ -1,5 +1,5 @@
 diff --git a/src/DataFixtures/AppFixtures.php b/src/DataFixtures/AppFixtures.php
-index 407d9b5e..d6491a66 100644
+index 407d9b5..d6491a6 100644
 --- a/src/DataFixtures/AppFixtures.php
 +++ b/src/DataFixtures/AppFixtures.php
 @@ -21,11 +21,7 @@ class AppFixtures extends Fixture
@@ -16,7 +16,7 @@ index 407d9b5e..d6491a66 100644
          $manager->flush();
      }
 diff --git a/src/Factory/AnswerFactory.php b/src/Factory/AnswerFactory.php
-index 564aa01b..2d0aa9fe 100644
+index 564aa01..2d0aa9f 100644
 --- a/src/Factory/AnswerFactory.php
 +++ b/src/Factory/AnswerFactory.php
 @@ -42,6 +42,7 @@ final class AnswerFactory extends ModelFactory

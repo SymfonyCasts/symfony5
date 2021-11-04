@@ -1,5 +1,5 @@
 diff --git a/assets/css/app.css b/assets/css/app.css
-index cb33b131..b7e59001 100644
+index cb33b13..b7e5900 100644
 --- a/assets/css/app.css
 +++ b/assets/css/app.css
 @@ -1,3 +1,127 @@
@@ -134,7 +134,7 @@ index cb33b131..b7e59001 100644
 \ No newline at end of file
 diff --git a/public/css/app.css b/public/css/app.css
 deleted file mode 100644
-index bf400eb7..00000000
+index bf400eb..0000000
 --- a/public/css/app.css
 +++ /dev/null
 @@ -1,127 +0,0 @@

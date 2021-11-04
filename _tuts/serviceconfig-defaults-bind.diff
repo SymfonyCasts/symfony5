@@ -1,5 +1,5 @@
 diff --git a/config/services.yaml b/config/services.yaml
-index 5e8126f9..e37fdcf8 100644
+index 5e8126f..e37fdcf 100644
 --- a/config/services.yaml
 +++ b/config/services.yaml
 @@ -11,6 +11,8 @@ services:

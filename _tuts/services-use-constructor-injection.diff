@@ -1,5 +1,5 @@
 diff --git a/src/Controller/QuestionController.php b/src/Controller/QuestionController.php
-index c840649a..0e3d2d86 100644
+index c840649..0e3d2d8 100644
 --- a/src/Controller/QuestionController.php
 +++ b/src/Controller/QuestionController.php
 @@ -39,7 +39,7 @@ class QuestionController extends AbstractController
@@ -12,7 +12,7 @@ index c840649a..0e3d2d86 100644
          return $this->render('question/show.html.twig', [
              'question' => ucwords(str_replace('-', ' ', $slug)),
 diff --git a/src/Service/MarkdownHelper.php b/src/Service/MarkdownHelper.php
-index 9ea26a38..8b567e51 100644
+index 9ea26a3..8b567e5 100644
 --- a/src/Service/MarkdownHelper.php
 +++ b/src/Service/MarkdownHelper.php
 @@ -7,10 +7,19 @@ use Symfony\Contracts\Cache\CacheInterface;

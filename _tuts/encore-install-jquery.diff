@@ -1,5 +1,5 @@
 diff --git a/package.json b/package.json
-index 875d54d7..968175f0 100644
+index 875d54d..968175f 100644
 --- a/package.json
 +++ b/package.json
 @@ -2,6 +2,7 @@
@@ -11,7 +11,7 @@ index 875d54d7..968175f0 100644
          "webpack-notifier": "^1.6.0"
      },
 diff --git a/yarn.lock b/yarn.lock
-index bf7c7035..a67c4fb2 100644
+index bf7c703..a67c4fb 100644
 --- a/yarn.lock
 +++ b/yarn.lock
 @@ -2150,20 +2150,13 @@ debug@2.6.9, debug@^2.2.0, debug@^2.3.3:

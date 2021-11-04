@@ -1,5 +1,5 @@
 diff --git a/composer.json b/composer.json
-index a3e382d3..9e6d0f54 100644
+index c4fb6ee..426227c 100755
 --- a/composer.json
 +++ b/composer.json
 @@ -15,6 +15,7 @@
@@ -11,19 +11,19 @@ index a3e382d3..9e6d0f54 100644
      "config": {
          "preferred-install": {
 diff --git a/composer.lock b/composer.lock
-index 3af6d233..a276e170 100644
+index 9f03b0b..dd21784 100644
 --- a/composer.lock
 +++ b/composer.lock
 @@ -4,7 +4,7 @@
          "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
          "This file is @generated automatically"
      ],
--    "content-hash": "a6b36c4138e8daf3e99a7c28bb8804c9",
-+    "content-hash": "5b4d1ec284ded103d1a6ebc4251465b5",
+-    "content-hash": "ade19423c2eff78a522bfb2b44ed4c51",
++    "content-hash": "af7d57d0a18e95d5231d8ebc6b2a0711",
      "packages": [
          {
              "name": "doctrine/annotations",
-@@ -3190,7 +3190,203 @@
+@@ -3186,7 +3186,203 @@
              "time": "2021-02-08T09:54:36+00:00"
          }
      ],
@@ -229,7 +229,7 @@ index 3af6d233..a276e170 100644
      "minimum-stability": "stable",
      "stability-flags": [],
 diff --git a/config/bundles.php b/config/bundles.php
-index a0be87be..d505424c 100644
+index a0be87b..d505424 100644
 --- a/config/bundles.php
 +++ b/config/bundles.php
 @@ -5,4 +5,5 @@ return [
@@ -240,7 +240,7 @@ index a0be87be..d505424c 100644
  ];
 diff --git a/config/packages/dev/web_profiler.yaml b/config/packages/dev/web_profiler.yaml
 new file mode 100644
-index 00000000..e92166a7
+index 0000000..e92166a
 --- /dev/null
 +++ b/config/packages/dev/web_profiler.yaml
 @@ -0,0 +1,6 @@
@@ -252,7 +252,7 @@ index 00000000..e92166a7
 +    profiler: { only_exceptions: false }
 diff --git a/config/packages/test/web_profiler.yaml b/config/packages/test/web_profiler.yaml
 new file mode 100644
-index 00000000..03752de2
+index 0000000..03752de
 --- /dev/null
 +++ b/config/packages/test/web_profiler.yaml
 @@ -0,0 +1,6 @@
@@ -264,7 +264,7 @@ index 00000000..03752de2
 +    profiler: { collect: false }
 diff --git a/config/routes/dev/web_profiler.yaml b/config/routes/dev/web_profiler.yaml
 new file mode 100644
-index 00000000..c82beff2
+index 0000000..c82beff
 --- /dev/null
 +++ b/config/routes/dev/web_profiler.yaml
 @@ -0,0 +1,7 @@
@@ -276,7 +276,7 @@ index 00000000..c82beff2
 +    resource: '@WebProfilerBundle/Resources/config/routing/profiler.xml'
 +    prefix: /_profiler
 diff --git a/symfony.lock b/symfony.lock
-index 660c388f..3f086f61 100644
+index 660c388..3f086f6 100644
 --- a/symfony.lock
 +++ b/symfony.lock
 @@ -143,6 +143,9 @@

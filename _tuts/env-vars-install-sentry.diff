@@ -1,5 +1,5 @@
 diff --git a/.env b/.env
-index 9501a4d1..2cb271b2 100644
+index 9501a4d..2cb271b 100644
 --- a/.env
 +++ b/.env
 @@ -19,3 +19,7 @@ APP_SECRET=c28f3d37eba278748f3c0427b313e86a
@@ -11,7 +11,7 @@ index 9501a4d1..2cb271b2 100644
 +SENTRY_DSN=
 +###< sentry/sentry-symfony ###
 diff --git a/composer.json b/composer.json
-index 7d078489..21796e65 100644
+index 9720e3d..21796e6 100755
 --- a/composer.json
 +++ b/composer.json
 @@ -5,8 +5,10 @@
@@ -20,21 +20,20 @@ index 7d078489..21796e65 100644
          "ext-iconv": "*",
 +        "composer/package-versions-deprecated": "^1.11",
          "knplabs/knp-markdown-bundle": "^1.8",
--        "sensio/framework-extra-bundle": "^5.5",
-+        "sensio/framework-extra-bundle": "^6.0",
+         "sensio/framework-extra-bundle": "^6.0",
 +        "sentry/sentry-symfony": "^4.0",
          "symfony/asset": "5.0.*",
          "symfony/console": "5.0.*",
          "symfony/debug-bundle": "5.0.*",
 diff --git a/composer.lock b/composer.lock
-index 3e2a13f1..1fd246b5 100644
+index 738fe27..d413bbb 100644
 --- a/composer.lock
 +++ b/composer.lock
 @@ -4,8 +4,147 @@
          "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
          "This file is @generated automatically"
      ],
--    "content-hash": "f418372306d4d56f78d864cde72808f2",
+-    "content-hash": "a31f079e56b6e953317d83c2e8e6a656",
 +    "content-hash": "315fa143fbf24f9061c432c529ea3d2f",
      "packages": [
 +        {
@@ -883,36 +882,12 @@ index 3e2a13f1..1fd246b5 100644
              },
              "time": "2016-08-06T20:24:11+00:00"
          },
-@@ -484,172 +1253,641 @@
-             },
-             "dist": {
-                 "type": "zip",
--                "url": "https://api.github.com/repos/php-fig/event-dispatcher/zipball/dbefd12671e8a14ec7f180cab83036ed26714bb0",
--                "reference": "dbefd12671e8a14ec7f180cab83036ed26714bb0",
-+                "url": "https://api.github.com/repos/php-fig/event-dispatcher/zipball/dbefd12671e8a14ec7f180cab83036ed26714bb0",
-+                "reference": "dbefd12671e8a14ec7f180cab83036ed26714bb0",
-+                "shasum": ""
-+            },
-+            "require": {
-+                "php": ">=7.2.0"
-+            },
-+            "type": "library",
-+            "extra": {
-+                "branch-alias": {
-+                    "dev-master": "1.0.x-dev"
-+                }
-+            },
-+            "autoload": {
-+                "psr-4": {
-+                    "Psr\\EventDispatcher\\": "src/"
-+                }
-+            },
-+            "notification-url": "https://packagist.org/downloads/",
-+            "license": [
-+                "MIT"
-+            ],
-+            "authors": [
-+                {
+@@ -508,149 +1277,617 @@
+             ],
+             "authors": [
+                 {
+-                    "name": "PHP-FIG",
+-                    "homepage": "http://www.php-fig.org/"
 +                    "name": "PHP-FIG",
 +                    "homepage": "http://www.php-fig.org/"
 +                }
@@ -1185,25 +1160,25 @@ index 3e2a13f1..1fd246b5 100644
 +        },
 +        {
 +            "name": "sensio/framework-extra-bundle",
-+            "version": "v6.1.1",
++            "version": "v6.2.1",
 +            "source": {
 +                "type": "git",
 +                "url": "https://github.com/sensiolabs/SensioFrameworkExtraBundle.git",
-+                "reference": "8ef75e99f20332f2725587896364f7079b53de95"
++                "reference": "7fd1d54c1b27f094a68ae15a99b7fc815857255f"
 +            },
 +            "dist": {
 +                "type": "zip",
-+                "url": "https://api.github.com/repos/sensiolabs/SensioFrameworkExtraBundle/zipball/8ef75e99f20332f2725587896364f7079b53de95",
-+                "reference": "8ef75e99f20332f2725587896364f7079b53de95",
++                "url": "https://api.github.com/repos/sensiolabs/SensioFrameworkExtraBundle/zipball/7fd1d54c1b27f094a68ae15a99b7fc815857255f",
++                "reference": "7fd1d54c1b27f094a68ae15a99b7fc815857255f",
 +                "shasum": ""
 +            },
 +            "require": {
 +                "doctrine/annotations": "^1.0",
 +                "php": ">=7.2.5",
-+                "symfony/config": "^4.4|^5.0",
-+                "symfony/dependency-injection": "^4.4|^5.0",
-+                "symfony/framework-bundle": "^4.4|^5.0",
-+                "symfony/http-kernel": "^4.4|^5.0"
++                "symfony/config": "^4.4|^5.0|^6.0",
++                "symfony/dependency-injection": "^4.4|^5.0|^6.0",
++                "symfony/framework-bundle": "^4.4|^5.0|^6.0",
++                "symfony/http-kernel": "^4.4|^5.0|^6.0"
 +            },
 +            "conflict": {
 +                "doctrine/doctrine-cache-bundle": "<1.3.1",
@@ -1213,17 +1188,17 @@ index 3e2a13f1..1fd246b5 100644
 +                "doctrine/dbal": "^2.10|^3.0",
 +                "doctrine/doctrine-bundle": "^1.11|^2.0",
 +                "doctrine/orm": "^2.5",
-+                "symfony/browser-kit": "^4.4|^5.0",
-+                "symfony/doctrine-bridge": "^4.4|^5.0",
-+                "symfony/dom-crawler": "^4.4|^5.0",
-+                "symfony/expression-language": "^4.4|^5.0",
-+                "symfony/finder": "^4.4|^5.0",
-+                "symfony/monolog-bridge": "^4.0|^5.0",
++                "symfony/browser-kit": "^4.4|^5.0|^6.0",
++                "symfony/doctrine-bridge": "^4.4|^5.0|^6.0",
++                "symfony/dom-crawler": "^4.4|^5.0|^6.0",
++                "symfony/expression-language": "^4.4|^5.0|^6.0",
++                "symfony/finder": "^4.4|^5.0|^6.0",
++                "symfony/monolog-bridge": "^4.0|^5.0|^6.0",
 +                "symfony/monolog-bundle": "^3.2",
-+                "symfony/phpunit-bridge": "^4.4.9|^5.0.9",
-+                "symfony/security-bundle": "^4.4|^5.0",
-+                "symfony/twig-bundle": "^4.4|^5.0",
-+                "symfony/yaml": "^4.4|^5.0",
++                "symfony/phpunit-bridge": "^4.4.9|^5.0.9|^6.0",
++                "symfony/security-bundle": "^4.4|^5.0|^6.0",
++                "symfony/twig-bundle": "^4.4|^5.0|^6.0",
++                "symfony/yaml": "^4.4|^5.0|^6.0",
 +                "twig/twig": "^1.34|^2.4|^3.0"
 +            },
 +            "type": "symfony-bundle",
@@ -1257,9 +1232,9 @@ index 3e2a13f1..1fd246b5 100644
 +            ],
 +            "support": {
 +                "issues": "https://github.com/sensiolabs/SensioFrameworkExtraBundle/issues",
-+                "source": "https://github.com/sensiolabs/SensioFrameworkExtraBundle/tree/v6.1.1"
++                "source": "https://github.com/sensiolabs/SensioFrameworkExtraBundle/tree/v6.2.1"
 +            },
-+            "time": "2021-02-23T11:50:58+00:00"
++            "time": "2021-10-20T09:43:03+00:00"
 +        },
 +        {
 +            "name": "sentry/sdk",
@@ -1273,34 +1248,20 @@ index 3e2a13f1..1fd246b5 100644
 +                "type": "zip",
 +                "url": "https://api.github.com/repos/getsentry/sentry-php-sdk/zipball/f03133b067fdf03fed09ff03daf3f1d68f5f3673",
 +                "reference": "f03133b067fdf03fed09ff03daf3f1d68f5f3673",
-                 "shasum": ""
-             },
-             "require": {
--                "php": ">=7.2.0"
--            },
--            "type": "library",
--            "extra": {
--                "branch-alias": {
--                    "dev-master": "1.0.x-dev"
--                }
--            },
--            "autoload": {
--                "psr-4": {
--                    "Psr\\EventDispatcher\\": "src/"
--                }
++                "shasum": ""
++            },
++            "require": {
 +                "http-interop/http-factory-guzzle": "^1.0",
 +                "sentry/sentry": "^3.1",
 +                "symfony/http-client": "^4.3|^5.0"
-             },
++            },
 +            "type": "metapackage",
-             "notification-url": "https://packagist.org/downloads/",
-             "license": [
-                 "MIT"
-             ],
-             "authors": [
-                 {
--                    "name": "PHP-FIG",
--                    "homepage": "http://www.php-fig.org/"
++            "notification-url": "https://packagist.org/downloads/",
++            "license": [
++                "MIT"
++            ],
++            "authors": [
++                {
 +                    "name": "Sentry",
 +                    "email": "accounts@sentry.io"
                  }
@@ -1462,34 +1423,35 @@ index 3e2a13f1..1fd246b5 100644
          },
          {
 -            "name": "sensio/framework-extra-bundle",
--            "version": "v5.5.4",
+-            "version": "v6.2.1",
 +            "name": "sentry/sentry-symfony",
 +            "version": "4.0.3",
              "source": {
                  "type": "git",
 -                "url": "https://github.com/sensiolabs/SensioFrameworkExtraBundle.git",
--                "reference": "d0585d4825a87a5030ca8cd34adb4a17e1066c17"
+-                "reference": "7fd1d54c1b27f094a68ae15a99b7fc815857255f"
 +                "url": "https://github.com/getsentry/sentry-symfony.git",
 +                "reference": "cc73694eacd8af7acab12ca5c9d115b4b7a8a872"
              },
              "dist": {
                  "type": "zip",
--                "url": "https://api.github.com/repos/sensiolabs/SensioFrameworkExtraBundle/zipball/d0585d4825a87a5030ca8cd34adb4a17e1066c17",
--                "reference": "d0585d4825a87a5030ca8cd34adb4a17e1066c17",
+-                "url": "https://api.github.com/repos/sensiolabs/SensioFrameworkExtraBundle/zipball/7fd1d54c1b27f094a68ae15a99b7fc815857255f",
+-                "reference": "7fd1d54c1b27f094a68ae15a99b7fc815857255f",
 +                "url": "https://api.github.com/repos/getsentry/sentry-symfony/zipball/cc73694eacd8af7acab12ca5c9d115b4b7a8a872",
 +                "reference": "cc73694eacd8af7acab12ca5c9d115b4b7a8a872",
                  "shasum": ""
              },
              "require": {
 -                "doctrine/annotations": "^1.0",
--                "php": ">=7.1.3",
--                "symfony/config": "^4.4|^5.0",
--                "symfony/dependency-injection": "^4.4|^5.0",
--                "symfony/framework-bundle": "^4.4|^5.0",
--                "symfony/http-kernel": "^4.4|^5.0"
+-                "php": ">=7.2.5",
+-                "symfony/config": "^4.4|^5.0|^6.0",
+-                "symfony/dependency-injection": "^4.4|^5.0|^6.0",
+-                "symfony/framework-bundle": "^4.4|^5.0|^6.0",
+-                "symfony/http-kernel": "^4.4|^5.0|^6.0"
 -            },
 -            "conflict": {
--                "doctrine/doctrine-cache-bundle": "<1.3.1"
+-                "doctrine/doctrine-cache-bundle": "<1.3.1",
+-                "doctrine/persistence": "<1.3"
 +                "jean85/pretty-package-versions": "^1.5 || ^2.0",
 +                "php": "^7.2||^8.0",
 +                "php-http/discovery": "^1.11",
@@ -1503,20 +1465,20 @@ index 3e2a13f1..1fd246b5 100644
 +                "symfony/security-core": "^3.4.43||^4.4.11||^5.0.11"
              },
              "require-dev": {
+-                "doctrine/dbal": "^2.10|^3.0",
 -                "doctrine/doctrine-bundle": "^1.11|^2.0",
 -                "doctrine/orm": "^2.5",
--                "nyholm/psr7": "^1.1",
--                "symfony/browser-kit": "^4.4|^5.0",
--                "symfony/dom-crawler": "^4.4|^5.0",
--                "symfony/expression-language": "^4.4|^5.0",
--                "symfony/finder": "^4.4|^5.0",
--                "symfony/monolog-bridge": "^4.0|^5.0",
+-                "symfony/browser-kit": "^4.4|^5.0|^6.0",
+-                "symfony/doctrine-bridge": "^4.4|^5.0|^6.0",
+-                "symfony/dom-crawler": "^4.4|^5.0|^6.0",
+-                "symfony/expression-language": "^4.4|^5.0|^6.0",
+-                "symfony/finder": "^4.4|^5.0|^6.0",
+-                "symfony/monolog-bridge": "^4.0|^5.0|^6.0",
 -                "symfony/monolog-bundle": "^3.2",
--                "symfony/phpunit-bridge": "^4.3.5|^5.0",
--                "symfony/psr-http-message-bridge": "^1.1",
--                "symfony/security-bundle": "^4.4|^5.0",
--                "symfony/twig-bundle": "^4.4|^5.0",
--                "symfony/yaml": "^4.4|^5.0",
+-                "symfony/phpunit-bridge": "^4.4.9|^5.0.9|^6.0",
+-                "symfony/security-bundle": "^4.4|^5.0|^6.0",
+-                "symfony/twig-bundle": "^4.4|^5.0|^6.0",
+-                "symfony/yaml": "^4.4|^5.0|^6.0",
 -                "twig/twig": "^1.34|^2.4|^3.0"
 +                "friendsofphp/php-cs-fixer": "^2.17",
 +                "jangregor/phpstan-prophecy": "^0.8",
@@ -1542,7 +1504,7 @@ index 3e2a13f1..1fd246b5 100644
              "type": "symfony-bundle",
              "extra": {
                  "branch-alias": {
--                    "dev-master": "5.5.x-dev"
+-                    "dev-master": "6.1.x-dev"
 +                    "dev-master": "4.x-dev",
 +                    "releases/3.2.x": "3.2.x-dev",
 +                    "releases/2.x": "2.x-dev",
@@ -1592,11 +1554,11 @@ index 3e2a13f1..1fd246b5 100644
              ],
              "support": {
 -                "issues": "https://github.com/sensiolabs/SensioFrameworkExtraBundle/issues",
--                "source": "https://github.com/sensiolabs/SensioFrameworkExtraBundle/tree/master"
+-                "source": "https://github.com/sensiolabs/SensioFrameworkExtraBundle/tree/v6.2.1"
 +                "issues": "https://github.com/getsentry/sentry-symfony/issues",
 +                "source": "https://github.com/getsentry/sentry-symfony/tree/4.0.3"
              },
--            "time": "2020-04-06T12:20:39+00:00"
+-            "time": "2021-10-20T09:43:03+00:00"
 +            "funding": [
 +                {
 +                    "url": "https://sentry.io/",
@@ -1611,7 +1573,7 @@ index 3e2a13f1..1fd246b5 100644
          },
          {
              "name": "symfony/asset",
-@@ -1954,10 +3192,174 @@
+@@ -1955,10 +3192,174 @@
                      "homepage": "https://symfony.com/contributors"
                  }
              ],
@@ -1789,7 +1751,7 @@ index 3e2a13f1..1fd246b5 100644
              },
              "funding": [
                  {
-@@ -1973,7 +3375,7 @@
+@@ -1974,7 +3375,7 @@
                      "type": "tidelift"
                  }
              ],
@@ -1798,7 +1760,7 @@ index 3e2a13f1..1fd246b5 100644
          },
          {
              "name": "symfony/http-foundation",
-@@ -2406,6 +3808,77 @@
+@@ -2407,6 +3808,77 @@
              ],
              "time": "2020-10-06T15:12:11+00:00"
          },
@@ -1876,7 +1838,7 @@ index 3e2a13f1..1fd246b5 100644
          {
              "name": "symfony/polyfill-intl-idn",
              "version": "v1.22.1",
-@@ -2819,6 +4292,82 @@
+@@ -2820,6 +4292,82 @@
              ],
              "time": "2021-01-07T16:49:33+00:00"
          },
@@ -1959,7 +1921,7 @@ index 3e2a13f1..1fd246b5 100644
          {
              "name": "symfony/profiler-pack",
              "version": "v1.0.5",
-@@ -2864,6 +4413,94 @@
+@@ -2865,6 +4413,94 @@
              ],
              "time": "2020-08-12T06:50:46+00:00"
          },
@@ -2054,7 +2016,7 @@ index 3e2a13f1..1fd246b5 100644
          {
              "name": "symfony/routing",
              "version": "v5.1.11",
-@@ -2954,6 +4591,96 @@
+@@ -2955,6 +4591,96 @@
              ],
              "time": "2021-01-27T10:01:46+00:00"
          },
@@ -2152,7 +2114,7 @@ index 3e2a13f1..1fd246b5 100644
              "name": "symfony/service-contracts",
              "version": "v2.2.0",
 diff --git a/config/bundles.php b/config/bundles.php
-index 3460dff0..690fdf88 100644
+index 3460dff..690fdf8 100644
 --- a/config/bundles.php
 +++ b/config/bundles.php
 @@ -10,4 +10,5 @@ return [
@@ -2163,14 +2125,14 @@ index 3460dff0..690fdf88 100644
  ];
 diff --git a/config/packages/sentry.yaml b/config/packages/sentry.yaml
 new file mode 100644
-index 00000000..342036fe
+index 0000000..342036f
 --- /dev/null
 +++ b/config/packages/sentry.yaml
 @@ -0,0 +1,2 @@
 +sentry:
 +    dsn: '%env(SENTRY_DSN)%'
 diff --git a/symfony.lock b/symfony.lock
-index fbe0dd59..2abcba0a 100644
+index fbe0dd5..2abcba0 100644
 --- a/symfony.lock
 +++ b/symfony.lock
 @@ -1,4 +1,10 @@
