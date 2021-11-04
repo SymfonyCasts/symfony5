@@ -1,121 +1,152 @@
-# Form Login
+# form_login: The Built-in Authenticator
 
-Coming soon...
+Custom authenticator classes like this give us *tons* of control. Like, imagine that -
+in addition to email and password fields, you needed a *third* field - like a
+"company" dropdown menu... and you used that value - along with the `email` to
+query for the `User`. Doing that in here would be... pretty darn simple! Grab the
+`company` POST field, use it in your custom query and celebrate with nachos.
 
-Custom authenticator classes like this, give us tons of control. Like imagine that in
-addition to email and password, you had another company I company dropdown menu, and
-you needed to use the email and the company in order to for the user, doing that in
-here would be dead simple. Grab the field, you use a custom query done, or you can do
-something totally crazy on success. It's all right here. But a login form is a pretty
-generic and common thing that many sites need. So there's actually a built in log in
-form authenticator that we can just use. Let's actually open it up, hit shift shift,
-and look for `FormLoginAuthenticator`. The first thing I noticed is that it extends
-these same base class that we are. And if you look at the methods, it's using a bunch
-of kind of generic options, but ultimately it's doing the same thing. We are it's
-I'll get logged in. You were all generates a URL for the login page. Authenticate
-creates a `Passport`, are they `UserBadge`, `PasswordCredentials`. And remember me badge
-and `CsrfTokenBadge` and authentication success on vacation failure, offload to
-another class. But these ultimately do basically the same thing that we are.
+But a login form is a pretty common thing to. And so, Symfony comes with a built-in
+login form authenticator that we can... just use!
 
-So let's use this instead of our custom authenticator to do this, go to 
-`security.yaml`, and let's comment out our customer authenticators is not used anymore.
+## Checking out the Core FormLoginAuthenticator
 
-I'm also going to comment out the entry point since that was using our login form
-authenticator. Instead, we're going to add a new key hair color `form_login:`
-that activates that form lot and authenticate her. Then below this, we can configure
-a bunch of options and I'll show you these in a second, but two important ones are
-the `login_path:`. What you set to the route to your login page. So for us, it's called
-app login and also the check path, which is the route that you're logging form
-submits to, which for us is also apparatus where logging, we submit to that same URL
+We can actually open it up and check it out. Hit shift+shift and look for
+`FormLoginAuthenticator`.
 
-And that's it to start. Let's go try it. Refresh any page and air and air that we've
-seen. It says because you have multiple authenticators on firewall main. You need to
-set entry point to one of them, either `App\Security\DummyAuthenticator`, I think hater or form
-login. So this is the same thing I mentioned earlier. That's some authentic caters
-have entry points and some don't. They Remember Me Authenticator does not provide an
-entry point, but our `DummyAuthenticator` does. And so does form login form log-ins
-entry point redirects to the login page. So since we have multiple entry points, we
-need to choose one and we can set `entry_point:` to `form_login` to use its entry point,
-or you can still point it to some other custom class that implements that
-authentication entry point interface. All right. Now, refresh cool. No air. So let's
-try a lot log in.
+The first thing to notice is that it extends the *same* base class that we are. And
+if you look at the methods - it's referencing a bunch of options - but ultimately...
+it does the same stuff that our class does: `getLoginUrl()` generates a URL to the
+login page... and `authenticate()` creates a `Passport` with `UserBadge`,
+`PasswordCredentials`, a `RememberMeBadge` and a `CsrfTokenBadge`.
 
-Actually let's log out first, just so we can make sure that this is working cool. I'm
-logged out, got to log in and oh, bad air. The key _username must be string, no given.
-And you can see it's actually coming `FormLoginAuthenticator::getCredentials()`
-So when you use the built-in form on a score log and everything needs to
-be, you need to, you need to make sure a couple of things are lined up. If you open
-our login template, `templates/security/login.html.twig`, our email field is
-called email and our password field is called password. It turns out that's Symfony
-expects your email or using M field to be called_username. That's why we get this
-air. It's looking for this post parameter and it's not there. Fortunately, we can
-configure this however, to your terminal and run 
+Both `onAuthenticationSuccess` and `onAuthenticationFailure` offload their work
+to *another* object... but if you looked inside those, you'd see that they're
+basically doing the same thing that we are.
+
+## Using form_login
+
+So let's use *this* instead of our custom authenticator... which I would do in
+a real project if I didn't need the flexibility of our custom authenticator.
+
+In `security.yaml`, comment-out our customer authenticator... and also comment-out
+the `entry_point` config for now.
+
+Replace it with a new key `form_login`. *This* activates that authenticator. Below,
+this has a *ton* of options - I'll show you them in a minute. But there are two
+important ones we need: `login_path:` set to the route to your login page... so for
+us that `app_login`... and also the `check_path`, which is the route that the
+login form *submits* to... which for us is *also* `app_login`: we submit to the
+same URL.
+
+## Setting the entry_point to form_login
+
+And... that's it to start! Let's go try it! Refresh any page and... error! And error
+that we've seen:
+
+> Because you have multiple authenticators on firewall "main", you need to
+> set entry point to one of them: either `App\Security\DummyAuthenticator`, or
+> `form_login`.
+
+I mentioned earlier that *some* authenticators provide an entry point and some
+don't. The `remember_me` authenticator does *not* provide one... but our
+`DummyAuthenticator` *does* and so does `form_login`. Its entry point redirects
+to the login page.
+
+So since we have multiple entry points, we need to choose one. Set `entry_point:`
+to `form_login`.
+
+## Customizing the Login Form Field Names
+
+*Now* if we refresh... cool: no error. So let's try to log in. Actually... I'll
+log out first... that still works... then go log in with `abraca_admin@example.com`
+password `tada`. And... ah! An error!
+
+> The key `_username` must be string, null given.
+
+And it's coming from `FormLoginAuthenticator::getCredentials()`. Ok, so when you
+use the built-in `form_login`, you need to make sure a few things are lined up. If
+you open our login template - `templates/security/login.html.twig` - our two fields
+are called `email`... and `password`. Whelp, it turns out that Symfony expects these
+fields to called `_username` and `_password`. that's why we get this error: it's
+looking for an `_username` POST parameter... but it's not there. *Fortunately*,
+this is the type of thing you can configure.
+
+Find your favorite terminal and run:
 
 ```terminal
 symfony console debug:config security
 ```
 
-to see all of our current security configuration. If you scroll up and look
-for `form_login` here it is. There are a bunch of things that you can configure that
-you can use to control the form. Log-ins behavior. Two of the most important ones are
-username, parameter and password parameter. Let's configure these to match what our
-properties are.
+to see all of our *current* security configuration. Scroll up... and look for
+`form_login`... here it is. There are a *bunch* of options that allow you to control
+the `form_login` behavior. Two of the most important ones are `username_parameter`
+`password_parameter`. Let's configure these to match what our properties are.
 
-So in `security.yaml` the `username_parameter: email` `password_parameter: password`.
-This tells it to read the email post parameter, and then it will pass whatever that
-string is to our user provider to define that user, all right, let's test it. Refresh
-resubmit and got ads. We are logged in. So using the foremost we're is not as
-flexible as a custom authenticator. So it's your choice. Some things can be
-configured. Like you can configure a bit more what happens after success, Or even
-though you don't see it in this or enable CSRF protection, okay, Let's actually do
-that. So right now it's actually not checking our CSR fields. Let's say `enable_csrf: true`
-tAnd that's all you need to do by default. And of course it is like everything
-else can, by default, as you can see in the options, this, when you enable CSRF, it
-looks for a hidden field called `_csrf_token` with that string `authenticate` use generate
-it. Fortunately in our template, we were using both of those things. Exactly. So this
-is just the CSR protection is just going to work.
+So, in `security.yaml` add `username_parameter: email` and `password_parameter: password`.
+This tells it to read the `email` POST parameter.... and then it will pass that
+string to our user provider... which will handle querying the database.
 
-They're all several, there are several other options that you can use to configure
-this. Remember when to get this list, I just ran it `debug:config security` And that
-shows you all of your current config plus defaults. There's actually additional
-configure. That's not shown here that we can use to see that we can use the 
-`config:dump security` command. 
+Let's test it. Refresh to resubmit and... got it! We're logged in!
+
+The moral of the story is this: using `form_login` lets you have a login form with
+less code... while using a custom authenticator class is more work... but has
+infinite flexibility. So, it's your choice.
+
+## More form_login Config
+
+Though, a lot of stuff on `form_login` *can* actually be configured.
+
+For example, right now, it's actually *not* checking our CSRF token. Enable that
+by saying `enable_csrf: true`.
+
+That's it! Over in the options, when you enable CSRF protection, it looks for a hidden
+field called `_csrf_token` with the string `authenticate` used to generate it.
+Fortunately, in our template, we're already using *both* of those things... so
+this is just going to work.
+
+And there are even *more* ways we can configure this. Remember: to get this config,
+I ran `debug:config security`... which shows your *current* configuration, including
+defaults. But not *all* options are shown here. To see a full list, run
+`config:dump security`.
 
 ```terminal-silent
 symfomy console config:dump security
 ```
 
-Instead of showing you your actual config. This shows
-you a huge list of potential config that you can have under each key. So let's see
-here, this is a bigger list. So there we go form on a score. Log-in so a lot of what
-you saw before, but there's also things called `success_handler` and `failure_handler`
-where you can take even more control of what happens on success or what happens on
-failure. You do this by creating a class and making it implement blah, blah interface
-and putting the service ID right here. But also later, we're going to learn kind of a
-simpler way to do something custom on success or on failure by registering a listener
-Anyways, apart from not even needing our and form authenticator anymore. So you could
-delete this if you want it to. The core authenticator is doing one thing that our
-class that our authenticator never did.
+Instead of showing your *actual* config, this shows a huge list of *example* config.
+This is a much bigger list... here's `form_login`. A lot of this we saw before...
+but `success_handler` and `failure_handler` are both new. You can Google these
+to control what happens after success or failure.
 
-Let's see, where is it here? It is down in `getCredentials()`. It's actually taking
-whatever the submitted email is in this code, `$credentials['username']`, and storing that
-in the session.
+But also, later, we're going to learn about a more *global* way of hooking into
+the success or failure process by registering an event listener.
 
-It's doing that so that if authentication fails, we can read that. And pre-fill our
-email box to read this key from the session, go to our controller 
-`src/Controller/SecurityController`, and this `AuthenticationUtils` has a method for this. So let's
-pass a new variable to our template called `last_username`. You can also call that last
-email cause it's actually an email and then say `$authenticationUtils->getLastUsername()`
-She again, it's just to help her to read this exact key on the session. Now
-let me have this new variable. We can go to our template, `login.html.twig`, and up
-here on our email field. I'll say value equals curly curly `last_username`.
+## Rendering "last_username" On the Login Form
 
-All right, let's try that. If I go to `/login` McKee, who is already stored in the
-session from before it pre-fills, if I save this to something else and fail
-beautiful, it's prefilled there. So the form on the score logging authenticator is
-great because it's super simple. It's super easy to use, but if you need to do
-something, it can't no problem. Just great, a custom authenticator class or better if
-possible, hook into the authentication process, via a listener, a topic that I keep
-mentioning, we're going to talk about later. Next, let's get back to authorization by
-learning how to deny access in a controller in a number of different ways.
+*Anyways*, we're not using our `LoginFormAuthenticator` anymore, so feel free
+to delete it.
 
+And... I have good news! The *core* authenticator is doing one thing that *our*
+class never did. Up in `authenticate()`... this calls `getCredentials()` to read
+the POST data. Let me search for "session"... yup! This took more into
+`getCredentials()`. Anyways, after grabbing the submitted email - in this code
+that's stored as `$credentials['username']` - it *saves* that value into the session.
+
+It's doing that so that if authentication fails, we can *read* that and pre-fill
+the email box on the login form.
+
+Let's do that! Go to our controller: `src/Controller/SecurityController`. This
+`AuthenticationUtils` has one other useful method. Pass a new variable to the
+template called `last_username` - you can call it `last_email` if you'd like - set
+to `$authenticationUtils->getLastUsername()`. Once again, this is just a helper
+to read this exact key off of the session.
+
+Now, in the template - `login.html.twig` - up here on the email field, add
+`valu="{{ last_username}} "`.
+
+Cool! If we go to `/login`... it's already there from filling out the form a
+minute ago! If enter a different email... yes! that sticks too.
+
+Next: let's get back to authorization by learning how to deny access in a
+controller... in a number of different ways.
