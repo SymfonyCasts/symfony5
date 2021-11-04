@@ -66,7 +66,7 @@ And it's coming from `FormLoginAuthenticator::getCredentials()`. Ok, so when you
 use the built-in `form_login`, you need to make sure a few things are lined up.
 Open the login template: `templates/security/login.html.twig`. Our two fields
 are called `email`... and `password`. Whelp, it turns out that Symfony expects these
-fields to called `_username` and `_password`... that's why we get this error: it's
+fields to be called `_username` and `_password`... that's why we get this error: it's
 looking for an `_username` POST parameter... but it's not there. *Fortunately*,
 this is the type of thing you can configure.
 

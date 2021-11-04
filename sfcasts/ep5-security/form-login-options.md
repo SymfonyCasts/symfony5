@@ -1,8 +1,9 @@
 # More form_login Config
 
-Though, a lot of stuff on `form_login` *can* actually be configured.
+Using `form_login` isn't as flexible as a custom authenticator class...
+though a lot of stuff *can* be configured.
 
-For example, right now, it's actually *not* checking our CSRF token. Enable that
+For example, right now, it's *not* checking our CSRF token. Enable that
 by saying `enable_csrf: true`.
 
 That's it! Over in the options, when you enable CSRF protection, it looks for a hidden
@@ -23,8 +24,8 @@ symfomy console config:dump security
 
 Instead of showing your *actual* config, this shows a huge list of *example* config.
 This is a much bigger list... here's `form_login`. A lot of this we saw before...
-but `success_handler` and `failure_handler` are both new. You can Google these
-to control what happens after success or failure.
+but `success_handler` and `failure_handler` are both new. You can search the
+docs for these to learn how to control what happens after success or failure.
 
 But also, later, we're going to learn about a more *global* way of hooking into
 the success or failure process by registering an event listener.
@@ -35,25 +36,25 @@ the success or failure process by registering an event listener.
 to delete it.
 
 And... I have good news! The *core* authenticator is doing one thing that *our*
-class never did. Up in `authenticate()`... this calls `getCredentials()` to read
-the POST data. Let me search for "session"... yup! This took more into
+class never did! Up in `authenticate()`... this calls `getCredentials()` to read
+the POST data. Let me search for "session"... yup! This took me into
 `getCredentials()`. Anyways, after grabbing the submitted email - in this code
 that's stored as `$credentials['username']` - it *saves* that value into the session.
 
 It's doing that so that if authentication fails, we can *read* that and pre-fill
 the email box on the login form.
 
-Let's do that! Go to our controller: `src/Controller/SecurityController`. This
+Let's do it! Go to our controller: `src/Controller/SecurityController.php`. This
 `AuthenticationUtils` has one other useful method. Pass a new variable to the
 template called `last_username` - you can call it `last_email` if you'd like - set
 to `$authenticationUtils->getLastUsername()`. Once again, this is just a helper
-to read this exact key off of the session.
+to read a specific key off of the session.
 
 Now, in the template - `login.html.twig` - up here on the email field, add
-`valu="{{ last_username}} "`.
+`value="{{ last_username }} "`.
 
 Cool! If we go to `/login`... it's already there from filling out the form a
-minute ago! If enter a different email... yes! that sticks too.
+minute ago! If we enter a different email... yes! That sticks too.
 
 Next: let's get back to authorization by learning how to deny access in a
 controller... in a number of different ways.
