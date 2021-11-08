@@ -39,7 +39,7 @@ Now that this is in place, our *next* job is to *set* that cookie on the user's
 browser after they log in. Open up `login.html.twig`. Instead of *always* adding
 the cookie, let's let the user choose. Right after the password, add
 a div with some classes, a label and an input `type="checkbox"`,
-`name="_remember_me"`, some more classes and then "Remember me".
+`name="_remember_me"`.
 
 The name - `_remember_me` - *is* important and *needs* to be that value. As we'll
 see in a minute, the system *looks* for a checkbox with this exact name.
