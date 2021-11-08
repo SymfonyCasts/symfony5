@@ -93,8 +93,8 @@ cheat and copy the `RedirectResponse` from earlier... and change the route to
 
 ## AuthenticationUtils: Rendering the Error
 
-Cool! Next, inside `LoginController`, we need to read that error and render it. The
-most straightforward way to do that would be to grab the session and read out this
+Cool! Next, inside `login()` controller, we need to read that error and render it.
+The most straightforward way to do that would be to grab the session and read out this
 key. But... it's even easier than that! Symfony provides a service that will grab
 the key from the session automatically. Add a new argument type-hinted with
 `AuthenticationUtils`:
