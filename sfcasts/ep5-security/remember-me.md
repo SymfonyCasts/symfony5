@@ -9,11 +9,17 @@ in... for a week... or a year... or whatever we configure. Let's add this.
 
 The first step is to go to `config/packages/security.yaml` and activate the system.
 We do this by saying `remember_me:` and then, below, setting one required piece of
-config: `secret`: set to `%kernel.secret%`.
+config: `secret`: set to `%kernel.secret%`:
+
+[[[ code('dde07bfd10') ]]]
 
 This is used to "sign" the remember me cookie value... and the `kernel.secret`
-parameter actually comes from our `.env` file. Yup, this `APP_SECRET` ends up
-becoming the `kernel.secret` parameter... which we can reference here.
+parameter actually comes from our `.env` file:
+
+[[[ code('6520cecf1b') ]]]
+
+Yup, this `APP_SECRET` ends up becoming the `kernel.secret` parameter... which
+we can reference here.
 
 Like normal, there are a bunch of other options that you can put under `remember_me`...
 and you can see many of them by running:
@@ -27,11 +33,15 @@ how long the remember me cookie will be valid for.
 
 Earlier, I said that most of the configuration that we put under our firewall serves
 to *activate* different authenticators. For example, `custom_authenticator:`
-activates our `LoginFormAuthenticator`... which means that our class is now called
-at the start of every request and looks for a login form submit. The `remember_me`
-config *also* activates an authenticator: a core authenticator called
-`RememberMeAuthenticator`. On every request, this looks for a "remember me" cookie -
-that we'll create in a second - and, if it's there, uses it to authenticate the user.
+activates our `LoginFormAuthenticator`:
+
+[[[ code('7583c42f79') ]]]
+
+Which means that our class is now called at the start of every request and looks
+for a login form submit. The `remember_me` config *also* activates an authenticator:
+a core authenticator called `RememberMeAuthenticator`. On every request, this looks
+for a "remember me" cookie - that we'll create in a second - and, if it's there,
+uses it to authenticate the user.
 
 ## Adding the Remember Me Checkbox
 
@@ -39,14 +49,20 @@ Now that this is in place, our *next* job is to *set* that cookie on the user's
 browser after they log in. Open up `login.html.twig`. Instead of *always* adding
 the cookie, let's let the user choose. Right after the password, add
 a div with some classes, a label and an input `type="checkbox"`,
-`name="_remember_me"`.
+`name="_remember_me"`:
+
+[[[ code('10140cd345') ]]]
 
 The name - `_remember_me` - *is* important and *needs* to be that value. As we'll
 see in a minute, the system *looks* for a checkbox with this exact name.
 
-Ok, refresh the form. Cool: we have a checkbox! Though... it's a little ugly...
+Ok, refresh the form. Cool, we have a checkbox! Though... it's a little ugly...
 I think messed something up. Use `form-check` and let's give our checkbox
-`form-check-input`. Now... better!
+`form-check-input`:
+
+[[[ code('867adfe627') ]]]
+
+Now... better!
 
 ## Opting into the Remember Me Cookie
 
@@ -62,7 +78,9 @@ remember me cookie on that API request.
 
 *Anyways*, all we need to add is a little flag that says that this authentication
 mechanism *does* support adding remember me cookies. Do this with a badge:
-new `RememberMeBadge()`.
+new `RememberMeBadge()`:
+
+[[[ code('874b4eb269') ]]]
 
 That's it! But there's one kind of odd thing. With the `CsrfTokenBadge`, we
 *read* the POSTed token and passed it to the badge. But with `RememberMeBadge`...
