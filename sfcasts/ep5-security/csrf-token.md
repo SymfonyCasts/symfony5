@@ -1,13 +1,20 @@
 # Security Listener System & Csrf Protection
 
 After we return the `Passport` object, we know that two things happen. First, the
-`UserBadge` is used to get the `User` object. In our case, because we passed this
-a second argument, it just calls our function and we do the work. But if you only
-pass one argument, then the user provider does the work.
+`UserBadge` is used to get the `User` object:
 
-The second thing that happens is that the "credentials badge" is "resolved". Originally
-it did this by executing our callback. Now it checks the user's password in the
-database.
+[[[ code('8043d344be') ]]]
+
+In our case, because we passed this  a second argument, it just calls our function,
+and we do the work. But if you only pass one argument, then the user provider does
+the work.
+
+The second thing that happens is that the "credentials badge" is "resolved":
+
+[[[ code('c2f81c4c1a') ]]]
+
+Originally it did this by executing our callback. Now it checks the user's password
+in the database.
 
 ## The Event System in Action
 
@@ -18,9 +25,9 @@ these listeners later... and even add our *own* listeners to the system.
 
 ## UserProviderListener
 
-But let's look at a few of them. Hit Shift + Shift so we can load some core files
-from Symfony. The first is called `UserProviderListener`. Make sure to "include
-non project items"... and open it up.
+But let's look at a few of them. Hit `Shift`+`Shift` so we can load some core files
+from Symfony. The first is called `UserProviderListener`. Make sure to "Include
+non-project items"... and open it up.
 
 This is called after we return our `Passport`. It first checks to make sure the
 `Passport` has a `UserBadge` - it always will in any normal situation - and then
@@ -36,7 +43,7 @@ to `UserBadge`.
 
 ## CheckCredentialsListener
 
-Let's check one other class. Close this one and hit Shift + Shift to open
+Let's check one other class. Close this one and hit `Shift`+`Shift` to open
 `CheckCredentialsListener`. As the name suggests, *this* is responsible for checking
 the user's "credentials". It first checks to see if the `Passport` has a
 `PasswordCredentials` badge. Even though its name doesn't sound like it, the
@@ -70,26 +77,40 @@ on submit, you *validate* that token.
 
 Let's do this. Anywhere inside your form, add an input `type="hidden"`,
 `name="_csrf_token"` - this name could be anything, but this is a standard name -
-then `value="{{ csrf_token() }}"`. Pass this the string "authenticate".
+then `value="{{ csrf_token() }}"`. Pass this the string `authenticate`:
+
+[[[ code('9977c4552a') ]]]
 
 That `authenticate` could *also* be anything... it's like a unique name for this form.
 
 Now that we have the field, copy its name and head over to `LoginFormAuthenticator`.
-Here, we need to read that field from the POST data and then ask Symfony: "is
-this CSRF token valid"? Well, in reality, that second part will happen automatically.
+Here, we need to read that field from the POST data and then ask Symfony:
+
+> Is this CSRF token valid?
+
+Well, in reality, that second part will happen automatically.
 
 How? The `Passport` object has a *third* argument: an array of any *other* badges
-that we want to add. Add one: a new `CsrfTokenBadge()`. This needs two things.
-The first is the CSRF token ID. Say `authenticate`: this just needs to match whatever
-we used in the form. The second argument is the submitted value, which is
-`$request->request->get()` and the name of our field: `_csrf_token`.
+that we want to add. Add one: a new `CsrfTokenBadge()`:
+
+[[[ code('f3c14d4273') ]]]
+
+This needs two things. The first is the CSRF token ID. Say `authenticate`:
+
+[[[ code('3bda663081') ]]]
+
+this just needs to match whatever we used in the form. The second argument is
+the submitted value, which is `$request->request->get()` and the name of our
+field: `_csrf_token`:
+
+[[[ code('9503679fc6') ]]]
 
 And... we're done! Internally, a listener will notice this badge, validate the
 CSRF token and *resolve* the badge.
 
 Let's try it! Go to `/login`, inspect the form... and find the hidden field. There
 it is. Enter any email, any password... but mess with the CSRF token value. Hit
-"Sign in" and... yes! Invalid CSRF Token! Now if we *don't* mess with the token...
+"Sign in" and... yes! Invalid CSRF token! Now if we *don't* mess with the token...
 and use any email and password... beautiful! The CSRF token was valid... so it
 continued to the email error.
 
