@@ -76,6 +76,16 @@ Go peek at that file to make sure everything looks good:
 
 [[[ code('772e4bbbf3') ]]]
 
+***TIP
+If you are using PostgreSQL, you should modify your migration. Add `DEFAULT ''` at the end so that
+the new column can be added without an error:
+
+```diff
+-$this->addSql('ALTER TABLE product ADD description VARCHAR(255) NOT NULL');
++$this->addSql('ALTER TABLE product ADD description VARCHAR(255) NOT NULL DEFAULT \'\'');
+```
+***
+
 And... it does! Close it... and run it:
 
 ```terminal
