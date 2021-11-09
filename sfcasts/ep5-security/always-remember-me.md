@@ -11,27 +11,39 @@ entirely.
 
 There are two ways that you can "force" the remember me system to *always* set a
 cookie even though the checkbox isn't there. The first is in `security.yaml`:
-set `always_remember_me:` to `true`. Yes, I *totally* just misspelled `remember`...
-so don't do that!
+set `always_remember_me:` to `true`:
 
-With this, our authenticator *still* needs to add a `RememberMeBadge`, but the
-system will *no* longer look for that checkbox. As long as it sees this badge, it
-will add the cookie.
+[[[ code('3fbeb74383') ]]]
+
+Yes, I *totally* just misspelled `remember`... so don't do that!
+
+With this, our authenticator *still* needs to add a `RememberMeBadge`:
+
+[[[ code('53fffef279') ]]]
+
+But the system will *no* longer look for that checkbox. As long as it sees this badge,
+it will add the cookie.
 
 ## Enabling on the RememberMeBadge
 
 The *other* way that you can enable the remember me cookie in all situations is
 via the badge itself. Comment-out the new option. Well... let me fix my typo
-and *then* comment it out.
+and *then* comment it out:
+
+[[[ code('4f3746fe59') ]]]
 
 Inside of `LoginFormAuthenticator`, on the badge itself, you can call `->enable()`...
-which returns the badge instance. This says:
+which returns the badge instance:
+
+[[[ code('671672a0e7') ]]]
+
+This says:
 
 > I don't care about any other settings or the checkbox: I *definitely* want the
 > remember me system to add a cookie.
 
 Let's try it! Clear the session *and* `REMEMBERME` cookie. This time when we
-login... oh invalid CSRF token! That's because I just killed my session without
+login... oh, invalid CSRF token! That's because I just killed my session without
 refreshing - silly Ryan! Refresh and try again.
 
 Beautiful! We have the `REMEMBERME` cookie!
@@ -51,7 +63,9 @@ matter what we do - until they expire.
 
 Fortunately, in the new authenticator system, there's a really cool way to
 avoid this. In `security.yaml`, below `remember_me`, add a new option called
-`signature_properties` set to an array with `password` inside.
+`signature_properties` set to an array with `password` inside:
+
+[[[ code('60c1150718') ]]]
 
 Let me explain. When Symfony creates the remember me cookie, it creates a "signature"
 that proves that this cookie is valid. Thanks to this config, it will now fetch the
