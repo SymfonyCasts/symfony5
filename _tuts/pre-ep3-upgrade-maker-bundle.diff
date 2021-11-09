@@ -1,5 +1,5 @@
 diff --git a/composer.json b/composer.json
-index 3ff978a..9d98ace 100755
+index 3ff978a..b30089b 100755
 --- a/composer.json
 +++ b/composer.json
 @@ -2,7 +2,7 @@
@@ -7,7 +7,7 @@ index 3ff978a..9d98ace 100755
      "license": "proprietary",
      "require": {
 -        "php": "^7.3.0 || ^8.0.0",
-+        "php": "^7.4.1 || ^8.0.0",
++        "php": "^7.4.1",
          "ext-ctype": "*",
          "ext-iconv": "*",
          "composer/package-versions-deprecated": "^1.11",
@@ -21,7 +21,7 @@ index 3ff978a..9d98ace 100755
      },
      "autoload": {
 diff --git a/composer.lock b/composer.lock
-index b52b832..727b01a 100644
+index b52b832..92edce3 100644
 --- a/composer.lock
 +++ b/composer.lock
 @@ -4,7 +4,7 @@
@@ -29,7 +29,7 @@ index b52b832..727b01a 100644
          "This file is @generated automatically"
      ],
 -    "content-hash": "00a873d9f4c0e2457b377c9d925ba06b",
-+    "content-hash": "5757b9be63ab36b24b7fd931e43efca0",
++    "content-hash": "61017aefb63b9dd95bf04fdadb623989",
      "packages": [
          {
              "name": "clue/stream-filter",
@@ -91,7 +91,7 @@ index b52b832..727b01a 100644
      "prefer-lowest": false,
      "platform": {
 -        "php": "^7.3.0 || ^8.0.0",
-+        "php": "^7.4.1 || ^8.0.0",
++        "php": "^7.4.1",
          "ext-ctype": "*",
          "ext-iconv": "*"
      },

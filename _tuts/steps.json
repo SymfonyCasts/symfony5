@@ -1091,6 +1091,11 @@
             "description": null
         },
         {
+            "id": "pre-relations-re-add-php-8-support",
+            "name": "PRE_RELATIONS: re-add php 8 support",
+            "description": null
+        },
+        {
             "id": "pre-relations-install-symfony-runtime",
             "name": "PRE_RELATIONS: install symfony\/runtime",
             "description": null
@@ -1621,5 +1626,5 @@
             "description": null
         }
     ],
-    "sha": "56e74d75fac940d8e0db9064f5e45c0c858e7397"
+    "sha": "f05f7d6c5bb7fe8769adf8519157165050b84143"
 }

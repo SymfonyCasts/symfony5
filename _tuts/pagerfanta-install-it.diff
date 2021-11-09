@@ -11,7 +11,7 @@ index bd3390f..abe01f0 100755
          "doctrine/doctrine-bundle": "^2.1",
          "doctrine/doctrine-migrations-bundle": "^3.0",
 diff --git a/composer.lock b/composer.lock
-index cab2811..e7320de 100644
+index 75c6cb5..b1492ef 100644
 --- a/composer.lock
 +++ b/composer.lock
 @@ -4,8 +4,91 @@

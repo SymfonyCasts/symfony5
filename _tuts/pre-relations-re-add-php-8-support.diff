@@ -1,0 +1,35 @@
+diff --git a/composer.json b/composer.json
+index 2a417ce..d22a565 100755
+--- a/composer.json
++++ b/composer.json
+@@ -2,7 +2,7 @@
+     "type": "project",
+     "license": "proprietary",
+     "require": {
+-        "php": "^7.4.1",
++        "php": "^7.4.1 || ^8.0.0",
+         "ext-ctype": "*",
+         "ext-iconv": "*",
+         "composer/package-versions-deprecated": "^1.11",
+diff --git a/composer.lock b/composer.lock
+index faf9e16..7d16a6d 100644
+--- a/composer.lock
++++ b/composer.lock
+@@ -4,7 +4,7 @@
+         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
+         "This file is @generated automatically"
+     ],
+-    "content-hash": "f67040c2bfced679c741764c3124087a",
++    "content-hash": "8898b8971f46347593600ffc13c34ba1",
+     "packages": [
+         {
+             "name": "behat/transliterator",
+@@ -8300,7 +8300,7 @@
+     "prefer-stable": false,
+     "prefer-lowest": false,
+     "platform": {
+-        "php": "^7.4.1",
++        "php": "^7.4.1 || ^8.0.0",
+         "ext-ctype": "*",
+         "ext-iconv": "*"
+     },

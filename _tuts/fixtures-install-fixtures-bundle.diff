@@ -1,5 +1,5 @@
 diff --git a/composer.json b/composer.json
-index b82a614..30e458a 100755
+index 854ca6a..f6ed63d 100755
 --- a/composer.json
 +++ b/composer.json
 @@ -27,6 +27,7 @@
@@ -11,15 +11,15 @@ index b82a614..30e458a 100755
          "symfony/maker-bundle": "^1.15",
          "symfony/var-dumper": "5.1.*",
 diff --git a/composer.lock b/composer.lock
-index 9b671cc..3c68700 100644
+index 0b6f5b0..d090220 100644
 --- a/composer.lock
 +++ b/composer.lock
 @@ -4,7 +4,7 @@
          "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
          "This file is @generated automatically"
      ],
--    "content-hash": "a214b3853d5fc7f7f8c1bd7966a5409c",
-+    "content-hash": "3b9ce6517644137d675c9d31be9bb162",
+-    "content-hash": "737b271607d9819e81f6bebc6c130e34",
++    "content-hash": "dbe087808af9a104ba91768bf00bda5f",
      "packages": [
          {
              "name": "clue/stream-filter",

@@ -1,5 +1,5 @@
 diff --git a/composer.json b/composer.json
-index c0f4215..48ca72c 100755
+index 4dfa861..7270d1d 100755
 --- a/composer.json
 +++ b/composer.json
 @@ -13,6 +13,7 @@
@@ -11,15 +11,15 @@ index c0f4215..48ca72c 100755
          "symfony/console": "5.1.*",
          "symfony/dotenv": "5.1.*",
 diff --git a/composer.lock b/composer.lock
-index 8484f13..1b4d828 100644
+index b86b676..bbc6de4 100644
 --- a/composer.lock
 +++ b/composer.lock
 @@ -4,8 +4,57 @@
          "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
          "This file is @generated automatically"
      ],
--    "content-hash": "be2248139e9eb993e3e195a5c898e4f9",
-+    "content-hash": "8f9c0bb6da45e7ad2b11602f192f8fba",
+-    "content-hash": "5774b1c40ff400f0871e267f2ac5a009",
++    "content-hash": "f67040c2bfced679c741764c3124087a",
      "packages": [
 +        {
 +            "name": "behat/transliterator",
@@ -254,14 +254,6 @@ index 8484f13..1b4d828 100644
          {
              "name": "symfony/asset",
              "version": "v5.1.2",
-@@ -7681,6 +7897,7 @@
-                     "type": "tidelift"
-                 }
-             ],
-+            "abandoned": "use `EnglishInflector` from the String component instead",
-             "time": "2020-05-20T17:43:50+00:00"
-         },
-         {
 diff --git a/config/bundles.php b/config/bundles.php
 index 883e9af..b89ddb3 100644
 --- a/config/bundles.php

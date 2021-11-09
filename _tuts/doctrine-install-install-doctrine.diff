@@ -15,7 +15,7 @@ index 9501a4d..bc897b0 100644
 +DATABASE_URL=mysql://db_user:db_password@127.0.0.1:3306/db_name?serverVersion=5.7
 +###< doctrine/doctrine-bundle ###
 diff --git a/composer.json b/composer.json
-index 9d98ace..ef7e35c 100755
+index b30089b..c34e6e2 100755
 --- a/composer.json
 +++ b/composer.json
 @@ -6,6 +6,9 @@
@@ -29,15 +29,15 @@ index 9d98ace..ef7e35c 100755
          "sensio/framework-extra-bundle": "^6.0",
          "sentry/sentry-symfony": "^4.0",
 diff --git a/composer.lock b/composer.lock
-index 727b01a..57af609 100644
+index 92edce3..604efa9 100644
 --- a/composer.lock
 +++ b/composer.lock
 @@ -4,7 +4,7 @@
          "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
          "This file is @generated automatically"
      ],
--    "content-hash": "5757b9be63ab36b24b7fd931e43efca0",
-+    "content-hash": "c2e47a3a1b183a04e10ed7dc263c6ceb",
+-    "content-hash": "61017aefb63b9dd95bf04fdadb623989",
++    "content-hash": "11d28954bf82119a18e9c4449ae30b7e",
      "packages": [
          {
              "name": "clue/stream-filter",
@@ -2070,6 +2070,13 @@ index 727b01a..57af609 100644
          {
              "name": "nikic/php-parser",
              "version": "v4.10.5",
+@@ -5925,5 +7413,5 @@
+     "platform-overrides": {
+         "php": "7.4.1"
+     },
+-    "plugin-api-version": "2.0.0"
++    "plugin-api-version": "2.1.0"
+ }
 diff --git a/config/bundles.php b/config/bundles.php
 index af33fbc..d206866 100644
 --- a/config/bundles.php

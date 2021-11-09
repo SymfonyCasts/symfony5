@@ -11,7 +11,7 @@ index 4c5e1c1..4cf8d18 100755
          "stof/doctrine-extensions-bundle": "^1.4",
          "symfony/asset": "5.3.*",
 diff --git a/composer.lock b/composer.lock
-index 40407c9..01f2cd8 100644
+index b9d5965..f42f3e0 100644
 --- a/composer.lock
 +++ b/composer.lock
 @@ -4,7 +4,7 @@
