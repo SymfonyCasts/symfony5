@@ -80,7 +80,7 @@ php bin/console router:match /comments/10/vote/up --method=POST
 
 By the way, you might be tempted to *also* make the `{id}` wildcard smarter.
 Assuming we're using auto-increment database ids, we know that `id` should be
-an integer. To make this route only match if the `id` part is a number, you an add
+an integer. To make this route only match if the `id` part is a number, you can add
 `<\d+>`, which means: match a "digit" of any length.
 
 [[[ code('3416bdd71f') ]]]
