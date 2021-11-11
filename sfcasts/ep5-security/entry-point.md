@@ -22,7 +22,7 @@ To figure out what to do when an anonymous user accesses a protected page, each
 firewall defines something called an "entry point". The entry point of a firewall
 is literally a function that says:
 
-> Here's what we should when an anonymous user tries to access a protected page!
+> Here's what we should do when an anonymous user tries to access a protected page!
 
 Each authenticator under our firewall may or may *not* "provide" an entry point.
 Right now, we have two authenticators: our custom `LoginFormAuthenticator` and
@@ -33,7 +33,7 @@ we'll talk about soon - *do* provide an entry point... and we'll see that.
 
 ## Making our Authenticator an Entry Point
 
-But anyways, none of our authenticators provide an entry point... so let's add one!
+But anyway, none of our authenticators provide an entry point... so let's add one!
 
 Open up our authenticator: `src/Security/LoginFormAuthenticator.php`. If you want
 your authenticator to provide an entry point, all you need to do is implement a new
