@@ -186,7 +186,7 @@ To go further, check out our free
 
 And... that's it for this tutorial! Congratulations for sticking with me to the
 end! You already understand the most important parts of Symfony. In the next
-tutorial, we're going unlock even *more* of your Symfony potential by uncovering
+tutorial, we're going to unlock even *more* of your Symfony potential by uncovering
 the secrets of services. You'll be unstoppable.
 
 As always, if you have questions, problems or have a really funny story - especially
