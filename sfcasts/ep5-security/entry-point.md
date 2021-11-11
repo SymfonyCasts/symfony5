@@ -33,7 +33,7 @@ we'll talk about soon - *do* provide an entry point... and we'll see that.
 
 ## Making our Authenticator an Entry Point
 
-But anyway, none of our authenticators provide an entry point... so let's add one!
+But anyways, none of our authenticators provide an entry point... so let's add one!
 
 Open up our authenticator: `src/Security/LoginFormAuthenticator.php`. If you want
 your authenticator to provide an entry point, all you need to do is implement a new
