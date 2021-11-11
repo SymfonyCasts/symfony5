@@ -22,7 +22,7 @@ To figure out what to do when an anonymous user accesses a protected page, each
 firewall defines something called an "entry point". The entry point of a firewall
 is literally a function that says:
 
-> Here's what we should when an anonymous user tries to access a protected page!
+> Here's what we should do when an anonymous user tries to access a protected page!
 
 Each authenticator under our firewall may or may *not* "provide" an entry point.
 Right now, we have two authenticators: our custom `LoginFormAuthenticator` and
