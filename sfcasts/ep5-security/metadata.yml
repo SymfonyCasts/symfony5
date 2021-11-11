@@ -23,6 +23,7 @@ chapters:
     - dynamic-roles
     - is-auth
     - fetch-user
+    - user-service
     - role-hierarchy
     - impersontation
     - serializer-api

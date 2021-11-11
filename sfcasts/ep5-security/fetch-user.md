@@ -1,173 +1,102 @@
-# Fetch User
+# Fetching the User Object
 
-Coming soon...
+One of the amazing features of our site is that you can up vote and down vote
+individual answers. Right now, you don't even need to be logged in to do this. Let's
+change that.
 
-One of the things that you can do on our site is upvote and downvote individual
-answers right now. You don't even need to be logged in to do this. Let's change that
-let's find the controller that handles that AGS call. It is a `src/Controller/AnswerController`
-It's this `answerVote()` action. All right. So if we want to require
-you to be logged in, in order to use this Ajax endpoint, I'm going to use the
-annotations method here. I want to go down, make sure I go down here and hit tab
-because that's going to add the you statement up here for that annotation. And then
-I'm going to use `IS_AUTHENTICATED_REMEMBERED` because I'm using the river, remember me
-system. This is really what I want to check in order to just know if the user is
-logged in.
+## Requiring Login to Vote
 
-Of course we stopped there. I won't be able to vote anymore, but it's going to look a
-little funny on the front end because these vote links are still there for me. So
-let's hide those as well. The template that whole, that section is 
-`templates/answer/_answer.html.twig`. And let's see down here, here we go. Here are the
-vote arrow. So we basically want to hide this entire div section. We'll do the same
-thing. If `is_granted(IS_AUTHENTICATED_REMEMBERED)` then I'll find the closing part of
-this div. There it is down here. That's the `endif` when we refreshed beautiful vote
-links are gone.
+Find the controller that handles that Ajax call that's made when we vote: it's
+`src/Controller/AnswerController.php`... the `answerVote()` method. Ok: I want to
+require the user to be logged in in order to use this endpoint. Let's do that
+with an annotation... or attribute: `@IsGranted`... then I'll select this one
+and hit tab so that it adds the `use` statement I need up on top. Inside, use
+`IS_AUTHENTICATED_REMEMBERED`. Because we're using the remember me system, *this*
+is the correct way to check if the user is simply logged in.
 
-Okay. So in a real app, when we save the vote to the database, we would probably also
-store a who voted in the database, maybe to prevent users from voting multiple times
-on an answer. We're not going to do that right now, but let's try something simpler.
-Let's log a message that includes the email address of who is voting. But wait, how
-do we find out who is logged in and Symfony easy peasy in a controller. We can use a,
-`$this->getUser()` shortcut, check this out right on top. I'll say `$logger->info('')`.
+If we stop now, because we're not logged in, we won't be able to vote anymore...
+but it's going to look funny on the frontend because these vote links *are*
+still showing up for me. So let's hide those as well.
 
-And then I'm gonna put a little message here. 
+The template for this section is `templates/answer/_answer.html.twig`. Let's see...
+down... here are the vote arrow. So we basically want to hide this entire `div`
+section if we are *not* logged in: if `is_granted(IS_AUTHENTICATED_REMEMBERED)`,
+find the closing `div`... here it is, and add `endif`.
 
->{user} is voting on answer {answer} 
+When we refresh... yes! The vote links are gone.
 
-and I want to pass a second argument here, which is called a logger context. So I'm showing
-a couple of, kind of cool things here. Um, you can pass a second argument in a longer
-methods just to store, just to store extra data with that log message. And for
-example, I can set `answer` to `$answer->getId()`. And if you use this nifty curly
-brace answer, curly brace format, then whatever the value is here will actually be
-swapped in right there. We'll see that in a second. All right. So for the `user`, in
-order to get the current user, we can say `$this->getUser()` it's
-that easy. So that gives us the user object, and then we can call a method on it,
-like `->getUserIdentifier()`, which we know is going to be our email. Cool. Let's try
-that. All I need to do is, well, first log in. There we go. Okay. Back to the log-in
-page, I was kind of playing with earlier, go back here and vote, and then I can open
-the profiler for that really easily down here
+## Fetching the User Object from a Controller
 
-And under logs, beautiful abraca admin example that is voting on answer 4 98. Sweet.
-So, one thing to remember is that `$this->getUser()` is going to return our `User` object,
-which means that we can call whatever, whatever methods we want on it. For example,
-we know that our user class, as they `getEmail()` method on it, so that will work. I
-noticed that did not auto complete for me. That's because this user shortcut in our
-base controller, I opened it up. It advertises that it returns a `UserInterface`,
-which is, which is true. But more specifically, we know this is going to return our
-`User` entity. Unfortunately, the peach Radack above it, doesn't really advertise that.
-So we don't get nice auto-completion. So, because they use `$this->getUser()` a lot in my
-controllers, I usually put a fix for this. The fix is by creating a base controller.
-So instead of the controller directory, I'm going to create a new class called the
-`BaseController`.
+In a real app, when we save the vote to the database, we would probably also
+store *who* voted so we can prevent a user from voting multiple times on the
+same answer. We're *not* going to do that right now... but let's try something
+simpler: let's log a message that includes the email address of who is voting.
 
-You can make this `abstract` if you want, because we're not actually going to ever use
-this directly. And we're going to make this extended `AbstractController`. This is
-just kind of a nice pattern in general, because you can add extra shortcut methods in
-your base controller. And then in all of your individual controllers, you can extend
-that and get those shortcut methods. So I'll extend it only an answer controller now,
-but along the way, I'll extend the base controller. Whenever I need to. Anyways, if
-we stop now, this doesn't change anything at all, because `BaseController` just
-extends `AbstractController`, but like I mentioned, we can add more shortcut methods
-in here or in this case, what we want to do is basically add some code that helps our
-editor understand that they `getUser()` shortcut method that lives in abstract
-controller returns our `User` class, not just a `UserInterface` to do that above the
-class. We can add an add `@method` and then `User` out of the cleaner using anonymity and
-then say, `getUser()` that's a special syntax that basically said we have a method
-called get user. It returns a `User` object. So an `AnswerController`, if I go back here
-and read type `getEmail()`, you can see it does see that because it knows `getUser()` is
-going to return our `User` object. Okay,
+But wait: how do we find out *who* is logged in? In a controller, it's easy peasy:
+via the `$this->getUser()` shortcut. Check it out: on top, I'll say
+`$logger->info('')` with the message:
 
-Cool. So the way that you get the user and the controller is `$this->getUser()`, but
-there are, but there are a few other places that we usually want to get the user like
-twig. So let's have back into `base.html.twig`. And let's see right here, this
-is where we render our log out and log in link. So just to see if we can do it, let's
-run your arm. The first name of the user right here and twig. Remember we have that
-global variable called `app`, which has lots of useful stuff on it. One of the useful
-things we have on it is `app.user` which is the current user object. So we can
-say `app.user.firstName`. This is safe to call because we are inside of this
-`is_granted()` check. If we weren't, we weren't logged in and app, that user would be no.
-All right, let's try that. Close the profiler refresh page and perfect. Apparently my
-name is Trimont Tremaine. Let's use our user object and Twitter to make this a little
-fancier inside of is the, is granted check. I'm going to paste in a big user menu.
-You can get this from the code block on this page. This is actually completely
-hard-coded, but it's going to give us a nice little user dropped down like that.
-Okay.
+> {user} is voting on answer {answer}
 
-Let's make it dynamic. So there are a couple parts I'm using a little, uh, API for
-the, um, avatar. We just need to take out the John DOE part here and print out the
-user's first name. So I'll say `app.user.firstName`, and then we can pipe
-that into a `|url_encode` method, which is kinda cool and definitely all down here.
-I'll also say like really `app.user.firstName`. Cool. And then for the log out
-link, we will I'll steal the `path()` function below and paste that here. Awesome. Now in
-a dual lead, my old stuff down here. And if we try it while we have a real dropdown
-menu, real user, many with AOL log out link,
+Pass this a second argument, which is called the logger "context". This is unrelated
+to security... it's just kind of cool. The second argument is an array of any extra
+data that you want to store along with the message. For example, we can set `answer`
+to `$answer->getId()`. *And*... if you use this nifty `{answer}` format, then the
+`answer` context will automatically be put into the message. We'll see that in a
+minute.
 
-Well, we can do some even cooler stuff with our user class because after user is our
-user class, we're free to add whatever methods to it that we want. So for example,
-generating the user to avatar. Maybe that's something that we do in a couple places
-on the site. So we don't want to have this whole long string kind of hard coded here.
-So I'm going to kind of copy this and I'm going to refactor an, add a method insomnia
-user class to make that easier. So let's open up `src/Entity/User.php`, and all
-the way at the bottom, how I'm going to create public function `getAvatarUri()`.
-I, and I'll allow the `$size` of it to be passed in, which is one of the query
-parameters and all the fault at the 32. And this will return a string. So as a
-reminder, that's kind of like what the URL looks like right there. So I'm going to
-return kind of the beginning part of this string, And then to build the, what are
-your parameters we can use? PHP is `http_build_query()` method and just pass it and
-array of all of the
+For the `user`, get the current user with `$this->getUser()`... it's that easy.
+This will give us the `user` *object*... and then we can call a method on it, like
+`->getUserIdentifier()`, which we know will be the email.
 
-Pieces. So `name` we'll set this to `$this->getFirstName()`. Uh, but actually now
-that we're in here, we can be a little smarter. First name is technically a N the
-first name method, first name, property. If we scroll up is actually allowed to be
-no. So that's gonna be something that we allow users to fill in, but they won't
-necessarily have to fill it in. So I'm gonna make this smart and say, let's use the
-`getFirstName()`, method, Or fall back to using the user's email address. And then for
-`size`, Which is the second query of down, we have `$size` and background so size, I'll
-set that to whatever the size argument is. And then we are going to make the
-`background` `random` all the time. Cause that's fun.
+Sweet! let's test this thing! First... we need to log in - `abraca_admin@example.com`,
+password `tada`. And... got it! It redirected us back to `/admin/login` because,
+a few minutes ago, we tried to access this and were denied. So it's technically
+still in the session as our "target path".
 
-Cool. So that's a nice little method there and we can now use this back in base that
-HTML, twig, we can delete all of that and say, `app.user.avatarUri`
-you can also say, `getAavatarUri`, or you can kind of treat it like a property
-like this dry try that it breaks. Oh, I know why because, and user, I forgot to put
-the little question, mark, `http_build_query` all the ampersand, but we still
-need the question mark there much better, but we can do even more here in based
-study. So it's quick, I'm using `app.user.firstName`, as we mentioned it,
-sometimes that might be empty. So let's also add one more helper method here just to
-keep making our user class richer and richer called get dispo, `getDisplayName()`,
-which will return a string.
+Head to the homepage, click into a question... and vote! On the web debug toolbar,
+we can see that Ajax call... and we can even open the *profiler* for that request
+by clicking the link. Then... go to `Logs`. Sweet!
 
-Very simple. I'm going to kind of steal my logic from above and return that. So we
-either return the first name or the email, and we can use this up and `getAvatarUri`
- `getDisplayName()`, and then also use it in `base.html.twig`, which is cool
-and want to refresh. It still looks the same. All right. So we have now fetched the
-user object in the controller via `$this->getUser()`. We fetched the object in twig
-via `app.user`, the only other place that you're going to need to fetch the user
-object is from within a service. That's not a controller. For example, a couple of
-tutorials ago, we created this markdown helper service. We pass it markdown. It
-converts that into markdown and returns. It let's pretend that we need the `User`
-object inside of this method. We're going to use it just to log another message.
+> `abraca_admin@example.com` is voting on answer 498
 
-So if you need the user, the currently authenticated user object, the way to get it
-is by Ottawa, a service called security. So I'm going to add a new argument here
-called `Security`, the one from Symfony/Components `$security`. Then I'll hit all enter
-and go to initialize properties to create that property and set it notice I'm on PHP
-7.4. So I've started to add my property type. Hence now down here, I'm going to log a
-message. If the user is logged in, because these are may or may not be logged in at
-this point, do that. Cause I, if `$this->security->getUser()`, then we'll log
-something. So this is the way that you get the current user object. And if the user
-is not logged in, then you can then it will return null. So another it's kind of a
-more direct way to do this is we could also say `isGranted()` that's another methods on
-the security class and we can check for `IS_AUTHENTICATED_REMEMBERED`, but that would
-effectively be the same as checking to see if there is a `User` object at all.
+Sweet!
 
-So if there is, well, log a message rendering markdown for probably race user, then
-we'll pass that context. Second argument and set user to `$this->security->getUser()->getEmail()`
-user arrow. And like before we know this is going to be our user object, but it only
-augments the user interface. So we could use get email here. That's that will work.
-I'll stick with `getUserIdentifier()`, which is going to give us the same thing anyways.
-Awesome. So let's check that out. We have markdown on this page so I can refresh
-anything down here to jump into the profile of this page, go to logs and yes, we have
-a bunch of, uh, renderings for that. All right. Next, I'm sort of got a cool feature
-in Symfony related to roles called a role hierarchy where you can make where if the
-user has one role, you can also automatically give them other roles.
+## Custom Base Controller Class
 
+Back in the controller, *we* know that `$this->getUser()` will return *our* `User`
+object... which means that we can call whatever methods we want on it. For
+example, our `User` class has a `getEmail()` method. So this *will* work. But notice
+that my editor did *not* auto-complete that. Bummer!
+
+Hold Command or Ctrl and click `getUser()`. This jumps us to the core
+`AbstractController`. Ah... the method advertises that it returns a `UserInterface`,
+which is true! But more specifically, *we* know that this will return *our* `User`
+entity. Unfortunately, because this method does *say* that, we don't get nice
+auto-completion.
+
+Because I use `$this->getUser()` a *lot* in my controllers, I like to "fix" this.
+How? By creating a custom base controller class. Inside of the `Controller/`
+directory, create a new class called `BaseController`.
+
+You can make this `abstract`... because we're not going to ever use it directly.
+Make it extended `AbstractController` so that we get the normal shortcut methods.
+
+Creating a custom base controller is... just kind of a nice idea... you can add
+whatever extra shortcut methods you want. Then, in your *real* controllers, you
+extend this and... have fun! I'm going to *only* do this in `AnswerController`
+right now just to save time.
+
+Anyways, if we stopped now... congratulations! This doesn't change *anything* because
+`BaseController` extends `AbstractController`. To solve our problem, we don't
+need to *add* a new method... we just need to give our editor a *hint* so that it
+knows that `getUser()` returns *our* `User` object... not just a `UserInterface`.
+
+To do that, above the class, add `@method` then `User` then `getUser()`.
+
+Done! Back in `AnswerController`, re-type `getEmail()` and... yes! We get
+auto-completion!
+
+Cool! So the way that you get the current user in a controller is `$this->getUser()`.
+But there are a few *other* places where we might need to do this, like in Twig
+or from a service. Let's check those out next.
