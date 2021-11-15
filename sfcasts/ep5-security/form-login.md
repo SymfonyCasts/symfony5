@@ -11,7 +11,7 @@ login form authenticator that we can... just use!
 
 ## Checking out the Core FormLoginAuthenticator
 
-Let's open it up and check it out. Hit shift+shift and look for
+Let's open it up and check it out. Hit `Shift`+`Shift` and look for
 `FormLoginAuthenticator`.
 
 The first thing to notice is that this extends the *same* base class that we do. And
@@ -30,14 +30,18 @@ So let's use *this* instead of our custom authenticator... which I would do in
 a real project unless I need the flexibility of a custom authenticator.
 
 In `security.yaml`, comment-out our customer authenticator... and also comment-out
-the `entry_point` config.
+the `entry_point` config:
+
+[[[ code('be0ed4dbe7') ]]]
 
 Replace it with a new key `form_login`. *This* activates that authenticator. Below,
 this has a *ton* of options - I'll show you them in a minute. But there are two
 important ones we need: `login_path:` set to the route to your login page... so for
 us that's `app_login`... and also the `check_path`, which is the route that the
 login form *submits* to... which for us is *also* `app_login`: we submit to the
-same URL.
+same URL:
+
+[[[ code('41c3d74eae') ]]]
 
 ## Setting the entry_point to form_login
 
@@ -45,14 +49,16 @@ And... that's it to start! Let's go try it! Refresh any page and... error! An er
 that we've seen:
 
 > Because you have multiple authenticators on firewall "main", you need to
-> set entry point to one of them: either `DummyAuthenticator`, or `form_login`.
+> set "entry_point" to one of them: either `DummyAuthenticator`, or `form_login`.
 
 I mentioned earlier that *some* authenticators provide an entry point and some
 don't. The `remember_me` authenticator does *not* provide one... but our
 `DummyAuthenticator` *does* and so does `form_login`. Its entry point redirects
 to the login page.
 
-So since we have multiple, we need to choose one. Set `entry_point:` to `form_login`.
+So since we have multiple, we need to choose one. Set `entry_point:` to `form_login`:
+
+[[[ code('7adff8ad2e') ]]]
 
 ## Customizing the Login Form Field Names
 
@@ -60,15 +66,19 @@ So since we have multiple, we need to choose one. Set `entry_point:` to `form_lo
 log out first... that still works... then go log in with `abraca_admin@example.com`
 password `tada`. And... ah! Another error!
 
-> The key `_username` must be string, null given.
+> The key "_username" must be a string, NULL given.
 
 And it's coming from `FormLoginAuthenticator::getCredentials()`. Ok, so when you
 use the built-in `form_login`, you need to make sure a few things are lined up.
 Open the login template: `templates/security/login.html.twig`. Our two fields
-are called `email`... and `password`. Whelp, it turns out that Symfony expects these
-fields to be called `_username` and `_password`... that's why we get this error: it's
-looking for an `_username` POST parameter... but it's not there. *Fortunately*,
-this is the type of thing you can configure.
+are called `email`... and `password`:
+
+[[[ code('acf108cb3c') ]]]
+
+Whelp, it turns out that Symfony expects these fields to be called `_username`
+and `_password`... that's why we get this error: it's looking for an `_username`
+POST parameter... but it's not there. *Fortunately*, this is the type of thing
+you can configure.
 
 Find your favorite terminal and run:
 
@@ -82,9 +92,12 @@ the `form_login` behavior. Two of the most important ones are `username_paramete
 and `password_parameter`. Let's configure these to match our field names.
 
 So, in `security.yaml` add `username_parameter: email` and
-`password_parameter: password`. This tells it to read the `email` POST parameter...
-and then it will pass that string to our user provider... which will handle querying
-the database.
+`password_parameter: password`:
+
+[[[ code('b2bd377267') ]]]
+
+This tells it to read the `email` POST parameter... and then it will pass that
+string to our user provider... which will handle querying the database.
 
 Let's test it. Refresh to resubmit and... got it! We're logged in!
 
