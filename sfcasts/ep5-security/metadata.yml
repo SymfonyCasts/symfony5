@@ -25,7 +25,7 @@ chapters:
     - fetch-user
     - user-service
     - role-hierarchy
-    - impersontation
+    - impersonation
     - serializer-api
     - api-auth
     - registration-auth
