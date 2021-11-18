@@ -4,7 +4,9 @@ Using `form_login` isn't as flexible as a custom authenticator class...
 though a lot of stuff *can* be configured.
 
 For example, right now, it's *not* checking our CSRF token. Enable that
-by saying `enable_csrf: true`.
+by saying `enable_csrf: true`:
+
+[[[ code('09a3e4b868') ]]]
 
 That's it! Over in the options, when you enable CSRF protection, it looks for a hidden
 field called `_csrf_token` with the string `authenticate` used to generate it.
@@ -47,11 +49,16 @@ the email box on the login form.
 Let's do it! Go to our controller: `src/Controller/SecurityController.php`. This
 `AuthenticationUtils` has one other useful method. Pass a new variable to the
 template called `last_username` - you can call it `last_email` if you'd like - set
-to `$authenticationUtils->getLastUsername()`. Once again, this is just a helper
-to read a specific key off of the session.
+to `$authenticationUtils->getLastUsername()`:
+
+[[[ code('55833098cd') ]]]
+
+Once again, this is just a helper to read a specific key off of the session.
 
 Now, in the template - `login.html.twig` - up here on the email field, add
-`value="{{ last_username }} "`.
+`value="{{ last_username }} "`:
+
+[[[ code('6dd9591db8') ]]]
 
 Cool! If we go to `/login`... it's already there from filling out the form a
 minute ago! If we enter a different email... yes! That sticks too.
