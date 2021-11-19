@@ -1,14 +1,22 @@
 # The Special IS_AUTHENTICATED_ Strings
 
 If we simply need to figure out whether or not the user is currently logged in, we
-check for `ROLE_USER`. This works.... just because of how our app is built: it
-works because in `getRoles()`, we make sure that every logged in user at least
-has this role.
+check for `ROLE_USER`:
+
+[[[ code('d17e63413a') ]]]
+
+This works.... just because of how our app is built: it works because in `getRoles()`,
+we make sure that every logged in user at least has this role:
+
+[[[ code('af16a6932b') ]]]
 
 ## Checking if Logged In: IS_AUTHENTICATED_FULLY
 
 Cool. But it *does* make me wonder: is there a more "official" way in Symfony to
-check if a user is logged in? It turns out, there is! Check for `is_granted('IS_AUTHENTICATED_FULLY')`.
+check if a user is logged in? It turns out, there is! Check for
+`is_granted('IS_AUTHENTICATED_FULLY')`:
+
+[[[ code('62d6a954ac') ]]]
 
 By the way, anything we pass to `is_granted()` in Twig - like `ROLE_USER` or
 `IS_AUTHENTICATED_FULLY` - we can *also* pass to the `isGranted()` method in the
@@ -26,7 +34,7 @@ yup! No change.
 ## Access Decision Log in the Profiler
 
 Oh, but click the security link in the web debug toolbar to jump into the profiler.
-Scroll down to the bottom to find something called the "Access Decision Log". This
+Scroll down to the bottom to find something called the "Access decision log". This
 is super cool: Symfony keeps track of *all* the times that the authorization system
 was called during the request and what the result was.
 
@@ -57,12 +65,16 @@ a mistake I made. Log out... then go to `security.yaml`.
 Earlier, we switched from using our custom `LoginFormAuthenticator` to `form_login`.
 That system *totally* works with remember me cookies. But we also removed the
 checkbox from our login form. And, inside of our authenticator, we were relying on
-calling `enable()` on the `RemmeberMeBadge` to force the cookie to be set.
+calling `enable()` on the `RemmeberMeBadge` to force the cookie to be set:
+
+[[[ code('3b5c40ebed') ]]]
 
 Whelp, the core `form_login` authenticator definitely adds the `RememberMeBadge`,
-which advertises that it "opts into the remember me system". But it does *not* call
-`enable()` on it. This means that we either need to add a check box to the form...
-or, in `security.yaml`, add `always_remember_me: true`.
+which advertises that it opts into the "remember me" system. But it does *not* call
+`enable()` on it. This means that we either need to add a checkbox to the form...
+or, in `security.yaml`, add `always_remember_me: true`:
+
+[[[ code('cd891443a7') ]]]
 
 Let's log back in now: `abraca_admin@example.com`, password `tada` and... got it!
 There's my `REMEMBERME` cookie.
@@ -77,11 +89,15 @@ And look up here! We have the "Log in" and "Sign up" links! Yup, we are now *not
 
 This is a *long* way of saying that if you use remember me cookies, then most of
 the time you should use `IS_AUTHENTICATED_REMEMBERED` when you simply want to know
-whether or not the user is logged in. And then, if there are a couple of parts of
-your site that are more sensitive - like maybe the "change password" page - then
-protect those with `IS_AUTHENTICATED_FULLY`. If the user tries to access this page
-and only has `IS_AUTHENTICATED_REMEMBERED`, Symfony will actually execute your
-entry point. In other words, it will redirect them to the login form.
+whether or not the user is logged in:
+
+[[[ code('476d5129f4') ]]]
+
+And then, if there are a couple of parts of your site that are more sensitive - like
+maybe the "change password" page - then protect those with `IS_AUTHENTICATED_FULLY`.
+If the user tries to access this page and only has `IS_AUTHENTICATED_REMEMBERED`,
+Symfony will actually execute your entry point. In other words, it will redirect
+them to the login form.
 
 Refresh the page and... yes! The correct links are back.
 
@@ -95,14 +111,19 @@ logged in.
 So... you might be thinking: how could that ever possibly be useful? Fair question!
 
 Look again at `access_control` in `security.yaml`. To access any URL that starts
-with `/admin`, you need `ROLE_ADMIN`. But pretend that we had a login page at the
-URL `/admin/login`.
+with `/admin`, you need `ROLE_ADMIN`:
+
+[[[ code('78d71fe446') ]]]
+
+But pretend that we had a login page at the URL `/admin/login`.
 
 Let's actually create a dummy controller for this. Down at the bottom of
 `AdminController`, add `public function adminLogin()`... with a route -
 `/admin/login` - and, inside, return a new `Response()` with:
 
 > Pretend admin login page that should be public
+
+[[[ code('46f3fe93fd') ]]]
 
 Log out... and go to `/admin/login`. Access denied! We're redirected to
 `/login`. And really, if `/admin/login` *were* our login page, then we would
@@ -112,12 +133,14 @@ idea: we would get stuck in a redirect loop. Yikes!
 
 In `security.yaml`, we want to be able to require `ROLE_ADMIN` for all URLs
 starting with `/admin`... *except* for `/admin/login`. The key to do
-that is `PUBLIC_ACCESS`.
+that is `PUBLIC_ACCESS`
 
 Copy the access control and paste above. Remember: only one `access_control` matches
 per request and it matches from top to bottom. So we can add a new rule matching
 anything starting with `/admin/login` and have it require `PUBLIC_ACCESS`... which
 will always return true!
+
+[[[ code('d925ab6636') ]]]
 
 Thanks to this, if we go to anything that starts with `/admin/login`, it will match
 only this one `access_control`... and access will be granted!
