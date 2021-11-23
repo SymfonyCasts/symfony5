@@ -106,6 +106,13 @@ That's a distant dependency and it won't cause us problems. And... ah! It looks
 like this installed *two* recipes... and one of those gives us a *nice* set
 of instructions at the bottom. We'll learn *all* about this.
 
+***TIP
+If you're using the latest version of Symfony Flex, this installation
+command will ask you if you want to also include some Docker configuration.
+Feel free to choose whatever you want, but we *will* use Docker to help
+connect to the database in this tutorial.
+***
+
 To see what the recipes did, I'll clear my screen and say:
 
 ```terminal
