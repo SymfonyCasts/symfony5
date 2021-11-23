@@ -1,5 +1,5 @@
 diff --git a/templates/security/2fa_form.html.twig b/templates/security/2fa_form.html.twig
-index fbd408a3..88cd0b8a 100644
+index fbd408a..88cd0b8 100644
 --- a/templates/security/2fa_form.html.twig
 +++ b/templates/security/2fa_form.html.twig
 @@ -12,7 +12,49 @@

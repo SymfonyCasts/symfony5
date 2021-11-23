@@ -1,5 +1,5 @@
 diff --git a/composer.json b/composer.json
-index 64b3ea1f..1f4e6606 100644
+index 64b3ea1..1f4e660 100644
 --- a/composer.json
 +++ b/composer.json
 @@ -7,6 +7,7 @@
@@ -31,7 +31,7 @@ index 64b3ea1f..1f4e6606 100644
          "symfony/twig-bundle": "5.3.*",
          "symfony/ux-chartjs": "^1.3",
 diff --git a/composer.lock b/composer.lock
-index db4b8e22..4a8f7784 100644
+index 0dfef83..440e5b9 100644
 --- a/composer.lock
 +++ b/composer.lock
 @@ -4,7 +4,7 @@
@@ -209,7 +209,7 @@ index db4b8e22..4a8f7784 100644
          {
              "name": "psr/cache",
              "version": "1.0.1",
-@@ -5696,6 +5855,108 @@
+@@ -5693,6 +5852,108 @@
              ],
              "time": "2021-09-26T16:35:00+00:00"
          },
@@ -318,7 +318,7 @@ index db4b8e22..4a8f7784 100644
          {
              "name": "symfony/service-contracts",
              "version": "v2.4.0",
-@@ -6919,6 +7180,64 @@
+@@ -6916,6 +7177,64 @@
                  }
              ],
              "time": "2021-09-17T08:44:23+00:00"
@@ -384,7 +384,7 @@ index db4b8e22..4a8f7784 100644
      ],
      "packages-dev": [
 diff --git a/symfony.lock b/symfony.lock
-index 43dbe9c3..adad4325 100644
+index 43dbe9c..adad432 100644
 --- a/symfony.lock
 +++ b/symfony.lock
 @@ -151,6 +151,15 @@

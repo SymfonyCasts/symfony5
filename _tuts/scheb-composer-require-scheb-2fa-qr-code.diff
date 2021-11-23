@@ -1,5 +1,5 @@
 diff --git a/composer.json b/composer.json
-index 6d648d23..1655f912 100644
+index 6d648d2..1655f91 100644
 --- a/composer.json
 +++ b/composer.json
 @@ -17,6 +17,7 @@
@@ -11,7 +11,7 @@ index 6d648d23..1655f912 100644
          "sensio/framework-extra-bundle": "^6.0",
          "stof/doctrine-extensions-bundle": "^1.4",
 diff --git a/composer.lock b/composer.lock
-index 69d6a171..e356610d 100644
+index 4b56144..a8a6512 100644
 --- a/composer.lock
 +++ b/composer.lock
 @@ -4,7 +4,7 @@
@@ -405,7 +405,7 @@ index 69d6a171..e356610d 100644
              "name": "scheb/2fa-totp",
              "version": "v5.12.1",
 diff --git a/symfony.lock b/symfony.lock
-index b456ce13..7b73c989 100644
+index b456ce1..7b73c98 100644
 --- a/symfony.lock
 +++ b/symfony.lock
 @@ -2,6 +2,9 @@

@@ -1,5 +1,5 @@
 diff --git a/composer.json b/composer.json
-index 1f4e6606..6d052f0e 100644
+index 1f4e660..6d052f0 100644
 --- a/composer.json
 +++ b/composer.json
 @@ -22,6 +22,7 @@
@@ -19,7 +19,7 @@ index 1f4e6606..6d052f0e 100644
          "symfony/yaml": "5.3.*",
          "twig/extra-bundle": "^2.12|^3.0",
 diff --git a/composer.lock b/composer.lock
-index 4a8f7784..f366ec02 100644
+index 440e5b9..8bf9abc 100644
 --- a/composer.lock
 +++ b/composer.lock
 @@ -4,7 +4,7 @@
@@ -31,9 +31,9 @@ index 4a8f7784..f366ec02 100644
      "packages": [
          {
              "name": "babdev/pagerfanta-bundle",
-@@ -3960,6 +3960,108 @@
+@@ -3957,6 +3957,108 @@
              ],
-             "time": "2021-10-11T15:59:11+00:00"
+             "time": "2021-11-23T11:08:47+00:00"
          },
 +        {
 +            "name": "symfony/form",
@@ -140,7 +140,7 @@ index 4a8f7784..f366ec02 100644
          {
              "name": "symfony/framework-bundle",
              "version": "v5.3.8",
-@@ -4539,6 +4641,75 @@
+@@ -4536,6 +4638,75 @@
              ],
              "time": "2021-03-31T07:20:47+00:00"
          },
@@ -216,7 +216,7 @@ index 4a8f7784..f366ec02 100644
          {
              "name": "symfony/password-hasher",
              "version": "v5.3.8",
-@@ -4693,6 +4864,93 @@
+@@ -4690,6 +4861,93 @@
              ],
              "time": "2021-05-27T12:26:48+00:00"
          },
@@ -310,7 +310,7 @@ index 4a8f7784..f366ec02 100644
          {
              "name": "symfony/polyfill-intl-normalizer",
              "version": "v1.23.0",
-@@ -6648,6 +6906,116 @@
+@@ -6645,6 +6903,116 @@
              ],
              "time": "2021-05-20T17:58:12+00:00"
          },
@@ -429,7 +429,7 @@ index 4a8f7784..f366ec02 100644
              "version": "v5.3.8",
 diff --git a/config/packages/test/validator.yaml b/config/packages/test/validator.yaml
 new file mode 100644
-index 00000000..1e5ab788
+index 0000000..1e5ab78
 --- /dev/null
 +++ b/config/packages/test/validator.yaml
 @@ -0,0 +1,3 @@
@@ -438,7 +438,7 @@ index 00000000..1e5ab788
 +        not_compromised_password: false
 diff --git a/config/packages/validator.yaml b/config/packages/validator.yaml
 new file mode 100644
-index 00000000..350786a1
+index 0000000..350786a
 --- /dev/null
 +++ b/config/packages/validator.yaml
 @@ -0,0 +1,8 @@
@@ -451,7 +451,7 @@ index 00000000..350786a1
 +        #auto_mapping:
 +        #    App\Entity\: []
 diff --git a/symfony.lock b/symfony.lock
-index adad4325..81a5be3f 100644
+index adad432..81a5be3 100644
 --- a/symfony.lock
 +++ b/symfony.lock
 @@ -274,6 +274,9 @@

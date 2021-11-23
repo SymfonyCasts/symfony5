@@ -1,5 +1,5 @@
 diff --git a/src/EventSubscriber/CheckVerifiedUserSubscriber.php b/src/EventSubscriber/CheckVerifiedUserSubscriber.php
-index 7ac66cb0..6d22e33c 100644
+index 7ac66cb..6d22e33 100644
 --- a/src/EventSubscriber/CheckVerifiedUserSubscriber.php
 +++ b/src/EventSubscriber/CheckVerifiedUserSubscriber.php
 @@ -3,6 +3,7 @@
@@ -23,7 +23,7 @@ index 7ac66cb0..6d22e33c 100644
  
 diff --git a/src/Security/AccountNotVerifiedAuthenticationException.php b/src/Security/AccountNotVerifiedAuthenticationException.php
 new file mode 100644
-index 00000000..1ab5e8a1
+index 0000000..1ab5e8a
 --- /dev/null
 +++ b/src/Security/AccountNotVerifiedAuthenticationException.php
 @@ -0,0 +1,9 @@
