@@ -47,6 +47,15 @@ services like MySQL... but without the complexity that often comes with Docker.
 Ok, ready? To manage our Docker containers, we need to create a
 `docker-compose.yaml` file that describes what we need.
 
+***TIP
+If you're using the latest version of Symfony Flex, then when you
+ran `composer require orm`, it asked you if you wanted Docker
+configuration. If you answered yes, congrats! You can skip this
+step because you already have a `docker-compose.yml` file with
+a `database` service inside. Skip ahead to around 4:30 when we
+run `docker-compose up`.
+***
+
 That file is pretty simple but... let's cheat! Find your terminal and run:
 
 ```terminal
