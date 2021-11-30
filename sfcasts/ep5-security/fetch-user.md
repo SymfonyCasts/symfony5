@@ -112,7 +112,7 @@ that it knows that `getUser()` returns *our* `User` object... not just a `UserIn
 
 To do that, above the class, add `@method` then `User` then `getUser()`:
 
-[[[[ code('a4d29fd066') ]]]]
+[[[ code('a4d29fd066') ]]]
 
 Done! Back in `AnswerController`, re-type `getEmail()` and... yes! We get
 auto-completion!
