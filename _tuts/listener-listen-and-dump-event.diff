@@ -1,5 +1,5 @@
 diff --git a/src/EventSubscriber/CheckVerifiedUserSubscriber.php b/src/EventSubscriber/CheckVerifiedUserSubscriber.php
-index 6b5e7c7d..bbf1e1b7 100644
+index 6b5e7c7..bbf1e1b 100644
 --- a/src/EventSubscriber/CheckVerifiedUserSubscriber.php
 +++ b/src/EventSubscriber/CheckVerifiedUserSubscriber.php
 @@ -3,10 +3,19 @@

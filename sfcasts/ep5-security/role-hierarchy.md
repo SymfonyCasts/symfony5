@@ -25,17 +25,22 @@ to allow access to `ROLE_HUMAN_RESOURCES` *or* `ROLE_IT`, which is just messy.
 Ok, so what's the second option? To protect controllers with role names that
 describe what *access* that role gives you. For example, at the bottom of this
 controller, let's create a pretend admin page for moderating answers. Set the URL
-to `/admin/answers`... and call it `adminAnswers()`.
+to `/admin/answers`... and call it `adminAnswers()`:
+
+[[[ code('5f955a2737') ]]]
 
 Imagine that our "human resources" department *and* IT department should both
 have access to this. Well, as I mentioned earlier, I do *not* want to try to put
 logic here that allows `ROLE_HUMAN_RESOURCES` *or* `ROLE_IT`.
 
 Instead, say `$this->denyAccessUnlessGranted()` and pass this `ROLE_COMMENT_ADMIN`,
-a role name that I *just* invented that describes what is being protected. Oh, dummy
-Ryan! I should've called this `ROLE_ANSWER_ADMIN` - I keep using "comment" when I
-mean "answer". This will work fine - but `ROLE_ANSWER_ADMIN` is *really* the best
-name.
+a role name that I *just* invented that describes what is being protected:
+
+[[[ code('03adc888dc') ]]]
+
+Oh, dummy Ryan! I should've called this `ROLE_ANSWER_ADMIN` - I keep using
+"comment" when I mean "answer". This will work fine - but `ROLE_ANSWER_ADMIN`
+is *really* the best name.
 
 Anyways, what I *love* about this is how clear the controller is: you can't access
 this unless you have a role that's *specific* to this controller. There's just one
@@ -48,10 +53,12 @@ user in the database that should have access. That sounds like a pain in the but
 
 ## Hello role_hierarchy
 
-Fortunately, Symfony has a feature *just* for this called role hierarchy. Open up
+Fortunately, Symfony has a feature *just* for this called *role hierarchy*. Open up
 `config/packages/security.yaml` and, anywhere inside of here... but I'll put
 it near the top, add `role_hierarchy`. Below this, say `ROLE_ADMIN` and set this
-to an array. For now, just include `ROLE_COMMENT_ADMIN`.
+to an array. For now, just include `ROLE_COMMENT_ADMIN`:
+
+[[[ code('61503ccb28') ]]]
 
 This looks just as simple as it is. It says:
 
@@ -59,14 +66,20 @@ This looks just as simple as it is. It says:
 
 The result? If we refresh the page, access granted!
 
-The idea is that, for each "type" of user - like human resources, or IT - you
+The idea is that, for each "type" of user - like "human resources", or IT - you
 would create a new item in `role_hierarchy` for them, like `ROLE_HUMAN_RESOURCES`
 set to an array of whatever roles it should have.
 
 For example, let's pretend that we are *also* protecting another admin controller
-with `ROLE_USER_ADMIN`. In this case, if you have `ROLE_HUMAN_RESOURCES`, then you
-automatically get `ROLE_USER_ADMIN`... which gives you access to modify user data.
-And if you have `ROLE_ADMIN`, maybe you can *also* access this section.
+with `ROLE_USER_ADMIN`:
+
+[[[ code('a924281df2') ]]]
+
+In this case, if you have `ROLE_HUMAN_RESOURCES`, then you automatically get
+`ROLE_USER_ADMIN`... which gives you access to modify user data. And if you have
+`ROLE_ADMIN`, maybe you can *also* access this section:
+
+[[[ code('0bcf2d1471') ]]]
 
 With this setup, each time we add a new section to our site and protect it with
 a new role, we only need to go to `role_hierarchy` and add it to whatever groups
@@ -77,4 +90,4 @@ represents the "type" of user they are, like `ROLE_HUMAN_RESOURCES`.
 Speaking of admin users, when we're debugging a customer issue on our site,
 sometimes it would be *really* useful if we could temporarily log *into* that user's
 account... just to see what *they're* seeing. In Symfony, that's totally possible.
-Let's talk about impersonation next.
+Let's talk about *impersonation* next.

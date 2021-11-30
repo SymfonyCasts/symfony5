@@ -1,5 +1,5 @@
 diff --git a/src/Security/LoginFormAuthenticator.php b/src/Security/LoginFormAuthenticator.php
-index d92c4967..dcfb69ff 100644
+index d92c496..dcfb69f 100644
 --- a/src/Security/LoginFormAuthenticator.php
 +++ b/src/Security/LoginFormAuthenticator.php
 @@ -34,11 +34,6 @@ class LoginFormAuthenticator extends AbstractLoginFormAuthenticator

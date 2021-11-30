@@ -1,5 +1,5 @@
 diff --git a/composer.json b/composer.json
-index ad52c762..6d648d23 100644
+index ad52c76..6d648d2 100644
 --- a/composer.json
 +++ b/composer.json
 @@ -17,6 +17,7 @@
@@ -11,7 +11,7 @@ index ad52c762..6d648d23 100644
          "stof/doctrine-extensions-bundle": "^1.4",
          "symfony/asset": "5.3.*",
 diff --git a/composer.lock b/composer.lock
-index 8d7d376f..69d6a171 100644
+index 3b0009c..4b56144 100644
 --- a/composer.lock
 +++ b/composer.lock
 @@ -4,7 +4,7 @@
@@ -310,7 +310,7 @@ index 8d7d376f..69d6a171 100644
          {
              "name": "stof/doctrine-extensions-bundle",
              "version": "v1.6.0",
-@@ -7591,6 +7850,145 @@
+@@ -7588,6 +7847,145 @@
              },
              "time": "2021-05-05T18:08:21+00:00"
          },
@@ -457,7 +457,7 @@ index 8d7d376f..69d6a171 100644
              "name": "twig/extra-bundle",
              "version": "v3.3.3",
 diff --git a/symfony.lock b/symfony.lock
-index f405786d..b456ce13 100644
+index f405786..b456ce1 100644
 --- a/symfony.lock
 +++ b/symfony.lock
 @@ -2,6 +2,9 @@
