@@ -46,7 +46,7 @@ reason, the first time you install a recipe from `recipes-contrib`, Flex asks
 you to make sure that you want to do that. So you can say yes or I'm actually going
 to  say P for yes, permanently.
 
-I committed my changes before recording recording, so when this finishes I'll run,
+I committed my changes before recording, so when this finishes I'll run,
 
 ```terminal
 git status
