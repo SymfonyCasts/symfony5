@@ -1,49 +1,54 @@
-# Api Auth
+# To use API Token Authentication or Not?
 
-Coming soon...
-
-Here's the million dollar question when it comes to security and Avi's, does my site
+Here's the million dollar question when it comes to security and APIs: does my site
 need some sort of API token authentication? There's a pretty good chance that the
-answer is no. Even if your app has some API end points like ours, if you're creating
-API endpoints solely for so that your own JavaScript for your own site can use them,
-then you do not need an API token authentication system. Nope, you're alive will be
-much simpler if you use a normal login form and session based off on occasion. That's
-why this works. That's why we have access to this endpoint.
+answer is no. Even if your app has some API endpoints - like ours - if you're creating
+these endpoints solely so that your *own* JavaScript for your *own* site can use
+them, then you do *not* need an API token authentication system. Nope, your life
+will be much simpler if you use a normal login form and session-based authentication.
 
-We previously logged in and be a log and form that study session cookie to
-authenticate us. And that session cookie works fine. Even on API end points to prove
-it. Before we started going into tutorial, I created a stimulus controller called
-user API controller. It's dead simple. It's based. We're basically going to use it to
-make an API request to /API /me, and then log the user data just to prove that our
-Ajax has access to authenticated end points. Let's activate this open up templates
-and based at age timeouts with lack of it, it on every page. So we'll attach the
-controller to the body element. So I'm going add a little if saving year say if is
-granted is authenticated remembered so that we only activate the semis controller.
-Um, if the user's logged in to activate the semi's controller, say critically
-stimulus controller, and then the name, which is a user dash API, and then I need to
-pass in what's one value, which is the URL path set to the path through our end point
-app understory user_API_me. I actually realizing that I have not yet given our API
-endpoint a name, so let's do that.
+Session-based authentication is precisely why we have access to this endpoint:
+we previously logged in... and our session cookie is used to authenticate us.
+This works *just* as well on a real page as on an API endpoint.
 
-Perfect. All right. So I'll add back. Doesn't really matter where I go to the
-homepage inspect element, go to console. And there's my user data. When the Ajax
-request, the agent's request to use uses our session, cookie and authentication just
-works. So if the only thing that needs to use your API is your own JavaScript. Save
-yourself a lot of trouble and just use a log inform. Oh, and if you do want to get
-fancy with your log in form and submit it via Ajax, you can totally do that. In fact,
-if you use turbo, that happens automatically, but if you wanted to write some custom
-JavaScript, it's still no problem. Just use Ajax to submit your log in form. And the
-session cookie will be set exactly the same way.
+To prove it, before I started the tutorial, I created a stimulus controller
+called `user-api_controller.js`. It's dead simple: it makes an API request... and
+logs the result. We're going to use it to make an API request to `/api/me` to
+prove that Ajax calls can access the authenticated endpoints.
 
-If you are, somebody is in some custom way, you may want to tweak the success
-behavior to maybe return JSON instead of redirecting. But that's pretty minor. If I
-were doing that, I'd probably go back to using my login form custom authenticator,
-because then it'd be very easy down in authentication success to return JSON, instead
-of redirecting, I probably do something similar in authentication failure. So then
-when do we need an API token authentication system? The answer is pretty simple. If
-someone other than our own sites, JavaScript needs to access your API, including if
-your JavaScript lives on a separate domain, then you're going to need some sort of
-API token authentication system. If you do have this use case, we'll walk through a
-simple example towards the end of the tutorial, Britten out, let's add a registration
-form to our site.
+To activate the Stimulus controller, open `templates/base.html.twig`... and find
+the `body` element: that's an easy place to attach it: if
+`is_granted('IS_AUTHENTICATED_REMEMBERED')`, then `{{ stimulus_controller() }}`
+and the name: `user-api`. So, our JavaScript will be called *only* if we're logged
+in. To pass the URL to the endpoint, add a 2nd arg with `url` set to
+`path('app_user_api_me')`.
 
+And I'm realizing that I haven't *given* our API endpoint a route name yet... so
+let's do that. Back in `base.html.twig`, yup! My editor looks happy now.
+
+Ok, head back to the homepage, inspect element, go to the console and... there's
+my user data! The Ajax request sends the session cookie and so... authentication
+just works.
+
+So if the *only* thing that needs to use your API is your own JavaScript, save
+yourself a lot of trouble and just use a login form. And if you *do* want to get
+fancy and submit your login for via Ajax, you can totally do that. In fact, if you
+use Turbo, that happens automatically. But if you wanted to write some custom
+JavaScript, it's still no problem. Just use Ajax to submit the login form and
+the session cookie will be automatically set like normal. If you *do* decide to
+do this, the only tweak you'll need is to make your login form authenticator return
+JSON instead of redirecting. I would probably go back to using my
+custom `LoginFormAuthenticator` because it would be super easy to return JSON from
+`onAuthenticationSuccess`.
+
+## When You Do Need API Tokens
+
+So then, when *do* we need an API token authentication system? The answer is pretty
+simple: if someone *other* than your own site's JavaScript needs to access your API...
+including if your JavaScript lives on a completely different domain. If you have
+this situation, you're probably going to need some sort of API token system.
+Whether you need OAuth or a simpler system... depends. We won't cover API tokens in
+this tutorial, but we create a pretty nice system in our Symfony 4 security tutorial,
+which you can check out.
+
+Next: let's add a registration form!
