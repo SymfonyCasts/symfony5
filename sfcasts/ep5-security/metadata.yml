@@ -29,6 +29,7 @@ chapters:
     - serializer-api
     - api-auth
     - registration-auth
+    - manual-auth
     - answer-relation
     - voters
     - verify-email
