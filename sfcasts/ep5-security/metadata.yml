@@ -30,7 +30,7 @@ chapters:
     - api-auth
     - registration-auth
     - manual-auth
-    - answer-relation
+    - question-relation
     - voters
     - verify-email
     - login-throttling
