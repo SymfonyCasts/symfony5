@@ -33,7 +33,7 @@ This... isn't good enough. So instead, let's leverage Symfony's serializer compo
 To get it installed, at your terminal, run:
 
 ```terminal
-composer require serializer:1.0.4
+composer require "serializer:1.0.4"
 ```
 
 This installs the serializer pack, which include's Symfony's `serializer` component
