@@ -1,5 +1,5 @@
 diff --git a/templates/security/login.html.twig b/templates/security/login.html.twig
-index 28b37af..89670b3 100644
+index 28b37af4..89670b39 100644
 --- a/templates/security/login.html.twig
 +++ b/templates/security/login.html.twig
 @@ -1,20 +1,30 @@

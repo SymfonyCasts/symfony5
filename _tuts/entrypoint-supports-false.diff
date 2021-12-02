@@ -1,5 +1,5 @@
 diff --git a/src/Security/DummyAuthenticator.php b/src/Security/DummyAuthenticator.php
-index 8c40113..863e66c 100644
+index 8c401138..863e66c0 100644
 --- a/src/Security/DummyAuthenticator.php
 +++ b/src/Security/DummyAuthenticator.php
 @@ -13,7 +13,7 @@ class DummyAuthenticator extends AbstractAuthenticator

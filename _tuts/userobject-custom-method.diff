@@ -1,5 +1,5 @@
 diff --git a/src/Entity/User.php b/src/Entity/User.php
-index a64b06a..8769dc7 100644
+index a64b06a3..8769dc7c 100644
 --- a/src/Entity/User.php
 +++ b/src/Entity/User.php
 @@ -152,4 +152,13 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
@@ -17,7 +17,7 @@ index a64b06a..8769dc7 100644
 +    }
  }
 diff --git a/templates/base.html.twig b/templates/base.html.twig
-index 02ae277..a05acf8 100644
+index 02ae2778..a05acf80 100644
 --- a/templates/base.html.twig
 +++ b/templates/base.html.twig
 @@ -46,7 +46,7 @@

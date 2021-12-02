@@ -1,5 +1,5 @@
 diff --git a/composer.json b/composer.json
-index 1f4e660..6d052f0 100644
+index 1f4e6606..6d052f0e 100644
 --- a/composer.json
 +++ b/composer.json
 @@ -22,6 +22,7 @@
@@ -19,7 +19,7 @@ index 1f4e660..6d052f0 100644
          "symfony/yaml": "5.3.*",
          "twig/extra-bundle": "^2.12|^3.0",
 diff --git a/composer.lock b/composer.lock
-index 440e5b9..8bf9abc 100644
+index 440e5b92..8bf9abcd 100644
 --- a/composer.lock
 +++ b/composer.lock
 @@ -4,7 +4,7 @@
@@ -429,7 +429,7 @@ index 440e5b9..8bf9abc 100644
              "version": "v5.3.8",
 diff --git a/config/packages/test/validator.yaml b/config/packages/test/validator.yaml
 new file mode 100644
-index 0000000..1e5ab78
+index 00000000..1e5ab788
 --- /dev/null
 +++ b/config/packages/test/validator.yaml
 @@ -0,0 +1,3 @@
@@ -438,7 +438,7 @@ index 0000000..1e5ab78
 +        not_compromised_password: false
 diff --git a/config/packages/validator.yaml b/config/packages/validator.yaml
 new file mode 100644
-index 0000000..350786a
+index 00000000..350786a1
 --- /dev/null
 +++ b/config/packages/validator.yaml
 @@ -0,0 +1,8 @@
@@ -451,7 +451,7 @@ index 0000000..350786a
 +        #auto_mapping:
 +        #    App\Entity\: []
 diff --git a/symfony.lock b/symfony.lock
-index adad432..81a5be3 100644
+index adad4325..81a5be3f 100644
 --- a/symfony.lock
 +++ b/symfony.lock
 @@ -274,6 +274,9 @@

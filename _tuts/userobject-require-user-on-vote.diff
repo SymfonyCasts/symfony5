@@ -1,5 +1,5 @@
 diff --git a/src/Controller/AnswerController.php b/src/Controller/AnswerController.php
-index f7932e3..26c4eb7 100644
+index f7932e39..26c4eb75 100644
 --- a/src/Controller/AnswerController.php
 +++ b/src/Controller/AnswerController.php
 @@ -6,6 +6,7 @@ use App\Entity\Answer;
@@ -19,7 +19,7 @@ index f7932e3..26c4eb7 100644
      public function answerVote(Answer $answer, LoggerInterface $logger, Request $request, EntityManagerInterface $entityManager)
      {
 diff --git a/templates/answer/_answer.html.twig b/templates/answer/_answer.html.twig
-index 64567f1..75c9a67 100644
+index 64567f1d..75c9a670 100644
 --- a/templates/answer/_answer.html.twig
 +++ b/templates/answer/_answer.html.twig
 @@ -20,6 +20,7 @@

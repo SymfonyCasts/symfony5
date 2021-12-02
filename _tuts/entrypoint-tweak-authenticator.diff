@@ -1,5 +1,5 @@
 diff --git a/src/Security/DummyAuthenticator.php b/src/Security/DummyAuthenticator.php
-index 863e66c..d4ce25b 100644
+index 863e66c0..d4ce25b2 100644
 --- a/src/Security/DummyAuthenticator.php
 +++ b/src/Security/DummyAuthenticator.php
 @@ -8,8 +8,9 @@ use Symfony\Component\Security\Core\Authentication\Token\TokenInterface;

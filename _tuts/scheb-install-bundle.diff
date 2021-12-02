@@ -1,5 +1,5 @@
 diff --git a/composer.json b/composer.json
-index 86e3efa..ad52c76 100644
+index 86e3efac..ad52c762 100644
 --- a/composer.json
 +++ b/composer.json
 @@ -16,6 +16,7 @@
@@ -11,7 +11,7 @@ index 86e3efa..ad52c76 100644
          "stof/doctrine-extensions-bundle": "^1.4",
          "symfony/asset": "5.3.*",
 diff --git a/composer.lock b/composer.lock
-index 67b0c7b..3b0009c 100644
+index 67b0c7bf..3b0009c7 100644
 --- a/composer.lock
 +++ b/composer.lock
 @@ -4,7 +4,7 @@
@@ -99,7 +99,7 @@ index 67b0c7b..3b0009c 100644
              "name": "sensio/framework-extra-bundle",
              "version": "v6.2.0",
 diff --git a/config/bundles.php b/config/bundles.php
-index ec719eb..3a3014d 100644
+index ec719eb1..3a3014d3 100644
 --- a/config/bundles.php
 +++ b/config/bundles.php
 @@ -21,4 +21,5 @@ return [
@@ -110,7 +110,7 @@ index ec719eb..3a3014d 100644
  ];
 diff --git a/config/packages/scheb_2fa.yaml b/config/packages/scheb_2fa.yaml
 new file mode 100644
-index 0000000..6b6135a
+index 00000000..6b6135ae
 --- /dev/null
 +++ b/config/packages/scheb_2fa.yaml
 @@ -0,0 +1,8 @@
@@ -124,7 +124,7 @@ index 0000000..6b6135a
 +        # - Symfony\Component\Security\Http\Authenticator\Token\PostAuthenticationToken
 diff --git a/config/routes/scheb_2fa.yaml b/config/routes/scheb_2fa.yaml
 new file mode 100644
-index 0000000..b574a0c
+index 00000000..b574a0c9
 --- /dev/null
 +++ b/config/routes/scheb_2fa.yaml
 @@ -0,0 +1,7 @@
@@ -136,7 +136,7 @@ index 0000000..b574a0c
 +2fa_login_check:
 +    path: /2fa_check
 diff --git a/symfony.lock b/symfony.lock
-index b344baa..f405786 100644
+index b344baa1..f405786d 100644
 --- a/symfony.lock
 +++ b/symfony.lock
 @@ -172,6 +172,19 @@

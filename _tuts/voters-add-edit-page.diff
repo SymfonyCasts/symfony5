@@ -1,5 +1,5 @@
 diff --git a/src/Controller/QuestionController.php b/src/Controller/QuestionController.php
-index 84b5781..97b63c1 100644
+index 84b57818..97b63c18 100644
 --- a/src/Controller/QuestionController.php
 +++ b/src/Controller/QuestionController.php
 @@ -67,6 +67,16 @@ class QuestionController extends AbstractController
@@ -21,7 +21,7 @@ index 84b5781..97b63c1 100644
       */
 diff --git a/templates/question/edit.html.twig b/templates/question/edit.html.twig
 new file mode 100644
-index 0000000..ba7fffc
+index 00000000..ba7fffc9
 --- /dev/null
 +++ b/templates/question/edit.html.twig
 @@ -0,0 +1,17 @@
@@ -43,7 +43,7 @@ index 0000000..ba7fffc
 +</div>
 +{% endblock %}
 diff --git a/templates/question/show.html.twig b/templates/question/show.html.twig
-index 6f8b274..b90d6c8 100644
+index 6f8b274a..b90d6c86 100644
 --- a/templates/question/show.html.twig
 +++ b/templates/question/show.html.twig
 @@ -32,7 +32,13 @@

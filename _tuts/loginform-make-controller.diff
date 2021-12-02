@@ -1,6 +1,6 @@
 diff --git a/src/Controller/SecurityController.php b/src/Controller/SecurityController.php
 new file mode 100644
-index 0000000..febc7af
+index 00000000..febc7afe
 --- /dev/null
 +++ b/src/Controller/SecurityController.php
 @@ -0,0 +1,20 @@
@@ -26,7 +26,7 @@ index 0000000..febc7af
 +}
 diff --git a/templates/security/index.html.twig b/templates/security/index.html.twig
 new file mode 100644
-index 0000000..28b37af
+index 00000000..28b37af4
 --- /dev/null
 +++ b/templates/security/index.html.twig
 @@ -0,0 +1,20 @@

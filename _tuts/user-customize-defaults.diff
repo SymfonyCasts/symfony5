@@ -1,5 +1,5 @@
 diff --git a/src/Factory/UserFactory.php b/src/Factory/UserFactory.php
-index c29407b..d3f1258 100644
+index c29407bb..d3f1258e 100644
 --- a/src/Factory/UserFactory.php
 +++ b/src/Factory/UserFactory.php
 @@ -38,10 +38,8 @@ final class UserFactory extends ModelFactory

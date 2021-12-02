@@ -1,5 +1,5 @@
 diff --git a/src/Controller/RegistrationController.php b/src/Controller/RegistrationController.php
-index 8a02220..af76c2b 100644
+index 8a022201..af76c2b6 100644
 --- a/src/Controller/RegistrationController.php
 +++ b/src/Controller/RegistrationController.php
 @@ -10,13 +10,14 @@ use Symfony\Component\HttpFoundation\Response;

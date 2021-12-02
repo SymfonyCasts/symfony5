@@ -1,5 +1,5 @@
 diff --git a/config/services.yaml b/config/services.yaml
-index 9f67ce5..dd93030 100644
+index 9f67ce5d..dd93030b 100644
 --- a/config/services.yaml
 +++ b/config/services.yaml
 @@ -13,7 +13,6 @@ services:
@@ -11,7 +11,7 @@ index 9f67ce5..dd93030 100644
      # makes classes in src/ available to be used as services
      # this creates a service per class whose id is the fully-qualified class name
 diff --git a/src/Controller/RegistrationController.php b/src/Controller/RegistrationController.php
-index 13834b4..35b2956 100644
+index 13834b4c..35b29569 100644
 --- a/src/Controller/RegistrationController.php
 +++ b/src/Controller/RegistrationController.php
 @@ -9,15 +9,14 @@ use Symfony\Component\HttpFoundation\Request;
@@ -56,7 +56,7 @@ index 13834b4..35b2956 100644
          }
  
 diff --git a/templates/base.html.twig b/templates/base.html.twig
-index 4303253..001ca94 100644
+index 4303253b..001ca94b 100644
 --- a/templates/base.html.twig
 +++ b/templates/base.html.twig
 @@ -79,6 +79,10 @@

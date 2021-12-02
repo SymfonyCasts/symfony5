@@ -1,5 +1,5 @@
 diff --git a/src/Security/LoginFormAuthenticator.php b/src/Security/LoginFormAuthenticator.php
-index ae199ba..4d04b82 100644
+index ae199bab..4d04b824 100644
 --- a/src/Security/LoginFormAuthenticator.php
 +++ b/src/Security/LoginFormAuthenticator.php
 @@ -13,6 +13,7 @@ use Symfony\Component\Security\Core\Exception\AuthenticationException;
