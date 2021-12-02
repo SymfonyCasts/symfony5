@@ -39,7 +39,7 @@ Next, build the database and execute the migrations with:
 
 ```
 # "symfony console" is equivalent to "bin/console"
-# but its aware of your database container
+# but it's aware of your database container
 symfony console doctrine:database:create
 symfony console doctrine:migrations:migrate
 symfony console doctrine:fixtures:load
