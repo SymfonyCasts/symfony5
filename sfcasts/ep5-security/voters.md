@@ -1,152 +1,91 @@
 # Voters
 
-Coming soon...
+When we need to deny access to something, we can do it in a couple of different
+places, like via `access_control` in `security.yaml`, or various ways inside of a
+controller. And when we deny access, we know that we can do it by checking for a
+role like `ROLE_ADMIN` or by checking one of the special strings like
+`IS_AUTHENTICATED_REMEMBERED`. It seems pretty simple, right? If we use something
+like `ROLE_ADMIN`, it clearly calls `getRoles()` on the `User` and denies or allows
+access.
 
-We know that when we need to deny access to something, we can do it in a couple of
-different places like in access control and `security.yaml`, or various ways
-inside of a controller. And when we deny access, we know that we can do it by using a
-role like rural admin or a couple of these kind of special things like 
-`IS_AUTHENTICATED_REMEMBERED` now it seems pretty simple, right? If we use something like
-`ROLE_ADMIN`, what it does, it goes and looks on the user sees if the user has that
-role in either allows or denies access and on a high level, that is completely true.
-But in reality, whenever you call the authorization system, either via 
-`access_control`, `->denyAccessUnlessGranted()`, or even the `IsGranted()`, annotation, something
-more interesting happens internally. It activates what's called a voter system. We
-can actually see this. Let's see Let's refresh this page and then click on the
+## Introducing: the Voter System
 
-Security icon to jump into the profiler down at the bottom of this page. As we saw
-earlier, you can find an access decision log like shows you all the different times
-that the authorization system was called. So this guy was actually called a bunch of
-times. Most of these are to figure out whether or not we should show or hide the
-voting links for each question, each answer, but check out this little link on each
-one. It says, show voter details. When you click it, there are two voters in this
-case, the first one says `ACCESS_DENIED`. And the second one says `ACCESS_ABSTAIN`. So
-the truth is that when you call the authorization system, it actually loops over to
-these things called voters and asks each one. Do you know how to decide Whether or
-not the user has, uh, whether or not they user has, `IS_AUTHENTICATED_REMEMBER`, or
-`ROLE_PREVIOUS_ADMIN` `ROLE_ADMIN`
+That is... basically true. But in reality, whenever you call the authorization
+system - either via  `access_control`, `->denyAccessUnlessGranted()`, or even the
+`IsGranted()` annotation or attribute, something more interesting happens internally.
+It activates what's called the "voter" system.
 
-And then what happens is that exactly one of those voters will say that they do
-understand how to vote on that. And then they'll say either `ACCESS_DENIED` or 
-`ACCESS_GRANTED`. So internally, whenever you start with one of those ease authenticated
-things, it's actually this authenticated voter that knows how to decide that this
-`RoleHierarchyVoter` that's responsible for deciding on anything that starts with
-`ROLE_`. So if what we pass into this series system starts with `ROLE_`
-It is called, and it looks on the user to see if it has that role. And it
-also looks at the role higher, the configuration in `security.yaml`.
+We can actually see this. Refresh the page and then click on the security icon in
+the web debug toolbar to jump into the profiler. Down near the bottom of this page,
+as we saw earlier, you can find an "Access Decision Log" that shows you all the
+different times that the authorization system was called. Apparently it was called
+a *bunch* of times. Most of these us trying to figure out whether or not we should
+show or hide the voting links for each answer.
 
-And by the way, even though the system is called the voter system, in all cases,
-every voter will exact all voters will abstain, which means they don't vote at all.
-Except for one, you're never going to end up in a situation where you have five
-voters and they win by a count of three to two anyways, until now denying access in
-our site has been pretty simple. We've either wanted to check to see if the user is
-logged in, or sometimes we've wanted to check for a specific role, but security.
-Isn't always that simple for our edit question page. We can't just check for a global
-role. We need to check to see if the current user is the owner of this question. So
-the security check is specific to some object. In this case, the question object put
-in logic in the controller worked, but it means that we're going to have to duplicate
-this logic in our twig template also to hide or show this edit question and things
-are going to get even more complex.
+But check out this little "Show voter details" link. When you click, oooo.
+There are two voters. The first one voted `ACCESS_DENIED` and the second voted
+`ACCESS_ABSTAIN`.
 
-If our logic is more complex. So the way that we fix this is we are going to create
-our own voter that centralizes our logic to do this, delete all of this code. And
-we're going to add a new, `$this->denyAccessUnlessGranted()`, and then we're going to
-invent a new first key is first key is actually called an attribute. I'm going to say
-`EDIT`. I totally made that up. You'll see. Well, how it's, why it's important a
-second. And then we haven't seen it yet, but you can actually pass a second argument
-to `denyAccessUnlessGranted()`, which is some data related to, to this question. So do
-this a check. We are going to pass the `Question` object. Now, if I stop right there
-and go to click the edit page, we get access tonight. We can tell because it
-redirected us to the log in page.
+When you call the authorization system, it actually loops over these things called
+voters and asks each one:
 
-And if I kind of, I'm going to open up the profiler and hit last 10, and I'm going to
-go find that request here. That was actually the request to the edit page. I'm going
-to go open that up and go down to the security system here. And if you scroll down
-cool, you can actually see access denied for attribute, edit object to question. And
-if you look at the voter details, they all abstained. So everybody said, I don't know
-what to do with that. And so if all voters abstain, you get access tonight. So now
-let's add our own custom voter that does understand and answer whether or not we have
-access to edit a question object to help us do this, go to the terminal or on the
+> Do you know how to decide whether or not the user has `IS_AUTHENTICATED_REMEMBER`,
+> or `ROLE_ADMIN`... or whatever thing we're passing in.
 
-```terminal
-symfony console make:voter
-```
+In practice, exactly *one* of these voters will say that they *do* understand how
+to vote on that string and they'll answer with either `ACCESS_DENIED` or
+`ACCESS_GRANTED`. All the other voters return `ACCESS_ABSTAIN`... which just means
+that they didn't vote one way or another.
 
-And let's call it `QuestionVoter`. I often have one voter
-class per object in my system and done this great exactly one new class. So let's go
-check it out. `src/Security/Voter/QuestionVoter.php` as usual. The location of
-this class makes no difference at all. The important thing is that our voter
-implements a `VoterInterface`. Well, not directly, but if you open this voter core
-class, you can see that it implements `VoterInterface`. So as soon as we have a class
-that implements the voter interface, every time that's the authorization system is
-called, Symfony is going to call our `supports()` method and ask us whether or not we
-understand how to vote on this `$attribute` and this `$subject`.
+So, for example, whenever you call the authorization system and pass it one of
+those `IS_AUTHENTICATED_` strings, it's this `AuthenticatedVoter` that knows how
+to decide whether the user has that or not.
 
-So for us, I'm going to say if in array attribute `EDIT`, so Gatorade is equal to edit. I'll
-leave the array here. In case later, maybe I have, I have a separate checks for like,
-are you able to delete or something like that? But anyways, if the `$attribute` `EDIT` is
-the attribute and the `$subject` is an instance of `Question`, that's actually perfect.
-Then yes, we know how to vote on this. We're returning false from this, our voters
-going to abstain from voter. If we return true from this, then Symfony calls 
-`voteOnAttribute()`. And very simply we need to take the attribute in our case, `EDIT` and the
-subject in our case, a `Question` object and determine whether or not the user should
-have access by returning a true or a Boolean from this method. So this is fairly
-simple.
+The `RoleHierarchyVoter`, well you can probably guess. That's responsible for voting
+on anything that starts with `ROLE_`. Internally, that voter checks to see if the
+user has that role. Well technically it checks the "token"... but that's not
+important. It also checks the `role_hierarchy` in `security.yaml`.
 
-I'm going to start by adding a couple of things. That'll help my editor. First of
-all, the way that you get the user in here is you're past this kind of token object.
-And then you call `$token->getUser()`. That's fine, except that my editor is not
-going to know that this is an instance of my specific `User` class. So I'm going to
-help it out by adding at VAR user above it. And then down here, we know that subject
-is going to be an instance of our `Question` object. So I'm going to do kind of
-something similar, but I'll, uh, in different way. I'm going to say if not `$subject` is
-an instance of `Question`
+And, by the way, even this is called the "voter" system, in *all* cases, every voter
+*except* for exactly one will abstain, which means they don't vote at all. Uou never
+end up in a situation where you have 5 voters and 3 vote access granted and 2
+vote access denied.
 
-And throw a new Exception and just say the wrong type somehow passed, that shouldn't
-happen, but we're now coding defensively. And almost more importantly, now my editor
-is going to know, and any static analysis tools I have are going to know what that
-subject variable is. Finally down here, you see a kind of have a kind of a switch
-case in case we're handling multiple cases, I'm going to lead a second case. We'll
-make the first case `EDIT`. And I don't even need the break because I'm just going to
-return true. If `$user` is equal to `$subject->getOwner()`, if it's not, this will
-return false. Let's try it. All right. So I am anonymous right now. I am not logged
-in. So if I go to actually, let's go back here or go back to the question page. I
-click edit access is still denied, so let's log in. Okay. And when agreed to is back
-to the edit page, it's access denied, which makes sense. We're an admin user, but we
-are not the owner of this question. All right. So let's log in as the owner of this
-question. So I'm gonna go back to the homepage, click inside of here, and you want to
-make it more obvious, like which user actually owns this. I'm going to temporarily go
-into the, I'm going to go into the `templates/question/show.httml.twig`
-and down here after the display name says, just kind of to help us debug. I'm going
-to say `question.owner.email`.
+## Passing Custom "Attributes" into Authorization
 
-Perfect. So that you'll give me kind of an easy way and I'll do is I'll use
-impersonation. So I'm going to go up here and say, `_switch_user=` that emailed us,
-boom, I'm a person hitting them. And then when I hit edit access, granted, thanks to
-our voter. We can even see it. If we jump into the profiler and scroll down, you can
-see up here, access granted for editing this question object. I love that. And now
-that we have this cool voter system, we can intelligently hide and showed this
-button. So back in showed at HR twig, we can wrap this anchor tag with a similar Khan
-Twix. So if h `is_granted()`, then we'll say `EDIT` and we'll pass it. The question object,
+Until now, denying access on our site has been pretty simple. We've either wanted
+to check to see if the user is logged in we've checked for a specific role.
 
-How cool was that? So it says, I do have access right now and I refresh it's still
-there, but if I exit impersonation and click into it, it's gone so cool. But I have
-one more challenge for us. What if we want to make it so that you can edit a question
-if you are the owner or if you have `ROLE_ADMIN`. So to do that, all we need to do is
-add a check to see if the current user has `ROLE_ADMIN` from inside of our voter to do
-that. We can inject,
+But security isn't always that simple. For our edit question page, we can't just
+check for a global role. We need to check to see if the current user is the *owner*
+of this question. If you think about it: the security logic is specific to some
+object - in this case - the `Question` object. Putting the logic in the controller
+worked, but it means that we're going to have to duplicate this logic in our Twig
+template in order to hide or show this "edit question" link.
 
-We can autowire, the `Security` class from civic component. We talked about this
-service earlier. I'll hit all the enter and go to initialize properties, set up. We
-thought about this service earlier. This is the way that you can get a S the user
-object from within a service, but you can also use it to check security from within a
-service. So we can add is if this will say, even before the switch case, if
-`$this->security->isGranted('ROLE_ADMIN')` then we will always return a true, so admin
-users can do anything. And since we're logged in as an admin user, as soon as we
-refresh, Whoops, and I didn't mean to put the excavation went there. There we go. So
-if it's granted `ROLE_ADMIN` return, true, we have access to everything. And since we
-are logged in as admin user, when I refresh, we have the edit button and it works so
-cool. All right, next, Let's add an email verification system to our registration
-form. So after registration, we're going to need to, we're going to have a way to
-confirm our email address.
+The way to fix this is by creating our *own* custom voter that centralizes our logic.
+To do this, delete all of this code and replace it with
+`$this->denyAccessUnlessGranted()`.
 
+Here is where things get interesting: we're going to "invent" a new string to
+pass to this, which is actually called an attribute. Say `EDIT`. I totally just made
+that up. You'll see how it's used in a minute.
+
+Then, we haven't seen it yet, but you can actually pass a *second* argument to
+`denyAccessUnlessGranted()`, which is some data related to this security check.
+Pass the `Question` object.
+
+Ok, stop right now and click to the edit page. Ooh, we got "access denied". We can
+tell because it redirected us to the login page. Click any link on the web debug
+toolbar to jump into the profiler, click "Last 10", then find the request to
+the question edit page. Click to view *its* profiler info.. and go down to the
+Security section here.
+
+At the bottom, under the "Access Decision Log", access was Denied for attribute
+"EDIT" and this `Question` object. If you look at the voter details... oh! They
+*all* abstained. So *every* voter said: "I don't know what the attribute "EDIT"
+and a `Question` object. And if all voters abstain, we get access denied.
+
+Next: let's fix this by adding our own custom voter that *does* know how to vote
+on this situation. Once we're finished, we'll make or logic even *more* complex
+by *also* allowing admin users to access the edit page.

@@ -33,6 +33,7 @@ chapters:
     - question-relation
     - owner-rendering
     - voters
+    - custom-voter
     - verify-email
     - login-throttling
     - security-listeners
