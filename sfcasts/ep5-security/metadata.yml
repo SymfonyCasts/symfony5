@@ -31,6 +31,7 @@ chapters:
     - registration-auth
     - manual-auth
     - question-relation
+    - owner-rendering
     - voters
     - verify-email
     - login-throttling
