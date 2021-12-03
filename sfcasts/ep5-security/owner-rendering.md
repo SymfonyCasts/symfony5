@@ -2,29 +2,26 @@
 
 Now that each `Question` has an `owner` - a `User` object - it's time to celebrate!
 On the frontend, we can start rendering *real* data... instead of always having
-the same cat picture and question written by the same Tisha, those are both
-hard-coded.
+the same cat picture and question written by the same Tisha. Those are both
+hard-coded, though we *do* love Tisha the cat here at SymfonyCasts.
 
-Let's start in the homepage. Open up `templates/question/homepage.html.twig`.
+Start on the homepage. Open up `templates/question/homepage.html.twig`.
 And... here's where we loop over the questions. First, for the avatar, we can use
 the helper method we created earlier: `{{ question.owner.avatarUri }}`.
 
-Next... down here towards the bottom, here's where we print the question owner's
-name. We'll use `question.owner.displayName`. That's *another* custom method we
-created earlier.
+Next... down towards the bottom, here's where we print the question owner's
+name. Let's use `question.owner.displayName`. 100 experience points for using *two*
+custom methods in a row.
 
-Now... our page is starting to look real! Click into a question. Let's do the same
-thing for the show page. Open that template: `show.html.twig`.
+And now... our page is starting to look real! Click into a question. Let's do the
+same thing for the show page. Open that template: `show.html.twig`.
 
-For the avatar, make the same change: `question.owner.avatarUri`.
+For the avatar, use `question.owner.avatarUri`.
 
-Then... down here, for the name, use `{{ question.owner.displayName }}`.
+Then... down here, for the name, `{{ question.owner.displayName }}`.
 
-Ohm and I forgot to do one thing. Copy that, head back up to the avatar so that
-we can also update the `alt` attribute.
-
-back up to my image. Avatar. There we go. I'll I'll be responsible and make sure I
-update the alt on the image as well. I also need to do that on the homepage...
+Oh, and I forgot to do one thing. Copy that, head back up to the avatar... so that
+we can also update the `alt` attribute. I also need to do that on the homepage...
 here it is.
 
 Let's try this! Refresh the page and... we are dynamic!
@@ -32,41 +29,42 @@ Let's try this! Refresh the page and... we are dynamic!
 ## Creating the Question Edit Page
 
 In a real site, we're probably going to need a page where the owner of this question
-can edit its details. We're not going to build this out all the way... I don't want
-to dive into the form system... but we *are* going to get it started. And this is
+can edit its details. We're not going to build this out all the way - I don't want
+to dive into the form system - but we *are* going to get it started. And this is
 going to lead us to a really interesting security situation.
 
 Over in `src/Controller/QuestionController.php`... find the show action. Let's
-cheat by copying and pasting this. Change the URL to `/questions/edit/{slug}`,
-tweak the route name and update the method name. Inside, let's just render
-a new template: `question/edit.html.twig`.
+cheat by copying this and pasting it. Change the URL to `/questions/edit/{slug}`,
+tweak the route name and update the method name. Inside, just render
+a template: `question/edit.html.twig`.
 
-Cool! In `templates/questions/`, create that: `edit.html.twig`.
+Cool! In `templates/question/`, create that: `edit.html.twig`.
 
-I'm going to paste in a basic template. So nothing special here, except that
-I'm printing the dynamic question text. But there's not any actually form...
-because we're talking about security.
+I'll paste in a basic template. Nothing special here, except that I'm printing
+the dynamic question text. There's no actually form... since we're focusing on
+security... but pretend that there is.
+
+## Linking to the Edit Page
 
 Before we try this page, head back into the question show template. Let's add an
 edit link to help out the owner. Actually, find the `h1`. Here we go.
 
-Wrap this in a div with `class="d-flex justify-content-between"`... add the close
+Wrap this in a div with `class="d-flex justify-content-between"`... and then close
 and indent. *Now* add a link with `href=` `path('app_question_edit')`. And, of
-course, we need to pass this the wild card: `id` set to `question.id`.
+course, we need to pass this the wildcard: `id` set to `question.id`.
 
-Oh, wait, actually, the wildcard is the slug. So use `slug` set to `question.slug`.
+Oh... wait, actually, the wildcard is `slug`. So use `slug` set to `question.slug`.
 Cool. Then say "Edit"... and give this a few classes for prettiness.
 
 Thanks to this... we have an edit button! Oh, but we need some margin! Add `mb-2`
-and... much better. Click that.
-
-This is the question edit page... which is not *really* an edit page... but pretend
-that we have a fancy form on this page.
+and... much better. Click that. This is the question edit page... which is not
+*really* an edit page... but pretend that it is.
 
 *Now* let's circle back to the topic of security. Because... we can't just let
-*anyone* get here: only the *owner* of this question should be able to edit it.
+*anyone* get to this page: only the *owner* of this question should be able to
+edit it.
 
-So inside of `QuestionController`, edit, we need a security check. We first need
+So inside of `QuestionController`, we need a security check. We first need
 to make sure that the user is logged in. Do that with `$this->denyAccessUnlessGranted()`
 passing `IS_AUTHENTICATED_REMEMBERED`.
 
@@ -74,18 +72,17 @@ Thanks to this, we're guaranteed to get a `User` object if we say `$this->getUse
 We can use that: if `$question->getOwner()` does not equal `$this->getUser()`,
 then someone *other* than the owner is trying to access this page. Deny access
 with `throw $this->createAccessDeniedException()`. I'll say "you are not the owner"...
-but, remember these error messages here are only shown to developers, not the
-end user.
+but, remember, these error messages are only shown to developers.
 
 Ok, so right now I'm *not* logged in at all. So if we refresh, it kicks us back
 to the login page. So... yay! We just successfully prevented anyone *other* than
 the owner from accessing this edit page!
 
-But... bad new friends: I do *not* like this solution. I don't like putting any
+But... bad news friends: I don't like this solution. I don't like putting any
 manual security logic inside my controller. Why? Because it means that we're going
 to need to repeat that logic in Twig in order to hide or show the edit button.
-And what if our logic gets more complex? What if you can get to this edit page, if
-you're the owner or if you have `ROLE_ADMIN`? Now we would need to update and
+And what if our logic gets more complex? What if you can edit a question if
+you're the owner *or* if you have `ROLE_ADMIN`? Now we would need to update and
 maintain the duplicate logic in two places at *least*. Nope, we do *not* want
 to duplicate our security rules.
 
