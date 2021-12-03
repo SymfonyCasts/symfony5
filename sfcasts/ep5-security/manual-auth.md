@@ -69,7 +69,7 @@ that authenticator *normally* redirects to, we will redirect there as well, whic
 Let's try this thing! Refresh the registration form to be greeted with... an awesome
 error!
 
-> Cannot autowire argument $loginFormAuthenticator.
+> Cannot autowire argument $formLoginAuthenticator.
 
 Hmm. We *did* type-hint that argument with the correct class:
 `FormLoginAuthenticator`. The problem is that this is a rare example of a service
