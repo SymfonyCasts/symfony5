@@ -86,7 +86,7 @@ At the bottom, under the "Access Decision Log", access was Denied for attribute
 "EDIT" and this `Question` object. If you look at the voter details... oh! They
 *all* abstained. So *every* voter said:
 
-> I have no ideaa how to vote on the attribute "EDIT" and a `Question` object".
+> I have no idea how to vote on the attribute "EDIT" and a `Question` object".
 
 If all voters abstain, we get access denied.
 
