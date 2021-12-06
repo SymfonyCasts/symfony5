@@ -12,14 +12,19 @@ authenticate the user *directly*, by writing code *inside* of a controller.
 
 And... this is totally possible, by autowiring a service *specifically* for this.
 Add a new argument up here type-hinted with `UserAuthenticatorInterface` and I'll
-call it `$userAuthenticator`.
+call it `$userAuthenticator`:
+
+[[[ code('c4a8802408') ]]]
 
 This object allows you to just... authenticate any `User` object. Right before the
 redirect, let's do that: `$userAuthenticator->authenticateUser()` and we need to
-pass this a few arguments. The first one is the `User` we want authenticate. Easy.
-The second is an "authenticator" that you want to use. This system works
-by basically taking your `User` object and... kind of "running it through" one
-of your authenticators.
+pass this a few arguments. The first one is the `User` we want to authenticate:
+
+[[[ code('b5cd8a365d') ]]]
+
+Easy. The second is an "authenticator" that you want to use. This system works by
+basically taking your `User` object and... kind of "running it through" one of your
+authenticators.
 
 If we were still using our custom `LoginFormAuthenticator`, passing this argument
 would be really easy. We could just autowire the `LoginFormAuthenticator` service
@@ -27,13 +32,21 @@ up here and pass it in.
 
 ## Injecting the Service for form_login
 
-*But*, in our `security.yaml` file, our main way of authenticating is `form_login`.
+*But*, in our `security.yaml` file, our main way of authenticating is `form_login`:
+
+[[[ code('f9772f6b10') ]]]
+
 That *does* activate an authenticator service behind the scenes - just like *our*
 custom `LoginFormAuthenticator`. The tricky part is figuring out what that service
 *is* and injecting it into our controller.
 
 So, we need to do a bit of digging. At your terminal, run
-`symfony console debug:container` and search for `form_login`.
+
+```terminal
+symfony console debug:container
+```
+
+and search for `form_login`:
 
 ```terminal-silent
 symfony console debug:container form_login
@@ -49,12 +62,20 @@ used as a template to create the *real* service for any firewalls that use
 Anyways, I'll hit "1" to get more details. Ok cool: this service is an instance of
 `FormLoginAuthenticator`, which is the core class that we looked at earlier.
 
-Back in our controller, add another argument type-hinted with `FormLoginAuthenticator`.
-Then, down here, pass the new argument to `authenticateUser()`. This *won't*
-work yet, but stick with me.
+Back in our controller, add another argument type-hinted with `FormLoginAuthenticator`:
+
+[[[ code('d3fa6e439c') ]]]
+
+Then, down here, pass the new argument to `authenticateUser()`:
+
+[[[ code('3af742fe35') ]]]
+
+This *won't* work yet, but stick with me.
 
 The *final* argument to `authenticateUser()` is the `Request` object... which we
-already have... it's our first controller argument.
+already have... it's our first controller argument:
+
+[[[ code('b04059ccfe') ]]]
 
 ## authenticateUser Returns a Response
 
@@ -62,33 +83,40 @@ Done! Oh, and one cool thing about `authenticateUser()` is that it returns a
 `Response` object! Specifically, the `Response` object from the
 `onAuthenticationSuccess()` method of whatever authenticator we passed in. This
 means that instead of redirecting to the homepage, we can return this and, wherever
-that authenticator *normally* redirects to, we will redirect there as well, which *could* be the "target path".
+that authenticator *normally* redirects to, we will redirect there as well, which
+*could* be the "target path".
 
 ## Binding the form_login Service
 
 Let's try this thing! Refresh the registration form to be greeted with... an awesome
 error!
 
-> Cannot autowire argument $formLoginAuthenticator.
+> Cannot autowire argument `$formLoginAuthenticator`.
 
 Hmm. We *did* type-hint that argument with the correct class:
-`FormLoginAuthenticator`. The problem is that this is a rare example of a service
-that is not available for autowiring! So, we need to configure this manually.
+`FormLoginAuthenticator`:
+
+[[[ code('c42db48b01') ]]]
+
+The problem is that this is a rare example of a service that is not available
+for autowiring! So, we need to configure this manually.
 
 Fortunately, if we didn't already know what service we need, the error message
 gives us a great hint. It says:
 
-> no such service exists, maybe you should alias this class to the
-> existing `security.authenticator.form_login.main` service.
+> ... no such service exists, maybe you should alias this class to the
+> existing `security.authenticator.form_login.main` service
 
 Yup, it *gave* us the id of the service that we need to wire.
 
 Go copy the argument name - `formLoginAuthenticator` - and then open
 `config/services.yaml`. Beneath `_defaults`, add a new `bind` called
 `$formLoginAuthenticator` set to `@` then... I'll go copy that long service
-id... and paste it here.
+id... and paste it here:
 
-This says: whenever a service has a `$formLoginAuthenticator` argument, pass it,
+[[[ code('ed99d4c355') ]]]
+
+This says: whenever a service has a `$formLoginAuthenticator` argument, pass it
 this service.
 
 *That*... if we refresh... will get rid of our error.
@@ -101,4 +129,4 @@ are logged in as Merlin! I feel the magical power.
 Next: sometimes denying access is *not* as simple as just checking a role. For
 example, what if you had a question edit page and it needs to only be accessible
 to the *creator* of that question? It's time to discover a powerful system inside
-of Symfony called voters.
+of Symfony called *voters*.
