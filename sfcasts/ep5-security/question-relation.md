@@ -1,7 +1,7 @@
 # Making Questions owned by Users
 
 Our site has users and these questions are created by those users. So in the
-database, each `Question` neeeds to be related to the `User` that created it
+database, each `Question` needs to be related to the `User` that created it
 via a Doctrine relationship. Right now, if you open `src/Entity/Question.php`,
 that is *not* the case. There's nothing that relates this back to the `User` that
 created it. Time to fix that. We'll need this so we can properly talk about voters!
@@ -28,8 +28,13 @@ done!
 
 If you went through our Doctrine relationships tutorial, then you know that there's
 nothing special here. This added a `ManyToOne` relationship above a new `$owner`
-property... and made getter and setter methods at the bottom. Over in the
-`User` class, it also mapped the *inverse* side of the relationship.
+property... and made getter and setter methods at the bottom:
+
+[[[ code('8b4029a4c4') ]]]
+
+Over in the `User` class, it also mapped the *inverse* side of the relationship:
+
+[[[ code('adf96c33e7') ]]]
 
 Let's go make a migration for this change:
 
@@ -39,7 +44,9 @@ symfony console make:migration
 
 And... as usual, we'll run over to the new migration file... to make sure it
 contains *only* the stuff we expect. Yep: `ALTER TABLE question`, add `owner_id`
-and then the foreign key stuff.
+and then the foreign key stuff:
+
+[[[ code('d8e644dca1') ]]]
 
 ## Fixing the Migration
 
@@ -85,7 +92,9 @@ fixtures and given each question an owner.
 
 Let's do that. Open `src/Factory/QuestionFactory.php`. Our job in `getDefaults()`,
 is to supply a default value for every *required* property. So I'm now going to
-add an `owner` key set to `UserFactory::new()`.
+add an `owner` key set to `UserFactory::new()`:
+
+[[[ code('4685cbb39a') ]]]
 
 Thanks to this, if we execute `QuestionFactory` *without* overriding any
 variables, this will create a brand new user for each new question.
@@ -96,9 +105,15 @@ And then, when we create the questions up here... oh actually right here, I want
 to use a random user from the ones that we already created.
 
 To do this, we first need to move our users up to the top so that they're created
-first. Then, down here for our main questions, pass a function to the second argument
+first:
+
+[[[ code('d1a4effae6') ]]]
+
+Then, down here for our main questions, pass a function to the second argument
 and return an array... so that we can override the `owner` property. Set it to
-`UserFactory::random()`.
+`UserFactory::random()`:
+
+[[[ code('05bd527622') ]]]
 
 I'm not going to worry about also doing this for the unpublished questions down
 here... but we could.
