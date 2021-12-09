@@ -1,89 +1,105 @@
 # Custom Voter
 
-Coming soon...
+To make the security system understand what it means when we check for `EDIT`
+access on a `Question` object, we need a custom voter. And... to help us out,
+we can *generate* this.
 
-So now
-let's add our own custom voter that does understand and answer whether or not we have
-access to edit a question object to help us do this, go to the terminal or on the
+Find your terminal and run:
 
 ```terminal
 symfony console make:voter
 ```
 
-And let's call it `QuestionVoter`. I often have one voter
-class per object in my system and done this great exactly one new class. So let's go
-check it out. `src/Security/Voter/QuestionVoter.php` as usual. The location of
-this class makes no difference at all. The important thing is that our voter
-implements a `VoterInterface`. Well, not directly, but if you open this voter core
-class, you can see that it implements `VoterInterface`. So as soon as we have a class
-that implements the voter interface, every time that's the authorization system is
-called, Symfony is going to call our `supports()` method and ask us whether or not we
-understand how to vote on this `$attribute` and this `$subject`.
+Let's call it `QuestionVoter`. I often have one voter class per *object* in my system
+that I need to check access for. And... done!
 
-So for us, I'm going to say if in array attribute `EDIT`, so Gatorade is equal to edit. I'll
-leave the array here. In case later, maybe I have, I have a separate checks for like,
-are you able to delete or something like that? But anyways, if the `$attribute` `EDIT` is
-the attribute and the `$subject` is an instance of `Question`, that's actually perfect.
-Then yes, we know how to vote on this. We're returning false from this, our voters
-going to abstain from voter. If we return true from this, then Symfony calls
-`voteOnAttribute()`. And very simply we need to take the attribute in our case, `EDIT` and the
-subject in our case, a `Question` object and determine whether or not the user should
-have access by returning a true or a Boolean from this method. So this is fairly
-simple.
+## Adding the Voter Logic
 
-I'm going to start by adding a couple of things. That'll help my editor. First of
-all, the way that you get the user in here is you're past this kind of token object.
-And then you call `$token->getUser()`. That's fine, except that my editor is not
-going to know that this is an instance of my specific `User` class. So I'm going to
-help it out by adding at VAR user above it. And then down here, we know that subject
-is going to be an instance of our `Question` object. So I'm going to do kind of
-something similar, but I'll, uh, in different way. I'm going to say if not `$subject` is
-an instance of `Question`
+Let's go check it out: `src/Security/Voter/QuestionVoter.php`. As usual, the location
+of this class makes no difference. The important thing is that our voter
+implements `VoterInterface`. Well, not directly... but if you open the core class
+we extend, you can see that *it* implements `VoterInterface`. The point is: as soon
+as we create a class that implements `VoterInterface`, each time that the
+authorization system is called, Symfony will now call our `supports()` method
+and basically ask:
 
-And throw a new Exception and just say the wrong type somehow passed, that shouldn't
-happen, but we're now coding defensively. And almost more importantly, now my editor
-is going to know, and any static analysis tools I have are going to know what that
-subject variable is. Finally down here, you see a kind of have a kind of a switch
-case in case we're handling multiple cases, I'm going to lead a second case. We'll
-make the first case `EDIT`. And I don't even need the break because I'm just going to
-return true. If `$user` is equal to `$subject->getOwner()`, if it's not, this will
-return false. Let's try it. All right. So I am anonymous right now. I am not logged
-in. So if I go to actually, let's go back here or go back to the question page. I
-click edit access is still denied, so let's log in. Okay. And when agreed to is back
-to the edit page, it's access denied, which makes sense. We're an admin user, but we
-are not the owner of this question. All right. So let's log in as the owner of this
-question. So I'm gonna go back to the homepage, click inside of here, and you want to
-make it more obvious, like which user actually owns this. I'm going to temporarily go
-into the, I'm going to go into the `templates/question/show.httml.twig`
-and down here after the display name says, just kind of to help us debug. I'm going
-to say `question.owner.email`.
+> Hey! Do you understand how to vote on this `$attribute` and this `$subject`?
 
-Perfect. So that you'll give me kind of an easy way and I'll do is I'll use
-impersonation. So I'm going to go up here and say, `_switch_user=` that emailed us,
-boom, I'm a person hitting them. And then when I hit edit access, granted, thanks to
-our voter. We can even see it. If we jump into the profiler and scroll down, you can
-see up here, access granted for editing this question object. I love that. And now
-that we have this cool voter system, we can intelligently hide and showed this
-button. So back in showed at HR twig, we can wrap this anchor tag with a similar Khan
-Twix. So if h `is_granted()`, then we'll say `EDIT` and we'll pass it. The question object,
+For us, I'm going to say if `in_array($attribute, ['EDIT'])`. So basically, *if*
+the attribute that is passed is equal to `EDIT`. I'm just using an array in case
+we support other attributes in this voter later - like `DELETE`.
 
-How cool was that? So it says, I do have access right now and I refresh it's still
-there, but if I exit impersonation and click into it, it's gone so cool. But I have
-one more challenge for us. What if we want to make it so that you can edit a question
-if you are the owner or if you have `ROLE_ADMIN`. So to do that, all we need to do is
-add a check to see if the current user has `ROLE_ADMIN` from inside of our voter to do
-that. We can inject,
+Anyways, if the `$attribute` is `EDIT` *and* the `$subject` is an instance of
+`Question`, then yes, we know how to vote on this.
 
-We can autowire, the `Security` class from civic component. We talked about this
-service earlier. I'll hit all the enter and go to initialize properties, set up. We
-thought about this service earlier. This is the way that you can get a S the user
-object from within a service, but you can also use it to check security from within a
-service. So we can add is if this will say, even before the switch case, if
-`$this->security->isGranted('ROLE_ADMIN')` then we will always return a true, so admin
-users can do anything. And since we're logged in as an admin user, as soon as we
-refresh, Whoops, and I didn't mean to put the excavation went there. There we go. So
-if it's granted `ROLE_ADMIN` return, true, we have access to everything. And since we
-are logged in as admin user, when I refresh, we have the edit button and it works so
-cool. All right, next, Let's add an email verification system to our registration
-form. So after registration, we're going to need to, we're going to have a way to
-confirm our email address.
+If we return `false`, it means that our voter will "abstain" from voting. But
+if we return true, *then* Symfony calls `voteOnAttribute()`. Very simply, we need
+to take the attribute - in our case `EDIT` - and the `$subject` - in our case a
+`Question` object - and determine whether or not the user should have access by
+returning `true` or `false`.
+
+I'm going to start by adding a few things that will help my editor. First, to get
+the current `User` object, you use this `$token` and call `$token->getUser()`.
+The only problem is that my editor doesn't know that this is an instance of *my*
+specific `User` class: it only knows that it's some `UserInterface`. To help, I'll
+add `@var User $user` above this. Even better, you could add an if statement
+to check if `$user` is *not* an instance of `User` and throw an exception.
+
+I'll actually do that down here. We know that `$subject` will be an instance of our
+`Question` class. To help our editor know that, say if not `$subject` is an
+`instanceof` `Question`, then throw a new `Exception` and just say "wrong type
+somehow passed".
+
+That should never happen, but we're coding defensively. And more importantly,
+my editor - or static analysis tools like phpstan - will now know what type the
+`$subject` variable is.
+
+Finally, down here, the generated code has a switch-case to handle multiple
+attributes. I'll remove the second case... and make the first case `EDIT`. And...
+I don't even need the `break` because I'm going to return true if `$user` is
+equal to `$subject->getOwner()`.
+
+Let's try it! Back at the browser, I'm not logged in. So if we go back... to a
+question page... and click "edit"... access is still denied. Log in with
+our normal user. And then... access is still denied... which makes sense. We're an
+admin user... but we are *not* the owner of this question.
+
+So let's log in as the owner! Go back to the homepage and click into a question.
+To make it more obvious *which* user owns this, temporarily, open
+`templates/question/show.html.twig` and... down here, after the display name, just
+to help debug, print `question.owner.email`.
+
+And... cool. Copy the email and let's use impersonation! At the end of the URL,
+add `?_switch_user=`, paste that email and... boom! Access is granted thanks to
+our voter! We can prove it. Jump into the profiler and scroll down. Here it is:
+access granted for `EDIT` of this `Question` object. I *love* that.
+
+## Using the Voter in Twig
+
+Now that we have this cool voter system, we can intelligently hide and show the
+edit button. Back in `show.html.twig`, wrap the anchor tag with if
+`is_granted()` passing the string `EDIT` and the question object.
+
+How cool is that? We *should* still have access, and... when we refresh, it's still
+there. But if I exit impersonation... and then click back to the question, it's gone!
+
+## Also Allowing Admin Users to Edit
+
+But I have one more challenge. Could we make it so that you can edit a question
+if you are the owner *or* if you have `ROLE_ADMIN`. Sure! To do that, in the voter,
+we just need to check for that role. To do that, we need a new service.
+
+Add a constructor and autowire the `Security` service from the Symfony component.
+I'll hit Alt + Enter and go to "initialize properties" to set things up. We talked
+about this service earlier: we used it to get the currently-authenticated
+User object from inside a service. It can *also* be used to check security from
+within a service.
+
+Even before the switch case, let's add: if `$this->security->isGranted('ROLE_ADMIN')`
+then always return `true`. So admin users can do anything. Oh, but whooops,
+I didn't mean to add that exclamation point!
+
+Since we *are* currently logged in as an admin user.... as soon as we refresh,
+we have the edit button... and it works. So cool.
+
+Next: Let's add an email confirmation system to our registration form.
