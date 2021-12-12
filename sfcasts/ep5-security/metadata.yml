@@ -35,6 +35,7 @@ chapters:
     - voters
     - custom-voter
     - verify-email
+    - verify-signed-url
     - login-throttling
     - security-listeners
     - login-failure
