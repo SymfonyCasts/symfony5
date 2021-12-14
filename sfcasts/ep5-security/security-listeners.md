@@ -4,52 +4,64 @@ Coming soon...
 
 If you've used Symfony for a while, you probably know that Symfony dispatches events
 during the request response process, and you can listen to those events, to see some
-events in their listeners. We can run Symfony console debug event. I'm not going to
+events in their listeners. We can run 
+
+```termimal
+symfony console debug:event
+```
+
+I'm not going to
 go into the specifics here, but for example, if you listened to, but if you listened
 to the kernel dot request event, these are a bunch of listeners that are called
 before our controller and curl that response is dispatched after our controller sees
 listeners are called after our controller. Well, it turns out that our firewall also
 dispatches several events during the authentication process. And we can also listen
-to those, to see those, to see the listeners attached to that. You need to run debug
-event dash dash dispatcher = and use a special string here to get, uh, the dispatcher
+to those, to see those, to see the listeners attached to that. You need to run 
+`debug:event --dispatcher=` and use a special string here to get, uh, the dispatcher
 for our firewall.
 
-This is security, not the event_dispatcher dot main, uh, that made because main is
-the name of our firewall and awesome, a totally different set of events and listeners
-inside of here. This is really cool. So if we look back at our custom log in form
-authenticator, we're not using this anymore, but can kind of help us understand what
-events are dispatched through the process. So in our authenticate method, our job is
-to return the passport. After we returned to passport from authenticate, after any
-authenticator, after the authentication method is called on any authenticator Symfony
-dispatches the Czech passport event, there are a bunch of cool listeners inside of
-here. The user provider listener is basically responsible for loading the user. The
-check credentials user is responsible for checking the password. CSRF checks the CSRF
-and logging and throttling checks the log and throttling. Then if we fail
+This is `security.event_dispatcher.main`, uh, that made because main is
+the name of our firewall 
+
+```terminal-silent
+symfony console debug:event --dispatcher=security.event_dispatcher.main
+```
+
+and awesome, a totally different set of events and listeners
+inside of here. This is really cool. So if we look back at our custom 
+`LoginFormAuthenticator`, we're not using this anymore, but can kind of help us understand what
+events are dispatched through the process. So in our `authenticate()` method, our job is
+to return the `Passport`. After we returned to passport from authenticate, after any
+authenticator, after the `authenticate()` method is called on any authenticator Symfony
+dispatches the `CheckPassportEvent`, there are a bunch of cool listeners inside of
+here. The `UserProviderListener` is basically responsible for loading the user. The
+`CheckCredentialsListener` is responsible for checking the password. CSRF checks the CSRF
+and `LoginThrottlingListener` checks the log and throttling. Then if we fail
 authentication, there's a remember me listening to that clears their mermaid cookie.
 If we're successful, the log-in success event is dispatched and it also has a number
 of, uh, listeners on it, including the middle listener that sets the remember me,
 cookie there's also an event for logging out so you can control what happens on log
-out. And this is a little more subtle, but one called token D authenticated
+out. And this is a little more subtle, but one called `TokenDeauthenticatedEvent`
 
-And an older one called security authentication success. Knowing about these events
+And an older one called `security.authentication.success`. Knowing about these events
 is critical because I want to make it so that If I try to log in as a user whose
 email has not been verified, I want to prevent the user from logging in. So if you
 want to stop authentication for some reason, then you're going to want to listen to
-the Czech passport event. So let's create an event subscriber. So any source
+the `CheckPassportEvent`. So let's create an Event Subscriber. So any source
 directory doesn't matter where I put this, but I'm going to create a new directory
-called events, subscriber, and inside of there. And you class called check verified
-Abuser subscriber, And I'll make this implement the events subscriber interface, and
+called `EventsSubscriber/`, and inside of there. And you class called 
+`CheckVerifiedUserSubscriber` And I'll make this implement the `EventSubscriberInterface`, and
 then I'll go to code generate or Command + N on a Mac and go to "Implement Methods"
-to generate the one method we need, which is get subscribed events.
+to generate the one method we need, which is `getSubscribedEvents()`.
 
 And some of here I'm going to return an array of all the events we're going to listen
-to, or try now is just one. So we can say check the passport event, ::class, and
+to, or try now is just one. So we can say `CheckPassportEvent::class`, and
 assign that to the method that we want. The methadone's class that should be called
-when that event is dispatched. I'm gonna say on and check the passport up above this.
-I'll say public function on check the passport. And this is going to be past this
-event object. So check the passport event event. And let's just D the, that event to
-see what it looks like now, just by creating a class and making it implement events,
-subscriber interface, Symfony is going to use this things to auto configure. And if
+when that event is dispatched. I'm gonna say `onCheckPassport` up above this.
+I'll say public function `onCheckPassport()`. And this is going to be past this
+event object. So `CheckPassportEvent $event`. And let's just `dd()` the, that `$event` to
+see what it looks like now, just by creating a class and making it implement 
+`EventSubscriberInterface`, Symfony is going to use this things to auto configure. And if
 you want to get in the weeds, it's technically going to listen to the Disney check
 password event on all firewalls, which for us, we only have one really only have one
 firewall. So it doesn't matter. But if you did have multiple real firewalls, then if
@@ -73,41 +85,41 @@ password, uh, only after the valid email and valid password. So we want both of 
 to happen. So we're gonna set a negative priority, panic, excuse myself. So do that.
 We can pass an array in here and say negative 10. So now we're going to have to put
 in a valid email address and valid password, and only then will our event get called.
-So I'm going to go back to Avalara CA admin,
+So I'm going to go back to `abraca_admin@example.com`
 
-At example, dot com, password cutoff and beautiful, because that was a valid login.
+password cutoff and beautiful, because that was a valid login.
 It stopped in check out this event, and this is awesome. We're past so many good
 things. We're past the authenticator that's being used in case we need to do
 something different based on the authenticator. And we're also passed the passport,
 which is huge because that contains the user. And it also contains any badges that we
 added to it, because sometimes you need to do different things based on the badges
 that are on your passport. So inside of our subscriber, let's get to work in order to
-get the user. We first need to get the passport, the passport = event->get passport.
-And now I'm gonna say, if not passport, in instance of User interface, then throw an
+get the user. We first need to get the passport, the `$passport = $event->getPassport()`.
+And now I'm gonna say, if not `$passport`, in instance of `UserPassportInterface`, then throw an
 exception.
 
 This is not really important. Um, in reality, if I hit shift, shift my for passport
 dot PHP, what every authenticated returns is this passport object here, which
-implements this user passport interface. What, so in reality, all of our passwords
+implements this `UserPassportInterface`. What, so in reality, all of our passwords
 are going to implement this. This interface means that the passport is going to have
-a get user method on it that you can call to fetch the user. That means down here, we
-can say user = passport arrow, get user, and then I'll do a little sanity check
-there. If the user's not an instance of our user class, then I'll also throw an
+a `getUser()` method on it that you can call to fetch the user. That means down here, we
+can say `$user = $passport->getUser()`, and then I'll do a little sanity check
+there. If the `$user` not an instance of our `User` class, then I'll also throw an
 exception, Unexpected user type. And that's not really possible, but that's going to
 make our editor happy. Cause it, now it knows what our user, we have, what our users
 in instance of. And it's also going to, if you stack analysis like PHP standard
 Psalm, it's going to make that happen as well.
 
-Finally, we can check it. The user's verified. If not user Aero is verified, get is
+Finally, we can check it. The user's verified. If not `$user->getIsVerified()`, get is
 verified, then let's fail indication. How do we fail on occasion? At any time during
-the process, you can throw a new authentication exception from security, and that
+the process, you can throw a new `AuthenticationException` from security, and that
 will cause authentication to fail. There are a bunch of subclasses of this like bad
 credentials, exception. You can throw any of those as long as they all extend
 authentication exception. That will cause the process to fail. Check it out. Let me
 refresh here and got it. And authentication exception occurred. That is the generic
 error message that is tied to authentication exception, not a very good error
 message, but it did get the job done. How can we customize that error message by
-throwing a very cool new custom user message, authentication exception, and inside of
+throwing a very cool new `CustomUserMessageAuthenticationException()`, and inside of
 here, we can say, please verify your account before logging in.
 
 So let me explain this class here. If you all command or control and click to open
