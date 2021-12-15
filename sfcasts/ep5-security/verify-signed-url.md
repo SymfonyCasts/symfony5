@@ -1,81 +1,104 @@
 # Verifying the Signed Confirm Email URL
 
-Coming soon...
+We're now generating a signed URL that we would *normally* include in a "confirm
+your email address" that we send to the user after registration. To keep things
+simpler, we're just rendering that URL onto the page after registration.
 
-Let's try it! I
-refresh the page. Now I get a terrible error. A binding is configured for an argument
-named form logging authenticator under _defaults, but no course dawning argument has
-been found. So until a few minutes ago, we had an argument to our register action
-that was called far `FormLoggingAuthenticator` over in our `config/services.yaml`
-file. We set up a global bind that said when the arguments used to pass
-this service, one of the cool things about bind is that if this argument doesn't
-isn't used anywhere in your application, it actually throws an exception. It's kind
-of trying to help you make sure you're not making a mistake or making a type of
-anyways. Now that we're not using this anymore, we can delete it. And now our
-registration Page finishes. All right. So let's go into, let's go through this
-process.
+## Removing our Unused Bind
 
-Great. Some new user or agree to the terms and register beautiful. So you can say
-here is our long URL and it's going to R `/verify` controller. It includes an
-expiration. That's something you can configure, how long your, these links, uh,
-include any signature. That kind of, sort of guarantees that the user couldn't just
-make up the, see where all had to have come from their email. It also includes a
-little at I, an `id=18`. That's our user ID. So our job now is to go into the
-verified controller down here. And we're going to validate that that signed URL is
-valid. Do that first thing we're gonna need is actually, we're gonna need a couple of
-arguments here. First, we're going to need some things, `Request` objects that we can
-read, uh, the URL. We're also going to need the
+Let's go see what it looks like. Refresh and... ah! A terrible-looking error!
 
-`VerifyEmailHelperInterface` arguments, cause that's gonna help us validate the URL. And
-the last thing we're gonna need is actually the `UserRepository`. So we can query for
-the user so that we, that last step is actually the first one. So I'll say
-`$user = $userRepository->find()`, and then I'm going to see what users logged in by reading
-that `id` query parameter. So we can do that `$request->query->get('id')`. And
-for some reason we don't find that user in our system that shouldn't happen, but we
-will throw `$this->createNotFoundException()`. So that's just a 4 0 4 error
+> A binding is configured for an argument named `$formLoggingAuthenticator` under
+> `_defaults`, but no corresponding argument has been found.
 
-Next to validate that this signed URL hasn't been tampered with and is valid news, a
-try-catch block. Instead of here, we're gonna say `$verifyEmailHelper->validateEmailConfirmation()`
-and we're going to pass this a couple of things. The
-first is going to be the sign you were else in the actual current URL. You can get
-that with `$request->getUri()` So what, the second thing we need to do passes
-the user ID. So `$user->getId()` and then `$user->getEmail()`, actually make sure
-that the user ID and user email haven't changed in the database since the
-verification email was sent. Now, if this is successful, nothing will happen. If it
-fails, it will throw a special exception called a `VerifyEmailExceptionInterface`.
-So down here, now we know that, uh, validation, uh, failed somebody maybe messed with
-the URL. It could be a bad character. So let's use that `addFlash()` again, this time I'm
-going to invent kind of a different category called `error`, and then to say went
-wrong. We can say `$e->getReason()`. Cause maybe the signature was invalid or maybe
-the, um, the link has expired
+So until a few minutes ago, we had an argument to our `register()` action that was
+called `$formLoginAuthenticator`. Over in `config/services.yaml`, we
+set up a global "bind" that said:
 
-And then we will use redirect route and we'll send them back. How about to the
-registration page? So he has some sort of an error with that and send them back to
-really any page. It doesn't matter. And down here, I'm still going to say, just add,
-add to two for the successful situation. Now, in order for these error message to be
-rendered, I'm going to go back to base studies of twig. And we're just going to
-duplicate this block here. Look for `error` messages, use `alert-danger`, and then print
-those out as well. Phew.
+> Whenever and autowired service has an argument named `$formLoginAuthenticator`,
+> please pass them this service.
 
-All right. Let's try and be kind of air case. So let's pretend that we are sent this
-email and click the whole thing. I'm going to open this in a new tab and if I don't
-mess with it, it works. It hits our to do, which means that this was validated. If I
-mess around with any part of this, I could just like delete a couple characters out
-of the signature. It's going to fail the link to your verified email is invalid.
-Please request a new link. So cool. So at the bottom of our controller, now that we
-know that the validation link is true, we are done. So in our case, what we want to
-do is say, `$user->isVerified(true)` and store that in the database.
+One of the cool things about bind is that if there is *no* matching argument
+anywhere in our app, it throws an exception. It's trying to make sure that we're
+not making an accidental typo anywhere.
 
-And then we'll save that. So I will add one more argument here and see
-`EntityManagerInterface $entityManager`, and then down here, we'll say, and
-`$entityManager->flush()`. So
-it saves that new user. And then we'll add a little success, a little success, flash
-message account verified. You can now log in at the bottom. We'll redirect them to
-`app_login`. Now, if you wanted, you could do one better here. You could in the same
-way, you could actually manually authenticate the user in the same way that we were
-manually authenticating to before inside of our registration controller. That's
-totally doable. All right. So let's, let's go back over here and I will copy that
-link again, paste and we are verified. Sweet me only missing feature is something
-that prevents the user from logging in before they're verified to do that. Let's
-learn about the events that happen inside of the security system and show off another
-cool feature that leverages those events, login throttling.
+In our situation, we just don't need that argument anymore... so we can delete it.
+And now... our registration page finishes!
+
+## Checking out the Verify URL
+
+So let's try it! Enter an email, some password, agree to the terms and hit register.
+Beautiful! Here is our email confirmation URL. You can see that it goes to
+`/verify`: that will hit our new `verifyUserEmail()` action. It also includes
+an expiration. That's something you can configure... it's how long the link
+is valid for. And it has a `signature`: that's something that, once we verify
+it, will prove that the user didn't just make up this URL: it definitely came
+from us.
+
+It also includes an `id=18`. That's our user id.
+
+## Verifying the Signed URL
+
+So our job now is to go into the `verifyUserEmail` controller method down here
+and *validate* that signed URL. To do that, we're going to need a couple of arguments:
+the `Request` object - so we can read data from the URL - a
+`VerifyEmailHelperInterface` argument to help us validate the URL - and finally,
+our `UserRepository`, so we can query for the `User` object.
+
+And actually, that's the first thing we need to do. Say
+`$user = $userRepository->find()` and find the user that this confirmation link
+belongs to by reading the `id` query parameter. So, `$request->query->get('id')`.
+And if, for some reason, we can't find `User`, let's trigger a 404 page by throwing
+`$this->createNotFoundException()`.
+
+*Now* we can make sure that the signed URL hasn't been tampered with. To do that,
+add a try-catch block. Inside, say `$verifyEmailHelper->validateEmailConfirmation()`
+and pass in a couple of things. First, pass the actual current URL, which we
+can get with `$request->getUri()`. Next pass the user's id - `$user->getId()` then
+the user's email - `$user->getEmail()`. This makes sure that the id and email haven't
+changed in the database since the verification email was sent. The id *definitely*
+hasn't changed... since we just used it to query... this part only really applies
+if you rely on the user being logged in to verify their email.
+
+Anyways, if this is successful... nothing will happen! If it fails, it will throw a
+special exception that will implement `VerifyEmailExceptionInterface`. So down here,
+we know the verifying the URL has failed... maybe someone messed with the URL. Or,
+more likely, it's expired. Let's tell then the reason by leveraging the flash
+system again. Say `$this->addFlash()` but this time put it into a different category
+called `error`. Then, to say went wrong, use `$e->getReason()`. Finally, use
+`redirectRoute()` to send them somewhere. How about the registration page?
+
+To render the error, back in `base.html.twig`, duplicate this entire block,
+but look for `error` messages and use `alert-danger`.
+
+Phew! Let's try the error case. Copy the URL then open a new tab and paste. If
+I go to this *real* URL... it works. Well, we still need to do some more coding,
+but it hits our TODO at the bottom of the controller. *Now*, mess with the URL,
+like remove a few characters... or try to tweak the expiration or change the
+`id` part. Now... yes! It failed because our link is invalid. If the link were
+expired, you would see a message about that.
+
+So, finally, let's finish the happy case! At the bottom of our controller, now that
+we know that the verification link *is* valid, we are done. For our app, we can
+say `$user->isVerified(true)` and store that in the database.
+
+To do that... add one more argument: `EntityManagerInterface $entityManager`. Then,
+down here, say `$entityManager->flush()` to save that change. And let's give
+this a happy success message:
+
+> Account verified! You can now log in.
+
+Well, the truth is, we're not *yet* preventing them from logging in before they
+verify their email. But we *will* add that soon. Anyways, finish by redirecting
+them to the login page: `app_login`.
+
+If you wanted to be *even* cooler, you could choose to manually authenticate the
+user in the same way that did earlier in our registration controller. That's totally
+ok and up to you.
+
+Back in my main tab... copy that link again, paste and... we are verified! Sweet!
+
+The only thing left to do is to prevent the user from logging in until they've
+verified their email. To do that, we first need to learn about the events that happen
+inside of the security system. And to show off *those*, we'll leverages a really
+cool new feature: login throttling.
