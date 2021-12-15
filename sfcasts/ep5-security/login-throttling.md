@@ -1,69 +1,100 @@
-# Login Throttling
+# Login Throttling & Events
 
-Coming soon...
+Symfony's security system comes packed with a lot of cool stuff, like remember me,
+impersonation and voters. Heck, it even has built in support for a "login link"
+authenticator - also known as "magic login links". That's where you email a link
+to your user and they click *that* to log in.
 
-Um, simply a secure system has a lot of cool stuff in it. Like remember me, cookies,
-impersonation voters even has built in support for eight magic link authenticator,
-where you email a link to your user and they click that to log in one other really
-cool feature is log-in throttling a way to prevent someone from a single IP address
-from testing passwords on your site, by trying to log in over and over and over and
-over again. And it's super easy to use. So under your firewall, all you need to do is
-enable it. So you can do that by saying `login_throttling: true`
+One other really cool feature is login throttling: a way to prevent someone from
+a single IP address from testing passwords over and over again on your site... by
+trying to log in over and over and over again. And it's super easy to use.
 
-If you stop right there and refresh any page, you're going to get that air. It says,
-this requires the rate limiter component. Cool. Let's copy that composer require line
-spin or whatever terminal and Ron 
+## Activating login_throttling
+
+Under your firewall, enable it with `login_throttling: true`.
+
+If you stopped right there... and refreshed any page, you're going to get an error:
+
+> Login Throttling requires the RateLimiter component.
+
+And then a *helpful* command to install it! Nice! Copy that, spin over to your
+terminal and run:
 
 ```terminal
 composer require symfony/rate-limiter
 ```
 
-This package has a also installed something called `symfony/lock`, which has a recipe
-I'll run, get status to see what it did. Interesting. So create a new 
-`config/packages/lock.yaml` file, and also modified our `.env`. So in order to sort of keep
-track of, who's been trying to log in the log and throttling system needs to store
-that data somewhere. And it used the `symfony/lock` component to do that inside of
-our `.env` file at the bottom. There's a new `LOCK_DSN`, which is set to summit summit
-for this is basically a string. And you can see example above of storing the locks in
-Postgres of where to store this information. Uh, `semaphore` is the easiest place to store
-stuff.
-
-It's an easy way to keep track of things on a single machine. So if you had multiple
-servers, you would need to use something else like Postgres or Redis, but this will
-work great for our situation. And that's it. The rate limiter components going to S
-the logging throttling is gonna start using the, uh, lock component. The lock
-component will S savings at the Semafore, which otherwise we can try this for
-refresh. It works again. So by default, it's going to block five log in attempts from
-the same user. So one do three or five. Now the sixth one doesn't work and it locks
-you out. It also blocks, um, attempts from the same IP address and any email. If you
-hit 50 of those within a minute, I need to look up the specifics on that. All of this
-can be configured and it's documented how you can configure it. And we can even say
-some of the configuration options by running 
+This package also installs a package called `symfony/lock`, which has a recipe.
+Run:
 
 ```terminal
-symfony console debug:config:security
+git status
 ```
 
-and seeing the default configuration under that log and thrive. So you can see max
-attempts at five minutes interval one minute.
+to see what it did. Interesting. It created a new `config/packages/lock.yaml`,
+and *also* modified our `.env` file.
 
-So that's just a really cool thing that you get for free. I would recommend using
-this and also potentially using it with something like CloudFlare, which can offer
-you additional production. Um, but one of the most interesting things for us about
-this is how this works. It works via Symfony's listener system. After we log in,
-whether successfully or failed a number of events are dispatched through that
-process, and you can hook into them to do different things. So the code that runs,
-this is actually a listener called `LoginThrottlingListener`. You can open it and
-let it shift + shift `LoginThrottlingListener.php`. And here it is the
-specifics on this aren't too important.
+To keep track of the login attempts, the throttling system needs to store that
+data somewhere. It uses the `symfony/lock` component to do that. Inside of our
+`.env` file, at the bottom, there's a new `LOCK_DSN` environment variable which
+is set to `semaphore`. A semaphore... is basically a super easy way to store this
+data *if* you only have a single server. If you need something more advanced,
+check out the `symfony/lock` documentation: it shows all the different storage
+options with their pros and cons. But this will work *great* for us.
 
-You can see it's using something called a rate limiter that kind of checks thing, and
-ultimately throws this exception, which causes the message that we saw this 
-`checkPassport()`, uh, method `CheckPassportEvent`. It's called every after every
-authentication. I need to get the words right before that. So also another listen to
-I called on successful log in, which is called after we successfully log in and you
-can see it resets the limiter. So once you are successful, it kind of clears things
-out. So this is really cool, and it's kind of our first vision into how the, the
-event system works. Let's look at an event system further next and use it to prevent
-our user from logging in. If their email address is not yet confirmed.
+So, step 1 was to add the `login_throttling` config. Step 2 was to install the
+`rate-limiter` component. And step 3 is... to enjoy the feature! Yea, we're done!
 
+Refresh. No more error. By default, this will only allow *5* consecutive log in
+attempts for the same email and IP address per minute. Let's try it. One, two,
+three, four, five and... the sixth one is rejected! It locks us out for 1 minute.
+Both the max attempts and interval can be configured. Actually, we can see that.
+
+At your terminal, run:
+
+```terminal
+symfony console debug:config security
+```
+
+And... look for `login_throttling`. There it is. Yup, this `max_attempts` defaults
+to 5 and `interval` to 1 minute. Oh, and by the way, this will *also* block the
+same IP address from making 5 *times* the `max_attempts` for *any* email. In other
+words, if the same IP address quickly tried 25 *different* emails, it would still
+block them. And if you want an awesome first line of defense, I would also highly
+recommend using something like Cloudflare, which can block bad users even before
+they hit your server... or enable defenses if your site is attacked from many IP
+addresses.
+
+## Digging into How Login Throttling Works
+
+So... I think this feature is pretty cool. But the most interesting thing for *us*
+about it is how it works behind-the-scenes. It works via Symfony's listener system.
+After we log in, whether successfully or unsuccessfully, a number of events are
+dispatched throughout that process. We can hook *into* those event to do all sorts
+of cool things.
+
+For example, the class that holds the login throttling logic is called
+`LoginThrottlingListener`. Let's... open it up! Hit Shift + Shift and open
+`LoginThrottlingListener.php`.
+
+Awesome. The details inside of this aren't too important. You can see it's using
+something called a rate limiter... which does the checking of if the limit has
+been hit. Ultimately, if the limit *has* been hit, it throws this exception, which
+causes the message that we saw. For those of you watching closely, that exception
+extends `AuthenticationException`... and remember, you can throw an
+`AuthenticationException` at *any* point in the authentication process to make it
+fail.
+
+Anyways, this method is listening to an event called `CheckPassportEvent`. This
+is dispatched after the `authenticate()` method is called from any authenticator.
+At this point, authentication isn't successful yet... and the job of most listeners
+to `CheckPassportEvent` is to do some extra checking and fail authentication if
+something went wrong.
+
+This class also listens to another event called `LoginSuccessEvent`... which... well,
+it's kind of obvious: this is dispatched after any successful authentication. This
+resets the rate limiter on success.
+
+So this is *really* cool, and it's our first vision into how the event system
+works. Next, let's go deeper by discovering that almost *every* part of authentication
+is done by a listener. Then, we'll create our *own*.
