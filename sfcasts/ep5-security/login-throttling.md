@@ -70,7 +70,7 @@ addresses.
 So... I think this feature is pretty cool. But the most interesting thing for *us*
 about it is how it works behind-the-scenes. It works via Symfony's listener system.
 After we log in, whether successfully or unsuccessfully, a number of events are
-dispatched throughout that process. We can hook *into* those event to do all sorts
+dispatched throughout that process. We can hook *into* those events to do all sorts
 of cool things.
 
 For example, the class that holds the login throttling logic is called
