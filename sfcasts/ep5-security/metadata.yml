@@ -38,6 +38,7 @@ chapters:
     - verify-signed-url
     - login-throttling
     - security-listeners
+    - security-subscriber
     - login-failure
     - scheb-2fa
     - qr-code
