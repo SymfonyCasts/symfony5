@@ -11,11 +11,13 @@ trying to log in over and over and over again. And it's super easy to use.
 
 ## Activating login_throttling
 
-Under your firewall, enable it with `login_throttling: true`.
+Under your firewall, enable it with `login_throttling: true`:
+
+[[[ code('32379f1247') ]]]
 
 If you stopped right there... and refreshed any page, you're going to get an error:
 
-> Login Throttling requires the RateLimiter component.
+> Login throttling requires the Rate Limiter component.
 
 And then a *helpful* command to install it! Nice! Copy that, spin over to your
 terminal and run:
@@ -37,13 +39,17 @@ and *also* modified our `.env` file.
 To keep track of the login attempts, the throttling system needs to store that
 data somewhere. It uses the `symfony/lock` component to do that. Inside of our
 `.env` file, at the bottom, there's a new `LOCK_DSN` environment variable which
-is set to `semaphore`. A semaphore... is basically a super easy way to store this
-data *if* you only have a single server. If you need something more advanced,
-check out the `symfony/lock` documentation: it shows all the different storage
-options with their pros and cons. But this will work *great* for us.
+is set to `semaphore`:
+
+[[[ code('1a3da672ac') ]]]
+
+A semaphore... is basically a super easy way to store this data *if* you only
+have a single server. If you need something more advanced, check out the
+`symfony/lock` documentation: it shows all the different storage options with
+their pros and cons. But this will work *great* for us.
 
 So, step 1 was to add the `login_throttling` config. Step 2 was to install the
-`rate-limiter` component. And step 3 is... to enjoy the feature! Yea, we're done!
+Rate Limiter component. And step 3 is... to enjoy the feature! Yea, we're done!
 
 Refresh. No more error. By default, this will only allow *5* consecutive log in
 attempts for the same email and IP address per minute. Let's try it. One, two,
@@ -74,7 +80,7 @@ dispatched throughout that process. We can hook *into* those events to do all so
 of cool things.
 
 For example, the class that holds the login throttling logic is called
-`LoginThrottlingListener`. Let's... open it up! Hit Shift + Shift and open
+`LoginThrottlingListener`. Let's... open it up! Hit `Shift`+`Shift` and open
 `LoginThrottlingListener.php`.
 
 Awesome. The details inside of this aren't too important. You can see it's using
