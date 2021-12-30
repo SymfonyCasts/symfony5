@@ -20,7 +20,7 @@ head to the Installation page.
 Cool! Let's get this thing installed! At your terminal, run:
 
 ```terminal
-composer require 2fa
+composer require "2fa:^5.13"
 ```
 
 Where 2fa is a Flex alias to the actual bundle name.
