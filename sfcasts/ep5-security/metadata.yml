@@ -42,5 +42,6 @@ chapters:
     - login-failure
     - scheb-2fa
     - totp
+    - activating-2fa
     - qr-code
     - 2fa-customize
