@@ -1,80 +1,112 @@
-# Login Failure
-
-Coming soon...
+# Custom Redirect when "Email Not Verified"
 
 It's cool that we can listen to the `CheckPassportEvent` and cause authentication to
-fail by throwing any authentication exception like this 
-`CustomUserMessageAuthenticationException`. But what if instead of the normal authentication failure
-behavior, where we redirect the log-in page and show the error, we want to do
-something different, like redirect to a totally different page in just this
-situation. Well, unfortunately there's not a way on this event, object to control the
-response. We don't have like a event set response or anything like that. So we can't
-control the error behavior from here, but we can control what happens when there's an
-air from a different listener. Then we can have the both listeners work together as a
-team to do this. We first need to create our own custom authentication exception
-class. So in the `Security/` directory, okay. A new class, it could be called anything.
-I'll call `AccountNotVerifiedAuthenticationException`, and then I will make it
-extend `AuthenticationException`. Cool. But I'm going to do nothing in here. It's just
-going to be a marker interface, a marker class back inside of our subscriber inside
-of our custom class `CustomUserMessageAuthenticationException`. Let's now throw
-`AccountNotVerifiedAuthenticationException`.
+fail by throwing any authentication exception like this
+`CustomUserMessageAuthenticationException`. But what if, instead of the normal
+failure behavior - where we redirect to the login page and show the error - we want
+to do something different. What if, in *just* this situation, we want to redirect
+to a totally *different* page so we can explain that their email isn't verified...
+and maybe even allow them to resend that email.
 
-We don't need to pass it. Any message. Now if we stopped right now, that's not very
-interesting. We are just going to go back to our very odd an 
+Well, unfortunately there's not a way - on this event - to control the failure
+response. There's no `$event->setResponse()` or anything like that.
 
->An authentication exception occurred message
- 
-So leave that for a second. And let's now add another
-listener. Remember from our debug event that one of the listeners we have is it
-log-in failure event, which as the name sounds is called every dispense. Every time
-log-in fails, let's add another listener right in this class for that. So I'll say
-`LoginFailureEvent::class`, and then we'll call `onLoginFailure`. This
-case the priority is not, does it won't matter. Okay. Call it function `onLoginFailure()`
-And we know that this way, pass it a `LoginFailerEvent` argument,
-software that there, and then let's just `dd($event)` to make sure that it's called.
+So we can't control the error behavior from here, but we *can* control it by
+listening to a *different* event. We'll "signal" from *this* event that the account
+wasn't verified, *look* for that signal from a different event listener, and
+redirect to that other page. It's ok if this doesn't make sense yet: let's see it
+in action.
 
-So with any luck, if we fail, if we fail log in, for any reason, this will be caught.
-So for example, if I put in a bad password here, yes, it hits it. It hits and notice
-this log and failure event has an exception. Properties had two `BadCredentialsException`
-Now let me log in with the correct password and it got hit again. But this
-time check out the exception. It's our custom `AccountNotVerifiedAuthenticationException`
-So the `LoginFailureEvent` object contains the exception that caused a
-failure. We can use that to know from this method, if authentication failed due to
-the account, not being verified, if it did, we can do something different. So first
-it's not, if you're like, let's check for that. If not `$event->getException()`
-instance of `AccountNotVerifiedAuthenticationException`, then let's just return. So if it's some
-other type of exception, we're going to do nothing and let the normal behavior happen
-down here.
+## Creating a Custom Exception Class
 
-We're going to redirect to a new page. Let's go create that page real quick. So let's
-do it in `src/Controller/RegistrationController` down here on the bottom. Let's
-make a new method. I'll call it, `resendVerifyEmail()` and above this. We'll add our
-route that `@Route()`. How about `/verify/resend` name equals `app_verify_resend_email` inside
-of here. I'm not. I'm just going to render a template as a return. `$this->render()`
-`registration/resend_verify_email.html.twig` cool inside of the 
-`template/registration/` directory. That's create a new file.
-`registration/resend_verify_email.html.twig`
+To start, we need to create a *custom* authentication exception class. This will
+serve as the "signal" that we're in this "account not verified" situation.
 
-And I'm just going to paste in a template. So there's nothing fancy here at all. It
-just says, verify your email to explains the situation. And then there's a button to
-resend the email, which I actually I'll leave that up to you. You can make this go to
-a new controller that would use the same method of creating the verification email as
-before. But now that we have a functional page, I'm going to copy this route. And
-instead of subscriber, all we need to do here is redirect there. Now, the way we do
-that is that the log-in failure has a `setResponse()` method where we can take over what
-happens on log-in failure. Okay. So what we're gonna do here is I'm going to say
-`$response = new RedirectResponse()`, and then we're going to generate a URL to that
-route. And then ultimately we'll say `$event->setResponse($response)`
-to generate that you were out, we're going to need the router. So I had to,
-on top of this class, add a `__construct()` method,
+In the `Security/` directory, add a new class: how about
+`AccountNotVerifiedAuthenticationException`. Make it extend `AuthenticationException`.
+And then... do absolutely nothing else. This is just a marker class we'll use to
+hint that we're failing authentication due to an unverified email.
 
-Spell it correctly. They `RouterInterface $router` arguments, hit all. Tenter go to
-initialize properties to create that property and set it and down here, we're in
-business. `$this->router->generate()` then `app_verify_resend_email`. Oh, that's so cool. So
-we fail. We call that authentication to fail with this custom exception. We listened
-to that a customer exception and override what happens on logging failure. Let's try
-it. So I need to do is refresh this page and got it. Where sent over to 
-`/verify/resend` love that next team. Let's do something super cool, super fun, super nerdy.
-Let's add a two factor authentication to our site complete with QR codes and
-everything.
+Back in the subscriber, replace the `CustomUserMessageAuthenticationException` with
+`AccountNotVerifiedAuthenticationException`. We don't need to pass it *any* message.
 
+If we stopped right now, this won't be very interesting. Logging in still fails, but
+we're back to the generic message:
+
+> An authentication exception occurred
+
+This is because out new custom class extends `AuthenticationException`... and that's
+the generic message from that class. So this isn't what we want yet, but step 1
+*is* now done.
+
+## Listening to LoginFailureEvent
+
+For the next step, remember from the `debug:event` command that one of the listeners
+we have is for a `LoginFailureEvent`, which, as the name suggests, is called any
+time that authentication *fails*.
+
+Let's add another listener right in this class for that. Say
+`LoginFailureEvent::class` set to, how about, `onLoginFailure`. In this case, the
+priority won't matter.
+
+Add the new method: `public ffunction onLoginFailure()`... and we know this will
+receive a `LoginFailureEvent` argument. Just like before, let's start with
+`dd($event)` to see what it looks like.
+
+So with any luck, if we fail login - for any reason - our listener will be called.
+For example, if I enter a bad password, yup! It gets hit. And notice that the
+`LoginFailureEvent` has an exception property. In this case, it holds a
+`BadCredentialsException`.
+
+Now log in with the correct password and... it got hit again. But *this* time, check
+out the exception. It's our custom `AccountNotVerifiedAuthenticationException`! So
+the `LoginFailureEvent` object contains the authentication exception that *caused*
+the failure. We can use that to know - from this method - if authentication failed
+due to the account not being verified. And then, we can do something different.
+
+## Redirecting when Account is Not Verified
+
+So, if *not* `$event->getException()` is an instance of
+`AccountNotVerifiedAuthenticationException`, then just return and allow the default
+failure behavior to do its thing.
+
+Finally, down here, we know we should redirect to that custom page. Let's... go create
+that page real quick. Do it in `src/Controller/RegistrationController.php`. Down
+here at the bottom, add a new method. I'll call it `resendVerifyEmail()`. ABove
+this, add `@Route()` with, how about `/verify/resend` and name equals
+`app_verify_resend_email`. Inside, I'm just going to render a template: return
+`$this->render()`, `registration/resend_verify_email.html.twig`.
+
+Let's go make that! Inside of the  `templates/registration/` directory, create
+`resend_verify_email.html.twig` I'll just paste in the template: there's nothing
+fancy here at all. It just says: "verify your email" and explains the situation.
+
+I *did* include a button to resend the email, but I'll leave the implementation
+to you. I'd probably surround it with a form that POSTs to this URL. And then,
+in the controller, if the method is POST, you can use the verify email bundle
+to generate a new link and re-send it.
+
+Anyways, now that we have a functional page, copy the route name and head back
+to our subscriber. To override the normal failure behavior, we can use a
+`setResponse()` method on the event.
+
+But we need the response first:  `$response = new RedirectResponse()`... and
+we're going to generate a URL to that route in a minute. Use
+`$event->setResponse($response)` to use this.
+
+To generate the URL, we need a `__construct()` method - let me spell that correctly -
+with a `RouterInterface $router` argument. Hit Alt+Enter and go to initialize
+properties to create that property and set it.
+
+Back down here, we're in business: `$this->router->generate()` passing
+`app_verify_resend_email`.
+
+That's it! We fail authentication, our first listeners throws that custom exception,
+we look for that exception from the `LoginFailureEvent` and set the redirect.
+
+Let's try it! Refresh and... got it! We're sent over to `/verify/resend`. I love
+that!
+
+Next: let's finish this tutorial by doing something *super* cool, super fun and...
+kinda nerdy. Let's add two factor authentication to our site, complete with fancy
+QR codes.

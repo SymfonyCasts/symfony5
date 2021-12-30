@@ -1,157 +1,129 @@
-# Scheb 2fa
+# 2 Factor Authentication & Authentication Tokens
 
-Coming soon...
+For our last topic in this tutorial, we're going to do something fun: add two factor
+authentication. This can take a few different forms, but the basic flow looks like
+this, you're probably familiar. First, the user submits their valid email and
+password to the login form. but then instead of that logging them in, they're
+redirected to a form where they need to enter a temporary code.
 
-For our last topic in this tutorial, let's do something fun. We're going to have two
-factor authentication, and this can take a few different forms, but the basic flow
-looks like this. You're probably familiar first, the user logs in, but then instead
-of actually being logged in. So instead of logging, I should have said submit and
-user email and password. They're redirected to a form where they need to enter a
-temporary code.
+This code could be something that we email to them or text to their phone... or it
+could be a code from an authenticator app like Google authenticator or Authy. Once
+the user fills in the code and submits, *then* they are finally logged in.
 
-This code might be something that we just emailed or texted their phone, or it could
-be a code from an authenticator app like Google authenticator or offi. Then once the
-user fills in the code and submits the form, boom, now they are really logged in, in
-the symphony world. We are super lucky to have a fantastic library, to help with two
-factor off search for symphony to FFA, to find these Chev slash a library, scroll
-down and click into the documentation which lives on symphony.com. And then let's go
-down here to installation. As you can see, the live, the degradation has library is
-awesome to install it. Easy enough. Composer required to FFA, where to IFA isn't
-alias flex alias to the actual bundle name. So I'll find my terminal and run that
+## Insstalling The scheb/2fa-bundle
+
+In the Symfony world, we're *super* lucky to have a *fantastic* library to help
+with two factor auth. Search for Symfony 2fa to find the scheb/2fa library.
+Scroll down... and click into the documentation, which lives on Symfony.com. Then
+head down to Installation.
+
+Cool! Let's get this thing installed! At your terminal, run:
 
 ```terminal
 composer require 2fa
 ```
 
-Once it finishes, I'll run and get status to see that the bundle added a new
-configuration file and also a new routes file. That routes file, which is config
-routes, shed underscore to have a dynamical as two routes to our system. The first is
-I route that's going to render the enter the code form. And the second route is the
-URL that this form is going to submit to. All right, once I back the docs and keep
-going down here. So step two is enable the bundle flex to that automatically. Step
-three, define the routes. The recipe did that automatically. And step four is
-configure the firewall. This part we do need to do
+Where 2fa is a Flex alias to the actual bundle name.
 
-Start by copying the two factor stuff and then go over to config packages, security
-dot Yammel. So this, these live anywhere under our main. I'll put it down here at the
-login form and I will remove the comment what the two of and two, if I log in check
-are referring to are the route names in our routes file. What this two factor key
-does here is it activates a new authenticator. In this case, this authenticator is
-going to be watching for form submits to that. Enter the code form that we're going
-to see in a few minutes. This also has a couple of access controls, which are a good
-idea. I'll copy those and put those on top of our access control. So the second one,
-make sure that you can't go to slash to a bay. That's the URL that renders a form.
-You can't do that unless you have this special role. That means you're right in the
-middle of the two factor authentication process this up here slash log out this, just
-make sure that if you want to, during that process, you can go to slash log out to
-log out, but change this to public underscore access.
+Once this finishes... I'll run `git status` to see the bundle's recipe did. Cool:
+it added a new configuration file... and also a new routes file.
 
-Finally, the last step in the configuration is to configure these security token. So
-the way this works is that once we log in the two factor, once we enter submit the
-login, a log from a password
+That routes file, which lives at `config/routes/scheb_2fa.yaml`, adds two routes
+to our system. The first route will render the "enter the code form" that we see
+after submitting our email and password. The second route is the URL that this form
+will submit to.
 
-[inaudible] [inaudible],
+## Bundle Configuration / Setup
 
-Once we submit the email and password box to log in, the two factor authentication
-system is going to look at that and decide whether or not it should start the two
-factor authentication process and redirect the user to the form or not. Cause if you
-think about it, we want this to happen on our email and password form, but you
-wouldn't want this to necessarily happen. Um, if you were using API token
-authentication, so we haven't talked about it much, but technically whenever you log
-in you, your logging system logs you in with a certain type of token. This top token
-class here is actually the token that you're logged in. As if you use the form
-underscore logging authenticator. It's a little tricky to see, but if you hit shift,
-shift and search for a log in form authenticator, find the one core in the core of
-symphony inside of it, it has a create authenticated token method, which returns a
-new username password token. So if we log in via this authentication mechanism, and
-this token is listed our Chev to Aveda yellow file, the two factor authentication
-process will take over.
+Back at the docs, let's walk through this. Step 2 - enable the bundle was done by
+Flex automatically and step 3 - define the routes - was handled thanks to the recipe.
+Nice!
 
-So let's go look at what our file looks like. So config packages should have to
-factor that Yammel into the only one by fault is username, password token. And we're
-going to leave that, notice this last comment down here, if you're using
-authenticator based security, you have to use this one. So by default, if you use a
-custom authenticator, this is the token class that you have the reason for that.
-Instead, if you go into source security long and former authenticator to look at the
-authenticator that we were using earlier, it extends abstract log in form
-authenticator. And if you'll hold command or control that, open that and scroll down,
-actually open that. And then it checked it's based class it's create authenticated.
-So can creates this new post authentication dope. And so by default, this is the
-token glass that you get. So the token classes aren't that important, but they kind
-of identify which authentication mechanism you used. And by leveraging that and Chev
-in this configuration file, you can tell the two factor authentication library, which
-methods of authentication required, two factor authentication, and which don't, if
-you were using a custom authenticator, if you were using two custom authenticators
-and only one of them needed two factor authentication, you would actually need to
-create a custom token class so that you could differentiate between the two, well, a
-bit more advanced, but I wanted to mention that anyways for us. We're cool because
-that's the token that we're using.
+Step 4 is configure the firewall. This part we *do* need to do.
 
-All right. So that's it for the basic setup. The next thing inside this bundle is to,
-um, choose which authentication method you want. And there's kind of, there's three
-choices here where there's sort of two choices. The first two choices are a standard
-authenticator app like Google authenticator or offi, or you can send a code via email
-or text message. I'm going to use tot P authentication, which is basically the same
-as Google authenticator. Cause I'm one which will allow your user to use off the or
-Google authenticator to get a code. Now, first up, and this is actually this code
-lives in a separate library. Some of the copy that composer require line it's been
-over and get it installed in this case, 
+Start by copying the `two_factor` stuff. Then open up
+`config/packages/security.yaml`. This new config can live anywhere under our
+`main` firewall. I'll paste it after `form_login`... and we can remove this
+comment: it was highlighting that `2fa_login` should match the route name in
+our routes file, which it does.
 
-```terminal
-composer require scheb/2fa-totp
-```
+Remember that the job of *most* of the keys under our firewall is to activate
+another *authenticator*. And this `two_factor` key is no exception: this activates
+a new authenticator that handles the "enter your code" form submit that we'll
+see in a few minutes.
 
-there was no recipe or anything fancy. It's
-just installing a library. Next, if you had back to the documentation, we are going
-to enable this as a authentication as a two factor method inside of our configuration
-file. So that's back in config packages, Shev two factor dynamo. I'll paste that in
-there. And,
+The README also recommends a coupone of access controls, which are a good idea.
+Copy those... and put paste them at the top of our `access_control`.
 
-And the last step, if you look over the documentation is that your user class needs
-to enable any new two factor up a two factor interface. So let's open up our user
-class source entity, user dot PHB, and that two factor interface. I will then go down
-to the bottom of this class and go to code generate or command and on a Mac and
-choose employment methods to generate the three methods that we need. Beautiful. All
-right. Here's how to UTP authentication works. I can kind of see it over in their
-documentation. Each user's going to have each user that decides to activate two
-factor authentication is going to have a T O T P secret a random string that stored
-on a property. This will be used to help validate the code when they enter it. It's
-also going to be used to help the user set up their authenticator app. When they
-first activate two factor authentication, then these methods on here are fairly
-straight forward. You can listen to it returns whether or not authentication is
-enabled, which if that two PT secret is set up, it means it's enabled. Otherwise. It
-means a user has not enabled it. We also may get to UTP authentication username. This
-is used, um, this is used to
+This second one makes sure that you can't go to `/2fa` - that's the URL that renders
+the "enter your code" form unless you *have* already submitted your valid email
+and password. When you're in that, sort of, "in between" state, the 2fa bundle
+will make sure that you have this `IS_AUTHENTICATED_2FA_IN_PROGRESS` attribute.
 
-Help build what the QR code looks like. And then finally down here, there's this TTB
-configuration, which kind of has some rules about how the, um, Code should be
-generated. So I want to start by copying the TTB secret, cause we definitely need
-that and then scroll up to my properties and let's add that. Then I'm going to go
-back down here. And normally I add, um, new properties with a, I make entity command,
-but this one have all this use, not here. I'm going to go to generate getters and
-setters code, generate four T O T B secret. Cool. And then just to make this match,
-my other centers I'll make the, uh, Oh, I'll make the setter, um, return this. And
-actually I'm going to remove, get tot be safer. We don't actually need to get her on
-it and now we're going to access it directly. All right, now let's fill in the logic
-for these three methods, which I'm going to steal from over here. Now we've talked
-about them. So I'll steal the is to a TP authentication enabled method.
+The first entry - for `/logout` - makes sure that if you *are* in that "in between"
+state, you *can* still cancel the login by going to `/logout`. Oh, but change
+this to `PUBLIC_ACCESS`.
 
-[inaudible]
+## Configuring the security_tokens
 
-And then for the return username for us, we can say, turn this arrow. We'll say, get
-user identifier and down here for get to TP authentication and be careful here. I'm
-going to copy what they have and paste it. But then I'm going to do for horizontal.
-Re-type this key here in a tab because that added the use statement on top for me,
-but then very importantly, I'm gonna change this 28 to 30 comma six. This, these are
-configuration about how this is like the number of digits and the period they're
-going to use in the string. If you want to be compatible things like often and Google
-authenticator, you have to use 30 comma six. If you use other values, it's those
-aren't going to work.
+The *last* step in the README is to configure this `security_tokens` config.
 
-Okay. Our user in our system gel is ready. In theory, if we set a T T B secret value
-for one of our users in the database, then if we try to log in as that user, we would
-be redirected to the enter your code screen, but we're missing a step next. Let's add
-a way for a user to activate two factor authentication on their account when they do
-we'll generate a new well, generate this to you at TPC grit and use it to show a QR
-code to the user so that they can set up their authenticator app.
+Let me explain. When we submit a valid email and password into the login form,
+the two factor authentication system - via a listener - is going to decide whether
+or not it should *interrupt* authentication and, instead, start the two factor
+authentication process... where it redirects the user to the "enter the code" form.
 
+If we think about it, we definitely *do* want this to happen when a user logs in
+via our email and password login form. But... you probably *wouldn't* want this
+to happen if, for example, your user was authenticating via an API token. The
+bundle needs a way to figure out whether or not you want 2fa, based on *how*
+the user just authenticated.
+
+We haven't talked about it much, but *technically*, whenever you login, you're
+authenticated with a certain type of *token* object. This token object is... sort
+of a wrapper around the `User` object... and you almost *never* care about it.
+
+But, different authentication systems - like `form_login` or `remember_me` - use
+different token classes... which means you can figure out *how* the user originally
+logged, by looking at the token.
+
+For example, this top token class is actually the token that you get if you login
+via the `form_login` authenticator. I'll prove it. Hit Shift+Shift and search
+for `LoginFormAuthenticator`. Inside... it has a `createAuthenticatedToken()` method,
+which returns a new `UsernamePasswordToken`.
+
+Here's the point. If we login via this authenticator... and the matching token class
+is listed under our `scheb_two_factor` config, then the two factor authentication
+process will take over and redirect the user to the "enter the code" form.
+the two factor authentication process will take over.
+
+Let's go look at what our file looks like: `config/packages/scheb_2fa.yaml`.
+By default, the only uncommented one is `UsernamePasswordToken`, which is *perfect*
+for us.
+
+But notice the last comment. If you're authenticating via a *custom* authenticator -
+like we were doing earlier - then you should use this class.
+
+Let me show you *exactly* why. Open our custom `LoginFormAuthenticator`. We're
+not using this anymore, but pretend we are. This extends
+`AbstractLoginFormAuthenticator`. Hold Cmd or Ctrl to open that... then open
+*its* base class `AbstractAuthenticator`. Scroll down a bit and... hello
+`createAuthenticatedToken`! This returns a new `PostAuthenticatedToken`. And so,
+by default, *this* is the token class you get with a custom authenticator.
+
+These token classes *aren't* super important... they basically all extend the
+same `AbstractToken`... and mostly just help to identify *how* the user logged in.
+
+By leveraging this knowledge, along with the scheb configuration, you can tell the
+two factor bundle *which* authenticators require two factor authentication and which
+don't.
+
+Oh, and if you're using *two* custom authenticators... and only *one* of them needs
+two factor authentication, you'll need to create a *custom* token class and override
+`createAuthenticatedToken` in your authenticator to return that. *Then* you can
+target *just* the custom class here.
+
+Phew! It may not feel like we've done much yet... other than listen to me talk
+about tokens... but the bundle *is* now... basically set up. But next, we need
+to choose *how* our users will get the tokens. Will we email them? Or have them
+use an authenticator app with a QR code? We'll do the second.

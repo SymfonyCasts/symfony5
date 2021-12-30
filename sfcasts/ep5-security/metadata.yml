@@ -41,5 +41,6 @@ chapters:
     - security-subscriber
     - login-failure
     - scheb-2fa
+    - totp
     - qr-code
     - 2fa-customize
