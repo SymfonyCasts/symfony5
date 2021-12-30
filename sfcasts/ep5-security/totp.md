@@ -1,73 +1,78 @@
 # 2fa with TOTP (Time-Based One Time Password)
 
-Coming soon...
+It may not *feel* like it yet, but the bundle *is* now set up... except for one
+big missing piece: how do we want our users to *get* the temporary token that they'll
+enter into the form?
 
-All right. So that's it for the basic setup. The next thing inside this bundle is to,
-um, choose which authentication method you want. And there's kind of, there's three
-choices here where there's sort of two choices. The first two choices are a standard
-authenticator app like Google authenticator or offi, or you can send a code via email
-or text message. I'm going to use tot P authentication, which is basically the same
-as Google authenticator. Cause I'm one which will allow your user to use off the or
-Google authenticator to get a code. Now, first up, and this is actually this code
-lives in a separate library. Some of the copy that composer require line it's been
-over and get it installed in this case,
+In the docs, there are three choices... well kind of only two. These first two options
+are where you use an authenticator app - like Google authenticator or Authy. The
+other option is to send a code via email.
+
+We're going to use this "totp" authentication, which is basically the same as Google
+authenticator and stands for "time-based one time password".
+
+the logic for this actually this in a separate library. So copy the
+composer require line, find your terminal and paste:
 
 ```terminal
 composer require scheb/2fa-totp
 ```
 
-there was no recipe or anything fancy. It's
-just installing a library. Next, if you had back to the documentation, we are going
-to enable this as a authentication as a two factor method inside of our configuration
-file. So that's back in config packages, Shev two factor dynamo. I'll paste that in
-there. And,
+This time there's no recipe or anything fancy: it just installs the library. Next,
+if you head back to the documentation, we need to enable this as a authentication
+method inside the config file. That's back in `config/packages/scheb_2fa.yaml`.
+Paste that at the bottom.
 
-And the last step, if you look over the documentation is that your user class needs
-to enable any new two factor up a two factor interface. So let's open up our user
-class source entity, user.PHP, and that two factor interface. I will then go down
-to the bottom of this class and go to code generate or Command + N on a Mac and
-choose employment methods to generate the three methods that we need. Beautiful. All
-right. Here's how to UTP authentication works. I can kind of see it over in their
-documentation. Each user's going to have each user that decides to activate two
-factor authentication is going to have a T O T P secret a random string that stored
-on a property. This will be used to help validate the code when they enter it. It's
-also going to be used to help the user set up their authenticator app. When they
-first activate two factor authentication, then these methods on here are fairly
-straight forward. You can listen to it returns whether or not authentication is
-enabled, which if that two PT secret is set up, it means it's enabled. Otherwise. It
-means a user has not enabled it. We also may get to UTP authentication username. This
-is used, um, this is used to
+## Implementing TwoFactorInterface
 
-Help build what the QR code looks like. And then finally down here, there's this TTB
-configuration, which kind of has some rules about how the, um, Code should be
-generated. So I want to start by copying the TTB secret, cause we definitely need
-that and then scroll up to my properties and let's add that. Then I'm going to go
-back down here. And normally I add, um, new properties with a, I `make:entity`
-command,
-but this one have all this use, not here. I'm going to go to generate getters and
-setters code, generate four T O T B secret. Cool. And then just to make this match,
-my other centers I'll make the, uh, Oh, I'll make the setter, um, return this. And
-actually I'm going to remove, get tot be safer. We don't actually need to get her on
-it and now we're going to access it directly. All right, now let's fill in the logic
-for these three methods, which I'm going to steal from over here. Now we've talked
-about them. So I'll steal the is to a TP authentication enabled method.
+The last step, if you look over the documentation, is that our `User` class needs
+to implement a `TwoFactorInterface`. Open up our user class: `src/Entity/User.php`,
+and `TwoFactorInterface`... then head down to the bottom of this class and go to
+the Code->Generate menu - or Command + N on a Mac - and choose implement methods to
+generate the three methods we need.
 
-[inaudible]
+Beautiful. Here's how TOTP authentication works. Each user that decides to activate
+two factor authentication for their account will have a TOTP secret - a random
+string - stored on a property. This will be used to validate the code *and* will
+be used to help the user set up their authenticator app when they first activate
+two factor authentication.
 
-And then for the return username for us, we can say, turn $this->. We'll say, get
-user identifier and down here for get to TP authentication and be careful here. I'm
-going to copy what they have and paste it. But then I'm going to do for horizontal.
-Re-type this key here in a tab because that added the use statement on top for me,
-but then very importantly, I'm going to change this 28 to 30 comma six. This, these
-are
-configuration about how this is like the number of digits and the period they're
-going to use in the string. If you want to be compatible things like often and Google
-authenticator, you have to use 30 comma six. If you use other values, it's those
-aren't going to work.
+Then the methods from the interface are fairly straightforward.
+`isTotpAuthenticationEnabled()` returns whether or not the user has activated two
+factor auth... and we can just check to see if the property is set. The
+`getTotpAuthenticationUsername()` method is used to help generate some info on
+the QR code. The last method - `getTotpAuthenticationConfiguration()` - is probably
+the most interesting: it determines how the codes are generated, including the number
+of digits and how long each will last. Usually authenticator apps generate a new
+code every 30 seconds.
 
-Okay. Our user in our system gel is ready. In theory, if we set a T T B secret value
-for one of our users in the database, then if we try to log in as that user, we would
-be redirected to the enter your code screen, but we're missing a step next. Let's add
-a way for a user to activate two factor authentication on their account when they do
-we'll generate a new well, generate this to you at TPC grit and use it to show a QR
-code to the user so that they can set up their authenticator app.
+Copy the `$totpSecret` property, scroll up to the properties in *our* class and
+paste. Then head back to the bottom and use the Code -> Generate menu to generate
+a getters and setter for this. But we can make this nicer: give the argument a
+nullable string type, a `self` return type, and return `$this`... because the rest
+of our setters are "fluent" like this. For the getter... let's delete this entirely.
+We just won't need it... and it's kind of a sensitive value.
+
+Now let's fill in these three methods. I'll steal the code for the first... and
+paste. For the username, in our case, let's return `$this->getUserIdentifier()`.
+That's really just our email.
+
+For the last method, copy the config from the docs... and paste. I'll re-type the
+end of `TotpConfiguration` and hit tab so that PhpStorm adds the `use` statement
+on top.
+
+But, be careful here. Change the 20 to 30, and the 8 to 6.
+
+This says that each code should last for 30 seconds and contain 6 digits. The
+reason I'm using these *exact* values - including the algorithm - is to support
+the Google Authenticator app. Other apps, apparently, allow you to tweak these,
+but Google Authenticator dos not. So if you want to allow you users to use that,
+stick with this config.
+
+
+Okay, our user system is ready! In theory, if we set a `totpSecret` value for
+one of our users in the database, then if we tried to log in as that user, we would
+be redirected to the "enter your code" form. But we're missing a step. Next: let's
+add a way for a user to *activate* two factor authentication on their account. When
+they do that, we'll generate a `totpSecret` and use it to show a QR code that the
+user can scan to set up their authenticator app.
