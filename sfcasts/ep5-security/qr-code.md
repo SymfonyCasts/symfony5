@@ -1,52 +1,126 @@
 # Rendering the QR Code
 
-Coming soon...
+Ok, we've just added a URL the user can go to in order to *enable* two factor
+authentication on their account. What this *really* means is pretty simple: we
+generate a `totpSecret` and save it to their user account. Thanks to this, when
+the user tries to log in, the 2 factor bundle will notice this, and send them
+to the "fill in the code" form.
 
-All right. So the last
-of those processes after user hits this, when we need to show them that QR code,
-that's the key to getting their authenticator app set up back in our security
-controller. That to a TBF indicator actually has a method to kind of do this as tot
-of that-> give QR content and you can pass it. The user object that will read
-the two TPC grit and dump this, which is sort of helpful. This is the URL that an
-authenticator app needs in order to set itself up. You can see it's got our TTB
-identifier and our secret, but it's not very user-friendly. We want to transform that
-into a Q R code. Fortunately, this is also handled by this library. If you scroll
-down a bit, there's a spot about Q R codes. If you want to generate a QR code, you
-need yet one last library. So copy that composer require line spin over and run that
+But, in order to *know* what code to enter, the user needs to set up an authenticator
+app. And to do that, *we* need to render a QR code they can scan.
+
+## Dumping the QR Content
+
+How do we do that? The `$totpAuthenticator` has a method that can help. Try dumping
+`$totpAuthenticator->getQRContent()` and pass it `$user`.
+
+When we refresh we see... a super weird-looking URL! *This* is the info that we
+need to send to our authenticator app. It contains our email address - that'll
+just be a label that will help our app - and most importantly the totp secret,
+which the app will use to generate the codes.
+
+In theory, we could enter this URL manually into an authenticator app. But, pfff.
+That's crazy! In the real world, we translate this string into a QR code image.
+
+## Generating the QR Code
+
+Fortunately, this is *also* handled by the scheb library. If you scroll
+down a bit, there's a spot about QR codes. If you want to generate a QR code, you
+need one last library. Actually, *right* after I recorded this, the maintainer
+deprecated this `2fa-qr-code` library! So, you *can* still install it, but I'll
+also show you how to generate the QR code without it. The library was deprecated
+because, well, it's pretty darn easy to create the QR code even without it.
+
+Anyways, I'll copy that, find my terminal and paste.
 
 ```terminal
 composer require scheb/2fa-qr-code
 ```
 
-While that's working. I'm going to go down and copy this controller from the
-documentation. Then we'll head over to security controller
+But, to use the *new* way of generating QR codes - which I recommend - skip this
+step and instead run:
 
-And I'm going to paste it there. I'm going to tweak the URL here a little bit to be
-/authentication /to FFA /Q R-code. And I'll change the route name
-to an app_QR code. You also need to re-type the R on this QR code
-generator to get the use data for that. Awesome. So what this is is it's actually an
-endpoint that is going to return and image, which is the QR code. So you were using,
-I go to this, we're actually going to implement this as an image tag, but to see if
-it's
-working, we can go over here and actually try that inside of our, you were out and
-awesome QR code. So the last step is that one, the user enables two factor
-authentication. We're going to very simply render template with that image tag to
-this URL. So let's return This error, render security /enabled to FAA that HTML
-that twig, and we don't need to pass in any variables. I'll copy that template name,
-go into template security and create enable to eBay.HTML, twig.
+```terminal
+composer require endroid/qr-code
+```
 
-I don't know,
+While that's working. Head back to the docs... and copy this controller from the
+documentation. Then head back to our `SecurityController` and... paste at the
+bottom. I'll tweak the URL to be `/authentication/2fa/qr-code` and call the route
+`app_qr_code`.
 
-Inside of this, I'm warring and paste a template, which basically just has an h1
-that says use offi or Google authenticator to scan that QR code. There's no arc QR
-code yet to add one, we need to add an image tag with source. What sort of sets your
-{{ path, and then the route name to that controller that we just graded down
-here. So apt QR code, and then for the alt we'll say to F a Q R code, That's it. All
-right. So let's head back here. Kind of do the whole flow. So I'm on the homepage. I
-want to enable two factor authentication, add beautiful. We have a QR code. So next
-let's scan this with our authenticator app and try the two factor authentication
-walls to learn how to customize the, enter the code template to match our design.
+You also need to re-type the "R" on `QrCodeGenerator` to get its use statement.
+If you're using the *new* way of generating the QR codes, then your controller
+will look like this instead. You can copy this from the code block on this page:
 
+```php
+namespace App\Controller;
 
----> NOTE about how you would probably not actually save the totpSecret until they
-confirmr that they've scanned the QR code
+use Endroid\QrCode\Builder\Builder;
+use Scheb\TwoFactorBundle\Security\TwoFactor\Provider\Totp\TotpAuthenticatorInterface;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
+use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\Routing\Annotation\Route;
+
+class SecurityController extends BaseController
+{
+	// ...
+
+    /**
+     * @Route("/authentication/2fa/qr-code", name="app_qr_code")
+     * @IsGranted("ROLE_USER")
+     */
+    public function displayGoogleAuthenticatorQrCode(TotpAuthenticatorInterface $totpAuthenticator)
+    {
+        $qrCodeContent = $totpAuthenticator->getQRContent($this->getUser());
+        $result = Builder::create()
+            ->data($qrCodeContent)
+            ->build();
+
+        return new Response($result->getString(), 200, ['Content-Type' => 'image/png']);
+    }
+}
+```
+
+This special endpoint *literally* returns the QR code *image*, as a png. Oh, and
+I forgot it here, but you should add an `@IsGranted("ROLE_USER")` above this:
+only authenticated users should be able to load this.
+
+Anyways, the user won't go to this URL *directly*: we'll use this inside an `img`
+tag. But to see if it's working, copy the URL, paste that into your browser and...
+yea! It's a QR code!
+
+Finally, after the user enables two factor authentication, let's render a template
+with an image to this URL. Return `$this->render('security/enable2fa.html.twig')`.
+
+Copy the template name, head into `templates/security` and create that:
+`enable2fa.html.twig`. I'll paste in a basic structure... it's just an h1 that
+tells you to scan the QR code... but there's no image yet.
+
+Let's add one! An `img` with `src` set to `{{ path() }}` and then the route name
+to the controller we just built. So `app_qr_code`. For the alt, I'll say
+`2fa QR code`.
+
+Sweet! Let's try the whole flow. Start on the homepage, enable two factor
+authentication and... yes! We see the QR code! We are ready to scan this and
+try logging in.
+
+## Making the User Confirm The Scanned the QR Code
+
+Oh, but before we do, in a real app, I would probably add an *extra* property on
+my user, called `isTotpEnabled` and use *that* in the `isTotpAuthenticationEnabled()`
+method of my `User` class. Why? Because it would allow us to have this flow. First,
+the user clicks "Enable two factor authentication", we generate the `totpSecret`,
+save it, and render the QR code: *exactly* what we're doing now. *But*, the
+`isTotpEnabled` flag would still be *false*. So if something went wrong and the
+user never scanned the QR code, they would *still* be able to log in *without*
+us requiring the code. *Then*, at the bottom of this page, you could add a
+"Confirm" button. When the user clicks that, you would *finally* set that
+`isTotpEnabled` property to true. Heck, you could even require them to enter
+a code from their authenticator app to *prove* they set things up: the
+`TotpAuthenticatorInterface` service has a `checkCode()` method in case you ever
+want to manually check a code.
+
+Next: let's can this QR code with an authenticator app and finally try the full two
+factor authentication flow. We'll then learn how to customize the "enter the code
+template" to match our design.
