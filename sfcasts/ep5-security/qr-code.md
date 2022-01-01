@@ -1,22 +1,22 @@
 # Rendering the QR Code
 
-Ok, we've just added a URL the user can go to in order to *enable* two factor
+Ok, we've just added a URL the user can go to in order to *enable* two-factor
 authentication on their account. What this *really* means is pretty simple: we
-generate a `totpSecret` and save it to their user account. Thanks to this, when
-the user tries to log in, the 2 factor bundle will notice this, and send them
-to the "fill in the code" form.
+generate a `totpSecret` and save it to their user record in the database. Thanks
+to this, when the user tries to log in, the 2-factor bundle will notice this and
+send them to the "fill in the code" form.
 
 But, in order to *know* what code to enter, the user needs to set up an authenticator
-app. And to do that, *we* need to render a QR code they can scan.
+app. And to do *that*, we need to render a QR code they can scan.
 
 ## Dumping the QR Content
 
-How do we do that? The `$totpAuthenticator` has a method that can help. Try dumping
+How? The `$totpAuthenticator` has a method that can help. Try dumping
 `$totpAuthenticator->getQRContent()` and pass it `$user`.
 
 When we refresh we see... a super weird-looking URL! *This* is the info that we
-need to send to our authenticator app. It contains our email address - that'll
-just be a label that will help our app - and most importantly the totp secret,
+need to send to our authenticator app. It contains our email address - that's
+just a label that will help the app - and most importantly the totp secret,
 which the app will use to generate the codes.
 
 In theory, we could enter this URL manually into an authenticator app. But, pfff.
@@ -25,19 +25,20 @@ That's crazy! In the real world, we translate this string into a QR code image.
 ## Generating the QR Code
 
 Fortunately, this is *also* handled by the scheb library. If you scroll
-down a bit, there's a spot about QR codes. If you want to generate a QR code, you
+down a bit, there's a spot about QR codes. If you want to generate one, you
 need one last library. Actually, *right* after I recorded this, the maintainer
-deprecated this `2fa-qr-code` library! So, you *can* still install it, but I'll
-also show you how to generate the QR code without it. The library was deprecated
-because, well, it's pretty darn easy to create the QR code even without it.
+deprecated this `2fa-qr-code` library! Dang! So, you *can* still install it, but
+I'll also show you how to generate the QR code *without* it. The library was
+deprecated because, well, it's pretty darn easy to create the QR code even
+without it.
 
-Anyways, I'll copy that, find my terminal and paste.
+Anyways, I'll copy that, find my terminal, and paste.
 
 ```terminal
 composer require scheb/2fa-qr-code
 ```
 
-But, to use the *new* way of generating QR codes - which I recommend - skip this
+To use the *new* way of generating QR codes - which I recommend - skip this
 step and instead run:
 
 ```terminal
@@ -45,13 +46,13 @@ composer require endroid/qr-code
 ```
 
 While that's working. Head back to the docs... and copy this controller from the
-documentation. Then head back to our `SecurityController` and... paste at the
-bottom. I'll tweak the URL to be `/authentication/2fa/qr-code` and call the route
+documentation. Over in `SecurityController`, at the bottom, paste.
+I'll tweak the URL to be `/authentication/2fa/qr-code` and call the route
 `app_qr_code`.
 
-You also need to re-type the "R" on `QrCodeGenerator` to get its use statement.
+I also need to re-type the "R" on `QrCodeGenerator` to get its use statement.
 If you're using the *new* way of generating the QR codes, then your controller
-will look like this instead. You can copy this from the code block on this page:
+should like this instead. You can copy this from the code block on this page:
 
 ```php
 namespace App\Controller;
@@ -84,24 +85,24 @@ class SecurityController extends BaseController
 
 This special endpoint *literally* returns the QR code *image*, as a png. Oh, and
 I forgot it here, but you should add an `@IsGranted("ROLE_USER")` above this:
-only authenticated users should be able to load this.
+only authenticated users should be able to load this image.
 
-Anyways, the user won't go to this URL *directly*: we'll use this inside an `img`
+Anyways, the user won't go to this URL *directly*: we'll use it inside an `img`
 tag. But to see if it's working, copy the URL, paste that into your browser and...
-yea! It's a QR code!
+sweet! Hello QR code!
 
-Finally, after the user enables two factor authentication, let's render a template
+Finally, after the user enables two-factor authentication, let's render a template
 with an image to this URL. Return `$this->render('security/enable2fa.html.twig')`.
 
-Copy the template name, head into `templates/security` and create that:
+Copy the template name, head into `templates/security`, and create that:
 `enable2fa.html.twig`. I'll paste in a basic structure... it's just an h1 that
-tells you to scan the QR code... but there's no image yet.
+tells you to scan the QR code... but no image yet.
 
-Let's add one! An `img` with `src` set to `{{ path() }}` and then the route name
+Let's add it: an `img` with `src` set to `{{ path() }}` and then the route name
 to the controller we just built. So `app_qr_code`. For the alt, I'll say
 `2fa QR code`.
 
-Sweet! Let's try the whole flow. Start on the homepage, enable two factor
+Sweet! Time to try the whole flow. Start on the homepage, enable two-factor
 authentication and... yes! We see the QR code! We are ready to scan this and
 try logging in.
 
@@ -109,18 +110,18 @@ try logging in.
 
 Oh, but before we do, in a real app, I would probably add an *extra* property on
 my user, called `isTotpEnabled` and use *that* in the `isTotpAuthenticationEnabled()`
-method of my `User` class. Why? Because it would allow us to have this flow. First,
-the user clicks "Enable two factor authentication", we generate the `totpSecret`,
-save it, and render the QR code: *exactly* what we're doing now. *But*, the
+method on my `User` class. Why? Because it would allow us to have the following flow. First,
+the user clicks "Enable two-factor authentication", we generate the `totpSecret`,
+save it, and render the QR code. So, *exactly* what we're doing now. *But*, that new
 `isTotpEnabled` flag would still be *false*. So if something went wrong and the
 user never scanned the QR code, they would *still* be able to log in *without*
-us requiring the code. *Then*, at the bottom of this page, you could add a
-"Confirm" button. When the user clicks that, you would *finally* set that
-`isTotpEnabled` property to true. Heck, you could even require them to enter
+us requiring the code. *Then*, at the bottom of this page, we could add a
+"Confirm" button. When the user clicks that, we would *finally* set that
+`isTotpEnabled` property to true. Heck, you could even require the user to enter
 a code from their authenticator app to *prove* they set things up: the
 `TotpAuthenticatorInterface` service has a `checkCode()` method in case you ever
 want to manually check a code.
 
-Next: let's can this QR code with an authenticator app and finally try the full two
-factor authentication flow. We'll then learn how to customize the "enter the code
-template" to match our design.
+Next: let's scan this QR code with an authenticator app and finally try the full
+two-factor authentication flow. We'll then learn how to customize the "enter the
+code template" to match our design.
