@@ -1,78 +1,86 @@
 # Customize The 2-Factor Auth Form
 
-Coming soon...
+We just successfully logged in using two factor authentication. Woo! But, the form
+where we entered the code was *ugly*. Time to fix that! Log out... then log back
+in again with our usual email and password `tada`. Here's our ugly form.
 
-All right, let me open my off the app and
-type in a valid code. Boom, , and access. Granted it works so cool,
-but we have to make that two factor authentication form less ugly. Let me log out
-again, log back in
+How can we customize this? Well, the wonderful documentation, of course, would tell
+us. But let's be tricky and see if we can figure it out for ourselves. Find your
+terminal and load the current configuration for this bundle:
+`symfony console debug config`... and then, find the config file, copy the root
+key - `scheb_two_factor` - and paste.
 
-And boom, here we go. Back to our two factor authentication code. So how can we
-customize what this template looks like? Oh, of course the documentation tells you,
-but on the cool way to look at this is to look at the configuration for this bundle.
-So I'm going to run Symfony console, debug config, and then I'm going to go to my
-configuration file and copy the root key Chev two factor. So there's a matter of
-debugging is going to show me what my current configuration is for this bundle. Cool.
-So you can see a security tokens has username, password token. That's no surprise
-because that's what we have here, but this also fills in some default values that we
-have not specifically filled in and most important. One is the template. This is the
-template that's currently being rendered for this page. Let's go check that out. I'll
-copy most of the file name here. I'll shift, shift paste and cool. Here's that
-template. So it gets fairly basic. We have an authentication air variable if we type
-in an invalid code, and then it's basically just a form that has an action to the
-correct path
+```terminal-silent
+symfony console debug:config scheb_two_factor
+```
 
-And an input and a submit
+Awesome! We see `security_tokens` with `UsernamePasswordToken`... that's no surprise
+because that's what we have here. But this also shows us some default values that we
+have not specifically configured. The one that's interesting to *us* is `template`.
+*This* is the template that's currently to show the two-factor "enter the code"
+page.
 
-[inaudible]
+## Overriding the Template
 
-All right. So I'm going to leave this here for now. And we're going to start
-customizing this by creating our own new templates. So I'm going to go down into the
-templates /security directory. Let's create a new file here called to FAA
-underscore form .html.twig I'm going to paste in a structure, get us
-started. Uh, I'm extending base .html.twig, but otherwise there's nothing dynamic
-in here yet. You can say I have a big to-do where we'll put the form a second now up
-in our config packages, Chev underscored TFA dynamo went on to say template and we'll
-point to our template, which is a security /two FAA form that age to tumor that
-twig. So with any we refresh Tara, it uses our template Is that you can see the form
-to do one cool thing you can see now is that we sort of are authenticated, but with
-this special two factor token
+Let's go check it out. Copy most of the file name here, hit Shift+Shift, paste
+and... cool. Here's that template. It's not too complex: we have an
+`authenticationError` variable that renders a message if we type an invalid code.
 
-[inaudible].
+Then we basically have a form with an action set to the correct  submit path, an
+input and a button.
 
-But if you look, we don't have any roles in everywhere in the system, we're going to
-look not authenticated. So we sort of our authentication, but we're not actually
-going to have access to anywhere on the site. You can even see this down here. If we
-scroll all the way down, all of the, um, access decision for like is authenticated
-remembered and our all access denied. Anyways, let's fill in the form to do parts. So
-for this, I'm going to go steal the core templates. I'm going to copy all of this and
-paste it into my form to do. Now. It's just a matter of customizing this. However, we
-need to assault change this P to a div class = alert, alert air. Then down here,
-you can actually have multiple different ways to authenticate. Uh, we're not going to
-do that. So I'm going to delete this entire section here For the input we need. Class
-= form-control. Then all the way down here, I'll leave these display
-trusted options and is CSR protection enabled. Those are things that you can use. If
-you activate them, then they'll show up here. I'm going to delete this P tag. We'll
-change this to be a button type = submit.
+To customize this, go down into the `templates/security/` directory and create a
+new file called, how about, `2fa_form.html.twig`. I'll paste in a structure to get
+us started. This extends `base.html.twig`... but there's nothing dynamic yet: the
+form is a big TODO.
 
-And then I'll add a couple of Classes to it. I'm also going to move this log out,
-link a little further up
+So obviously, this isn't done yet... but, let's try to use it anyways! Back in
+`config/packages/scheb_2fa.yaml`, under `totp`, add template set to
+`security/2fa_form.html.twig`.
 
-[inaudible]
+Back at the browser, refresh and... got it! That's our template!
 
-And just like the four element I remove that P tag, let's say a class = BTN BTN
-dash link. And with any luck that should make it look fairly good or fresh this time.
-Awesome. A little extra quotation on my log in. I always do that. There we go. Okay,
-Cool. That looks better. All right. So if I type in an invalid code here, We get an
-error. Although that's not quite as red as I wanted it course, this is why we test
-things. Perfect mic. Now we get the error in red.
+Oh, and now that this renders on a full HTML page, we have our web debug toolbar
+again. If you hover over the security icon, you can see one cool thing: we're,
+sort of, authenticated, but with this special `TwoFactorToken`. And if you look
+closer, we don't have any roles. So, we are *kind of* logged in, but without
+any roles. And also, the two factor bundles executes a listener at the start of
+each request that guarantees the user can't try to navigate the site in this
+half-logged-in state: it stops all requests and redirects them to this URL. And
+if you scroll down, even *on* this page, all security checks will return with
+ACCESS DENIED. The two factor bundle hooks into the security system to cause this.
 
-If I type in a valid code for my off the app, we've got it. Okay. Friends. We made
-it. Congratulations. I think security is supposed to be kind of a dry, boring topic,
-but I absolutely love this stuff. I hope you enjoy the journey as much as I did. If
-there's something we didn't cover, you still have some questions. Let us know down in
-the comments. We're there. We're there for you in the comments and watch for an extra
-credit security tutorial. Soon that we'll cover a few more topics like API token
-authentication our friends. See you next time.
+Anyways, let's fill in the form TODO part. For this, copy *all* of the core template,
+and paste it over our TODO.
 
----> Mention backup codes, etc
+Now... it's just a matter of customizing this. Change the error `p` to a `div`
+with `class="alert alert-error"`. That should be `alert-danger`... I'll fix that
+in a minute. Below, I'm going to remove the links to authenticate in a different
+way because we're only going to support this one. For the `input` we need
+`class="form-control"`. Then all the way down here, I'll leave these `displayTrusted`
+and `isCsRfProtectionEnabled` sections... though I'm not using them: you can activate
+these in the config. Finally, remove the `p` around the button, change it to a
+`button` - I just like those better - put the text inside the tag... then add a few
+classes to it.
+
+Oh, and I'm also going to move the "log out" link up a bit... and also clean it up
+a little... and add some extra classes.
+
+Phew! With any luck, that should make it look *fairly* good. Refresh and... sweet!
+Bah, except for a little extra quotation on my log in... O always do that. There
+we go, that looks better.
+
+If we type in an invalid code... error! Oh, but it's not red... the class should
+be `alert-danger`. That's why we test things! And now... we get the error in red.
+
+And if we type a *valid* code from my Authy app, we've got it! Oh, and even though
+we won't cover them, the two factor bundle also supports "backup codes" and
+"trusted devices" where users can choose to skip future two factor authentication
+on a specific device. Check out their docs for the details.
+
+And... We made it. Congrats and your hard work! Security is *supposed* to be
+a dry, boring topic. But I absolutely *love* this stuff. I hope you enjoyed the
+journey as much as I did. If there's something we didn't cover or you still have
+some questions, we're there for you in the comments section.
+
+Alright friends, seeya next time!
