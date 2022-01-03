@@ -44,4 +44,5 @@ chapters:
     - totp
     - activating-2fa
     - qr-code
+    - authenticator-app
     - 2fa-customize
