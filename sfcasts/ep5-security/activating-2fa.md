@@ -33,7 +33,7 @@ to scan.
 
 Head over to `src/Controller/SecurityController.php`. Let's create the endpoint
 that activates two factor authentication: `public function enable2fa()`. Give
-this a route: how about `/authentication/2fa/enable` - and `name="app_2fa_enable"`.
+this a route: how about `/authenticate/2fa/enable` - and `name="app_2fa_enable"`.
 
 Just be careful not to start the URL with `/2fa`... that's kind of reserved for the
 two-factor authentication process.
