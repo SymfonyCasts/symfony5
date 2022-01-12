@@ -48,8 +48,8 @@ Oh, and, of course, you can only use this route if you're authenticated. Add
 on top.
 
 ***TIP
-This next paragraph is... wrong! Using ``ROLE_USER`` will not force a user to
-re-renter their password if they're only authenticated via a remember me cookie.
+This next paragraph is... wrong! Using `ROLE_USER` will not force a user to
+re-enter their password if they're only authenticated via a "remember me" cookie.
 To do that, you should use `IS_AUTHENTICATED_FULLY`. And that's what I should have
 used here.
 ***
