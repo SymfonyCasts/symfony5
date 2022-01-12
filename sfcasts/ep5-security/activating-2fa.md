@@ -47,6 +47,13 @@ Oh, and, of course, you can only use this route if you're authenticated. Add
 `@IsGranted("ROLE_USER")`. Let me re-type that and hit tab to get the `use` statement
 on top.
 
+***TIP
+This next paragraph is... wrong! Using ``ROLE_USER`` will not force a user to
+re-renter their password if they're only authenticated via a remember me cookie.
+To do that, you should use `IS_AUTHENTICATED_FULLY`. And that's what I should have
+used here.
+***
+
 For the most part, I've been using `IS_AUTHENTICATED_REMEMBERED` for security...
 so that you *just* need to be logged in... even if it’s via a remember me cookie.
 But I'm using `ROLE_USER` here, which is effectively identical to
