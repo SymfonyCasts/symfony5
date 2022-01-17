@@ -18,14 +18,14 @@ that our firewall *also* dispatches several events during the authentication pro
 And, we can also listen to those.
 
 To see a list of all of the listeners to these events, we can run `debug:event`
-again, but with a special `--dispatcher=` set to `security.event_dispatcher.main`.
-
-I know, that looks a little funny... but this allows us to list the event listeners
-for the event dispatcher that's specific to the `main` firewall.
+again, but with a special `--dispatcher=` set to `security.event_dispatcher.main`:
 
 ```terminal-silent
 symfony console debug:event --dispatcher=security.event_dispatcher.main
 ```
+
+I know, that looks a little funny... but this allows us to list the event listeners
+for the event dispatcher that's specific to the `main` firewall.
 
 ## Looking at the Core Security Events & Listeners
 
@@ -34,7 +34,10 @@ Look back at our custom `LoginFormAuthenticator` class. We're not using this
 anymore, but it can help us understand which events are dispatched through the
 process.
 
-We know that, in our `authenticate()` method, our job is to return the `Passport`.
+We know that, in our `authenticate()` method, our job is to return the `Passport`:
+
+[[[ code('2b25b58375') ]]]
+
 Then, after the `authenticate()` method is called - on *any* authenticator - Symfony
 dispatches `CheckPassportEvent`. There are a *bunch* of cool listeners to this.
 
@@ -45,10 +48,10 @@ checks... the login throttling.
 
 If we fail authentication, there's a *different* event for that: `LoginFailureEvent`.
 Right now, our app has just one listener - `RememberMeListener` - which clears the
-remember me cookie if the user had one.
+"remember me" cookie if the user had one.
 
 When login is successful, Symfony dispatches `LoginSuccessEvent`. This already
-has 5 listeners in our app, including the listener that *sets* the remember me
+has 5 listeners in our app, including the listener that *sets* the "remember me"
 cookie.
 
 There's also an event that's dispatched when you log out... so you can run
