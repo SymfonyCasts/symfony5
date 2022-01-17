@@ -134,7 +134,7 @@ by taking *complete* control by throwing the special
 `CustomUserMessageAuthenticationException()`. Pass this the message to show the
 user:
 
-> Please verify your account before logging in:
+> Please verify your account before logging in.
 
 [[[ code('aae53638d5') ]]]
 
