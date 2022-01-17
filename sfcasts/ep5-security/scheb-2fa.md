@@ -13,9 +13,9 @@ the user fills in the code and submits, *then* they are finally logged in.
 ## Installing The scheb/2fa-bundle
 
 In the Symfony world, we're *super* lucky to have a *fantastic* library to help
-with two-factor auth. Search for Symfony 2fa to find the scheb/2fa library.
-Scroll down... and click into the documentation, which lives on Symfony.com. Then
-head to the Installation page.
+with two-factor auth. Search for Symfony 2fa to find the
+[scheb/2fa](https://github.com/scheb/2fa) library. Scroll down... and click into
+the documentation, which lives on Symfony.com. Then head to the Installation page.
 
 Cool! Let's get this thing installed! At your terminal, run:
 
@@ -25,19 +25,28 @@ composer require "2fa:^5.13"
 
 Where 2fa is a Flex alias to the actual bundle name.
 
-Once this finishes... I'll run `git status` to see what the bundle's recipe did. Cool:
-it added a new configuration file... and also a new routes file.
+Once this finishes... I'll run:
+
+```terminal
+git status
+```
+
+to see what the bundle's recipe did. Cool: it added a new configuration file...
+and also a new routes file.
 
 That routes file, which lives at `config/routes/scheb_2fa.yaml`, adds two routes
-to our app. The first will render the "enter the code” form that we see
-after submitting our email and password. The second route is the URL that this form
-will submit to.
+to our app:
+
+[[[ code('38055913ea') ]]]
+
+The first will render the "enter the code” form that we see after submitting
+our email and password. The second route is the URL that this form will submit to.
 
 ## Bundle Configuration / Setup
 
-Back at the docs, let's walk through this. Step 2 - enable the bundle - was done by
-Flex automatically… and step 3 - define the routes - was handled thanks to the recipe.
-Nice!
+Back at the docs, let's walk through this. Step 2 - enable the bundle - was
+done by Flex automatically… and step 3 - define the routes - was handled
+thanks to the recipe. Nice!
 
 Step 4 is to configure the firewall. This part we *do* need to do.
 
@@ -45,7 +54,9 @@ Start by copying the `two_factor` stuff. Then open up
 `config/packages/security.yaml`. This new config can live anywhere under our
 `main` firewall. I'll paste it after `form_login`... and we can remove this
 comment: it highlighted that `2fa_login` should match the route name in
-our routes file, which it does.
+our routes file, which it does:
+
+[[[ code('133af9ac3c') ]]]
 
 Oh, and remember how the job of *most* keys under our firewall is to activate
 another *authenticator*? Whelp, the `two_factor` key is no exception: this activates
@@ -53,16 +64,22 @@ a new authenticator that handles the "enter your code" form submit that we'll
 see in a few minutes.
 
 The README also recommends a couple of access controls, which are a good idea.
-Copy those... and paste them at the top of our `access_control`.
+Copy those... and paste them at the top of our `access_control`:
+
+[[[ code('a8c8ef8531') ]]]
 
 This second one makes sure that you can't go to `/2fa` - that's the URL that renders
 the "enter your code" form - unless you *have* already submitted your valid email
 and password. When you're in that, sort of, “in-between-login” state, the 2fa bundle
-makes sure that you have this `IS_AUTHENTICATED_2FA_IN_PROGRESS` attribute.
+makes sure that you have this `IS_AUTHENTICATED_2FA_IN_PROGRESS` attribute:
+
+[[[ code('3082409c74') ]]]
 
 The first entry - for `/logout` - makes sure that if you *are* in that “in-between”
 state, you *can* still cancel the login by going to `/logout`. Oh, but change
-this to `PUBLIC_ACCESS`.
+this to `PUBLIC_ACCESS`:
+
+[[[ code('94d4f305ea') ]]]
 
 ## Configuring the security_tokens
 
@@ -70,7 +87,7 @@ The *last* step in the README is to configure this `security_tokens` config.
 
 Let me explain. When we submit a valid email and password into the login form,
 the two-factor authentication system - via a listener - is going to decide whether
-or not it should *interrupt* authentication and start the two factor
+or not it should *interrupt* authentication and start the two-factor
 authentication process... where it redirects the user to the "enter the code" form.
 
 If we think about it, we definitely *do* want this to happen when a user logs in
@@ -88,7 +105,7 @@ different token classes... which means that you can figure out *how* the user
 originally logged in, by looking at the currently-authenticated token.
 
 For example, this top token class is actually the token that you get if you log in
-via the `form_login` authenticator. I'll prove it. Hit Shift+Shift and search
+via the `form_login` authenticator. I'll prove it. Hit `Shift`+`Shift` and search
 for `FormLoginAuthenticator`. Inside... it has a `createAuthenticatedToken()` method,
 a method that *every* authenticator has. It returns a new `UsernamePasswordToken`.
 
@@ -96,19 +113,26 @@ Here's the point. If we login via this authenticator... and the matching token c
 is listed under our `scheb_two_factor` config, the two-factor authentication
 process will take over and redirect the user to the "enter the code" form.
 
-Let's go see what our file looks like: `config/packages/scheb_2fa.yaml`.
+Let's go see what our file looks like: `config/packages/scheb_2fa.yaml`:
+
+[[[ code('0081450452') ]]]
+
 By default, the only uncommented class is `UsernamePasswordToken`, which is *perfect*
 for us.
 
 But notice the last comment. If you're authenticating via a *custom* authenticator -
 like we were doing earlier - then you should use this class.
 
-Let see *exactly* why that’s the case. Open our custom `LoginFormAuthenticator`. We're
-not using this anymore, but pretend we are. This extends
-`AbstractLoginFormAuthenticator`. Hold Cmd or Ctrl to open that... then open
-*its* base class `AbstractAuthenticator`. Scroll down a bit and... hello
-`createAuthenticatedToken()`! This returns a new `PostAuthenticatedToken`. And so,
-by default, *this* is the token class you get with a custom authenticator.
+Let see *exactly* why that’s the case. Open our custom `LoginFormAuthenticator`.
+We're not using this anymore, but pretend we are. This extends
+`AbstractLoginFormAuthenticator`:
+
+[[[ code('63ec494730') ]]]
+
+Hold `Cmd` or `Ctrl` to open that... then open *its* base class `AbstractAuthenticator`.
+Scroll down a bit and... hello `createAuthenticatedToken()`! This returns a new
+`PostAuthenticatedToken`. And so, by default, *this* is the token class you get
+with a custom authenticator.
 
 These token classes *aren't* super important... they basically all extend the
 same `AbstractToken`... and mostly just help to identify *how* the user logged in.
