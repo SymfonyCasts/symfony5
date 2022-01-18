@@ -3,10 +3,12 @@
 Okay, status check. Any user can now enable two-factor authentication on their
 account by clicking this link. Behind the scenes, when they do that, we populate
 the `totpSecret` on the `User` object, save that to the database, and then render
-a QR code the user can scan. This QR code is a fancy image that
-contains two pieces of information. The first is the email of our user. Or, more
-precisely, if I scroll down to the "totp methods" in `User`, it contains whatever
-we return from `getTotpAuthenticationUsername()`.
+a QR code the user can scan. This QR code is a fancy image that contains two pieces
+of information. The first is the email of our user. Or, more precisely, if I scroll
+down to the "totp methods" in `User`, it contains whatever we return from
+`getTotpAuthenticationUsername()`:
+
+[[[ code('f509a0deeb') ]]]
 
 The second thing the QR code image contains is the `totpSecret`. In a minute, I'm
 going to scan this code with an authenticator app, which will allow me to generate
@@ -17,7 +19,10 @@ by leveraging that secret.
 
 But first, there *is* some *extra* info that we can add to the QR code. Head over
 to `config/packages/scheb_2fa.yaml`. Under `totp:`, one of the most important things
-that you can add is called an `issuer`. I'm going to set this to `Cauldron Overflow`.
+that you can add is called an `issuer`. I'm going to set this to `Cauldron Overflow`:
+
+[[[ code('e9821d2ec8') ]]]
+
 That *literally* just added new information to the QR code image. Watch the image
 when we refresh. See that? It changed!
 

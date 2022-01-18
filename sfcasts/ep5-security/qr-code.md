@@ -12,7 +12,9 @@ app. And to do *that*, we need to render a QR code they can scan.
 ## Dumping the QR Content
 
 How? The `$totpAuthenticator` has a method that can help. Try dumping
-`$totpAuthenticator->getQRContent()` and pass it `$user`.
+`$totpAuthenticator->getQRContent()` and pass it `$user`:
+
+[[[ code('29bf3f6c6f') ]]]
 
 When we refresh we see... a super weird-looking URL! *This* is the info that we
 need to send to our authenticator app. It contains our email address - that's
@@ -24,7 +26,7 @@ That's crazy! In the real world, we translate this string into a QR code image.
 
 ## Generating the QR Code
 
-Fortunately, this is *also* handled by the scheb library. If you scroll
+Fortunately, this is *also* handled by the Scheb library. If you scroll
 down a bit, there's a spot about QR codes. If you want to generate one, you
 need one last library. Actually, *right* after I recorded this, the maintainer
 deprecated this `2fa-qr-code` library! Dang! So, you *can* still install it, but
@@ -48,9 +50,14 @@ composer require endroid/qr-code
 While that's working. Head back to the docs... and copy this controller from the
 documentation. Over in `SecurityController`, at the bottom, paste.
 I'll tweak the URL to be `/authentication/2fa/qr-code` and call the route
-`app_qr_code`.
+`app_qr_code`:
 
-I also need to re-type the "R" on `QrCodeGenerator` to get its use statement.
+[[[ code('7bc6207163') ]]]
+
+I also need to re-type the "R" on `QrCodeGenerator` to get its use statement:
+
+[[[ code('ced3c623d5') ]]]
+
 If you're using the *new* way of generating the QR codes, then your controller
 should like this instead. You can copy this from the code block on this page:
 
@@ -65,7 +72,7 @@ use Symfony\Component\Routing\Annotation\Route;
 
 class SecurityController extends BaseController
 {
-	// ...
+    // ...
 
     /**
      * @Route("/authentication/2fa/qr-code", name="app_qr_code")
@@ -95,12 +102,16 @@ Finally, after the user enables two-factor authentication, let's render a templa
 with an image to this URL. Return `$this->render('security/enable2fa.html.twig')`.
 
 Copy the template name, head into `templates/security`, and create that:
-`enable2fa.html.twig`. I'll paste in a basic structure... it's just an h1 that
-tells you to scan the QR code... but no image yet.
+`enable2fa.html.twig`. I'll paste in a basic structure... it's just an `h1` that
+tells you to scan the QR code... but no image yet:
+
+[[[ code('4c9a5088af') ]]]
 
 Let's add it: an `img` with `src` set to `{{ path() }}` and then the route name
 to the controller we just built. So `app_qr_code`. For the alt, I'll say
-`2fa QR code`.
+`2FA QR code`:
+
+[[[ code('928cd73a36') ]]]
 
 Sweet! Time to try the whole flow. Start on the homepage, enable two-factor
 authentication and... yes! We see the QR code! We are ready to scan this and
