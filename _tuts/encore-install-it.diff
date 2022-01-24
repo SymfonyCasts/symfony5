@@ -55,7 +55,7 @@ index 4cb5b47..6f07c57 100755
      },
      "require-dev": {
 diff --git a/composer.lock b/composer.lock
-index 1ab6cae..8074e03 100644
+index 20a2ac8..6e732ca 100644
 --- a/composer.lock
 +++ b/composer.lock
 @@ -4,7 +4,7 @@
@@ -67,7 +67,7 @@ index 1ab6cae..8074e03 100644
      "packages": [
          {
              "name": "doctrine/annotations",
-@@ -3608,6 +3608,77 @@
+@@ -3605,6 +3605,77 @@
              ],
              "time": "2020-07-23T08:36:09+00:00"
          },
