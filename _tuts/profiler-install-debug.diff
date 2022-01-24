@@ -11,7 +11,7 @@ index 426227c..79e9b5e 100755
          "symfony/flex": "^1.3.1",
          "symfony/framework-bundle": "5.0.*",
 diff --git a/composer.lock b/composer.lock
-index dd21784..0a99942 100644
+index 909d057..d766374 100644
 --- a/composer.lock
 +++ b/composer.lock
 @@ -4,7 +4,7 @@
@@ -262,7 +262,7 @@ index dd21784..0a99942 100644
          {
              "name": "symfony/dependency-injection",
              "version": "v5.0.11",
-@@ -1871,43 +2096,52 @@
+@@ -1868,43 +2093,52 @@
              "time": "2020-07-23T10:04:24+00:00"
          },
          {
@@ -334,7 +334,7 @@ index dd21784..0a99942 100644
                  ]
              },
              "notification-url": "https://packagist.org/downloads/",
-@@ -1916,30 +2150,18 @@
+@@ -1913,30 +2147,18 @@
              ],
              "authors": [
                  {
@@ -369,7 +369,7 @@ index dd21784..0a99942 100644
              },
              "funding": [
                  {
-@@ -1955,47 +2177,47 @@
+@@ -1952,47 +2174,47 @@
                      "type": "tidelift"
                  }
              ],
@@ -439,7 +439,7 @@ index dd21784..0a99942 100644
                  ]
              },
              "notification-url": "https://packagist.org/downloads/",
-@@ -2004,36 +2226,190 @@
+@@ -2001,36 +2223,190 @@
              ],
              "authors": [
                  {
@@ -651,7 +651,7 @@ index dd21784..0a99942 100644
                  {
                      "url": "https://tidelift.com/funding/github/packagist/symfony/symfony",
                      "type": "tidelift"
-@@ -2283,6 +2659,51 @@
+@@ -2280,6 +2656,51 @@
              ],
              "time": "2021-01-07T16:49:33+00:00"
          },
@@ -703,7 +703,7 @@ index dd21784..0a99942 100644
          {
              "name": "symfony/routing",
              "version": "v5.1.11",
-@@ -2453,39 +2874,36 @@
+@@ -2450,39 +2871,36 @@
              "time": "2020-09-07T11:33:47+00:00"
          },
          {
@@ -757,7 +757,7 @@ index dd21784..0a99942 100644
              },
              "notification-url": "https://packagist.org/downloads/",
              "license": [
-@@ -2493,26 +2911,96 @@
+@@ -2490,26 +2908,96 @@
              ],
              "authors": [
                  {
@@ -866,7 +866,7 @@ index dd21784..0a99942 100644
              },
              "funding": [
                  {
-@@ -2955,6 +3443,89 @@
+@@ -2952,6 +3440,89 @@
              ],
              "time": "2020-06-07T15:38:39+00:00"
          },
@@ -956,7 +956,7 @@ index dd21784..0a99942 100644
          {
              "name": "symfony/yaml",
              "version": "v5.0.11",
-@@ -3186,203 +3757,7 @@
+@@ -3183,203 +3754,7 @@
              "time": "2021-02-08T09:54:36+00:00"
          }
      ],
