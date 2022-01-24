@@ -11,7 +11,7 @@ index 4dfa861..7270d1d 100755
          "symfony/console": "5.1.*",
          "symfony/dotenv": "5.1.*",
 diff --git a/composer.lock b/composer.lock
-index b86b676..bbc6de4 100644
+index 072d413..18f5aae 100644
 --- a/composer.lock
 +++ b/composer.lock
 @@ -4,8 +4,57 @@

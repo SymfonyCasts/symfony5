@@ -11,7 +11,7 @@ index c34e6e2..854ca6a 100755
          "sentry/sentry-symfony": "^4.0",
          "symfony/asset": "5.1.*",
 diff --git a/composer.lock b/composer.lock
-index 604efa9..0b6f5b0 100644
+index 77a0eb3..d81ea05 100644
 --- a/composer.lock
 +++ b/composer.lock
 @@ -4,7 +4,7 @@
@@ -103,7 +103,7 @@ index 604efa9..0b6f5b0 100644
          {
              "name": "laminas/laminas-code",
              "version": "4.0.0",
-@@ -6305,6 +6378,101 @@
+@@ -6303,6 +6376,101 @@
              ],
              "time": "2020-06-11T12:16:36+00:00"
          },
