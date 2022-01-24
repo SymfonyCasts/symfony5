@@ -65,7 +65,7 @@ to fetch some service called `cache.app`.
 
 Cool. But... how does that *work*? How does Symfony know that the `AdapterInterface`
 should give us *that* exact service? When Symfony sees an argument type-hinted with
-`Symfony\Component\Cache\Adapter\AdapterInterface`, does... it loops over *every*
+`Symfony\Component\Cache\Adapter\AdapterInterface`, does... it loop over *every*
 service in the container and look for one that implements that interface?
 
 Fortunately, no. The way autowiring works is *so* much simpler. When Symfony sees
