@@ -13,7 +13,7 @@ index f6ed63d..4dfa861 100755
      "config": {
          "preferred-install": {
 diff --git a/composer.lock b/composer.lock
-index d090220..b86b676 100644
+index f68f362..072d413 100644
 --- a/composer.lock
 +++ b/composer.lock
 @@ -4,7 +4,7 @@
@@ -73,7 +73,7 @@ index d090220..b86b676 100644
          },
          {
              "name": "symfony/doctrine-bridge",
-@@ -5389,16 +5389,16 @@
+@@ -5387,16 +5387,16 @@
          },
          {
              "name": "symfony/polyfill-intl-grapheme",
@@ -94,7 +94,7 @@ index d090220..b86b676 100644
                  "shasum": ""
              },
              "require": {
-@@ -5410,7 +5410,7 @@
+@@ -5408,7 +5408,7 @@
              "type": "library",
              "extra": {
                  "branch-alias": {
@@ -103,7 +103,7 @@ index d090220..b86b676 100644
                  },
                  "thanks": {
                      "name": "symfony/polyfill",
-@@ -5450,7 +5450,7 @@
+@@ -5448,7 +5448,7 @@
                  "shim"
              ],
              "support": {
@@ -112,7 +112,7 @@ index d090220..b86b676 100644
              },
              "funding": [
                  {
-@@ -5466,20 +5466,20 @@
+@@ -5464,20 +5464,20 @@
                      "type": "tidelift"
                  }
              ],
@@ -138,7 +138,7 @@ index d090220..b86b676 100644
                  "shasum": ""
              },
              "require": {
-@@ -5491,7 +5491,7 @@
+@@ -5489,7 +5489,7 @@
              "type": "library",
              "extra": {
                  "branch-alias": {
@@ -147,7 +147,7 @@ index d090220..b86b676 100644
                  },
                  "thanks": {
                      "name": "symfony/polyfill",
-@@ -5550,20 +5550,20 @@
+@@ -5548,20 +5548,20 @@
                      "type": "tidelift"
                  }
              ],
@@ -173,7 +173,7 @@ index d090220..b86b676 100644
                  "shasum": ""
              },
              "require": {
-@@ -5575,7 +5575,7 @@
+@@ -5573,7 +5573,7 @@
              "type": "library",
              "extra": {
                  "branch-alias": {
@@ -182,7 +182,7 @@ index d090220..b86b676 100644
                  },
                  "thanks": {
                      "name": "symfony/polyfill",
-@@ -5630,7 +5630,7 @@
+@@ -5628,7 +5628,7 @@
                      "type": "tidelift"
                  }
              ],
@@ -191,7 +191,7 @@ index d090220..b86b676 100644
          },
          {
              "name": "symfony/polyfill-php73",
-@@ -5713,16 +5713,16 @@
+@@ -5711,16 +5711,16 @@
          },
          {
              "name": "symfony/polyfill-php80",
@@ -212,7 +212,7 @@ index d090220..b86b676 100644
                  "shasum": ""
              },
              "require": {
-@@ -5731,7 +5731,7 @@
+@@ -5729,7 +5729,7 @@
              "type": "library",
              "extra": {
                  "branch-alias": {
@@ -221,7 +221,7 @@ index d090220..b86b676 100644
                  },
                  "thanks": {
                      "name": "symfony/polyfill",
-@@ -5776,7 +5776,7 @@
+@@ -5774,7 +5774,7 @@
                  "shim"
              ],
              "support": {
@@ -230,7 +230,7 @@ index d090220..b86b676 100644
              },
              "funding": [
                  {
-@@ -5792,7 +5792,7 @@
+@@ -5790,7 +5790,7 @@
                      "type": "tidelift"
                  }
              ],
@@ -239,7 +239,7 @@ index d090220..b86b676 100644
          },
          {
              "name": "symfony/polyfill-uuid",
-@@ -7416,6 +7416,58 @@
+@@ -7414,6 +7414,58 @@
              ],
              "time": "2020-11-14T09:36:49+00:00"
          },
@@ -298,7 +298,7 @@ index d090220..b86b676 100644
          {
              "name": "nikic/php-parser",
              "version": "v4.10.5",
-@@ -7555,6 +7607,83 @@
+@@ -7553,6 +7605,83 @@
              ],
              "time": "2020-05-20T17:43:50+00:00"
          },
@@ -382,7 +382,7 @@ index d090220..b86b676 100644
          {
              "name": "symfony/maker-bundle",
              "version": "v1.23.0",
-@@ -7642,6 +7771,186 @@
+@@ -7640,6 +7769,186 @@
              ],
              "time": "2020-10-28T15:35:16+00:00"
          },
@@ -569,7 +569,7 @@ index d090220..b86b676 100644
          {
              "name": "symfony/web-profiler-bundle",
              "version": "v5.1.2",
-@@ -7723,6 +8032,76 @@
+@@ -7721,6 +8030,76 @@
                  }
              ],
              "time": "2020-06-09T11:33:28+00:00"
