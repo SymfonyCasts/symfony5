@@ -1,5 +1,5 @@
 diff --git a/composer.lock b/composer.lock
-index 8074e03..a7ac897 100644
+index 6e732ca..191b491 100644
 --- a/composer.lock
 +++ b/composer.lock
 @@ -461,16 +461,16 @@
@@ -89,7 +89,7 @@ index 8074e03..a7ac897 100644
          },
          {
              "name": "symfony/config",
-@@ -2263,16 +2263,16 @@
+@@ -2260,16 +2260,16 @@
          },
          {
              "name": "symfony/monolog-bundle",
@@ -110,7 +110,7 @@ index 8074e03..a7ac897 100644
                  "shasum": ""
              },
              "require": {
-@@ -2285,7 +2285,7 @@
+@@ -2282,7 +2282,7 @@
              },
              "require-dev": {
                  "symfony/console": "~3.4 || ~4.0 || ^5.0",
@@ -119,7 +119,7 @@ index 8074e03..a7ac897 100644
                  "symfony/yaml": "~3.4 || ~4.0 || ^5.0"
              },
              "type": "symfony-bundle",
-@@ -2324,9 +2324,23 @@
+@@ -2321,9 +2321,23 @@
              ],
              "support": {
                  "issues": "https://github.com/symfony/monolog-bundle/issues",
