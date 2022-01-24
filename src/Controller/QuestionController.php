@@ -27,6 +27,8 @@ class QuestionController extends AbstractController
             'Maybe... try saying the spell backwards?',
         ];
 
+        dump($slug, $this);
+
         return $this->render('question/show.html.twig', [
             'question' => ucwords(str_replace('-', ' ', $slug)),
             'answers' => $answers,
