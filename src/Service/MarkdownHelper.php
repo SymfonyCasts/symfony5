@@ -11,7 +11,7 @@ class MarkdownHelper
     private $cache;
     private $isDebug;
 
-    public function __construct(MarkdownParserInterface $markdownParser, CacheInterface $cache, $isDebug)
+    public function __construct(MarkdownParserInterface $markdownParser, CacheInterface $cache, bool $isDebug)
     {
         $this->markdownParser = $markdownParser;
         $this->cache = $cache;
