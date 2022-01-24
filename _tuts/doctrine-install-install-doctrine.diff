@@ -29,7 +29,7 @@ index b30089b..c34e6e2 100755
          "sensio/framework-extra-bundle": "^6.0",
          "sentry/sentry-symfony": "^4.0",
 diff --git a/composer.lock b/composer.lock
-index 92edce3..604efa9 100644
+index 460e7d7..77a0eb3 100644
 --- a/composer.lock
 +++ b/composer.lock
 @@ -4,7 +4,7 @@
@@ -1967,7 +1967,7 @@ index 92edce3..604efa9 100644
          },
          {
              "name": "symfony/dotenv",
-@@ -5506,102 +7090,6 @@
+@@ -5504,102 +7088,6 @@
          }
      ],
      "packages-dev": [
@@ -2070,13 +2070,6 @@ index 92edce3..604efa9 100644
          {
              "name": "nikic/php-parser",
              "version": "v4.10.5",
-@@ -5925,5 +7413,5 @@
-     "platform-overrides": {
-         "php": "7.4.1"
-     },
--    "plugin-api-version": "2.0.0"
-+    "plugin-api-version": "2.1.0"
- }
 diff --git a/config/bundles.php b/config/bundles.php
 index af33fbc..d206866 100644
 --- a/config/bundles.php
