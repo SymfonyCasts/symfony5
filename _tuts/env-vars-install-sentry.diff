@@ -26,7 +26,7 @@ index 9720e3d..21796e6 100755
          "symfony/console": "5.0.*",
          "symfony/debug-bundle": "5.0.*",
 diff --git a/composer.lock b/composer.lock
-index 738fe27..d413bbb 100644
+index 7c9af90..8b6d50e 100644
 --- a/composer.lock
 +++ b/composer.lock
 @@ -4,8 +4,147 @@
@@ -1573,7 +1573,7 @@ index 738fe27..d413bbb 100644
          },
          {
              "name": "symfony/asset",
-@@ -1955,10 +3192,174 @@
+@@ -1952,10 +3189,174 @@
                      "homepage": "https://symfony.com/contributors"
                  }
              ],
@@ -1751,7 +1751,7 @@ index 738fe27..d413bbb 100644
              },
              "funding": [
                  {
-@@ -1974,7 +3375,7 @@
+@@ -1971,7 +3372,7 @@
                      "type": "tidelift"
                  }
              ],
@@ -1760,7 +1760,7 @@ index 738fe27..d413bbb 100644
          },
          {
              "name": "symfony/http-foundation",
-@@ -2407,6 +3808,77 @@
+@@ -2404,6 +3805,77 @@
              ],
              "time": "2020-10-06T15:12:11+00:00"
          },
@@ -1838,7 +1838,7 @@ index 738fe27..d413bbb 100644
          {
              "name": "symfony/polyfill-intl-idn",
              "version": "v1.22.1",
-@@ -2820,6 +4292,82 @@
+@@ -2817,6 +4289,82 @@
              ],
              "time": "2021-01-07T16:49:33+00:00"
          },
@@ -1921,7 +1921,7 @@ index 738fe27..d413bbb 100644
          {
              "name": "symfony/profiler-pack",
              "version": "v1.0.5",
-@@ -2865,6 +4413,94 @@
+@@ -2862,6 +4410,94 @@
              ],
              "time": "2020-08-12T06:50:46+00:00"
          },
@@ -2016,7 +2016,7 @@ index 738fe27..d413bbb 100644
          {
              "name": "symfony/routing",
              "version": "v5.1.11",
-@@ -2955,6 +4591,96 @@
+@@ -2952,6 +4588,96 @@
              ],
              "time": "2021-01-27T10:01:46+00:00"
          },
