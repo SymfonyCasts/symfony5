@@ -29,7 +29,7 @@ index 14b42bb..bfe69c0 100644
 -            max_level: info
 -            channels: ["php"]
 diff --git a/symfony.lock b/symfony.lock
-index 90a4637..e6b066b 100644
+index 66ee8ce..bf11870 100644
 --- a/symfony.lock
 +++ b/symfony.lock
 @@ -249,10 +249,11 @@
