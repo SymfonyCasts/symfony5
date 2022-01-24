@@ -69,7 +69,7 @@ it will *override* any `where()` or `andWhere()` calls that you had earlier. So,
 I *never* use it.
 
 Once we're done building our query, we always finish with `getQuery()` to
-transforms it into a finished `Query` object. Then, the `getResult()` method will
+transform it into a finished `Query` object. Then, the `getResult()` method will
 return an *array* of `Question` objects. My `@return` already says this! Woo!
 
 The other common *final* method is `getOneOrNullResult()` which I use when I want
