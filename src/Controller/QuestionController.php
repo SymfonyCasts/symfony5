@@ -16,10 +16,13 @@ class QuestionController
     }
 
     /**
-     * @Route("/questions/how-to-tie-my-shoes-with-magic")
+     * @Route("/questions/{slug}")
      */
-    public function show()
+    public function show($slug)
     {
-        return new Response('Future page to show a question!');
+        return new Response(sprintf(
+            'Future page to show the question "%s"!',
+            $slug
+        ));
     }
 }
