@@ -2,6 +2,7 @@
 
 namespace App\Command;
 
+use Psr\Log\LoggerInterface;
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Input\InputArgument;
 use Symfony\Component\Console\Input\InputInterface;
@@ -12,6 +13,14 @@ use Symfony\Component\Console\Style\SymfonyStyle;
 class RandomSpellCommand extends Command
 {
     protected static $defaultName = 'app:random-spell';
+    private $logger;
+
+    public function __construct(LoggerInterface $logger)
+    {
+        $this->logger = $logger;
+
+        parent::__construct();
+    }
 
     protected function configure()
     {
@@ -46,6 +55,8 @@ class RandomSpellCommand extends Command
         if ($input->getOption('yell')) {
             $spell = strtoupper($spell);
         }
+
+        $this->logger->info('Casting spell: '.$spell);
 
         $io->success($spell);
 
