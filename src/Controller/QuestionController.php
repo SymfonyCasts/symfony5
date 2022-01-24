@@ -14,12 +14,14 @@ class QuestionController extends AbstractController
      */
     public function homepage(Environment $twigEnvironment)
     {
+        /*
         // fun example of using the Twig service directly!
         $html = $twigEnvironment->render('question/homepage.html.twig');
 
         return new Response($html);
+        */
 
-        //return $this->render('question/homepage.html.twig');
+        return $this->render('question/homepage.html.twig');
     }
 
     /**
