@@ -11,7 +11,7 @@ index 9a15a28..4cb5b47 100755
          "symfony/debug-bundle": "5.0.*",
          "symfony/dotenv": "5.0.*",
 diff --git a/composer.lock b/composer.lock
-index 5e8bef1..1ab6cae 100644
+index fe1bbc0..20a2ac8 100644
 --- a/composer.lock
 +++ b/composer.lock
 @@ -4,7 +4,7 @@
