@@ -98,7 +98,7 @@ getter and setter methods, like `getName()`, `getSlug()` and `setSlug()`.
 It's just about the most *boring* class you'll ever see.
 
 But of course, if Doctrine is going to map this class and its properties to a
-database table, it's needs to know a few things. For example, it needs
+database table, it needs to know a few things. For example, it needs
 to know that the `name` property should map to a `name` column and that its
 *type* is a `string`.
 
