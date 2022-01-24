@@ -21,7 +21,7 @@ index 3ff978a..b30089b 100755
      },
      "autoload": {
 diff --git a/composer.lock b/composer.lock
-index b52b832..92edce3 100644
+index 154e944..460e7d7 100644
 --- a/composer.lock
 +++ b/composer.lock
 @@ -4,7 +4,7 @@
@@ -33,7 +33,7 @@ index b52b832..92edce3 100644
      "packages": [
          {
              "name": "clue/stream-filter",
-@@ -5604,16 +5604,16 @@
+@@ -5602,16 +5602,16 @@
          },
          {
              "name": "nikic/php-parser",
@@ -54,7 +54,7 @@ index b52b832..92edce3 100644
                  "shasum": ""
              },
              "require": {
-@@ -5621,8 +5621,8 @@
+@@ -5619,8 +5619,8 @@
                  "php": ">=7.0"
              },
              "require-dev": {
@@ -65,7 +65,7 @@ index b52b832..92edce3 100644
              },
              "bin": [
                  "bin/php-parse"
-@@ -5630,7 +5630,7 @@
+@@ -5628,7 +5628,7 @@
              "type": "library",
              "extra": {
                  "branch-alias": {
@@ -74,7 +74,7 @@ index b52b832..92edce3 100644
                  }
              },
              "autoload": {
-@@ -5654,9 +5654,9 @@
+@@ -5652,9 +5652,9 @@
              ],
              "support": {
                  "issues": "https://github.com/nikic/PHP-Parser/issues",
@@ -86,7 +86,7 @@ index b52b832..92edce3 100644
          },
          {
              "name": "symfony/debug-bundle",
-@@ -5917,13 +5917,13 @@
+@@ -5915,13 +5915,13 @@
      "prefer-stable": false,
      "prefer-lowest": false,
      "platform": {
@@ -100,5 +100,5 @@ index b52b832..92edce3 100644
 -        "php": "7.3.0"
 +        "php": "7.4.1"
      },
-     "plugin-api-version": "2.0.0"
+     "plugin-api-version": "2.1.0"
  }
