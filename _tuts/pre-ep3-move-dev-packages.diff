@@ -30,7 +30,7 @@ index def886c..3ff978a 100755
      "config": {
          "preferred-install": {
 diff --git a/composer.lock b/composer.lock
-index 430c7e9..b52b832 100644
+index e411c5b..154e944 100644
 --- a/composer.lock
 +++ b/composer.lock
 @@ -4,7 +4,7 @@
@@ -132,7 +132,7 @@ index 430c7e9..b52b832 100644
          {
              "name": "symfony/dependency-injection",
              "version": "v5.1.2",
-@@ -5264,88 +5181,6 @@
+@@ -5262,88 +5179,6 @@
              ],
              "time": "2020-06-07T15:42:22+00:00"
          },
@@ -221,7 +221,7 @@ index 430c7e9..b52b832 100644
          {
              "name": "symfony/webpack-encore-bundle",
              "version": "v1.8.0",
-@@ -5823,6 +5658,89 @@
+@@ -5821,6 +5656,89 @@
              },
              "time": "2020-07-02T17:12:47+00:00"
          },
@@ -311,7 +311,7 @@ index 430c7e9..b52b832 100644
          {
              "name": "symfony/maker-bundle",
              "version": "v1.23.0",
-@@ -5909,6 +5827,88 @@
+@@ -5907,6 +5825,88 @@
                  }
              ],
              "time": "2020-10-28T15:35:16+00:00"
