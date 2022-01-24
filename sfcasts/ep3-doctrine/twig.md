@@ -53,7 +53,7 @@ is smart enough to call `getName()`.
 [[[ code('684ca469b2') ]]]
 
 I *love* this: it means you can run around saying `question.name` in your template
-and not really worry about the whether there's a getter method or not. It's
+and not really worry about whether there's a getter method or not. It's
 especially friendly to non-PHP frontend devs.
 
 If you wanted to actually *call* a method - like `getName()` - that *is* allowed,
