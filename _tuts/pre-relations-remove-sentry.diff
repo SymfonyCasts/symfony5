@@ -11,7 +11,7 @@ index fa40b1e..68c8bd4 100755
          "symfony/asset": "5.3.*",
          "symfony/console": "5.3.*",
 diff --git a/composer.lock b/composer.lock
-index f3abcf5..bfadf3b 100644
+index 6fba338..5937cb5 100644
 --- a/composer.lock
 +++ b/composer.lock
 @@ -4,7 +4,7 @@
@@ -1521,7 +1521,7 @@ index f3abcf5..bfadf3b 100644
          },
          {
              "name": "stof/doctrine-extensions-bundle",
-@@ -4901,93 +3716,6 @@
+@@ -4898,93 +3713,6 @@
              ],
              "time": "2021-08-26T08:37:07+00:00"
          },
@@ -1615,7 +1615,7 @@ index f3abcf5..bfadf3b 100644
          {
              "name": "symfony/http-client-contracts",
              "version": "v2.4.0",
-@@ -5284,162 +4012,17 @@
+@@ -5281,162 +4009,17 @@
                  "symfony/messenger": "^4.4|^5.0",
                  "symfony/mime": "^4.4|^5.0",
                  "symfony/security-core": "^4.4|^5.0",
@@ -1785,7 +1785,7 @@ index f3abcf5..bfadf3b 100644
                  },
                  "exclude-from-classmap": [
                      "/Tests/"
-@@ -5459,15 +4042,10 @@
+@@ -5456,15 +4039,10 @@
                      "homepage": "https://symfony.com/contributors"
                  }
              ],
@@ -1803,7 +1803,7 @@ index f3abcf5..bfadf3b 100644
              },
              "funding": [
                  {
-@@ -5483,37 +4061,44 @@
+@@ -5480,37 +4058,44 @@
                      "type": "tidelift"
                  }
              ],
@@ -1864,7 +1864,7 @@ index f3abcf5..bfadf3b 100644
                  },
                  "exclude-from-classmap": [
                      "/Tests/"
-@@ -5525,22 +4110,23 @@
+@@ -5522,22 +4107,23 @@
              ],
              "authors": [
                  {
@@ -1894,7 +1894,7 @@ index f3abcf5..bfadf3b 100644
              },
              "funding": [
                  {
-@@ -5556,7 +4142,7 @@
+@@ -5553,7 +4139,7 @@
                      "type": "tidelift"
                  }
              ],
@@ -1903,7 +1903,7 @@ index f3abcf5..bfadf3b 100644
          },
          {
              "name": "symfony/polyfill-intl-grapheme",
-@@ -6044,173 +4630,6 @@
+@@ -6041,173 +4627,6 @@
              ],
              "time": "2021-05-21T13:25:03+00:00"
          },
@@ -2077,7 +2077,7 @@ index f3abcf5..bfadf3b 100644
          {
              "name": "symfony/routing",
              "version": "v5.3.7",
-@@ -6378,99 +4797,6 @@
+@@ -6375,99 +4794,6 @@
              ],
              "time": "2021-06-30T13:49:12+00:00"
          },
