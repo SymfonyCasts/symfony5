@@ -11,7 +11,7 @@ index 14c7436..c4fb6ee 100755
      },
      "require-dev": {
 diff --git a/composer.lock b/composer.lock
-index 645c441..9f03b0b 100644
+index 858f98e..2c33946 100644
 --- a/composer.lock
 +++ b/composer.lock
 @@ -4,7 +4,7 @@
@@ -23,7 +23,7 @@ index 645c441..9f03b0b 100644
      "packages": [
          {
              "name": "doctrine/annotations",
-@@ -2452,6 +2452,339 @@
+@@ -2449,6 +2449,339 @@
              ],
              "time": "2020-09-07T11:33:47+00:00"
          },
@@ -363,7 +363,7 @@ index 645c441..9f03b0b 100644
          {
              "name": "symfony/var-dumper",
              "version": "v5.0.11",
-@@ -2697,6 +3030,160 @@
+@@ -2694,6 +3027,160 @@
                  }
              ],
              "time": "2020-05-20T17:38:26+00:00"
