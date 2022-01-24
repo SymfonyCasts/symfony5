@@ -122,7 +122,7 @@ of `configureContainer()`:
 [[[ code('3e068aa54b') ]]]
 
 I *love* this method. It's completely responsible for loading *all* the config
-files inside the `config/` directory. Skip passed the first 4 lines, if you
+files inside the `config/` directory. Skip past the first 4 lines, if you
 have them, which set a few low-level flags.
 
 The *real* magic is this `$loader->load()` stuff, which in a Symfony 5.1 app
