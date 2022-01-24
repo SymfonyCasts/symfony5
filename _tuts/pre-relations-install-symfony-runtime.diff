@@ -11,7 +11,7 @@ index d22a565..fa40b1e 100755
          "symfony/twig-bundle": "5.3.*",
          "symfony/webpack-encore-bundle": "^1.7",
 diff --git a/composer.lock b/composer.lock
-index 7d16a6d..f3abcf5 100644
+index 2470f3b..6fba338 100644
 --- a/composer.lock
 +++ b/composer.lock
 @@ -4,7 +4,7 @@
@@ -23,7 +23,7 @@ index 7d16a6d..f3abcf5 100644
      "packages": [
          {
              "name": "behat/transliterator",
-@@ -6301,6 +6301,83 @@
+@@ -6298,6 +6298,83 @@
              ],
              "time": "2021-08-04T21:42:42+00:00"
          },
