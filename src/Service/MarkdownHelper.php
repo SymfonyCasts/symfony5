@@ -14,6 +14,7 @@ class MarkdownHelper
     {
         $this->markdownParser = $markdownParser;
         $this->cache = $cache;
+        dump($cache);
     }
 
     public function parse(string $source): string
