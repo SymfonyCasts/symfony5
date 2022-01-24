@@ -11,7 +11,7 @@ index bd3390f..abe01f0 100755
          "doctrine/doctrine-bundle": "^2.1",
          "doctrine/doctrine-migrations-bundle": "^3.0",
 diff --git a/composer.lock b/composer.lock
-index 75c6cb5..b1492ef 100644
+index 09c2353..8862e0a 100644
 --- a/composer.lock
 +++ b/composer.lock
 @@ -4,8 +4,91 @@
@@ -160,7 +160,7 @@ index 75c6cb5..b1492ef 100644
          {
              "name": "psr/cache",
              "version": "1.0.1",
-@@ -4630,6 +4759,177 @@
+@@ -4627,6 +4756,177 @@
              ],
              "time": "2021-05-21T13:25:03+00:00"
          },
@@ -338,7 +338,7 @@ index 75c6cb5..b1492ef 100644
          {
              "name": "symfony/routing",
              "version": "v5.3.7",
-@@ -6384,177 +6684,6 @@
+@@ -6381,177 +6681,6 @@
              ],
              "time": "2021-07-01T00:28:30+00:00"
          },
