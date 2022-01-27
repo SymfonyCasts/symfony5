@@ -230,6 +230,9 @@
     "symfony/http-kernel": {
         "version": "v5.0.4"
     },
+    "symfony/inflector": {
+        "version": "v5.0.11"
+    },
     "symfony/maker-bundle": {
         "version": "1.0",
         "recipe": {
@@ -280,6 +283,9 @@
     "symfony/polyfill-uuid": {
         "version": "v1.15.0"
     },
+    "symfony/property-access": {
+        "version": "v5.0.11"
+    },
     "symfony/psr-http-message-bridge": {
         "version": "2.1",
         "recipe": {
@@ -306,8 +312,29 @@
             "config/routes.yaml"
         ]
     },
+    "symfony/security-bundle": {
+        "version": "5.0",
+        "recipe": {
+            "repo": "github.com/symfony/recipes",
+            "branch": "master",
+            "version": "4.4",
+            "ref": "7b4408dc203049666fe23fabed23cbadc6d8440f"
+        },
+        "files": [
+            "config/packages/security.yaml"
+        ]
+    },
     "symfony/security-core": {
         "version": "v5.0.7"
+    },
+    "symfony/security-csrf": {
+        "version": "v5.0.11"
+    },
+    "symfony/security-guard": {
+        "version": "v5.0.11"
+    },
+    "symfony/security-http": {
+        "version": "v5.0.11"
     },
     "symfony/service-contracts": {
         "version": "v2.0.1"
