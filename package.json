@@ -1,7 +1,10 @@
 {
     "devDependencies": {
+        "@hotwired/stimulus": "^3.0.0",
+        "@symfony/ux-chartjs": "file:vendor/symfony/ux-chartjs/Resources/assets",
         "@symfony/webpack-encore": "^0.28.2",
         "bootstrap": "^4.4.1",
+        "chart.js": "^3.4.1",
         "core-js": "^3.0.0",
         "jquery": "^3.4.1",
         "regenerator-runtime": "^0.13.2",
