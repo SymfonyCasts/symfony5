@@ -34,6 +34,9 @@
         "sort-packages": true,
         "platform": {
             "php": "7.3.0"
+        },
+        "allow-plugins": {
+            "symfony/flex": true
         }
     },
     "autoload": {
