@@ -280,9 +280,6 @@
     "symfony/polyfill-uuid": {
         "version": "v1.15.0"
     },
-    "symfony/profiler-pack": {
-        "version": "v1.0.4"
-    },
     "symfony/psr-http-message-bridge": {
         "version": "2.1",
         "recipe": {
@@ -337,9 +334,6 @@
             "config/packages/twig.yaml",
             "templates/base.html.twig"
         ]
-    },
-    "symfony/twig-pack": {
-        "version": "v1.0.0"
     },
     "symfony/var-dumper": {
         "version": "v5.0.4"
