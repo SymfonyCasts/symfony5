@@ -99,7 +99,7 @@ This time, we *could* have added `persist()`, but we don't need to. Scroll back
 up to `new()`. Remember: the point of `persist()` is to make Doctrine *aware* of
 your object so that when you call `flush()`, it knows to *check* that object and
 execute whatever query it needs to save that into the database, whether that
-is an INSERT of UPDATE query.
+is an INSERT or UPDATE query.
 
 Down in `questionVote()`, because Doctrine was used to *query* for this `Question`
 object... it's *already* aware of it! When we call `flush()`, it already knows
