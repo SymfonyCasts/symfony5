@@ -47,7 +47,12 @@ class RegistrationController extends AbstractController
             );
 
             // TODO: in a real app, send this as an email!
-            $this->addFlash('success', 'Confirm your email at: '.$signatureComponents->getSignedUrl());
+            $signedUrl = $signatureComponents->getSignedUrl();
+            $this->addFlash('success', sprintf(
+                'Confirm your email at: <a href="%s">%s</a>',
+                $signedUrl,
+                $signedUrl
+            ));
 
             return $this->redirectToRoute('app_homepage');
         }

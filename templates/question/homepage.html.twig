@@ -47,7 +47,9 @@
         </div>
         {% endfor %}
 
-        {{ pagerfanta(pager) }}
+        <div class="pagerfanta">
+            {{ pagerfanta(pager, 'twitter_bootstrap4') }}
+        </div>
     </div>
 </div>
 {% endblock %}
