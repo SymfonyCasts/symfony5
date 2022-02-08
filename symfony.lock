@@ -69,6 +69,19 @@
             "src/DataFixtures/AppFixtures.php"
         ]
     },
+    "doctrine/doctrine-migrations-bundle": {
+        "version": "3.2",
+        "recipe": {
+            "repo": "github.com/symfony/recipes",
+            "branch": "master",
+            "version": "3.1",
+            "ref": "ee609429c9ee23e22d6fa5728211768f51ed2818"
+        },
+        "files": [
+            "config/packages/doctrine_migrations.yaml",
+            "migrations/.gitignore"
+        ]
+    },
     "doctrine/event-manager": {
         "version": "1.1.1"
     },
@@ -80,6 +93,9 @@
     },
     "doctrine/lexer": {
         "version": "1.2.0"
+    },
+    "doctrine/migrations": {
+        "version": "3.4.1"
     },
     "doctrine/orm": {
         "version": "2.8.5"
@@ -113,6 +129,9 @@
     },
     "knplabs/knp-markdown-bundle": {
         "version": "1.8.1"
+    },
+    "knplabs/knp-time-bundle": {
+        "version": "v1.18.0"
     },
     "laminas/laminas-code": {
         "version": "4.5.1"
@@ -404,6 +423,9 @@
     "symfony/property-access": {
         "version": "v5.0.11"
     },
+    "symfony/property-info": {
+        "version": "v5.0.11"
+    },
     "symfony/proxy-manager-bridge": {
         "version": "v5.0.11"
     },
@@ -457,6 +479,9 @@
     "symfony/security-http": {
         "version": "v5.0.11"
     },
+    "symfony/serializer": {
+        "version": "v5.0.11"
+    },
     "symfony/service-contracts": {
         "version": "v2.0.1"
     },
@@ -465,6 +490,19 @@
     },
     "symfony/string": {
         "version": "v5.0.11"
+    },
+    "symfony/translation": {
+        "version": "5.0",
+        "recipe": {
+            "repo": "github.com/symfony/recipes",
+            "branch": "master",
+            "version": "3.3",
+            "ref": "2ad9d2545bce8ca1a863e50e92141f0b9d87ffcd"
+        },
+        "files": [
+            "config/packages/translation.yaml",
+            "translations/.gitignore"
+        ]
     },
     "symfony/translation-contracts": {
         "version": "v2.0.1"
@@ -488,6 +526,19 @@
     },
     "symfony/ux-chartjs": {
         "version": "v2.0.1"
+    },
+    "symfony/validator": {
+        "version": "5.0",
+        "recipe": {
+            "repo": "github.com/symfony/recipes",
+            "branch": "master",
+            "version": "4.3",
+            "ref": "3eb8df139ec05414489d55b97603c5f6ca0c44cb"
+        },
+        "files": [
+            "config/packages/test/validator.yaml",
+            "config/packages/validator.yaml"
+        ]
     },
     "symfony/var-dumper": {
         "version": "v5.0.4"
