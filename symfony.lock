@@ -32,6 +32,9 @@
     "doctrine/common": {
         "version": "3.2.1"
     },
+    "doctrine/data-fixtures": {
+        "version": "1.5.2"
+    },
     "doctrine/dbal": {
         "version": "2.13.7"
     },
@@ -54,6 +57,18 @@
             "src/Repository/.gitignore"
         ]
     },
+    "doctrine/doctrine-fixtures-bundle": {
+        "version": "3.4",
+        "recipe": {
+            "repo": "github.com/symfony/recipes",
+            "branch": "master",
+            "version": "3.0",
+            "ref": "1f5514cfa15b947298df4d771e694e578d4c204d"
+        },
+        "files": [
+            "src/DataFixtures/AppFixtures.php"
+        ]
+    },
     "doctrine/event-manager": {
         "version": "1.1.1"
     },
@@ -74,6 +89,9 @@
     },
     "doctrine/sql-formatter": {
         "version": "1.1.2"
+    },
+    "fakerphp/faker": {
+        "version": "v1.19.0"
     },
     "friendsofphp/proxy-manager-lts": {
         "version": "v1.0.1"
@@ -356,6 +374,9 @@
     "symfony/options-resolver": {
         "version": "v5.0.7"
     },
+    "symfony/polyfill-intl-grapheme": {
+        "version": "v1.24.0"
+    },
     "symfony/polyfill-intl-icu": {
         "version": "v1.24.0"
     },
@@ -373,6 +394,9 @@
     },
     "symfony/polyfill-php80": {
         "version": "v1.22.1"
+    },
+    "symfony/polyfill-php81": {
+        "version": "v1.24.0"
     },
     "symfony/polyfill-uuid": {
         "version": "v1.15.0"
@@ -438,6 +462,9 @@
     },
     "symfony/stopwatch": {
         "version": "v5.0.4"
+    },
+    "symfony/string": {
+        "version": "v5.0.11"
     },
     "symfony/translation-contracts": {
         "version": "v2.0.1"
@@ -510,7 +537,29 @@
     "twig/extra-bundle": {
         "version": "v3.0.1"
     },
+    "twig/string-extra": {
+        "version": "v3.3.5"
+    },
     "twig/twig": {
         "version": "v3.0.1"
+    },
+    "zenstruck/assert": {
+        "version": "v1.0.0"
+    },
+    "zenstruck/callback": {
+        "version": "v1.4.1"
+    },
+    "zenstruck/foundry": {
+        "version": "1.16",
+        "recipe": {
+            "repo": "github.com/symfony/recipes",
+            "branch": "master",
+            "version": "1.9",
+            "ref": "4105965892040697deb766a89e518eddc8d207e1"
+        },
+        "files": [
+            "config/packages/dev/zenstruck_foundry.yaml",
+            "config/packages/test/zenstruck_foundry.yaml"
+        ]
     }
 }

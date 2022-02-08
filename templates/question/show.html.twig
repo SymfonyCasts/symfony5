@@ -1,6 +1,6 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Question: {{ question }}{% endblock %}
+{% block title %}Question: {{ question.name }}{% endblock %}
 
 {% block body %}
 <div class="container">
@@ -11,14 +11,40 @@
                 <div class="q-container-show p-4">
                     <div class="row">
                         <div class="col-2 text-center">
-                            <img src="{{ asset('images/tisha.png') }}" width="100" height="100"  alt="Tisha avatar">
+                            <img src="{{ question.owner.avatarUri }}" width="100" height="100"  alt="{{ question.owner.displayName}} avatar">
+                            <div class="mt-3">
+                                <small>
+                                    {% if question.askedAt %}
+                                        Asked <br>
+                                        {{ question.askedAt|ago }}
+                                    {% else %}
+                                        (unpublished)
+                                    {% endif %}
+                                </small>
+
+                                <form action="{{ path('app_question_vote', { slug: question.slug }) }}" method="POST">
+                                    <div class="vote-arrows vote-arrows-alt flex-fill pt-2" style="min-width: 90px;">
+                                        <button class="vote-up btn btn-link" name="direction" value="up"><i class="far fa-arrow-alt-circle-up"></i></button>
+                                        <button class="vote-down btn btn-link" name="direction" value="down"><i class="far fa-arrow-alt-circle-down"></i></button>
+                                        <span>{{ question.votesString }}</span>
+                                    </div>
+                                </form>
+                            </div>
                         </div>
                         <div class="col">
-                            <h1 class="q-title-show">{{ question }}</h1>
+                            <div class="d-flex justify-content-between">
+                                <h1 class="q-title-show">{{ question.name }}</h1>
+
+                                {% if is_granted('EDIT', question) %}
+                                    <a href="{{ path('app_question_edit', {
+                                        slug: question.slug
+                                    }) }}" class="btn btn-secondary btn-sm mb-2">Edit</a>
+                                {% endif %}
+                            </div>
                             <div class="q-display p-3">
                                 <i class="fa fa-quote-left mr-3"></i>
-                                <p class="d-inline">{{ questionText|raw }}</p>
-                                <p class="pt-4"><strong>--Tisha</strong></p>
+                                <p class="d-inline">{{ question.question|parse_markdown }}</p>
+                                <p class="pt-4"><strong>--{{ question.owner.displayName }} ({{ question.owner.email }})</strong></p>
                             </div>
                         </div>
                     </div>
@@ -28,30 +54,15 @@
     </div>
 
     <div class="d-flex justify-content-between my-4">
-        <h2 class="">Answers <span style="font-size:1.2rem;">({{ answers|length }})</span></h2>
+        <h2 class="">Answers <span style="font-size:1.2rem;">({{ question.approvedAnswers|length }})</span></h2>
         <button class="btn btn-sm btn-secondary">Submit an Answer</button>
     </div>
 
 
 
     <ul class="list-unstyled">
-        {% for answer in answers %}
-            <li class="mb-4">
-                <div class="d-flex justify-content-center">
-                    <div class="mr-2 pt-2">
-                        <img src="{{ asset('images/tisha.png') }}" width="50" height="50" alt="Tisha avatar">
-                    </div>
-                    <div class="mr-3 pt-2">
-                        {{ answer|parse_markdown }}
-                        <p>-- Mallory</p>
-                    </div>
-                    <div class="vote-arrows flex-fill pt-2 js-vote-arrows" style="min-width: 90px;">
-                        <a class="vote-up" href="#" data-direction="up"><i class="far fa-arrow-alt-circle-up"></i></a>
-                        <a class="vote-down" href="#" data-direction="down"><i class="far fa-arrow-alt-circle-down"></i></a>
-                        <span>+ <span class="js-vote-total">6</span></span>
-                    </div>
-                </div>
-            </li>
+        {% for answer in question.approvedAnswers %}
+            {{ include('answer/_answer.html.twig') }}
         {% endfor %}
     </ul>
 </div>

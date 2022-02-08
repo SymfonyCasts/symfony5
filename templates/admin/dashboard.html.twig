@@ -1,0 +1,22 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Admin Dashboard{% endblock %}
+
+{% block body %}
+<div class="container my-md-4">
+    <div class="d-flex justify-content-between">
+        <h1>Very Important Admin Stats</h1>
+    </div>
+
+    <div class="row">
+        <div class="col-6">
+            <h4>Production Report</h4>
+            {{ render_chart(chart) }}
+        </div>
+        <div class="col-6">
+            <h4>Accident Types</h4>
+            {{ render_chart(chart2) }}
+        </div>
+    </div>
+</div>
+{% endblock %}

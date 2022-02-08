@@ -1,0 +1,50 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Two Factor Auth{% endblock %}
+
+{% block body %}
+<div class="container">
+    <div class="row">
+        <div class="login-form bg-light mt-4 p-4">
+            <h1 class="h3 mb-3 font-weight-normal">Two Factor Authentication</h1>
+
+            <p>
+                Open your Authenticator app and type in the number.
+            </p>
+
+            {% if authenticationError %}
+            <div class="alert alert-danger">{{ authenticationError|trans(authenticationErrorData, 'SchebTwoFactorBundle') }}</div>
+            {% endif %}
+
+            <form class="form" action="{{ checkPathUrl ? checkPathUrl: path(checkPathRoute) }}" method="post">
+                <p class="widget">
+                    <input
+                        id="_auth_code"
+                        type="text"
+                        name="{{ authCodeParameterName }}"
+                        autocomplete="one-time-code"
+                        class="form-control"
+                        autofocus
+                        {#
+                        https://www.twilio.com/blog/html-attributes-two-factor-authentication-autocomplete
+                        If your 2fa methods are using numeric codes only, add these attributes for better user experience:
+                        inputmode="numeric"
+                        pattern="[0-9]*"
+                        #}
+                    />
+                </p>
+
+                {% if displayTrustedOption %}
+                    <p class="widget"><label for="_trusted"><input id="_trusted" type="checkbox" name="{{ trustedParameterName }}" /> {{ "trusted"|trans({}, 'SchebTwoFactorBundle') }}</label></p>
+                {% endif %}
+                {% if isCsrfProtectionEnabled %}
+                    <input type="hidden" name="{{ csrfParameterName }}" value="{{ csrf_token(csrfTokenId) }}">
+                {% endif %}
+                <a class="btn btn-link" href="{{ logoutPath }}">{{ "cancel"|trans({}, 'SchebTwoFactorBundle') }}</a>
+                <button type="submit" class="btn btn-primary">{{ "login"|trans({}, 'SchebTwoFactorBundle') }}</button>
+            </form>
+
+        </div>
+    </div>
+</div>
+{% endblock %}

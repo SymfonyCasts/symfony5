@@ -34,10 +34,13 @@
         "symfony/yaml": "5.0.*",
         "symfonycasts/verify-email-bundle": "^1.7",
         "twig/extra-bundle": "^2.12|^3.0",
+        "twig/string-extra": "^3.3",
         "twig/twig": "^2.12|^3.0"
     },
     "require-dev": {
-        "symfony/maker-bundle": "^1.15"
+        "doctrine/doctrine-fixtures-bundle": "^3.4",
+        "symfony/maker-bundle": "^1.15",
+        "zenstruck/foundry": "^1.16"
     },
     "config": {
         "preferred-install": {

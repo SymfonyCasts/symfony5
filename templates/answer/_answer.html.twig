@@ -1,0 +1,49 @@
+<li class="mb-4">
+    {% if showQuestion|default(false) %}
+        <a
+            href="{{ path('app_question_show', {
+                slug: answer.question.slug
+            }) }}"
+            class="mb-1 link-secondary"
+        >
+            <strong>Question:</strong>
+            {{ answer.questionText|u.truncate(80, '...') }}
+        </a>
+    {% endif %}
+    <div class="row">
+        <div class="col-1">
+            <img src="{{ asset('images/tisha.png') }}" width="50" height="50" alt="Tisha avatar">
+        </div>
+        <div class="col-9">
+            {{ answer.content|parse_markdown }}
+            <p>-- {{ answer.username }}</p>
+        </div>
+        <div class="col-2 text-end">
+            <small>{{ answer.createdAt|ago }}</small>
+            {% if is_granted('IS_AUTHENTICATED_REMEMBERED') %}
+            <div
+                class="vote-arrows"
+                {{ stimulus_controller('answer-vote', {
+                    url: path('answer_vote', {
+                        id: answer.id
+                    })
+                }) }}
+            >
+                <button
+                    class="vote-up btn btn-link"
+                    name="direction"
+                    value="up"
+                    {{ stimulus_action('answer-vote', 'clickVote') }}
+                ><i class="far fa-arrow-alt-circle-up"></i></button>
+                <button
+                    class="vote-down btn btn-link"
+                    name="direction"
+                    value="down"
+                    {{ stimulus_action('answer-vote', 'clickVote') }}
+                ><i class="far fa-arrow-alt-circle-down"></i></button>
+                <span><span {{ stimulus_target('answer-vote', 'voteTotal') }}>{{ answer.votes }}</span></span>
+            </div>
+            {% endif %}
+        </div>
+    </div>
+</li>
