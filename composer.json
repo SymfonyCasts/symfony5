@@ -5,6 +5,7 @@
         "php": "^7.4.0 || ^8.0.0",
         "ext-ctype": "*",
         "ext-iconv": "*",
+        "babdev/pagerfanta-bundle": "^2.0",
         "composer/package-versions-deprecated": "^1.11",
         "doctrine/dbal": "^2.13",
         "doctrine/doctrine-bundle": "^2.0",
