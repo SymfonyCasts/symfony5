@@ -14,6 +14,9 @@ use Symfony\Component\Security\Http\Authenticator\Passport\UserPassportInterface
 use Symfony\Component\Security\Http\Event\CheckPassportEvent;
 use Symfony\Component\Security\Http\Event\LoginFailureEvent;
 
+/**
+ * TODO Rewrite with Guard Authenticator
+ */
 class CheckVerifiedUserSubscriber implements EventSubscriberInterface
 {
     private RouterInterface $router;

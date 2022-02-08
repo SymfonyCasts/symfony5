@@ -44,7 +44,6 @@ class AnswerController extends BaseController
         if ($direction === 'up') {
             $logger->info('Voting up!');
             $answer->setVotes($answer->getVotes() + 1);
-            $currentVoteCount = rand(7, 100);
         } else {
             $logger->info('Voting down!');
             $answer->setVotes($answer->getVotes() - 1);
