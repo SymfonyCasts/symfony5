@@ -44,7 +44,7 @@ To use the *new* way of generating QR codes - which I recommend - skip this
 step and instead run:
 
 ```terminal
-composer require endroid/qr-code
+composer require "endroid/qr-code:^3.0"
 ```
 
 While that's working. Head back to the docs... and copy this controller from the
