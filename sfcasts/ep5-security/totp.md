@@ -15,7 +15,7 @@ The logic for this actually lives in a separate library. Copy the
 Composer require line, find your terminal, and paste:
 
 ```terminal
-composer require scheb/2fa-totp
+composer require "scheb/2fa-totp:^5.13"
 ```
 
 This time there's no recipe or anything fancy: it just installs the library. Next,
