@@ -25,7 +25,6 @@ class QuestionController extends AbstractController
         $this->isDebug = $isDebug;
     }
 
-
     /**
      * @Route("/{page<\d+>}", name="app_homepage")
      */

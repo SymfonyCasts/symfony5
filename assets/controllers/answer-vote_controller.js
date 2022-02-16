@@ -16,7 +16,6 @@ export default class extends Controller {
         }))
             .then((response) => {
                 this.voteTotalTarget.innerHTML = response.data.votes;
-            })
-        ;
+            });
     }
 }
