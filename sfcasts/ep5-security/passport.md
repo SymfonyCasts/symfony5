@@ -35,6 +35,10 @@ the user. If not, we want to allow the request to continue like normal.
 
 To see what happens next, down in `authenticate()`, `dd('authenticate')`:
 
+***TIP
+`PassportInterface` was deprecated since Symfony 5.4: use `Passport` as a return type instead.
+***
+
 [[[ code('743dc917b8') ]]]
 
 Testing time! Go refresh the homepage. Yup! The `supports()` method returned
