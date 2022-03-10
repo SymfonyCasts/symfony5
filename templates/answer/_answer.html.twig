@@ -23,25 +23,24 @@
             {% if is_granted('IS_AUTHENTICATED_REMEMBERED') %}
             <div
                 class="vote-arrows"
-                {{ stimulus_controller('answer-vote', {
-                    url: path('answer_vote', {
-                        id: answer.id
-                    })
-                }) }}
+                data-controller="answer-vote"
+                data-answer-vote-url-value="{{ path('answer_vote', {
+                    id: answer.id
+                }) }}"
             >
                 <button
                     class="vote-up btn btn-link"
                     name="direction"
                     value="up"
-                    {{ stimulus_action('answer-vote', 'clickVote') }}
+                    data-action="answer-vote#clickVote"
                 ><i class="far fa-arrow-alt-circle-up"></i></button>
                 <button
                     class="vote-down btn btn-link"
                     name="direction"
                     value="down"
-                    {{ stimulus_action('answer-vote', 'clickVote') }}
+                    data-action="answer-vote#clickVote"
                 ><i class="far fa-arrow-alt-circle-down"></i></button>
-                <span><span {{ stimulus_target('answer-vote', 'voteTotal') }}>{{ answer.votes }}</span></span>
+                <span><span data-answer-vote-target="voteTotal">{{ answer.votes }}</span></span>
             </div>
             {% endif %}
         </div>

@@ -14,9 +14,8 @@
     </head>
     <body
         {% if is_granted('IS_AUTHENTICATED_REMEMBERED') %}
-            {{ stimulus_controller('user-api', {
-                url: path('app_user_api_me')
-            }) }}
+            data-controller="user-api"
+            data-user-api-url-value="{{ path('app_user_api_me') }}"
         {% endif %}
     >
         <nav
