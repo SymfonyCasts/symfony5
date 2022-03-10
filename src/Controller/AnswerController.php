@@ -18,7 +18,7 @@ class AnswerController extends BaseController
     public function popularAnswers(AnswerRepository $answerRepository, Request $request)
     {
         $answers = $answerRepository->findMostPopular(
-            $request->query->get('q')
+            $request->get('q')
         );
 
         return $this->render('answer/popularAnswers.html.twig', [
