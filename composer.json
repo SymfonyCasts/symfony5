@@ -45,6 +45,7 @@
     },
     "require-dev": {
         "doctrine/doctrine-fixtures-bundle": "^3.4",
+        "phpunit/phpunit": "^9.5",
         "symfony/debug-bundle": "5.0.*",
         "symfony/maker-bundle": "^1.15",
         "symfony/var-dumper": "5.0.*",
