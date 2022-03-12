@@ -4,7 +4,117 @@
             "id": "start",
             "name": "start",
             "description": null
+        },
+        {
+            "id": "symfony-5-4-change-version-constraints",
+            "name": "Symfony 5.4: Change version constraints",
+            "description": null
+        },
+        {
+            "id": "symfony-5-4-upgrade-symfony-deps",
+            "name": "Symfony 5.4: Upgrade Symfony deps",
+            "description": null
+        },
+        {
+            "id": "symfony-5-4-install-rector",
+            "name": "Symfony 5.4: Install Rector",
+            "description": null
+        },
+        {
+            "id": "symfony-5-4-init-rector-config",
+            "name": "Symfony 5.4: Init Rector config",
+            "description": null
+        },
+        {
+            "id": "symfony-5-4-replace-rector-default-config-with-symfony-one",
+            "name": "Symfony 5.4: Replace Rector default config with Symfony one",
+            "description": null
+        },
+        {
+            "id": "symfony-5-4-set-rector-config-to-up-to-symfony-54",
+            "name": "Symfony 5.4: Set Rector config to UP_TO_SYMFONY_54",
+            "description": null
+        },
+        {
+            "id": "symfony-5-4-apply-rector-changes",
+            "name": "Symfony 5.4: Apply Rector changes",
+            "description": null
+        },
+        {
+            "id": "symfony-5-4-drop-configureroutes",
+            "name": "Symfony 5.4: Drop configureRoutes()",
+            "description": null
+        },
+        {
+            "id": "recipes-upgrade-framework-bundle",
+            "name": "Recipes: Upgrade framework-bundle",
+            "description": null
+        },
+        {
+            "id": "recipes-update-twig-bundle",
+            "name": "Recipes: Update twig-bundle",
+            "description": null
+        },
+        {
+            "id": "recipes-update-doctrine-bundle",
+            "name": "Recipes: Update doctrine-bundle",
+            "description": null
+        },
+        {
+            "id": "recipes-update-doctrine-extensions-bundle",
+            "name": "Recipes: Update doctrine-extensions-bundle",
+            "description": null
+        },
+        {
+            "id": "recipes-update-console",
+            "name": "Recipes: Update console",
+            "description": null
+        },
+        {
+            "id": "recipes-update-debug-bundle",
+            "name": "Recipes: Update debug-bundle",
+            "description": null
+        },
+        {
+            "id": "recipes-update-routing",
+            "name": "Recipes: Update routing",
+            "description": null
+        },
+        {
+            "id": "recipes-update-security-bundle",
+            "name": "Recipes: Update security-bundle",
+            "description": null
+        },
+        {
+            "id": "recipes-update-translation",
+            "name": "Recipes: Update translation",
+            "description": null
+        },
+        {
+            "id": "recipes-update-validator",
+            "name": "Recipes: Update validator",
+            "description": null
+        },
+        {
+            "id": "recipes-update-web-profiler-bundle",
+            "name": "Recipes: Update web-profiler-bundle",
+            "description": null
+        },
+        {
+            "id": "recipes-update-webpack-encore-bundle",
+            "name": "Recipes: Update webpack-encore-bundle",
+            "description": null
+        },
+        {
+            "id": "php-8-up-to-php-8-0",
+            "name": "PHP 8: Up to PHP 8.0",
+            "description": null
+        },
+        {
+            "id": "php-8-run-rector",
+            "name": "PHP 8: Run Rector",
+            "description": null
         }
     ],
-    "sha": "499ef82ab26558d21576e4bba7d519586c5b298f"
+    "sha": "5f717d328d25e1d8b5b110ac6848aeb00d332e96"
 }

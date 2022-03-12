@@ -1,0 +1,20 @@
+diff --git a/rector.php b/rector.php
+index a630e1c..841d060 100644
+--- a/rector.php
++++ b/rector.php
+@@ -19,7 +19,12 @@ return static function (ContainerConfigurator $containerConfigurator): void {
+     );
+     // endregion
+ 
+-    $containerConfigurator->import(SymfonyLevelSetList::UP_TO_SYMFONY_54);
+-    $containerConfigurator->import(SymfonySetList::SYMFONY_CODE_QUALITY);
+-    $containerConfigurator->import(SymfonySetList::SYMFONY_CONSTRUCTOR_INJECTION);
++    // Define what rule sets will be applied
++    $containerConfigurator->import(LevelSetList::UP_TO_PHP_80);
++
++    // get services (needed for register a single rule)
++    // $services = $containerConfigurator->services();
++
++    // register a single rule
++    // $services->set(TypedPropertyRector::class);
+ };

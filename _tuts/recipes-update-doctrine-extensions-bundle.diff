@@ -1,0 +1,24 @@
+diff --git a/config/packages/stof_doctrine_extensions.yaml b/config/packages/stof_doctrine_extensions.yaml
+index a89cf08..77a7be4 100644
+--- a/config/packages/stof_doctrine_extensions.yaml
++++ b/config/packages/stof_doctrine_extensions.yaml
+@@ -1,5 +1,5 @@
+ # Read the documentation: https://symfony.com/doc/current/bundles/StofDoctrineExtensionsBundle/index.html
+-# See the official DoctrineExtensions documentation for more details: https://github.com/Atlantic18/DoctrineExtensions/tree/master/doc/
++# See the official DoctrineExtensions documentation for more details: https://github.com/doctrine-extensions/DoctrineExtensions/tree/main/doc
+ stof_doctrine_extensions:
+     default_locale: en_US
+     orm:
+diff --git a/symfony.lock b/symfony.lock
+index 49c212f..2c44bb6 100644
+--- a/symfony.lock
++++ b/symfony.lock
+@@ -330,7 +330,7 @@
+             "repo": "github.com/symfony/recipes-contrib",
+             "branch": "master",
+             "version": "1.2",
+-            "ref": "6c1ceb662f8997085f739cd089bfbef67f245983"
++            "ref": "e805aba9eff5372e2d149a9ff56566769e22819d"
+         },
+         "files": [
+             "config/packages/stof_doctrine_extensions.yaml"

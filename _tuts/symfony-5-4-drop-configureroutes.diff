@@ -1,0 +1,18 @@
+diff --git a/src/Kernel.php b/src/Kernel.php
+index 5e775f6..209f86e 100644
+--- a/src/Kernel.php
++++ b/src/Kernel.php
+@@ -42,13 +42,4 @@ class Kernel extends BaseKernel
+         $loader->load($confDir.'/{services}'.self::CONFIG_EXTS, 'glob');
+         $loader->load($confDir.'/{services}_'.$this->environment.self::CONFIG_EXTS, 'glob');
+     }
+-
+-    protected function configureRoutes(\Symfony\Component\Routing\Loader\Configurator\RoutingConfigurator $routes): void
+-    {
+-        $confDir = $this->getProjectDir().'/config';
+-
+-        $routes->import($confDir.'/{routes}/'.$this->environment.'/*'.self::CONFIG_EXTS, '/', 'glob');
+-        $routes->import($confDir.'/{routes}/*'.self::CONFIG_EXTS, '/', 'glob');
+-        $routes->import($confDir.'/{routes}'.self::CONFIG_EXTS, '/', 'glob');
+-    }
+ }

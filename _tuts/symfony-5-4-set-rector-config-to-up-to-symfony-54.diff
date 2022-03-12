@@ -1,0 +1,21 @@
+diff --git a/rector.php b/rector.php
+index 91b3f40..b0e99d1 100644
+--- a/rector.php
++++ b/rector.php
+@@ -5,6 +5,7 @@ declare(strict_types=1);
+ use Rector\Core\Configuration\Option;
+ use Rector\Php74\Rector\Property\TypedPropertyRector;
+ use Rector\Set\ValueObject\LevelSetList;
++use Rector\Symfony\Set\SymfonyLevelSetList;
+ use Rector\Symfony\Set\SymfonySetList;
+ use Symfony\Component\DependencyInjection\Loader\Configurator\ContainerConfigurator;
+ 
+@@ -17,7 +18,7 @@ return static function (ContainerConfigurator $containerConfigurator): void {
+     );
+     // endregion
+ 
+-    $containerConfigurator->import(SymfonySetList::SYMFONY_52);
++    $containerConfigurator->import(SymfonyLevelSetList::UP_TO_SYMFONY_54);
+     $containerConfigurator->import(SymfonySetList::SYMFONY_CODE_QUALITY);
+     $containerConfigurator->import(SymfonySetList::SYMFONY_CONSTRUCTOR_INJECTION);
+ };

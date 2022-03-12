@@ -1,0 +1,35 @@
+diff --git a/config/packages/translation.yaml b/config/packages/translation.yaml
+index 05a2b3d..abb76aa 100644
+--- a/config/packages/translation.yaml
++++ b/config/packages/translation.yaml
+@@ -4,3 +4,10 @@ framework:
+         default_path: '%kernel.project_dir%/translations'
+         fallbacks:
+             - en
++#        providers:
++#            crowdin:
++#                dsn: '%env(CROWDIN_DSN)%'
++#            loco:
++#                dsn: '%env(LOCO_DSN)%'
++#            lokalise:
++#                dsn: '%env(LOKALISE_DSN)%'
+diff --git a/symfony.lock b/symfony.lock
+index 384cb34..5906bb4 100644
+--- a/symfony.lock
++++ b/symfony.lock
+@@ -573,12 +573,12 @@
+         "version": "v5.0.11"
+     },
+     "symfony/translation": {
+-        "version": "5.0",
++        "version": "5.4",
+         "recipe": {
+             "repo": "github.com/symfony/recipes",
+             "branch": "master",
+-            "version": "3.3",
+-            "ref": "2ad9d2545bce8ca1a863e50e92141f0b9d87ffcd"
++            "version": "5.3",
++            "ref": "da64f5a2b6d96f5dc24914517c0350a5f91dee43"
+         },
+         "files": [
+             "config/packages/translation.yaml",

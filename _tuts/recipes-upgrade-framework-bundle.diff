@@ -1,0 +1,373 @@
+diff --git a/.env b/.env
+index 492de4b..b92f5b7 100644
+--- a/.env
++++ b/.env
+@@ -16,8 +16,6 @@
+ ###> symfony/framework-bundle ###
+ APP_ENV=dev
+ APP_SECRET=c28f3d37eba278748f3c0427b313e86a
+-#TRUSTED_PROXIES=127.0.0.0/8,10.0.0.0/8,172.16.0.0/12,192.168.0.0/16
+-#TRUSTED_HOSTS='^(localhost|example\.com)$'
+ ###< symfony/framework-bundle ###
+ 
+ ###> doctrine/doctrine-bundle ###
+diff --git a/composer.json b/composer.json
+index f9d2ca8..1af7df2 100755
+--- a/composer.json
++++ b/composer.json
+@@ -30,6 +30,7 @@
+         "symfony/property-info": "5.4.*",
+         "symfony/proxy-manager-bridge": "5.4.*",
+         "symfony/routing": "5.4.*",
++        "symfony/runtime": "5.4.*",
+         "symfony/security-bundle": "5.4.*",
+         "symfony/serializer": "5.4.*",
+         "symfony/stopwatch": "5.4.*",
+@@ -62,7 +63,8 @@
+             "php": "7.4"
+         },
+         "allow-plugins": {
+-            "symfony/flex": true
++            "symfony/flex": true,
++            "symfony/runtime": true
+         }
+     },
+     "autoload": {
+diff --git a/composer.lock b/composer.lock
+index 347799c..db2f4c7 100644
+--- a/composer.lock
++++ b/composer.lock
+@@ -4,7 +4,7 @@
+         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
+         "This file is @generated automatically"
+     ],
+-    "content-hash": "fc0150028e42439c86920584411baff4",
++    "content-hash": "ebfa81124b84d4aaa840fc49cd99386c",
+     "packages": [
+         {
+             "name": "babdev/pagerfanta-bundle",
+@@ -6983,6 +6983,83 @@
+             ],
+             "time": "2022-01-02T09:53:40+00:00"
+         },
++        {
++            "name": "symfony/runtime",
++            "version": "v5.4.5",
++            "source": {
++                "type": "git",
++                "url": "https://github.com/symfony/runtime.git",
++                "reference": "06fdd940ebf240ed7d9c9832cd97bf3133847316"
++            },
++            "dist": {
++                "type": "zip",
++                "url": "https://api.github.com/repos/symfony/runtime/zipball/06fdd940ebf240ed7d9c9832cd97bf3133847316",
++                "reference": "06fdd940ebf240ed7d9c9832cd97bf3133847316",
++                "shasum": ""
++            },
++            "require": {
++                "composer-plugin-api": "^1.0|^2.0",
++                "php": ">=7.2.5",
++                "symfony/polyfill-php80": "^1.15"
++            },
++            "conflict": {
++                "symfony/dotenv": "<5.1"
++            },
++            "require-dev": {
++                "composer/composer": "^1.0.2|^2.0",
++                "symfony/console": "^4.4.30|^5.3.7|^6.0",
++                "symfony/dotenv": "^5.1|^6.0",
++                "symfony/http-foundation": "^4.4.30|^5.3.7|^6.0",
++                "symfony/http-kernel": "^4.4.30|^5.3.7|^6.0"
++            },
++            "type": "composer-plugin",
++            "extra": {
++                "class": "Symfony\\Component\\Runtime\\Internal\\ComposerPlugin"
++            },
++            "autoload": {
++                "psr-4": {
++                    "Symfony\\Component\\Runtime\\": "",
++                    "Symfony\\Runtime\\Symfony\\Component\\": "Internal/"
++                },
++                "exclude-from-classmap": [
++                    "/Tests/"
++                ]
++            },
++            "notification-url": "https://packagist.org/downloads/",
++            "license": [
++                "MIT"
++            ],
++            "authors": [
++                {
++                    "name": "Nicolas Grekas",
++                    "email": "p@tchwork.com"
++                },
++                {
++                    "name": "Symfony Community",
++                    "homepage": "https://symfony.com/contributors"
++                }
++            ],
++            "description": "Enables decoupling PHP applications from global state",
++            "homepage": "https://symfony.com",
++            "support": {
++                "source": "https://github.com/symfony/runtime/tree/v5.4.5"
++            },
++            "funding": [
++                {
++                    "url": "https://symfony.com/sponsor",
++                    "type": "custom"
++                },
++                {
++                    "url": "https://github.com/fabpot",
++                    "type": "github"
++                },
++                {
++                    "url": "https://tidelift.com/funding/github/packagist/symfony/symfony",
++                    "type": "tidelift"
++                }
++            ],
++            "time": "2022-02-15T13:38:03+00:00"
++        },
+         {
+             "name": "symfony/security-bundle",
+             "version": "v5.4.5",
+diff --git a/config/packages/cache.yaml b/config/packages/cache.yaml
+index 42de186..6899b72 100644
+--- a/config/packages/cache.yaml
++++ b/config/packages/cache.yaml
+@@ -12,7 +12,7 @@ framework:
+         #default_redis_provider: redis://localhost
+ 
+         # APCu (not recommended with heavy random-write workloads as memory fragmentation can cause perf issues)
+-        app: '%cache_adapter%'
++        #app: cache.adapter.apcu
+ 
+         # Namespaced pools use the above "app" backend by default
+         #pools:
+diff --git a/config/packages/framework.yaml b/config/packages/framework.yaml
+index 6089f4b..7853e9e 100644
+--- a/config/packages/framework.yaml
++++ b/config/packages/framework.yaml
+@@ -1,7 +1,8 @@
++# see https://symfony.com/doc/current/reference/configuration/framework.html
+ framework:
+     secret: '%env(APP_SECRET)%'
+     #csrf_protection: true
+-    #http_method_override: true
++    http_method_override: false
+ 
+     # Enables session support. Note that the session will ONLY be started if you read or write from it.
+     # Remove or comment this section to explicitly disable session support.
+@@ -9,8 +10,15 @@ framework:
+         handler_id: null
+         cookie_secure: auto
+         cookie_samesite: lax
++        storage_factory_id: session.storage.factory.native
+ 
+     #esi: true
+     #fragments: true
+     php_errors:
+         log: true
++
++when@test:
++    framework:
++        test: true
++        session:
++            storage_factory_id: session.storage.factory.mock_file
+diff --git a/config/packages/test/framework.yaml b/config/packages/test/framework.yaml
+deleted file mode 100644
+index d051c84..0000000
+--- a/config/packages/test/framework.yaml
++++ /dev/null
+@@ -1,4 +0,0 @@
+-framework:
+-    test: true
+-    session:
+-        storage_id: session.storage.mock_file
+diff --git a/config/preload.php b/config/preload.php
+new file mode 100644
+index 0000000..5ebcdb2
+--- /dev/null
++++ b/config/preload.php
+@@ -0,0 +1,5 @@
++<?php
++
++if (file_exists(dirname(__DIR__).'/var/cache/prod/App_KernelProdContainer.preload.php')) {
++    require dirname(__DIR__).'/var/cache/prod/App_KernelProdContainer.preload.php';
++}
+diff --git a/config/routes/dev/framework.yaml b/config/routes/dev/framework.yaml
+deleted file mode 100644
+index bcbbf13..0000000
+--- a/config/routes/dev/framework.yaml
++++ /dev/null
+@@ -1,3 +0,0 @@
+-_errors:
+-    resource: '@FrameworkBundle/Resources/config/routing/errors.xml'
+-    prefix: /_error
+diff --git a/config/routes/framework.yaml b/config/routes/framework.yaml
+new file mode 100644
+index 0000000..0fc74bb
+--- /dev/null
++++ b/config/routes/framework.yaml
+@@ -0,0 +1,4 @@
++when@dev:
++    _errors:
++        resource: '@FrameworkBundle/Resources/config/routing/errors.xml'
++        prefix: /_error
+diff --git a/config/services.yaml b/config/services.yaml
+index 98a9d7d..6922237 100644
+--- a/config/services.yaml
++++ b/config/services.yaml
+@@ -2,9 +2,8 @@
+ # Files in the packages/ subdirectory configure your dependencies.
+ 
+ # Put parameters here that don't need to change on each machine where the app is deployed
+-# https://symfony.com/doc/current/best_practices/configuration.html#application-related-configuration
++# https://symfony.com/doc/current/best_practices.html#use-parameters-for-application-configuration
+ parameters:
+-    cache_adapter: cache.adapter.apcu
+ 
+ services:
+     # default configuration for services in *this* file
+@@ -17,14 +16,11 @@ services:
+     # makes classes in src/ available to be used as services
+     # this creates a service per class whose id is the fully-qualified class name
+     App\:
+-        resource: '../src/*'
+-        exclude: '../src/{DependencyInjection,Entity,Kernel.php}'
+-
+-    # controllers are imported separately to make sure services can be injected
+-    # as action arguments even if you don't extend any base controller class
+-    App\Controller\:
+-        resource: '../src/Controller'
+-        tags: ['controller.service_arguments']
++        resource: '../src/'
++        exclude:
++            - '../src/DependencyInjection/'
++            - '../src/Entity/'
++            - '../src/Kernel.php'
+ 
+     # add more service definitions when explicit configuration is needed
+     # please note that last definitions always *replace* previous ones
+diff --git a/public/index.php b/public/index.php
+index f094a9b..9982c21 100644
+--- a/public/index.php
++++ b/public/index.php
+@@ -1,27 +1,9 @@
+ <?php
+ 
+ use App\Kernel;
+-use Symfony\Component\ErrorHandler\Debug;
+-use Symfony\Component\HttpFoundation\Request;
+ 
+-require dirname(__DIR__).'/config/bootstrap.php';
++require_once dirname(__DIR__).'/vendor/autoload_runtime.php';
+ 
+-if ($_SERVER['APP_DEBUG']) {
+-    umask(0000);
+-
+-    Debug::enable();
+-}
+-
+-if ($trustedProxies = $_SERVER['TRUSTED_PROXIES'] ?? $_ENV['TRUSTED_PROXIES'] ?? false) {
+-    Request::setTrustedProxies(explode(',', $trustedProxies), Request::HEADER_X_FORWARDED_ALL ^ Request::HEADER_X_FORWARDED_HOST);
+-}
+-
+-if ($trustedHosts = $_SERVER['TRUSTED_HOSTS'] ?? $_ENV['TRUSTED_HOSTS'] ?? false) {
+-    Request::setTrustedHosts([$trustedHosts]);
+-}
+-
+-$kernel = new Kernel($_SERVER['APP_ENV'], (bool) $_SERVER['APP_DEBUG']);
+-$request = Request::createFromGlobals();
+-$response = $kernel->handle($request);
+-$response->send();
+-$kernel->terminate($request, $response);
++return function (array $context) {
++    return new Kernel($context['APP_ENV'], (bool) $context['APP_DEBUG']);
++};
+diff --git a/src/Kernel.php b/src/Kernel.php
+index 209f86e..779cd1f 100644
+--- a/src/Kernel.php
++++ b/src/Kernel.php
+@@ -3,43 +3,9 @@
+ namespace App;
+ 
+ use Symfony\Bundle\FrameworkBundle\Kernel\MicroKernelTrait;
+-use Symfony\Component\Config\Loader\LoaderInterface;
+-use Symfony\Component\Config\Resource\FileResource;
+-use Symfony\Component\DependencyInjection\ContainerBuilder;
+ use Symfony\Component\HttpKernel\Kernel as BaseKernel;
+-use Symfony\Component\Routing\RouteCollectionBuilder;
+ 
+ class Kernel extends BaseKernel
+ {
+     use MicroKernelTrait;
+-
+-    private const CONFIG_EXTS = '.{php,xml,yaml,yml}';
+-
+-    public function registerBundles(): iterable
+-    {
+-        $contents = require $this->getProjectDir().'/config/bundles.php';
+-        foreach ($contents as $class => $envs) {
+-            if ($envs[$this->environment] ?? $envs['all'] ?? false) {
+-                yield new $class();
+-            }
+-        }
+-    }
+-
+-    public function getProjectDir(): string
+-    {
+-        return \dirname(__DIR__);
+-    }
+-
+-    protected function configureContainer(ContainerBuilder $container, LoaderInterface $loader): void
+-    {
+-        $container->addResource(new FileResource($this->getProjectDir().'/config/bundles.php'));
+-        $container->setParameter('container.dumper.inline_class_loader', \PHP_VERSION_ID < 70400 || $this->debug);
+-        $container->setParameter('container.dumper.inline_factories', true);
+-        $confDir = $this->getProjectDir().'/config';
+-
+-        $loader->load($confDir.'/{packages}/*'.self::CONFIG_EXTS, 'glob');
+-        $loader->load($confDir.'/{packages}/'.$this->environment.'/*'.self::CONFIG_EXTS, 'glob');
+-        $loader->load($confDir.'/{services}'.self::CONFIG_EXTS, 'glob');
+-        $loader->load($confDir.'/{services}_'.$this->environment.self::CONFIG_EXTS, 'glob');
+-    }
+ }
+diff --git a/symfony.lock b/symfony.lock
+index cde3ed3..0149a50 100644
+--- a/symfony.lock
++++ b/symfony.lock
+@@ -416,19 +416,18 @@
+         "version": "v5.0.11"
+     },
+     "symfony/framework-bundle": {
+-        "version": "4.4",
++        "version": "5.4",
+         "recipe": {
+             "repo": "github.com/symfony/recipes",
+             "branch": "master",
+-            "version": "4.4",
+-            "ref": "23ecaccc551fe2f74baf613811ae529eb07762fa"
++            "version": "5.4",
++            "ref": "3cd216a4d007b78d8554d44a5b1c0a446dab24fb"
+         },
+         "files": [
+-            "config/bootstrap.php",
+             "config/packages/cache.yaml",
+             "config/packages/framework.yaml",
+-            "config/packages/test/framework.yaml",
+-            "config/routes/dev/framework.yaml",
++            "config/preload.php",
++            "config/routes/framework.yaml",
+             "config/services.yaml",
+             "public/index.php",
+             "src/Controller/.gitignore",
+@@ -538,6 +537,9 @@
+             "config/routes.yaml"
+         ]
+     },
++    "symfony/runtime": {
++        "version": "v5.4.5"
++    },
+     "symfony/security-bundle": {
+         "version": "5.0",
+         "recipe": {

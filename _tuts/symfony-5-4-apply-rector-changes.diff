@@ -1,0 +1,76 @@
+diff --git a/rector.php b/rector.php
+index b0e99d1..a630e1c 100644
+--- a/rector.php
++++ b/rector.php
+@@ -3,6 +3,7 @@
+ declare(strict_types=1);
+ 
+ use Rector\Core\Configuration\Option;
++use Rector\Core\ValueObject\PhpVersion;
+ use Rector\Php74\Rector\Property\TypedPropertyRector;
+ use Rector\Set\ValueObject\LevelSetList;
+ use Rector\Symfony\Set\SymfonyLevelSetList;
+diff --git a/src/Controller/RegistrationController.php b/src/Controller/RegistrationController.php
+index d348756..72b5e0b 100644
+--- a/src/Controller/RegistrationController.php
++++ b/src/Controller/RegistrationController.php
+@@ -19,7 +19,7 @@ class RegistrationController extends AbstractController
+     /**
+      * @Route("/register", name="app_register")
+      */
+-    public function register(Request $request, UserPasswordEncoderInterface $userPasswordEncoder, VerifyEmailHelperInterface $verifyEmailHelper): Response
++    public function register(Request $request, \Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface $userPasswordEncoder, VerifyEmailHelperInterface $verifyEmailHelper): Response
+     {
+         $user = new User();
+         $form = $this->createForm(RegistrationFormType::class, $user);
+diff --git a/src/Factory/UserFactory.php b/src/Factory/UserFactory.php
+index 2339561..9935aaa 100644
+--- a/src/Factory/UserFactory.php
++++ b/src/Factory/UserFactory.php
+@@ -29,9 +29,9 @@ use Zenstruck\Foundry\RepositoryProxy;
+  */
+ final class UserFactory extends ModelFactory
+ {
+-    private UserPasswordEncoderInterface $passwordEncoder;
++    private \Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface $passwordEncoder;
+ 
+-    public function __construct(UserPasswordEncoderInterface $passwordEncoder)
++    public function __construct(\Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface $passwordEncoder)
+     {
+         parent::__construct();
+ 
+diff --git a/src/Kernel.php b/src/Kernel.php
+index 1cd0572..5e775f6 100644
+--- a/src/Kernel.php
++++ b/src/Kernel.php
+@@ -43,7 +43,7 @@ class Kernel extends BaseKernel
+         $loader->load($confDir.'/{services}_'.$this->environment.self::CONFIG_EXTS, 'glob');
+     }
+ 
+-    protected function configureRoutes(RouteCollectionBuilder $routes): void
++    protected function configureRoutes(\Symfony\Component\Routing\Loader\Configurator\RoutingConfigurator $routes): void
+     {
+         $confDir = $this->getProjectDir().'/config';
+ 
+diff --git a/src/Security/LoginFormAuthenticator.php b/src/Security/LoginFormAuthenticator.php
+index e8d0b1f..8ca9f24 100644
+--- a/src/Security/LoginFormAuthenticator.php
++++ b/src/Security/LoginFormAuthenticator.php
+@@ -32,7 +32,7 @@ class LoginFormAuthenticator extends AbstractFormLoginAuthenticator implements P
+     private $csrfTokenManager;
+     private $passwordEncoder;
+ 
+-    public function __construct(EntityManagerInterface $entityManager, UrlGeneratorInterface $urlGenerator, CsrfTokenManagerInterface $csrfTokenManager, UserPasswordEncoderInterface $passwordEncoder)
++    public function __construct(EntityManagerInterface $entityManager, UrlGeneratorInterface $urlGenerator, CsrfTokenManagerInterface $csrfTokenManager, \Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface $passwordEncoder)
+     {
+         $this->entityManager = $entityManager;
+         $this->urlGenerator = $urlGenerator;
+@@ -71,7 +71,7 @@ class LoginFormAuthenticator extends AbstractFormLoginAuthenticator implements P
+         $user = $this->entityManager->getRepository(User::class)->findOneBy(['email' => $credentials['email']]);
+ 
+         if (!$user) {
+-            throw new UsernameNotFoundException('Email could not be found.');
++            throw new \Symfony\Component\Security\Core\Exception\UserNotFoundException('Email could not be found.');
+         }
+ 
+         return $user;
