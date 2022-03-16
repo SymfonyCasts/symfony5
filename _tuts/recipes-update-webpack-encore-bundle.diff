@@ -1,0 +1,35 @@
+diff --git a/assets/css/app.css b/assets/css/app.css
+new file mode 100644
+index 0000000..e69de29
+diff --git a/symfony.lock b/symfony.lock
+index c25705d..b97c58b 100644
+--- a/symfony.lock
++++ b/symfony.lock
+@@ -639,19 +639,19 @@
+         ]
+     },
+     "symfony/webpack-encore-bundle": {
+-        "version": "1.6",
++        "version": "1.14",
+         "recipe": {
+             "repo": "github.com/symfony/recipes",
+             "branch": "master",
+-            "version": "1.6",
+-            "ref": "69e1d805ad95964088bd510c05995e87dc391564"
++            "version": "1.10",
++            "ref": "2858aeed7e1d81a45365c049eb533cc8827e380b"
+         },
+         "files": [
+-            "assets/css/app.css",
+-            "assets/js/app.js",
+-            "config/packages/assets.yaml",
+-            "config/packages/prod/webpack_encore.yaml",
+-            "config/packages/test/webpack_encore.yaml",
++            "assets/app.js",
++            "assets/bootstrap.js",
++            "assets/controllers.json",
++            "assets/controllers/hello_controller.js",
++            "assets/styles/app.css",
+             "config/packages/webpack_encore.yaml",
+             "package.json",
+             "webpack.config.js"

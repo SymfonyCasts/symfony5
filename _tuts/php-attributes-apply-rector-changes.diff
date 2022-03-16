@@ -1,0 +1,514 @@
+diff --git a/src/Controller/AdminController.php b/src/Controller/AdminController.php
+index b019ced..4991b7c 100644
+--- a/src/Controller/AdminController.php
++++ b/src/Controller/AdminController.php
+@@ -10,9 +10,7 @@ use Symfony\UX\Chartjs\Model\Chart;
+ 
+ class AdminController extends AbstractController
+ {
+-    /**
+-     * @Route("/admin", name="admin_dashboard")
+-     */
++    #[Route(path: '/admin', name: 'admin_dashboard')]
+     public function dashboard(ChartBuilderInterface $chartBuilder)
+     {
+         $chart = $chartBuilder->createChart(Chart::TYPE_LINE);
+@@ -55,17 +53,13 @@ class AdminController extends AbstractController
+         ]);
+     }
+ 
+-    /**
+-     * @Route("/admin/login")
+-     */
++    #[Route(path: '/admin/login')]
+     public function adminLogin()
+     {
+         return new Response('Pretend admin login page, that should be public');
+     }
+ 
+-    /**
+-     * @Route("/admin/comments")
+-     */
++    #[Route(path: '/admin/comments')]
+     public function adminComments()
+     {
+         $this->denyAccessUnlessGranted('ROLE_COMMENT_ADMIN');
+diff --git a/src/Controller/AnswerController.php b/src/Controller/AnswerController.php
+index 2a08f93..d82b659 100644
+--- a/src/Controller/AnswerController.php
++++ b/src/Controller/AnswerController.php
+@@ -12,9 +12,7 @@ use Symfony\Component\Routing\Annotation\Route;
+ 
+ class AnswerController extends BaseController
+ {
+-    /**
+-     * @Route("/answers/popular", name="app_popular_answers")
+-     */
++    #[Route(path: '/answers/popular', name: 'app_popular_answers')]
+     public function popularAnswers(AnswerRepository $answerRepository, Request $request)
+     {
+         $answers = $answerRepository->findMostPopular(
+@@ -26,10 +24,8 @@ class AnswerController extends BaseController
+         ]);
+     }
+ 
+-    /**
+-     * @Route("/answers/{id}/vote", methods="POST", name="answer_vote")
+-     * @IsGranted("IS_AUTHENTICATED_REMEMBERED")
+-     */
++    #[Route(path: '/answers/{id}/vote', methods: 'POST', name: 'answer_vote')]
++    #[IsGranted('IS_AUTHENTICATED_REMEMBERED')]
+     public function answerVote(Answer $answer, LoggerInterface $logger, Request $request, EntityManagerInterface $entityManager)
+     {
+         $logger->info('{user} is voting on answer {answer}!', [
+diff --git a/src/Controller/QuestionController.php b/src/Controller/QuestionController.php
+index 4e0d675..26bcd16 100644
+--- a/src/Controller/QuestionController.php
++++ b/src/Controller/QuestionController.php
+@@ -20,9 +20,7 @@ class QuestionController extends AbstractController
+     {
+     }
+ 
+-    /**
+-     * @Route("/{page<\d+>}", name="app_homepage")
+-     */
++    #[Route(path: '/{page<\d+>}', name: 'app_homepage')]
+     public function homepage(QuestionRepository $repository, int $page = 1)
+     {
+         $queryBuilder = $repository->createAskedOrderedByNewestQueryBuilder();
+@@ -36,18 +34,14 @@ class QuestionController extends AbstractController
+         ]);
+     }
+ 
+-    /**
+-     * @Route("/questions/new")
+-     * @IsGranted("ROLE_USER")
+-     */
++    #[Route(path: '/questions/new')]
++    #[IsGranted('ROLE_USER')]
+     public function new()
+     {
+         return new Response('Sounds like a GREAT feature for V2!');
+     }
+ 
+-    /**
+-     * @Route("/questions/{slug}", name="app_question_show")
+-     */
++    #[Route(path: '/questions/{slug}', name: 'app_question_show')]
+     public function show(Question $question)
+     {
+         if ($this->isDebug) {
+@@ -59,9 +53,7 @@ class QuestionController extends AbstractController
+         ]);
+     }
+ 
+-    /**
+-     * @Route("/questions/edit/{slug}", name="app_question_edit")
+-     */
++    #[Route(path: '/questions/edit/{slug}', name: 'app_question_edit')]
+     public function edit(Question $question)
+     {
+         $this->denyAccessUnlessGranted('EDIT', $question);
+@@ -71,9 +63,7 @@ class QuestionController extends AbstractController
+         ]);
+     }
+ 
+-    /**
+-     * @Route("/questions/{slug}/vote", name="app_question_vote", methods="POST")
+-     */
++    #[Route(path: '/questions/{slug}/vote', name: 'app_question_vote', methods: 'POST')]
+     public function questionVote(Question $question, Request $request, EntityManagerInterface $entityManager)
+     {
+         $direction = $request->request->get('direction');
+diff --git a/src/Controller/RegistrationController.php b/src/Controller/RegistrationController.php
+index 72b5e0b..d10f198 100644
+--- a/src/Controller/RegistrationController.php
++++ b/src/Controller/RegistrationController.php
+@@ -16,10 +16,8 @@ use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
+ 
+ class RegistrationController extends AbstractController
+ {
+-    /**
+-     * @Route("/register", name="app_register")
+-     */
+-    public function register(Request $request, \Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface $userPasswordEncoder, VerifyEmailHelperInterface $verifyEmailHelper): Response
++    #[Route(path: '/register', name: 'app_register')]
++    public function register(Request $request, \Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface $userPasswordEncoder, VerifyEmailHelperInterface $verifyEmailHelper) : Response
+     {
+         $user = new User();
+         $form = $this->createForm(RegistrationFormType::class, $user);
+@@ -61,10 +59,8 @@ class RegistrationController extends AbstractController
+         ]);
+     }
+ 
+-    /**
+-     * @Route("/verify", name="app_verify_email")
+-     */
+-    public function verifyUserEmail(Request $request, VerifyEmailHelperInterface $verifyEmailHelper, UserRepository $userRepository, EntityManagerInterface $entityManager): Response
++    #[Route(path: '/verify', name: 'app_verify_email')]
++    public function verifyUserEmail(Request $request, VerifyEmailHelperInterface $verifyEmailHelper, UserRepository $userRepository, EntityManagerInterface $entityManager) : Response
+     {
+         $user = $userRepository->find($request->query->get('id'));
+         if (!$user) {
+@@ -91,9 +87,7 @@ class RegistrationController extends AbstractController
+         return $this->redirectToRoute('app_login');
+     }
+ 
+-    /**
+-     * @Route("/verify/resend", name="app_verify_resend_email")
+-     */
++    #[Route(path: '/verify/resend', name: 'app_verify_resend_email')]
+     public function resendVerifyEmail()
+     {
+         return $this->render('registration/resend_verify_email.html.twig');
+diff --git a/src/Controller/SecurityController.php b/src/Controller/SecurityController.php
+index 65c096f..5194b0c 100644
+--- a/src/Controller/SecurityController.php
++++ b/src/Controller/SecurityController.php
+@@ -9,10 +9,8 @@ use Symfony\Component\Security\Http\Authentication\AuthenticationUtils;
+ 
+ class SecurityController extends AbstractController
+ {
+-    /**
+-     * @Route("/login", name="app_login")
+-     */
+-    public function login(AuthenticationUtils $authenticationUtils): Response
++    #[Route(path: '/login', name: 'app_login')]
++    public function login(AuthenticationUtils $authenticationUtils) : Response
+     {
+         // if ($this->getUser()) {
+         //     return $this->redirectToRoute('target_path');
+@@ -26,10 +24,8 @@ class SecurityController extends AbstractController
+         return $this->render('security/login.html.twig', ['last_username' => $lastUsername, 'error' => $error]);
+     }
+ 
+-    /**
+-     * @Route("/logout", name="app_logout")
+-     */
+-    public function logout(): void
++    #[Route(path: '/logout', name: 'app_logout')]
++    public function logout() : void
+     {
+         throw new \LogicException('This method can be blank - it will be intercepted by the logout key on your firewall.');
+     }
+diff --git a/src/Controller/UserController.php b/src/Controller/UserController.php
+index e47ce00..a4fbece 100644
+--- a/src/Controller/UserController.php
++++ b/src/Controller/UserController.php
+@@ -7,10 +7,8 @@ use Symfony\Component\Routing\Annotation\Route;
+ 
+ class UserController extends BaseController
+ {
+-    /**
+-     * @Route("/api/me", name="app_user_api_me")
+-     * @IsGranted("IS_AUTHENTICATED_REMEMBERED")
+-     */
++    #[Route(path: '/api/me', name: 'app_user_api_me')]
++    #[IsGranted('IS_AUTHENTICATED_REMEMBERED')]
+     public function apiMe()
+     {
+         return $this->json($this->getUser(), 200, [], [
+diff --git a/src/Entity/Answer.php b/src/Entity/Answer.php
+index b8e85c8..a418053 100644
+--- a/src/Entity/Answer.php
++++ b/src/Entity/Answer.php
+@@ -6,9 +6,7 @@ use App\Repository\AnswerRepository;
+ use Doctrine\ORM\Mapping as ORM;
+ use Gedmo\Timestampable\Traits\TimestampableEntity;
+ 
+-/**
+- * @ORM\Entity(repositoryClass=AnswerRepository::class)
+- */
++#[ORM\Entity(repositoryClass: AnswerRepository::class)]
+ class Answer
+ {
+     public const STATUS_NEEDS_APPROVAL = 'needs_approval';
+@@ -17,37 +15,25 @@ class Answer
+ 
+     use TimestampableEntity;
+ 
+-    /**
+-     * @ORM\Id
+-     * @ORM\GeneratedValue
+-     * @ORM\Column(type="integer")
+-     */
++    #[ORM\Id]
++    #[ORM\GeneratedValue]
++    #[ORM\Column(type: 'integer')]
+     private $id;
+ 
+-    /**
+-     * @ORM\Column(type="text")
+-     */
++    #[ORM\Column(type: 'text')]
+     private $content;
+ 
+-    /**
+-     * @ORM\Column(type="string", length=255)
+-     */
++    #[ORM\Column(type: 'string', length: 255)]
+     private $username;
+ 
+-    /**
+-     * @ORM\Column(type="integer")
+-     */
++    #[ORM\Column(type: 'integer')]
+     private int $votes = 0;
+ 
+-    /**
+-     * @ORM\ManyToOne(targetEntity=Question::class, inversedBy="answers")
+-     * @ORM\JoinColumn(nullable=false)
+-     */
++    #[ORM\ManyToOne(targetEntity: Question::class, inversedBy: 'answers')]
++    #[ORM\JoinColumn(nullable: false)]
+     private $question;
+ 
+-    /**
+-     * @ORM\Column(type="string", length=15)
+-     */
++    #[ORM\Column(type: 'string', length: 15)]
+     private string $status = self::STATUS_NEEDS_APPROVAL;
+ 
+     public function getId(): ?int
+diff --git a/src/Entity/Question.php b/src/Entity/Question.php
+index 6fb8e59..859b873 100644
+--- a/src/Entity/Question.php
++++ b/src/Entity/Question.php
+@@ -10,61 +10,43 @@ use Doctrine\ORM\Mapping as ORM;
+ use Gedmo\Mapping\Annotation as Gedmo;
+ use Gedmo\Timestampable\Traits\TimestampableEntity;
+ 
+-/**
+- * @ORM\Entity(repositoryClass=QuestionRepository::class)
+- */
++#[ORM\Entity(repositoryClass: QuestionRepository::class)]
+ class Question
+ {
+     use TimestampableEntity;
+ 
+-    /**
+-     * @ORM\Id()
+-     * @ORM\GeneratedValue()
+-     * @ORM\Column(type="integer")
+-     */
++    #[ORM\Id]
++    #[ORM\GeneratedValue]
++    #[ORM\Column(type: 'integer')]
+     private $id;
+ 
+-    /**
+-     * @ORM\Column(type="string", length=255)
+-     */
++    #[ORM\Column(type: 'string', length: 255)]
+     private $name;
+ 
+     /**
+-     * @ORM\Column(type="string", length=100, unique=true)
+      * @Gedmo\Slug(fields={"name"})
+      */
++    #[ORM\Column(type: 'string', length: 100, unique: true)]
+     private $slug;
+ 
+-    /**
+-     * @ORM\Column(type="text")
+-     */
++    #[ORM\Column(type: 'text')]
+     private $question;
+ 
+-    /**
+-     * @ORM\Column(type="datetime", nullable=true)
+-     */
++    #[ORM\Column(type: 'datetime', nullable: true)]
+     private $askedAt;
+ 
+-    /**
+-     * @ORM\Column(type="integer")
+-     */
++    #[ORM\Column(type: 'integer')]
+     private int $votes = 0;
+ 
+-    /**
+-     * @ORM\OneToMany(targetEntity=Answer::class, mappedBy="question", fetch="EXTRA_LAZY")
+-     * @ORM\OrderBy({"createdAt" = "DESC"})
+-     */
++    #[ORM\OneToMany(targetEntity: Answer::class, mappedBy: 'question', fetch: 'EXTRA_LAZY')]
++    #[ORM\OrderBy(['createdAt' => 'DESC'])]
+     private $answers;
+ 
+-    /**
+-     * @ORM\OneToMany(targetEntity=QuestionTag::class, mappedBy="question")
+-     */
++    #[ORM\OneToMany(targetEntity: QuestionTag::class, mappedBy: 'question')]
+     private $questionTags;
+ 
+-    /**
+-     * @ORM\ManyToOne(targetEntity=User::class, inversedBy="questions")
+-     * @ORM\JoinColumn(nullable=false)
+-     */
++    #[ORM\ManyToOne(targetEntity: User::class, inversedBy: 'questions')]
++    #[ORM\JoinColumn(nullable: false)]
+     private $owner;
+ 
+     public function __construct()
+diff --git a/src/Entity/QuestionTag.php b/src/Entity/QuestionTag.php
+index 235669d..4f04a05 100644
+--- a/src/Entity/QuestionTag.php
++++ b/src/Entity/QuestionTag.php
+@@ -5,33 +5,23 @@ namespace App\Entity;
+ use App\Repository\QuestionTagRepository;
+ use Doctrine\ORM\Mapping as ORM;
+ 
+-/**
+- * @ORM\Entity(repositoryClass=QuestionTagRepository::class)
+- */
++#[ORM\Entity(repositoryClass: QuestionTagRepository::class)]
+ class QuestionTag
+ {
+-    /**
+-     * @ORM\Id
+-     * @ORM\GeneratedValue
+-     * @ORM\Column(type="integer")
+-     */
++    #[ORM\Id]
++    #[ORM\GeneratedValue]
++    #[ORM\Column(type: 'integer')]
+     private $id;
+ 
+-    /**
+-     * @ORM\ManyToOne(targetEntity=Question::class, inversedBy="questionTags")
+-     * @ORM\JoinColumn(nullable=false)
+-     */
++    #[ORM\ManyToOne(targetEntity: Question::class, inversedBy: 'questionTags')]
++    #[ORM\JoinColumn(nullable: false)]
+     private $question;
+ 
+-    /**
+-     * @ORM\ManyToOne(targetEntity=Tag::class)
+-     * @ORM\JoinColumn(nullable=false)
+-     */
++    #[ORM\ManyToOne(targetEntity: Tag::class)]
++    #[ORM\JoinColumn(nullable: false)]
+     private $tag;
+ 
+-    /**
+-     * @ORM\Column(type="datetime_immutable")
+-     */
++    #[ORM\Column(type: 'datetime_immutable')]
+     private $taggedAt;
+ 
+     public function __construct()
+diff --git a/src/Entity/Tag.php b/src/Entity/Tag.php
+index 4471345..6143693 100644
+--- a/src/Entity/Tag.php
++++ b/src/Entity/Tag.php
+@@ -6,23 +6,17 @@ use App\Repository\TagRepository;
+ use Doctrine\ORM\Mapping as ORM;
+ use Gedmo\Timestampable\Traits\TimestampableEntity;
+ 
+-/**
+- * @ORM\Entity(repositoryClass=TagRepository::class)
+- */
++#[ORM\Entity(repositoryClass: TagRepository::class)]
+ class Tag
+ {
+     use TimestampableEntity;
+ 
+-    /**
+-     * @ORM\Id
+-     * @ORM\GeneratedValue
+-     * @ORM\Column(type="integer")
+-     */
++    #[ORM\Id]
++    #[ORM\GeneratedValue]
++    #[ORM\Column(type: 'integer')]
+     private $id;
+ 
+-    /**
+-     * @ORM\Column(type="string", length=255)
+-     */
++    #[ORM\Column(type: 'string', length: 255)]
+     private $name;
+ 
+     public function getId(): ?int
+diff --git a/src/Entity/User.php b/src/Entity/User.php
+index 1c7165a..d8bf343 100644
+--- a/src/Entity/User.php
++++ b/src/Entity/User.php
+@@ -9,33 +9,25 @@ use Doctrine\ORM\Mapping as ORM;
+ use Symfony\Component\Security\Core\User\UserInterface;
+ use Symfony\Component\Serializer\Annotation\Groups;
+ 
+-/**
+- * @ORM\Entity(repositoryClass=UserRepository::class)
+- * @ORM\Table(name="`user`")
+- */
++#[ORM\Entity(repositoryClass: UserRepository::class)]
++#[ORM\Table(name: '`user`')]
+ class User implements UserInterface
+ {
+-    /**
+-     * @ORM\Id
+-     * @ORM\GeneratedValue
+-     * @ORM\Column(type="integer")
+-     */
++    #[ORM\Id]
++    #[ORM\GeneratedValue]
++    #[ORM\Column(type: 'integer')]
+     private $id;
+ 
+-    /**
+-     * @ORM\Column(type="string", length=180, unique=true)
+-     */
++    #[ORM\Column(type: 'string', length: 180, unique: true)]
+     private $email;
+ 
+-    /**
+-     * @ORM\Column(type="json")
+-     */
++    #[ORM\Column(type: 'json')]
+     private array $roles = [];
+ 
+     /**
+      * @var string The hashed password
+-     * @ORM\Column(type="string")
+      */
++    #[ORM\Column(type: 'string')]
+     private string $password;
+ 
+     /**
+@@ -43,19 +35,13 @@ class User implements UserInterface
+      */
+     private ?string $plainPassword = null;
+ 
+-    /**
+-     * @ORM\Column(type="string", length=255)
+-     */
++    #[ORM\Column(type: 'string', length: 255)]
+     private $firstName;
+ 
+-    /**
+-     * @ORM\OneToMany(targetEntity=Question::class, mappedBy="owner")
+-     */
++    #[ORM\OneToMany(targetEntity: Question::class, mappedBy: 'owner')]
+     private $questions;
+ 
+-    /**
+-     * @ORM\Column(type="boolean")
+-     */
++    #[ORM\Column(type: 'boolean')]
+     private bool $isVerified = false;
+ 
+     public function __construct()
+@@ -196,10 +182,8 @@ class User implements UserInterface
+         return $this;
+     }
+ 
+-    /**
+-     * @Groups("user:read")
+-     */
+-    public function getAvatarUri(int $size = 32): string
++    #[Groups('user:read')]
++    public function getAvatarUri(int $size = 32) : string
+     {
+         return 'https://ui-avatars.com/api/?' . http_build_query([
+                 'name' => $this->getDisplayName(),

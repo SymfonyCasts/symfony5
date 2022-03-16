@@ -1,0 +1,54 @@
+diff --git a/src/Entity/Answer.php b/src/Entity/Answer.php
+index a418053..55e5cf3 100644
+--- a/src/Entity/Answer.php
++++ b/src/Entity/Answer.php
+@@ -29,9 +29,9 @@ class Answer
+     #[ORM\Column(type: 'integer')]
+     private int $votes = 0;
+ 
+-    #[ORM\ManyToOne(targetEntity: Question::class, inversedBy: 'answers')]
++    #[ORM\ManyToOne(inversedBy: 'answers')]
+     #[ORM\JoinColumn(nullable: false)]
+-    private $question;
++    private ?Question $question = null;
+ 
+     #[ORM\Column(type: 'string', length: 15)]
+     private string $status = self::STATUS_NEEDS_APPROVAL;
+diff --git a/src/Entity/Question.php b/src/Entity/Question.php
+index 859b873..efb8143 100644
+--- a/src/Entity/Question.php
++++ b/src/Entity/Question.php
+@@ -45,9 +45,9 @@ class Question
+     #[ORM\OneToMany(targetEntity: QuestionTag::class, mappedBy: 'question')]
+     private $questionTags;
+ 
+-    #[ORM\ManyToOne(targetEntity: User::class, inversedBy: 'questions')]
++    #[ORM\ManyToOne(inversedBy: 'questions')]
+     #[ORM\JoinColumn(nullable: false)]
+-    private $owner;
++    private ?User $owner = null;
+ 
+     public function __construct()
+     {
+diff --git a/src/Entity/QuestionTag.php b/src/Entity/QuestionTag.php
+index 4f04a05..6eb0306 100644
+--- a/src/Entity/QuestionTag.php
++++ b/src/Entity/QuestionTag.php
+@@ -13,13 +13,13 @@ class QuestionTag
+     #[ORM\Column(type: 'integer')]
+     private $id;
+ 
+-    #[ORM\ManyToOne(targetEntity: Question::class, inversedBy: 'questionTags')]
++    #[ORM\ManyToOne(inversedBy: 'questionTags')]
+     #[ORM\JoinColumn(nullable: false)]
+-    private $question;
++    private ?Question $question = null;
+ 
+-    #[ORM\ManyToOne(targetEntity: Tag::class)]
++    #[ORM\ManyToOne()]
+     #[ORM\JoinColumn(nullable: false)]
+-    private $tag;
++    private ?Tag $tag = null;
+ 
+     #[ORM\Column(type: 'datetime_immutable')]
+     private $taggedAt;

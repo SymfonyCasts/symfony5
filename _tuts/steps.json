@@ -106,15 +106,50 @@
             "description": null
         },
         {
-            "id": "php-8-up-to-php-8-0",
-            "name": "PHP 8: Up to PHP 8.0",
+            "id": "recipes-update-foundry",
+            "name": "Recipes: Update foundry",
             "description": null
         },
         {
-            "id": "php-8-run-rector",
-            "name": "PHP 8: Run Rector",
+            "id": "php-8-set-rector-config-to-up-to-php-80",
+            "name": "PHP 8: Set Rector config to UP_TO_PHP_80",
+            "description": null
+        },
+        {
+            "id": "php-8-apply-rector-changes",
+            "name": "PHP 8: Apply Rector changes",
+            "description": null
+        },
+        {
+            "id": "php-8-update-php-in-composer-json-and-update-deps",
+            "name": "PHP 8: Update PHP in composer.json and update deps",
+            "description": null
+        },
+        {
+            "id": "php-8-upgrade-flex-to-v2",
+            "name": "PHP 8: Upgrade Flex to v2",
+            "description": null
+        },
+        {
+            "id": "php-attributes-update-rector-config",
+            "name": "PHP Attributes: Update Rector config",
+            "description": null
+        },
+        {
+            "id": "php-attributes-apply-rector-changes",
+            "name": "PHP Attributes: Apply Rector changes",
+            "description": null
+        },
+        {
+            "id": "php-attributes-fix-doctrine-type-to-attribute",
+            "name": "PHP Attributes: Fix Doctrine type to attribute",
+            "description": null
+        },
+        {
+            "id": "php-attributes-replace-targetentity-with-typehint",
+            "name": "PHP Attributes: Replace targetEntity with typehint",
             "description": null
         }
     ],
-    "sha": "5f717d328d25e1d8b5b110ac6848aeb00d332e96"
+    "sha": "22a87c9c574d1c5826972c0b4b848d33541843d2"
 }

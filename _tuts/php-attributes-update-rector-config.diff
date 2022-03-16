@@ -1,0 +1,26 @@
+diff --git a/rector.php b/rector.php
+index 841d060..8d74e39 100644
+--- a/rector.php
++++ b/rector.php
+@@ -4,8 +4,10 @@ declare(strict_types=1);
+ 
+ use Rector\Core\Configuration\Option;
+ use Rector\Core\ValueObject\PhpVersion;
++use Rector\Doctrine\Set\DoctrineSetList;
+ use Rector\Php74\Rector\Property\TypedPropertyRector;
+ use Rector\Set\ValueObject\LevelSetList;
++use Rector\Symfony\Set\SensiolabsSetList;
+ use Rector\Symfony\Set\SymfonyLevelSetList;
+ use Rector\Symfony\Set\SymfonySetList;
+ use Symfony\Component\DependencyInjection\Loader\Configurator\ContainerConfigurator;
+@@ -20,7 +22,9 @@ return static function (ContainerConfigurator $containerConfigurator): void {
+     // endregion
+ 
+     // Define what rule sets will be applied
+-    $containerConfigurator->import(LevelSetList::UP_TO_PHP_80);
++    $containerConfigurator->import(DoctrineSetList::ANNOTATIONS_TO_ATTRIBUTES);
++    $containerConfigurator->import(SymfonySetList::ANNOTATIONS_TO_ATTRIBUTES);
++    $containerConfigurator->import(SensiolabsSetList::FRAMEWORK_EXTRA_61);
+ 
+     // get services (needed for register a single rule)
+     // $services = $containerConfigurator->services();
