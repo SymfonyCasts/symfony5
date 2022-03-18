@@ -1,5 +1,5 @@
 diff --git a/config/packages/security.yaml b/config/packages/security.yaml
-index c303d45..6fe1f5f 100644
+index c303d45..2351599 100644
 --- a/config/packages/security.yaml
 +++ b/config/packages/security.yaml
 @@ -7,7 +7,11 @@ security:
@@ -15,15 +15,16 @@ index c303d45..6fe1f5f 100644
      providers:
          # used to reload user from session & other features (e.g. switch_user)
          app_user_provider:
-@@ -20,6 +24,7 @@ security:
+@@ -19,7 +23,7 @@ security:
+             pattern: ^/(_(profiler|wdt)|css|images|js)/
              security: false
          main:
-             anonymous: lazy
+-            anonymous: lazy
 +            lazy: true
              provider: app_user_provider
              guard:
                  authenticators:
-@@ -30,7 +35,7 @@ security:
+@@ -30,7 +34,7 @@ security:
                  # target: app_any_route
  
              # activate different ways to authenticate
@@ -32,7 +33,7 @@ index c303d45..6fe1f5f 100644
  
              # https://symfony.com/doc/current/security/impersonating_user.html
              # switch_user: true
-@@ -44,3 +49,16 @@ security:
+@@ -44,3 +48,16 @@ security:
          - { path: ^/admin/login, roles: IS_AUTHENTICATED_ANONYMOUSLY }
          - { path: ^/admin, roles: ROLE_ADMIN }
          # - { path: ^/profile, roles: ROLE_USER }

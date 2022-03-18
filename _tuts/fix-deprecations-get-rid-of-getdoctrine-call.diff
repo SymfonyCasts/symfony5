@@ -1,0 +1,21 @@
+diff --git a/src/Controller/RegistrationController.php b/src/Controller/RegistrationController.php
+index c614c8f..db70a55 100644
+--- a/src/Controller/RegistrationController.php
++++ b/src/Controller/RegistrationController.php
+@@ -17,7 +17,7 @@ use Symfony\Component\Routing\Annotation\Route;
+ class RegistrationController extends AbstractController
+ {
+     #[Route(path: '/register', name: 'app_register')]
+-    public function register(Request $request, UserPasswordHasherInterface $userPasswordHasher, VerifyEmailHelperInterface $verifyEmailHelper): Response
++    public function register(Request $request, UserPasswordHasherInterface $userPasswordHasher, VerifyEmailHelperInterface $verifyEmailHelper, EntityManagerInterface $entityManager): Response
+     {
+         $user = new User();
+         $form = $this->createForm(RegistrationFormType::class, $user);
+@@ -32,7 +32,6 @@ class RegistrationController extends AbstractController
+                 )
+             );
+ 
+-            $entityManager = $this->getDoctrine()->getManager();
+             $entityManager->persist($user);
+             $entityManager->flush();
+ 

@@ -1,0 +1,130 @@
+diff --git a/src/Controller/RegistrationController.php b/src/Controller/RegistrationController.php
+index 72b5e0b..8d778c6 100644
+--- a/src/Controller/RegistrationController.php
++++ b/src/Controller/RegistrationController.php
+@@ -6,20 +6,20 @@ use App\Entity\User;
+ use App\Form\RegistrationFormType;
+ use App\Repository\UserRepository;
+ use Doctrine\ORM\EntityManagerInterface;
++use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
+ use SymfonyCasts\Bundle\VerifyEmail\Exception\VerifyEmailExceptionInterface;
+ use SymfonyCasts\Bundle\VerifyEmail\VerifyEmailHelperInterface;
+ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+ use Symfony\Component\HttpFoundation\Request;
+ use Symfony\Component\HttpFoundation\Response;
+ use Symfony\Component\Routing\Annotation\Route;
+-use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
+ 
+ class RegistrationController extends AbstractController
+ {
+     /**
+      * @Route("/register", name="app_register")
+      */
+-    public function register(Request $request, \Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface $userPasswordEncoder, VerifyEmailHelperInterface $verifyEmailHelper): Response
++    public function register(Request $request, UserPasswordHasherInterface $userPasswordHasher, VerifyEmailHelperInterface $verifyEmailHelper): Response
+     {
+         $user = new User();
+         $form = $this->createForm(RegistrationFormType::class, $user);
+@@ -28,7 +28,7 @@ class RegistrationController extends AbstractController
+         if ($form->isSubmitted() && $form->isValid()) {
+             // encode the plain password
+             $user->setPassword(
+-                $userPasswordEncoder->encodePassword(
++                $userPasswordHasher->hashPassword(
+                     $user,
+                     $form->get('plainPassword')->getData()
+                 )
+diff --git a/src/Factory/UserFactory.php b/src/Factory/UserFactory.php
+index 9935aaa..1672b58 100644
+--- a/src/Factory/UserFactory.php
++++ b/src/Factory/UserFactory.php
+@@ -4,7 +4,7 @@ namespace App\Factory;
+ 
+ use App\Entity\User;
+ use App\Repository\UserRepository;
+-use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
++use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
+ use Zenstruck\Foundry\ModelFactory;
+ use Zenstruck\Foundry\Proxy;
+ use Zenstruck\Foundry\RepositoryProxy;
+@@ -29,13 +29,13 @@ use Zenstruck\Foundry\RepositoryProxy;
+  */
+ final class UserFactory extends ModelFactory
+ {
+-    private \Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface $passwordEncoder;
++    private UserPasswordHasherInterface $userPasswordHasher;
+ 
+-    public function __construct(\Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface $passwordEncoder)
++    public function __construct(UserPasswordHasherInterface $userPasswordHasher)
+     {
+         parent::__construct();
+ 
+-        $this->passwordEncoder = $passwordEncoder;
++        $this->userPasswordHasher = $userPasswordHasher;
+     }
+ 
+     protected function getDefaults(): array
+@@ -55,7 +55,7 @@ final class UserFactory extends ModelFactory
+             ->afterInstantiate(function(User $user) {
+                 if ($user->getPlainPassword()) {
+                     $user->setPassword(
+-                        $this->passwordEncoder->encodePassword($user, $user->getPlainPassword())
++                        $this->userPasswordHasher->hashPassword($user, $user->getPlainPassword())
+                     );
+                 }
+             })
+diff --git a/src/Security/LoginFormAuthenticator.php b/src/Security/LoginFormAuthenticator.php
+index 8ca9f24..2fce5d4 100644
+--- a/src/Security/LoginFormAuthenticator.php
++++ b/src/Security/LoginFormAuthenticator.php
+@@ -6,12 +6,12 @@ use App\Entity\User;
+ use Doctrine\ORM\EntityManagerInterface;
+ use Symfony\Component\HttpFoundation\RedirectResponse;
+ use Symfony\Component\HttpFoundation\Request;
++use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
+ use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
+ use Symfony\Component\Security\Core\Authentication\Token\TokenInterface;
+-use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
+ use Symfony\Component\Security\Core\Exception\AuthenticationException;
+ use Symfony\Component\Security\Core\Exception\InvalidCsrfTokenException;
+-use Symfony\Component\Security\Core\Exception\UsernameNotFoundException;
++use Symfony\Component\Security\Core\Exception\UserNotFoundException;
+ use Symfony\Component\Security\Core\Security;
+ use Symfony\Component\Security\Core\User\UserInterface;
+ use Symfony\Component\Security\Core\User\UserProviderInterface;
+@@ -30,14 +30,14 @@ class LoginFormAuthenticator extends AbstractFormLoginAuthenticator implements P
+     private $entityManager;
+     private $urlGenerator;
+     private $csrfTokenManager;
+-    private $passwordEncoder;
++    private $userPasswordHasher;
+ 
+-    public function __construct(EntityManagerInterface $entityManager, UrlGeneratorInterface $urlGenerator, CsrfTokenManagerInterface $csrfTokenManager, \Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface $passwordEncoder)
++    public function __construct(EntityManagerInterface $entityManager, UrlGeneratorInterface $urlGenerator, CsrfTokenManagerInterface $csrfTokenManager, UserPasswordHasherInterface $userPasswordHasher)
+     {
+         $this->entityManager = $entityManager;
+         $this->urlGenerator = $urlGenerator;
+         $this->csrfTokenManager = $csrfTokenManager;
+-        $this->passwordEncoder = $passwordEncoder;
++        $this->userPasswordHasher = $userPasswordHasher;
+     }
+ 
+     public function supports(Request $request)
+@@ -71,7 +71,7 @@ class LoginFormAuthenticator extends AbstractFormLoginAuthenticator implements P
+         $user = $this->entityManager->getRepository(User::class)->findOneBy(['email' => $credentials['email']]);
+ 
+         if (!$user) {
+-            throw new \Symfony\Component\Security\Core\Exception\UserNotFoundException('Email could not be found.');
++            throw new UserNotFoundException('Email could not be found.');
+         }
+ 
+         return $user;
+@@ -79,7 +79,7 @@ class LoginFormAuthenticator extends AbstractFormLoginAuthenticator implements P
+ 
+     public function checkCredentials($credentials, UserInterface $user)
+     {
+-        return $this->passwordEncoder->isPasswordValid($user, $credentials['password']);
++        return $this->userPasswordHasher->isPasswordValid($user, $credentials['password']);
+     }
+ 
+     /**

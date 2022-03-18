@@ -1,0 +1,16 @@
+diff --git a/config/packages/security.yaml b/config/packages/security.yaml
+index 1d0e1ea..0ea96c0 100644
+--- a/config/packages/security.yaml
++++ b/config/packages/security.yaml
+@@ -25,9 +25,8 @@ security:
+         main:
+             lazy: true
+             provider: app_user_provider
+-            guard:
+-                authenticators:
+-                    - App\Security\LoginFormAuthenticator
++            custom_authenticator:
++                - App\Security\LoginFormAuthenticator
+             logout:
+                 path: app_logout
+                 # where to redirect after logout

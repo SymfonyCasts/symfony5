@@ -1,0 +1,13 @@
+diff --git a/config/packages/security.yaml b/config/packages/security.yaml
+index 0ea96c0..7800da8 100644
+--- a/config/packages/security.yaml
++++ b/config/packages/security.yaml
+@@ -1,8 +1,4 @@
+ security:
+-    encoders:
+-        App\Entity\User:
+-            algorithm: auto
+-
+     role_hierarchy:
+         ROLE_ADMIN: ['ROLE_COMMENT_ADMIN', 'ROLE_USER_ADMIN', 'ROLE_ALLOWED_TO_SWITCH']
+         ROLE_HUMAN_RESOURCES: ['ROLE_USER_ADMIN']

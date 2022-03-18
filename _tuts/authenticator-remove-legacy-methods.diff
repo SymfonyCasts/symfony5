@@ -1,0 +1,55 @@
+diff --git a/src/Security/LoginFormAuthenticator.php b/src/Security/LoginFormAuthenticator.php
+index a995c8a..d6273c9 100644
+--- a/src/Security/LoginFormAuthenticator.php
++++ b/src/Security/LoginFormAuthenticator.php
+@@ -67,50 +67,6 @@ class LoginFormAuthenticator extends AbstractLoginFormAuthenticator
+         );
+     }
+ 
+-    public function getCredentials(Request $request)
+-    {
+-        $credentials = [
+-            'email' => $request->request->get('email'),
+-            'password' => $request->request->get('password'),
+-            'csrf_token' => $request->request->get('_csrf_token'),
+-        ];
+-        $request->getSession()->set(
+-            Security::LAST_USERNAME,
+-            $credentials['email']
+-        );
+-
+-        return $credentials;
+-    }
+-
+-    public function getUser($credentials, UserProviderInterface $userProvider)
+-    {
+-        $token = new CsrfToken('authenticate', $credentials['csrf_token']);
+-        if (!$this->csrfTokenManager->isTokenValid($token)) {
+-            throw new InvalidCsrfTokenException();
+-        }
+-
+-        $user = $this->entityManager->getRepository(User::class)->findOneBy(['email' => $credentials['email']]);
+-
+-        if (!$user) {
+-            throw new UserNotFoundException('Email could not be found.');
+-        }
+-
+-        return $user;
+-    }
+-
+-    public function checkCredentials($credentials, UserInterface $user)
+-    {
+-        return $this->userPasswordHasher->isPasswordValid($user, $credentials['password']);
+-    }
+-
+-    /**
+-     * Used to upgrade (rehash) the user's password automatically over time.
+-     */
+-    public function getPassword($credentials): ?string
+-    {
+-        return $credentials['password'];
+-    }
+-
+     public function onAuthenticationSuccess(Request $request, TokenInterface $token, string $firewallName): Response
+     {
+         if ($targetPath = $this->getTargetPath($request->getSession(), $firewallName)) {

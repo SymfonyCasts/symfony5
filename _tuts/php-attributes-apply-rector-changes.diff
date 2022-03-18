@@ -121,22 +121,20 @@ index 4e0d675..26bcd16 100644
      {
          $direction = $request->request->get('direction');
 diff --git a/src/Controller/RegistrationController.php b/src/Controller/RegistrationController.php
-index 72b5e0b..d10f198 100644
+index 8d778c6..c614c8f 100644
 --- a/src/Controller/RegistrationController.php
 +++ b/src/Controller/RegistrationController.php
-@@ -16,10 +16,8 @@ use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
+@@ -16,9 +16,7 @@ use Symfony\Component\Routing\Annotation\Route;
  
  class RegistrationController extends AbstractController
  {
 -    /**
 -     * @Route("/register", name="app_register")
 -     */
--    public function register(Request $request, \Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface $userPasswordEncoder, VerifyEmailHelperInterface $verifyEmailHelper): Response
 +    #[Route(path: '/register', name: 'app_register')]
-+    public function register(Request $request, \Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface $userPasswordEncoder, VerifyEmailHelperInterface $verifyEmailHelper) : Response
+     public function register(Request $request, UserPasswordHasherInterface $userPasswordHasher, VerifyEmailHelperInterface $verifyEmailHelper): Response
      {
          $user = new User();
-         $form = $this->createForm(RegistrationFormType::class, $user);
 @@ -61,10 +59,8 @@ class RegistrationController extends AbstractController
          ]);
      }

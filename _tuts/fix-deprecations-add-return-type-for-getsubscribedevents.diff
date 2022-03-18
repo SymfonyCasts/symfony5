@@ -1,0 +1,13 @@
+diff --git a/src/EventSubscriber/CheckVerifiedUserSubscriber.php b/src/EventSubscriber/CheckVerifiedUserSubscriber.php
+index f0ecdde..4ca5521 100644
+--- a/src/EventSubscriber/CheckVerifiedUserSubscriber.php
++++ b/src/EventSubscriber/CheckVerifiedUserSubscriber.php
+@@ -22,7 +22,7 @@ class CheckVerifiedUserSubscriber implements EventSubscriberInterface
+         throw new AccountNotVerifiedAuthenticationException();
+     }
+ 
+-    public static function getSubscribedEvents()
++    public static function getSubscribedEvents(): array
+     {
+         return [
+             AuthenticationSuccessEvent::class => 'onAuthenticationSuccessEvent',

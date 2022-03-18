@@ -41,6 +41,11 @@
             "description": null
         },
         {
+            "id": "symfony-5-4-import-use-statements-and-rename-vars",
+            "name": "Symfony 5.4: Import use statements and rename vars",
+            "description": null
+        },
+        {
             "id": "symfony-5-4-drop-configureroutes",
             "name": "Symfony 5.4: Drop configureRoutes()",
             "description": null
@@ -149,7 +154,77 @@
             "id": "php-attributes-replace-targetentity-with-typehint",
             "name": "PHP Attributes: Replace targetEntity with typehint",
             "description": null
+        },
+        {
+            "id": "authenticator-implement-passwordauthenticateduserinterface",
+            "name": "Authenticator: Implement PasswordAuthenticatedUserInterface",
+            "description": null
+        },
+        {
+            "id": "authenticator-implement-getuseridentifier",
+            "name": "Authenticator: Implement getUserIdentifier()",
+            "description": null
+        },
+        {
+            "id": "authenticator-extend-abstractloginformauthenticator",
+            "name": "Authenticator: Extend AbstractLoginFormAuthenticator",
+            "description": null
+        },
+        {
+            "id": "authenticator-add-authenticate",
+            "name": "Authenticator: Add authenticate()",
+            "description": null
+        },
+        {
+            "id": "authenticator-fix-signature-of-methods",
+            "name": "Authenticator: Fix signature of methods",
+            "description": null
+        },
+        {
+            "id": "authenticator-remove-supports",
+            "name": "Authenticator: Remove supports()",
+            "description": null
+        },
+        {
+            "id": "authenticator-implement-authenticate",
+            "name": "Authenticator: Implement authenticate()",
+            "description": null
+        },
+        {
+            "id": "authenticator-remove-legacy-methods",
+            "name": "Authenticator: Remove legacy methods",
+            "description": null
+        },
+        {
+            "id": "authenticator-enable-authenticator-manager",
+            "name": "Authenticator: Enable authenticator manager",
+            "description": null
+        },
+        {
+            "id": "authenticator-use-custom-authenticator-option",
+            "name": "Authenticator: Use custom_authenticator option",
+            "description": null
+        },
+        {
+            "id": "authenticator-remove-encoders",
+            "name": "Authenticator: Remove encoders",
+            "description": null
+        },
+        {
+            "id": "fix-deprecations-add-return-type-for-getsubscribedevents",
+            "name": "Fix deprecations: Add return type for getSubscribedEvents()",
+            "description": null
+        },
+        {
+            "id": "fix-deprecations-use-is-impersonator",
+            "name": "Fix deprecations: Use IS_IMPERSONATOR",
+            "description": null
+        },
+        {
+            "id": "fix-deprecations-get-rid-of-getdoctrine-call",
+            "name": "Fix deprecations: Get rid of getDoctrine() call",
+            "description": null
         }
     ],
-    "sha": "22a87c9c574d1c5826972c0b4b848d33541843d2"
+    "sha": "7cab6fbbabc05bfe5efed3317044b5f7b7a49a3b"
 }

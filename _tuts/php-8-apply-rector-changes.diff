@@ -199,10 +199,10 @@ index 888293d..22e022c 100644
          ];
      }
 diff --git a/src/Factory/UserFactory.php b/src/Factory/UserFactory.php
-index 9935aaa..b8d4f5c 100644
+index 1672b58..72807a5 100644
 --- a/src/Factory/UserFactory.php
 +++ b/src/Factory/UserFactory.php
-@@ -8,6 +8,7 @@ use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
+@@ -8,6 +8,7 @@ use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
  use Zenstruck\Foundry\ModelFactory;
  use Zenstruck\Foundry\Proxy;
  use Zenstruck\Foundry\RepositoryProxy;
@@ -214,14 +214,14 @@ index 9935aaa..b8d4f5c 100644
   */
  final class UserFactory extends ModelFactory
  {
--    private \Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface $passwordEncoder;
+-    private UserPasswordHasherInterface $userPasswordHasher;
 -
--    public function __construct(\Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface $passwordEncoder)
-+    public function __construct(private \Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface $passwordEncoder)
+-    public function __construct(UserPasswordHasherInterface $userPasswordHasher)
++    public function __construct(private UserPasswordHasherInterface $userPasswordHasher)
      {
          parent::__construct();
 -
--        $this->passwordEncoder = $passwordEncoder;
+-        $this->userPasswordHasher = $userPasswordHasher;
      }
  
      protected function getDefaults(): array
@@ -239,7 +239,7 @@ index aae14c0..287ca76 100644
  
          $user->setPassword($newHashedPassword);
 diff --git a/src/Security/LoginFormAuthenticator.php b/src/Security/LoginFormAuthenticator.php
-index 8ca9f24..71d8a2f 100644
+index 2fce5d4..14b2266 100644
 --- a/src/Security/LoginFormAuthenticator.php
 +++ b/src/Security/LoginFormAuthenticator.php
 @@ -27,17 +27,8 @@ class LoginFormAuthenticator extends AbstractFormLoginAuthenticator implements P
@@ -249,15 +249,15 @@ index 8ca9f24..71d8a2f 100644
 -    private $entityManager;
 -    private $urlGenerator;
 -    private $csrfTokenManager;
--    private $passwordEncoder;
+-    private $userPasswordHasher;
 -
--    public function __construct(EntityManagerInterface $entityManager, UrlGeneratorInterface $urlGenerator, CsrfTokenManagerInterface $csrfTokenManager, \Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface $passwordEncoder)
-+    public function __construct(private EntityManagerInterface $entityManager, private UrlGeneratorInterface $urlGenerator, private CsrfTokenManagerInterface $csrfTokenManager, private \Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface $passwordEncoder)
+-    public function __construct(EntityManagerInterface $entityManager, UrlGeneratorInterface $urlGenerator, CsrfTokenManagerInterface $csrfTokenManager, UserPasswordHasherInterface $userPasswordHasher)
++    public function __construct(private EntityManagerInterface $entityManager, private UrlGeneratorInterface $urlGenerator, private CsrfTokenManagerInterface $csrfTokenManager, private UserPasswordHasherInterface $userPasswordHasher)
      {
 -        $this->entityManager = $entityManager;
 -        $this->urlGenerator = $urlGenerator;
 -        $this->csrfTokenManager = $csrfTokenManager;
--        $this->passwordEncoder = $passwordEncoder;
+-        $this->userPasswordHasher = $userPasswordHasher;
      }
  
      public function supports(Request $request)

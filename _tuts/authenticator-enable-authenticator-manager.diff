@@ -1,0 +1,13 @@
+diff --git a/config/packages/security.yaml b/config/packages/security.yaml
+index 2351599..1d0e1ea 100644
+--- a/config/packages/security.yaml
++++ b/config/packages/security.yaml
+@@ -7,7 +7,7 @@ security:
+         ROLE_ADMIN: ['ROLE_COMMENT_ADMIN', 'ROLE_USER_ADMIN', 'ROLE_ALLOWED_TO_SWITCH']
+         ROLE_HUMAN_RESOURCES: ['ROLE_USER_ADMIN']
+ 
+-    enable_authenticator_manager: false
++    enable_authenticator_manager: true
+     # https://symfony.com/doc/current/security.html#registering-the-user-hashing-passwords
+     password_hashers:
+         Symfony\Component\Security\Core\User\PasswordAuthenticatedUserInterface: 'auto'

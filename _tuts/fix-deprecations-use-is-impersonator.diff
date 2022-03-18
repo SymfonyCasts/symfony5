@@ -1,0 +1,22 @@
+diff --git a/templates/base.html.twig b/templates/base.html.twig
+index 891a06e..d5da5cf 100644
+--- a/templates/base.html.twig
++++ b/templates/base.html.twig
+@@ -22,7 +22,7 @@
+     >
+         <nav
+             class="navbar navbar-expand-lg navbar-light bg-light px-1"
+-            {{ is_granted('ROLE_PREVIOUS_ADMIN') ? 'style="background-color: red !important"' }}
++            {{ is_granted('IS_IMPERSONATOR') ? 'style="background-color: red !important"' }}
+         >
+             <div class="container-fluid">
+                 <a class="navbar-brand" href="{{ path('app_homepage') }}">
+@@ -60,7 +60,7 @@
+                                     alt="{{ app.user.displayName }} Avatar">
+                             </button>
+                             <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="user-dropdown">
+-                                {% if is_granted('ROLE_PREVIOUS_ADMIN') %}
++                                {% if is_granted('IS_IMPERSONATOR') %}
+                                     <li>
+                                         <a class="dropdown-item" href="{{ path('app_homepage', {
+                                             '_switch_user': '_exit'

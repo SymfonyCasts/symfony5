@@ -1,0 +1,21 @@
+diff --git a/src/Entity/User.php b/src/Entity/User.php
+index 5aea524..61b736d 100644
+--- a/src/Entity/User.php
++++ b/src/Entity/User.php
+@@ -67,6 +67,16 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
+         return $this;
+     }
+ 
++    /**
++     * A visual identifier that represents this user.
++     *
++     * @see UserInterface
++     */
++    public function getUserIdentifier(): string
++    {
++        return (string) $this->email;
++    }
++
+     /**
+      * A visual identifier that represents this user.
+      *

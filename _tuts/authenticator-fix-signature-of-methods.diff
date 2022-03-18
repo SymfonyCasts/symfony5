@@ -1,0 +1,50 @@
+diff --git a/src/Security/LoginFormAuthenticator.php b/src/Security/LoginFormAuthenticator.php
+index 836e55c..5d1c481 100644
+--- a/src/Security/LoginFormAuthenticator.php
++++ b/src/Security/LoginFormAuthenticator.php
+@@ -6,6 +6,7 @@ use App\Entity\User;
+ use Doctrine\ORM\EntityManagerInterface;
+ use Symfony\Component\HttpFoundation\RedirectResponse;
+ use Symfony\Component\HttpFoundation\Request;
++use Symfony\Component\HttpFoundation\Response;
+ use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
+ use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
+ use Symfony\Component\Security\Core\Authentication\Token\TokenInterface;
+@@ -38,7 +39,7 @@ class LoginFormAuthenticator extends AbstractLoginFormAuthenticator
+         // TODO: Implement authenticate() method.
+     }
+ 
+-    public function supports(Request $request)
++    public function supports(Request $request): bool
+     {
+         return self::LOGIN_ROUTE === $request->attributes->get('_route')
+             && $request->isMethod('POST');
+@@ -88,16 +89,16 @@ class LoginFormAuthenticator extends AbstractLoginFormAuthenticator
+         return $credentials['password'];
+     }
+ 
+-    public function onAuthenticationSuccess(Request $request, TokenInterface $token, string $providerKey)
++    public function onAuthenticationSuccess(Request $request, TokenInterface $token, string $firewallName): Response
+     {
+-        if ($targetPath = $this->getTargetPath($request->getSession(), $providerKey)) {
++        if ($targetPath = $this->getTargetPath($request->getSession(), $firewallName)) {
+             return new RedirectResponse($targetPath);
+         }
+ 
+         return new RedirectResponse($this->urlGenerator->generate('app_homepage'));
+     }
+ 
+-    public function onAuthenticationFailure(Request $request, AuthenticationException $exception)
++    public function onAuthenticationFailure(Request $request, AuthenticationException $exception): Response
+     {
+         if ($exception instanceof AccountNotVerifiedAuthenticationException) {
+             $targetUrl = $this->urlGenerator->generate('app_verify_resend_email');
+@@ -108,7 +109,7 @@ class LoginFormAuthenticator extends AbstractLoginFormAuthenticator
+         return parent::onAuthenticationFailure($request, $exception);
+     }
+ 
+-    protected function getLoginUrl()
++    protected function getLoginUrl(Request $request): string
+     {
+         return $this->urlGenerator->generate(self::LOGIN_ROUTE);
+     }

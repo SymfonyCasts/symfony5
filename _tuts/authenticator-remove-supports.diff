@@ -1,0 +1,17 @@
+diff --git a/src/Security/LoginFormAuthenticator.php b/src/Security/LoginFormAuthenticator.php
+index 5d1c481..f683410 100644
+--- a/src/Security/LoginFormAuthenticator.php
++++ b/src/Security/LoginFormAuthenticator.php
+@@ -39,12 +39,6 @@ class LoginFormAuthenticator extends AbstractLoginFormAuthenticator
+         // TODO: Implement authenticate() method.
+     }
+ 
+-    public function supports(Request $request): bool
+-    {
+-        return self::LOGIN_ROUTE === $request->attributes->get('_route')
+-            && $request->isMethod('POST');
+-    }
+-
+     public function getCredentials(Request $request)
+     {
+         $credentials = [
