@@ -1,0 +1,35 @@
+diff --git a/src/Controller/RegistrationController.php b/src/Controller/RegistrationController.php
+index a9db9b3..9eb6e19 100644
+--- a/src/Controller/RegistrationController.php
++++ b/src/Controller/RegistrationController.php
+@@ -6,6 +6,8 @@ use App\Entity\User;
+ use App\Form\RegistrationFormType;
+ use App\Repository\UserRepository;
+ use Doctrine\ORM\EntityManagerInterface;
++use Symfony\Component\Mailer\MailerInterface;
++use Symfony\Component\Mime\Email;
+ use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
+ use SymfonyCasts\Bundle\VerifyEmail\Exception\VerifyEmailExceptionInterface;
+ use SymfonyCasts\Bundle\VerifyEmail\VerifyEmailHelperInterface;
+@@ -90,4 +92,21 @@ class RegistrationController extends AbstractController
+     {
+         return $this->render('registration/resend_verify_email.html.twig');
+     }
++
++
++    private function sendVerificationEmail(MailerInterface $mailer, User $user, string $signedUrl)
++    {
++        $email = (new Email())
++            ->from('hello@example.com')
++            ->to('you@example.com')
++            //->cc('cc@example.com')
++            //->bcc('bcc@example.com')
++            //->replyTo('fabien@example.com')
++            //->priority(Email::PRIORITY_HIGH)
++            ->subject('Time for Symfony Mailer!')
++            ->text('Sending emails is fun again!')
++            ->html('<p>See Twig integration for better HTML integration!</p>');
++
++        $mailer->send($email);
++    }
+ }

@@ -294,7 +294,32 @@
             "id": "new-features-use-renderform",
             "name": "New features: Use renderForm()",
             "description": null
+        },
+        {
+            "id": "docker-install-mailer",
+            "name": "Docker: Install mailer",
+            "description": null
+        },
+        {
+            "id": "docker-create-sendverificationemail",
+            "name": "Docker: Create sendVerificationEmail()",
+            "description": null
+        },
+        {
+            "id": "docker-implement-sendverificationemail",
+            "name": "Docker: Implement sendVerificationEmail()",
+            "description": null
+        },
+        {
+            "id": "docker-uncomment-mailer-dsn",
+            "name": "Docker: Uncomment MAILER_DSN",
+            "description": null
+        },
+        {
+            "id": "docker-disable-emails-in-dev-mode",
+            "name": "Docker: Disable emails in dev mode",
+            "description": null
         }
     ],
-    "sha": "6bb031e4f8393dde8d17a9a5c071be90bcc10484"
+    "sha": "07acbaba367fd3027c77a7b5502ad60d380dc1d0"
 }

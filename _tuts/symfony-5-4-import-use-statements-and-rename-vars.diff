@@ -1,5 +1,5 @@
 diff --git a/src/Controller/RegistrationController.php b/src/Controller/RegistrationController.php
-index 72b5e0b..8d778c6 100644
+index f4c3541..6222b65 100644
 --- a/src/Controller/RegistrationController.php
 +++ b/src/Controller/RegistrationController.php
 @@ -6,20 +6,20 @@ use App\Entity\User;

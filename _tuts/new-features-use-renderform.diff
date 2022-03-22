@@ -1,8 +1,8 @@
 diff --git a/src/Controller/RegistrationController.php b/src/Controller/RegistrationController.php
-index db70a55..f70841e 100644
+index 90c56ef..a9db9b3 100644
 --- a/src/Controller/RegistrationController.php
 +++ b/src/Controller/RegistrationController.php
-@@ -53,8 +53,8 @@ class RegistrationController extends AbstractController
+@@ -52,8 +52,8 @@ class RegistrationController extends AbstractController
              return $this->redirectToRoute('app_homepage');
          }
  

@@ -11,7 +11,7 @@ index b0e99d1..a630e1c 100644
  use Rector\Set\ValueObject\LevelSetList;
  use Rector\Symfony\Set\SymfonyLevelSetList;
 diff --git a/src/Controller/RegistrationController.php b/src/Controller/RegistrationController.php
-index d348756..72b5e0b 100644
+index d474725..f4c3541 100644
 --- a/src/Controller/RegistrationController.php
 +++ b/src/Controller/RegistrationController.php
 @@ -19,7 +19,7 @@ class RegistrationController extends AbstractController

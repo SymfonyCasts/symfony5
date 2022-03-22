@@ -121,7 +121,7 @@ index 4e0d675..26bcd16 100644
      {
          $direction = $request->request->get('direction');
 diff --git a/src/Controller/RegistrationController.php b/src/Controller/RegistrationController.php
-index 8d778c6..c614c8f 100644
+index 6222b65..d571eeb 100644
 --- a/src/Controller/RegistrationController.php
 +++ b/src/Controller/RegistrationController.php
 @@ -16,9 +16,7 @@ use Symfony\Component\Routing\Annotation\Route;
@@ -135,7 +135,7 @@ index 8d778c6..c614c8f 100644
      public function register(Request $request, UserPasswordHasherInterface $userPasswordHasher, VerifyEmailHelperInterface $verifyEmailHelper): Response
      {
          $user = new User();
-@@ -61,10 +59,8 @@ class RegistrationController extends AbstractController
+@@ -60,10 +58,8 @@ class RegistrationController extends AbstractController
          ]);
      }
  
@@ -148,7 +148,7 @@ index 8d778c6..c614c8f 100644
      {
          $user = $userRepository->find($request->query->get('id'));
          if (!$user) {
-@@ -91,9 +87,7 @@ class RegistrationController extends AbstractController
+@@ -90,9 +86,7 @@ class RegistrationController extends AbstractController
          return $this->redirectToRoute('app_login');
      }
  

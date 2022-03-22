@@ -1,5 +1,5 @@
 diff --git a/src/Controller/RegistrationController.php b/src/Controller/RegistrationController.php
-index c614c8f..db70a55 100644
+index d571eeb..90c56ef 100644
 --- a/src/Controller/RegistrationController.php
 +++ b/src/Controller/RegistrationController.php
 @@ -17,7 +17,7 @@ use Symfony\Component\Routing\Annotation\Route;
