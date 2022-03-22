@@ -1,0 +1,16 @@
+diff --git a/config/packages/mailer.yaml b/config/packages/mailer.yaml
+index 6155a6d..92b26a6 100644
+--- a/config/packages/mailer.yaml
++++ b/config/packages/mailer.yaml
+@@ -2,7 +2,7 @@ framework:
+     mailer:
+         dsn: '%env(MAILER_DSN)%'
+ 
+-when@dev:
+-    framework:
+-        mailer:
+-            dsn: 'null://null'
++#when@dev:
++#    framework:
++#        mailer:
++#            dsn: 'null://null'

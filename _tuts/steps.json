@@ -319,7 +319,22 @@
             "id": "docker-disable-emails-in-dev-mode",
             "name": "Docker: Disable emails in dev mode",
             "description": null
+        },
+        {
+            "id": "docker-create-docker-compose-yml-from-override-file",
+            "name": "Docker: Create docker-compose.yml from override file",
+            "description": null
+        },
+        {
+            "id": "docker-comment-out-null-mailer-dsn-in-dev-mode",
+            "name": "Docker: Comment out null Mailer DSN in dev mode",
+            "description": null
+        },
+        {
+            "id": "docker-set-mailer-dsn-to-mailcatcher",
+            "name": "Docker: Set MAILER_DSN to Mailcatcher",
+            "description": null
         }
     ],
-    "sha": "07acbaba367fd3027c77a7b5502ad60d380dc1d0"
+    "sha": "a3a0230418e9bf6607d799bbe023a76b3459a16a"
 }

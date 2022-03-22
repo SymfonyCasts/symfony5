@@ -1,0 +1,14 @@
+diff --git a/docker-compose.yml b/docker-compose.yml
+new file mode 100644
+index 0000000..afccd27
+--- /dev/null
++++ b/docker-compose.yml
+@@ -0,0 +1,8 @@
++version: '3'
++
++services:
++###> symfony/mailer ###
++  mailer:
++    image: schickling/mailcatcher
++    ports: [1025, 1080]
++###< symfony/mailer ###
