@@ -221,6 +221,11 @@
             "description": null
         },
         {
+            "id": "fix-deprecations-use-public-access",
+            "name": "Fix deprecations: Use PUBLIC_ACCESS",
+            "description": null
+        },
+        {
             "id": "fix-deprecations-get-rid-of-getdoctrine-call",
             "name": "Fix deprecations: Get rid of getDoctrine() call",
             "description": null
@@ -336,5 +341,5 @@
             "description": null
         }
     ],
-    "sha": "a3a0230418e9bf6607d799bbe023a76b3459a16a"
+    "sha": "30e9da5f141a2a07dd0e43915a94595b4bdedcd7"
 }
