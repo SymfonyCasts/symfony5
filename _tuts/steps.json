@@ -224,7 +224,77 @@
             "id": "fix-deprecations-get-rid-of-getdoctrine-call",
             "name": "Fix deprecations: Get rid of getDoctrine() call",
             "description": null
+        },
+        {
+            "id": "fix-deprecations-stop-injecting-session-object",
+            "name": "Fix deprecations: Stop injecting session object",
+            "description": null
+        },
+        {
+            "id": "symfony-6-0-set-rector-config-to-up-to-symfony-60",
+            "name": "Symfony 6.0: Set Rector config to UP_TO_SYMFONY_60",
+            "description": null
+        },
+        {
+            "id": "symfony-6-0-change-version-constraints",
+            "name": "Symfony 6.0: Change version constraints",
+            "description": null
+        },
+        {
+            "id": "symfony-6-0-bump-pagerfanta-bundle-constraint",
+            "name": "Symfony 6.0: Bump pagerfanta-bundle constraint",
+            "description": null
+        },
+        {
+            "id": "symfony-6-0-upgrade-symfony-deps",
+            "name": "Symfony 6.0: Upgrade Symfony deps",
+            "description": null
+        },
+        {
+            "id": "symfony-6-0-fix-upgradepassword-signature",
+            "name": "Symfony 6.0: Fix upgradePassword() signature",
+            "description": null
+        },
+        {
+            "id": "symfony-6-0-install-pagerfanta-doctrine-orm-adapter",
+            "name": "Symfony 6.0: Install Pagerfanta Doctrine ORM adapter",
+            "description": null
+        },
+        {
+            "id": "symfony-6-0-install-pagerfanta-twig",
+            "name": "Symfony 6.0: Install pagerfanta\/twig",
+            "description": null
+        },
+        {
+            "id": "symfony-6-0-recipes-update-symfony-routing",
+            "name": "Symfony 6.0 recipes: Update symfony\/routing",
+            "description": null
+        },
+        {
+            "id": "symfony-6-0-recipes-update-doctrine-annotations",
+            "name": "Symfony 6.0 recipes: Update doctrine\/annotations",
+            "description": null
+        },
+        {
+            "id": "symfony-6-0-recipes-update-doctrine-doctrine-bundle",
+            "name": "Symfony 6.0 recipes: Update doctrine\/doctrine-bundle",
+            "description": null
+        },
+        {
+            "id": "new-features-render-regiteration-form-fields-with-single-form-widget",
+            "name": "New features: Render regiteration form fields with single form_widget()",
+            "description": null
+        },
+        {
+            "id": "new-features-order-registration-form-fields-with-priority",
+            "name": "New features: Order registration form fields with priority",
+            "description": null
+        },
+        {
+            "id": "new-features-use-renderform",
+            "name": "New features: Use renderForm()",
+            "description": null
         }
     ],
-    "sha": "7cab6fbbabc05bfe5efed3317044b5f7b7a49a3b"
+    "sha": "6bb031e4f8393dde8d17a9a5c071be90bcc10484"
 }

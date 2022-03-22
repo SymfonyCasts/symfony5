@@ -1,8 +1,8 @@
 diff --git a/src/Security/LoginFormAuthenticator.php b/src/Security/LoginFormAuthenticator.php
-index 14b2266..a442e46 100644
+index de20765..6c5dd5a 100644
 --- a/src/Security/LoginFormAuthenticator.php
 +++ b/src/Security/LoginFormAuthenticator.php
-@@ -19,9 +19,10 @@ use Symfony\Component\Security\Csrf\CsrfToken;
+@@ -20,9 +20,10 @@ use Symfony\Component\Security\Csrf\CsrfToken;
  use Symfony\Component\Security\Csrf\CsrfTokenManagerInterface;
  use Symfony\Component\Security\Guard\Authenticator\AbstractFormLoginAuthenticator;
  use Symfony\Component\Security\Guard\PasswordAuthenticatedInterface;

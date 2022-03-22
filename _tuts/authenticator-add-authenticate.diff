@@ -1,8 +1,8 @@
 diff --git a/src/Security/LoginFormAuthenticator.php b/src/Security/LoginFormAuthenticator.php
-index a442e46..836e55c 100644
+index 6c5dd5a..4c6b4db 100644
 --- a/src/Security/LoginFormAuthenticator.php
 +++ b/src/Security/LoginFormAuthenticator.php
-@@ -20,6 +20,7 @@ use Symfony\Component\Security\Csrf\CsrfTokenManagerInterface;
+@@ -21,6 +21,7 @@ use Symfony\Component\Security\Csrf\CsrfTokenManagerInterface;
  use Symfony\Component\Security\Guard\Authenticator\AbstractFormLoginAuthenticator;
  use Symfony\Component\Security\Guard\PasswordAuthenticatedInterface;
  use Symfony\Component\Security\Http\Authenticator\AbstractLoginFormAuthenticator;
@@ -10,7 +10,7 @@ index a442e46..836e55c 100644
  use Symfony\Component\Security\Http\Util\TargetPathTrait;
  
  class LoginFormAuthenticator extends AbstractLoginFormAuthenticator
-@@ -32,6 +33,11 @@ class LoginFormAuthenticator extends AbstractLoginFormAuthenticator
+@@ -33,6 +34,11 @@ class LoginFormAuthenticator extends AbstractLoginFormAuthenticator
      {
      }
  

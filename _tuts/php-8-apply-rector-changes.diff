@@ -239,21 +239,23 @@ index aae14c0..287ca76 100644
  
          $user->setPassword($newHashedPassword);
 diff --git a/src/Security/LoginFormAuthenticator.php b/src/Security/LoginFormAuthenticator.php
-index 2fce5d4..14b2266 100644
+index cf029a6..de20765 100644
 --- a/src/Security/LoginFormAuthenticator.php
 +++ b/src/Security/LoginFormAuthenticator.php
-@@ -27,17 +27,8 @@ class LoginFormAuthenticator extends AbstractFormLoginAuthenticator implements P
+@@ -28,19 +28,8 @@ class LoginFormAuthenticator extends AbstractFormLoginAuthenticator implements P
  
      public const LOGIN_ROUTE = 'app_login';
  
+-    private $session;
 -    private $entityManager;
 -    private $urlGenerator;
 -    private $csrfTokenManager;
 -    private $userPasswordHasher;
 -
--    public function __construct(EntityManagerInterface $entityManager, UrlGeneratorInterface $urlGenerator, CsrfTokenManagerInterface $csrfTokenManager, UserPasswordHasherInterface $userPasswordHasher)
-+    public function __construct(private EntityManagerInterface $entityManager, private UrlGeneratorInterface $urlGenerator, private CsrfTokenManagerInterface $csrfTokenManager, private UserPasswordHasherInterface $userPasswordHasher)
+-    public function __construct(SessionInterface $session, EntityManagerInterface $entityManager, UrlGeneratorInterface $urlGenerator, CsrfTokenManagerInterface $csrfTokenManager, UserPasswordHasherInterface $userPasswordHasher)
++    public function __construct(private SessionInterface $session, private EntityManagerInterface $entityManager, private UrlGeneratorInterface $urlGenerator, private CsrfTokenManagerInterface $csrfTokenManager, private UserPasswordHasherInterface $userPasswordHasher)
      {
+-        $this->session = $session;
 -        $this->entityManager = $entityManager;
 -        $this->urlGenerator = $urlGenerator;
 -        $this->csrfTokenManager = $csrfTokenManager;

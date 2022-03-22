@@ -1,0 +1,30 @@
+diff --git a/src/Form/RegistrationFormType.php b/src/Form/RegistrationFormType.php
+index a74517a..84b2d5c 100644
+--- a/src/Form/RegistrationFormType.php
++++ b/src/Form/RegistrationFormType.php
+@@ -17,8 +17,11 @@ class RegistrationFormType extends AbstractType
+     public function buildForm(FormBuilderInterface $builder, array $options): void
+     {
+         $builder
+-            ->add('email')
++            ->add('email', null, [
++                'priority' => 3,
++            ])
+             ->add('agreeTerms', CheckboxType::class, [
++                'priority' => 1,
+                 'mapped' => false,
+                 'constraints' => [
+                     new IsTrue([
+@@ -26,8 +29,11 @@ class RegistrationFormType extends AbstractType
+                     ]),
+                 ],
+             ])
+-            ->add('firstName')
++            ->add('firstName', null, [
++                'priority' => 4,
++            ])
+             ->add('plainPassword', PasswordType::class, [
++                'priority' => 2,
+                 // instead of being set onto the object directly,
+                 // this is read and encoded in the controller
+                 'label' => 'Password',

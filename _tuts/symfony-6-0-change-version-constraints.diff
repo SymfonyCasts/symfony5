@@ -1,0 +1,70 @@
+diff --git a/composer.json b/composer.json
+index 278c264..161f10a 100755
+--- a/composer.json
++++ b/composer.json
+@@ -19,26 +19,26 @@
+         "sensio/framework-extra-bundle": "^6.0",
+         "sentry/sentry-symfony": "^4.0",
+         "stof/doctrine-extensions-bundle": "^1.5",
+-        "symfony/asset": "5.4.*",
+-        "symfony/console": "5.4.*",
+-        "symfony/dotenv": "5.4.*",
++        "symfony/asset": "6.0.*",
++        "symfony/console": "6.0.*",
++        "symfony/dotenv": "6.0.*",
+         "symfony/flex": "^2.1",
+-        "symfony/form": "5.4.*",
+-        "symfony/framework-bundle": "5.4.*",
++        "symfony/form": "6.0.*",
++        "symfony/framework-bundle": "6.0.*",
+         "symfony/monolog-bundle": "^3.0",
+-        "symfony/property-access": "5.4.*",
+-        "symfony/property-info": "5.4.*",
+-        "symfony/proxy-manager-bridge": "5.4.*",
+-        "symfony/routing": "5.4.*",
+-        "symfony/runtime": "5.4.*",
+-        "symfony/security-bundle": "5.4.*",
+-        "symfony/serializer": "5.4.*",
+-        "symfony/stopwatch": "5.4.*",
+-        "symfony/twig-bundle": "5.4.*",
++        "symfony/property-access": "6.0.*",
++        "symfony/property-info": "6.0.*",
++        "symfony/proxy-manager-bridge": "6.0.*",
++        "symfony/routing": "6.0.*",
++        "symfony/runtime": "6.0.*",
++        "symfony/security-bundle": "6.0.*",
++        "symfony/serializer": "6.0.*",
++        "symfony/stopwatch": "6.0.*",
++        "symfony/twig-bundle": "6.0.*",
+         "symfony/ux-chartjs": "^2.0",
+-        "symfony/validator": "5.4.*",
++        "symfony/validator": "6.0.*",
+         "symfony/webpack-encore-bundle": "^1.7",
+-        "symfony/yaml": "5.4.*",
++        "symfony/yaml": "6.0.*",
+         "symfonycasts/verify-email-bundle": "^1.7",
+         "twig/extra-bundle": "^2.12|^3.0",
+         "twig/string-extra": "^3.3",
+@@ -48,10 +48,10 @@
+         "doctrine/doctrine-fixtures-bundle": "^3.4",
+         "phpunit/phpunit": "^9.5",
+         "rector/rector": "^0.12.17",
+-        "symfony/debug-bundle": "5.4.*",
++        "symfony/debug-bundle": "6.0.*",
+         "symfony/maker-bundle": "^1.15",
+-        "symfony/var-dumper": "5.4.*",
+-        "symfony/web-profiler-bundle": "5.4.*",
++        "symfony/var-dumper": "6.0.*",
++        "symfony/web-profiler-bundle": "6.0.*",
+         "zenstruck/foundry": "^1.16"
+     },
+     "config": {
+@@ -104,7 +104,7 @@
+     "extra": {
+         "symfony": {
+             "allow-contrib": false,
+-            "require": "5.4.*"
++            "require": "6.0.*"
+         }
+     }
+ }

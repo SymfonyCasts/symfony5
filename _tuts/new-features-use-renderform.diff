@@ -1,0 +1,15 @@
+diff --git a/src/Controller/RegistrationController.php b/src/Controller/RegistrationController.php
+index db70a55..f70841e 100644
+--- a/src/Controller/RegistrationController.php
++++ b/src/Controller/RegistrationController.php
+@@ -53,8 +53,8 @@ class RegistrationController extends AbstractController
+             return $this->redirectToRoute('app_homepage');
+         }
+ 
+-        return $this->render('registration/register.html.twig', [
+-            'registrationForm' => $form->createView(),
++        return $this->renderForm('registration/register.html.twig', [
++            'registrationForm' => $form,
+         ]);
+     }
+ 

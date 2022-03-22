@@ -1,0 +1,13 @@
+diff --git a/composer.json b/composer.json
+index 161f10a..bd39cb5 100755
+--- a/composer.json
++++ b/composer.json
+@@ -7,7 +7,7 @@
+         "php": ">=8.0.2",
+         "ext-ctype": "*",
+         "ext-iconv": "*",
+-        "babdev/pagerfanta-bundle": "^2.0",
++        "babdev/pagerfanta-bundle": "^3.6",
+         "composer/package-versions-deprecated": "^1.11",
+         "doctrine/annotations": "^1.13",
+         "doctrine/dbal": "^2.13",

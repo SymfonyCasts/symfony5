@@ -1,0 +1,17 @@
+diff --git a/templates/registration/register.html.twig b/templates/registration/register.html.twig
+index 9323b6d..724962c 100644
+--- a/templates/registration/register.html.twig
++++ b/templates/registration/register.html.twig
+@@ -9,11 +9,7 @@
+                 <h1>Register</h1>
+ 
+                 {{ form_start(registrationForm) }}
+-                    {{ form_row(registrationForm.firstName) }}
+-                    {{ form_row(registrationForm.email) }}
+-                    {{ form_row(registrationForm.plainPassword) }}
+-                    {{ form_row(registrationForm.agreeTerms) }}
+-
++                    {{ form_widget(registrationForm) }}
+                     <button type="submit" class="btn btn-primary">Register</button>
+                 {{ form_end(registrationForm) }}
+             </div>

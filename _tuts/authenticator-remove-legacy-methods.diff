@@ -1,8 +1,8 @@
 diff --git a/src/Security/LoginFormAuthenticator.php b/src/Security/LoginFormAuthenticator.php
-index a995c8a..d6273c9 100644
+index 42ab502..1bea909 100644
 --- a/src/Security/LoginFormAuthenticator.php
 +++ b/src/Security/LoginFormAuthenticator.php
-@@ -67,50 +67,6 @@ class LoginFormAuthenticator extends AbstractLoginFormAuthenticator
+@@ -68,50 +68,6 @@ class LoginFormAuthenticator extends AbstractLoginFormAuthenticator
          );
      }
  
@@ -13,7 +13,7 @@ index a995c8a..d6273c9 100644
 -            'password' => $request->request->get('password'),
 -            'csrf_token' => $request->request->get('_csrf_token'),
 -        ];
--        $request->getSession()->set(
+-        $this->session->set(
 -            Security::LAST_USERNAME,
 -            $credentials['email']
 -        );
@@ -52,4 +52,4 @@ index a995c8a..d6273c9 100644
 -
      public function onAuthenticationSuccess(Request $request, TokenInterface $token, string $firewallName): Response
      {
-         if ($targetPath = $this->getTargetPath($request->getSession(), $firewallName)) {
+         if ($targetPath = $this->getTargetPath($this->session, $firewallName)) {

@@ -53,19 +53,19 @@ index 1cd0572..5e775f6 100644
          $confDir = $this->getProjectDir().'/config';
  
 diff --git a/src/Security/LoginFormAuthenticator.php b/src/Security/LoginFormAuthenticator.php
-index e8d0b1f..8ca9f24 100644
+index 2bdd073..5ef7003 100644
 --- a/src/Security/LoginFormAuthenticator.php
 +++ b/src/Security/LoginFormAuthenticator.php
-@@ -32,7 +32,7 @@ class LoginFormAuthenticator extends AbstractFormLoginAuthenticator implements P
+@@ -34,7 +34,7 @@ class LoginFormAuthenticator extends AbstractFormLoginAuthenticator implements P
      private $csrfTokenManager;
      private $passwordEncoder;
  
--    public function __construct(EntityManagerInterface $entityManager, UrlGeneratorInterface $urlGenerator, CsrfTokenManagerInterface $csrfTokenManager, UserPasswordEncoderInterface $passwordEncoder)
-+    public function __construct(EntityManagerInterface $entityManager, UrlGeneratorInterface $urlGenerator, CsrfTokenManagerInterface $csrfTokenManager, \Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface $passwordEncoder)
+-    public function __construct(SessionInterface $session, EntityManagerInterface $entityManager, UrlGeneratorInterface $urlGenerator, CsrfTokenManagerInterface $csrfTokenManager, UserPasswordEncoderInterface $passwordEncoder)
++    public function __construct(SessionInterface $session, EntityManagerInterface $entityManager, UrlGeneratorInterface $urlGenerator, CsrfTokenManagerInterface $csrfTokenManager, \Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface $passwordEncoder)
      {
+         $this->session = $session;
          $this->entityManager = $entityManager;
-         $this->urlGenerator = $urlGenerator;
-@@ -71,7 +71,7 @@ class LoginFormAuthenticator extends AbstractFormLoginAuthenticator implements P
+@@ -74,7 +74,7 @@ class LoginFormAuthenticator extends AbstractFormLoginAuthenticator implements P
          $user = $this->entityManager->getRepository(User::class)->findOneBy(['email' => $credentials['email']]);
  
          if (!$user) {

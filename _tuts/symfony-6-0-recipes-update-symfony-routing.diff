@@ -1,0 +1,35 @@
+diff --git a/config/routes.yaml b/config/routes.yaml
+index 5033f30..5b102f6 100644
+--- a/config/routes.yaml
++++ b/config/routes.yaml
+@@ -1,3 +1,7 @@
+-#index:
+-#    path: /
+-#    controller: App\Controller\QuestionController::homepage
++controllers:
++    resource: ../src/Controller/
++    type: annotation
++
++kernel:
++    resource: ../src/Kernel.php
++    type: annotation
+diff --git a/symfony.lock b/symfony.lock
+index d85b2d1..8315126 100644
+--- a/symfony.lock
++++ b/symfony.lock
+@@ -527,12 +527,12 @@
+         ]
+     },
+     "symfony/routing": {
+-        "version": "5.4",
++        "version": "6.0",
+         "recipe": {
+             "repo": "github.com/symfony/recipes",
+             "branch": "master",
+-            "version": "5.3",
+-            "ref": "85de1d8ae45b284c3c84b668171d2615049e698f"
++            "version": "6.0",
++            "ref": "eb3b377a4dc07006c4bdb2c773652cc9434f5246"
+         },
+         "files": [
+             "config/packages/routing.yaml",
