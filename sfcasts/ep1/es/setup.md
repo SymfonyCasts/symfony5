@@ -46,7 +46,7 @@ mv /Users/weaverryan/.symfony/bin/symfony /usr/local/bin/symfony
 Ok, inténtalo!
 
 ```terminal
-symfony
+symfony --version
 ```
 
 Symfony está vivo! Saluda al CLI de Symfony: una herramienta de linea de comandos 
