@@ -1,8 +1,6 @@
-# Creando un nuevo proyecto en Symfony 5 
-
 Hola Amigos! y *bienvenidos* al mundo de Symfony 5... el cual *resulta* ser 
 mi mundo favorito! Ok, quizás Disneylandia es mi mundo *favorito*... pero
-programar en Symfony 5 está en *segundo* lugar.
+programar en Symfony 5 está en *segundo* lugar...
 
 Symfony 5 es simple y eficiente: es muy veloz, empieza en pequeño, pero crece conforme
 a tu aplicación. Y esto *no* es solo jerga de Marketing! Tu aplicación de Symfony 
