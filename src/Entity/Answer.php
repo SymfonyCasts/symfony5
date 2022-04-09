@@ -11,11 +11,10 @@ use Gedmo\Timestampable\Traits\TimestampableEntity;
  */
 class Answer
 {
+    use TimestampableEntity;
     public const STATUS_NEEDS_APPROVAL = 'needs_approval';
     public const STATUS_SPAM = 'spam';
     public const STATUS_APPROVED = 'approved';
-
-    use TimestampableEntity;
 
     /**
      * @ORM\Id

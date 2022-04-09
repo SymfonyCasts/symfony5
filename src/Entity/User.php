@@ -201,7 +201,7 @@ class User implements UserInterface
      */
     public function getAvatarUri(int $size = 32): string
     {
-        return 'https://ui-avatars.com/api/?' . http_build_query([
+        return 'https://ui-avatars.com/api/?'.http_build_query([
                 'name' => $this->getDisplayName(),
                 'size' => $size,
                 'background' => 'random',

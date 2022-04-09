@@ -92,7 +92,7 @@ class QuestionController extends AbstractController
         $entityManager->flush();
 
         return $this->redirectToRoute('app_question_show', [
-            'slug' => $question->getSlug()
+            'slug' => $question->getSlug(),
         ]);
     }
 }

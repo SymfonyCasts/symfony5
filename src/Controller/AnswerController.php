@@ -22,7 +22,7 @@ class AnswerController extends BaseController
         );
 
         return $this->render('answer/popularAnswers.html.twig', [
-            'answers' => $answers
+            'answers' => $answers,
         ]);
     }
 
