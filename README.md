@@ -1,7 +1,7 @@
-# Tutorials, Friendship & Symfony5
+# Tutorials, Friendship & Upgrading to Symfony6
 
 Well hi there! This repository holds the code and script
-for the [Symfony5 Tutorials](https://symfonycasts.com/tracks/symfony) on SymfonyCasts.
+for the [Symfony6 Upgrade Tutorial](https://symfonycasts.com/screencast/symfony6-upgrade) on SymfonyCasts.
 
 ## Setup
 
@@ -20,6 +20,53 @@ composer install
 
 You may alternatively need to run `php composer.phar install`, depending
 on how you installed Composer.
+
+**Database Setup**
+
+The code comes with a `docker-compose.yaml` file and we recommend using
+Docker to boot a database container. You will still have PHP installed
+locally, but you'll connect to a database inside Docker. This is optional,
+but I think you'll love it!
+
+First, make sure you have [Docker installed](https://docs.docker.com/get-docker/)
+and running. To start the container, run:
+
+```
+docker-compose up -d
+```
+
+Next, build the database and execute the migrations with:
+
+```
+# "symfony console" is equivalent to "bin/console"
+# but its aware of your database container
+symfony console doctrine:database:create
+symfony console doctrine:migrations:migrate
+symfony console doctrine:fixtures:load
+```
+
+(If you get an error about "MySQL server has gone away", just wait
+a few seconds and try again - the container is probably still booting).
+
+If you do *not* want to use Docker, just make sure to start your own
+database server and update the `DATABASE_URL` environment variable in
+`.env` or `.env.local` before running the commands above.
+
+**Webpack Encore Assets**
+
+This app uses Webpack Encore for the CSS, JS and image files. We'll
+be tweaking the Encore setup while upgrading, so we want to get this
+running. Make sure you have [yarn](https://yarnpkg.com/lang/en/)
+or `npm` installed (`npm` comes with Node) and then run:
+
+```
+yarn install
+yarn encore dev --watch
+
+# or
+npm install
+npm run watch
+```
 
 **Start the Symfony web server**
 
@@ -44,21 +91,6 @@ error that you need to run `symfony server:ca:install` first).
 Now check out the site at `https://localhost:8000`
 
 Have fun!
-
-**Optional: Webpack Encore Assets**
-
-This app uses Webpack Encore for the CSS, JS and image files. But
-to keep life simple, the final, built assets are already inside the
-project. So... you don't need to do anything to get thing set up!
-
-If you *do* want to build the Webpack Encore assets manually, you
-totally can! Make sure you have [yarn](https://yarnpkg.com/lang/en/)
-installed and then run:
-
-```
-yarn install
-yarn encore dev --watch
-```
 
 ## Have Ideas, Feedback or an Issue?
 
