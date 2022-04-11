@@ -1,12 +1,12 @@
 diff --git a/src/Controller/RegistrationController.php b/src/Controller/RegistrationController.php
-index 00d0e56e..308c122f 100644
+index 00d0e56e..93131d5b 100644
 --- a/src/Controller/RegistrationController.php
 +++ b/src/Controller/RegistrationController.php
 @@ -9,6 +9,7 @@ use Doctrine\ORM\EntityManagerInterface;
  use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
  use Symfony\Component\HttpFoundation\Request;
  use Symfony\Component\HttpFoundation\Response;
-+use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface as UserPasswordHasherInterfaceAlias;
++use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
  use Symfony\Component\Routing\Annotation\Route;
  use SymfonyCasts\Bundle\VerifyEmail\Exception\VerifyEmailExceptionInterface;
  use SymfonyCasts\Bundle\VerifyEmail\VerifyEmailHelperInterface;
@@ -15,7 +15,7 @@ index 00d0e56e..308c122f 100644
       * @Route("/register", name="app_register")
       */
 -    public function register(Request $request, \Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface $userPasswordEncoder, VerifyEmailHelperInterface $verifyEmailHelper): Response
-+    public function register(Request $request, UserPasswordHasherInterfaceAlias $userPasswordEncoder, VerifyEmailHelperInterface $verifyEmailHelper): Response
++    public function register(Request $request, UserPasswordHasherInterface $userPasswordHasher, VerifyEmailHelperInterface $verifyEmailHelper): Response
      {
          $user = new User();
          $form = $this->createForm(RegistrationFormType::class, $user);
@@ -24,7 +24,7 @@ index 00d0e56e..308c122f 100644
              // encode the plain password
              $user->setPassword(
 -                $userPasswordEncoder->encodePassword(
-+                $userPasswordEncoder->hashPassword(
++                $userPasswordHasher->hashPassword(
                      $user,
                      $form->get('plainPassword')->getData()
                  )

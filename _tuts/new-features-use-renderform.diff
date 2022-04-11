@@ -1,5 +1,5 @@
 diff --git a/src/Controller/RegistrationController.php b/src/Controller/RegistrationController.php
-index 64ab0205..77471f75 100644
+index 029af593..bb44592e 100644
 --- a/src/Controller/RegistrationController.php
 +++ b/src/Controller/RegistrationController.php
 @@ -52,8 +52,8 @@ class RegistrationController extends AbstractController
