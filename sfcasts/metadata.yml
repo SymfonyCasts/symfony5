@@ -1,0 +1,5 @@
+chapters:
+  - setup
+  - upgrade-5.4
+  - rector
+  - rector-fixup
