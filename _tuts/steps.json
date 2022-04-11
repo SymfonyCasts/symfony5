@@ -101,11 +101,6 @@
             "description": null
         },
         {
-            "id": "delete-me-1",
-            "name": "delete me 1",
-            "description": null
-        },
-        {
             "id": "recipes-update-debug-bundle",
             "name": "Recipes: Update debug-bundle",
             "description": null
@@ -276,11 +271,6 @@
             "description": null
         },
         {
-            "id": "delete-me-2",
-            "name": "delete me 2",
-            "description": null
-        },
-        {
             "id": "fix-deprecations-use-is-impersonator",
             "name": "Fix deprecations: Use IS_IMPERSONATOR",
             "description": null
@@ -366,11 +356,6 @@
             "description": null
         },
         {
-            "id": "delete-me-3",
-            "name": "delete me 3",
-            "description": null
-        },
-        {
             "id": "new-features-render-regiteration-form-fields-with-single-form-widget",
             "name": "New features: Render regiteration form fields with single form_widget()",
             "description": null
@@ -403,26 +388,6 @@
         {
             "id": "docker-uncomment-mailer-dsn",
             "name": "Docker: Uncomment MAILER_DSN",
-            "description": null
-        },
-        {
-            "id": "delete-me-4",
-            "name": "delete me 4",
-            "description": null
-        },
-        {
-            "id": "delete-me-5",
-            "name": "delete me 5",
-            "description": null
-        },
-        {
-            "id": "delete-me-6",
-            "name": "delete me 6",
-            "description": null
-        },
-        {
-            "id": "delete-me-7",
-            "name": "delete me 7",
             "description": null
         }
     ],
