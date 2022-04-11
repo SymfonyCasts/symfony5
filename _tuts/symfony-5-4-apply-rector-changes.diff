@@ -1,5 +1,5 @@
 diff --git a/rector.php b/rector.php
-index b0e99d1..a630e1c 100644
+index b0e99d1a..a630e1cb 100644
 --- a/rector.php
 +++ b/rector.php
 @@ -3,6 +3,7 @@
@@ -10,8 +10,110 @@ index b0e99d1..a630e1c 100644
  use Rector\Php74\Rector\Property\TypedPropertyRector;
  use Rector\Set\ValueObject\LevelSetList;
  use Rector\Symfony\Set\SymfonyLevelSetList;
+diff --git a/src/Controller/AdminController.php b/src/Controller/AdminController.php
+index fe3ba7ff..3ec2fcfc 100644
+--- a/src/Controller/AdminController.php
++++ b/src/Controller/AdminController.php
+@@ -13,7 +13,7 @@ class AdminController extends AbstractController
+     /**
+      * @Route("/admin", name="admin_dashboard")
+      */
+-    public function dashboard(ChartBuilderInterface $chartBuilder)
++    public function dashboard(ChartBuilderInterface $chartBuilder): \Symfony\Component\HttpFoundation\Response
+     {
+         $chart = $chartBuilder->createChart(Chart::TYPE_LINE);
+         $chart->setData([
+@@ -58,7 +58,7 @@ class AdminController extends AbstractController
+     /**
+      * @Route("/admin/login")
+      */
+-    public function adminLogin()
++    public function adminLogin(): \Symfony\Component\HttpFoundation\Response
+     {
+         return new Response('Pretend admin login page, that should be public');
+     }
+@@ -66,7 +66,7 @@ class AdminController extends AbstractController
+     /**
+      * @Route("/admin/comments")
+      */
+-    public function adminComments()
++    public function adminComments(): \Symfony\Component\HttpFoundation\Response
+     {
+         $this->denyAccessUnlessGranted('ROLE_COMMENT_ADMIN');
+ 
+diff --git a/src/Controller/AnswerController.php b/src/Controller/AnswerController.php
+index 3cb5a7eb..6b919f1a 100644
+--- a/src/Controller/AnswerController.php
++++ b/src/Controller/AnswerController.php
+@@ -15,7 +15,7 @@ class AnswerController extends BaseController
+     /**
+      * @Route("/answers/popular", name="app_popular_answers")
+      */
+-    public function popularAnswers(AnswerRepository $answerRepository, Request $request)
++    public function popularAnswers(AnswerRepository $answerRepository, Request $request): \Symfony\Component\HttpFoundation\Response
+     {
+         $answers = $answerRepository->findMostPopular(
+             $request->get('q')
+@@ -30,7 +30,7 @@ class AnswerController extends BaseController
+      * @Route("/answers/{id}/vote", methods="POST", name="answer_vote")
+      * @IsGranted("IS_AUTHENTICATED_REMEMBERED")
+      */
+-    public function answerVote(Answer $answer, LoggerInterface $logger, Request $request, EntityManagerInterface $entityManager)
++    public function answerVote(Answer $answer, LoggerInterface $logger, Request $request, EntityManagerInterface $entityManager): \Symfony\Component\HttpFoundation\Response
+     {
+         $logger->info('{user} is voting on answer {answer}!', [
+             'user' => $this->getUser()->getEmail(),
+diff --git a/src/Controller/QuestionController.php b/src/Controller/QuestionController.php
+index 84aa727d..c0079759 100644
+--- a/src/Controller/QuestionController.php
++++ b/src/Controller/QuestionController.php
+@@ -28,7 +28,7 @@ class QuestionController extends AbstractController
+     /**
+      * @Route("/{page<\d+>}", name="app_homepage")
+      */
+-    public function homepage(QuestionRepository $repository, int $page = 1)
++    public function homepage(QuestionRepository $repository, int $page = 1): \Symfony\Component\HttpFoundation\Response
+     {
+         $queryBuilder = $repository->createAskedOrderedByNewestQueryBuilder();
+ 
+@@ -45,7 +45,7 @@ class QuestionController extends AbstractController
+      * @Route("/questions/new")
+      * @IsGranted("ROLE_USER")
+      */
+-    public function new()
++    public function new(): \Symfony\Component\HttpFoundation\Response
+     {
+         return new Response('Sounds like a GREAT feature for V2!');
+     }
+@@ -53,7 +53,7 @@ class QuestionController extends AbstractController
+     /**
+      * @Route("/questions/{slug}", name="app_question_show")
+      */
+-    public function show(Question $question)
++    public function show(Question $question): \Symfony\Component\HttpFoundation\Response
+     {
+         if ($this->isDebug) {
+             $this->logger->info('We are in debug mode!');
+@@ -67,7 +67,7 @@ class QuestionController extends AbstractController
+     /**
+      * @Route("/questions/edit/{slug}", name="app_question_edit")
+      */
+-    public function edit(Question $question)
++    public function edit(Question $question): \Symfony\Component\HttpFoundation\Response
+     {
+         $this->denyAccessUnlessGranted('EDIT', $question);
+ 
+@@ -79,7 +79,7 @@ class QuestionController extends AbstractController
+     /**
+      * @Route("/questions/{slug}/vote", name="app_question_vote", methods="POST")
+      */
+-    public function questionVote(Question $question, Request $request, EntityManagerInterface $entityManager)
++    public function questionVote(Question $question, Request $request, EntityManagerInterface $entityManager): \Symfony\Component\HttpFoundation\Response
+     {
+         $direction = $request->request->get('direction');
+ 
 diff --git a/src/Controller/RegistrationController.php b/src/Controller/RegistrationController.php
-index d474725..f4c3541 100644
+index de00327e..829f0a90 100644
 --- a/src/Controller/RegistrationController.php
 +++ b/src/Controller/RegistrationController.php
 @@ -19,7 +19,7 @@ class RegistrationController extends AbstractController
@@ -23,8 +125,30 @@ index d474725..f4c3541 100644
      {
          $user = new User();
          $form = $this->createForm(RegistrationFormType::class, $user);
+@@ -93,7 +93,7 @@ class RegistrationController extends AbstractController
+     /**
+      * @Route("/verify/resend", name="app_verify_resend_email")
+      */
+-    public function resendVerifyEmail()
++    public function resendVerifyEmail(): \Symfony\Component\HttpFoundation\Response
+     {
+         return $this->render('registration/resend_verify_email.html.twig');
+     }
+diff --git a/src/Controller/UserController.php b/src/Controller/UserController.php
+index 4f3fd7b9..9c280396 100644
+--- a/src/Controller/UserController.php
++++ b/src/Controller/UserController.php
+@@ -11,7 +11,7 @@ class UserController extends BaseController
+      * @Route("/api/me", name="app_user_api_me")
+      * @IsGranted("IS_AUTHENTICATED_REMEMBERED")
+      */
+-    public function apiMe()
++    public function apiMe(): \Symfony\Component\HttpFoundation\Response
+     {
+         return $this->json($this->getUser(), 200, [], [
+             'groups' => ['user:read'],
 diff --git a/src/Factory/UserFactory.php b/src/Factory/UserFactory.php
-index 2339561..9935aaa 100644
+index 1d4f691b..030475f2 100644
 --- a/src/Factory/UserFactory.php
 +++ b/src/Factory/UserFactory.php
 @@ -29,9 +29,9 @@ use Zenstruck\Foundry\RepositoryProxy;
@@ -40,7 +164,7 @@ index 2339561..9935aaa 100644
          parent::__construct();
  
 diff --git a/src/Kernel.php b/src/Kernel.php
-index 1cd0572..5e775f6 100644
+index 1cd05726..5e775f6d 100644
 --- a/src/Kernel.php
 +++ b/src/Kernel.php
 @@ -43,7 +43,7 @@ class Kernel extends BaseKernel
@@ -53,7 +177,7 @@ index 1cd0572..5e775f6 100644
          $confDir = $this->getProjectDir().'/config';
  
 diff --git a/src/Security/LoginFormAuthenticator.php b/src/Security/LoginFormAuthenticator.php
-index 2bdd073..5ef7003 100644
+index 2bdd073d..5ef70036 100644
 --- a/src/Security/LoginFormAuthenticator.php
 +++ b/src/Security/LoginFormAuthenticator.php
 @@ -34,7 +34,7 @@ class LoginFormAuthenticator extends AbstractFormLoginAuthenticator implements P

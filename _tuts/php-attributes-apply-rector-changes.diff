@@ -1,5 +1,5 @@
 diff --git a/src/Controller/AdminController.php b/src/Controller/AdminController.php
-index b019ced..4991b7c 100644
+index b284be56..00f68b6e 100644
 --- a/src/Controller/AdminController.php
 +++ b/src/Controller/AdminController.php
 @@ -10,9 +10,7 @@ use Symfony\UX\Chartjs\Model\Chart;
@@ -10,7 +10,7 @@ index b019ced..4991b7c 100644
 -     * @Route("/admin", name="admin_dashboard")
 -     */
 +    #[Route(path: '/admin', name: 'admin_dashboard')]
-     public function dashboard(ChartBuilderInterface $chartBuilder)
+     public function dashboard(ChartBuilderInterface $chartBuilder): Response
      {
          $chart = $chartBuilder->createChart(Chart::TYPE_LINE);
 @@ -55,17 +53,13 @@ class AdminController extends AbstractController
@@ -21,7 +21,7 @@ index b019ced..4991b7c 100644
 -     * @Route("/admin/login")
 -     */
 +    #[Route(path: '/admin/login')]
-     public function adminLogin()
+     public function adminLogin(): Response
      {
          return new Response('Pretend admin login page, that should be public');
      }
@@ -30,11 +30,11 @@ index b019ced..4991b7c 100644
 -     * @Route("/admin/comments")
 -     */
 +    #[Route(path: '/admin/comments')]
-     public function adminComments()
+     public function adminComments(): Response
      {
          $this->denyAccessUnlessGranted('ROLE_COMMENT_ADMIN');
 diff --git a/src/Controller/AnswerController.php b/src/Controller/AnswerController.php
-index 2a08f93..d82b659 100644
+index 50dab11d..710ef664 100644
 --- a/src/Controller/AnswerController.php
 +++ b/src/Controller/AnswerController.php
 @@ -12,9 +12,7 @@ use Symfony\Component\Routing\Annotation\Route;
@@ -45,7 +45,7 @@ index 2a08f93..d82b659 100644
 -     * @Route("/answers/popular", name="app_popular_answers")
 -     */
 +    #[Route(path: '/answers/popular', name: 'app_popular_answers')]
-     public function popularAnswers(AnswerRepository $answerRepository, Request $request)
+     public function popularAnswers(AnswerRepository $answerRepository, Request $request): \Symfony\Component\HttpFoundation\Response
      {
          $answers = $answerRepository->findMostPopular(
 @@ -26,10 +24,8 @@ class AnswerController extends BaseController
@@ -58,11 +58,11 @@ index 2a08f93..d82b659 100644
 -     */
 +    #[Route(path: '/answers/{id}/vote', methods: 'POST', name: 'answer_vote')]
 +    #[IsGranted('IS_AUTHENTICATED_REMEMBERED')]
-     public function answerVote(Answer $answer, LoggerInterface $logger, Request $request, EntityManagerInterface $entityManager)
+     public function answerVote(Answer $answer, LoggerInterface $logger, Request $request, EntityManagerInterface $entityManager): \Symfony\Component\HttpFoundation\Response
      {
          $logger->info('{user} is voting on answer {answer}!', [
 diff --git a/src/Controller/QuestionController.php b/src/Controller/QuestionController.php
-index 4e0d675..26bcd16 100644
+index 2a106ba8..ae5f0cfe 100644
 --- a/src/Controller/QuestionController.php
 +++ b/src/Controller/QuestionController.php
 @@ -20,9 +20,7 @@ class QuestionController extends AbstractController
@@ -73,7 +73,7 @@ index 4e0d675..26bcd16 100644
 -     * @Route("/{page<\d+>}", name="app_homepage")
 -     */
 +    #[Route(path: '/{page<\d+>}', name: 'app_homepage')]
-     public function homepage(QuestionRepository $repository, int $page = 1)
+     public function homepage(QuestionRepository $repository, int $page = 1): Response
      {
          $queryBuilder = $repository->createAskedOrderedByNewestQueryBuilder();
 @@ -36,18 +34,14 @@ class QuestionController extends AbstractController
@@ -86,7 +86,7 @@ index 4e0d675..26bcd16 100644
 -     */
 +    #[Route(path: '/questions/new')]
 +    #[IsGranted('ROLE_USER')]
-     public function new()
+     public function new(): Response
      {
          return new Response('Sounds like a GREAT feature for V2!');
      }
@@ -95,7 +95,7 @@ index 4e0d675..26bcd16 100644
 -     * @Route("/questions/{slug}", name="app_question_show")
 -     */
 +    #[Route(path: '/questions/{slug}', name: 'app_question_show')]
-     public function show(Question $question)
+     public function show(Question $question): Response
      {
          if ($this->isDebug) {
 @@ -59,9 +53,7 @@ class QuestionController extends AbstractController
@@ -106,7 +106,7 @@ index 4e0d675..26bcd16 100644
 -     * @Route("/questions/edit/{slug}", name="app_question_edit")
 -     */
 +    #[Route(path: '/questions/edit/{slug}', name: 'app_question_edit')]
-     public function edit(Question $question)
+     public function edit(Question $question): Response
      {
          $this->denyAccessUnlessGranted('EDIT', $question);
 @@ -71,9 +63,7 @@ class QuestionController extends AbstractController
@@ -117,14 +117,14 @@ index 4e0d675..26bcd16 100644
 -     * @Route("/questions/{slug}/vote", name="app_question_vote", methods="POST")
 -     */
 +    #[Route(path: '/questions/{slug}/vote', name: 'app_question_vote', methods: 'POST')]
-     public function questionVote(Question $question, Request $request, EntityManagerInterface $entityManager)
+     public function questionVote(Question $question, Request $request, EntityManagerInterface $entityManager): Response
      {
          $direction = $request->request->get('direction');
 diff --git a/src/Controller/RegistrationController.php b/src/Controller/RegistrationController.php
-index 6222b65..d571eeb 100644
+index 308c122f..d84bdd7f 100644
 --- a/src/Controller/RegistrationController.php
 +++ b/src/Controller/RegistrationController.php
-@@ -16,9 +16,7 @@ use Symfony\Component\Routing\Annotation\Route;
+@@ -16,9 +16,7 @@ use SymfonyCasts\Bundle\VerifyEmail\VerifyEmailHelperInterface;
  
  class RegistrationController extends AbstractController
  {
@@ -132,7 +132,7 @@ index 6222b65..d571eeb 100644
 -     * @Route("/register", name="app_register")
 -     */
 +    #[Route(path: '/register', name: 'app_register')]
-     public function register(Request $request, UserPasswordHasherInterface $userPasswordHasher, VerifyEmailHelperInterface $verifyEmailHelper): Response
+     public function register(Request $request, UserPasswordHasherInterfaceAlias $userPasswordEncoder, VerifyEmailHelperInterface $verifyEmailHelper): Response
      {
          $user = new User();
 @@ -60,10 +58,8 @@ class RegistrationController extends AbstractController
@@ -156,11 +156,11 @@ index 6222b65..d571eeb 100644
 -     * @Route("/verify/resend", name="app_verify_resend_email")
 -     */
 +    #[Route(path: '/verify/resend', name: 'app_verify_resend_email')]
-     public function resendVerifyEmail()
+     public function resendVerifyEmail(): Response
      {
          return $this->render('registration/resend_verify_email.html.twig');
 diff --git a/src/Controller/SecurityController.php b/src/Controller/SecurityController.php
-index 65c096f..5194b0c 100644
+index 65c096f8..5194b0c2 100644
 --- a/src/Controller/SecurityController.php
 +++ b/src/Controller/SecurityController.php
 @@ -9,10 +9,8 @@ use Symfony\Component\Security\Http\Authentication\AuthenticationUtils;
@@ -190,7 +190,7 @@ index 65c096f..5194b0c 100644
          throw new \LogicException('This method can be blank - it will be intercepted by the logout key on your firewall.');
      }
 diff --git a/src/Controller/UserController.php b/src/Controller/UserController.php
-index e47ce00..a4fbece 100644
+index 9c280396..a63c9f9c 100644
 --- a/src/Controller/UserController.php
 +++ b/src/Controller/UserController.php
 @@ -7,10 +7,8 @@ use Symfony\Component\Routing\Annotation\Route;
@@ -203,11 +203,11 @@ index e47ce00..a4fbece 100644
 -     */
 +    #[Route(path: '/api/me', name: 'app_user_api_me')]
 +    #[IsGranted('IS_AUTHENTICATED_REMEMBERED')]
-     public function apiMe()
+     public function apiMe(): \Symfony\Component\HttpFoundation\Response
      {
          return $this->json($this->getUser(), 200, [], [
 diff --git a/src/Entity/Answer.php b/src/Entity/Answer.php
-index b8e85c8..a418053 100644
+index f936762c..77ad761b 100644
 --- a/src/Entity/Answer.php
 +++ b/src/Entity/Answer.php
 @@ -6,9 +6,7 @@ use App\Repository\AnswerRepository;
@@ -220,10 +220,10 @@ index b8e85c8..a418053 100644
 +#[ORM\Entity(repositoryClass: AnswerRepository::class)]
  class Answer
  {
-     public const STATUS_NEEDS_APPROVAL = 'needs_approval';
-@@ -17,37 +15,25 @@ class Answer
- 
      use TimestampableEntity;
+@@ -16,37 +14,25 @@ class Answer
+     public const STATUS_SPAM = 'spam';
+     public const STATUS_APPROVED = 'approved';
  
 -    /**
 -     * @ORM\Id
@@ -269,7 +269,7 @@ index b8e85c8..a418053 100644
  
      public function getId(): ?int
 diff --git a/src/Entity/Question.php b/src/Entity/Question.php
-index 6fb8e59..859b873 100644
+index 82b1ba8b..01abcd82 100644
 --- a/src/Entity/Question.php
 +++ b/src/Entity/Question.php
 @@ -10,61 +10,43 @@ use Doctrine\ORM\Mapping as ORM;
@@ -349,7 +349,7 @@ index 6fb8e59..859b873 100644
  
      public function __construct()
 diff --git a/src/Entity/QuestionTag.php b/src/Entity/QuestionTag.php
-index 235669d..4f04a05 100644
+index 235669d7..4f04a05e 100644
 --- a/src/Entity/QuestionTag.php
 +++ b/src/Entity/QuestionTag.php
 @@ -5,33 +5,23 @@ namespace App\Entity;
@@ -396,7 +396,7 @@ index 235669d..4f04a05 100644
  
      public function __construct()
 diff --git a/src/Entity/Tag.php b/src/Entity/Tag.php
-index 4471345..6143693 100644
+index 4471345f..6143693d 100644
 --- a/src/Entity/Tag.php
 +++ b/src/Entity/Tag.php
 @@ -6,23 +6,17 @@ use App\Repository\TagRepository;
@@ -429,7 +429,7 @@ index 4471345..6143693 100644
  
      public function getId(): ?int
 diff --git a/src/Entity/User.php b/src/Entity/User.php
-index 1c7165a..d8bf343 100644
+index a6c087f4..82aaa47a 100644
 --- a/src/Entity/User.php
 +++ b/src/Entity/User.php
 @@ -9,33 +9,25 @@ use Doctrine\ORM\Mapping as ORM;
@@ -467,11 +467,11 @@ index 1c7165a..d8bf343 100644
      private array $roles = [];
  
      /**
-      * @var string The hashed password
+      * @var string|null The hashed password
 -     * @ORM\Column(type="string")
       */
 +    #[ORM\Column(type: 'string')]
-     private string $password;
+     private ?string $password = null;
  
      /**
 @@ -43,19 +35,13 @@ class User implements UserInterface
@@ -508,5 +508,5 @@ index 1c7165a..d8bf343 100644
 +    #[Groups('user:read')]
 +    public function getAvatarUri(int $size = 32) : string
      {
-         return 'https://ui-avatars.com/api/?' . http_build_query([
+         return 'https://ui-avatars.com/api/?'.http_build_query([
                  'name' => $this->getDisplayName(),

@@ -1,17 +1,17 @@
 diff --git a/src/Controller/RegistrationController.php b/src/Controller/RegistrationController.php
-index 9eb6e19..00cd53f 100644
+index 588d72c3..3addd18c 100644
 --- a/src/Controller/RegistrationController.php
 +++ b/src/Controller/RegistrationController.php
-@@ -19,7 +19,7 @@ use Symfony\Component\Routing\Annotation\Route;
+@@ -20,7 +20,7 @@ use SymfonyCasts\Bundle\VerifyEmail\VerifyEmailHelperInterface;
  class RegistrationController extends AbstractController
  {
      #[Route(path: '/register', name: 'app_register')]
--    public function register(Request $request, UserPasswordHasherInterface $userPasswordHasher, VerifyEmailHelperInterface $verifyEmailHelper, EntityManagerInterface $entityManager): Response
-+    public function register(Request $request, UserPasswordHasherInterface $userPasswordHasher, VerifyEmailHelperInterface $verifyEmailHelper, EntityManagerInterface $entityManager, MailerInterface $mailer): Response
+-    public function register(Request $request, UserPasswordHasherInterfaceAlias $userPasswordEncoder, VerifyEmailHelperInterface $verifyEmailHelper, EntityManagerInterface $entityManager): Response
++    public function register(Request $request, UserPasswordHasherInterfaceAlias $userPasswordEncoder, VerifyEmailHelperInterface $verifyEmailHelper, EntityManagerInterface $entityManager, MailerInterface $mailer): Response
      {
          $user = new User();
          $form = $this->createForm(RegistrationFormType::class, $user);
-@@ -44,11 +44,11 @@ class RegistrationController extends AbstractController
+@@ -45,11 +45,11 @@ class RegistrationController extends AbstractController
                  ['id' => $user->getId()]
              );
  
@@ -26,22 +26,3 @@ index 9eb6e19..00cd53f 100644
              ));
  
              return $this->redirectToRoute('app_homepage');
-@@ -98,14 +98,14 @@ class RegistrationController extends AbstractController
-     {
-         $email = (new Email())
-             ->from('hello@example.com')
--            ->to('you@example.com')
-+            ->to($user->getEmail())
-             //->cc('cc@example.com')
-             //->bcc('bcc@example.com')
-             //->replyTo('fabien@example.com')
-             //->priority(Email::PRIORITY_HIGH)
--            ->subject('Time for Symfony Mailer!')
--            ->text('Sending emails is fun again!')
--            ->html('<p>See Twig integration for better HTML integration!</p>');
-+            ->subject('Verify your email on Cauldron Overflow!')
-+            ->text('Please, follow the link to verify your email!')
-+            ->html(sprintf('<a href="%s">%s</a>', $signedUrl, $signedUrl));
- 
-         $mailer->send($email);
-     }

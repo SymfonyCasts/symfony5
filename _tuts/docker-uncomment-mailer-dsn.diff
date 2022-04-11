@@ -1,11 +1,11 @@
 diff --git a/.env b/.env
-index 1cfaea2..cf09986 100644
+index 94f323ae..6f50b9fc 100644
 --- a/.env
 +++ b/.env
 @@ -29,5 +29,5 @@ DATABASE_URL="mysql://root@127.0.0.1:3306/symfony6_upgrade?serverVersion=5.7"
  ###< doctrine/doctrine-bundle ###
  
  ###> symfony/mailer ###
--# MAILER_DSN=smtp://localhost
-+MAILER_DSN=smtp://localhost
+-# MAILER_DSN=null://null
++MAILER_DSN=null://null
  ###< symfony/mailer ###

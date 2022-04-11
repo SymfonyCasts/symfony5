@@ -1,0 +1,185 @@
+diff --git a/src/Entity/Answer.php b/src/Entity/Answer.php
+index 2711d99d..1a047fd1 100644
+--- a/src/Entity/Answer.php
++++ b/src/Entity/Answer.php
+@@ -16,23 +16,23 @@ class Answer
+ 
+     #[ORM\Id]
+     #[ORM\GeneratedValue]
+-    #[ORM\Column(type: 'integer')]
+-    private $id;
++    #[ORM\Column()]
++    private ?int $id = null;
+ 
+     #[ORM\Column(type: 'text')]
+-    private $content;
++    private ?string $content = null;
+ 
+-    #[ORM\Column(type: 'string', length: 255)]
+-    private $username;
++    #[ORM\Column()]
++    private ?string $username = null;
+ 
+-    #[ORM\Column(type: 'integer')]
++    #[ORM\Column()]
+     private int $votes = 0;
+ 
+     #[ORM\ManyToOne(inversedBy: 'answers')]
+     #[ORM\JoinColumn(nullable: false)]
+     private ?Question $question = null;
+ 
+-    #[ORM\Column(type: 'string', length: 15)]
++    #[ORM\Column(length: 15)]
+     private string $status = self::STATUS_NEEDS_APPROVAL;
+ 
+     public function getId(): ?int
+diff --git a/src/Entity/Question.php b/src/Entity/Question.php
+index b088abf6..143acaef 100644
+--- a/src/Entity/Question.php
++++ b/src/Entity/Question.php
+@@ -17,33 +17,33 @@ class Question
+ 
+     #[ORM\Id]
+     #[ORM\GeneratedValue]
+-    #[ORM\Column(type: 'integer')]
+-    private $id;
++    #[ORM\Column()]
++    private ?int $id = null;
+ 
+-    #[ORM\Column(type: 'string', length: 255)]
+-    private $name;
++    #[ORM\Column()]
++    private ?string $name = null;
+ 
+     /**
+      * @Gedmo\Slug(fields={"name"})
+      */
+-    #[ORM\Column(type: 'string', length: 100, unique: true)]
+-    private $slug;
++    #[ORM\Column(length: 100, unique: true)]
++    private ?string $slug = null;
+ 
+     #[ORM\Column(type: 'text')]
+-    private $question;
++    private ?string $question = null;
+ 
+-    #[ORM\Column(type: 'datetime', nullable: true)]
+-    private $askedAt;
++    #[ORM\Column(nullable: true)]
++    private ?\DateTime $askedAt = null;
+ 
+-    #[ORM\Column(type: 'integer')]
++    #[ORM\Column()]
+     private int $votes = 0;
+ 
+     #[ORM\OneToMany(targetEntity: Answer::class, mappedBy: 'question', fetch: 'EXTRA_LAZY')]
+     #[ORM\OrderBy(['createdAt' => 'DESC'])]
+-    private $answers;
++    private Collection $answers;
+ 
+     #[ORM\OneToMany(targetEntity: QuestionTag::class, mappedBy: 'question')]
+-    private $questionTags;
++    private Collection $questionTags;
+ 
+     #[ORM\ManyToOne(inversedBy: 'questions')]
+     #[ORM\JoinColumn(nullable: false)]
+diff --git a/src/Entity/QuestionTag.php b/src/Entity/QuestionTag.php
+index 6eb03062..e6b53432 100644
+--- a/src/Entity/QuestionTag.php
++++ b/src/Entity/QuestionTag.php
+@@ -10,8 +10,8 @@ class QuestionTag
+ {
+     #[ORM\Id]
+     #[ORM\GeneratedValue]
+-    #[ORM\Column(type: 'integer')]
+-    private $id;
++    #[ORM\Column()]
++    private ?int $id = null;
+ 
+     #[ORM\ManyToOne(inversedBy: 'questionTags')]
+     #[ORM\JoinColumn(nullable: false)]
+@@ -21,8 +21,8 @@ class QuestionTag
+     #[ORM\JoinColumn(nullable: false)]
+     private ?Tag $tag = null;
+ 
+-    #[ORM\Column(type: 'datetime_immutable')]
+-    private $taggedAt;
++    #[ORM\Column()]
++    private \DateTimeImmutable $taggedAt;
+ 
+     public function __construct()
+     {
+diff --git a/src/Entity/Tag.php b/src/Entity/Tag.php
+index 6143693d..69a3953f 100644
+--- a/src/Entity/Tag.php
++++ b/src/Entity/Tag.php
+@@ -13,11 +13,11 @@ class Tag
+ 
+     #[ORM\Id]
+     #[ORM\GeneratedValue]
+-    #[ORM\Column(type: 'integer')]
+-    private $id;
++    #[ORM\Column()]
++    private ?int $id = null;
+ 
+-    #[ORM\Column(type: 'string', length: 255)]
+-    private $name;
++    #[ORM\Column()]
++    private ?string $name = null;
+ 
+     public function getId(): ?int
+     {
+diff --git a/src/Entity/User.php b/src/Entity/User.php
+index 82aaa47a..b5c30b98 100644
+--- a/src/Entity/User.php
++++ b/src/Entity/User.php
+@@ -15,31 +15,31 @@ class User implements UserInterface
+ {
+     #[ORM\Id]
+     #[ORM\GeneratedValue]
+-    #[ORM\Column(type: 'integer')]
+-    private $id;
++    #[ORM\Column()]
++    private ?int $id = null;
+ 
+-    #[ORM\Column(type: 'string', length: 180, unique: true)]
+-    private $email;
++    #[ORM\Column(length: 180, unique: true)]
++    private ?string $email = null;
+ 
+     #[ORM\Column(type: 'json')]
+     private array $roles = [];
+ 
+     /**
+-     * @var string|null The hashed password
++     * The hashed password
+      */
+     #[ORM\Column(type: 'string')]
+     private ?string $password = null;
+ 
+     /**
+-     * @var string Non-mapped field
++     * Non-mapped field
+      */
+     private ?string $plainPassword = null;
+ 
+-    #[ORM\Column(type: 'string', length: 255)]
+-    private $firstName;
++    #[ORM\Column()]
++    private ?string $firstName = null;
+ 
+     #[ORM\OneToMany(targetEntity: Question::class, mappedBy: 'owner')]
+-    private $questions;
++    private Collection $questions;
+ 
+     #[ORM\Column(type: 'boolean')]
+     private bool $isVerified = false;
+@@ -183,7 +183,7 @@ class User implements UserInterface
+     }
+ 
+     #[Groups('user:read')]
+-    public function getAvatarUri(int $size = 32) : string
++    public function getAvatarUri(int $size = 32): string
+     {
+         return 'https://ui-avatars.com/api/?'.http_build_query([
+                 'name' => $this->getDisplayName(),

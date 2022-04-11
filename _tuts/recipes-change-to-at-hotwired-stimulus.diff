@@ -1,0 +1,42 @@
+diff --git a/assets/controllers/answer-vote_controller.js b/assets/controllers/answer-vote_controller.js
+index 6a4f881b..ccd58c93 100644
+--- a/assets/controllers/answer-vote_controller.js
++++ b/assets/controllers/answer-vote_controller.js
+@@ -1,4 +1,4 @@
+-import { Controller } from 'stimulus';
++import { Controller } from '@hotwired/stimulus';
+ import axios from 'axios';
+ 
+ export default class extends Controller {
+diff --git a/assets/controllers/hello_controller.js b/assets/controllers/hello_controller.js
+deleted file mode 100644
+index e847027b..00000000
+--- a/assets/controllers/hello_controller.js
++++ /dev/null
+@@ -1,16 +0,0 @@
+-import { Controller } from '@hotwired/stimulus';
+-
+-/*
+- * This is an example Stimulus controller!
+- *
+- * Any element with a data-controller="hello" attribute will cause
+- * this controller to be executed. The name "hello" comes from the filename:
+- * hello_controller.js -> "hello"
+- *
+- * Delete this file or adapt it for your use!
+- */
+-export default class extends Controller {
+-    connect() {
+-        this.element.textContent = 'Hello Stimulus! Edit me in assets/controllers/hello_controller.js';
+-    }
+-}
+diff --git a/assets/controllers/user-api_controller.js b/assets/controllers/user-api_controller.js
+index c6eb4190..45ca4bb6 100644
+--- a/assets/controllers/user-api_controller.js
++++ b/assets/controllers/user-api_controller.js
+@@ -1,4 +1,4 @@
+-import { Controller } from 'stimulus';
++import { Controller } from '@hotwired/stimulus';
+ import axios from 'axios';
+ 
+ export default class extends Controller {

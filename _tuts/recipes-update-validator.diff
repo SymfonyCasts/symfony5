@@ -1,6 +1,6 @@
 diff --git a/config/packages/test/validator.yaml b/config/packages/test/validator.yaml
 deleted file mode 100644
-index 1e5ab78..0000000
+index 1e5ab788..00000000
 --- a/config/packages/test/validator.yaml
 +++ /dev/null
 @@ -1,3 +0,0 @@
@@ -8,7 +8,7 @@ index 1e5ab78..0000000
 -    validation:
 -        not_compromised_password: false
 diff --git a/config/packages/validator.yaml b/config/packages/validator.yaml
-index 350786a..0201281 100644
+index 350786a1..0201281d 100644
 --- a/config/packages/validator.yaml
 +++ b/config/packages/validator.yaml
 @@ -6,3 +6,8 @@ framework:
@@ -21,7 +21,7 @@ index 350786a..0201281 100644
 +        validation:
 +            not_compromised_password: false
 diff --git a/symfony.lock b/symfony.lock
-index 5906bb4..e9e9bb1 100644
+index 9c23fb25..b88725ec 100644
 --- a/symfony.lock
 +++ b/symfony.lock
 @@ -608,15 +608,14 @@

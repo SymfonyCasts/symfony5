@@ -1,5 +1,5 @@
 diff --git a/config/routes.yaml b/config/routes.yaml
-index 5033f30..5b102f6 100644
+index 5033f300..5b102f60 100644
 --- a/config/routes.yaml
 +++ b/config/routes.yaml
 @@ -1,3 +1,7 @@
@@ -14,7 +14,7 @@ index 5033f30..5b102f6 100644
 +    resource: ../src/Kernel.php
 +    type: annotation
 diff --git a/symfony.lock b/symfony.lock
-index d85b2d1..8315126 100644
+index 9e451aa0..2b6af612 100644
 --- a/symfony.lock
 +++ b/symfony.lock
 @@ -527,12 +527,12 @@

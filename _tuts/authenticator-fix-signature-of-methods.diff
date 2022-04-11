@@ -1,5 +1,5 @@
 diff --git a/src/Security/LoginFormAuthenticator.php b/src/Security/LoginFormAuthenticator.php
-index 4c6b4db..4b1bb75 100644
+index 091d7c2c..df465c5d 100644
 --- a/src/Security/LoginFormAuthenticator.php
 +++ b/src/Security/LoginFormAuthenticator.php
 @@ -6,6 +6,7 @@ use App\Entity\User;
@@ -10,8 +10,8 @@ index 4c6b4db..4b1bb75 100644
  use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
  use Symfony\Component\HttpFoundation\Session\SessionInterface;
  use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
-@@ -39,7 +40,7 @@ class LoginFormAuthenticator extends AbstractLoginFormAuthenticator
-         // TODO: Implement authenticate() method.
+@@ -32,7 +33,7 @@ class LoginFormAuthenticator extends AbstractLoginFormAuthenticator
+     {
      }
  
 -    public function supports(Request $request)
@@ -19,7 +19,7 @@ index 4c6b4db..4b1bb75 100644
      {
          return self::LOGIN_ROUTE === $request->attributes->get('_route')
              && $request->isMethod('POST');
-@@ -89,16 +90,16 @@ class LoginFormAuthenticator extends AbstractLoginFormAuthenticator
+@@ -87,16 +88,16 @@ class LoginFormAuthenticator extends AbstractLoginFormAuthenticator
          return $credentials['password'];
      }
  
@@ -39,7 +39,7 @@ index 4c6b4db..4b1bb75 100644
      {
          if ($exception instanceof AccountNotVerifiedAuthenticationException) {
              $targetUrl = $this->urlGenerator->generate('app_verify_resend_email');
-@@ -109,7 +110,7 @@ class LoginFormAuthenticator extends AbstractLoginFormAuthenticator
+@@ -107,7 +108,7 @@ class LoginFormAuthenticator extends AbstractLoginFormAuthenticator
          return parent::onAuthenticationFailure($request, $exception);
      }
  

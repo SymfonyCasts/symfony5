@@ -1,5 +1,5 @@
 diff --git a/composer.json b/composer.json
-index ed55337..f9d2ca8 100755
+index 28525846..61c50cb8 100755
 --- a/composer.json
 +++ b/composer.json
 @@ -45,8 +45,9 @@
@@ -14,19 +14,19 @@ index ed55337..f9d2ca8 100755
          "symfony/var-dumper": "5.4.*",
          "symfony/web-profiler-bundle": "5.4.*",
 diff --git a/composer.lock b/composer.lock
-index 4f1aac9..347799c 100644
+index 23b2e8f9..6924f0b6 100644
 --- a/composer.lock
 +++ b/composer.lock
 @@ -4,7 +4,7 @@
          "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
          "This file is @generated automatically"
      ],
--    "content-hash": "b94f83c553006788d0c7e11377a1308a",
-+    "content-hash": "fc0150028e42439c86920584411baff4",
+-    "content-hash": "359472a4384d57e4c6a3c005f8f53f3c",
++    "content-hash": "de980bdd2657ca3387bbc73c48e0b7a7",
      "packages": [
          {
              "name": "babdev/pagerfanta-bundle",
-@@ -9585,6 +9585,70 @@
+@@ -9607,6 +9607,70 @@
              },
              "time": "2021-12-08T12:19:24+00:00"
          },
@@ -97,27 +97,27 @@ index 4f1aac9..347799c 100644
          {
              "name": "phpunit/php-code-coverage",
              "version": "9.2.15",
-@@ -10006,6 +10070,66 @@
+@@ -10028,6 +10092,66 @@
              ],
-             "time": "2022-03-08T06:52:28+00:00"
+             "time": "2022-04-01T12:37:26+00:00"
          },
 +        {
 +            "name": "rector/rector",
-+            "version": "0.12.17",
++            "version": "0.12.19",
 +            "source": {
 +                "type": "git",
 +                "url": "https://github.com/rectorphp/rector.git",
-+                "reference": "4f32575b718a4d7032423dc8e9d1e530ad859782"
++                "reference": "ed06366a1d56bf5709ddc854d0fea043513ac5ac"
 +            },
 +            "dist": {
 +                "type": "zip",
-+                "url": "https://api.github.com/repos/rectorphp/rector/zipball/4f32575b718a4d7032423dc8e9d1e530ad859782",
-+                "reference": "4f32575b718a4d7032423dc8e9d1e530ad859782",
++                "url": "https://api.github.com/repos/rectorphp/rector/zipball/ed06366a1d56bf5709ddc854d0fea043513ac5ac",
++                "reference": "ed06366a1d56bf5709ddc854d0fea043513ac5ac",
 +                "shasum": ""
 +            },
 +            "require": {
 +                "php": "^7.1|^8.0",
-+                "phpstan/phpstan": "^1.4.6"
++                "phpstan/phpstan": "^1.4.8"
 +            },
 +            "conflict": {
 +                "phpstan/phpdoc-parser": "<1.2",
@@ -151,7 +151,7 @@ index 4f1aac9..347799c 100644
 +            "description": "Instant Upgrade and Automated Refactoring of any PHP code",
 +            "support": {
 +                "issues": "https://github.com/rectorphp/rector/issues",
-+                "source": "https://github.com/rectorphp/rector/tree/0.12.17"
++                "source": "https://github.com/rectorphp/rector/tree/0.12.19"
 +            },
 +            "funding": [
 +                {
@@ -159,49 +159,16 @@ index 4f1aac9..347799c 100644
 +                    "type": "github"
 +                }
 +            ],
-+            "time": "2022-03-03T12:18:11+00:00"
++            "time": "2022-03-23T14:22:44+00:00"
 +        },
          {
              "name": "sebastian/cli-parser",
              "version": "1.0.1",
 diff --git a/symfony.lock b/symfony.lock
-index 04b9022..cde3ed3 100644
+index 25619c51..cde3ed3d 100644
 --- a/symfony.lock
 +++ b/symfony.lock
-@@ -136,12 +136,6 @@
-     "laminas/laminas-code": {
-         "version": "4.5.1"
-     },
--    "laminas/laminas-eventmanager": {
--        "version": "3.4.0"
--    },
--    "laminas/laminas-zendframework-bridge": {
--        "version": "1.4.1"
--    },
-     "michelf/php-markdown": {
-         "version": "1.9.0"
-     },
-@@ -154,9 +148,6 @@
-     "nikic/php-parser": {
-         "version": "v4.3.0"
-     },
--    "ocramius/package-versions": {
--        "version": "1.4.2"
--    },
-     "pagerfanta/pagerfanta": {
-         "version": "v2.7.2"
-     },
-@@ -166,9 +157,6 @@
-     "phar-io/version": {
-         "version": "3.2.1"
-     },
--    "php": {
--        "version": "7.2.5"
--    },
-     "php-http/client-common": {
-         "version": "2.1.0"
-     },
-@@ -199,6 +187,9 @@
+@@ -187,6 +187,9 @@
      "phpspec/prophecy": {
          "version": "v1.15.0"
      },
@@ -211,7 +178,7 @@ index 04b9022..cde3ed3 100644
      "phpunit/php-code-coverage": {
          "version": "9.2.15"
      },
-@@ -252,6 +243,9 @@
+@@ -240,6 +243,9 @@
      "ralouphie/getallheaders": {
          "version": "3.0.3"
      },
@@ -220,46 +187,4 @@ index 04b9022..cde3ed3 100644
 +    },
      "sebastian/cli-parser": {
          "version": "1.0.1"
-     },
-@@ -453,12 +447,6 @@
-     "symfony/http-kernel": {
-         "version": "v5.0.4"
-     },
--    "symfony/inflector": {
--        "version": "v5.0.11"
--    },
--    "symfony/intl": {
--        "version": "v5.0.11"
--    },
-     "symfony/maker-bundle": {
-         "version": "1.0",
-         "recipe": {
-@@ -468,9 +456,6 @@
-             "ref": "fadbfe33303a76e25cb63401050439aa9b1a9c7f"
-         }
-     },
--    "symfony/mime": {
--        "version": "v5.0.4"
--    },
-     "symfony/monolog-bridge": {
-         "version": "v5.0.4"
-     },
-@@ -491,15 +476,15 @@
-     "symfony/options-resolver": {
-         "version": "v5.0.7"
-     },
-+    "symfony/password-hasher": {
-+        "version": "v5.4.3"
-+    },
-     "symfony/polyfill-intl-grapheme": {
-         "version": "v1.24.0"
-     },
-     "symfony/polyfill-intl-icu": {
-         "version": "v1.24.0"
-     },
--    "symfony/polyfill-intl-idn": {
--        "version": "v1.13.1"
--    },
-     "symfony/polyfill-intl-normalizer": {
-         "version": "v1.22.1"
      },

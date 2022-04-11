@@ -1,5 +1,5 @@
 diff --git a/templates/registration/register.html.twig b/templates/registration/register.html.twig
-index 9323b6d..724962c 100644
+index 9323b6df..724962cc 100644
 --- a/templates/registration/register.html.twig
 +++ b/templates/registration/register.html.twig
 @@ -9,11 +9,7 @@

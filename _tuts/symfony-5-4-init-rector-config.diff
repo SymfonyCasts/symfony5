@@ -1,6 +1,6 @@
 diff --git a/rector.php b/rector.php
 new file mode 100644
-index 0000000..c3331c2
+index 00000000..c3331c20
 --- /dev/null
 +++ b/rector.php
 @@ -0,0 +1,25 @@

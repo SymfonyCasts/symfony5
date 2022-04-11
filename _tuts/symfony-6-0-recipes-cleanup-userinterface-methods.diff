@@ -1,0 +1,39 @@
+diff --git a/src/Entity/User.php b/src/Entity/User.php
+index f12dfbc5..832e1a82 100644
+--- a/src/Entity/User.php
++++ b/src/Entity/User.php
+@@ -77,16 +77,6 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
+         return (string) $this->email;
+     }
+ 
+-    /**
+-     * A visual identifier that represents this user.
+-     *
+-     * @see UserInterface
+-     */
+-    public function getUsername(): string
+-    {
+-        return (string) $this->email;
+-    }
+-
+     /**
+      * @see UserInterface
+      */
+@@ -131,17 +121,6 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
+         $this->plainPassword = $plainPassword;
+     }
+ 
+-    /**
+-     * Returning a salt is only needed, if you are not using a modern
+-     * hashing algorithm (e.g. bcrypt or sodium) in your security.yaml.
+-     *
+-     * @see UserInterface
+-     */
+-    public function getSalt(): ?string
+-    {
+-        return null;
+-    }
+-
+     /**
+      * @see UserInterface
+      */

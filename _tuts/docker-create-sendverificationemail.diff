@@ -1,34 +1,34 @@
 diff --git a/src/Controller/RegistrationController.php b/src/Controller/RegistrationController.php
-index a9db9b3..9eb6e19 100644
+index 77471f75..588d72c3 100644
 --- a/src/Controller/RegistrationController.php
 +++ b/src/Controller/RegistrationController.php
-@@ -6,6 +6,8 @@ use App\Entity\User;
+@@ -6,6 +6,9 @@ use App\Entity\User;
  use App\Form\RegistrationFormType;
  use App\Repository\UserRepository;
  use Doctrine\ORM\EntityManagerInterface;
 +use Symfony\Component\Mailer\MailerInterface;
 +use Symfony\Component\Mime\Email;
- use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
- use SymfonyCasts\Bundle\VerifyEmail\Exception\VerifyEmailExceptionInterface;
- use SymfonyCasts\Bundle\VerifyEmail\VerifyEmailHelperInterface;
-@@ -90,4 +92,21 @@ class RegistrationController extends AbstractController
++use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
+ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+ use Symfony\Component\HttpFoundation\Request;
+ use Symfony\Component\HttpFoundation\Response;
+@@ -90,4 +93,20 @@ class RegistrationController extends AbstractController
      {
          return $this->render('registration/resend_verify_email.html.twig');
      }
-+
 +
 +    private function sendVerificationEmail(MailerInterface $mailer, User $user, string $signedUrl)
 +    {
 +        $email = (new Email())
 +            ->from('hello@example.com')
-+            ->to('you@example.com')
++            ->to($user->getEmail())
 +            //->cc('cc@example.com')
 +            //->bcc('bcc@example.com')
 +            //->replyTo('fabien@example.com')
 +            //->priority(Email::PRIORITY_HIGH)
-+            ->subject('Time for Symfony Mailer!')
-+            ->text('Sending emails is fun again!')
-+            ->html('<p>See Twig integration for better HTML integration!</p>');
++            ->subject('Verify your email on Cauldron Overflow!')
++            ->text('Please, follow the link to verify your email!')
++            ->html(sprintf('<a href="%s">%s</a>', $signedUrl, $signedUrl));
 +
 +        $mailer->send($email);
 +    }

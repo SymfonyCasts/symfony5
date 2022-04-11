@@ -1,5 +1,5 @@
 diff --git a/.env b/.env
-index b92f5b7..d8162de 100644
+index b92f5b76..d8162def 100644
 --- a/.env
 +++ b/.env
 @@ -23,7 +23,7 @@ APP_SECRET=c28f3d37eba278748f3c0427b313e86a
@@ -12,7 +12,7 @@ index b92f5b7..d8162de 100644
  DATABASE_URL="mysql://root@127.0.0.1:3306/symfony6_upgrade?serverVersion=5.7"
  ###< doctrine/doctrine-bundle ###
 diff --git a/symfony.lock b/symfony.lock
-index 5b1a48b..49c212f 100644
+index e4eaad12..0ff50272 100644
 --- a/symfony.lock
 +++ b/symfony.lock
 @@ -47,7 +47,7 @@

@@ -1,9 +1,9 @@
 diff --git a/src/Security/LoginFormAuthenticator.php b/src/Security/LoginFormAuthenticator.php
-index 4b1bb75..d67e28b 100644
+index df465c5d..1c9efffc 100644
 --- a/src/Security/LoginFormAuthenticator.php
 +++ b/src/Security/LoginFormAuthenticator.php
-@@ -40,12 +40,6 @@ class LoginFormAuthenticator extends AbstractLoginFormAuthenticator
-         // TODO: Implement authenticate() method.
+@@ -33,12 +33,6 @@ class LoginFormAuthenticator extends AbstractLoginFormAuthenticator
+     {
      }
  
 -    public function supports(Request $request): bool
@@ -12,6 +12,6 @@ index 4b1bb75..d67e28b 100644
 -            && $request->isMethod('POST');
 -    }
 -
-     public function getCredentials(Request $request)
+     public function authenticate(Request $request)
      {
-         $credentials = [
+         // TODO: Implement authenticate() method.

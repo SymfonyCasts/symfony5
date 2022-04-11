@@ -1,13 +1,13 @@
 diff --git a/config/packages/test/twig.yaml b/config/packages/test/twig.yaml
 deleted file mode 100644
-index 8c6e0b4..0000000
+index 8c6e0b40..00000000
 --- a/config/packages/test/twig.yaml
 +++ /dev/null
 @@ -1,2 +0,0 @@
 -twig:
 -    strict_variables: true
 diff --git a/config/packages/twig.yaml b/config/packages/twig.yaml
-index 90c5321..2bd6e0c 100644
+index 90c5321b..2bd6e0cd 100644
 --- a/config/packages/twig.yaml
 +++ b/config/packages/twig.yaml
 @@ -1,3 +1,7 @@
@@ -19,10 +19,10 @@ index 90c5321..2bd6e0c 100644
 +    twig:
 +        strict_variables: true
 diff --git a/symfony.lock b/symfony.lock
-index 0149a50..5b1a48b 100644
+index 8b9ada8c..e4eaad12 100644
 --- a/symfony.lock
 +++ b/symfony.lock
-@@ -596,15 +596,14 @@
+@@ -595,15 +595,14 @@
          "version": "v5.0.4"
      },
      "symfony/twig-bundle": {
@@ -42,15 +42,14 @@ index 0149a50..5b1a48b 100644
              "templates/base.html.twig"
          ]
 diff --git a/templates/base.html.twig b/templates/base.html.twig
-index ffe975a..891a06e 100644
+index ffe975ac..49dbb4f4 100644
 --- a/templates/base.html.twig
 +++ b/templates/base.html.twig
-@@ -3,6 +3,8 @@
+@@ -3,6 +3,7 @@
      <head>
          <meta charset="UTF-8">
          <title>{% block title %}Welcome!{% endblock %}</title>
 +        <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 128 128%22><text y=%221.2em%22 font-size=%2296%22>⚫️</text></svg>">
-+        {# Run `composer require symfony/webpack-encore-bundle` to start using Symfony UX #}
          {% block stylesheets %}
              <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Spartan&display=swap">
              <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/all.min.css" integrity="sha256-mmgLkCYLUQbXn0B1SRqzHar6dCnv9oZFPEC1g1cwlkk=" crossorigin="anonymous" />

@@ -1,0 +1,19 @@
+diff --git a/.php-cs-fixer.php b/.php-cs-fixer.php
+new file mode 100644
+index 00000000..434e812f
+--- /dev/null
++++ b/.php-cs-fixer.php
+@@ -0,0 +1,13 @@
++<?php
++
++$finder = PhpCsFixer\Finder::create()
++    ->in(__DIR__.'/src')
++;
++
++$config = new PhpCsFixer\Config();
++return $config->setRules([
++        '@Symfony' => true,
++        'yoda_style' => false,
++    ])
++    ->setFinder($finder)
++;

@@ -1,5 +1,5 @@
 diff --git a/rector.php b/rector.php
-index 841d060..8d74e39 100644
+index 841d060e..8d74e396 100644
 --- a/rector.php
 +++ b/rector.php
 @@ -4,8 +4,10 @@ declare(strict_types=1);

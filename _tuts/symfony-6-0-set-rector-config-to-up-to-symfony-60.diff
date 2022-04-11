@@ -1,5 +1,5 @@
 diff --git a/rector.php b/rector.php
-index 8d74e39..a2b3200 100644
+index 8d74e396..a2b32009 100644
 --- a/rector.php
 +++ b/rector.php
 @@ -21,14 +21,7 @@ return static function (ContainerConfigurator $containerConfigurator): void {

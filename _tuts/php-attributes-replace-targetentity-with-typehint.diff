@@ -1,8 +1,8 @@
 diff --git a/src/Entity/Answer.php b/src/Entity/Answer.php
-index a418053..55e5cf3 100644
+index 77ad761b..2711d99d 100644
 --- a/src/Entity/Answer.php
 +++ b/src/Entity/Answer.php
-@@ -29,9 +29,9 @@ class Answer
+@@ -28,9 +28,9 @@ class Answer
      #[ORM\Column(type: 'integer')]
      private int $votes = 0;
  
@@ -15,7 +15,7 @@ index a418053..55e5cf3 100644
      #[ORM\Column(type: 'string', length: 15)]
      private string $status = self::STATUS_NEEDS_APPROVAL;
 diff --git a/src/Entity/Question.php b/src/Entity/Question.php
-index 859b873..efb8143 100644
+index 01abcd82..b088abf6 100644
 --- a/src/Entity/Question.php
 +++ b/src/Entity/Question.php
 @@ -45,9 +45,9 @@ class Question
@@ -31,7 +31,7 @@ index 859b873..efb8143 100644
      public function __construct()
      {
 diff --git a/src/Entity/QuestionTag.php b/src/Entity/QuestionTag.php
-index 4f04a05..6eb0306 100644
+index 4f04a05e..6eb03062 100644
 --- a/src/Entity/QuestionTag.php
 +++ b/src/Entity/QuestionTag.php
 @@ -13,13 +13,13 @@ class QuestionTag

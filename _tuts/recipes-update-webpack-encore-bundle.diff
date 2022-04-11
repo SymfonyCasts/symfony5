@@ -1,8 +1,142 @@
-diff --git a/assets/css/app.css b/assets/css/app.css
+diff --git a/assets/bootstrap.js b/assets/bootstrap.js
+index 58308a6b..4ab2df64 100644
+--- a/assets/bootstrap.js
++++ b/assets/bootstrap.js
+@@ -4,7 +4,7 @@ import { startStimulusApp } from '@symfony/stimulus-bridge';
+ export const app = startStimulusApp(require.context(
+     '@symfony/stimulus-bridge/lazy-controller-loader!./controllers',
+     true,
+-    /\.(j|t)sx?$/
++    /\.[jt]sx?$/
+ ));
+ 
+ // register any custom, 3rd party controllers here
+diff --git a/assets/controllers/hello_controller.js b/assets/controllers/hello_controller.js
 new file mode 100644
-index 0000000..e69de29
+index 00000000..e847027b
+--- /dev/null
++++ b/assets/controllers/hello_controller.js
+@@ -0,0 +1,16 @@
++import { Controller } from '@hotwired/stimulus';
++
++/*
++ * This is an example Stimulus controller!
++ *
++ * Any element with a data-controller="hello" attribute will cause
++ * this controller to be executed. The name "hello" comes from the filename:
++ * hello_controller.js -> "hello"
++ *
++ * Delete this file or adapt it for your use!
++ */
++export default class extends Controller {
++    connect() {
++        this.element.textContent = 'Hello Stimulus! Edit me in assets/controllers/hello_controller.js';
++    }
++}
+diff --git a/config/packages/assets.yaml b/config/packages/assets.yaml
+deleted file mode 100644
+index 051d36dc..00000000
+--- a/config/packages/assets.yaml
++++ /dev/null
+@@ -1,3 +0,0 @@
+-framework:
+-    assets:
+-        json_manifest_path: '%kernel.project_dir%/public/build/manifest.json'
+diff --git a/config/packages/prod/webpack_encore.yaml b/config/packages/prod/webpack_encore.yaml
+deleted file mode 100644
+index d0b3ba81..00000000
+--- a/config/packages/prod/webpack_encore.yaml
++++ /dev/null
+@@ -1,4 +0,0 @@
+-#webpack_encore:
+-    # Cache the entrypoints.json (rebuild Symfony's cache when entrypoints.json changes)
+-    # Available in version 1.2
+-    #cache: true
+diff --git a/config/packages/test/webpack_encore.yaml b/config/packages/test/webpack_encore.yaml
+deleted file mode 100644
+index 02a76515..00000000
+--- a/config/packages/test/webpack_encore.yaml
++++ /dev/null
+@@ -1,2 +0,0 @@
+-#webpack_encore:
+-#    strict_mode: false
+diff --git a/config/packages/webpack_encore.yaml b/config/packages/webpack_encore.yaml
+index 9191f4f4..46834f0c 100644
+--- a/config/packages/webpack_encore.yaml
++++ b/config/packages/webpack_encore.yaml
+@@ -4,16 +4,26 @@ webpack_encore:
+     # If multiple builds are defined (as shown below), you can disable the default build:
+     # output_path: false
+ 
+-    # if using Encore.enableIntegrityHashes() and need the crossorigin attribute (default: false, or use 'anonymous' or 'use-credentials')
++    # Set attributes that will be rendered on all script and link tags
++    script_attributes:
++        defer: true
++        # Uncomment (also under link_attributes) if using Turbo Drive
++        # https://turbo.hotwired.dev/handbook/drive#reloading-when-assets-change
++        # 'data-turbo-track': reload
++    # link_attributes:
++        # Uncomment if using Turbo Drive
++        # 'data-turbo-track': reload
++
++    # If using Encore.enableIntegrityHashes() and need the crossorigin attribute (default: false, or use 'anonymous' or 'use-credentials')
+     # crossorigin: 'anonymous'
+ 
+-    # preload all rendered script and link tags automatically via the http2 Link header
++    # Preload all rendered script and link tags automatically via the HTTP/2 Link header
+     # preload: true
+ 
+     # Throw an exception if the entrypoints.json file is missing or an entry is missing from the data
+     # strict_mode: false
+ 
+-    # if you have multiple builds:
++    # If you have multiple builds:
+     # builds:
+         # pass "frontend" as the 3rg arg to the Twig functions
+         # {{ encore_entry_script_tags('entry1', null, 'frontend') }}
+@@ -23,3 +33,17 @@ webpack_encore:
+     # Cache the entrypoints.json (rebuild Symfony's cache when entrypoints.json changes)
+     # Put in config/packages/prod/webpack_encore.yaml
+     # cache: true
++
++framework:
++    assets:
++        json_manifest_path: '%kernel.project_dir%/public/build/manifest.json'
++
++#when@prod:
++#    webpack_encore:
++#        # Cache the entrypoints.json (rebuild Symfony's cache when entrypoints.json changes)
++#        # Available in version 1.2
++#        cache: true
++
++#when@test:
++#    webpack_encore:
++#        strict_mode: false
+diff --git a/package.json b/package.json
+index 9a59ba0c..17cf36c2 100644
+--- a/package.json
++++ b/package.json
+@@ -1,15 +1,15 @@
+ {
+     "devDependencies": {
++        "@hotwired/stimulus": "^3.0.0",
+         "@popperjs/core": "^2.10.2",
+-        "@symfony/stimulus-bridge": "^2.0.0",
++        "@symfony/stimulus-bridge": "^3.0.0",
+         "@symfony/ux-chartjs": "file:vendor/symfony/ux-chartjs/Resources/assets",
+-        "@symfony/webpack-encore": "^1.0.0",
++        "@symfony/webpack-encore": "^1.7.0",
+         "axios": "^0.22.0",
+         "bootstrap": "^5.0.0",
+         "chart.js": "^2.9.4",
+         "core-js": "^3.0.0",
+         "regenerator-runtime": "^0.13.2",
+-        "stimulus": "^2.0.0",
+         "webpack-notifier": "^1.6.0"
+     },
+     "license": "UNLICENSED",
 diff --git a/symfony.lock b/symfony.lock
-index c25705d..b97c58b 100644
+index c60f1f14..7677ff55 100644
 --- a/symfony.lock
 +++ b/symfony.lock
 @@ -639,19 +639,19 @@

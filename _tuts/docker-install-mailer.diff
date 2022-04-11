@@ -1,5 +1,5 @@
 diff --git a/.env b/.env
-index dfd80c1..1cfaea2 100644
+index dfd80c19..94f323ae 100644
 --- a/.env
 +++ b/.env
 @@ -27,3 +27,7 @@ APP_SECRET=c28f3d37eba278748f3c0427b313e86a
@@ -8,10 +8,10 @@ index dfd80c1..1cfaea2 100644
  ###< doctrine/doctrine-bundle ###
 +
 +###> symfony/mailer ###
-+# MAILER_DSN=smtp://localhost
++# MAILER_DSN=null://null
 +###< symfony/mailer ###
 diff --git a/composer.json b/composer.json
-index 0f7f857..68246f3 100755
+index 420b86e4..49967974 100755
 --- a/composer.json
 +++ b/composer.json
 @@ -27,6 +27,7 @@
@@ -23,19 +23,10 @@ index 0f7f857..68246f3 100755
          "symfony/property-access": "6.0.*",
          "symfony/property-info": "6.0.*",
 diff --git a/composer.lock b/composer.lock
-index 186bed2..8ce3491 100644
+index 09f52224..7055c40e 100644
 --- a/composer.lock
 +++ b/composer.lock
-@@ -4,7 +4,7 @@
-         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
-         "This file is @generated automatically"
-     ],
--    "content-hash": "89b34cc6760d7b92c99f484cebcd9bd2",
-+    "content-hash": "d8c8c853ee0b37b495da77da77d7cc24",
-     "packages": [
-         {
-             "name": "babdev/pagerfanta-bundle",
-@@ -1632,6 +1632,74 @@
+@@ -1635,6 +1635,74 @@
              },
              "time": "2021-11-05T11:11:14+00:00"
          },
@@ -110,9 +101,9 @@ index 186bed2..8ce3491 100644
          {
              "name": "friendsofphp/proxy-manager-lts",
              "version": "v1.0.7",
-@@ -5639,6 +5707,161 @@
+@@ -5641,6 +5709,161 @@
              ],
-             "time": "2022-03-05T21:19:20+00:00"
+             "time": "2022-04-02T06:35:11+00:00"
          },
 +        {
 +            "name": "symfony/mailer",
@@ -272,7 +263,7 @@ index 186bed2..8ce3491 100644
          {
              "name": "symfony/monolog-bridge",
              "version": "v6.0.3",
-@@ -6110,6 +6333,93 @@
+@@ -6112,6 +6335,93 @@
              ],
              "time": "2021-10-26T17:16:04+00:00"
          },
@@ -368,7 +359,7 @@ index 186bed2..8ce3491 100644
              "version": "v1.25.0",
 diff --git a/config/packages/mailer.yaml b/config/packages/mailer.yaml
 new file mode 100644
-index 0000000..56a650d
+index 00000000..56a650d8
 --- /dev/null
 +++ b/config/packages/mailer.yaml
 @@ -0,0 +1,3 @@
@@ -377,7 +368,7 @@ index 0000000..56a650d
 +        dsn: '%env(MAILER_DSN)%'
 diff --git a/docker-compose.override.yml b/docker-compose.override.yml
 new file mode 100644
-index 0000000..afccd27
+index 00000000..afccd270
 --- /dev/null
 +++ b/docker-compose.override.yml
 @@ -0,0 +1,8 @@
@@ -390,7 +381,7 @@ index 0000000..afccd27
 +    ports: [1025, 1080]
 +###< symfony/mailer ###
 diff --git a/symfony.lock b/symfony.lock
-index 7306b98..18f3a39 100644
+index 9aa7995f..791e6099 100644
 --- a/symfony.lock
 +++ b/symfony.lock
 @@ -102,6 +102,9 @@

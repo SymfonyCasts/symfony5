@@ -1,13 +1,12 @@
 diff --git a/config/packages/doctrine.yaml b/config/packages/doctrine.yaml
-index ab3343b..9761afd 100644
+index ab3343b1..9ecaf12d 100644
 --- a/config/packages/doctrine.yaml
 +++ b/config/packages/doctrine.yaml
-@@ -12,7 +12,7 @@ doctrine:
+@@ -12,7 +12,6 @@ doctrine:
          mappings:
              App:
                  is_bundle: false
 -                type: annotation
-+                type: attribute
                  dir: '%kernel.project_dir%/src/Entity'
                  prefix: 'App\Entity'
                  alias: App

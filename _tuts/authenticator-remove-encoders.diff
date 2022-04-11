@@ -1,5 +1,5 @@
 diff --git a/config/packages/security.yaml b/config/packages/security.yaml
-index 0ea96c0..7800da8 100644
+index 0ea96c0c..7800da86 100644
 --- a/config/packages/security.yaml
 +++ b/config/packages/security.yaml
 @@ -1,8 +1,4 @@

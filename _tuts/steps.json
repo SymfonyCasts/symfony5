@@ -11,8 +11,8 @@
             "description": null
         },
         {
-            "id": "symfony-5-4-upgrade-symfony-deps",
-            "name": "Symfony 5.4: Upgrade Symfony deps",
+            "id": "symfony-5-4-upgrade-all-deps",
+            "name": "Symfony 5.4: Upgrade all deps",
             "description": null
         },
         {
@@ -41,6 +41,26 @@
             "description": null
         },
         {
+            "id": "symfony-5-4-install-php-cs-fixer",
+            "name": "Symfony 5.4: install php-cs-fixer",
+            "description": null
+        },
+        {
+            "id": "symfony-5-4-ignore-php-cs-fixer-vendor",
+            "name": "Symfony 5.4: ignore php-cs-fixer vendor\/",
+            "description": null
+        },
+        {
+            "id": "symfony-5-4-add-php-cs-fixer-config-file",
+            "name": "Symfony 5.4: add php-cs-fixer config file",
+            "description": null
+        },
+        {
+            "id": "symfony-5-4-run-php-cs-fixer",
+            "name": "Symfony 5.4: run php-cs-fixer",
+            "description": null
+        },
+        {
             "id": "symfony-5-4-import-use-statements-and-rename-vars",
             "name": "Symfony 5.4: Import use statements and rename vars",
             "description": null
@@ -53,6 +73,16 @@
         {
             "id": "recipes-upgrade-framework-bundle",
             "name": "Recipes: Upgrade framework-bundle",
+            "description": null
+        },
+        {
+            "id": "recipes-install-symfony-runtime",
+            "name": "Recipes: install symfony\/runtime",
+            "description": null
+        },
+        {
+            "id": "recipes-update-symfony-console",
+            "name": "Recipes: Update symfony\/console",
             "description": null
         },
         {
@@ -71,8 +101,8 @@
             "description": null
         },
         {
-            "id": "recipes-update-console",
-            "name": "Recipes: Update console",
+            "id": "delete-me-1",
+            "name": "delete me 1",
             "description": null
         },
         {
@@ -111,6 +141,21 @@
             "description": null
         },
         {
+            "id": "recipes-upgrade-package-json-deps",
+            "name": "Recipes: upgrade package.json deps",
+            "description": null
+        },
+        {
+            "id": "recipes-change-to-at-hotwired-stimulus",
+            "name": "Recipes: change to @hotwired\/stimulus",
+            "description": null
+        },
+        {
+            "id": "recipes-upgrade-ux-chartjs",
+            "name": "Recipes: upgrade ux-chartjs",
+            "description": null
+        },
+        {
             "id": "recipes-update-foundry",
             "name": "Recipes: Update foundry",
             "description": null
@@ -123,6 +168,11 @@
         {
             "id": "php-8-apply-rector-changes",
             "name": "PHP 8: Apply Rector changes",
+            "description": null
+        },
+        {
+            "id": "php-8-fix-password-property-type",
+            "name": "PHP 8: Fix password property type",
             "description": null
         },
         {
@@ -153,6 +203,11 @@
         {
             "id": "php-attributes-replace-targetentity-with-typehint",
             "name": "PHP Attributes: Replace targetEntity with typehint",
+            "description": null
+        },
+        {
+            "id": "php-attributes-type-hint-all-fields",
+            "name": "PHP Attributes: type-hint all fields",
             "description": null
         },
         {
@@ -196,6 +251,11 @@
             "description": null
         },
         {
+            "id": "authenticator-remove-extra-constructor-args",
+            "name": "Authenticator: remove extra constructor args",
+            "description": null
+        },
+        {
             "id": "authenticator-enable-authenticator-manager",
             "name": "Authenticator: Enable authenticator manager",
             "description": null
@@ -211,8 +271,8 @@
             "description": null
         },
         {
-            "id": "fix-deprecations-add-return-type-for-getsubscribedevents",
-            "name": "Fix deprecations: Add return type for getSubscribedEvents()",
+            "id": "delete-me-2",
+            "name": "delete me 2",
             "description": null
         },
         {
@@ -238,6 +298,11 @@
         {
             "id": "symfony-6-0-set-rector-config-to-up-to-symfony-60",
             "name": "Symfony 6.0: Set Rector config to UP_TO_SYMFONY_60",
+            "description": null
+        },
+        {
+            "id": "symfony-6-0-run-rector-for-6-0",
+            "name": "Symfony 6.0: run rector for 6.0",
             "description": null
         },
         {
@@ -271,6 +336,11 @@
             "description": null
         },
         {
+            "id": "symfony-6-0-upgrade-doctrine-dbal",
+            "name": "Symfony 6.0: Upgrade doctrine\/dbal",
+            "description": null
+        },
+        {
             "id": "symfony-6-0-recipes-update-symfony-routing",
             "name": "Symfony 6.0 recipes: Update symfony\/routing",
             "description": null
@@ -283,6 +353,16 @@
         {
             "id": "symfony-6-0-recipes-update-doctrine-doctrine-bundle",
             "name": "Symfony 6.0 recipes: Update doctrine\/doctrine-bundle",
+            "description": null
+        },
+        {
+            "id": "symfony-6-0-recipes-cleanup-userinterface-methods",
+            "name": "Symfony 6.0 recipes: cleanup UserInterface methods",
+            "description": null
+        },
+        {
+            "id": "delete-me-3",
+            "name": "delete me 3",
             "description": null
         },
         {
@@ -321,25 +401,25 @@
             "description": null
         },
         {
-            "id": "docker-disable-emails-in-dev-mode",
-            "name": "Docker: Disable emails in dev mode",
+            "id": "delete-me-4",
+            "name": "delete me 4",
             "description": null
         },
         {
-            "id": "docker-create-docker-compose-yml-from-override-file",
-            "name": "Docker: Create docker-compose.yml from override file",
+            "id": "delete-me-5",
+            "name": "delete me 5",
             "description": null
         },
         {
-            "id": "docker-comment-out-null-mailer-dsn-in-dev-mode",
-            "name": "Docker: Comment out null Mailer DSN in dev mode",
+            "id": "delete-me-6",
+            "name": "delete me 6",
             "description": null
         },
         {
-            "id": "docker-set-mailer-dsn-to-mailcatcher",
-            "name": "Docker: Set MAILER_DSN to Mailcatcher",
+            "id": "delete-me-7",
+            "name": "delete me 7",
             "description": null
         }
     ],
-    "sha": "30e9da5f141a2a07dd0e43915a94595b4bdedcd7"
+    "sha": "8a2ee3c0a2f23262e9fadf8086cf1eddfb35075b"
 }

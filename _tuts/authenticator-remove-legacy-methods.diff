@@ -1,8 +1,21 @@
 diff --git a/src/Security/LoginFormAuthenticator.php b/src/Security/LoginFormAuthenticator.php
-index 42ab502..1bea909 100644
+index 99a670b3..71f6bdd1 100644
 --- a/src/Security/LoginFormAuthenticator.php
 +++ b/src/Security/LoginFormAuthenticator.php
-@@ -68,50 +68,6 @@ class LoginFormAuthenticator extends AbstractLoginFormAuthenticator
+@@ -12,12 +12,7 @@ use Symfony\Component\HttpFoundation\Session\SessionInterface;
+ use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
+ use Symfony\Component\Security\Core\Authentication\Token\TokenInterface;
+ use Symfony\Component\Security\Core\Exception\AuthenticationException;
+-use Symfony\Component\Security\Core\Exception\InvalidCsrfTokenException;
+ use Symfony\Component\Security\Core\Exception\UserNotFoundException;
+-use Symfony\Component\Security\Core\Security;
+-use Symfony\Component\Security\Core\User\UserInterface;
+-use Symfony\Component\Security\Core\User\UserProviderInterface;
+-use Symfony\Component\Security\Csrf\CsrfToken;
+ use Symfony\Component\Security\Csrf\CsrfTokenManagerInterface;
+ use Symfony\Component\Security\Http\Authenticator\AbstractLoginFormAuthenticator;
+ use Symfony\Component\Security\Http\Authenticator\Passport\Badge\CsrfTokenBadge;
+@@ -66,50 +61,6 @@ class LoginFormAuthenticator extends AbstractLoginFormAuthenticator
          );
      }
  

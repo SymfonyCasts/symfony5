@@ -1,9 +1,9 @@
 diff --git a/composer.json b/composer.json
-index 161f10a..bd39cb5 100755
+index 894821d0..b59fa64e 100755
 --- a/composer.json
 +++ b/composer.json
 @@ -7,7 +7,7 @@
-         "php": ">=8.0.2",
+         "php": "^8.0.2",
          "ext-ctype": "*",
          "ext-iconv": "*",
 -        "babdev/pagerfanta-bundle": "^2.0",

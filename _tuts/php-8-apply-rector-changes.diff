@@ -1,5 +1,5 @@
 diff --git a/src/Command/RandomSpellCommand.php b/src/Command/RandomSpellCommand.php
-index 402f6cd..aa7cb90 100644
+index 402f6cd8..aa7cb906 100644
 --- a/src/Command/RandomSpellCommand.php
 +++ b/src/Command/RandomSpellCommand.php
 @@ -13,12 +13,9 @@ use Symfony\Component\Console\Style\SymfonyStyle;
@@ -17,7 +17,7 @@ index 402f6cd..aa7cb90 100644
      }
  
 diff --git a/src/Controller/AnswerController.php b/src/Controller/AnswerController.php
-index cd2f73b..2a08f93 100644
+index 6b919f1a..50dab11d 100644
 --- a/src/Controller/AnswerController.php
 +++ b/src/Controller/AnswerController.php
 @@ -37,7 +37,7 @@ class AnswerController extends BaseController
@@ -30,7 +30,7 @@ index cd2f73b..2a08f93 100644
  
          // use real logic here to save this to the database
 diff --git a/src/Controller/QuestionController.php b/src/Controller/QuestionController.php
-index ce38614..4e0d675 100644
+index 4a60ba5b..2a106ba8 100644
 --- a/src/Controller/QuestionController.php
 +++ b/src/Controller/QuestionController.php
 @@ -16,13 +16,8 @@ use Symfony\Component\Routing\Annotation\Route;
@@ -49,20 +49,20 @@ index ce38614..4e0d675 100644
  
      /**
 diff --git a/src/DataFixtures/AppFixtures.php b/src/DataFixtures/AppFixtures.php
-index 79033d9..5fbad65 100644
+index b0418ef0..6c65601e 100644
 --- a/src/DataFixtures/AppFixtures.php
 +++ b/src/DataFixtures/AppFixtures.php
 @@ -25,18 +25,14 @@ class AppFixtures extends Fixture
  
          TagFactory::createMany(100);
  
--        $questions = QuestionFactory::createMany(20, function() {
+-        $questions = QuestionFactory::createMany(20, function () {
 -            return [
 -                'owner' => UserFactory::random(),
 -            ];
 -        });
 -
--        QuestionTagFactory::createMany(100, function() {
+-        QuestionTagFactory::createMany(100, function () {
 -            return [
 -                'tag' => TagFactory::random(),
 -                'question' => QuestionFactory::random(),
@@ -83,14 +83,14 @@ index 79033d9..5fbad65 100644
              ->create()
          ;
  
--        AnswerFactory::createMany(100, function() use ($questions) {
+-        AnswerFactory::createMany(100, function () use ($questions) {
 -            return [
--                'question' => $questions[array_rand($questions)]
+-                'question' => $questions[array_rand($questions)],
 -            ];
 -        });
--        AnswerFactory::new(function() use ($questions) {
+-        AnswerFactory::new(function () use ($questions) {
 -            return [
--                'question' => $questions[array_rand($questions)]
+-                'question' => $questions[array_rand($questions)],
 -            ];
 -        })->needsApproval()->many(20)->create();
 +        AnswerFactory::createMany(100, fn() => [
@@ -103,10 +103,10 @@ index 79033d9..5fbad65 100644
          $manager->flush();
      }
 diff --git a/src/Entity/Answer.php b/src/Entity/Answer.php
-index f2f25fd..b8e85c8 100644
+index 4bae6102..f936762c 100644
 --- a/src/Entity/Answer.php
 +++ b/src/Entity/Answer.php
-@@ -37,7 +37,7 @@ class Answer
+@@ -36,7 +36,7 @@ class Answer
      /**
       * @ORM\Column(type="integer")
       */
@@ -115,7 +115,7 @@ index f2f25fd..b8e85c8 100644
  
      /**
       * @ORM\ManyToOne(targetEntity=Question::class, inversedBy="answers")
-@@ -48,7 +48,7 @@ class Answer
+@@ -47,7 +47,7 @@ class Answer
      /**
       * @ORM\Column(type="string", length=15)
       */
@@ -125,7 +125,7 @@ index f2f25fd..b8e85c8 100644
      public function getId(): ?int
      {
 diff --git a/src/Entity/Question.php b/src/Entity/Question.php
-index a54afdc..6fb8e59 100644
+index 414acc0a..82b1ba8b 100644
 --- a/src/Entity/Question.php
 +++ b/src/Entity/Question.php
 @@ -48,7 +48,7 @@ class Question
@@ -138,7 +138,7 @@ index a54afdc..6fb8e59 100644
      /**
       * @ORM\OneToMany(targetEntity=Answer::class, mappedBy="question", fetch="EXTRA_LAZY")
 diff --git a/src/Entity/User.php b/src/Entity/User.php
-index deea267..1c7165a 100644
+index 6b639686..7d9d83ad 100644
 --- a/src/Entity/User.php
 +++ b/src/Entity/User.php
 @@ -30,18 +30,18 @@ class User implements UserInterface
@@ -173,7 +173,7 @@ index deea267..1c7165a 100644
      public function __construct()
      {
 diff --git a/src/Factory/AnswerFactory.php b/src/Factory/AnswerFactory.php
-index ea6af5e..fdbb9ab 100644
+index 56f4df66..8fbc4517 100644
 --- a/src/Factory/AnswerFactory.php
 +++ b/src/Factory/AnswerFactory.php
 @@ -46,7 +46,7 @@ final class AnswerFactory extends ModelFactory
@@ -186,7 +186,7 @@ index ea6af5e..fdbb9ab 100644
              'status' => Answer::STATUS_APPROVED,
          ];
 diff --git a/src/Factory/QuestionFactory.php b/src/Factory/QuestionFactory.php
-index 888293d..22e022c 100644
+index f5673372..74fd04ca 100644
 --- a/src/Factory/QuestionFactory.php
 +++ b/src/Factory/QuestionFactory.php
 @@ -49,7 +49,7 @@ final class QuestionFactory extends ModelFactory
@@ -199,7 +199,7 @@ index 888293d..22e022c 100644
          ];
      }
 diff --git a/src/Factory/UserFactory.php b/src/Factory/UserFactory.php
-index 1672b58..72807a5 100644
+index 2bed85df..0353415e 100644
 --- a/src/Factory/UserFactory.php
 +++ b/src/Factory/UserFactory.php
 @@ -8,6 +8,7 @@ use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
@@ -226,7 +226,7 @@ index 1672b58..72807a5 100644
  
      protected function getDefaults(): array
 diff --git a/src/Repository/UserRepository.php b/src/Repository/UserRepository.php
-index aae14c0..287ca76 100644
+index aae14c07..287ca764 100644
 --- a/src/Repository/UserRepository.php
 +++ b/src/Repository/UserRepository.php
 @@ -28,7 +28,7 @@ class UserRepository extends ServiceEntityRepository implements PasswordUpgrader
@@ -239,7 +239,7 @@ index aae14c0..287ca76 100644
  
          $user->setPassword($newHashedPassword);
 diff --git a/src/Security/LoginFormAuthenticator.php b/src/Security/LoginFormAuthenticator.php
-index cf029a6..de20765 100644
+index cf029a66..de20765a 100644
 --- a/src/Security/LoginFormAuthenticator.php
 +++ b/src/Security/LoginFormAuthenticator.php
 @@ -28,19 +28,8 @@ class LoginFormAuthenticator extends AbstractFormLoginAuthenticator implements P
@@ -264,7 +264,7 @@ index cf029a6..de20765 100644
  
      public function supports(Request $request)
 diff --git a/src/Security/Voter/QuestionVoter.php b/src/Security/Voter/QuestionVoter.php
-index 4024ab9..98e273e 100644
+index 4024ab9d..98e273e1 100644
 --- a/src/Security/Voter/QuestionVoter.php
 +++ b/src/Security/Voter/QuestionVoter.php
 @@ -11,11 +11,8 @@ use Symfony\Component\Security\Core\User\UserInterface;
@@ -299,7 +299,7 @@ index 4024ab9..98e273e 100644
      }
  }
 diff --git a/src/Service/MarkdownHelper.php b/src/Service/MarkdownHelper.php
-index 5b2d991..fec2874 100644
+index 816a9e9a..fec28741 100644
 --- a/src/Service/MarkdownHelper.php
 +++ b/src/Service/MarkdownHelper.php
 @@ -8,17 +8,8 @@ use Symfony\Contracts\Cache\CacheInterface;
@@ -325,14 +325,14 @@ index 5b2d991..fec2874 100644
              return $this->markdownParser->transformMarkdown($source);
          }
  
--        return $this->cache->get('markdown_'.md5($source), function() use ($source) {
+-        return $this->cache->get('markdown_'.md5($source), function () use ($source) {
 -            return $this->markdownParser->transformMarkdown($source);
 -        });
 +        return $this->cache->get('markdown_'.md5($source), fn() => $this->markdownParser->transformMarkdown($source));
      }
  }
 diff --git a/src/Twig/MarkdownExtension.php b/src/Twig/MarkdownExtension.php
-index 11c43f5..5785dac 100644
+index 11c43f5b..5785dac5 100644
 --- a/src/Twig/MarkdownExtension.php
 +++ b/src/Twig/MarkdownExtension.php
 @@ -8,11 +8,8 @@ use Twig\TwigFilter;

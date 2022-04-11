@@ -1,5 +1,5 @@
 diff --git a/config/bundles.php b/config/bundles.php
-index bbc81c1..c31d3b1 100644
+index bbc81c18..c31d3b10 100644
 --- a/config/bundles.php
 +++ b/config/bundles.php
 @@ -7,7 +7,7 @@ return [
@@ -13,7 +13,7 @@ index bbc81c1..c31d3b1 100644
      Sentry\SentryBundle\SentryBundle::class => ['all' => true],
 diff --git a/config/packages/debug.yaml b/config/packages/debug.yaml
 new file mode 100644
-index 0000000..ad874af
+index 00000000..ad874afd
 --- /dev/null
 +++ b/config/packages/debug.yaml
 @@ -0,0 +1,5 @@
@@ -24,7 +24,7 @@ index 0000000..ad874af
 +        dump_destination: "tcp://%env(VAR_DUMPER_SERVER)%"
 diff --git a/config/packages/dev/debug.yaml b/config/packages/dev/debug.yaml
 deleted file mode 100644
-index 26d4e53..0000000
+index 26d4e53d..00000000
 --- a/config/packages/dev/debug.yaml
 +++ /dev/null
 @@ -1,4 +0,0 @@
@@ -34,7 +34,7 @@ index 26d4e53..0000000
 -    dump_destination: "tcp://%env(VAR_DUMPER_SERVER)%"
 diff --git a/config/packages/dev/monolog.yaml b/config/packages/dev/monolog.yaml
 deleted file mode 100644
-index b1998da..0000000
+index b1998da1..00000000
 --- a/config/packages/dev/monolog.yaml
 +++ /dev/null
 @@ -1,19 +0,0 @@
@@ -58,7 +58,7 @@ index b1998da..0000000
 -            process_psr_3_messages: false
 -            channels: ["!event", "!doctrine", "!console"]
 diff --git a/config/packages/monolog.yaml b/config/packages/monolog.yaml
-index 73d7b33..9242fb0 100644
+index 73d7b332..9242fb04 100644
 --- a/config/packages/monolog.yaml
 +++ b/config/packages/monolog.yaml
 @@ -1,2 +1,62 @@
@@ -127,7 +127,7 @@ index 73d7b33..9242fb0 100644
 +                path: php://stderr
 diff --git a/config/packages/prod/monolog.yaml b/config/packages/prod/monolog.yaml
 deleted file mode 100644
-index 14b42bb..0000000
+index 14b42bba..00000000
 --- a/config/packages/prod/monolog.yaml
 +++ /dev/null
 @@ -1,24 +0,0 @@
@@ -157,7 +157,7 @@ index 14b42bb..0000000
 -            channels: ["php"]
 diff --git a/config/packages/test/monolog.yaml b/config/packages/test/monolog.yaml
 deleted file mode 100644
-index fc40641..0000000
+index fc40641d..00000000
 --- a/config/packages/test/monolog.yaml
 +++ /dev/null
 @@ -1,12 +0,0 @@
@@ -174,7 +174,7 @@ index fc40641..0000000
 -            path: "%kernel.logs_dir%/%kernel.environment%.log"
 -            level: debug
 diff --git a/symfony.lock b/symfony.lock
-index 12d5de4..a1b867c 100644
+index 3347ffe8..30ee1e8f 100644
 --- a/symfony.lock
 +++ b/symfony.lock
 @@ -361,15 +361,15 @@

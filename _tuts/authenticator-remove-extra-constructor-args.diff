@@ -1,0 +1,27 @@
+diff --git a/src/Security/LoginFormAuthenticator.php b/src/Security/LoginFormAuthenticator.php
+index 71f6bdd1..1d0039a0 100644
+--- a/src/Security/LoginFormAuthenticator.php
++++ b/src/Security/LoginFormAuthenticator.php
+@@ -7,13 +7,11 @@ use Doctrine\ORM\EntityManagerInterface;
+ use Symfony\Component\HttpFoundation\RedirectResponse;
+ use Symfony\Component\HttpFoundation\Request;
+ use Symfony\Component\HttpFoundation\Response;
+-use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
+ use Symfony\Component\HttpFoundation\Session\SessionInterface;
+ use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
+ use Symfony\Component\Security\Core\Authentication\Token\TokenInterface;
+ use Symfony\Component\Security\Core\Exception\AuthenticationException;
+ use Symfony\Component\Security\Core\Exception\UserNotFoundException;
+-use Symfony\Component\Security\Csrf\CsrfTokenManagerInterface;
+ use Symfony\Component\Security\Http\Authenticator\AbstractLoginFormAuthenticator;
+ use Symfony\Component\Security\Http\Authenticator\Passport\Badge\CsrfTokenBadge;
+ use Symfony\Component\Security\Http\Authenticator\Passport\Badge\RememberMeBadge;
+@@ -28,7 +26,7 @@ class LoginFormAuthenticator extends AbstractLoginFormAuthenticator
+ 
+     public const LOGIN_ROUTE = 'app_login';
+ 
+-    public function __construct(private SessionInterface $session, private EntityManagerInterface $entityManager, private UrlGeneratorInterface $urlGenerator, private CsrfTokenManagerInterface $csrfTokenManager, private UserPasswordHasherInterface $userPasswordHasher)
++    public function __construct(private SessionInterface $session, private EntityManagerInterface $entityManager, private UrlGeneratorInterface $urlGenerator)
+     {
+     }
+ 

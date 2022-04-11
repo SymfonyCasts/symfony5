@@ -1,0 +1,11 @@
+diff --git a/.gitignore b/.gitignore
+index 6c6411c3..cfc320fb 100644
+--- a/.gitignore
++++ b/.gitignore
+@@ -20,3 +20,6 @@ yarn-error.log
+ /phpunit.xml
+ .phpunit.result.cache
+ ###< phpunit/phpunit ###
++
++/tools/php-cs-fixer/vendor/
++/.php-cs-fixer.cache

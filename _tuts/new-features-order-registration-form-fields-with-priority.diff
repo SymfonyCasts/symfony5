@@ -1,5 +1,5 @@
 diff --git a/src/Form/RegistrationFormType.php b/src/Form/RegistrationFormType.php
-index a74517a..84b2d5c 100644
+index a74517aa..84b2d5cd 100644
 --- a/src/Form/RegistrationFormType.php
 +++ b/src/Form/RegistrationFormType.php
 @@ -17,8 +17,11 @@ class RegistrationFormType extends AbstractType

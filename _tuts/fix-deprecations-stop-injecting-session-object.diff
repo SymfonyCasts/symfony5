@@ -1,17 +1,25 @@
 diff --git a/src/Security/LoginFormAuthenticator.php b/src/Security/LoginFormAuthenticator.php
-index 1bea909..35c9068 100644
+index 1d0039a0..253526eb 100644
 --- a/src/Security/LoginFormAuthenticator.php
 +++ b/src/Security/LoginFormAuthenticator.php
-@@ -35,7 +35,7 @@ class LoginFormAuthenticator extends AbstractLoginFormAuthenticator
+@@ -7,7 +7,6 @@ use Doctrine\ORM\EntityManagerInterface;
+ use Symfony\Component\HttpFoundation\RedirectResponse;
+ use Symfony\Component\HttpFoundation\Request;
+ use Symfony\Component\HttpFoundation\Response;
+-use Symfony\Component\HttpFoundation\Session\SessionInterface;
+ use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
+ use Symfony\Component\Security\Core\Authentication\Token\TokenInterface;
+ use Symfony\Component\Security\Core\Exception\AuthenticationException;
+@@ -26,7 +25,7 @@ class LoginFormAuthenticator extends AbstractLoginFormAuthenticator
  
      public const LOGIN_ROUTE = 'app_login';
  
--    public function __construct(private SessionInterface $session, private EntityManagerInterface $entityManager, private UrlGeneratorInterface $urlGenerator, private CsrfTokenManagerInterface $csrfTokenManager, private UserPasswordHasherInterface $userPasswordHasher)
-+    public function __construct(private EntityManagerInterface $entityManager, private UrlGeneratorInterface $urlGenerator, private CsrfTokenManagerInterface $csrfTokenManager, private UserPasswordHasherInterface $userPasswordHasher)
+-    public function __construct(private SessionInterface $session, private EntityManagerInterface $entityManager, private UrlGeneratorInterface $urlGenerator)
++    public function __construct(private EntityManagerInterface $entityManager, private UrlGeneratorInterface $urlGenerator)
      {
      }
  
-@@ -70,7 +70,7 @@ class LoginFormAuthenticator extends AbstractLoginFormAuthenticator
+@@ -61,7 +60,7 @@ class LoginFormAuthenticator extends AbstractLoginFormAuthenticator
  
      public function onAuthenticationSuccess(Request $request, TokenInterface $token, string $firewallName): Response
      {

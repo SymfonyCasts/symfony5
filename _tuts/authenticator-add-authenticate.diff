@@ -1,17 +1,17 @@
 diff --git a/src/Security/LoginFormAuthenticator.php b/src/Security/LoginFormAuthenticator.php
-index 6c5dd5a..4c6b4db 100644
+index 3e9be280..091d7c2c 100644
 --- a/src/Security/LoginFormAuthenticator.php
 +++ b/src/Security/LoginFormAuthenticator.php
-@@ -21,6 +21,7 @@ use Symfony\Component\Security\Csrf\CsrfTokenManagerInterface;
- use Symfony\Component\Security\Guard\Authenticator\AbstractFormLoginAuthenticator;
- use Symfony\Component\Security\Guard\PasswordAuthenticatedInterface;
+@@ -19,6 +19,7 @@ use Symfony\Component\Security\Core\User\UserProviderInterface;
+ use Symfony\Component\Security\Csrf\CsrfToken;
+ use Symfony\Component\Security\Csrf\CsrfTokenManagerInterface;
  use Symfony\Component\Security\Http\Authenticator\AbstractLoginFormAuthenticator;
 +use Symfony\Component\Security\Http\Authenticator\Passport\Passport;
  use Symfony\Component\Security\Http\Util\TargetPathTrait;
  
  class LoginFormAuthenticator extends AbstractLoginFormAuthenticator
-@@ -33,6 +34,11 @@ class LoginFormAuthenticator extends AbstractLoginFormAuthenticator
-     {
+@@ -37,6 +38,11 @@ class LoginFormAuthenticator extends AbstractLoginFormAuthenticator
+             && $request->isMethod('POST');
      }
  
 +    public function authenticate(Request $request)
@@ -19,6 +19,6 @@ index 6c5dd5a..4c6b4db 100644
 +        // TODO: Implement authenticate() method.
 +    }
 +
-     public function supports(Request $request)
+     public function getCredentials(Request $request)
      {
-         return self::LOGIN_ROUTE === $request->attributes->get('_route')
+         $credentials = [
