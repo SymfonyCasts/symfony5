@@ -1,0 +1,15 @@
+diff --git a/src/Entity/Question.php b/src/Entity/Question.php
+index 143acaef..908a4202 100644
+--- a/src/Entity/Question.php
++++ b/src/Entity/Question.php
+@@ -23,9 +23,7 @@ class Question
+     #[ORM\Column()]
+     private ?string $name = null;
+ 
+-    /**
+-     * @Gedmo\Slug(fields={"name"})
+-     */
++    #[Gedmo\Slug(fields: ['name'])]
+     #[ORM\Column(length: 100, unique: true)]
+     private ?string $slug = null;
+ 

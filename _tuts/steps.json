@@ -211,6 +211,11 @@
             "description": null
         },
         {
+            "id": "php-attributes-fix-gedmo-slug",
+            "name": "PHP Attributes: Fix Gedmo\\Slug",
+            "description": null
+        },
+        {
             "id": "authenticator-implement-passwordauthenticateduserinterface",
             "name": "Authenticator: Implement PasswordAuthenticatedUserInterface",
             "description": null
@@ -421,5 +426,5 @@
             "description": null
         }
     ],
-    "sha": "8a2ee3c0a2f23262e9fadf8086cf1eddfb35075b"
+    "sha": "521e4291ab51c04f3f168eb99a62cfbf46b81179"
 }
