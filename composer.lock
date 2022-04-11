@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "b104bc4ce060e7b656ac3d37cf96bffe",
+    "content-hash": "785474a40665fa9be4d47fcbf0ebe4e6",
     "packages": [
         {
             "name": "babdev/pagerfanta-bundle",
@@ -8442,37 +8442,38 @@
         },
         {
             "name": "symfony/ux-chartjs",
-            "version": "v2.0.1",
+            "version": "v1.3.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/ux-chartjs.git",
-                "reference": "1bcbef6069ce9e8aee089d769fb00d72aa8e23d4"
+                "reference": "e75ae488a6cfaf5e264f1fc4190785d914be8785"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symfony/ux-chartjs/zipball/1bcbef6069ce9e8aee089d769fb00d72aa8e23d4",
-                "reference": "1bcbef6069ce9e8aee089d769fb00d72aa8e23d4",
+                "url": "https://api.github.com/repos/symfony/ux-chartjs/zipball/e75ae488a6cfaf5e264f1fc4190785d914be8785",
+                "reference": "e75ae488a6cfaf5e264f1fc4190785d914be8785",
                 "shasum": ""
             },
             "require": {
                 "php": ">=7.2.5",
-                "symfony/config": "^4.4.17|^5.0|^6.0",
-                "symfony/dependency-injection": "^4.4.17|^5.0|^6.0",
-                "symfony/http-kernel": "^4.4.17|^5.0|^6.0"
+                "symfony/config": "^4.4.17|^5.0",
+                "symfony/dependency-injection": "^4.4.17|^5.0",
+                "symfony/http-kernel": "^4.4.17|^5.0"
             },
             "conflict": {
-                "symfony/flex": "<1.13",
-                "symfony/webpack-encore-bundle": "<1.11"
+                "symfony/flex": "<1.13"
             },
             "require-dev": {
-                "symfony/framework-bundle": "^4.4.17|^5.0|^6.0",
-                "symfony/phpunit-bridge": "^5.2|^6.0",
-                "symfony/twig-bundle": "^4.4.17|^5.0|^6.0",
-                "symfony/var-dumper": "^4.4.17|^5.0|^6.0",
-                "symfony/webpack-encore-bundle": "^1.11"
+                "symfony/framework-bundle": "^4.4.17|^5.0",
+                "symfony/phpunit-bridge": "^5.2",
+                "symfony/twig-bundle": "^4.4.17|^5.0",
+                "symfony/var-dumper": "^4.4.17|^5.0"
             },
             "type": "symfony-bundle",
             "extra": {
+                "branch-alias": {
+                    "dev-main": "1.3-dev"
+                },
                 "thanks": {
                     "name": "symfony/ux",
                     "url": "https://github.com/symfony/ux"
@@ -8506,7 +8507,7 @@
                 "symfony-ux"
             ],
             "support": {
-                "source": "https://github.com/symfony/ux-chartjs/tree/v2.0.1"
+                "source": "https://github.com/symfony/ux-chartjs/tree/v1.3.0"
             },
             "funding": [
                 {
@@ -8522,7 +8523,7 @@
                     "type": "tidelift"
                 }
             ],
-            "time": "2021-12-09T16:09:32+00:00"
+            "time": "2021-05-20T17:58:12+00:00"
         },
         {
             "name": "symfony/validator",
@@ -11949,5 +11950,5 @@
     "platform-overrides": {
         "php": "7.4"
     },
-    "plugin-api-version": "2.2.0"
+    "plugin-api-version": "2.3.0"
 }
