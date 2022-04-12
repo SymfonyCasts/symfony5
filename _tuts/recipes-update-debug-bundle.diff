@@ -174,10 +174,10 @@ index fc40641d..00000000
 -            path: "%kernel.logs_dir%/%kernel.environment%.log"
 -            level: debug
 diff --git a/symfony.lock b/symfony.lock
-index 3347ffe8..30ee1e8f 100644
+index 9221895b..52d41b16 100644
 --- a/symfony.lock
 +++ b/symfony.lock
-@@ -361,15 +361,15 @@
+@@ -359,15 +359,15 @@
          ]
      },
      "symfony/debug-bundle": {
@@ -197,7 +197,7 @@ index 3347ffe8..30ee1e8f 100644
          ]
      },
      "symfony/dependency-injection": {
-@@ -458,17 +458,15 @@
+@@ -456,17 +456,15 @@
          "version": "v5.0.4"
      },
      "symfony/monolog-bundle": {

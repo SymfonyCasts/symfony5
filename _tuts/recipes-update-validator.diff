@@ -21,10 +21,10 @@ index 350786a1..0201281d 100644
 +        validation:
 +            not_compromised_password: false
 diff --git a/symfony.lock b/symfony.lock
-index 9c23fb25..b88725ec 100644
+index 98a453a3..79e6d0e0 100644
 --- a/symfony.lock
 +++ b/symfony.lock
-@@ -608,15 +608,14 @@
+@@ -606,15 +606,14 @@
          "version": "v2.0.1"
      },
      "symfony/validator": {

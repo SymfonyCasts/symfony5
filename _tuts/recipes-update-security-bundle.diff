@@ -51,10 +51,10 @@ index c303d457..23515996 100644
 +                time_cost: 3 # Lowest possible value for argon
 +                memory_cost: 10 # Lowest possible value for argon
 diff --git a/symfony.lock b/symfony.lock
-index b8d05cb3..5be36b8c 100644
+index e2908c59..4d1af3ee 100644
 --- a/symfony.lock
 +++ b/symfony.lock
-@@ -537,12 +537,12 @@
+@@ -535,12 +535,12 @@
          "version": "v5.4.7"
      },
      "symfony/security-bundle": {

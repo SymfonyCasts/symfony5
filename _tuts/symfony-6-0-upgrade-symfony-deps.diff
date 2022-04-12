@@ -3993,10 +3993,10 @@ index dcfb187c..50677e5c 100644
      ],
      "aliases": [],
 diff --git a/symfony.lock b/symfony.lock
-index a97b814f..3a7f9480 100644
+index a8aff5bb..92520349 100644
 --- a/symfony.lock
 +++ b/symfony.lock
-@@ -148,8 +148,8 @@
+@@ -146,8 +146,8 @@
      "nikic/php-parser": {
          "version": "v4.3.0"
      },
@@ -4007,7 +4007,7 @@ index a97b814f..3a7f9480 100644
      },
      "phar-io/manifest": {
          "version": "2.0.3"
-@@ -554,9 +554,6 @@
+@@ -552,9 +552,6 @@
      "symfony/security-csrf": {
          "version": "v5.0.11"
      },

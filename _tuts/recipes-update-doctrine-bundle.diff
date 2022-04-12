@@ -1,5 +1,5 @@
 diff --git a/.env b/.env
-index b92f5b76..d8162def 100644
+index b92f5b76..dfd80c19 100644
 --- a/.env
 +++ b/.env
 @@ -23,7 +23,7 @@ APP_SECRET=c28f3d37eba278748f3c0427b313e86a
@@ -7,20 +7,103 @@ index b92f5b76..d8162def 100644
  #
  # DATABASE_URL="sqlite:///%kernel.project_dir%/var/data.db"
 -# DATABASE_URL="mysql://db_user:db_password@127.0.0.1:3306/db_name?serverVersion=5.7"
+-# DATABASE_URL="postgresql://db_user:db_password@127.0.0.1:5432/db_name?serverVersion=13&charset=utf8"
 +# DATABASE_URL="mysql://db_user:db_password@127.0.0.1:3306/db_name?serverVersion=5.7&charset=utf8mb4"
- # DATABASE_URL="postgresql://db_user:db_password@127.0.0.1:5432/db_name?serverVersion=13&charset=utf8"
++# DATABASE_URL="postgresql://symfony:ChangeMe@127.0.0.1:5432/app?serverVersion=13&charset=utf8"
  DATABASE_URL="mysql://root@127.0.0.1:3306/symfony6_upgrade?serverVersion=5.7"
  ###< doctrine/doctrine-bundle ###
+diff --git a/config/packages/doctrine.yaml b/config/packages/doctrine.yaml
+index ab3343b1..324705f4 100644
+--- a/config/packages/doctrine.yaml
++++ b/config/packages/doctrine.yaml
+@@ -12,7 +12,31 @@ doctrine:
+         mappings:
+             App:
+                 is_bundle: false
+-                type: annotation
+                 dir: '%kernel.project_dir%/src/Entity'
+                 prefix: 'App\Entity'
+                 alias: App
++
++when@test:
++    doctrine:
++        dbal:
++            # "TEST_TOKEN" is typically set by ParaTest
++            dbname_suffix: '_test%env(default::TEST_TOKEN)%'
++
++when@prod:
++    doctrine:
++        orm:
++            auto_generate_proxy_classes: false
++            query_cache_driver:
++                type: pool
++                pool: doctrine.system_cache_pool
++            result_cache_driver:
++                type: pool
++                pool: doctrine.result_cache_pool
++
++    framework:
++        cache:
++            pools:
++                doctrine.result_cache_pool:
++                    adapter: cache.app
++                doctrine.system_cache_pool:
++                    adapter: cache.system
+diff --git a/config/packages/prod/doctrine.yaml b/config/packages/prod/doctrine.yaml
+deleted file mode 100644
+index 17299e28..00000000
+--- a/config/packages/prod/doctrine.yaml
++++ /dev/null
+@@ -1,17 +0,0 @@
+-doctrine:
+-    orm:
+-        auto_generate_proxy_classes: false
+-        query_cache_driver:
+-            type: pool
+-            pool: doctrine.system_cache_pool
+-        result_cache_driver:
+-            type: pool
+-            pool: doctrine.result_cache_pool
+-
+-framework:
+-    cache:
+-        pools:
+-            doctrine.result_cache_pool:
+-                adapter: cache.app
+-            doctrine.system_cache_pool:
+-                adapter: cache.system
+diff --git a/config/packages/test/doctrine.yaml b/config/packages/test/doctrine.yaml
+deleted file mode 100644
+index 2ace640d..00000000
+--- a/config/packages/test/doctrine.yaml
++++ /dev/null
+@@ -1,4 +0,0 @@
+-doctrine:
+-    dbal:
+-        # "TEST_TOKEN" is typically set by ParaTest
+-        dbname: 'main_test%env(default::TEST_TOKEN)%'
 diff --git a/symfony.lock b/symfony.lock
-index e4eaad12..0ff50272 100644
+index e4eaad12..47d55d53 100644
 --- a/symfony.lock
 +++ b/symfony.lock
-@@ -47,7 +47,7 @@
+@@ -42,17 +42,15 @@
+         "version": "v0.5.3"
+     },
+     "doctrine/doctrine-bundle": {
+-        "version": "2.3",
++        "version": "2.6",
+         "recipe": {
              "repo": "github.com/symfony/recipes",
              "branch": "master",
-             "version": "2.3",
+-            "version": "2.3",
 -            "ref": "4f5eb542f01475cc2eb49624e2f1a3ea458e73bf"
-+            "ref": "52eabf77a390fe5a12a589d74d8f2a31f60ad013"
++            "version": "2.4",
++            "ref": "ddddd8249dd55bbda16fa7a45bb7499ef6f8e90e"
          },
          "files": [
              "config/packages/doctrine.yaml",
+-            "config/packages/prod/doctrine.yaml",
+-            "config/packages/test/doctrine.yaml",
+             "src/Entity/.gitignore",
+             "src/Repository/.gitignore"
+         ]

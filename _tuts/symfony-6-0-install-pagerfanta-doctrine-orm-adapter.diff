@@ -82,10 +82,10 @@ index 50677e5c..34400dfa 100644
              "name": "php-http/client-common",
              "version": "2.5.0",
 diff --git a/symfony.lock b/symfony.lock
-index 3a7f9480..cefb71d4 100644
+index 92520349..c856fd7e 100644
 --- a/symfony.lock
 +++ b/symfony.lock
-@@ -151,6 +151,9 @@
+@@ -149,6 +149,9 @@
      "pagerfanta/core": {
          "version": "v3.6.1"
      },

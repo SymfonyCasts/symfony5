@@ -25,10 +25,10 @@ index 7e977620..4b766ce5 100644
 +        router:
 +            strict_requirements: null
 diff --git a/symfony.lock b/symfony.lock
-index 30ee1e8f..b8d05cb3 100644
+index 52d41b16..e2908c59 100644
 --- a/symfony.lock
 +++ b/symfony.lock
-@@ -521,15 +521,14 @@
+@@ -519,15 +519,14 @@
          ]
      },
      "symfony/routing": {

@@ -33,10 +33,10 @@ index 00000000..0657d2c3
 +
 +when@test: *dev
 diff --git a/symfony.lock b/symfony.lock
-index 7677ff55..a97b814f 100644
+index 8f913130..a8aff5bb 100644
 --- a/symfony.lock
 +++ b/symfony.lock
-@@ -689,12 +689,11 @@
+@@ -687,12 +687,11 @@
          "recipe": {
              "repo": "github.com/symfony/recipes",
              "branch": "master",

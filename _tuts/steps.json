@@ -191,8 +191,8 @@
             "description": null
         },
         {
-            "id": "php-attributes-fix-doctrine-type-to-attribute",
-            "name": "PHP Attributes: Fix Doctrine type to attribute",
+            "id": "delete-me-1",
+            "name": "delete me 1",
             "description": null
         },
         {
@@ -346,8 +346,8 @@
             "description": null
         },
         {
-            "id": "symfony-6-0-recipes-update-doctrine-doctrine-bundle",
-            "name": "Symfony 6.0 recipes: Update doctrine\/doctrine-bundle",
+            "id": "delete-me-2",
+            "name": "delete me 2",
             "description": null
         },
         {
@@ -391,5 +391,5 @@
             "description": null
         }
     ],
-    "sha": "8b653c896006d414dc03986fe57b30e15d19d850"
+    "sha": "32f6b7c83df50098c712ff45a9251809888032a2"
 }

@@ -14,10 +14,10 @@ index 5033f300..5b102f60 100644
 +    resource: ../src/Kernel.php
 +    type: annotation
 diff --git a/symfony.lock b/symfony.lock
-index 9e451aa0..2b6af612 100644
+index 95c77975..9c2661e9 100644
 --- a/symfony.lock
 +++ b/symfony.lock
-@@ -527,12 +527,12 @@
+@@ -525,12 +525,12 @@
          ]
      },
      "symfony/routing": {

@@ -381,7 +381,7 @@ index 00000000..afccd270
 +    ports: [1025, 1080]
 +###< symfony/mailer ###
 diff --git a/symfony.lock b/symfony.lock
-index 9aa7995f..791e6099 100644
+index ad979c54..bbeeac60 100644
 --- a/symfony.lock
 +++ b/symfony.lock
 @@ -102,6 +102,9 @@

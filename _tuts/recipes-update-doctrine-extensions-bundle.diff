@@ -10,10 +10,10 @@ index a89cf08f..77a7be4c 100644
      default_locale: en_US
      orm:
 diff --git a/symfony.lock b/symfony.lock
-index 0ff50272..3347ffe8 100644
+index 47d55d53..9221895b 100644
 --- a/symfony.lock
 +++ b/symfony.lock
-@@ -330,7 +330,7 @@
+@@ -328,7 +328,7 @@
              "repo": "github.com/symfony/recipes-contrib",
              "branch": "master",
              "version": "1.2",
