@@ -3,3 +3,6 @@ chapters:
   - upgrade-5.4
   - rector
   - rector-fixup
+  - framework-bundle-recipe
+  - upgrade-recipes
+  - encore-upgrade
