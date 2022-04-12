@@ -191,11 +191,6 @@
             "description": null
         },
         {
-            "id": "delete-me-1",
-            "name": "delete me 1",
-            "description": null
-        },
-        {
             "id": "php-attributes-replace-targetentity-with-typehint",
             "name": "PHP Attributes: Replace targetEntity with typehint",
             "description": null
@@ -343,11 +338,6 @@
         {
             "id": "symfony-6-0-recipes-update-doctrine-annotations",
             "name": "Symfony 6.0 recipes: Update doctrine\/annotations",
-            "description": null
-        },
-        {
-            "id": "delete-me-2",
-            "name": "delete me 2",
             "description": null
         },
         {
