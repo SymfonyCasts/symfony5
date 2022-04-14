@@ -6,3 +6,12 @@ chapters:
   - framework-bundle-recipe
   - upgrade-recipes
   - encore-upgrade
+  - php8
+  - annotations-to-attributes
+  - entity-prop-types
+  - authenticator-upgrade
+  - final-deprecations
+  - upgrade-symfony6
+  - final-upgrades
+  - form-improvements
+  - docker
