@@ -1,25 +1,25 @@
 # Project Setup & The Plan
 
-Hey friends! If you're like me, you probably have a Symfony 5 project... or 10 lying
-around and you need to get it upgraded to Symfony 6. Well.. you've come to the right
-place! We're going to do *exactly that* in this tutorial! But *more* than that! This
-is a *particularly* interesting upgrade, because it also involves updating our code
-to use PHP 8. And *that* includes a transformation from using *annotations* to PHP
-8 *attributes*. I need to find my monocle, because we're getting *fancy*. It also
-includes several other PHP 8 features, which you're *really* going to like. Plus,
-for the first time, we're going to use a tool called "Rector" to automate as
-much of this as possible. And... because I just *can't* help myself, we'll discover
-nice new Symfony 6 features along the way.
+Hey friends! If you're like me, you probably have a Symfony 5 project - or 10 - lying
+around just *waiting* to get upgraded to Symfony 6. Well... you've come to the right
+place! That's *exactly* what we're going to do in this tutorial! But *more* than
+that! This is a *particularly* interesting upgrade, because it also involves updating
+our code to use PHP 8. And *that* includes a transformation from using *annotations*
+to PHP 8 *attributes*. I need to find my monocle, because we're getting *fancy*.
+It also includes several other PHP 8 features, which you're *really* going to like.
+Plus, for the first time, we're going to use a tool called "Rector" to automate
+as much of this as possible. And... because I just *can't* help myself, we'll
+discover nice new Symfony 6 features along the way.
 
 ## Getting the Project Running
 
-All right! To get this upgrade started, you should *definitely* code along with me.
-Download the course code from this page and unzip it to find a `start/` directory
-with the same code you see here. Follow this `README.md` file for all the setup
-goodies. I've already followed most of these instructions... but I still need
-to build my Webpack Encore assets and start my server. So let's do that!
+All right! To get this upgrade party started, you should *definitely* code along
+with me. Download the course code from this page and unzip it to find a `start/`
+directory with the same code you see here. Follow this `README.md` file for all
+the setup goodies. I've already followed most of these steps... but I still need
+to build my Webpack Encore assets and start a web server. So let's do that!
 
-Over in my terminal (this is already opened up to the project), run
+Over in my terminal (this is already inside the project), run
 
 ```terminal
 yarn install
@@ -46,9 +46,9 @@ or
 npm run watch
 ```
 
-to build the front end assets... and then watch for changes.
+to build the frontend assets... and then watch for changes.
 
-Ok, last step: open a new terminal tab and get a local web server running. I'm
+For the last step: open a new terminal tab and get a local web server started. I'm
 going to use the Symfony server like normal by running:
 
 ```terminal
@@ -63,7 +63,7 @@ main Symfony libraries are version "5.0". That was *ages* ago. I was so young th
 
 ## The Plan
 
-Here's the strategy for upgrading. Step one: We're going to upgrade our project to
+Here's our upgrade strategy. Step one: we're going to upgrade our project to
 Symfony 5.4. That's safe to do because Symfony doesn't include any backwards
 compatibility breaks on *minor* version upgrade. So anytime you upgrade *just* this
 middle number - called the "minor" number, like 5.0 to 5.4 - that's always going
