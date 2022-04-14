@@ -1,5 +1,5 @@
 diff --git a/src/Security/LoginFormAuthenticator.php b/src/Security/LoginFormAuthenticator.php
-index 091d7c2c..df465c5d 100644
+index e4052410..edd92470 100644
 --- a/src/Security/LoginFormAuthenticator.php
 +++ b/src/Security/LoginFormAuthenticator.php
 @@ -6,6 +6,7 @@ use App\Entity\User;
@@ -7,8 +7,8 @@ index 091d7c2c..df465c5d 100644
  use Symfony\Component\HttpFoundation\RedirectResponse;
  use Symfony\Component\HttpFoundation\Request;
 +use Symfony\Component\HttpFoundation\Response;
- use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
  use Symfony\Component\HttpFoundation\Session\SessionInterface;
+ use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
  use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
 @@ -32,7 +33,7 @@ class LoginFormAuthenticator extends AbstractLoginFormAuthenticator
      {

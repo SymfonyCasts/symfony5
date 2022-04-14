@@ -1,5 +1,5 @@
 diff --git a/src/Controller/AdminController.php b/src/Controller/AdminController.php
-index b284be56..00f68b6e 100644
+index b284be56..a7d805ff 100644
 --- a/src/Controller/AdminController.php
 +++ b/src/Controller/AdminController.php
 @@ -10,9 +10,7 @@ use Symfony\UX\Chartjs\Model\Chart;
@@ -13,7 +13,15 @@ index b284be56..00f68b6e 100644
      public function dashboard(ChartBuilderInterface $chartBuilder): Response
      {
          $chart = $chartBuilder->createChart(Chart::TYPE_LINE);
-@@ -55,17 +53,13 @@ class AdminController extends AbstractController
+@@ -31,7 +29,6 @@ class AdminController extends AbstractController
+                 ],
+             ],
+         ]);
+-
+         $chart2 = $chartBuilder->createChart(Chart::TYPE_PIE);
+         $chart2->setData([
+             'labels' => ['Self-Vanishing', 'Miniaturization', 'Clown Feet', 'Poor Musical Taste'],
+@@ -55,17 +52,13 @@ class AdminController extends AbstractController
          ]);
      }
  
@@ -34,7 +42,7 @@ index b284be56..00f68b6e 100644
      {
          $this->denyAccessUnlessGranted('ROLE_COMMENT_ADMIN');
 diff --git a/src/Controller/AnswerController.php b/src/Controller/AnswerController.php
-index 50dab11d..710ef664 100644
+index 50dab11d..5cee8137 100644
 --- a/src/Controller/AnswerController.php
 +++ b/src/Controller/AnswerController.php
 @@ -12,9 +12,7 @@ use Symfony\Component\Routing\Annotation\Route;
@@ -48,7 +56,7 @@ index 50dab11d..710ef664 100644
      public function popularAnswers(AnswerRepository $answerRepository, Request $request): \Symfony\Component\HttpFoundation\Response
      {
          $answers = $answerRepository->findMostPopular(
-@@ -26,10 +24,8 @@ class AnswerController extends BaseController
+@@ -26,20 +24,16 @@ class AnswerController extends BaseController
          ]);
      }
  
@@ -61,11 +69,29 @@ index 50dab11d..710ef664 100644
      public function answerVote(Answer $answer, LoggerInterface $logger, Request $request, EntityManagerInterface $entityManager): \Symfony\Component\HttpFoundation\Response
      {
          $logger->info('{user} is voting on answer {answer}!', [
+             'user' => $this->getUser()->getEmail(),
+             'answer' => $answer->getId(),
+         ]);
+-
+         $data = json_decode($request->getContent(), true, 512, JSON_THROW_ON_ERROR);
+         $direction = $data['direction'] ?? 'up';
+-
+         // use real logic here to save this to the database
+         if ($direction === 'up') {
+             $logger->info('Voting up!');
+@@ -48,7 +42,6 @@ class AnswerController extends BaseController
+             $logger->info('Voting down!');
+             $answer->setVotes($answer->getVotes() - 1);
+         }
+-
+         $entityManager->flush();
+ 
+         return $this->json(['votes' => $answer->getVotes()]);
 diff --git a/src/Controller/QuestionController.php b/src/Controller/QuestionController.php
-index 2a106ba8..ae5f0cfe 100644
+index 2a106ba8..55d58ad1 100644
 --- a/src/Controller/QuestionController.php
 +++ b/src/Controller/QuestionController.php
-@@ -20,9 +20,7 @@ class QuestionController extends AbstractController
+@@ -20,13 +20,10 @@ class QuestionController extends AbstractController
      {
      }
  
@@ -76,7 +102,11 @@ index 2a106ba8..ae5f0cfe 100644
      public function homepage(QuestionRepository $repository, int $page = 1): Response
      {
          $queryBuilder = $repository->createAskedOrderedByNewestQueryBuilder();
-@@ -36,18 +34,14 @@ class QuestionController extends AbstractController
+-
+         $pagerfanta = new Pagerfanta(new QueryAdapter($queryBuilder));
+         $pagerfanta->setMaxPerPage(5);
+         $pagerfanta->setCurrentPage($page);
+@@ -36,18 +33,14 @@ class QuestionController extends AbstractController
          ]);
      }
  
@@ -98,7 +128,7 @@ index 2a106ba8..ae5f0cfe 100644
      public function show(Question $question): Response
      {
          if ($this->isDebug) {
-@@ -59,9 +53,7 @@ class QuestionController extends AbstractController
+@@ -59,9 +52,7 @@ class QuestionController extends AbstractController
          ]);
      }
  
@@ -109,7 +139,7 @@ index 2a106ba8..ae5f0cfe 100644
      public function edit(Question $question): Response
      {
          $this->denyAccessUnlessGranted('EDIT', $question);
-@@ -71,9 +63,7 @@ class QuestionController extends AbstractController
+@@ -71,19 +62,15 @@ class QuestionController extends AbstractController
          ]);
      }
  
@@ -120,37 +150,65 @@ index 2a106ba8..ae5f0cfe 100644
      public function questionVote(Question $question, Request $request, EntityManagerInterface $entityManager): Response
      {
          $direction = $request->request->get('direction');
+-
+         if ($direction === 'up') {
+             $question->upVote();
+         } elseif ($direction === 'down') {
+             $question->downVote();
+         }
+-
+         $entityManager->flush();
+ 
+         return $this->redirectToRoute('app_question_show', [
 diff --git a/src/Controller/RegistrationController.php b/src/Controller/RegistrationController.php
-index 93131d5b..428a2000 100644
+index 93131d5b..db486bee 100644
 --- a/src/Controller/RegistrationController.php
 +++ b/src/Controller/RegistrationController.php
-@@ -16,10 +16,8 @@ use SymfonyCasts\Bundle\VerifyEmail\VerifyEmailHelperInterface;
+@@ -16,15 +16,12 @@ use SymfonyCasts\Bundle\VerifyEmail\VerifyEmailHelperInterface;
  
  class RegistrationController extends AbstractController
  {
 -    /**
 -     * @Route("/register", name="app_register")
 -     */
--    public function register(Request $request, UserPasswordHasherInterface $userPasswordHasher, VerifyEmailHelperInterface $verifyEmailHelper): Response
 +    #[Route(path: '/register', name: 'app_register')]
-+    public function register(Request $request, UserPasswordHasherInterfaceAlias $userPasswordHasher, VerifyEmailHelperInterface $verifyEmailHelper): Response
+     public function register(Request $request, UserPasswordHasherInterface $userPasswordHasher, VerifyEmailHelperInterface $verifyEmailHelper): Response
      {
          $user = new User();
          $form = $this->createForm(RegistrationFormType::class, $user);
-@@ -60,10 +58,8 @@ class RegistrationController extends AbstractController
+         $form->handleRequest($request);
+-
+         if ($form->isSubmitted() && $form->isValid()) {
+             // encode the plain password
+             $user->setPassword(
+@@ -60,16 +57,13 @@ class RegistrationController extends AbstractController
          ]);
      }
  
 -    /**
 -     * @Route("/verify", name="app_verify_email")
 -     */
--    public function verifyUserEmail(Request $request, VerifyEmailHelperInterface $verifyEmailHelper, UserRepository $userRepository, EntityManagerInterface $entityManager): Response
 +    #[Route(path: '/verify', name: 'app_verify_email')]
-+    public function verifyUserEmail(Request $request, VerifyEmailHelperInterface $verifyEmailHelper, UserRepository $userRepository, EntityManagerInterface $entityManager) : Response
+     public function verifyUserEmail(Request $request, VerifyEmailHelperInterface $verifyEmailHelper, UserRepository $userRepository, EntityManagerInterface $entityManager): Response
      {
          $user = $userRepository->find($request->query->get('id'));
          if (!$user) {
-@@ -90,9 +86,7 @@ class RegistrationController extends AbstractController
+             throw $this->createNotFoundException();
+         }
+-
+         try {
+             $verifyEmailHelper->validateEmailConfirmation(
+                 $request->getUri(),
+@@ -81,18 +75,14 @@ class RegistrationController extends AbstractController
+ 
+             return $this->redirectToRoute('app_register');
+         }
+-
+         $user->setIsVerified(true);
+         $entityManager->flush();
+-
+         $this->addFlash('success', 'Account Verified! You can now log in.');
+ 
          return $this->redirectToRoute('app_login');
      }
  
@@ -162,35 +220,37 @@ index 93131d5b..428a2000 100644
      {
          return $this->render('registration/resend_verify_email.html.twig');
 diff --git a/src/Controller/SecurityController.php b/src/Controller/SecurityController.php
-index 65c096f8..5194b0c2 100644
+index 65c096f8..3f4ca156 100644
 --- a/src/Controller/SecurityController.php
 +++ b/src/Controller/SecurityController.php
-@@ -9,10 +9,8 @@ use Symfony\Component\Security\Http\Authentication\AuthenticationUtils;
+@@ -9,15 +9,12 @@ use Symfony\Component\Security\Http\Authentication\AuthenticationUtils;
  
  class SecurityController extends AbstractController
  {
 -    /**
 -     * @Route("/login", name="app_login")
 -     */
--    public function login(AuthenticationUtils $authenticationUtils): Response
 +    #[Route(path: '/login', name: 'app_login')]
-+    public function login(AuthenticationUtils $authenticationUtils) : Response
+     public function login(AuthenticationUtils $authenticationUtils): Response
      {
          // if ($this->getUser()) {
          //     return $this->redirectToRoute('target_path');
-@@ -26,10 +24,8 @@ class SecurityController extends AbstractController
+         // }
+-
+         // get the login error if there is one
+         $error = $authenticationUtils->getLastAuthenticationError();
+         // last username entered by the user
+@@ -26,9 +23,7 @@ class SecurityController extends AbstractController
          return $this->render('security/login.html.twig', ['last_username' => $lastUsername, 'error' => $error]);
      }
  
 -    /**
 -     * @Route("/logout", name="app_logout")
 -     */
--    public function logout(): void
 +    #[Route(path: '/logout', name: 'app_logout')]
-+    public function logout() : void
+     public function logout(): void
      {
          throw new \LogicException('This method can be blank - it will be intercepted by the logout key on your firewall.');
-     }
 diff --git a/src/Controller/UserController.php b/src/Controller/UserController.php
 index 9c280396..a63c9f9c 100644
 --- a/src/Controller/UserController.php
@@ -208,11 +268,45 @@ index 9c280396..a63c9f9c 100644
      public function apiMe(): \Symfony\Component\HttpFoundation\Response
      {
          return $this->json($this->getUser(), 200, [], [
+diff --git a/src/DataFixtures/AppFixtures.php b/src/DataFixtures/AppFixtures.php
+index 6c65601e..eb0fa2dc 100644
+--- a/src/DataFixtures/AppFixtures.php
++++ b/src/DataFixtures/AppFixtures.php
+@@ -25,11 +25,11 @@ class AppFixtures extends Fixture
+ 
+         TagFactory::createMany(100);
+ 
+-        $questions = QuestionFactory::createMany(20, fn() => [
++        $questions = QuestionFactory::createMany(20, fn () => [
+             'owner' => UserFactory::random(),
+         ]);
+ 
+-        QuestionTagFactory::createMany(100, fn() => [
++        QuestionTagFactory::createMany(100, fn () => [
+             'tag' => TagFactory::random(),
+             'question' => QuestionFactory::random(),
+         ]);
+@@ -40,11 +40,11 @@ class AppFixtures extends Fixture
+             ->create()
+         ;
+ 
+-        AnswerFactory::createMany(100, fn() => [
+-            'question' => $questions[array_rand($questions)]
++        AnswerFactory::createMany(100, fn () => [
++            'question' => $questions[array_rand($questions)],
+         ]);
+-        AnswerFactory::new(fn() => [
+-            'question' => $questions[array_rand($questions)]
++        AnswerFactory::new(fn () => [
++            'question' => $questions[array_rand($questions)],
+         ])->needsApproval()->many(20)->create();
+ 
+         $manager->flush();
 diff --git a/src/Entity/Answer.php b/src/Entity/Answer.php
-index f936762c..77ad761b 100644
+index f936762c..48a3c815 100644
 --- a/src/Entity/Answer.php
 +++ b/src/Entity/Answer.php
-@@ -6,9 +6,7 @@ use App\Repository\AnswerRepository;
+@@ -6,47 +6,27 @@ use App\Repository\AnswerRepository;
  use Doctrine\ORM\Mapping as ORM;
  use Gedmo\Timestampable\Traits\TimestampableEntity;
  
@@ -223,10 +317,10 @@ index f936762c..77ad761b 100644
  class Answer
  {
      use TimestampableEntity;
-@@ -16,37 +14,25 @@ class Answer
+     public const STATUS_NEEDS_APPROVAL = 'needs_approval';
      public const STATUS_SPAM = 'spam';
      public const STATUS_APPROVED = 'approved';
- 
+-
 -    /**
 -     * @ORM\Id
 -     * @ORM\GeneratedValue
@@ -236,25 +330,25 @@ index f936762c..77ad761b 100644
 +    #[ORM\GeneratedValue]
 +    #[ORM\Column(type: 'integer')]
      private $id;
- 
+-
 -    /**
 -     * @ORM\Column(type="text")
 -     */
 +    #[ORM\Column(type: 'text')]
      private $content;
- 
+-
 -    /**
 -     * @ORM\Column(type="string", length=255)
 -     */
 +    #[ORM\Column(type: 'string', length: 255)]
      private $username;
- 
+-
 -    /**
 -     * @ORM\Column(type="integer")
 -     */
 +    #[ORM\Column(type: 'integer')]
      private int $votes = 0;
- 
+-
 -    /**
 -     * @ORM\ManyToOne(targetEntity=Question::class, inversedBy="answers")
 -     * @ORM\JoinColumn(nullable=false)
@@ -262,7 +356,7 @@ index f936762c..77ad761b 100644
 +    #[ORM\ManyToOne(targetEntity: Question::class, inversedBy: 'answers')]
 +    #[ORM\JoinColumn(nullable: false)]
      private $question;
- 
+-
 -    /**
 -     * @ORM\Column(type="string", length=15)
 -     */
@@ -271,10 +365,10 @@ index f936762c..77ad761b 100644
  
      public function getId(): ?int
 diff --git a/src/Entity/Question.php b/src/Entity/Question.php
-index 82b1ba8b..01abcd82 100644
+index 82b1ba8b..cedd45d5 100644
 --- a/src/Entity/Question.php
 +++ b/src/Entity/Question.php
-@@ -10,61 +10,43 @@ use Doctrine\ORM\Mapping as ORM;
+@@ -10,61 +10,34 @@ use Doctrine\ORM\Mapping as ORM;
  use Gedmo\Mapping\Annotation as Gedmo;
  use Gedmo\Timestampable\Traits\TimestampableEntity;
  
@@ -285,7 +379,7 @@ index 82b1ba8b..01abcd82 100644
  class Question
  {
      use TimestampableEntity;
- 
+-
 -    /**
 -     * @ORM\Id()
 -     * @ORM\GeneratedValue()
@@ -295,38 +389,38 @@ index 82b1ba8b..01abcd82 100644
 +    #[ORM\GeneratedValue]
 +    #[ORM\Column(type: 'integer')]
      private $id;
- 
+-
 -    /**
 -     * @ORM\Column(type="string", length=255)
 -     */
 +    #[ORM\Column(type: 'string', length: 255)]
      private $name;
- 
+-
      /**
 -     * @ORM\Column(type="string", length=100, unique=true)
       * @Gedmo\Slug(fields={"name"})
       */
 +    #[ORM\Column(type: 'string', length: 100, unique: true)]
      private $slug;
- 
+-
 -    /**
 -     * @ORM\Column(type="text")
 -     */
 +    #[ORM\Column(type: 'text')]
      private $question;
- 
+-
 -    /**
 -     * @ORM\Column(type="datetime", nullable=true)
 -     */
 +    #[ORM\Column(type: 'datetime', nullable: true)]
      private $askedAt;
- 
+-
 -    /**
 -     * @ORM\Column(type="integer")
 -     */
 +    #[ORM\Column(type: 'integer')]
      private int $votes = 0;
- 
+-
 -    /**
 -     * @ORM\OneToMany(targetEntity=Answer::class, mappedBy="question", fetch="EXTRA_LAZY")
 -     * @ORM\OrderBy({"createdAt" = "DESC"})
@@ -334,13 +428,13 @@ index 82b1ba8b..01abcd82 100644
 +    #[ORM\OneToMany(targetEntity: Answer::class, mappedBy: 'question', fetch: 'EXTRA_LAZY')]
 +    #[ORM\OrderBy(['createdAt' => 'DESC'])]
      private $answers;
- 
+-
 -    /**
 -     * @ORM\OneToMany(targetEntity=QuestionTag::class, mappedBy="question")
 -     */
 +    #[ORM\OneToMany(targetEntity: QuestionTag::class, mappedBy: 'question')]
      private $questionTags;
- 
+-
 -    /**
 -     * @ORM\ManyToOne(targetEntity=User::class, inversedBy="questions")
 -     * @ORM\JoinColumn(nullable=false)
@@ -351,10 +445,10 @@ index 82b1ba8b..01abcd82 100644
  
      public function __construct()
 diff --git a/src/Entity/QuestionTag.php b/src/Entity/QuestionTag.php
-index 235669d7..4f04a05e 100644
+index 235669d7..08105f87 100644
 --- a/src/Entity/QuestionTag.php
 +++ b/src/Entity/QuestionTag.php
-@@ -5,33 +5,23 @@ namespace App\Entity;
+@@ -5,33 +5,20 @@ namespace App\Entity;
  use App\Repository\QuestionTagRepository;
  use Doctrine\ORM\Mapping as ORM;
  
@@ -373,7 +467,7 @@ index 235669d7..4f04a05e 100644
 +    #[ORM\GeneratedValue]
 +    #[ORM\Column(type: 'integer')]
      private $id;
- 
+-
 -    /**
 -     * @ORM\ManyToOne(targetEntity=Question::class, inversedBy="questionTags")
 -     * @ORM\JoinColumn(nullable=false)
@@ -381,7 +475,7 @@ index 235669d7..4f04a05e 100644
 +    #[ORM\ManyToOne(targetEntity: Question::class, inversedBy: 'questionTags')]
 +    #[ORM\JoinColumn(nullable: false)]
      private $question;
- 
+-
 -    /**
 -     * @ORM\ManyToOne(targetEntity=Tag::class)
 -     * @ORM\JoinColumn(nullable=false)
@@ -389,7 +483,7 @@ index 235669d7..4f04a05e 100644
 +    #[ORM\ManyToOne(targetEntity: Tag::class)]
 +    #[ORM\JoinColumn(nullable: false)]
      private $tag;
- 
+-
 -    /**
 -     * @ORM\Column(type="datetime_immutable")
 -     */
@@ -398,10 +492,10 @@ index 235669d7..4f04a05e 100644
  
      public function __construct()
 diff --git a/src/Entity/Tag.php b/src/Entity/Tag.php
-index 4471345f..6143693d 100644
+index 4471345f..666ec499 100644
 --- a/src/Entity/Tag.php
 +++ b/src/Entity/Tag.php
-@@ -6,23 +6,17 @@ use App\Repository\TagRepository;
+@@ -6,23 +6,15 @@ use App\Repository\TagRepository;
  use Doctrine\ORM\Mapping as ORM;
  use Gedmo\Timestampable\Traits\TimestampableEntity;
  
@@ -412,7 +506,7 @@ index 4471345f..6143693d 100644
  class Tag
  {
      use TimestampableEntity;
- 
+-
 -    /**
 -     * @ORM\Id
 -     * @ORM\GeneratedValue
@@ -422,7 +516,7 @@ index 4471345f..6143693d 100644
 +    #[ORM\GeneratedValue]
 +    #[ORM\Column(type: 'integer')]
      private $id;
- 
+-
 -    /**
 -     * @ORM\Column(type="string", length=255)
 -     */
@@ -431,10 +525,10 @@ index 4471345f..6143693d 100644
  
      public function getId(): ?int
 diff --git a/src/Entity/User.php b/src/Entity/User.php
-index a6c087f4..82aaa47a 100644
+index a6c087f4..33ec1146 100644
 --- a/src/Entity/User.php
 +++ b/src/Entity/User.php
-@@ -9,33 +9,25 @@ use Doctrine\ORM\Mapping as ORM;
+@@ -9,53 +9,32 @@ use Doctrine\ORM\Mapping as ORM;
  use Symfony\Component\Security\Core\User\UserInterface;
  use Symfony\Component\Serializer\Annotation\Groups;
  
@@ -455,43 +549,43 @@ index a6c087f4..82aaa47a 100644
 +    #[ORM\GeneratedValue]
 +    #[ORM\Column(type: 'integer')]
      private $id;
- 
+-
 -    /**
 -     * @ORM\Column(type="string", length=180, unique=true)
 -     */
 +    #[ORM\Column(type: 'string', length: 180, unique: true)]
      private $email;
- 
+-
 -    /**
 -     * @ORM\Column(type="json")
 -     */
 +    #[ORM\Column(type: 'json')]
      private array $roles = [];
- 
+-
      /**
       * @var string|null The hashed password
 -     * @ORM\Column(type="string")
       */
 +    #[ORM\Column(type: 'string')]
      private ?string $password = null;
- 
+-
      /**
-@@ -43,19 +35,13 @@ class User implements UserInterface
+      * @var string Non-mapped field
       */
      private ?string $plainPassword = null;
- 
+-
 -    /**
 -     * @ORM\Column(type="string", length=255)
 -     */
 +    #[ORM\Column(type: 'string', length: 255)]
      private $firstName;
- 
+-
 -    /**
 -     * @ORM\OneToMany(targetEntity=Question::class, mappedBy="owner")
 -     */
 +    #[ORM\OneToMany(targetEntity: Question::class, mappedBy: 'owner')]
      private $questions;
- 
+-
 -    /**
 -     * @ORM\Column(type="boolean")
 -     */
@@ -499,16 +593,64 @@ index a6c087f4..82aaa47a 100644
      private bool $isVerified = false;
  
      public function __construct()
-@@ -196,10 +182,8 @@ class User implements UserInterface
+@@ -196,9 +175,7 @@ class User implements UserInterface
          return $this;
      }
  
 -    /**
 -     * @Groups("user:read")
 -     */
--    public function getAvatarUri(int $size = 32): string
 +    #[Groups('user:read')]
-+    public function getAvatarUri(int $size = 32) : string
+     public function getAvatarUri(int $size = 32): string
      {
          return 'https://ui-avatars.com/api/?'.http_build_query([
-                 'name' => $this->getDisplayName(),
+diff --git a/src/Factory/UserFactory.php b/src/Factory/UserFactory.php
+index 0353415e..76e873d3 100644
+--- a/src/Factory/UserFactory.php
++++ b/src/Factory/UserFactory.php
+@@ -8,7 +8,6 @@ use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
+ use Zenstruck\Foundry\ModelFactory;
+ use Zenstruck\Foundry\Proxy;
+ use Zenstruck\Foundry\RepositoryProxy;
+-use function Symfony\Component\String\s;
+ 
+ /**
+  * @extends ModelFactory<User>
+diff --git a/src/Security/LoginFormAuthenticator.php b/src/Security/LoginFormAuthenticator.php
+index de20765a..accd41d1 100644
+--- a/src/Security/LoginFormAuthenticator.php
++++ b/src/Security/LoginFormAuthenticator.php
+@@ -6,8 +6,8 @@ use App\Entity\User;
+ use Doctrine\ORM\EntityManagerInterface;
+ use Symfony\Component\HttpFoundation\RedirectResponse;
+ use Symfony\Component\HttpFoundation\Request;
+-use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
+ use Symfony\Component\HttpFoundation\Session\SessionInterface;
++use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
+ use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
+ use Symfony\Component\Security\Core\Authentication\Token\TokenInterface;
+ use Symfony\Component\Security\Core\Exception\AuthenticationException;
+diff --git a/src/Security/Voter/QuestionVoter.php b/src/Security/Voter/QuestionVoter.php
+index 98e273e1..e1b6cef0 100644
+--- a/src/Security/Voter/QuestionVoter.php
++++ b/src/Security/Voter/QuestionVoter.php
+@@ -38,6 +38,7 @@ class QuestionVoter extends Voter
+         if ($this->security->isGranted('ROLE_ADMIN')) {
+             return true;
+         }
++
+         return match ($attribute) {
+             'EDIT' => $user === $subject->getOwner(),
+             default => false,
+diff --git a/src/Service/MarkdownHelper.php b/src/Service/MarkdownHelper.php
+index fec28741..afa809cb 100644
+--- a/src/Service/MarkdownHelper.php
++++ b/src/Service/MarkdownHelper.php
+@@ -22,6 +22,6 @@ class MarkdownHelper
+             return $this->markdownParser->transformMarkdown($source);
+         }
+ 
+-        return $this->cache->get('markdown_'.md5($source), fn() => $this->markdownParser->transformMarkdown($source));
++        return $this->cache->get('markdown_'.md5($source), fn () => $this->markdownParser->transformMarkdown($source));
+     }
+ }

@@ -1,8 +1,8 @@
 diff --git a/src/Entity/Answer.php b/src/Entity/Answer.php
-index 2711d99d..1a047fd1 100644
+index 43025372..dfeb56e3 100644
 --- a/src/Entity/Answer.php
 +++ b/src/Entity/Answer.php
-@@ -16,23 +16,23 @@ class Answer
+@@ -17,23 +17,23 @@ class Answer
  
      #[ORM\Id]
      #[ORM\GeneratedValue]
@@ -130,7 +130,7 @@ index 6143693d..69a3953f 100644
      public function getId(): ?int
      {
 diff --git a/src/Entity/User.php b/src/Entity/User.php
-index 82aaa47a..b5c30b98 100644
+index 59e71725..b5c30b98 100644
 --- a/src/Entity/User.php
 +++ b/src/Entity/User.php
 @@ -15,31 +15,31 @@ class User implements UserInterface
@@ -174,12 +174,3 @@ index 82aaa47a..b5c30b98 100644
  
      #[ORM\Column(type: 'boolean')]
      private bool $isVerified = false;
-@@ -183,7 +183,7 @@ class User implements UserInterface
-     }
- 
-     #[Groups('user:read')]
--    public function getAvatarUri(int $size = 32) : string
-+    public function getAvatarUri(int $size = 32): string
-     {
-         return 'https://ui-avatars.com/api/?'.http_build_query([
-                 'name' => $this->getDisplayName(),

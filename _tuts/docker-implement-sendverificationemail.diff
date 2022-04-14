@@ -1,17 +1,17 @@
 diff --git a/src/Controller/RegistrationController.php b/src/Controller/RegistrationController.php
-index 063cb592..dc66677c 100644
+index a90b5139..e4d60d6f 100644
 --- a/src/Controller/RegistrationController.php
 +++ b/src/Controller/RegistrationController.php
 @@ -20,7 +20,7 @@ use SymfonyCasts\Bundle\VerifyEmail\VerifyEmailHelperInterface;
  class RegistrationController extends AbstractController
  {
      #[Route(path: '/register', name: 'app_register')]
--    public function register(Request $request, UserPasswordHasherInterfaceAlias $userPasswordHasher, VerifyEmailHelperInterface $verifyEmailHelper, EntityManagerInterface $entityManager): Response
-+    public function register(Request $request, UserPasswordHasherInterfaceAlias $userPasswordHasher, VerifyEmailHelperInterface $verifyEmailHelper, EntityManagerInterface $entityManager, MailerInterface $mailer): Response
+-    public function register(Request $request, UserPasswordHasherInterface $userPasswordHasher, VerifyEmailHelperInterface $verifyEmailHelper, EntityManagerInterface $entityManager): Response
++    public function register(Request $request, UserPasswordHasherInterface $userPasswordHasher, VerifyEmailHelperInterface $verifyEmailHelper, EntityManagerInterface $entityManager, MailerInterface $mailer): Response
      {
          $user = new User();
          $form = $this->createForm(RegistrationFormType::class, $user);
-@@ -45,11 +45,11 @@ class RegistrationController extends AbstractController
+@@ -44,11 +44,11 @@ class RegistrationController extends AbstractController
                  ['id' => $user->getId()]
              );
  

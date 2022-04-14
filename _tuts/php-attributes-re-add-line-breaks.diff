@@ -1,0 +1,162 @@
+diff --git a/.php-cs-fixer.php b/.php-cs-fixer.php
+index 434e812f..9edb83f1 100644
+--- a/.php-cs-fixer.php
++++ b/.php-cs-fixer.php
+@@ -8,6 +8,9 @@ $config = new PhpCsFixer\Config();
+ return $config->setRules([
+         '@Symfony' => true,
+         'yoda_style' => false,
++        'class_attributes_separation' => [
++            'elements' => ['method' => 'one', 'property' => 'one', 'trait_import' => 'one']
++        ]
+     ])
+     ->setFinder($finder)
+ ;
+diff --git a/src/Entity/Answer.php b/src/Entity/Answer.php
+index 48a3c815..4ec6d942 100644
+--- a/src/Entity/Answer.php
++++ b/src/Entity/Answer.php
+@@ -10,22 +10,29 @@ use Gedmo\Timestampable\Traits\TimestampableEntity;
+ class Answer
+ {
+     use TimestampableEntity;
++
+     public const STATUS_NEEDS_APPROVAL = 'needs_approval';
+     public const STATUS_SPAM = 'spam';
+     public const STATUS_APPROVED = 'approved';
++
+     #[ORM\Id]
+     #[ORM\GeneratedValue]
+     #[ORM\Column(type: 'integer')]
+     private $id;
++
+     #[ORM\Column(type: 'text')]
+     private $content;
++
+     #[ORM\Column(type: 'string', length: 255)]
+     private $username;
++
+     #[ORM\Column(type: 'integer')]
+     private int $votes = 0;
++
+     #[ORM\ManyToOne(targetEntity: Question::class, inversedBy: 'answers')]
+     #[ORM\JoinColumn(nullable: false)]
+     private $question;
++
+     #[ORM\Column(type: 'string', length: 15)]
+     private string $status = self::STATUS_NEEDS_APPROVAL;
+ 
+diff --git a/src/Entity/Question.php b/src/Entity/Question.php
+index cedd45d5..01abcd82 100644
+--- a/src/Entity/Question.php
++++ b/src/Entity/Question.php
+@@ -14,28 +14,37 @@ use Gedmo\Timestampable\Traits\TimestampableEntity;
+ class Question
+ {
+     use TimestampableEntity;
++
+     #[ORM\Id]
+     #[ORM\GeneratedValue]
+     #[ORM\Column(type: 'integer')]
+     private $id;
++
+     #[ORM\Column(type: 'string', length: 255)]
+     private $name;
++
+     /**
+      * @Gedmo\Slug(fields={"name"})
+      */
+     #[ORM\Column(type: 'string', length: 100, unique: true)]
+     private $slug;
++
+     #[ORM\Column(type: 'text')]
+     private $question;
++
+     #[ORM\Column(type: 'datetime', nullable: true)]
+     private $askedAt;
++
+     #[ORM\Column(type: 'integer')]
+     private int $votes = 0;
++
+     #[ORM\OneToMany(targetEntity: Answer::class, mappedBy: 'question', fetch: 'EXTRA_LAZY')]
+     #[ORM\OrderBy(['createdAt' => 'DESC'])]
+     private $answers;
++
+     #[ORM\OneToMany(targetEntity: QuestionTag::class, mappedBy: 'question')]
+     private $questionTags;
++
+     #[ORM\ManyToOne(targetEntity: User::class, inversedBy: 'questions')]
+     #[ORM\JoinColumn(nullable: false)]
+     private $owner;
+diff --git a/src/Entity/QuestionTag.php b/src/Entity/QuestionTag.php
+index 08105f87..4f04a05e 100644
+--- a/src/Entity/QuestionTag.php
++++ b/src/Entity/QuestionTag.php
+@@ -12,12 +12,15 @@ class QuestionTag
+     #[ORM\GeneratedValue]
+     #[ORM\Column(type: 'integer')]
+     private $id;
++
+     #[ORM\ManyToOne(targetEntity: Question::class, inversedBy: 'questionTags')]
+     #[ORM\JoinColumn(nullable: false)]
+     private $question;
++
+     #[ORM\ManyToOne(targetEntity: Tag::class)]
+     #[ORM\JoinColumn(nullable: false)]
+     private $tag;
++
+     #[ORM\Column(type: 'datetime_immutable')]
+     private $taggedAt;
+ 
+diff --git a/src/Entity/Tag.php b/src/Entity/Tag.php
+index 666ec499..6143693d 100644
+--- a/src/Entity/Tag.php
++++ b/src/Entity/Tag.php
+@@ -10,10 +10,12 @@ use Gedmo\Timestampable\Traits\TimestampableEntity;
+ class Tag
+ {
+     use TimestampableEntity;
++
+     #[ORM\Id]
+     #[ORM\GeneratedValue]
+     #[ORM\Column(type: 'integer')]
+     private $id;
++
+     #[ORM\Column(type: 'string', length: 255)]
+     private $name;
+ 
+diff --git a/src/Entity/User.php b/src/Entity/User.php
+index 33ec1146..59e71725 100644
+--- a/src/Entity/User.php
++++ b/src/Entity/User.php
+@@ -17,23 +17,30 @@ class User implements UserInterface
+     #[ORM\GeneratedValue]
+     #[ORM\Column(type: 'integer')]
+     private $id;
++
+     #[ORM\Column(type: 'string', length: 180, unique: true)]
+     private $email;
++
+     #[ORM\Column(type: 'json')]
+     private array $roles = [];
++
+     /**
+      * @var string|null The hashed password
+      */
+     #[ORM\Column(type: 'string')]
+     private ?string $password = null;
++
+     /**
+      * @var string Non-mapped field
+      */
+     private ?string $plainPassword = null;
++
+     #[ORM\Column(type: 'string', length: 255)]
+     private $firstName;
++
+     #[ORM\OneToMany(targetEntity: Question::class, mappedBy: 'owner')]
+     private $questions;
++
+     #[ORM\Column(type: 'boolean')]
+     private bool $isVerified = false;
+ 

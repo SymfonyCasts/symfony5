@@ -1,8 +1,8 @@
 diff --git a/src/Security/LoginFormAuthenticator.php b/src/Security/LoginFormAuthenticator.php
-index 99a670b3..71f6bdd1 100644
+index 241f3c9e..badd5019 100644
 --- a/src/Security/LoginFormAuthenticator.php
 +++ b/src/Security/LoginFormAuthenticator.php
-@@ -12,12 +12,7 @@ use Symfony\Component\HttpFoundation\Session\SessionInterface;
+@@ -12,12 +12,7 @@ use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
  use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
  use Symfony\Component\Security\Core\Authentication\Token\TokenInterface;
  use Symfony\Component\Security\Core\Exception\AuthenticationException;

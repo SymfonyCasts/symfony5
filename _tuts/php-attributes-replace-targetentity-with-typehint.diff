@@ -1,8 +1,8 @@
 diff --git a/src/Entity/Answer.php b/src/Entity/Answer.php
-index 77ad761b..2711d99d 100644
+index 4ec6d942..43025372 100644
 --- a/src/Entity/Answer.php
 +++ b/src/Entity/Answer.php
-@@ -28,9 +28,9 @@ class Answer
+@@ -29,9 +29,9 @@ class Answer
      #[ORM\Column(type: 'integer')]
      private int $votes = 0;
  
