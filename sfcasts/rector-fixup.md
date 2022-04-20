@@ -1,48 +1,78 @@
 # Post-Rector Cleanups & Tweaks
 
-Rector just automated several changes to our app that are needed to remove deprecations on Symfony 5.4. *Plus* it added some nice bonus features like adding the optional `Response` return type on my controllers. But as nice as that is, it's not a *perfect* tool. All the class names are inline instead of having a use statement. And even though it renamed some interfaces, it didn't necessarily rename the methods that we call to reflect those changes. No need to worry, though. Rector is a great start and it helped highlight several changes that we need to make.
+Rector just automated several changes to our app that are needed to remove
+deprecations on Symfony 5.4. *Plus* it added some nice bonus features like the
+optional `Response` return type on our controllers.
 
-Now it's time for us to finish what we started. First, for these long class names with no use statement, and in general for coding styles, Rector doesn't know what coding style you prefer, so it doesn't even try to format things correctly. The official recommendation is to use a tool in your project like PHP CS Fixer to reformat the code after you run Rector. PHP CS Fixer is a great tool anyway, so let's get it installed and have it help us along.
+But as nice as that is, it's not a *perfect* tool. All the class names are inlined,
+instead of having a `use` statement. And even though it renamed some interfaces, it
+didn't rename the methods that we *call* on those objects to reflect the change.
+No need to worry, though. Rector is a great start and it helped highlight several
+changes that we need to make. Now it's time for us to finish what it started.
 
-You can install PHP CS Fixer a couple of different ways, but oddly enough, the *recommended* way and the way that I like to do it is one and the same - to create a new directory:
+## Installing php-cs-fixer
+
+First, for these long class names with no `use` statement and, in general for coding
+styles, Rector doesn't know what coding style you prefer, so it doesn't even try
+to format things correctly. The official recommendation is to use a tool in your
+project like PHP CS Fixer to reformat the code after you run Rector. PHP CS Fixer
+is a great tool anyway... so let's get it installed and have it help us along
+our journey.
+
+You can install PHP CS Fixer a few different ways, but oddly enough, the
+*recommended* way - and the way that I like - is to install it via Composer into
+its own directory. Run:
 
 ```terminal
 mkdir -p tools/php-cs-fixer
 ```
 
-There's nothing special here - just a new `/tools` directory with `/php-cs-fixer` inside.
+There's nothing special here: just a new `tools/` directory with `php-cs-fixer/`
+inside. Now install it *into* that directory by running
+`composer require --working-dir=tools/php-cs-fixer` - that tells Composer to behave
+like I'm running it from inside of `tools/php-cs-fixer` - and then
+`friendsofphp/php-cs-fixer`.
 
-Now we can *actually* install it into that directory by running:
+If you're wondering why we're not just installing this directly into our *main*
+`composer.json` dependencies, well... that's a bit tricky. PHP CS Fixer is a
+standalone executable tool. If I install it into our *app's* dependencies, then
+it could cause problems if some dependencies of PHP CS Fixer don't match the
+versions that we have already in our app. I mean, this is a possible problem
+whenever you install *any* library. But since all we need is a binary - that
+doesn't interact at all with our code - there's no reason to mix it into our
+app. We could have done the same thing with Rector.
 
-```terminal
-composer require --working-dir=tools/php-cs-fixer
-```
+This gives us, in that directory, `composer.json` and `composer.lock` files. And
+in *its* `vendor/bin` directory... yes: `php-cs-fixer`. *There's* the executable.
 
-Basically, even though I'm running from *this* directory, we're going to pretend like we're running it from *that* directory.And then we're going to require:
+And because we have a new `/vendor` directory, open up the root `.gitignore` file
+and, at the bottom, *ignore* that! `/tools/php-cs-fixer/vendor`. And while we're
+here, let's also ignore `/.php-cs-fixer.cache`. That's a cache file that PHP CS
+Fixer will create when it does its work.
 
-```terminal
-friendsofphp/php-cs-fixer
-```
+## Adding php-cs-fixer Config
 
-If you're wondering why I'm not just installing this directly into my main dependencies, well... that's a bit tricky. PHP CS Fixer is really meant to just be a standalone tool. If I installed it into *my* dependency, then I would need to make sure that it couldn't just cause random problems sometimes. For instance, maybe PHP CS Fixer has *some* versions of *some* dependencies that are incompatible with your project. It's hard to install it and we don't really *need* it to be integrated into our project. It's just a standalone executable that we run. For that reason, we install it into this sub-directory.
+The *last* thing we need to do is add a config file. Up here, create a new file called
+`.php-cs-fixer.php`. Inside, I'm going to paste about 10 lines of code. This is
+pretty simple. It tells PHP CS Fixer where to find our `src/` files. Then down here,
+it says which *rules* to apply. I'm using a pretty standard Symfony set of rules.
 
-As you can see, we have a `composer.json` and `composer.lock` file inside of here, and when we run `/vendor/bin/php-cs-fixer`, *there's* our executable. Because we have a new `/vendor` directory inside of here, I'm going to open up my `.gitignore` file and, at the bottom, let's actually *ignore* that. Say `/tools/php-cs-fixer/vendor` to ignore that directory. While we're here, let's also ignore `/.php-cs-fixer.cache`. That's the little file that PHP CS Fixer is going to create and we don't need to commit that either.
-
-All right, the last thing we need to get PHP CS Fixer to run is a configuration file. Up here, create a new file called `php-cs-fixer.php`. Inside our new file, I'm just going to paste in about 10 lines of code. This is very simple. I tell PHP CS Fixer where to find my `/src` files, and down here, I tell it what rules to apply. I'm using a pretty standard Symfony set of rules.
-
-Okay, now we're ready to run this. To see what it did, over in the command line, I'm going to add all my changes with
+And... we're re ready to run this! To see what it does, over at the command line,
+add all the changes to git with:
 
 ```terminal
 git add .
 ```
 
-and then
+Then check on them:
 
-```terminal
+```terminal-silent
 git status
 ```
 
-but I'm not going to *commit* them yet. I still want to be able to review the changes that Rector made before I finally commit them. But at least *now* I'll be able to see what PHP CS Fixer does.
+But don't *commit* them yet. I still want to be able to review the changes
+that Rector made before we *finally* commit. But at least, *now*, we'll be able to
+see what PHP CS Fixer does.
 
 Let's run it:
 
@@ -50,34 +80,90 @@ Let's run it:
 ./tools/php-cs-fixer/vendor/bin/php-cs-fixer fix
 ```
 
-And... nice! It modified six files. Let's check this out. Say
+And... nice! It modified six files. Let's check them out:
 
 ```terminal
 git diff
 ```
 
-and... awesome! Basically, what it did in our case is take out those long use statements for the `Response` class across our code base. It also removed a couple of old use statements that we don't need. So the code from Rector still isn't perfect, but that was a nice step forward towards making it better.
+Wwesome! I remove the *long* class names for `Response` across our code base. It
+also removed a few old `use` statements that we don't need. So the code from
+Rector still isn't perfect, but that was a nice step towards making it better!
 
-*Finally*, let's fix a few things manually. Dig into the changes that were made by Rector one by one. I'll help us out a little bit by zooming into some places that we need to look at. The first one is `RegistrationController.php`. Go to `/src/Controller/RegistrationController.php`. This one of the places it changed from `UserEncoderInterface` to `UserPasswordHasherInterface`. You'll notice that PHP CS Fixer *did* fix a lot of our missing use statements, but not *all* of them, so I'm going to fix this one by hand. I'll hover over this and hit "alt" + "enter" and then go to "Simplify FQN" and it will take that out of the use statement up there for me. The only problem is that, if we trace down to where this was used, previously we were calling `->encodePassword()` on this, but that method doesn't exist on this interface. We need to call `->hashPassword()` instead. So that's a case where Rector didn't *quite* make all the changes we needed.
+## Fixing the Password Hasher Code
 
-I'm also going to rename this argument. I'll go to "Refactor" then "Rename" and call it `$userPasswordHasher`, just because that's a more fitting name.
+For the final fixes, we'll do them manually by digging into the changes that Rector
+Rector made, one by one. I'll help us by zooming into the places that need some
+work.
 
-The next thing we need to check out is very similar. It's in `/Factory/UserRepository.php`. Scroll down and... once again, we have a long use statement. Hit "alt" + "enter" and go to "Simplify FQN" to add that use statement, and then I'm going to rename a couple of things again. Go to "Refactor" then "Rename" to call this `$passwordHasher`. And then let's also rename this one. Go to "Refactor" then "Rename" again, and call this `$passwordHasher` as well. Before we go, down here, we need to call this `->hashPassword()` instead of `->encodePassword()`. Perfect!
+The first is `RegistrationController`: `src/Controller/RegistrationController.php`.
+This is one of the places where it changed `UserEncoderInterface` to
+`UserPasswordHasherInterface`. Notice that PHP CS Fixer *did* fix a lot of
+the *long* class names... but not *all* of them... it depends on if there was
+already a `use` statement for that class.
 
-There's *one more* spot that needs a similar change down here in `/Security/LoginFormAuthenticator.php`. We're going to refactor this class later anyway to have the new security system, but let's at least get it working. Find the `UserPasswordHasherInterface` argument, and simplify that with "Simplify FQN". Then rename the argument `$passwordHasher`, and rename the property `$passwordHasher` as well.
+So let's fix this by hand. I'll hover over this, hit "alt" + "enter" and then
+go to "Simplify FQN". That shortens it and adds the `use` statement on top.
 
-Then we can check to see where that's used. It's used all the way down on the bottom, so if we search for "hasher"... there we go! If you look down here on line 84, this `->isPasswordValid()` actually *does* exist on the new interface, so this is one case where we don't need to change that.
+But there's another problem. If we trace down to where this is used, previously
+we were calling `->encodePassword()`. But... that method doesn't exist on the
+new interface! We need to call `->hashPassword()`.
 
-One last change I want to make in here is the `UserNotFoundException`. It has the long line here, so let's click on that and hit "Simplify FQN" again. Beautiful! That should be everything.
+I'm also going to rename the argument. Go to "Refactor" then "Rename" and call
+it `$userPasswordHasher`... just because that's a more fitting name.
 
-The big question now is: "Does our app work?" If we go back to the Homepage... it *doesn't*. We're back on the Welcome page? That's weird...
+Next up is `src/Factory/UserRepository.php` for the *same* change. Scroll down and...
+once again, we have a long class name. Hit "alt" + "enter" and go to "Simplify
+FQN" to add that `use` statement. then... let's "Refactor" and "Rename" the
+argument to `$passwordHasher`... good... and "Refactor", "Rename" the property
+*also* to `$passwordHasher`.
 
-If you spin back over to your terminal and run
+Finally, below, we need to call `->hashPassword()` instead of `->encodePassword()`.
+
+Done!
+
+Just *one* more spot where we need this same change:
+`src/Security/LoginFormAuthenticator.php`. We're going to refactor this class later
+to use the new security system... but let's at least get it working. Find the
+`UserPasswordHasherInterface` argument, shorten that with "Simplify FQN"... then
+rename the argument to `$passwordHasher`... and rename the property `$passwordHasher`.
+
+Then we can check to see where this is used... I'll search for "hasher"... there
+we go! Down on line 84, this `->isPasswordValid()` actually *does*
+exist on the new interface, so this is one case where we *don't* need to change
+anything else.
+
+Oh, and while we're in here, the `UserNotFoundException` is another *long* class
+name. Hit to "Simplify FQN" again.
+
+Beautiful! That should be everything.
+
+The big question *now* is: does our app work? If we go back to the Homepage... it
+*doesn't*. We're back on the Welcome to Symfony page? That's weird...
+
+Spin back over to your terminal and run:
 
 ```terminal
 ./bin/console debug:router
 ```
 
-you'll see that, in fact, all of our routes are *gone*. This was one other change that Rector made that I need to pay close attention to. It's inside of our `Kernel` class. We're going to talk more about this later when we upgrade our recipes. It changed this use statement here to `RoutingConfigurator`, but it didn't *then* update the code correctly below. So again, Rector is really good for picking some of these things out, but it doesn't always do a perfect job. Fortunately, the entire `configureRoutes()` method has been moved into this `MicroKernelTrait`. So we don't even need to have it in our class anymore. As soon as I delete that method, the *parent* class now holds the correct version, my routes are back, and the page works! Woohoo! And it *hopefully* has a *little* less deprecation than before. I now see 58. Progress!
+Wow. In fact, *all* of our routes are *gone*. This was one other change
+that Rector made that we need to pay close attention to. It's inside of our `Kernel`
+class. We're going to talk more about this class later when we upgrade our recipes.
+Rector changed the argument to `RoutingConfigurator`, but it didn't update the
+code below. So again, Rector is really good for finding some of these changes,
+but you'll always want to double-check the final result.
 
-So what's next after upgrading? We've upgraded our dependencies and we've automated some of the changes with Rector. Well, there's still *one more* thing thing we can do before we start going through all of these deprecations manually, and that's updating the recipes for each of our packages. And this has gotten a whole heck of a lot easier than the last time you upgraded. That's next.
+Fortunately, the entire `configureRoutes()` method has been moved into this
+`MicroKernelTrait` - a fact I'll talk about more soon - so we don't even need
+this method in *our* class anymore. As soon as we delete it, the *parent* class
+now holds the correct version.... my routes are back.... and the page works! Woohoo!
+
+And it *hopefully* we have a *few* less deprecations than before. I now see 58.
+Progress!
+
+So what now? We've upgraded our dependencies and automated *some* of the changes
+we need with Rector. Well, there's still *one more* thing thing we can do before
+we start going through each deprecation manually: updating our *recipes*. And this
+has gotten a *whole* heck of a lot easier than the last time you upgraded. Let's
+find out how next.
