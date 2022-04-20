@@ -14,7 +14,7 @@ index 28525846..61c50cb8 100755
          "symfony/var-dumper": "5.4.*",
          "symfony/web-profiler-bundle": "5.4.*",
 diff --git a/composer.lock b/composer.lock
-index 23b2e8f9..6924f0b6 100644
+index 94736e90..944fdb29 100644
 --- a/composer.lock
 +++ b/composer.lock
 @@ -4,7 +4,7 @@

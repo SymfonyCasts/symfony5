@@ -23,7 +23,7 @@ index 420b86e4..49967974 100755
          "symfony/property-access": "6.0.*",
          "symfony/property-info": "6.0.*",
 diff --git a/composer.lock b/composer.lock
-index 09f52224..7055c40e 100644
+index 79b0d468..62a6d610 100644
 --- a/composer.lock
 +++ b/composer.lock
 @@ -1635,6 +1635,74 @@

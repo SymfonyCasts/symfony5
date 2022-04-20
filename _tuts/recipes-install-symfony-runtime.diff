@@ -21,7 +21,7 @@ index 61c50cb8..1783c700 100755
      },
      "autoload": {
 diff --git a/composer.lock b/composer.lock
-index 6924f0b6..d6d0b3c9 100644
+index 944fdb29..20283898 100644
 --- a/composer.lock
 +++ b/composer.lock
 @@ -4,7 +4,7 @@

@@ -11,7 +11,7 @@ index b59fa64e..9faa5c09 100755
          "sentry/sentry-symfony": "^4.0",
          "stof/doctrine-extensions-bundle": "^1.5",
 diff --git a/composer.lock b/composer.lock
-index 50677e5c..34400dfa 100644
+index 68164f59..56b2b3ac 100644
 --- a/composer.lock
 +++ b/composer.lock
 @@ -4,7 +4,7 @@

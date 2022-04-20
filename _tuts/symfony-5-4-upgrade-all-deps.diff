@@ -1,5 +1,5 @@
 diff --git a/composer.lock b/composer.lock
-index b18fbef6..23b2e8f9 100644
+index 6bb4ecd0..94736e90 100644
 --- a/composer.lock
 +++ b/composer.lock
 @@ -4,32 +4,32 @@
@@ -2433,7 +2433,7 @@ index b18fbef6..23b2e8f9 100644
              },
              "funding": [
                  {
-@@ -5065,20 +4947,20 @@
+@@ -5065,7 +4947,7 @@
                      "type": "tidelift"
                  }
              ],
@@ -2442,38 +2442,7 @@ index b18fbef6..23b2e8f9 100644
          },
          {
              "name": "symfony/flex",
--            "version": "v1.18.3",
-+            "version": "v1.18.5",
-             "source": {
-                 "type": "git",
-                 "url": "https://github.com/symfony/flex.git",
--                "reference": "d40a6b176b70ea323af2b08507319d1c417520fd"
-+                "reference": "10e438f53a972439675dc720706f0cd5c0ed94f1"
-             },
-             "dist": {
-                 "type": "zip",
--                "url": "https://api.github.com/repos/symfony/flex/zipball/d40a6b176b70ea323af2b08507319d1c417520fd",
--                "reference": "d40a6b176b70ea323af2b08507319d1c417520fd",
-+                "url": "https://api.github.com/repos/symfony/flex/zipball/10e438f53a972439675dc720706f0cd5c0ed94f1",
-+                "reference": "10e438f53a972439675dc720706f0cd5c0ed94f1",
-                 "shasum": ""
-             },
-             "require": {
-@@ -5114,7 +4996,7 @@
-             "description": "Composer plugin for Symfony",
-             "support": {
-                 "issues": "https://github.com/symfony/flex/issues",
--                "source": "https://github.com/symfony/flex/tree/v1.18.3"
-+                "source": "https://github.com/symfony/flex/tree/v1.18.5"
-             },
-             "funding": [
-                 {
-@@ -5130,55 +5012,61 @@
-                     "type": "tidelift"
-                 }
-             ],
--            "time": "2022-01-27T10:24:58+00:00"
-+            "time": "2022-02-16T17:26:46+00:00"
+@@ -5134,51 +5016,57 @@
          },
          {
              "name": "symfony/form",

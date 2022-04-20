@@ -12,7 +12,7 @@ index 286c50c5..ff80fdba 100755
          "symfony/framework-bundle": "5.4.*",
          "symfony/monolog-bundle": "^3.0",
 diff --git a/composer.lock b/composer.lock
-index f5a6ad47..dcfb187c 100644
+index deb97207..f2ae62f7 100644
 --- a/composer.lock
 +++ b/composer.lock
 @@ -4,7 +4,7 @@
@@ -28,20 +28,20 @@ index f5a6ad47..dcfb187c 100644
          },
          {
              "name": "symfony/flex",
--            "version": "v1.18.5",
-+            "version": "v2.1.6",
+-            "version": "v1.18.6",
++            "version": "v2.1.7",
              "source": {
                  "type": "git",
                  "url": "https://github.com/symfony/flex.git",
--                "reference": "10e438f53a972439675dc720706f0cd5c0ed94f1"
-+                "reference": "dd7dafe3bfebf8441e167b76d8a18974585467f3"
+-                "reference": "130851b90c1ea615ac5be6fce827971f4f55afbf"
++                "reference": "3eb57ba4b5d3f14cdaafe030936421c22e9f98a2"
              },
              "dist": {
                  "type": "zip",
--                "url": "https://api.github.com/repos/symfony/flex/zipball/10e438f53a972439675dc720706f0cd5c0ed94f1",
--                "reference": "10e438f53a972439675dc720706f0cd5c0ed94f1",
-+                "url": "https://api.github.com/repos/symfony/flex/zipball/dd7dafe3bfebf8441e167b76d8a18974585467f3",
-+                "reference": "dd7dafe3bfebf8441e167b76d8a18974585467f3",
+-                "url": "https://api.github.com/repos/symfony/flex/zipball/130851b90c1ea615ac5be6fce827971f4f55afbf",
+-                "reference": "130851b90c1ea615ac5be6fce827971f4f55afbf",
++                "url": "https://api.github.com/repos/symfony/flex/zipball/3eb57ba4b5d3f14cdaafe030936421c22e9f98a2",
++                "reference": "3eb57ba4b5d3f14cdaafe030936421c22e9f98a2",
                  "shasum": ""
              },
              "require": {
@@ -68,8 +68,8 @@ index f5a6ad47..dcfb187c 100644
              "description": "Composer plugin for Symfony",
              "support": {
                  "issues": "https://github.com/symfony/flex/issues",
--                "source": "https://github.com/symfony/flex/tree/v1.18.5"
-+                "source": "https://github.com/symfony/flex/tree/v2.1.6"
+-                "source": "https://github.com/symfony/flex/tree/v1.18.6"
++                "source": "https://github.com/symfony/flex/tree/v2.1.7"
              },
              "funding": [
                  {
@@ -77,8 +77,8 @@ index f5a6ad47..dcfb187c 100644
                      "type": "tidelift"
                  }
              ],
--            "time": "2022-02-16T17:26:46+00:00"
-+            "time": "2022-02-16T17:31:43+00:00"
+-            "time": "2022-04-15T08:20:34+00:00"
++            "time": "2022-04-15T08:20:43+00:00"
          },
          {
              "name": "symfony/form",
