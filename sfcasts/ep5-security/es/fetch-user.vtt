@@ -1,0 +1,341 @@
+WEBVTT
+
+00:00:01.006 --> 00:00:06.426 align:middle
+Una de las increíbles características de nuestro sitio
+es que puedes votar por arriba y por abajo cada respuesta.
+
+00:00:07.016 --> 00:00:11.016 align:middle
+Ahora mismo, ni siquiera necesitas
+estar conectado para hacerlo.
+
+00:00:11.286 --> 00:00:12.466 align:middle
+Vamos a cambiar eso.
+
+00:00:13.216 --> 00:00:17.186 align:middle
+Encuentra el controlador que maneja la
+llamada Ajax que se hace cuando votamos:
+
+00:00:17.386 --> 00:00:20.366 align:middle
+es src/Controller/AnswerController.php...
+
+00:00:20.876 --> 00:00:22.466 align:middle
+el método answerVote().
+
+00:00:23.376 --> 00:00:27.986 align:middle
+Bien: quiero exigir al usuario que
+esté conectado para utilizar esta ruta.
+
+00:00:28.806 --> 00:00:30.586 align:middle
+Hagámoslo con una anotación...
+
+00:00:30.686 --> 00:00:33.026 align:middle
+o atributo: @IsGranted...
+
+00:00:33.476 --> 00:00:38.706 align:middle
+entonces selecciona esa clase y dale al tabulador para
+que añada la declaración use que necesitamos arriba.
+
+00:00:40.076 --> 00:00:43.166 align:middle
+Dentro, utiliza IS_AUTHENTICATED_REMEMBERED:
+
+00:00:43.996 --> 00:00:47.766 align:middle
+Como estamos utilizando el sistema
+remember me, ésta es la forma correcta
+
+00:00:47.766 --> 00:00:50.416 align:middle
+de comprobar si el usuario
+está simplemente conectado.
+
+00:00:51.256 --> 00:00:56.116 align:middle
+Si nos detenemos ahora, porque no
+estamos conectados, no podremos votar.
+
+00:00:56.546 --> 00:01:00.626 align:middle
+¡Sí! Pero va a tener un
+aspecto extraño en el frontend
+
+00:01:00.836 --> 00:01:03.126 align:middle
+porque los enlaces de votación
+siguen siendo visibles.
+
+00:01:03.516 --> 00:01:05.276 align:middle
+Así que vamos a ocultarlos.
+
+00:01:06.176 --> 00:01:10.906 align:middle
+La plantilla para esta sección es
+templates/answer/_answer.html.twig.
+
+00:01:11.716 --> 00:01:12.656 align:middle
+Veamos...
+
+00:01:13.246 --> 00:01:15.936 align:middle
+abajo... aquí están las flechas de votación.
+
+00:01:16.726 --> 00:01:21.856 align:middle
+Así que básicamente queremos ocultar toda
+esta sección div si no estamos conectados.
+
+00:01:22.646 --> 00:01:27.486 align:middle
+Si is_granted('IS_AUTHENTICATED_REMEMBERED'),
+encuentra el cierre div...
+
+00:01:28.906 --> 00:01:31.336 align:middle
+aquí está, y añade endif:
+
+00:01:32.236 --> 00:01:33.406 align:middle
+Cuando refresquemos...
+
+00:01:34.146 --> 00:01:36.656 align:middle
+¡sí! Los enlaces de votación desaparecen.
+
+00:01:37.496 --> 00:01:43.806 align:middle
+En una aplicación real, cuando guardemos el voto en la base de
+datos, probablemente también almacenaremos quién ha votado,
+
+00:01:44.196 --> 00:01:48.326 align:middle
+para poder evitar que un usuario
+vote varias veces la misma respuesta.
+
+00:01:48.876 --> 00:01:51.016 align:middle
+No vamos a hacer eso ahora...
+
+00:01:51.316 --> 00:01:54.666 align:middle
+pero vamos a intentar algo más
+sencillo: vamos a registrar un mensaje
+
+00:01:54.666 --> 00:01:58.056 align:middle
+que incluya la dirección de
+correo electrónico de quien vota.
+
+00:01:58.946 --> 00:02:02.346 align:middle
+Pero espera: ¿cómo averiguamos
+quién ha iniciado la sesión?
+
+00:02:03.296 --> 00:02:09.566 align:middle
+En un controlador, es muy fácil: utiliza
+el acceso directo $this->getUser().
+
+00:02:10.186 --> 00:02:16.576 align:middle
+Compruébalo: en la parte superior,
+diré $logger->info('') con el mensaje
+
+00:02:16.576 --> 00:02:22.206 align:middle
+{usuario} está votando la respuesta
+{respuesta} Pásale un segundo argumento,
+
+00:02:22.276 --> 00:02:24.776 align:middle
+que se llama "contexto" del registrador.
+
+00:02:25.616 --> 00:02:28.156 align:middle
+Esto no está relacionado con la seguridad...
+
+00:02:28.546 --> 00:02:29.756 align:middle
+es simplemente genial.
+
+00:02:30.486 --> 00:02:33.686 align:middle
+El segundo argumento es una
+matriz con cualquier dato extra
+
+00:02:33.886 --> 00:02:36.726 align:middle
+que quieras almacenar junto con el mensaje.
+
+00:02:37.396 --> 00:02:41.386 align:middle
+Por ejemplo, podemos poner
+answer a $answer->getId():
+
+00:02:41.386 --> 00:02:47.866 align:middle
+Y... si utilizas este
+ingenioso formato {answer},
+
+00:02:48.406 --> 00:02:53.856 align:middle
+el contexto answer se incluirá
+automáticamente en el mensaje.
+
+00:02:54.136 --> 00:02:55.166 align:middle
+Lo veremos en un momento.
+
+00:02:56.036 --> 00:03:00.316 align:middle
+Para el user, obtén el usuario
+actual con $this->getUser()...
+
+00:03:00.686 --> 00:03:01.956 align:middle
+es así de fácil.
+
+00:03:02.846 --> 00:03:05.106 align:middle
+Esto nos dará el objeto User...
+
+00:03:05.576 --> 00:03:08.036 align:middle
+y luego podemos llamar a un método sobre él,
+
+00:03:08.356 --> 00:03:13.226 align:middle
+como ->getUserIdentifier(), que
+sabemos que será el correo electrónico:
+
+00:03:13.986 --> 00:03:16.556 align:middle
+¡Genial! ¡Vamos a probar esta cosa!
+
+00:03:17.176 --> 00:03:23.306 align:middle
+Primero... tenemos que iniciar la sesión -
+abraca_admin@example.com, contraseña tada.
+
+00:03:23.916 --> 00:03:25.316 align:middle
+Y... ¡lo conseguimos!
+
+00:03:25.906 --> 00:03:33.476 align:middle
+Nos redirigió de nuevo a /admin/login porque,
+hace unos minutos, intentamos acceder a esto
+
+00:03:33.596 --> 00:03:36.056 align:middle
+y nos redirigió al formulario
+de inicio de sesión.
+
+00:03:36.516 --> 00:03:40.906 align:middle
+Así que técnicamente sigue en la
+sesión como nuestra "ruta de destino".
+
+00:03:41.716 --> 00:03:43.746 align:middle
+Dirígete a la página de inicio,
+haz clic en una pregunta...
+
+00:03:44.216 --> 00:03:49.966 align:middle
+¡y vota! En la barra de herramientas de depuración
+de la web, podemos ver esa llamada Ajax...
+
+00:03:50.526 --> 00:03:54.926 align:middle
+e incluso podemos abrir el perfilador de
+esa petición haciendo clic en el enlace.
+
+00:03:55.706 --> 00:03:56.936 align:middle
+Dirígete a Logs.
+
+00:03:57.946 --> 00:04:05.326 align:middle
+Genial! abraca_admin@example.com está votando
+la respuesta 498 De vuelta en el controlador,
+
+00:04:05.546 --> 00:04:10.666 align:middle
+sabemos que $this->getUser()
+devolverá nuestro objeto User...
+
+00:04:11.216 --> 00:04:14.796 align:middle
+lo que significa que podemos
+llamar a los métodos que tenga.
+
+00:04:15.246 --> 00:04:18.986 align:middle
+Por ejemplo, nuestra clase User
+tiene un método getEmail():
+
+00:04:19.916 --> 00:04:22.216 align:middle
+Así que esto funcionará.
+
+00:04:22.676 --> 00:04:26.166 align:middle
+Pero fíjate en que mi editor
+no lo ha autocompletado.
+
+00:04:26.706 --> 00:04:30.586 align:middle
+¡Qué pena! Mantén pulsado Command
+o Ctrl y haz clic en getUser().
+
+00:04:31.446 --> 00:04:34.626 align:middle
+Esto nos hace saltar al
+núcleo AbstractController.
+
+00:04:35.336 --> 00:04:41.986 align:middle
+Ah... el método anuncia que devuelve
+un UserInterface, ¡lo cual es cierto!
+
+00:04:42.386 --> 00:04:48.386 align:middle
+Pero, más concretamente, sabemos
+que devolverá nuestra entidad User.
+
+00:04:49.216 --> 00:04:55.286 align:middle
+Desgraciadamente, como este método no lo
+dice, no obtenemos un buen autocompletado.
+
+00:04:55.956 --> 00:04:59.596 align:middle
+Utilizo mucho $this->getUser()
+en mis controladores...
+
+00:05:00.186 --> 00:05:01.856 align:middle
+así que me gustaría "arreglar" esto.
+
+00:05:02.416 --> 00:05:06.026 align:middle
+¿Cómo? Creando una clase base
+de controlador personalizada.
+
+00:05:06.916 --> 00:05:10.996 align:middle
+Dentro del directorio Controller/, crea
+una nueva clase llamada BaseController.
+
+00:05:11.846 --> 00:05:13.396 align:middle
+Puedes hacer esta abstract...
+
+00:05:13.616 --> 00:05:15.556 align:middle
+porque no la vamos a utilizar directamente.
+
+00:05:16.376 --> 00:05:21.456 align:middle
+Hazla extendida AbstractController para que
+tengamos los métodos normales de acceso directo:
+
+00:05:22.386 --> 00:05:24.306 align:middle
+Crear un controlador base personalizado es...
+
+00:05:24.586 --> 00:05:30.286 align:middle
+una buena idea: puedes añadir los métodos
+abreviados adicionales que quieras.
+
+00:05:30.806 --> 00:05:34.946 align:middle
+Luego, en tus controladores
+reales, extiendes esto y...
+
+00:05:35.196 --> 00:05:39.996 align:middle
+¡diviértete! Ahora mismo sólo voy
+a hacer esto en AnswerController...
+
+00:05:40.246 --> 00:05:41.116 align:middle
+sólo para ahorrar
+
+00:05:41.916 --> 00:05:43.606 align:middle
+tiempo: De todos modos, si nos detenemos
+
+00:05:43.946 --> 00:05:45.016 align:middle
+ahora...
+
+00:05:45.246 --> 00:05:50.156 align:middle
+¡felicidades! Esto no cambia nada
+porque BaseController extiende
+
+00:05:50.756 --> 00:05:55.346 align:middle
+AbstractController. Para resolver nuestro problema,
+no necesitamos añadir un nuevo método abreviado..
+
+00:05:55.746 --> 00:05:59.656 align:middle
+. sólo tenemos que dar a
+nuestro editor una pista para que
+
+00:05:59.686 --> 00:06:02.816 align:middle
+sepa que getUser() devuelve nuestro objeto User
+
+00:06:03.246 --> 00:06:05.126 align:middle
+... y no sólo un
+
+00:06:05.946 --> 00:06:12.076 align:middle
+UserInterface. Para ello, encima de la
+clase, añade @method y luego User y
+
+00:06:12.846 --> 00:06:17.866 align:middle
+getUser() : ¡Hecho! De nuevo en
+AnswerController, vuelve a escribir getEmail()
+
+00:06:18.046 --> 00:06:20.846 align:middle
+y... ¡sí! ¡ Obtenemos el
+
+00:06:21.746 --> 00:06:27.186 align:middle
+autocompletado! ¡Genial! Así que la forma de
+obtener el usuario actual en un controlador es
+
+00:06:27.586 --> 00:06:35.496 align:middle
+$this->getUser(). Pero hay algunos otros lugares en los
+que podríamos necesitar hacer esto, como en Twig o desde un
+
+00:06:36.046 --> 00:06:37.356 align:middle
+servicio. Vamos a comprobarlo
