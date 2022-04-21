@@ -1,10 +1,10 @@
-# composer requiere seguridad
+# composer require seguridad
 
 ¡Bienvenidos de nuevo amigos! Estoy muy contento de que hayáis tropezado con mi tutorial de seguridad de Symfony 5 por un montón de razones. La primera es que, bueno... eh... el sitio que hemos estado construyendo NO tiene seguridad... y los rapaces están empezando a sacudir los pomos de las puertas.
 
 La otra razón es que, una vez que lleguemos al cobertizo de mantenimiento en el otro lado del recinto, vamos a explorar el nuevo sistema de seguridad de Symfony, llamado sistema "autentificador". Ooh. Si has utilizado el sistema antiguo, te sentirás como en casa. Si eres nuevo en la seguridad de Symfony, has elegido un buen momento para empezar. El nuevo sistema es más fácil de aprender y entender... pero también es más potente.
 
-## Configuración del proyecto
+## Configuración del Proyecto
 
 Y como el sistema de seguridad no se va a poner en marcha por sí solo, pongámonos a trabajar. Para aprender a autenticar, autorizar y hacer otras cosas interesantes de seguridad a nivel profesional, deberías descargar el código del curso desde esta página y codificar conmigo. Cometer errores en el mundo real.... sí, es la mejor manera de recordar estas cosas.
 
@@ -22,7 +22,7 @@ symfony open:local
 
 para... "delegar" el trabajo a otra persona. ¡Saluda a Cauldron Overflow! Un sitio de preguntas y respuestas para brujas y magos, que... por desgracia... siguen lanzando sus hechizos en directo en producción sin probarlos... y normalmente un viernes por la tarde. Por supuesto. Luego vienen aquí a preguntar cómo deshacer el daño.
 
-## Instalar la seguridad
+## Instalando Seguridad
 
 Como la filosofía de Symfony es empezar poco a poco y permitirte instalar las cosas que necesitas más tarde, ahora mismo nuestra aplicación... no tiene literalmente un sistema de seguridad.
 
@@ -52,7 +52,7 @@ Oh, ¿pero ves esta clave `enable_authenticator_manager`?
 
 En Symfony 5.3 -la versión que estoy utilizando- los sistemas de seguridad antiguos y nuevos conviven y puedes elegir cuál quieres Cuando pones`enable_authenticator_manager` en `true`, estás activando el nuevo sistema. ¡Sí! ¡Brillante! Si estás trabajando en un proyecto heredado y necesitas aprender el sistema antiguo, echa un vistazo a nuestro tutorial [Seguridad en Symfony 4](https://symfonycasts.com/screencast/symfony4-security). ¡También es muy bueno!
 
-## Autenticación y autorización
+## Autenticación y Autorización
 
 De todos modos, cuando se habla de seguridad, hay dos grandes partes: la autenticación y la autorización. La autenticación plantea la pregunta "¿quién eres? Y "¿puedes demostrarlo?" Los usuarios, los formularios de inicio de sesión, las cookies "recuérdame", las contraseñas, las claves API... todo eso está relacionado con la autenticación.
 
