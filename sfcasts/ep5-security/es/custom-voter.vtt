@@ -1,0 +1,344 @@
+WEBVTT
+
+00:00:01.036 --> 00:00:06.356 align:middle
+Para que el sistema de seguridad entienda lo que
+significa cuando comprobamos el acceso a EDIT
+
+00:00:06.356 --> 00:00:09.726 align:middle
+en un objeto Question, necesitamos
+un votante personalizado.
+
+00:00:10.316 --> 00:00:13.706 align:middle
+Y... para ayudarnos, podemos generar esto.
+
+00:00:14.276 --> 00:00:20.356 align:middle
+Busca tu terminal y ejecuta: symfony console
+make:voter Llamémoslo QuestionVoter.
+
+00:00:20.976 --> 00:00:27.116 align:middle
+A menudo tengo una clase de votante por objeto en
+mi sistema del que necesito comprobar el acceso.
+
+00:00:27.736 --> 00:00:28.976 align:middle
+Y... ¡listo!
+
+00:00:29.546 --> 00:00:35.306 align:middle
+Vamos a comprobarlo:
+src/Security/Voter/QuestionVoter.php:
+
+00:00:35.306 --> 00:00:40.326 align:middle
+Como siempre, la ubicación de esta
+clase no supone ninguna diferencia.
+
+00:00:41.006 --> 00:00:44.896 align:middle
+Lo importante es que nuestro
+votante implementa VoterInterface.
+
+00:00:45.316 --> 00:00:46.856 align:middle
+Bueno, no directamente...
+
+00:00:46.936 --> 00:00:52.806 align:middle
+pero si abres la clase principal que extendemos,
+puedes ver que implementa VoterInterface . La cuestión
+
+00:00:53.546 --> 00:00:58.426 align:middle
+es: en cuanto creemos una clase
+que implemente VoterInterface,
+
+00:00:58.796 --> 00:01:01.616 align:middle
+cada vez que se llame al
+sistema de autorización,
+
+00:01:02.096 --> 00:01:07.316 align:middle
+Symfony llamará ahora a nuestro método
+supports() y básicamente preguntará: ¡Oye!
+
+00:01:07.616 --> 00:01:13.186 align:middle
+¿Entiendes cómo se vota en este
+$attribute y en este $subject?
+
+00:01:14.306 --> 00:01:19.186 align:middle
+Para nosotros, voy a decir si
+in_array($attribute, ['EDIT']).
+
+00:01:19.806 --> 00:01:24.066 align:middle
+Así que básicamente, si el
+atributo que se pasa es igual a EDIT:
+
+00:01:24.516 --> 00:01:31.186 align:middle
+Sólo estoy utilizando una matriz por si más adelante
+admitimos otros atributos en este votante, como DELETE. De
+
+00:01:31.936 --> 00:01:38.186 align:middle
+todos modos, si el $attribute es EDIT y
+el $subject es una instancia de Question,
+
+00:01:38.356 --> 00:01:41.886 align:middle
+entonces sí, sabemos cómo votar esto:
+
+00:01:42.646 --> 00:01:47.656 align:middle
+Si devolvemos false, significa que
+nuestro votante se "abstendrá" de votar.
+
+00:01:48.246 --> 00:01:52.996 align:middle
+Pero si devolvemos true, entonces
+Symfony llama a voteOnAttribute():
+
+00:01:53.906 --> 00:02:00.356 align:middle
+Muy sencillo, tenemos que tomar el atributo
+-en nuestro caso EDIT - y el $subject
+
+00:02:00.616 --> 00:02:04.496 align:middle
+-en nuestro caso un objeto
+Question - y determinar si
+
+00:02:04.496 --> 00:02:08.906 align:middle
+el usuario debe o no tener
+acceso devolviendo true o false.
+
+00:02:09.816 --> 00:02:13.056 align:middle
+Voy a empezar añadiendo algunas
+cosas que ayudarán a mi editor.
+
+00:02:13.546 --> 00:02:19.736 align:middle
+En primer lugar, para obtener el objeto User actual,
+utiliza este $token y llama a $token->getUser():
+
+00:02:20.536 --> 00:02:25.206 align:middle
+El único problema es que mi editor
+no sabe que se trata de una instancia
+
+00:02:25.266 --> 00:02:30.996 align:middle
+de mi clase específica User: sólo sabe
+que se trata de algún UserInterface.
+
+00:02:31.616 --> 00:02:35.906 align:middle
+Para ayudar, añadiré @var
+User $user por encima de esto:
+
+00:02:36.586 --> 00:02:39.496 align:middle
+Incluso mejor, podría añadir
+una sentencia if para comprobar
+
+00:02:39.626 --> 00:02:44.146 align:middle
+si $user no es una instancia de
+User y lanzar una excepción:
+
+00:02:44.876 --> 00:02:47.086 align:middle
+De hecho, lo haré aquí abajo.
+
+00:02:47.616 --> 00:02:51.806 align:middle
+Sabemos que $subject será una
+instancia de nuestra clase Question.
+
+00:02:52.546 --> 00:02:58.146 align:middle
+Para ayudar a nuestro editor a saber eso, digamos
+que si no $subject es un instanceof Question ,
+
+00:02:58.746 --> 00:03:03.846 align:middle
+entonces lanzamos un nuevo Exception y simplemente
+decimos "se ha pasado un tipo equivocado":
+
+00:03:04.586 --> 00:03:07.526 align:middle
+Eso no debería ocurrir nunca, pero
+estamos codificando a la defensiva.
+
+00:03:07.986 --> 00:03:14.186 align:middle
+Y lo que es más importante, mi editor -o
+herramientas de análisis estático como PHPStan-
+
+00:03:14.476 --> 00:03:18.016 align:middle
+sabrá ahora de qué tipo
+es la variable $subject.
+
+00:03:18.986 --> 00:03:25.086 align:middle
+Por último, aquí abajo, el código generado tiene un
+caso de conmutación para manejar múltiples atributos.
+
+00:03:25.826 --> 00:03:27.516 align:middle
+Eliminaré el segundo caso...
+
+00:03:27.836 --> 00:03:29.506 align:middle
+y haré que el primer caso sea EDIT.
+
+00:03:29.946 --> 00:03:34.026 align:middle
+Y... Ni siquiera necesito el
+break porque voy a devolver true
+
+00:03:34.166 --> 00:03:38.146 align:middle
+si $user es igual a $subject->getOwner():
+
+00:03:38.976 --> 00:03:39.636 align:middle
+¡Vamos a probarlo!
+
+00:03:40.016 --> 00:03:42.516 align:middle
+De vuelta al navegador, no estoy conectado.
+
+00:03:43.076 --> 00:03:44.626 align:middle
+Así que si volvemos...
+
+00:03:44.976 --> 00:03:46.616 align:middle
+a la página de la pregunta...
+
+00:03:47.376 --> 00:03:48.496 align:middle
+y hacemos clic en "editar"...
+
+00:03:49.376 --> 00:03:51.136 align:middle
+el acceso sigue siendo denegado.
+
+00:03:51.876 --> 00:03:54.446 align:middle
+Entra con nuestro usuario normal.
+
+00:03:55.446 --> 00:03:56.486 align:middle
+Y entonces...
+
+00:03:57.566 --> 00:03:59.456 align:middle
+el acceso sigue siendo denegado...
+
+00:03:59.646 --> 00:04:00.656 align:middle
+lo que tiene sentido.
+
+00:04:01.116 --> 00:04:02.556 align:middle
+Somos un usuario administrador...
+
+00:04:02.746 --> 00:04:05.416 align:middle
+pero no somos el propietario de esta pregunta.
+
+00:04:06.266 --> 00:04:08.526 align:middle
+¡Así que vamos a entrar como el propietario!
+
+00:04:09.156 --> 00:04:11.816 align:middle
+Vuelve a la página de inicio
+y haz clic en una pregunta.
+
+00:04:12.676 --> 00:04:16.726 align:middle
+Para que sea más evidente qué usuario
+es el propietario, abre temporalmente
+
+00:04:16.726 --> 00:04:22.046 align:middle
+templates/question/show.html.twig y...
+
+00:04:22.046 --> 00:04:28.526 align:middle
+aquí abajo, después del nombre mostrado, sólo para
+ayudar a la depuración, imprime question.owner.email:
+
+00:04:30.336 --> 00:04:31.346 align:middle
+Y... genial.
+
+00:04:32.016 --> 00:04:35.616 align:middle
+Copia el correo electrónico y
+¡utilicemos la suplantación!
+
+00:04:36.176 --> 00:04:44.066 align:middle
+Al final de la URL, añade ?_switch_user=,
+pega ese correo electró nico y...
+
+00:04:44.406 --> 00:04:48.246 align:middle
+¡boom! ¡El acceso está garantizado
+gracias a nuestro votante!
+
+00:04:48.936 --> 00:04:49.936 align:middle
+Podemos probarlo.
+
+00:04:50.376 --> 00:04:52.646 align:middle
+Entra en el perfilador y
+desplázate hacia abajo.
+
+00:04:53.836 --> 00:04:58.936 align:middle
+Aquí está: acceso concedido
+para EDIT de este objeto Question.
+
+00:04:59.536 --> 00:05:00.796 align:middle
+Me encanta esto.
+
+00:05:01.536 --> 00:05:07.516 align:middle
+Ahora que tenemos este genial sistema de votantes, podemos
+ocultar y mostrar inteligentemente el botón de edición. De
+
+00:05:08.046 --> 00:05:12.436 align:middle
+vuelta a show.html.twig,
+envuelve la etiqueta de anclaje
+
+00:05:12.436 --> 00:05:17.786 align:middle
+con if is_granted() pasando la
+cadena EDIT y el objeto pregunta:
+
+00:05:18.686 --> 00:05:19.786 align:middle
+¿No es genial?
+
+00:05:20.916 --> 00:05:23.926 align:middle
+Deberíamos seguir teniendo acceso, y...
+
+00:05:23.926 --> 00:05:26.976 align:middle
+cuando actualizamos, sigue estando ahí.
+
+00:05:27.476 --> 00:05:29.916 align:middle
+Pero si salgo de la suplantación...
+
+00:05:30.276 --> 00:05:33.316 align:middle
+y vuelvo a hacer clic en
+la pregunta, ¡ya no está!
+
+00:05:34.046 --> 00:05:36.046 align:middle
+Pero tengo un reto más.
+
+00:05:36.636 --> 00:05:43.046 align:middle
+¿Podríamos hacer que se pueda editar una pregunta
+si eres el propietario o si tienes ROLE_ADMIN.
+
+00:05:43.636 --> 00:05:48.596 align:middle
+Claro que sí Para ello, en el votante,
+sólo tenemos que buscar ese rol.
+
+00:05:49.316 --> 00:05:52.156 align:middle
+Para ello, necesitamos un nuevo servicio.
+
+00:05:53.036 --> 00:05:57.336 align:middle
+Añade un constructor y autocablea el
+servicio Security desde el componente Symfony.
+
+00:05:57.876 --> 00:06:02.456 align:middle
+Voy a pulsar Alt+Enter y a ir a "Inicializar
+propiedades" para configurar las cosas:
+
+00:06:03.516 --> 00:06:05.226 align:middle
+Ya hemos hablado antes de
+este servicio: lo utilizamos
+
+00:06:05.676 --> 00:06:10.846 align:middle
+para obtener el objeto Usuario actualmente
+autenticado desde dentro de un servicio.
+
+00:06:11.546 --> 00:06:14.906 align:middle
+También se puede utilizar para comprobar la
+seguridad desde dentro de un servicio. Incluso antes
+
+00:06:15.646 --> 00:06:17.916 align:middle
+del caso del interruptor, añadamos: si
+$this->security->isGranted('ROLE_ADMIN')
+
+00:06:18.166 --> 00:06:25.276 align:middle
+entonces siempre devuelve true:
+Así los usuarios administradores
+
+00:06:26.006 --> 00:06:28.486 align:middle
+pueden hacer cualquier cosa. Oh, pero
+
+00:06:29.136 --> 00:06:33.226 align:middle
+, ¡no quería añadir ese
+signo de exclamación! Como
+
+00:06:34.206 --> 00:06:37.486 align:middle
+estamos conectados como
+usuario administrador.... , en
+
+00:06:37.956 --> 00:06:41.446 align:middle
+cuanto refresquemos, tendremos
+el botón de editar... y
+
+00:06:41.806 --> 00:06:43.536 align:middle
+funciona. ¡Qué bien!
+
+00:06:43.726 --> 00:06:50.696 align:middle
+Lo siguiente: Vamos a añadir un sistema de confirmación
+por correo electrónico a nuestro formulario de registro
