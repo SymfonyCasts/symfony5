@@ -1,0 +1,285 @@
+WEBVTT
+
+00:00:01.036 --> 00:00:03.196 align:middle
+Vamos a añadir un formulario
+de registro a nuestro sitio.
+
+00:00:03.616 --> 00:00:10.816 align:middle
+Los formularios de registro tienen algo curioso: ¡no
+tienen básicamente nada que ver con la seguridad!
+
+00:00:11.476 --> 00:00:18.826 align:middle
+Piénsalo: el objetivo de un formulario de registro es
+simplemente insertar nuevos usuarios en la base de datos.
+
+00:00:19.516 --> 00:00:24.586 align:middle
+Así que crear un formulario de registro no
+es realmente diferente de crear un formulario
+
+00:00:24.586 --> 00:00:27.266 align:middle
+para insertar cualquier
+dato en tu base de datos.
+
+00:00:27.976 --> 00:00:31.696 align:middle
+Y para simplificar aún más las
+cosas, vamos a hacer trampa...
+
+00:00:31.906 --> 00:00:33.436 align:middle
+generando código.
+
+00:00:33.986 --> 00:00:40.326 align:middle
+Busca tu terminal y ejecuta: symfony
+console make:registration-form ¡Ooh!
+
+00:00:40.326 --> 00:00:42.086 align:middle
+¡Esto nos da un error!
+
+00:00:42.626 --> 00:00:49.956 align:middle
+Dice: Missing packages: run composer require
+form validator En esta serie de Symfony 5,
+
+00:00:50.076 --> 00:00:52.566 align:middle
+no hemos hablado del componente Form.
+
+00:00:53.146 --> 00:00:58.406 align:middle
+Y eso es en parte porque no ha cambiado
+mucho desde nuestro tutorial de Symfony 4.
+
+00:00:59.116 --> 00:01:02.346 align:middle
+No vamos a entrar en demasiados
+detalles sobre él ahora,
+
+00:01:02.636 --> 00:01:04.726 align:middle
+pero lo necesitamos para ejecutar este comando.
+
+00:01:05.076 --> 00:01:12.156 align:middle
+Así que vamos a instalar ambos paquetes:
+composer require form validator Impresionante.
+
+00:01:12.486 --> 00:01:17.186 align:middle
+Cuando termine, ejecuta: symfony
+console make:registration-form de nuevo.
+
+00:01:17.966 --> 00:01:24.696 align:middle
+¡Genial! Así que la primera pregunta es: ¿Queremos
+añadir una anotación de validación @UniqueEntity
+
+00:01:24.696 --> 00:01:29.086 align:middle
+a nuestra clase User para asegurarnos
+de que no se crean cuentas duplicadas?
+
+00:01:29.786 --> 00:01:35.286 align:middle
+Casi seguro que quieres decir "Sí" para que
+el usuario reciba un error de valid ación
+
+00:01:35.476 --> 00:01:37.856 align:middle
+si introduce un correo
+electrónico que ya está cogido.
+
+00:01:38.686 --> 00:01:43.976 align:middle
+A continuación: ¿Quieres enviar un correo electrónico para verificar
+la dirección de correo electrónico del usuario después del registro?
+
+00:01:44.646 --> 00:01:48.056 align:middle
+Esto lo añadiremos más adelante,
+pero quiero hacerlo manualmente.
+
+00:01:48.226 --> 00:01:50.056 align:middle
+Así que di "No".
+
+00:01:50.746 --> 00:01:54.526 align:middle
+¿Quieres autentificar automáticamente
+al usuario tras el registro?
+
+00:01:55.046 --> 00:02:01.886 align:middle
+Eso suena genial, pero di "No", porque
+también vamos a hacerlo manualmente.
+
+00:02:02.266 --> 00:02:04.446 align:middle
+Lo sé, ¡nos estoy haciendo trabajar!
+
+00:02:05.246 --> 00:02:11.126 align:middle
+La última pregunta es: ¿A qué ruta debe
+ser redirigido el usuario tras el registro?
+
+00:02:11.736 --> 00:02:13.766 align:middle
+Vamos a utilizar nuestra
+ruta de la página de inicio.
+
+00:02:14.126 --> 00:02:16.556 align:middle
+Así que esa es la número 16 para mí.
+
+00:02:17.116 --> 00:02:18.556 align:middle
+Y... ¡listo!
+
+00:02:19.446 --> 00:02:23.686 align:middle
+Este comando nos acaba de dar un
+RegistrationController, un tipo de formulario,
+
+00:02:23.936 --> 00:02:26.356 align:middle
+y una plantilla que renderiza ese formulario.
+
+00:02:26.876 --> 00:02:29.056 align:middle
+Vamos a... ¡comprobarlo!
+
+00:02:29.786 --> 00:02:34.556 align:middle
+Empieza con el controlador:
+src/Controller/RegistrationController.php:
+
+00:02:34.556 --> 00:02:38.106 align:middle
+De nuevo, no vamos a hablar
+mucho del componente Formulario.
+
+00:02:38.516 --> 00:02:45.236 align:middle
+Pero, en un nivel alto, este controlador
+crea un objeto User y luego, al enviarlo,
+
+00:02:45.586 --> 00:02:50.456 align:middle
+hace un hash de la contraseña simple
+que se envió y luego guarda el User.
+
+00:02:51.016 --> 00:02:57.016 align:middle
+Esto es exactamente lo mismo que estamos haciendo
+en nuestros accesorios para crear usuarios:
+
+00:02:57.646 --> 00:02:59.986 align:middle
+no hay nada especial en esto.
+
+00:03:00.536 --> 00:03:03.046 align:middle
+Así que... ¡vamos a ver
+qué aspecto tiene esto!
+
+00:03:03.646 --> 00:03:06.786 align:middle
+Dirígete a /register para ver...
+
+00:03:07.116 --> 00:03:09.516 align:middle
+¡la forma más fea del mundo!
+
+00:03:09.876 --> 00:03:11.196 align:middle
+Nosotros... podemos hacerlo mejor.
+
+00:03:11.806 --> 00:03:17.016 align:middle
+La plantilla de esta página es
+registration/register.html.twig.
+
+00:03:17.786 --> 00:03:19.246 align:middle
+Ábrela: y...
+
+00:03:19.246 --> 00:03:23.076 align:middle
+Sólo voy a añadir un par de
+divs para darle más estructura.
+
+00:03:28.106 --> 00:03:28.656 align:middle
+Genial...
+
+00:03:29.206 --> 00:03:32.666 align:middle
+y luego indentar todo este material del
+formulario para que esté dentro de esos...
+
+00:03:33.446 --> 00:03:36.616 align:middle
+y luego sólo necesitamos 3 divs
+de cierre en la parte inferior:
+
+00:03:37.546 --> 00:03:40.386 align:middle
+Genial. Eso no arregla
+realmente el formulario...
+
+00:03:40.416 --> 00:03:44.756 align:middle
+pero al menos nuestro feo formulario
+aparece en el centro de la página.
+
+00:03:45.686 --> 00:03:49.286 align:middle
+Ah, pero déjame arreglar mi
+error tipográfico en el mt-4.
+
+00:03:50.426 --> 00:03:52.696 align:middle
+Y... sí, eso se ve mejor.
+
+00:03:53.476 --> 00:03:57.286 align:middle
+Para arreglar el formulario en sí, podemos
+decirle a Symfony que haga salir el formulario
+
+00:03:57.316 --> 00:04:00.596 align:middle
+con un marcado que sea
+compatible con Bootstrap 5.
+
+00:04:01.486 --> 00:04:01.976 align:middle
+Esto es...
+
+00:04:02.176 --> 00:04:05.756 align:middle
+un poco un tema para el tutorial
+del formulario, pero es fácil.
+
+00:04:06.256 --> 00:04:09.026 align:middle
+Ve a config/packages/twig.yaml.
+
+00:04:09.616 --> 00:04:18.376 align:middle
+Aquí, añade una opción llamada form_themes con
+un nuevo elemento: boostrap_5_layout.html.twig:
+
+00:04:19.316 --> 00:04:20.956 align:middle
+Pruébalo ahora y...
+
+00:04:22.046 --> 00:04:24.886 align:middle
+¡woh! ¡Eso ha supuesto una gran diferencia!
+
+00:04:25.616 --> 00:04:29.516 align:middle
+Oh, pero déjame añadir una clase
+más a ese botón de registro...
+
+00:04:29.516 --> 00:04:33.476 align:middle
+para que no sea invisible: btn-primary:
+
+00:04:35.806 --> 00:04:40.126 align:middle
+Genial. Y mientras hacemos que las
+cosas se vean y funcionen bien,
+
+00:04:40.416 --> 00:04:43.426 align:middle
+por fin podemos hacer que
+el botón de "Registrarse"..
+
+00:04:43.646 --> 00:04:45.176 align:middle
+vaya realmente a alguna parte.
+
+00:04:45.806 --> 00:04:53.356 align:middle
+En base.html.twig, busca "Apúntate"
+- aquí está - pon el href en path()
+
+00:04:53.886 --> 00:04:56.926 align:middle
+y apunta a la nueva ruta, que...
+
+00:04:56.926 --> 00:04:57.926 align:middle
+si nos fijamos...
+
+00:04:58.176 --> 00:04:59.996 align:middle
+se llama app_register:
+
+00:05:00.456 --> 00:05:02.956 align:middle
+Así que path('app_register'):
+
+00:05:03.706 --> 00:05:04.256 align:middle
+¡Genial!
+
+00:05:04.976 --> 00:05:07.606 align:middle
+Esto funcionará ahora si lo probamos.
+
+00:05:08.046 --> 00:05:12.876 align:middle
+Pero, antes de hacerlo, quiero
+añadir otra función a esto.
+
+00:05:13.446 --> 00:05:16.216 align:middle
+Después de enviar con éxito
+el formulario de registro,
+
+00:05:16.496 --> 00:05:19.486 align:middle
+quiero autentificar
+automáticamente al usuario.
+
+00:05:20.286 --> 00:05:21.426 align:middle
+¿Es posible?
+
+00:05:21.426 --> 00:05:22.536 align:middle
+Por supuesto
+
+00:05:22.876 --> 00:05:24.366 align:middle
+Hagámoslo a continuación
