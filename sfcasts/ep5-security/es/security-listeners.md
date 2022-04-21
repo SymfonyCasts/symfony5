@@ -1,4 +1,4 @@
-# Eventos y escuchas de seguridad
+# Seguridad Eventos y Listeners
 
 Si has utilizado Symfony durante un tiempo, probablemente sabrás que Symfony envía eventos durante el proceso de petición-respuesta y que puedes escucharlos. Para ver estos eventos y sus oyentes, podemos ejecutar:
 
