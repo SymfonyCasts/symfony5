@@ -1,0 +1,171 @@
+WEBVTT
+
+00:00:01.016 --> 00:00:05.056 align:middle
+Hay muchas maneras de permitir
+que tus usuarios se registren...
+
+00:00:05.346 --> 00:00:08.986 align:middle
+una de ellas es un formulario de acceso que
+cargue los usuarios desde la base de datos.
+
+00:00:09.546 --> 00:00:11.636 align:middle
+Eso es lo que vamos a construir primero.
+
+00:00:12.516 --> 00:00:17.846 align:middle
+La forma más sencilla de construir un sistema de formulario
+de acceso es ejecutando un comando symfony console make:auth.
+
+00:00:18.416 --> 00:00:21.326 align:middle
+Eso generará todo lo que necesitas.
+
+00:00:21.786 --> 00:00:27.686 align:middle
+Pero como queremos aprender realmente la
+seguridad, vamos a hacerlo paso a paso...
+
+00:00:27.916 --> 00:00:29.346 align:middle
+principalmente a mano.
+
+00:00:30.176 --> 00:00:32.646 align:middle
+Antes de empezar a pensar en
+la autenticación del usuario,
+
+00:00:32.876 --> 00:00:36.246 align:middle
+primero tenemos que construir una
+página de inicio de sesión, que... si
+
+00:00:36.586 --> 00:00:37.706 align:middle
+lo piensas...
+
+00:00:37.936 --> 00:00:40.236 align:middle
+¡no tiene nada que ver con la seguridad!
+
+00:00:40.586 --> 00:00:45.526 align:middle
+No es más que una ruta normal de Symfony, un controlador
+y una plantilla que muestra un formulario. Vamos a
+
+00:00:46.416 --> 00:00:47.986 align:middle
+hacer un poco de trampa
+para hacer esto. Ejecuta:
+
+00:00:48.316 --> 00:00:53.106 align:middle
+symfony console make:controller
+Respuesta SecurityController. ¡Genial!
+
+00:00:55.076 --> 00:01:00.966 align:middle
+Ve a abrir la nueva clase:
+src/Controller/SecurityController.php: Aquí no hay nada
+
+00:01:00.966 --> 00:01:02.756 align:middle
+demasiado sofisticado. Vamos a
+
+00:01:03.446 --> 00:01:10.016 align:middle
+personalizarla para que sea una página de inicio de sesión:
+establece la URL como /login, llama a la ruta app_login y
+
+00:01:10.416 --> 00:01:12.686 align:middle
+cambia el nombre del método a login(): Para
+
+00:01:13.666 --> 00:01:17.826 align:middle
+la plantilla, llámala
+security/login.html.twig... y
+
+00:01:18.106 --> 00:01:20.146 align:middle
+no pases ninguna variable por ahora: Abajo,
+
+00:01:20.916 --> 00:01:24.336 align:middle
+en el directorio templates/,
+abre templates/security/ ... y
+
+00:01:26.976 --> 00:01:30.606 align:middle
+cambia el nombre de la plantilla
+a login.html.twig: Para
+
+00:01:32.476 --> 00:01:38.226 align:middle
+empezar, voy a sustituir completamente esta
+plantilla y a pegar una nueva estructura:
+
+00:01:38.516 --> 00:01:41.166 align:middle
+puedes copiarla del bloque
+de código de esta página:
+
+00:01:41.936 --> 00:01:47.486 align:middle
+Aquí no hay nada del otro mundo: extendemos
+base.html.twig, anulamos el bloque title... y
+
+00:01:48.006 --> 00:01:52.626 align:middle
+tenemos un formulario que envía
+un POST de vuelta a /login.
+
+00:01:53.296 --> 00:01:58.166 align:middle
+No tiene un atributo action, lo que significa que
+se envía de vuelta a esta misma URL. El formulario
+
+00:01:59.046 --> 00:02:05.156 align:middle
+tiene dos campos -de entrada name="email" y de entrada
+name="password" - y un botón de envío... todo ello
+
+00:02:05.476 --> 00:02:08.386 align:middle
+con clases de Bootstrap 5 para
+que tenga un buen aspecto. Vamos a
+
+00:02:09.206 --> 00:02:12.136 align:middle
+añadir un enlace a esta página
+desde base.html.twig. Busca
+
+00:02:12.476 --> 00:02:14.096 align:middle
+el registro. Genial.
+
+00:02:14.576 --> 00:02:21.826 align:middle
+Justo antes de esto, añade un enlace con {{
+path('app_login') }}, que diga "Log In"... y
+
+00:02:22.416 --> 00:02:25.586 align:middle
+dale algunas clases para
+que se vea bien: ¡Vamos a
+
+00:02:26.516 --> 00:02:27.156 align:middle
+comprobarlo! Actualiza
+
+00:02:27.546 --> 00:02:28.526 align:middle
+la página de inicio... y
+
+00:02:28.526 --> 00:02:31.416 align:middle
+haz clic en el enlace. ¡ Hola
+
+00:02:32.176 --> 00:02:33.646 align:middle
+página de inicio de sesión! Y por
+
+00:02:34.346 --> 00:02:37.816 align:middle
+supuesto, si rellenamos el formulario y
+lo enviamos... ¡no pasa absolutamente
+
+00:02:39.116 --> 00:02:41.676 align:middle
+nada! Eso
+
+00:02:42.146 --> 00:02:43.506 align:middle
+tiene sentido. Se
+
+00:02:43.846 --> 00:02:46.576 align:middle
+envía de nuevo a /login... pero
+
+00:02:47.176 --> 00:02:50.816 align:middle
+como todavía no tenemos ninguna lógica
+de procesamiento de formularios... la
+
+00:02:51.046 --> 00:02:52.916 align:middle
+página simplemente se
+vuelve a presentar. Así que
+
+00:02:53.856 --> 00:02:56.766 align:middle
+lo siguiente: vamos a escribir ese
+código de procesamiento. Pero...
+
+00:02:57.256 --> 00:02:58.416 align:middle
+¡sorpresa!
+
+00:02:58.636 --> 00:03:00.356 align:middle
+No vivirá en el controlador. Es
+
+00:03:00.726 --> 00:03:05.796 align:middle
+hora de crear un autentificador y aprender
+todo sobre los cortafuegos de Symfony
