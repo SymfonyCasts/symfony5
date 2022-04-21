@@ -1,0 +1,205 @@
+WEBVTT
+
+00:00:01.036 --> 00:00:03.896
+Si has utilizado Symfony durante
+un tiempo, probablemente sabrás
+
+00:00:03.896 --> 00:00:08.696
+que Symfony envía eventos durante
+el proceso de petición-respuesta
+
+00:00:08.926 --> 00:00:10.746
+y que puedes escucharlos.
+
+00:00:11.646 --> 00:00:18.116
+Para ver estos eventos y sus oyentes, podemos
+ejecutar: symfony console debug:event No voy a
+
+00:00:18.116 --> 00:00:22.586
+profundizar demasiado, pero, este
+evento kernel.request se despacha
+
+00:00:22.676 --> 00:00:26.146
+en cada petición antes de
+que se llame al controlador.
+
+00:00:26.906 --> 00:00:31.026
+Esto significa que todos estos oyentes se
+ejecutan antes que nuestro controlador.
+
+00:00:31.536 --> 00:00:35.996
+Los oyentes de este evento kernel.response
+son llamados después de nuestr o controlador.
+
+00:00:36.876 --> 00:00:38.476
+Estos dos eventos no tienen...
+
+00:00:38.476 --> 00:00:40.736
+nada que ver con el sistema de seguridad.
+
+00:00:41.236 --> 00:00:47.996
+Pero resulta que nuestro cortafuegos
+también envía varios eventos durante el
+
+00:00:47.996 --> 00:00:49.826
+proceso de autenticación.
+
+00:00:50.436 --> 00:00:52.896
+Y también podemos escucharlos.
+
+00:00:53.786 --> 00:00:59.116
+Para ver una lista de todos los oyentes de estos
+eventos, podemos ejecutar de nuevo debug:event,
+
+00:00:59.766 --> 00:01:07.156
+pero con un --dispatcher= especial
+fijado en security.event_dispatcher.main:
+
+00:01:07.766 --> 00:01:09.756
+Lo sé, parece un poco raro...
+
+00:01:09.816 --> 00:01:12.796
+pero esto nos permite listar
+los oyentes de eventos del
+
+00:01:12.796 --> 00:01:17.086
+despachador de eventos
+específico del cortafuegos main.
+
+00:01:17.846 --> 00:01:19.646
+Y... ¡impresionante!
+
+00:01:19.876 --> 00:01:22.946
+Un conjunto de eventos y
+oyentes totalmente diferente.
+
+00:01:23.476 --> 00:01:24.926
+Esto es genial.
+
+00:01:25.616 --> 00:01:28.966
+Vuelve a mirar nuestra clase
+personalizada LoginFormAuthenticator.
+
+00:01:29.936 --> 00:01:33.066
+Ya no la utilizamos, pero
+puede ayudarnos a entender
+
+00:01:33.066 --> 00:01:35.886
+qué eventos se envían a través del proceso.
+
+00:01:36.586 --> 00:01:41.386
+Sabemos que, en nuestro método authenticate(),
+nuestro trabajo es devolver el Passport:
+
+00:01:42.046 --> 00:01:46.406
+Entonces, después de llamar al método
+authenticate() -en cualquier autentificador-
+
+00:01:46.676 --> 00:01:50.086
+Symfony despacha CheckPassportEvent.
+
+00:01:50.776 --> 00:01:53.816
+Hay un montón de oyentes
+interesantes para esto.
+
+00:01:54.476 --> 00:01:59.616
+Por ejemplo, UserProviderListener es básicamente
+responsable de cargar el objeto User,
+
+00:02:00.146 --> 00:02:03.726
+CheckCredentialsListener es responsable
+de comprobar la contraseña,
+
+00:02:04.246 --> 00:02:10.546
+CsrfProtectionListener valida el token
+CSRF y LoginThrottlingListener comprueba...
+
+00:02:10.746 --> 00:02:11.816
+el estrangulamiento del inicio de sesión.
+
+00:02:12.666 --> 00:02:18.656
+Si fallamos en la autenticación, hay un
+evento diferente para eso: LoginFailureEvent.
+
+00:02:19.386 --> 00:02:23.446
+Ahora mismo, nuestra aplicación sólo
+tiene un oyente - RememberMeListener -
+
+00:02:23.846 --> 00:02:27.046
+que borra la cookie "recuérdame"
+si el usuario tenía una.
+
+00:02:27.846 --> 00:02:32.726
+Cuando el inicio de sesión tiene
+éxito, Symfony envía LoginSuccessEvent.
+
+00:02:33.536 --> 00:02:37.986
+Esto ya tiene 5 oyentes en nuestra
+aplicación, incluyendo el oyente
+
+00:02:37.986 --> 00:02:40.016
+que establece la cookie "recuérdame".
+
+00:02:41.176 --> 00:02:44.026
+También hay un evento que se despacha
+cuando se cierra la sesión...
+
+00:02:44.396 --> 00:02:51.436
+para que puedas ejecutar código o incluso controlar
+lo que ocurre, como a dónde se redirige al usuario.
+
+00:02:52.206 --> 00:02:56.826
+El siguiente - TokenDeauthenticatedEvent
+- es un poco más sutil.
+
+00:02:57.606 --> 00:03:01.056
+Se envía si el usuario
+"pierde" la autenticación...
+
+00:03:01.306 --> 00:03:02.716
+pero no cierra la sesión.
+
+00:03:03.266 --> 00:03:07.486
+Básicamente se envía si cambian
+ciertos datos del usuario.
+
+00:03:08.276 --> 00:03:11.486
+Por ejemplo, imagina que estás
+conectado en dos ordenadores
+
+00:03:11.726 --> 00:03:14.726
+y luego cambias tu contraseña en el primero.
+
+00:03:15.276 --> 00:03:20.476
+Cuando actualices el sitio en el segundo
+ordenador, serás "desautenticado"
+
+00:03:20.556 --> 00:03:23.456
+porque tu contraseña ha
+cambiado en otra máquina.
+
+00:03:24.176 --> 00:03:27.126
+En ese caso, se envía este evento.
+
+00:03:28.046 --> 00:03:32.516
+Ah, y este security.authentication.success
+no es demasiado importante, es
+
+00:03:33.116 --> 00:03:35.986
+muy similar a LoginSuccessEvent.
+
+00:03:36.746 --> 00:03:42.886
+Conocer estos eventos es fundamental porque
+quiero hacer que si el usuario intenta
+
+00:03:42.886 --> 00:03:50.176
+iniciar sesión con un correo electrónico que no ha sido
+verificado, lo impidamos y le mostremos un bonito mensaje. Para
+
+00:03:50.936 --> 00:03:55.456
+ello, vamos a poner en marcha
+nuestro propio receptor de eventos
+
+00:03:55.646 --> 00:03:59.186
+que tiene la capacidad de hacer
+que la autenticación falle
