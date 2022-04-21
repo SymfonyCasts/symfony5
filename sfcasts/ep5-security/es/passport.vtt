@@ -32,8 +32,8 @@ esa petición y hará todo
 el trabajo por sí mismo.
 
 00:00:33.376 --> 00:00:39.156 align:middle
-Sí, cuando enviemos el formulario de inicio de
-sesión, nuestro controlador no se ejecutará nunca.
+Sí, cuando enviemos el formulario de inicio de sesión,
+nuestro controlador en realidad nunca se ejecutará.
 
 00:00:39.916 --> 00:00:43.776 align:middle
 Ahora que nuestro autentificador está
