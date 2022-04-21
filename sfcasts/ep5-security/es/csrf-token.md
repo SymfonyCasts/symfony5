@@ -1,4 +1,4 @@
-# Sistema de escucha de seguridad y protección Csrf
+# Sistema de eventos de seguridad y protección Csrf
 
 Después de devolver el objeto `Passport`, sabemos que ocurren dos cosas. En primer lugar, el`UserBadge` se utiliza para obtener el objeto `User`:
 
