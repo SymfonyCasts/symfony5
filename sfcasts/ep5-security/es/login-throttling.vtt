@@ -1,0 +1,315 @@
+WEBVTT
+
+00:00:01.096 --> 00:00:04.986 align:middle
+El sistema de seguridad de Symfony
+viene repleto de cosas interesantes,
+
+00:00:05.246 --> 00:00:08.546 align:middle
+como recordarme, suplantación
+de identidad y votantes.
+
+00:00:09.276 --> 00:00:14.456 align:middle
+Incluso tiene soporte incorporado para un
+autentificador de "enlace de inicio de sesión ",
+
+00:00:14.886 --> 00:00:17.486 align:middle
+también conocido como "enlaces
+mágicos de inicio de sesión".
+
+00:00:18.106 --> 00:00:22.726 align:middle
+En este caso, envías un enlace por correo electrónico a
+tu usuario y éste hace clic en él para iniciar la sesión.
+
+00:00:23.576 --> 00:00:28.886 align:middle
+Otra función muy interesante es el estrangulamiento
+del inicio de sesión: una forma de evitar que alguien
+
+00:00:28.886 --> 00:00:33.936 align:middle
+de una única dirección IP pruebe las
+contraseñas una y otra vez en tu sitio...
+
+00:00:34.246 --> 00:00:38.286 align:middle
+intentando iniciar sesión una y otra vez.
+
+00:00:38.776 --> 00:00:40.976 align:middle
+Y es súper fácil de usar.
+
+00:00:41.676 --> 00:00:45.946 align:middle
+Bajo tu cortafuegos, habilítalo
+con login_throttling: true:
+
+00:00:46.806 --> 00:00:48.426 align:middle
+Si te detienes ahí mismo...
+
+00:00:48.836 --> 00:00:52.686 align:middle
+y actualizaras cualquier
+página, obtendrías un error:
+
+00:00:53.106 --> 00:00:56.166 align:middle
+El estrangulamiento del inicio de sesión
+requiere el componente Rate Limiter.
+
+00:00:56.746 --> 00:00:59.536 align:middle
+¡ Y luego un útil comando para
+
+00:00:59.806 --> 00:01:03.656 align:middle
+instalarlo! ¡Muy bien!
+Cópialo, gira a tu terminal y
+
+00:01:03.886 --> 00:01:10.446 align:middle
+ejecútalo: composer require symfony/rate-limiter
+Este paquete también instala un paquete
+
+00:01:10.446 --> 00:01:14.556 align:middle
+llamado symfony/lock, que tiene una
+
+00:01:15.146 --> 00:01:17.286 align:middle
+receta. Ejecuta: git status para ver lo que ha
+
+00:01:18.276 --> 00:01:19.016 align:middle
+hecho.
+
+00:01:19.576 --> 00:01:27.286 align:middle
+Es interesante. Creó un nuevo config/packages/lock.yaml,
+y también modificó nuestro archivo .env
+
+00:01:28.216 --> 00:01:30.256 align:middle
+. Para hacer un seguimiento
+de los intentos de acceso
+
+00:01:30.786 --> 00:01:34.516 align:middle
+, el sistema de estrangulamiento
+necesita almacenar esos datos
+
+00:01:35.106 --> 00:01:38.266 align:middle
+en algún lugar. Para ello utiliza
+el componente symfony/lock.
+
+00:01:39.196 --> 00:01:42.046 align:middle
+Dentro de nuestro archivo .env, en la
+
+00:01:42.376 --> 00:01:49.246 align:middle
+parte inferior, hay una nueva variable
+de entorno LOCK_DSN que se establece en
+
+00:01:50.126 --> 00:01:50.956 align:middle
+semaphore: Un
+
+00:01:50.996 --> 00:01:57.716 align:middle
+semáforo... es básicamente una forma súper fácil
+de almacenar estos datos si sólo tienes un único
+
+00:01:58.576 --> 00:02:03.276 align:middle
+servidor. Si necesitas algo más avanzado,
+consulta la documentación de symfony/lock
+
+00:02:03.916 --> 00:02:07.916 align:middle
+: muestra todas las diferentes opciones
+de almacenamiento con sus pros y sus
+
+00:02:08.246 --> 00:02:10.936 align:middle
+contras. Pero esto nos vendrá muy bien.
+
+00:02:11.906 --> 00:02:15.426 align:middle
+Así pues, el paso 1 fue añadir la
+configuración de login_throttling.
+
+00:02:15.976 --> 00:02:18.666 align:middle
+El paso 2 fue instalar el componente Rate
+
+00:02:19.256 --> 00:02:20.796 align:middle
+Limiter. Y el paso 3 es...
+
+00:02:21.166 --> 00:02:23.146 align:middle
+¡disfrutar de
+
+00:02:23.566 --> 00:02:24.716 align:middle
+la función! Sí, ¡ hemos
+
+00:02:25.356 --> 00:02:27.856 align:middle
+terminado! Refrescar. No hay
+
+00:02:28.616 --> 00:02:33.296 align:middle
+más errores. Por defecto, esto sólo
+permitirá 5 intentos de acceso consecutivos
+
+00:02:33.466 --> 00:02:37.566 align:middle
+para el mismo correo
+electrónico y dirección IP
+
+00:02:38.316 --> 00:02:39.066 align:middle
+por minuto. Vamos a
+
+00:02:39.706 --> 00:02:47.426 align:middle
+probarlo. Uno, dos, tres, cuatro,
+
+00:02:48.146 --> 00:02:50.746 align:middle
+cinco y... ¡el sexto
+
+00:02:51.376 --> 00:02:53.436 align:middle
+es rechazado! Nos bloquea durante
+
+00:02:54.146 --> 00:02:57.326 align:middle
+1 minuto. Tanto el máximo de
+intentos como el intervalo se pueden
+
+00:02:57.846 --> 00:02:59.326 align:middle
+configurar. De hecho, podemos
+
+00:02:59.756 --> 00:03:05.506 align:middle
+verlo. En tu terminal, ejecuta:
+symfony console debug:config
+
+00:03:05.576 --> 00:03:07.526 align:middle
+security Y...
+
+00:03:07.946 --> 00:03:08.486 align:middle
+busca login_throttling. Ahí
+
+00:03:09.306 --> 00:03:14.606 align:middle
+está. Sí, este max_attempts está
+predeterminado a 5 y interval a
+
+00:03:15.516 --> 00:03:20.586 align:middle
+1 minuto. Ah, y por cierto, esto
+también bloqueará que la misma
+
+00:03:20.716 --> 00:03:25.586 align:middle
+dirección IP haga 5 veces el max_attempts para
+
+00:03:26.366 --> 00:03:32.536 align:middle
+cualquier correo electrónico. En otras palabras, si la misma dirección
+IP intentara rápidamente 25 correos electrónicos diferentes,
+
+00:03:32.816 --> 00:03:34.326 align:middle
+los seguiría bloqueando.
+
+00:03:34.326 --> 00:03:38.236 align:middle
+Y si quieres una primera
+línea de defensa impresionante
+
+00:03:38.606 --> 00:03:42.216 align:middle
+, también te recomiendo
+encarecidamente que utilices algo
+
+00:03:42.636 --> 00:03:46.276 align:middle
+como Cloudflare, que puede bloquear a los
+malos usuarios incluso antes de que lleguen a
+
+00:03:46.606 --> 00:03:51.936 align:middle
+tu servidor... o activar las defensas
+si tu sitio es atacado desde muchas
+
+00:03:52.746 --> 00:03:55.826 align:middle
+direcciones IP. Así que...
+creo que esta función es
+
+00:03:56.266 --> 00:04:02.456 align:middle
+muy buena. Pero lo más
+interesante para nosotros es cómo
+
+00:04:02.996 --> 00:04:05.886 align:middle
+funciona entre bastidores. Funciona a
+través del sistema de escucha de Symfony.
+
+00:04:06.676 --> 00:04:10.986 align:middle
+Después de iniciar la
+sesión, ya sea con éxito
+
+00:04:11.436 --> 00:04:15.746 align:middle
+o sin éxito, se envían una
+serie de eventos a lo largo de
+
+00:04:16.276 --> 00:04:20.616 align:middle
+ese proceso. Podemos engancharnos a
+esos eventos para hacer todo tipo de
+
+00:04:21.296 --> 00:04:25.376 align:middle
+cosas interesantes. Por ejemplo, la clase que contiene
+la lógica de la aceleración del inicio de sesión
+
+00:04:25.376 --> 00:04:27.656 align:middle
+se
+
+00:04:28.536 --> 00:04:29.986 align:middle
+llama LoginThrottlingListener.
+Vamos a.. . ¡abrirla
+
+00:04:30.746 --> 00:04:35.936 align:middle
+! Pulsa Shift+Shift y abre
+LoginThrottlingListener.php.
+
+00:04:36.036 --> 00:04:40.336 align:middle
+Espectacular. Los detalles dentro de
+esto no son demasiado importantes.
+
+00:04:41.036 --> 00:04:43.586 align:middle
+Puedes ver que utiliza algo
+llamado limitador de velocidad...
+
+00:04:43.946 --> 00:04:47.586 align:middle
+que se encarga de comprobar
+si se ha alcanzado el límite.
+
+00:04:48.406 --> 00:04:53.216 align:middle
+En última instancia, si se ha alcanzado
+el límite, lanza esta excepción,
+
+00:04:53.676 --> 00:04:55.786 align:middle
+que provoca el mensaje que hemos visto.
+
+00:04:56.646 --> 00:05:02.716 align:middle
+Para los que estén atentos, esa excepción
+se extiende a AuthenticationException...
+
+00:05:03.536 --> 00:05:08.426 align:middle
+y recuerda que puedes lanzar un
+AuthenticationException en cualquier punto
+
+00:05:08.426 --> 00:05:11.226 align:middle
+del proceso de autenticación para que falle.
+
+00:05:12.116 --> 00:05:16.996 align:middle
+En cualquier caso, este método está
+escuchando un evento llamado CheckPassportEvent.
+
+00:05:17.616 --> 00:05:23.326 align:middle
+Éste se envía después de que se llame al método
+authenticate() desde cualquier autentificador.
+
+00:05:24.216 --> 00:05:27.586 align:middle
+En este punto, la autenticación
+aún no ha tenido éxito...
+
+00:05:27.976 --> 00:05:34.186 align:middle
+y el trabajo de la mayoría de los oyentes de
+CheckPassportEvent es hacer alguna comprobación extra
+
+00:05:34.316 --> 00:05:37.386 align:middle
+y fallar la autenticación si algo va mal.
+
+00:05:38.206 --> 00:05:42.526 align:middle
+Esta clase también escucha otro
+evento llamado LoginSuccessEvent...
+
+00:05:42.786 --> 00:05:49.186 align:middle
+que... bueno, es bastante obvio: se envía
+después de cualquier autenticación correcta.
+
+00:05:49.916 --> 00:05:53.076 align:middle
+Esto restablece el limitador
+de velocidad en caso de éxito.
+
+00:05:53.976 --> 00:05:59.676 align:middle
+Así que esto está muy bien, y es nuestra primera
+visión de cómo funciona el sistema de eventos.
+
+00:06:00.636 --> 00:06:05.046 align:middle
+A continuación, vamos a profundizar
+descubriendo que casi todas las partes
+
+00:06:05.046 --> 00:06:07.656 align:middle
+de la autenticación las realiza un oyente.
+
+00:06:08.046 --> 00:06:10.746 align:middle
+Entonces, crearemos el nuestro
