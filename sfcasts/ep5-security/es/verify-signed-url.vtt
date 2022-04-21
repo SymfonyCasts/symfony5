@@ -1,0 +1,367 @@
+WEBVTT
+
+00:00:01.016 --> 00:00:05.946 align:middle
+Ahora estamos generando una URL
+firmada que normalmente incluiríamos
+
+00:00:05.946 --> 00:00:12.206 align:middle
+en un correo electrónico de "confirmación de la dirección de
+correo electrónico" que enviamos al usuario tras el registro.
+
+00:00:12.206 --> 00:00:18.286 align:middle
+Para simplificar las cosas, sólo vamos a renderizar
+esa URL en la página después del registro.
+
+00:00:19.106 --> 00:00:21.096 align:middle
+Vamos a ver qué aspecto tiene.
+
+00:00:21.446 --> 00:00:22.606 align:middle
+Refresca y...
+
+00:00:22.876 --> 00:00:25.426 align:middle
+¡ah! ¡Un error de aspecto terrible!
+
+00:00:26.056 --> 00:00:32.266 align:middle
+Se ha configurado un enlace para un argumento
+llamado $formLoginAuthenticator en _defaults,
+
+00:00:32.486 --> 00:00:35.566 align:middle
+pero no se ha encontrado el
+argumento correspondiente.
+
+00:00:35.566 --> 00:00:41.326 align:middle
+Así que, hasta hace unos minutos, teníamos un
+argumento para nuestra acción register() que se llamaba
+
+00:00:41.376 --> 00:00:43.896 align:middle
+$formLoginAuthenticator.
+
+00:00:44.766 --> 00:00:50.076 align:middle
+En config/services.yaml, hemos
+configurado un "bind" global que decía
+
+00:00:50.706 --> 00:00:55.386 align:middle
+Siempre que un servicio autocableado tenga
+un argumento llamado $formLoginAuthenticator,
+
+00:00:55.636 --> 00:00:57.666 align:middle
+pasa este servicio.
+
+00:00:58.546 --> 00:01:03.866 align:middle
+Una de las cosas buenas de bind es que si no
+hay un argumento que coincida en ninguna parte
+
+00:01:03.866 --> 00:01:06.326 align:middle
+de nuestra aplicación, lanza una excepción.
+
+00:01:07.046 --> 00:01:10.796 align:middle
+Intenta asegurarse de que no estamos
+cometiendo una errata accidental.
+
+00:01:11.616 --> 00:01:13.246 align:middle
+En nuestra situación, nosotros...
+
+00:01:13.246 --> 00:01:15.426 align:middle
+ya no necesitamos ese argumento.
+
+00:01:15.716 --> 00:01:16.866 align:middle
+Así que lo eliminamos.
+
+00:01:17.506 --> 00:01:18.046 align:middle
+Y ahora...
+
+00:01:18.046 --> 00:01:22.886 align:middle
+¡nuestra página de registro está viva!
+
+00:01:23.906 --> 00:01:24.666 align:middle
+¡Hagamos esto!
+
+00:01:25.106 --> 00:01:30.936 align:middle
+Introduce un correo electrónico, una contraseña,
+acepta las condiciones y dale a registrar.
+
+00:01:33.006 --> 00:01:33.926 align:middle
+¡Precioso!
+
+00:01:34.146 --> 00:01:37.286 align:middle
+Aquí está nuestra URL de
+confirmación de correo electrónico.
+
+00:01:37.286 --> 00:01:44.556 align:middle
+Puedes ver que va a /verify: que dará a
+nuestra nueva acción verifyUserEmail().
+
+00:01:45.346 --> 00:01:47.026 align:middle
+También incluye una caducidad.
+
+00:01:47.706 --> 00:01:49.476 align:middle
+Eso es algo que puedes configurar...
+
+00:01:49.606 --> 00:01:52.316 align:middle
+es el tiempo de validez del enlace.
+
+00:01:53.106 --> 00:01:59.936 align:middle
+Y tiene un signature: que es algo que ayudará
+a demostrar que el usuario no se ha inventado
+
+00:01:59.936 --> 00:02:03.356 align:middle
+esta URL: definitivamente viene de nosotros.
+
+00:02:04.206 --> 00:02:08.456 align:middle
+También incluye un id=18:
+nuestro identificador de usuario.
+
+00:02:08.456 --> 00:02:14.266 align:middle
+Así que nuestro trabajo ahora es ir al
+método del controlador verifyUserEmail
+
+00:02:14.266 --> 00:02:18.296 align:middle
+aquí abajo y validar esa URL firmada.
+
+00:02:19.076 --> 00:02:25.406 align:middle
+Para ello, necesitamos algunos argumentos: el objeto
+Request -para poder leer los datos de la URL-,
+
+00:02:25.406 --> 00:02:33.546 align:middle
+un VerifyEmailHelperInterface para ayudarnos a validar
+la URL y, por último, nuestro UserRepository -para
+
+00:02:33.546 --> 00:02:35.976 align:middle
+poder consultar el objeto User:
+
+00:02:36.576 --> 00:02:39.046 align:middle
+Y en realidad, ese es nuestro primer trabajo.
+
+00:02:39.046 --> 00:02:47.316 align:middle
+Digamos que $user = $userRepository->find() y encontrar
+el usuario al que pertenece este enlace de confirmación
+
+00:02:47.316 --> 00:02:50.426 align:middle
+leyendo el parámetro de consulta id.
+
+00:02:50.426 --> 00:02:53.436 align:middle
+Así que, $request->query->get('id').
+
+00:02:53.606 --> 00:03:00.066 align:middle
+Y si, por alguna razón, no podemos encontrar
+el User, vamos a lanzar una página 404
+
+00:03:00.116 --> 00:03:03.056 align:middle
+lanzando $this->createNotFoundException():
+
+00:03:03.946 --> 00:03:08.646 align:middle
+Ahora podemos asegurarnos de que la
+URL firmada no ha sido manipulada.
+
+00:03:09.646 --> 00:03:12.376 align:middle
+Para ello, añade un bloque try-catch.
+
+00:03:13.246 --> 00:03:13.906 align:middle
+Dentro,
+
+00:03:14.116 --> 00:03:18.886 align:middle
+di
+$verifyEmailHelper->validateEmailConfirmation()
+
+00:03:19.056 --> 00:03:20.866 align:middle
+y pasa un par de cosas.
+
+00:03:20.866 --> 00:03:24.236 align:middle
+Primero, la URL firmada, que...
+
+00:03:24.416 --> 00:03:25.986 align:middle
+es la URL actual.
+
+00:03:26.446 --> 00:03:28.856 align:middle
+Obtén eso con $request->getUri().
+
+00:03:28.966 --> 00:03:37.026 align:middle
+A continuación, pasa el identificador del usuario - $user->getId()
+y luego el correo electrónico del usuario - $user->getEmail():
+
+00:03:37.716 --> 00:03:42.556 align:middle
+Así te aseguras de que la identificación y el correo
+electrónico no han cambiado en la base de datos
+
+00:03:42.556 --> 00:03:44.926 align:middle
+desde que se envió el correo de verificación.
+
+00:03:45.646 --> 00:03:48.656 align:middle
+Bueno, el ID definitivamente no ha cambiado...
+
+00:03:48.656 --> 00:03:50.696 align:middle
+ya que lo acabamos de
+utilizar para la consulta.
+
+00:03:51.286 --> 00:03:57.256 align:middle
+Esta parte sólo se aplica realmente si confías en que el
+usuario esté conectado para verificar su correo electrónico.
+
+00:03:58.106 --> 00:04:00.586 align:middle
+De todos modos, si esto tiene éxito...
+
+00:04:00.776 --> 00:04:02.146 align:middle
+no pasará nada
+
+00:04:02.216 --> 00:04:09.596 align:middle
+Si falla, lanzará una excepción especial
+que implementa VerifyEmailExceptionInterface:
+
+00:04:09.596 --> 00:04:14.226 align:middle
+Así que, aquí abajo, sabemos que la
+verificación de la URL ha fallado...
+
+00:04:14.916 --> 00:04:16.576 align:middle
+tal vez alguien lo haya estropeado.
+
+00:04:17.136 --> 00:04:20.096 align:middle
+O, más probablemente, el enlace ha caducado.
+
+00:04:20.846 --> 00:04:24.966 align:middle
+Digamos al usuario la razón
+aprovechando de nuevo el sistema flash.
+
+00:04:24.966 --> 00:04:32.226 align:middle
+Digamos $this->addFlash(), pero esta vez
+poniéndolo en una categoría diferente llamada error.
+
+00:04:32.746 --> 00:04:37.066 align:middle
+Luego, para decir lo que ha ido
+mal, utiliza $e->getReason().
+
+00:04:37.066 --> 00:04:41.456 align:middle
+Por último, utiliza redirectToRoute()
+para enviarlos a algún sitio.
+
+00:04:42.036 --> 00:04:43.756 align:middle
+¿Qué tal la página de registro?
+
+00:04:48.236 --> 00:04:53.916 align:middle
+Para mostrar el error, vuelve a
+base.html.twig, duplica todo este bloque,
+
+00:04:55.876 --> 00:04:59.856 align:middle
+pero busca los mensajes de
+error y utiliza alert-danger:
+
+00:04:59.856 --> 00:05:03.396 align:middle
+¡Uf! Probemos el caso del error.
+
+00:05:03.866 --> 00:05:09.216 align:middle
+Copia la URL y luego abre
+una nueva pestaña y pégala.
+
+00:05:09.216 --> 00:05:11.046 align:middle
+Si voy a esta URL real...
+
+00:05:11.446 --> 00:05:15.216 align:middle
+funciona. Bueno, todavía tenemos
+que hacer algo más de codificación,
+
+00:05:15.386 --> 00:05:18.866 align:middle
+pero llega a nuestro TODO en la
+parte inferior del controlador.
+
+00:05:19.446 --> 00:05:23.716 align:middle
+Ahora juega con la URL, como
+eliminar algunos caracteres...
+
+00:05:23.716 --> 00:05:27.466 align:middle
+o retocar la caducidad o cambiar el id.
+
+00:05:28.136 --> 00:05:29.746 align:middle
+Ahora... ¡sí!
+
+00:05:30.076 --> 00:05:33.146 align:middle
+Ha fallado porque nuestro enlace no es válido.
+
+00:05:33.146 --> 00:05:37.636 align:middle
+Si el enlace estuviera caducado,
+verías un mensaje al respecto.
+
+00:05:37.636 --> 00:05:41.836 align:middle
+Así que, por fin, ¡acabemos
+con el caso feliz! En la
+
+00:05:42.356 --> 00:05:45.126 align:middle
+parte inferior de nuestro
+controlador, ahora que sabemos
+
+00:05:45.126 --> 00:05:49.196 align:middle
+que el enlace de verificación
+es válido, hemos terminado.
+
+00:05:49.196 --> 00:05:57.736 align:middle
+Para nuestra aplicación, podemos decir
+$user->isVerified(true) y almacenarlo en la base de datos:
+
+00:05:57.736 --> 00:05:58.456 align:middle
+Veamos...
+
+00:05:58.916 --> 00:06:03.696 align:middle
+necesitamos un argumento más:
+EntityManagerInterface $entityManager:
+
+00:06:04.416 --> 00:06:10.356 align:middle
+Aquí abajo, utiliza $entityManager->flush()
+para guardar ese cambio:
+
+00:06:10.876 --> 00:06:16.016 align:middle
+Y demos a esto un feliz mensaje
+de éxito: ¡Cuenta verificada!
+
+00:06:16.546 --> 00:06:18.226 align:middle
+Ya puedes conectarte.
+
+00:06:18.846 --> 00:06:23.186 align:middle
+Bueno, la verdad es que todavía
+no impedimos que se conecten
+
+00:06:23.186 --> 00:06:24.956 align:middle
+antes de verificar su correo electrónico.
+
+00:06:25.476 --> 00:06:27.256 align:middle
+Pero lo haremos pronto.
+
+00:06:28.176 --> 00:06:33.426 align:middle
+De todos modos, termina redirigiendo a la
+página de inicio de sesión: app_login:
+
+00:06:34.256 --> 00:06:40.196 align:middle
+Si quieres ser aún más genial, podrías
+autenticar manualmente al usuario de la misma manera
+
+00:06:40.196 --> 00:06:42.856 align:middle
+que lo hicimos antes en nuestro
+controlador de registro.
+
+00:06:43.246 --> 00:06:45.456 align:middle
+Eso está totalmente bien y depende de ti.
+
+00:06:46.456 --> 00:06:47.636 align:middle
+De vuelta a mi pestaña principal...
+
+00:06:48.756 --> 00:06:52.286 align:middle
+copia de nuevo ese enlace, pégalo y...
+
+00:06:53.606 --> 00:06:55.336 align:middle
+¡estamos verificados!
+
+00:06:55.476 --> 00:07:00.576 align:middle
+¡Qué bien! Lo único que queda por hacer
+es impedir que el usuario se con ecte
+
+00:07:00.576 --> 00:07:03.056 align:middle
+hasta que haya verificado
+su correo electrónico.
+
+00:07:03.916 --> 00:07:06.806 align:middle
+Para ello, primero tenemos
+que conocer los eventos
+
+00:07:06.806 --> 00:07:09.556 align:middle
+que ocurren dentro del sistema de seguridad.
+
+00:07:10.036 --> 00:07:16.616 align:middle
+Y para mostrarlos, aprovecharemos una nueva función muy
+interesante: el estrangulamiento del inicio de sesión
