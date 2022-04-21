@@ -1,0 +1,344 @@
+WEBVTT
+
+00:00:01.046 --> 00:00:05.156 align:middle
+Después de devolver el objeto
+Passport, sabemos que ocurren dos cosas.
+
+00:00:05.416 --> 00:00:09.426 align:middle
+En primer lugar, el UserBadge se
+utiliza para obtener el objeto User:
+
+00:00:10.246 --> 00:00:13.406 align:middle
+En nuestro caso, como le
+pasamos un segundo argumento,
+
+00:00:13.596 --> 00:00:16.926 align:middle
+sólo llama a nuestra función,
+y nosotros hacemos el trabajo.
+
+00:00:17.346 --> 00:00:21.396 align:middle
+Pero si sólo pasas un argumento, entonces
+el proveedor del usuario hace el trabajo.
+
+00:00:22.246 --> 00:00:26.996 align:middle
+Lo segundo que ocurre es que se
+"resuelve" la "placa de credenciales":
+
+00:00:27.576 --> 00:00:30.486 align:middle
+Originalmente lo hacía ejecutando
+nuestra llamada de retorno.
+
+00:00:30.846 --> 00:00:33.706 align:middle
+Ahora comprueba la contraseña
+del usuario en la base de datos.
+
+00:00:34.526 --> 00:00:37.796 align:middle
+Todo esto se alimenta de un sistema
+de eventos realmente genial.
+
+00:00:38.486 --> 00:00:43.866 align:middle
+Después de nuestro método authenticate(), el
+sistema de seguridad envía varios eventos...
+
+00:00:44.546 --> 00:00:48.926 align:middle
+y hay un conjunto de oyentes de estos
+eventos que hacen diferentes trabajos.
+
+00:00:49.576 --> 00:00:52.296 align:middle
+Más adelante veremos una lista
+completa de estos oyentes...
+
+00:00:52.756 --> 00:00:55.826 align:middle
+e incluso añadir nuestros
+propios oyentes al sistema.
+
+00:00:56.596 --> 00:00:57.976 align:middle
+Pero veamos algunos de ellos.
+
+00:00:58.406 --> 00:01:01.916 align:middle
+Pulsa Shift+Shift para que podamos cargar algunos
+archivos del núcleo de Symfony. El primero
+
+00:01:02.706 --> 00:01:04.996 align:middle
+se llama UserProviderListener. Asegúrate de
+
+00:01:05.616 --> 00:01:08.256 align:middle
+"Incluir elementos que no sean
+del proyecto"... y ábrelo.
+
+00:01:08.476 --> 00:01:09.236 align:middle
+Se llama
+
+00:01:10.076 --> 00:01:12.926 align:middle
+después de que devolvamos nuestro
+Passport. Primero comprueba
+
+00:01:13.576 --> 00:01:17.326 align:middle
+que el Passport tiene un
+UserBadge -siempre lo tendrá
+
+00:01:17.846 --> 00:01:23.166 align:middle
+en cualquier situación normal- y luego
+coge ese objeto. A continuación , comprueba
+
+00:01:23.956 --> 00:01:30.756 align:middle
+si la placa tiene un "cargador de usuario":
+es la función que pasamos al segundo
+
+00:01:30.756 --> 00:01:33.656 align:middle
+argumento de nuestro UserBadge. Si la placa
+
+00:01:34.576 --> 00:01:39.756 align:middle
+ya tiene un cargador de usuario, como
+en nuestro caso, no hace nada. Pero si
+
+00:01:40.316 --> 00:01:43.946 align:middle
+no lo tiene, establece el cargador de
+usuarios en el método loadUserByIdentifier()
+
+00:01:43.946 --> 00:01:49.056 align:middle
+de nuestro proveedor de usuarios. Es... un poco
+
+00:01:49.876 --> 00:01:51.556 align:middle
+técnico... pero esto es
+
+00:01:51.836 --> 00:01:57.976 align:middle
+lo que hace que nuestro proveedor de usuario en
+security.yaml se encargue de cargar el usuario
+
+00:01:57.976 --> 00:02:02.566 align:middle
+si sólo pasamos un argumento
+a UserBadge. Vamos a comprobar
+
+00:02:03.566 --> 00:02:04.996 align:middle
+otra clase. Cierra ésta
+
+00:02:05.306 --> 00:02:10.156 align:middle
+y pulsa Shift+Shift para abrir CheckCredentialsListener.
+Como su nombre indica , se encarga
+
+00:02:10.946 --> 00:02:16.326 align:middle
+de comprobar las "credenciales"
+del usuario. Primero comprueba
+
+00:02:17.066 --> 00:02:21.656 align:middle
+si el Passport tiene una credencial
+PasswordCredentials. Aunque su nombre no lo parezca
+
+00:02:22.456 --> 00:02:27.926 align:middle
+, los objetos "credenciales" son sólo
+insignias... como cualquier otra insignia. Así que
+
+00:02:28.006 --> 00:02:29.466 align:middle
+esto comprueba
+
+00:02:30.406 --> 00:02:36.986 align:middle
+si el Passport tiene esa insignia y, si la tiene,
+coge la insignia, lee la contraseña en texto plano de
+
+00:02:37.216 --> 00:02:42.696 align:middle
+ella y, finalmente aquí abajo,
+utiliza el hasher de contraseñas para
+
+00:02:43.276 --> 00:02:48.656 align:middle
+verificar que la contraseña es
+correcta. Así que esto contiene toda la
+
+00:02:49.396 --> 00:02:52.926 align:middle
+lógica del hash de la contraseña. Abajo
+, este oyente también se encarga de
+
+00:02:53.616 --> 00:02:57.746 align:middle
+la insignia CustomCredentials.
+Así que tu Passport siempre tiene
+
+00:02:58.626 --> 00:03:03.616 align:middle
+al menos estas dos insignias: la
+UserBadge y también una especie de
+
+00:03:03.746 --> 00:03:06.286 align:middle
+"insignia de credenciales". Una
+propiedad importante de las insignias
+
+00:03:07.136 --> 00:03:12.286 align:middle
+es que cada una debe estar
+"resuelta". Puedes ver esto en
+
+00:03:12.956 --> 00:03:15.386 align:middle
+CheckCredentialsListener.
+Cuando termina de comprobar la
+
+00:03:16.106 --> 00:03:21.196 align:middle
+contraseña, llama a $badge->markResolved().
+Si, por alguna razón, nunca se llamara a este
+
+00:03:21.846 --> 00:03:23.056 align:middle
+CheckCredentialsListener
+
+00:03:23.286 --> 00:03:28.086 align:middle
+debido a alguna configuración errónea...
+la insignia quedaría "sin resolver"
+
+00:03:28.506 --> 00:03:35.856 align:middle
+y eso haría que la autenticación fallara.
+Sí, después de llamar a los listeners,
+
+00:03:36.446 --> 00:03:42.136 align:middle
+Symfony comprueba que todas las insignias
+se han resuelto. Esto significa que puede
+
+00:03:42.746 --> 00:03:48.596 align:middle
+devolver con confianza PasswordCredentials y no
+tener que preguntarse si algo ha verificado realmente
+
+00:03:48.596 --> 00:03:52.026 align:middle
+esa contraseña. Y aquí es
+donde las cosas empiezan a
+
+00:03:52.756 --> 00:03:55.426 align:middle
+ponerse más interesantes.
+Además de estas dos insignias
+
+00:03:56.086 --> 00:04:00.636 align:middle
+, podemos añadir más insignias
+a nuestro Passport para activar
+
+00:04:00.636 --> 00:04:03.896 align:middle
+más superpoderes. Por
+ejemplo, una cosa buena para
+
+00:04:04.616 --> 00:04:10.456 align:middle
+tener en un formulario de acceso es la protección
+CSRF. Básicamente, añades un campo oculto
+
+00:04:11.116 --> 00:04:16.056 align:middle
+a tu formulario que contenga un token
+CSRF... y luego, al enviar, validas
+
+00:04:16.536 --> 00:04:19.386 align:middle
+ese token. Hagamos esto. En
+cualquier lugar dentro de
+
+00:04:20.366 --> 00:04:21.026 align:middle
+tu formulario, añade
+
+00:04:21.526 --> 00:04:28.846 align:middle
+una entrada type="hidden", name="_csrf_token"
+- este nombre podría ser cualquier cosa,
+
+00:04:29.546 --> 00:04:37.326 align:middle
+pero es un nombre estándar - y luego value="{{
+csrf_token() }}". Pásale la cadena authenticate:
+
+00:04:37.716 --> 00:04:40.266 align:middle
+Ese authenticate también
+podría ser cualquier cosa... es
+
+00:04:41.076 --> 00:04:43.786 align:middle
+como un nombre único
+
+00:04:43.916 --> 00:04:46.596 align:middle
+para este formulario. Ahora que tenemos el
+
+00:04:47.416 --> 00:04:51.926 align:middle
+campo, copia su nombre y dirígete a
+LoginFormAuthenticator. Aquí, tenemos que leer
+
+00:04:52.606 --> 00:04:55.586 align:middle
+ese campo de los datos POST y
+luego preguntar a Symfony: ¿Es
+
+00:04:56.066 --> 00:05:00.526 align:middle
+válido este token CSRF?
+Bueno, en realidad, esa segunda
+
+00:05:01.076 --> 00:05:05.026 align:middle
+parte ocurrirá automáticamente.
+¿Cómo? El objeto Passport tiene
+
+00:05:05.776 --> 00:05:09.866 align:middle
+un tercer argumento: un array de otras fichas
+
+00:05:10.316 --> 00:05:13.886 align:middle
+que queramos añadir. Añade
+una: una nueva CsrfTokenBadge():
+
+00:05:14.646 --> 00:05:18.126 align:middle
+Esto necesita dos cosas. La
+
+00:05:18.776 --> 00:05:20.076 align:middle
+primera es el identificador del token CSRF.
+
+00:05:20.476 --> 00:05:23.256 align:middle
+Digamos authenticate: esto sólo tiene
+
+00:05:23.746 --> 00:05:28.096 align:middle
+que coincidir con lo que hayamos utilizado
+en el formulario. El segundo argumento es el
+
+00:05:29.566 --> 00:05:35.186 align:middle
+valor enviado, que es $request->request->get()
+y el nombre de nuestro
+
+00:05:35.186 --> 00:05:39.076 align:middle
+campo: _csrf_token: Y... ¡ya
+hemos terminado! Internamente, un
+
+00:05:39.716 --> 00:05:41.796 align:middle
+oyente se dará cuenta de
+
+00:05:42.306 --> 00:05:50.046 align:middle
+esta insignia, validará el token CSRF y
+resolverá la insignia. ¡Vamos a probarlo! Ve a
+
+00:05:50.946 --> 00:05:51.486 align:middle
+/login , inspecciona el formulario...
+
+00:05:51.846 --> 00:05:54.066 align:middle
+y encuentra el campo oculto.
+
+00:05:56.056 --> 00:05:57.566 align:middle
+Ahí está. Introduce cualquier
+
+00:05:58.076 --> 00:05:58.646 align:middle
+correo electrónico, cualquier contraseña...
+
+00:05:59.286 --> 00:06:02.656 align:middle
+pero juega con el valor del token CSRF
+
+00:06:03.106 --> 00:06:06.426 align:middle
+. Pulsa "Iniciar sesión" y... ¡sí!
+
+00:06:07.606 --> 00:06:08.996 align:middle
+¡Token CSRF inválido! Ahora bien,
+
+00:06:10.076 --> 00:06:12.656 align:middle
+si no nos metemos con el token...
+
+00:06:13.516 --> 00:06:16.056 align:middle
+y utilizamos cualquier correo
+electrónico y contraseña...
+
+00:06:16.386 --> 00:06:19.146 align:middle
+¡bien! El token CSRF era
+
+00:06:20.976 --> 00:06:21.726 align:middle
+válido...
+
+00:06:22.046 --> 00:06:24.356 align:middle
+así que continuó con el
+
+00:06:24.586 --> 00:06:26.826 align:middle
+error del correo electrónico. A continuación: vamos
+a aprovechar el sistema "recuérdame" de Symfony
+
+00:06:27.676 --> 00:06:31.956 align:middle
+para que los usuarios puedan
+permanecer conectados durante
+
+00:06:31.956 --> 00:06:34.126 align:middle
+mucho tiempo. Esta función
+también aprovecha el sistema de
+
+00:06:34.676 --> 00:06:38.676 align:middle
+oyentes y una insignia
