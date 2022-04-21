@@ -1,0 +1,303 @@
+WEBVTT
+
+00:00:01.046 --> 00:00:05.116 align:middle
+Bien, acabamos de añadir una
+URL a la que el usuario puede ir
+
+00:00:05.116 --> 00:00:08.836 align:middle
+para activar la autenticación
+de dos factores en su cuenta.
+
+00:00:09.486 --> 00:00:15.476 align:middle
+Lo que esto significa realmente es bastante
+sencillo: generamos un totpSecret y lo guardamos
+
+00:00:15.476 --> 00:00:17.476 align:middle
+en su registro de usuario
+en la base de datos. Gracias
+
+00:00:18.186 --> 00:00:22.986 align:middle
+a esto, cuando el usuario intente iniciar
+sesión, el paquete de 2 factores lo notará
+
+00:00:23.116 --> 00:00:26.156 align:middle
+y lo enviará al formulario
+de "rellenar el código".
+
+00:00:26.896 --> 00:00:33.046 align:middle
+Pero, para saber qué código debe introducir, el usuario
+debe configurar una aplicación de autenticación.
+
+00:00:33.786 --> 00:00:38.326 align:middle
+Y para ello, tenemos que mostrar
+un código QR que puedan escanear.
+
+00:00:38.946 --> 00:00:43.286 align:middle
+¿Cómo? El $totpAuthenticator
+tiene un método que puede ayudar.
+
+00:00:43.946 --> 00:00:49.506 align:middle
+Prueba a volcar $totpAuthenticator->getQRContent()
+y pasarle $user:
+
+00:00:50.936 --> 00:00:53.626 align:middle
+Cuando actualizamos vemos...
+
+00:00:53.976 --> 00:00:56.486 align:middle
+¡una URL de aspecto súper raro!
+
+00:00:57.106 --> 00:01:00.566 align:middle
+Esta es la información que necesitamos enviar
+a nuestra aplicación de autenticación.
+
+00:01:01.096 --> 00:01:05.366 align:middle
+Contiene nuestra dirección de correo electrónico
+-que no es más que una etiqueta que ayudará a la app-
+
+00:01:05.916 --> 00:01:11.356 align:middle
+y lo más importante, el secreto totp, que
+la app utilizará para generar los códigos.
+
+00:01:12.216 --> 00:01:16.536 align:middle
+En teoría, podríamos introducir esta URL
+manualmente en una app autentificadora.
+
+00:01:17.246 --> 00:01:18.176 align:middle
+Pero, pfff.
+
+00:01:18.576 --> 00:01:19.426 align:middle
+¡Eso es una locura!
+
+00:01:19.906 --> 00:01:24.356 align:middle
+En el mundo real, traducimos esta
+cadena en una imagen de código QR.
+
+00:01:25.016 --> 00:01:28.786 align:middle
+Afortunadamente, de esto también
+se encarga la biblioteca Scheb.
+
+00:01:29.406 --> 00:01:33.056 align:middle
+Si te desplazas un poco hacia abajo,
+hay un punto sobre los códigos QR.
+
+00:01:33.836 --> 00:01:37.396 align:middle
+Si quieres generar uno,
+necesitas una última biblioteca.
+
+00:01:38.086 --> 00:01:45.626 align:middle
+En realidad, justo después de que grabara esto, el encargado
+de mantenerla ha retirado esta biblioteca 2fa-qr-code
+
+00:01:45.956 --> 00:01:51.286 align:middle
+¡Maldita sea! Así que aún puedes
+instalarla, pero también te mostraré cómo
+
+00:01:51.286 --> 00:01:53.456 align:middle
+generar el código QR sin ella. La librería
+
+00:01:54.156 --> 00:01:58.316 align:middle
+fue eliminada porque, bueno, es bastante fácil
+
+00:01:58.316 --> 00:02:00.536 align:middle
+crear el código QR incluso sin ella.
+
+00:02:01.186 --> 00:02:06.126 align:middle
+De todos modos, lo copiaré,
+buscaré mi terminal y lo pegaré.
+
+00:02:06.616 --> 00:02:12.816 align:middle
+composer require scheb/2fa-qr-code Para utilizar
+la nueva forma de generar los códigos QR
+
+00:02:13.046 --> 00:02:16.866 align:middle
+-que recomiendo- sáltate este
+paso y en su lugar ejecuta
+
+00:02:16.866 --> 00:02:22.686 align:middle
+composer require "endroid/qr-code:^3.0"
+Mientras eso funciona.
+
+00:02:23.006 --> 00:02:24.156 align:middle
+Vuelve a la documentación...
+
+00:02:25.186 --> 00:02:27.486 align:middle
+y copia este controlador de la documentación.
+
+00:02:28.586 --> 00:02:32.606 align:middle
+En SecurityController, en
+la parte inferior, pega.
+
+00:02:33.586 --> 00:02:34.556 align:middle
+Modificaré la URL
+
+00:02:34.556 --> 00:02:41.756 align:middle
+para que sea /authentication/2fa/qr-code
+y llamaré a la ruta app_qr_code:
+
+00:02:42.616 --> 00:02:47.796 align:middle
+También tengo que volver a escribir la "R" en
+QrCodeGenerator para obtener su declaración de uso:
+
+00:02:48.606 --> 00:02:51.506 align:middle
+Si utilizas la nueva forma
+de generar los códigos QR,
+
+00:02:51.806 --> 00:02:54.666 align:middle
+entonces tu controlador debería ser así.
+
+00:02:55.336 --> 00:02:57.636 align:middle
+Puedes copiarlo del bloque
+de código de esta página:
+
+00:02:59.106 --> 00:03:05.056 align:middle
+Esta ruta especial devuelve literalmente
+la imagen del código QR, como un png.
+
+00:03:06.026 --> 00:03:11.556 align:middle
+Ah, y lo olvidé aquí, pero deberías añadir
+un @IsGranted("ROLE_USER") encima de esto:
+
+00:03:12.096 --> 00:03:15.446 align:middle
+sólo los usuarios autentificados
+deberían poder cargar esta imagen.
+
+00:03:16.226 --> 00:03:22.146 align:middle
+De todos modos, el usuario no irá a esta URL
+directamente: la utilizaremos dentro de una etiqueta img.
+
+00:03:22.766 --> 00:03:28.856 align:middle
+Pero para ver si funciona, copia la
+URL, pégala en tu navegador y...
+
+00:03:29.986 --> 00:03:32.766 align:middle
+¡qué bien! ¡Hola código QR!
+
+00:03:33.546 --> 00:03:37.286 align:middle
+Por último, después de que el usuario habilite la
+autenticación de dos factores, vamos a renderizar
+
+00:03:37.616 --> 00:03:40.526 align:middle
+una plantilla con una imagen a esta URL.
+
+00:03:41.416 --> 00:03:47.276 align:middle
+Vuelve a
+$this->render('security/enable2fa.html.twig').
+
+00:03:48.576 --> 00:03:52.816 align:middle
+Copia el nombre de la plantilla,
+entra en templates/security,
+
+00:03:53.356 --> 00:03:57.586 align:middle
+y créala: enable2fa.html.twig.
+
+00:03:58.426 --> 00:04:00.286 align:middle
+Pondré una estructura básica...
+
+00:04:00.836 --> 00:04:03.916 align:middle
+es sólo un h1 que te dice
+que escanees el código QR...
+
+00:04:04.106 --> 00:04:05.556 align:middle
+pero aún no hay imagen: Vamos a
+
+00:04:06.216 --> 00:04:11.756 align:middle
+añadirla: un img con src
+ajustado a {{ path() }}
+
+00:04:12.286 --> 00:04:15.246 align:middle
+y luego el nombre de la ruta al
+controlador que acabamos de construir.
+
+00:04:15.776 --> 00:04:17.696 align:middle
+Así que app_qr_code.
+
+00:04:18.776 --> 00:04:21.796 align:middle
+Para el alt, diré 2FA QR code:
+
+00:04:22.616 --> 00:04:25.416 align:middle
+¡Genial! Es hora de probar todo el flujo.
+
+00:04:25.916 --> 00:04:32.186 align:middle
+Empieza en la página de inicio, activa
+la autenticación de dos factores y...
+
+00:04:32.586 --> 00:04:34.986 align:middle
+¡sí! ¡Vemos el código QR!
+
+00:04:35.316 --> 00:04:38.656 align:middle
+Estamos listos para escanearlo
+e intentar iniciar la sesión.
+
+00:04:39.416 --> 00:04:46.426 align:middle
+Oh, pero antes de hacerlo, en una aplicación real,
+probablemente añadiría una propiedad extra en mi usuario,
+
+00:04:46.546 --> 00:04:53.966 align:middle
+llamada isTotpEnabled y la utilizaría en
+el método isTotpAuthenticationEnabled()
+
+00:04:54.046 --> 00:04:55.386 align:middle
+de mi clase User.
+
+00:04:56.076 --> 00:04:59.856 align:middle
+¿Por qué? Porque nos permitiría
+tener el siguiente flujo.
+
+00:05:00.416 --> 00:05:03.856 align:middle
+En primer lugar, el usuario hace clic en
+"Activar la autenticación de dos factores",
+
+00:05:04.286 --> 00:05:08.686 align:middle
+generamos el totpSecret, lo guardamos,
+y renderizamos el código QR.
+
+00:05:09.216 --> 00:05:11.926 align:middle
+Es decir, exactamente lo
+que estamos haciendo ahora.
+
+00:05:12.576 --> 00:05:18.226 align:middle
+Pero, esa nueva bandera
+isTotpEnabled seguiría siendo falsa.
+
+00:05:19.046 --> 00:05:25.336 align:middle
+Así, si algo saliera mal y el usuario nunca
+escaneara el código QR, seguiría pudiendo
+
+00:05:25.336 --> 00:05:28.636 align:middle
+iniciar la sesión sin que
+le pidiéramos el código.
+
+00:05:29.246 --> 00:05:34.386 align:middle
+Luego, en la parte inferior de esta página,
+podríamos añadir un botón de "Confirmación".
+
+00:05:35.176 --> 00:05:41.816 align:middle
+Cuando el usuario haga clic en él, finalmente
+estableceríamos la propiedad isTotpEnabled como verdadera.
+
+00:05:42.546 --> 00:05:47.196 align:middle
+Incluso se podría exigir al usuario que introdujera
+un código de su aplicación de autenticación
+
+00:05:47.376 --> 00:05:49.576 align:middle
+para demostrar que lo ha configurado:
+
+00:05:50.146 --> 00:05:55.216 align:middle
+el servicio TotpAuthenticatorInterface
+tiene un método checkCode()
+
+00:05:55.596 --> 00:05:58.496 align:middle
+por si alguna vez quieres
+comprobar manualmente un código.
+
+00:05:59.376 --> 00:06:02.736 align:middle
+A continuación: vamos a escanear este código
+QR con una aplicación de autenticación
+
+00:06:02.976 --> 00:06:07.186 align:middle
+y, finalmente, a probar el flujo completo
+de autenticación de dos factores.
+
+00:06:07.946 --> 00:06:12.746 align:middle
+A continuación, aprenderemos a personalizar la "plantilla de
+introducción del código" para que se ajuste a nuestro diseño
