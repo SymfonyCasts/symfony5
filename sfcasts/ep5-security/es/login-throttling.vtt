@@ -294,7 +294,7 @@ evento llamado LoginSuccessEvent...
 
 00:05:42.786 --> 00:05:49.186 align:middle
 que... bueno, es bastante obvio: se envía
-después de cualquier autenticación correcta.
+después de cualquier autenticación con éxito.
 
 00:05:49.916 --> 00:05:53.076 align:middle
 Esto restablece el limitador
