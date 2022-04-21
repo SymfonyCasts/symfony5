@@ -1,0 +1,255 @@
+WEBVTT
+
+00:00:01.016 --> 00:00:07.416 align:middle
+Tengo una confesión que hacer: en nuestro
+autentificador, ¡hemos hecho demasiado trabajo!
+
+00:00:07.886 --> 00:00:11.786 align:middle
+Sí, cuando construyes un autentificador
+personalizado para un "formulario de acceso",
+
+00:00:12.116 --> 00:00:16.496 align:middle
+Symfony proporciona una clase base
+que puede facilitarte mucho la vida.
+
+00:00:16.906 --> 00:00:22.826 align:middle
+En lugar de extender AbstractAuthenticator
+extiende AbstractLoginFormAuthenticator:
+
+00:00:23.476 --> 00:00:25.736 align:middle
+Mantén Command o Ctrl para abrir esa clase.
+
+00:00:26.646 --> 00:00:34.436 align:middle
+Sí, extiende AbstractAuthenticator y también
+implementa AuthenticationEntryPointInterface.
+
+00:00:34.906 --> 00:00:40.986 align:middle
+¡Genial! Eso significa que podemos eliminar nuestro
+redundante AuthenticationEntryPointInterface:
+
+00:00:41.796 --> 00:00:46.756 align:middle
+La clase abstracta requiere que añadamos
+un nuevo método llamado getLoginUrl().
+
+00:00:47.446 --> 00:00:52.276 align:middle
+Dirígete a la parte inferior de esta clase y ve a "Código"->"Generar"
+-o Command+N en un Mac- y luego a "Implementar métodos"
+
+00:00:52.506 --> 00:00:56.026 align:middle
+para generar getLoginUrl().
+Para el interior, roba
+
+00:00:56.876 --> 00:00:59.796 align:middle
+el código de arriba... y devuelve
+$this->router->generate('app_login'): La
+
+00:01:00.276 --> 00:01:04.476 align:middle
+utilidad de esta clase base
+
+00:01:05.476 --> 00:01:09.626 align:middle
+es bastante fácil de ver: ¡implementa tres de
+
+00:01:10.186 --> 00:01:13.436 align:middle
+los métodos por nosotros!
+Por ejemplo, implementa
+
+00:01:14.076 --> 00:01:18.986 align:middle
+supports() comprobando si el método
+es POST y si la cadena getLoginUrl()
+
+00:01:19.206 --> 00:01:24.016 align:middle
+coincide con la URL actual. En otras palabras,
+
+00:01:24.616 --> 00:01:28.716 align:middle
+hace exactamente lo mismo que nuestro método
+supports(). También gestiona onAuthenticationFailure()
+
+00:01:29.446 --> 00:01:33.746 align:middle
+-almacenando el error en la
+sesión y redirigiendo de nuevo a
+
+00:01:33.816 --> 00:01:39.536 align:middle
+la página de inicio de sesión- y también el punto
+de entrada - start() - redirigiendo, de nuevo, a
+
+00:01:39.776 --> 00:01:42.456 align:middle
+/login. Esto significa que... oh
+
+00:01:43.376 --> 00:01:44.476 align:middle
+sí... ¡podemos
+
+00:01:44.886 --> 00:01:47.566 align:middle
+eliminar código! Veamos: eliminar supports(),
+
+00:01:48.076 --> 00:01:55.816 align:middle
+onAuthenticationFailure() y
+también start(): Mucho más bonito:
+
+00:01:56.646 --> 00:01:57.816 align:middle
+Asegurémonos de que no hemos
+
+00:01:58.716 --> 00:02:02.816 align:middle
+roto nada: vamos a /admin y...
+¡perfecto! El método start()
+
+00:02:03.216 --> 00:02:07.386 align:middle
+nos sigue redirigiendo a /login. Entremos con
+
+00:02:08.176 --> 00:02:13.816 align:middle
+abraca_admin@example.com, contraseña tada
+y... ¡sí! Eso también sigue funcionando
+
+00:02:14.406 --> 00:02:19.046 align:middle
+: nos redirige a la página de
+inicio... porque eso es lo que estamos
+
+00:02:19.446 --> 00:02:24.126 align:middle
+haciendo dentro de onAuthenticationSuccess:
+Pero... si lo piensas...
+
+00:02:24.876 --> 00:02:26.696 align:middle
+eso no es lo ideal. Ya que
+
+00:02:26.816 --> 00:02:28.356 align:middle
+en un principio estaba intentando
+
+00:02:29.076 --> 00:02:32.586 align:middle
+ir a /admin... ¿no debería el sistema ser
+
+00:02:32.846 --> 00:02:38.826 align:middle
+lo suficientemente inteligente como para redirigirnos de nuevo allí
+después de que nos hayamos conectado con éxito? Sí Y eso es totalmente
+
+00:02:39.346 --> 00:02:41.726 align:middle
+posible. Vuelve a cerrar la sesión. Cuando
+
+00:02:42.346 --> 00:02:43.526 align:middle
+un usuario anónimo
+
+00:02:44.246 --> 00:02:49.246 align:middle
+intenta acceder a una página protegida
+como /admin, justo antes de llamar a la
+
+00:02:49.696 --> 00:02:52.446 align:middle
+función del punto de entrada,
+Symfony almacena la URL actual
+
+00:02:52.826 --> 00:02:56.526 align:middle
+en algún lugar de la
+sesión. Gracias a esto, en
+
+00:02:57.206 --> 00:03:02.346 align:middle
+onAuthenticationSuccess() , podemos
+leer esa URL -que se denomina
+
+00:03:02.686 --> 00:03:06.186 align:middle
+"ruta de destino"- y redirigirla
+allí. Para ayudarnos a hacer
+
+00:03:06.946 --> 00:03:10.416 align:middle
+esto, ¡podemos aprovechar un
+trait! En la parte superior de
+
+00:03:11.136 --> 00:03:14.456 align:middle
+la clase use TargetPathTrait: Luego,
+abajo en onAuthenticationSuccess(),
+
+00:03:15.016 --> 00:03:18.956 align:middle
+podemos comprobar si una "ruta de destino"
+
+00:03:19.096 --> 00:03:21.496 align:middle
+se almacenó en la sesión. Lo hacemos
+
+00:03:22.206 --> 00:03:27.336 align:middle
+diciendo si $target = $this->getTargetPath() -
+pasando la sesión - $request->getSession() - y luego
+
+00:03:27.336 --> 00:03:31.296 align:middle
+el nombre del cortafuegos,
+que en realidad tenemos como
+
+00:03:31.506 --> 00:03:33.886 align:middle
+argumento. Esa es la clave main:
+
+00:03:34.706 --> 00:03:36.436 align:middle
+Esta línea hace dos
+
+00:03:37.346 --> 00:03:43.126 align:middle
+cosas a la vez: establece una variable $target
+a la ruta de destino y, en la sentencia if,
+
+00:03:43.326 --> 00:03:47.596 align:middle
+comprueba si ésta tiene
+algo. Porque, si el usuario
+
+00:03:48.176 --> 00:03:51.276 align:middle
+va directamente a la página de inicio de
+sesión, entonces no tendrá una ruta de destino
+
+00:03:51.516 --> 00:03:54.346 align:middle
+en la sesión. Así que, si
+tenemos una ruta de destino
+
+00:03:55.146 --> 00:04:01.786 align:middle
+, redirige a ella: return new
+RedirectResponse($target): ¡Hecho y listo! Si
+
+00:04:02.786 --> 00:04:04.286 align:middle
+mantienes Command
+
+00:04:05.046 --> 00:04:09.816 align:middle
+o Ctrl y haces clic en getTargetPath() para
+saltar a ese método central, puedes ver que es
+
+00:04:10.416 --> 00:04:16.186 align:middle
+súper sencillo: sólo lee una clave muy
+específica de la sesión. Esta es la clave
+
+00:04:16.746 --> 00:04:19.616 align:middle
+que el sistema de seguridad
+establece cuando un usuario anónimo
+
+00:04:19.706 --> 00:04:23.246 align:middle
+intenta acceder a una página
+protegida. ¡Vamos a probar esto!
+
+00:04:24.076 --> 00:04:25.426 align:middle
+Ya hemos cerrado la sesión.
+
+00:04:25.976 --> 00:04:27.066 align:middle
+Dirígete a /admin. Nuestro
+
+00:04:27.506 --> 00:04:29.126 align:middle
+punto de entrada nos redirige
+
+00:04:30.006 --> 00:04:32.756 align:middle
+a /login. Pero además,
+
+00:04:33.086 --> 00:04:41.116 align:middle
+entre bastidores, Symfony acaba de fijar la URL /admin en
+esa clave de la sesión. Así que cuando nos conectamos
+
+00:04:41.976 --> 00:04:45.896 align:middle
+ahora con nuestro correo electrónico y contraseña
+habituales... ¡impresionante! ¡ Se nos redirige
+
+00:04:46.806 --> 00:04:50.156 align:middle
+de nuevo a /admin! Siguiente: um... seguimos
+
+00:04:51.046 --> 00:04:52.586 align:middle
+haciendo
+
+00:04:52.776 --> 00:04:57.176 align:middle
+demasiado trabajo en LoginFormAuthenticator.
+¡Maldita sea! Resulta
+
+00:04:57.646 --> 00:05:03.186 align:middle
+que, a menos que necesitemos algunas cosas
+especialmente personalizadas, si estás construyendo un
+
+00:05:03.606 --> 00:05:09.676 align:middle
+formulario de inicio de sesión, puedes omitir por completo la clase
+del autentificador personalizado y confiar en un autentificador central
+
+00:05:09.676 --> 00:05:11.906 align:middle
+de Symfony
