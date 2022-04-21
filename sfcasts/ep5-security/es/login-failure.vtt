@@ -1,0 +1,347 @@
+WEBVTT
+
+00:00:01.016 --> 00:00:05.396
+Es genial que podamos escuchar el CheckPassportEvent
+y hacer que la autenticación falle
+
+00:00:05.396 --> 00:00:08.496
+lanzando cualquier
+excepción de autenticación,
+
+00:00:08.786 --> 00:00:11.986
+como esta
+CustomUserMessageAuthenticationException:
+
+00:00:12.806 --> 00:00:19.136
+Pero, ¿y si en lugar del comportamiento normal de fallo
+-en el que redirigimos a la página de inicio de sesión
+
+00:00:19.166 --> 00:00:22.556
+y mostramos el error- queremos
+hacer algo diferente? ¿Y si
+
+00:00:23.416 --> 00:00:29.466
+, justo en esta situación, queremos
+redirigir a una página totalmente diferente
+
+00:00:29.546 --> 00:00:32.556
+para poder explicar que su correo
+electrónico no está verificado...
+
+00:00:33.006 --> 00:00:36.386
+e incluso permitirles que vuelvan
+a enviar ese correo electrónico.
+
+00:00:37.106 --> 00:00:43.046
+Bueno, por desgracia, no hay forma -en este
+evento- de controlar la respuesta de fallo.
+
+00:00:43.746 --> 00:00:47.526
+No hay $event->setResponse()
+ni nada parecido.
+
+00:00:48.296 --> 00:00:53.046
+Así que no podemos controlar el comportamiento
+del error desde aquí, pero podemos controlarlo
+
+00:00:53.046 --> 00:00:55.316
+escuchando un evento diferente.
+
+00:00:56.146 --> 00:01:02.046
+Desde este evento "señalaremos" que la cuenta
+no ha sido verificada, buscaremos esa señal
+
+00:01:02.046 --> 00:01:06.476
+desde un oyente de eventos diferente
+y redirigiremos a esa otra página.
+
+00:01:07.086 --> 00:01:11.456
+No pasa nada si esto aún no tiene
+sentido: vamos a verlo en acción.
+
+00:01:12.256 --> 00:01:17.306
+Para empezar, tenemos que crear una clase de
+excepción de autenticación personalizada.
+
+00:01:17.776 --> 00:01:23.976
+Esto servirá como "señal" de que estamos
+en esta situación de "cuenta no verificada".
+
+00:01:24.826 --> 00:01:31.436
+En el directorio Security/, añade una nueva clase:
+¿qué tal AccountNotVerifiedAuthenticationException.
+
+00:01:33.236 --> 00:01:35.396
+Haz que extienda AuthenticationException.
+
+00:01:36.086 --> 00:01:37.026
+Y luego...
+
+00:01:37.416 --> 00:01:39.806
+no hagas absolutamente nada más:
+
+00:01:40.476 --> 00:01:44.296
+Ésta es sólo una clase marcadora que
+utilizaremos para indicar que está
+
+00:01:44.346 --> 00:01:48.426
+fallando la autenticación debido a un
+correo electrónico no verificado. De
+
+00:01:49.426 --> 00:01:54.386
+vuelta al suscriptor, sustituye el
+CustomUserMessageAuthenticationException
+
+00:01:54.546 --> 00:01:57.886
+por AccountNotVerifiedAuthenticationException.
+
+00:01:58.416 --> 00:02:00.456
+No necesitamos pasarle ningún mensaje:
+
+00:02:01.366 --> 00:02:05.056
+Si nos detenemos en este momento,
+esto no será muy interesante.
+
+00:02:05.806 --> 00:02:10.386
+El inicio de sesión sigue fallando,
+pero volvemos al mensaje genérico:
+
+00:02:10.816 --> 00:02:14.066
+Se ha producido una excepción
+de autenticación Esto se
+
+00:02:14.066 --> 00:02:17.856
+debe a que nuestra nueva clase personalizada
+extiende AuthenticationException...
+
+00:02:18.076 --> 00:02:21.586
+y ese es el mensaje genérico
+que se obtiene de esa clase.
+
+00:02:22.396 --> 00:02:27.756
+Así que esto no es lo que queremos
+todavía, ¡pero el paso 1 está hecho!
+
+00:02:28.716 --> 00:02:35.386
+Para el siguiente paso, recuerda del comando
+debug:event que uno de los escuchadores que tenemos es
+
+00:02:35.416 --> 00:02:39.956
+para un LoginFailureEvent,
+que, como su nombre indica,
+
+00:02:40.166 --> 00:02:43.826
+se llama cada vez que falla la autenticación.
+
+00:02:44.586 --> 00:02:47.336
+Vamos a añadir otro oyente
+en esta clase para eso.
+
+00:02:47.786 --> 00:02:53.656
+Digamos que LoginFailureEvent::class
+se ajusta a, qué tal, onLoginFailure.
+
+00:02:54.396 --> 00:02:56.756
+En este caso, la prioridad no importará:
+
+00:02:57.586 --> 00:03:00.676
+Añade el nuevo método: public
+function onLoginFailure()...
+
+00:03:01.296 --> 00:03:05.826
+y sabemos que éste recibirá
+un argumento LoginFailureEvent.
+
+00:03:06.646 --> 00:03:11.696
+Al igual que antes, empieza con
+dd($event) para ver cómo queda:
+
+00:03:12.586 --> 00:03:18.696
+Así que, con un poco de suerte, si fallamos en el inicio de
+sesión -por cualquier motivo- se llamará a nuestro oyente.
+
+00:03:19.446 --> 00:03:24.706
+Por ejemplo, si introduzco una
+contraseña incorrecta, ¡sí!
+
+00:03:25.136 --> 00:03:26.286
+Se llama.
+
+00:03:26.986 --> 00:03:31.556
+Y fíjate en que el LoginFailureEvent
+tiene una propiedad de excepción.
+
+00:03:32.416 --> 00:03:36.386
+En este caso, contiene un
+BadCredentialsException.
+
+00:03:37.226 --> 00:03:39.936
+Ahora entra con la contraseña correcta y...
+
+00:03:40.656 --> 00:03:42.026
+vuelve a ser golpeado.
+
+00:03:42.416 --> 00:03:45.456
+Pero esta vez, fíjate en la excepción.
+
+00:03:46.026 --> 00:03:50.256
+¡Es nuestro AccountNotVerifiedAuthenticationException
+personalizado!
+
+00:03:50.986 --> 00:03:55.596
+Así que el objeto LoginFailureEvent
+contiene la excepción de autenticación
+
+00:03:55.716 --> 00:03:57.526
+que causó el fallo.
+
+00:03:58.406 --> 00:04:03.736
+Podemos utilizarlo para saber -desde este
+método- si la autenticación falló debido
+
+00:04:03.736 --> 00:04:05.756
+a que la cuenta no fue verificada. Así
+
+00:04:06.496 --> 00:04:14.026
+que, si no $event->getException() es una instancia
+de AccountNotVerifiedAuthenticationException
+
+00:04:14.346 --> 00:04:19.926
+, entonces simplemente devuelve y permite que el
+comportamiento de fallo por defecto haga lo suyo:
+
+00:04:20.776 --> 00:04:25.986
+Finalmente, aquí abajo, sabemos que debemos
+redirigir a esa página personalizada.
+
+00:04:26.636 --> 00:04:29.126
+Vamos... a crear esa página rápidamente.
+
+00:04:29.806 --> 00:04:33.716
+Hazlo en
+src/Controller/RegistrationController.php.
+
+00:04:33.716 --> 00:04:36.586
+En la parte inferior, añade un nuevo método.
+
+00:04:37.216 --> 00:04:39.696
+Lo llamaré resendVerifyEmail(). Encima de
+
+00:04:40.606 --> 00:04:47.636
+esto, añade @Route() con,
+qué tal /verify/resend
+
+00:04:48.246 --> 00:04:51.626
+y el nombre es igual a app_verify_resend_email.
+
+00:04:52.576 --> 00:04:57.086
+Dentro, sólo voy a renderizar una
+plantilla: return $this->render(),
+
+00:04:57.776 --> 00:05:02.196
+registration/resend_verify_email.html.twig:
+
+00:05:03.206 --> 00:05:04.066
+¡Vamos a hacer eso!
+
+00:05:04.686 --> 00:05:12.116
+Dentro de templates/registration/,
+crea resend_verify_email.html.twig.
+
+00:05:13.366 --> 00:05:17.296
+Voy a pegar la plantilla: Aquí
+no hay nada del otro mundo.
+
+00:05:17.696 --> 00:05:20.016
+Sólo explica la situación.
+
+00:05:20.906 --> 00:05:26.856
+He incluido un botón para reenviar el correo
+electrónico, pero te dejo la implementación a ti.
+
+00:05:27.516 --> 00:05:31.856
+Yo probablemente lo rodearía de un
+formulario que haga un POST a esta URL.
+
+00:05:32.626 --> 00:05:38.186
+Y luego, en el controlador, si el método es POST,
+utilizaría el paquete de correo electrónico de verificación
+
+00:05:38.276 --> 00:05:40.766
+para generar un nuevo enlace y reenviarlo.
+
+00:05:41.446 --> 00:05:44.916
+Básicamente el mismo código que
+utilizamos después del registro. De
+
+00:05:45.776 --> 00:05:48.356
+todos modos, ahora que
+tenemos una página funcional,
+
+00:05:48.586 --> 00:05:51.626
+copia el nombre de la ruta y
+vuelve a nuestro suscriptor.
+
+00:05:52.316 --> 00:05:58.956
+Para anular el comportamiento normal de los fallos,
+podemos utilizar un método setResponse() en el evento.
+
+00:05:59.716 --> 00:06:05.846
+Empieza con $response = new RedirectResponse()
+-vamos a generar una URL para la ruta
+
+00:06:05.846 --> 00:06:10.086
+en un minuto- y luego con
+$event->setResponse($response):
+
+00:06:11.026 --> 00:06:18.986
+Para generar la URL, necesitamos un método
+__construct() -permíteme deletrearlo correctamente-
+
+00:06:19.546 --> 00:06:22.156
+con un argumento RouterInterface $router.
+
+00:06:22.746 --> 00:06:27.526
+Pulsa Alt+Enter y ve a "Inicializar propiedades"
+para crear esa propiedad y establecerla:
+
+00:06:28.456 --> 00:06:31.416
+Aquí abajo, ya estamos en marcha:
+
+00:06:31.806 --> 00:06:36.656
+$this->router->generate()
+con app_verify_resend_email:
+
+00:06:37.636 --> 00:06:43.656
+¡Donezo! Fallamos la autenticación, nuestro
+primer oyente lanza la excepción personalizada,
+
+00:06:44.206 --> 00:06:47.716
+buscamos esa excepción desde el
+oyente de LoginFailureEvent...
+
+00:06:48.226 --> 00:06:49.696
+y establecemos la redirección.
+
+00:06:50.616 --> 00:06:51.456
+¡Hora de probar!
+
+00:06:51.946 --> 00:06:53.616
+Refresca y...
+
+00:06:55.506 --> 00:07:00.166
+¡lo conseguimos! Nos envían a /verify/resend.
+
+00:07:00.356 --> 00:07:01.566
+¡Me encanta!
+
+00:07:02.416 --> 00:07:07.926
+A continuación: vamos a terminar este tutorial
+haciendo algo superguay, superdivertido y...
+
+00:07:07.966 --> 00:07:08.876
+un poco friki.
+
+00:07:09.546 --> 00:07:14.876
+Vamos a añadir la autenticación de dos
+factores, completada con elegantes códigos QR
