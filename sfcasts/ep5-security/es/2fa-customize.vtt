@@ -152,11 +152,11 @@ Por lo tanto, estamos como
 conectados, pero sin ningún rol.
 
 00:02:43.916 --> 00:02:48.816 align:middle
-Y además, el paquete de dos factores
-ejecuta un escuchador al inicio de cada
+Y además, el paquete de dos factores ejecuta
+un escuchador al inicio de cada petición
 
 00:02:49.056 --> 00:02:54.436 align:middle
-petición que garantiza que el usuario no puede intentar
+que garantiza que el usuario no puede intentar
 navegar por el sitio en este estado de media sesión:
 
 00:02:55.256 --> 00:02:59.616 align:middle
