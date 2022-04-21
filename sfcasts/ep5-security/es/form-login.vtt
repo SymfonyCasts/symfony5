@@ -1,0 +1,299 @@
+WEBVTT
+
+00:00:01.016 --> 00:00:05.936 align:middle
+Las clases de autentificadores personalizados
+como ésta nos dan mucho control.
+
+00:00:06.216 --> 00:00:12.536 align:middle
+Por ejemplo, imagina que, además de los campos de correo
+electrónico y contraseña, necesitas un tercer campo
+
+00:00:12.886 --> 00:00:15.116 align:middle
+-como un menú desplegable de "empresa "...
+
+00:00:15.616 --> 00:00:20.396 align:middle
+y utilizas ese valor -junto con
+el email - para consultar el User.
+
+00:00:21.346 --> 00:00:22.716 align:middle
+Hacer eso aquí sería...
+
+00:00:22.716 --> 00:00:23.956 align:middle
+¡bastante sencillo!
+
+00:00:24.376 --> 00:00:29.796 align:middle
+Coge el campo company POST, úsalo en tu
+consulta personalizada y celébralo con nachos.
+
+00:00:30.586 --> 00:00:33.486 align:middle
+Pero un formulario de acceso
+es algo bastante común.
+
+00:00:33.686 --> 00:00:39.356 align:middle
+Y por eso, Symfony viene con un autentificador de
+formularios de inicio de sesión incorporado que podemos...
+
+00:00:39.536 --> 00:00:42.866 align:middle
+¡utilizar! Vamos a abrirlo y comprobarlo.
+
+00:00:43.206 --> 00:00:46.856 align:middle
+Pulsa Shift+Shift y busca
+FormLoginAuthenticator.
+
+00:00:47.876 --> 00:00:52.956 align:middle
+Lo primero que hay que observar es que
+extiende la misma clase base que nosotros.
+
+00:00:53.676 --> 00:00:59.756 align:middle
+Y si te fijas en los métodos, hace referencia
+a un montón de opciones, pero en definitiva...
+
+00:01:00.016 --> 00:01:02.996 align:middle
+hace lo mismo que nuestra clase:
+
+00:01:03.576 --> 00:01:06.816 align:middle
+getLoginUrl() genera una URL
+a la página de acceso...
+
+00:01:07.246 --> 00:01:12.226 align:middle
+y authenticate() crea un Passport
+con UserBadge, PasswordCredentials,
+
+00:01:12.226 --> 00:01:16.256 align:middle
+un RememberMeBadge y un CsrfTokenBadge. Tanto
+
+00:01:17.206 --> 00:01:19.066 align:middle
+onAuthenticationSuccess
+
+00:01:19.116 --> 00:01:23.926 align:middle
+como onAuthenticationFailure
+descargan su trabajo a otro objeto...
+
+00:01:24.346 --> 00:01:26.636 align:middle
+pero si miraras dentro de ellos, verías
+
+00:01:26.636 --> 00:01:29.526 align:middle
+que básicamente están
+haciendo lo mismo que nosotros.
+
+00:01:30.046 --> 00:01:34.326 align:middle
+Así que usemos esto en lugar de
+nuestro autentificador personalizado...
+
+00:01:34.716 --> 00:01:39.726 align:middle
+que es lo que yo haría en un proyecto real, a menos que
+necesite la flexibilidad de un autentificador personalizado.
+
+00:01:40.516 --> 00:01:43.726 align:middle
+En security.yaml, comenta nuestro
+autentificador de cliente...
+
+00:01:44.116 --> 00:01:47.456 align:middle
+y también comenta la
+configuración de entry_point:
+
+00:01:47.456 --> 00:01:52.226 align:middle
+Sustitúyelo por una nueva clave form_login.
+
+00:01:52.976 --> 00:01:55.266 align:middle
+Esto activa ese autentificador.
+
+00:01:55.876 --> 00:02:00.306 align:middle
+Abajo, esto tiene un montón de opciones
+- te las mostraré en un minuto.
+
+00:02:00.866 --> 00:02:04.146 align:middle
+Pero hay dos importantes
+que necesitamos: login_path:
+
+00:02:04.146 --> 00:02:06.016 align:middle
+establecer la ruta a tu
+página de inicio de sesión...
+
+00:02:06.416 --> 00:02:08.856 align:middle
+que para nosotros es app_login...
+
+00:02:09.306 --> 00:02:14.596 align:middle
+y también el check_path, que es la ruta a
+la que se somete el formulario de a cceso...
+
+00:02:14.946 --> 00:02:19.996 align:middle
+que para nosotros es también
+app_login: nos sometemos a la misma URL:
+
+00:02:20.786 --> 00:02:22.406 align:middle
+Y... ¡eso es todo para empezar!
+
+00:02:22.916 --> 00:02:23.956 align:middle
+¡Vamos a probarlo!
+
+00:02:23.956 --> 00:02:26.236 align:middle
+Actualiza cualquier página y...
+
+00:02:26.596 --> 00:02:33.426 align:middle
+¡error! Un error que hemos visto: Como tienes varios
+autentificadores en el cortafuegos "principal",
+
+00:02:33.606 --> 00:02:40.786 align:middle
+tienes que establecer "punto_de_entrada" en uno de
+ellos: o bien DummyAuthenticator, o bien form_login.
+
+00:02:41.646 --> 00:02:46.976 align:middle
+Ya he mencionado que algunos autentificadores proporcionan
+un punto de entrada y otros no. El autentificador
+
+00:02:47.576 --> 00:02:51.826 align:middle
+remember_me no proporciona uno... pero
+
+00:02:52.406 --> 00:02:57.256 align:middle
+nuestro DummyAuthenticator sí lo hace y
+también form_login. Su punto de entrada
+
+00:02:57.886 --> 00:03:00.866 align:middle
+redirige a la página de
+inicio de sesión. Así que,
+
+00:03:01.576 --> 00:03:04.356 align:middle
+como tenemos varios, tenemos
+que elegir uno. Establece
+
+00:03:04.846 --> 00:03:07.596 align:middle
+entry_point: como form_login: Ahora
+
+00:03:08.816 --> 00:03:10.256 align:middle
+si refrescamos... genial:
+
+00:03:11.286 --> 00:03:12.796 align:middle
+no hay error. Así que vamos
+a intentar iniciar la sesión
+
+00:03:12.796 --> 00:03:14.726 align:middle
+. En realidad...
+
+00:03:15.876 --> 00:03:17.216 align:middle
+Primero cerraré la sesión... que
+
+00:03:18.976 --> 00:03:19.936 align:middle
+sigue funcionando... luego entraré
+
+00:03:20.276 --> 00:03:25.296 align:middle
+con abraca_admin@example.com
+contraseña tada. Y...
+
+00:03:25.976 --> 00:03:27.346 align:middle
+¡ah! ¡ Otro
+
+00:03:27.846 --> 00:03:28.896 align:middle
+error! La
+
+00:03:29.376 --> 00:03:33.696 align:middle
+clave "_nombredeusuario" debe
+ser una cadena, dada NULL.
+
+00:03:34.336 --> 00:03:38.036 align:middle
+Y viene de
+FormLoginAuthenticator::getCredentials().
+
+00:03:38.676 --> 00:03:46.436 align:middle
+Vale, pues cuando utilices la plantilla form_login, tienes
+que asegurarte de que algunas cosas están alineadas.
+
+00:03:47.126 --> 00:03:51.236 align:middle
+Abre la plantilla de acceso:
+templates/security/login.html.twig.
+
+00:03:52.036 --> 00:03:53.976 align:middle
+Nuestros dos campos se llaman email...
+
+00:03:54.336 --> 00:03:55.336 align:middle
+y password:
+
+00:03:56.036 --> 00:04:03.826 align:middle
+Resulta que Symfony espera que estos
+campos se llamen _username y _password...
+
+00:04:04.506 --> 00:04:10.216 align:middle
+por eso nos da este error: está
+buscando un parámetro POST _username...
+
+00:04:10.446 --> 00:04:11.726 align:middle
+pero no está ahí.
+
+00:04:11.726 --> 00:04:16.386 align:middle
+Afortunadamente, este es el tipo
+de cosas que puedes configurar.
+
+00:04:16.386 --> 00:04:22.606 align:middle
+Busca tu terminal favorito y ejecuta: symfony
+console debug:config security para ver toda
+
+00:04:22.606 --> 00:04:24.756 align:middle
+nuestra configuración de seguridad actual.
+
+00:04:25.416 --> 00:04:26.266 align:middle
+Desplázate hacia arriba...
+
+00:04:26.586 --> 00:04:28.896 align:middle
+y busca form_login...
+
+00:04:29.366 --> 00:04:29.896 align:middle
+aquí está.
+
+00:04:30.476 --> 00:04:35.466 align:middle
+Hay un montón de opciones que te permiten
+controlar el comportamiento de form_login.
+
+00:04:35.876 --> 00:04:41.196 align:middle
+Dos de las más importantes son
+username_parameter y password_parameter.
+
+00:04:42.116 --> 00:04:44.856 align:middle
+Vamos a configurarlas para que
+coincidan con nuestros nombres de campo.
+
+00:04:44.926 --> 00:04:52.746 align:middle
+Así, en security.yaml añade username_parameter:
+email y password_parameter: password:
+
+00:04:54.336 --> 00:04:57.466 align:middle
+Esto le dice que lea el
+parámetro email POST...
+
+00:04:57.836 --> 00:05:01.356 align:middle
+y luego pasará esa cadena a
+nuestro proveedor de usuarios...
+
+00:05:01.646 --> 00:05:04.076 align:middle
+que se encargará de
+consultar la base de datos.
+
+00:05:04.576 --> 00:05:05.606 align:middle
+Vamos a probarlo.
+
+00:05:06.206 --> 00:05:08.316 align:middle
+Actualiza para volver a enviar y...
+
+00:05:09.836 --> 00:05:12.146 align:middle
+¡ya está! ¡Ya hemos iniciado la sesión!
+
+00:05:13.016 --> 00:05:20.426 align:middle
+La moraleja de la historia es la siguiente: usar form_login te
+permite tener un formulario de inicio de sesión con menos código.
+
+00:05:21.076 --> 00:05:25.126 align:middle
+Pero aunque usar una clase de autentificador
+personalizada es más trabajo...
+
+00:05:25.356 --> 00:05:27.396 align:middle
+tiene una flexibilidad infinita.
+
+00:05:27.716 --> 00:05:29.466 align:middle
+Así que, es tu elección.
+
+00:05:30.276 --> 00:05:34.526 align:middle
+A continuación: vamos a ver algunas otras cosas que
+podemos configurar en el formulario de inicio de sesión
+
+00:05:34.806 --> 00:05:40.476 align:middle
+y a añadir una característica totalmente nueva: rellenar previamente
+el campo del correo electrónico cuando falle el inicio de sesión
