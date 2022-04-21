@@ -1,0 +1,324 @@
+WEBVTT
+
+00:00:01.016 --> 00:00:06.996 align:middle
+Ahora que cada Question tiene un owner
+-un objeto User - ¡es hora de celebrarlo!
+
+00:00:07.516 --> 00:00:11.216 align:middle
+En el frontend, podemos empezar
+a renderizar datos reales...
+
+00:00:11.416 --> 00:00:16.786 align:middle
+en lugar de tener siempre la misma foto del gato
+y la misma pregunta escrita por la misma Tisha.
+
+00:00:17.306 --> 00:00:23.566 align:middle
+Ambas están codificadas, aunque nos
+encanta la gata Tisha aquí en SymfonyCasts.
+
+00:00:23.566 --> 00:00:24.716 align:middle
+Empieza en la página de inicio.
+
+00:00:24.946 --> 00:00:28.206 align:middle
+Abre templates/question/homepage.html.twig.
+
+00:00:29.216 --> 00:00:32.166 align:middle
+Y... aquí es donde hacemos
+un bucle con las preguntas.
+
+00:00:32.166 --> 00:00:37.026 align:middle
+Primero, para el avatar, podemos usar
+el método de ayuda que creamos antes:
+
+00:00:37.906 --> 00:00:41.456 align:middle
+{{ question.owner.avatarUri }}:
+
+00:00:42.546 --> 00:00:47.696 align:middle
+A continuación... hacia abajo, aquí es donde
+imprimimos el nombre del propietario de la pregunta.
+
+00:00:48.206 --> 00:00:51.816 align:middle
+Vamos a utilizar question.owner.displayName:
+
+00:00:52.546 --> 00:00:56.786 align:middle
+100 puntos de experiencia por usar
+dos métodos personalizados seguidos.
+
+00:00:57.486 --> 00:00:58.336 align:middle
+Y ahora...
+
+00:00:58.806 --> 00:01:01.626 align:middle
+¡nuestra página empieza a ser real!
+
+00:01:02.126 --> 00:01:03.346 align:middle
+Haz clic en una pregunta.
+
+00:01:04.006 --> 00:01:06.166 align:middle
+Hagamos lo mismo para la
+página del espectáculo.
+
+00:01:06.576 --> 00:01:09.456 align:middle
+Abre esa plantilla: show.html.twig.
+
+00:01:09.556 --> 00:01:14.906 align:middle
+Para el avatar, utiliza
+question.owner.avatarUri:
+
+00:01:15.876 --> 00:01:21.396 align:middle
+Luego... aquí abajo, para el nombre,
+{{ question.owner.displayName }}:
+
+00:01:22.006 --> 00:01:23.726 align:middle
+Ah, y se me ha olvidado hacer una cosa.
+
+00:01:24.306 --> 00:01:26.556 align:middle
+Copia eso, vuelve a subir al avatar...
+
+00:01:27.146 --> 00:01:30.336 align:middle
+para que también podamos
+actualizar el atributo alt:
+
+00:01:31.076 --> 00:01:33.386 align:middle
+También tengo que hacerlo
+en la página de inicio...
+
+00:01:33.386 --> 00:01:35.566 align:middle
+aquí está:
+
+00:01:35.566 --> 00:01:39.436 align:middle
+¡Probemos esto!
+
+00:01:39.876 --> 00:01:41.296 align:middle
+Actualiza la página y...
+
+00:01:41.606 --> 00:01:43.626 align:middle
+¡somos dinámicos!
+
+00:01:44.516 --> 00:01:48.046 align:middle
+En un sitio real, probablemente vamos a
+necesitar una página en la que el propietario
+
+00:01:48.046 --> 00:01:50.866 align:middle
+de esta pregunta pueda editar sus detalles.
+
+00:01:51.406 --> 00:01:55.986 align:middle
+No vamos a construir esto hasta el final -no
+quiero sumergirme en el sistema de formularios-
+
+00:01:56.316 --> 00:01:58.236 align:middle
+pero vamos a ponerlo en marcha.
+
+00:01:59.036 --> 00:02:04.046 align:middle
+Y esto nos va a llevar a una situación
+de seguridad realmente interesante.
+
+00:02:04.776 --> 00:02:07.596 align:middle
+En src/Controller/QuestionController.php...
+
+00:02:07.596 --> 00:02:09.696 align:middle
+encuentra la acción show().
+
+00:02:10.576 --> 00:02:12.916 align:middle
+Vamos a hacer trampa
+copiando esto y pegándolo.
+
+00:02:14.636 --> 00:02:22.426 align:middle
+Cambia la URL a /questions/edit/{slug}, modifica el
+nombre de la ruta y actualiza el nombre del método.
+
+00:02:23.316 --> 00:02:28.766 align:middle
+Dentro, sólo tienes que renderizar
+una plantilla: question/edit.html.twig:
+
+00:02:29.626 --> 00:02:35.706 align:middle
+¡Genial! En templates/question/,
+crea esto: edit.html.twig.
+
+00:02:36.576 --> 00:02:38.306 align:middle
+Pondré una plantilla básica:
+
+00:02:38.576 --> 00:02:43.666 align:middle
+Aquí no hay nada especial, salvo que estoy
+imprimiendo el texto de la pregunta dinámica.
+
+00:02:44.176 --> 00:02:46.136 align:middle
+En realidad no hay ningún formulario...
+
+00:02:46.136 --> 00:02:48.026 align:middle
+ya que nos estamos centrando en la seguridad...
+
+00:02:48.346 --> 00:02:50.336 align:middle
+pero haz como si lo hubiera.
+
+00:02:51.246 --> 00:02:54.776 align:middle
+Antes de probar esta página, vuelve a la
+plantilla de presentación de preguntas.
+
+00:02:55.536 --> 00:02:58.056 align:middle
+Vamos a añadir un enlace de
+edición para ayudar al propietario.
+
+00:02:58.816 --> 00:03:01.146 align:middle
+En realidad, busca el h1.
+
+00:03:01.146 --> 00:03:01.636 align:middle
+Aquí lo tenemos.
+
+00:03:03.236 --> 00:03:08.156 align:middle
+Envuelve esto en un div con
+class="d-flex justify-content-between"...
+
+00:03:08.926 --> 00:03:11.596 align:middle
+y luego cierra y sangrar:
+
+00:03:12.406 --> 00:03:18.036 align:middle
+Ahora añade un enlace con
+href= path('app_question_edit').
+
+00:03:18.596 --> 00:03:24.536 align:middle
+Y, por supuesto, tenemos que pasarle a esto
+el comodín: id ajustado a question.id.
+
+00:03:25.146 --> 00:03:28.336 align:middle
+Oh... espera, en realidad, el comodín es slug:
+
+00:03:28.646 --> 00:03:31.406 align:middle
+Así que usa slug ajustado a question.slug:
+
+00:03:33.306 --> 00:03:35.306 align:middle
+Genial. Entonces di "Editar"...
+
+00:03:35.656 --> 00:03:38.676 align:middle
+y dale a esto unas cuantas clases
+para que quede más bonito.
+
+00:03:42.236 --> 00:03:43.136 align:middle
+Gracias a esto...
+
+00:03:43.506 --> 00:03:45.496 align:middle
+¡tenemos un botón de edición!
+
+00:03:45.956 --> 00:03:47.966 align:middle
+Oh, ¡pero necesitamos un poco de margen!
+
+00:03:49.206 --> 00:03:51.666 align:middle
+Añade mb-2: y...
+
+00:03:52.276 --> 00:03:52.836 align:middle
+mucho mejor.
+
+00:03:53.476 --> 00:03:54.006 align:middle
+Haz clic en eso.
+
+00:03:54.826 --> 00:03:56.976 align:middle
+Esta es la página de
+edición de la pregunta...
+
+00:03:57.016 --> 00:03:59.616 align:middle
+que no es realmente una página de edición...
+
+00:03:59.616 --> 00:04:01.346 align:middle
+pero finge que lo es.
+
+00:04:01.936 --> 00:04:05.396 align:middle
+Ahora volvamos al tema de la seguridad.
+
+00:04:05.846 --> 00:04:06.736 align:middle
+Porque...
+
+00:04:07.006 --> 00:04:10.016 align:middle
+no podemos dejar que cualquiera
+acceda a esta página:
+
+00:04:10.586 --> 00:04:14.976 align:middle
+sólo el propietario de esta
+pregunta debe poder editarla.
+
+00:04:14.976 --> 00:04:18.926 align:middle
+Así que dentro de QuestionController,
+necesitamos una comprobación de seguridad.
+
+00:04:19.446 --> 00:04:22.496 align:middle
+Primero tenemos que asegurarnos
+de que el usuario está conectado.
+
+00:04:22.946 --> 00:04:29.026 align:middle
+Hazlo con $this->denyAccessUnlessGranted()
+pasando por IS_AUTHENTICATED_REMEMBERED:
+
+00:04:29.026 --> 00:04:35.656 align:middle
+Gracias a esto, tenemos garantizado que obtendremos
+un objeto User si decimos $this->getUser().
+
+00:04:36.406 --> 00:04:44.706 align:middle
+Podemos utilizarlo: si $question->getOwner() no
+es igual a $this->getUser(), entonces alguien
+
+00:04:44.706 --> 00:04:48.046 align:middle
+que no es el propietario está
+intentando acceder a esta página.
+
+00:04:48.476 --> 00:04:53.786 align:middle
+Niega el acceso con throw
+$this->createAccessDeniedException().
+
+00:04:54.346 --> 00:04:56.636 align:middle
+Diré: ¡No eres el propietario!
+
+00:04:57.016 --> 00:05:01.006 align:middle
+Pero, recuerda, estos mensajes de error
+sólo se muestran a los desarrolladores:
+
+00:05:01.926 --> 00:05:05.156 align:middle
+Vale, pues ahora mismo no
+estoy conectado en absoluto.
+
+00:05:05.576 --> 00:05:10.426 align:middle
+Así que si refrescamos, nos
+devuelve a la página de acceso.
+
+00:05:10.426 --> 00:05:12.316 align:middle
+Así que... ¡bien!
+
+00:05:12.906 --> 00:05:18.806 align:middle
+¡Acabamos de evitar con éxito que cualquier persona que
+no sea el propietario acceda a esta página de edición!
+
+00:05:19.636 --> 00:05:23.696 align:middle
+Pero... malas noticias amigos:
+No me gusta esta solución.
+
+00:05:23.756 --> 00:05:28.096 align:middle
+No me gusta poner ninguna lógica de
+seguridad manual dentro de mi controlador.
+
+00:05:28.686 --> 00:05:33.376 align:middle
+¿Por qué? Porque significa que vamos a
+tener que repetir esa lógica en Twig para
+
+00:05:33.656 --> 00:05:36.186 align:middle
+ocultar o mostrar el botón de edición.
+
+00:05:37.006 --> 00:05:39.846 align:middle
+¿Y qué pasa si nuestra
+lógica se vuelve más compleja?
+
+00:05:40.216 --> 00:05:46.526 align:middle
+¿Qué pasa si puedes editar una pregunta si
+eres el propietario o si tienes ROLE_ADMIN?
+
+00:05:47.346 --> 00:05:52.826 align:middle
+Ahora tendríamos que actualizar y mantener la
+lógica duplicada en dos lugares como mínimo.
+
+00:05:53.346 --> 00:05:57.166 align:middle
+No, no queremos duplicar
+nuestras reglas de seguridad.
+
+00:05:57.166 --> 00:06:04.396 align:middle
+Así que a continuación vamos a aprender sobre el
+sistema de votantes, que es la clave para centralizar toda
+
+00:06:04.396 --> 00:06:08.186 align:middle
+esta lógica de autorización
+de una forma bonita
