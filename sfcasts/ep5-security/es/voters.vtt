@@ -1,0 +1,319 @@
+WEBVTT
+
+00:00:01.016 --> 00:00:05.886 align:middle
+Cuando necesitamos denegar el acceso a algo,
+podemos hacerlo en un par de lugares diferentes,
+
+00:00:06.116 --> 00:00:12.126 align:middle
+como access_control en security.yaml: O de
+varias maneras dentro de un controlador.
+
+00:00:12.916 --> 00:00:20.216 align:middle
+Y cuando denegamos el acceso, sabemos que podemos
+hacerlo comprobando un rol como ROLE_ADMIN
+
+00:00:20.516 --> 00:00:25.856 align:middle
+o comprobando una de las cadenas especiales
+como IS_AUTHENTICATED_REMEMBERED.
+
+00:00:26.676 --> 00:00:28.696 align:middle
+Parece bastante sencillo, ¿verdad?
+
+00:00:29.226 --> 00:00:33.586 align:middle
+Si utilizamos algo como ROLE_ADMIN,
+está claro que llama a getRoles()
+
+00:00:33.586 --> 00:00:36.856 align:middle
+en el User y deniega o permite el acceso.
+
+00:00:37.636 --> 00:00:39.126 align:middle
+Así que todo esto es...
+
+00:00:39.366 --> 00:00:40.456 align:middle
+básicamente cierto.
+
+00:00:40.966 --> 00:00:45.256 align:middle
+Pero en realidad, cada vez que
+llamas al sistema de autorización,
+
+00:00:45.446 --> 00:00:49.426 align:middle
+ya sea a través de access_control,
+->denyAccessUnlessGranted(),
+
+00:00:49.556 --> 00:00:56.656 align:middle
+o incluso de la anotación/atributo IsGranted(),
+ocurre algo más interesante internamente.
+
+00:00:57.256 --> 00:01:00.686 align:middle
+Se activa lo que se llama
+el sistema de votantes.
+
+00:01:01.276 --> 00:01:02.226 align:middle
+Podemos ver esto.
+
+00:01:02.586 --> 00:01:05.656 align:middle
+Actualiza la página y luego haz
+clic en el icono de seguridad de
+
+00:01:05.656 --> 00:01:08.956 align:middle
+la barra de herramientas de depuración
+de la web para saltar al perfilador.
+
+00:01:09.846 --> 00:01:16.216 align:middle
+Cerca de la parte inferior de esta página, como hemos visto
+antes, encontrarás un "Registro de decisiones de acceso"
+
+00:01:16.476 --> 00:01:18.396 align:middle
+que muestra todas las veces
+
+00:01:18.396 --> 00:01:22.196 align:middle
+que se llamó al sistema de
+autorización durante esta petición.
+
+00:01:22.746 --> 00:01:25.826 align:middle
+Al parecer, se llamó un montón de veces. La
+
+00:01:26.376 --> 00:01:30.026 align:middle
+mayoría de ellas nos representan
+tratando de averiguar si debemos mostrar
+
+00:01:30.026 --> 00:01:32.946 align:middle
+u ocultar los enlaces de
+votación para cada respuesta.
+
+00:01:33.816 --> 00:01:37.196 align:middle
+Pero fíjate en este pequeño enlace
+"Mostrar detalles del votante".
+
+00:01:37.746 --> 00:01:40.316 align:middle
+Cuando haces clic, ooooh.
+
+00:01:40.746 --> 00:01:43.026 align:middle
+Hay dos "votantes".
+
+00:01:43.586 --> 00:01:49.696 align:middle
+El primero ha votado ACCESS_DENIED y
+el segundo ha votado ACCESS_ABSTAIN.
+
+00:01:50.546 --> 00:01:54.736 align:middle
+Cuando llamas al sistema de autorización, hace
+un bucle sobre estas cosas llamadas vot antes
+
+00:01:54.956 --> 00:01:59.736 align:middle
+y pregunta a cada uno: ¿Sabes cómo decidir si
+
+00:01:59.736 --> 00:02:04.976 align:middle
+el usuario tiene o no
+IS_AUTHENTICATED_REMEMBERED, o ROLE_ADMIN...
+
+00:02:04.976 --> 00:02:07.696 align:middle
+o cualquier otra cadena que le pasemos.
+
+00:02:08.606 --> 00:02:14.706 align:middle
+En la práctica, exactamente uno de estos
+votantes dirá que sí entiende cómo votar
+
+00:02:14.706 --> 00:02:20.916 align:middle
+sobre esa cadena, y responderá
+con ACCESS_DENIED o ACCESS_GRANTED.
+
+00:02:21.756 --> 00:02:24.956 align:middle
+Todos los demás votantes
+devolverán ACCESS_ABSTAIN...
+
+00:02:25.246 --> 00:02:28.626 align:middle
+lo que sólo significa que no
+quieren votar de una forma u otra.
+
+00:02:29.576 --> 00:02:34.366 align:middle
+Así que, por ejemplo, cada vez que llamas
+al sistema de autorización y le pasas una
+
+00:02:34.366 --> 00:02:40.786 align:middle
+de esas cadenas IS_AUTHENTICATED_, es
+este AuthenticatedVoter el que sabe cómo
+
+00:02:40.786 --> 00:02:44.186 align:middle
+decidir si el usuario tiene eso o no.
+
+00:02:44.916 --> 00:02:48.866 align:middle
+El RoleHierarchyVoter, bueno,
+probablemente lo puedes adivinar.
+
+00:02:49.376 --> 00:02:53.966 align:middle
+Es el responsable de votar cualquier
+cosa que empiece por ROLE_.
+
+00:02:54.706 --> 00:02:59.126 align:middle
+Internamente, ese votante comprueba
+si el usuario tiene ese rol.
+
+00:02:59.816 --> 00:03:02.456 align:middle
+Bueno, técnicamente comprueba el "token"...
+
+00:03:02.486 --> 00:03:04.096 align:middle
+pero eso no es demasiado importante.
+
+00:03:04.776 --> 00:03:09.126 align:middle
+También tiene en cuenta nuestra
+configuración de role_hierarchy.
+
+00:03:09.876 --> 00:03:17.776 align:middle
+Y, por cierto, aunque se llame sistema de "votantes",
+en todos los casos, todos los votantes, excepto
+
+00:03:17.776 --> 00:03:22.216 align:middle
+uno, se abstendrán, lo
+que significa que no votan.
+
+00:03:22.816 --> 00:03:26.616 align:middle
+Nunca tendrás una situación
+en la que tengas 5 vot antes
+
+00:03:26.616 --> 00:03:30.966 align:middle
+y 3 tengan acceso al voto
+concedido y 2 denegado.
+
+00:03:31.716 --> 00:03:34.906 align:middle
+Podrías crear votantes que
+hicieran eso, pero no lo harás.
+
+00:03:35.676 --> 00:03:39.256 align:middle
+Hasta ahora, denegar el acceso en nuestro
+sitio ha sido bastante sencillo. Hemos
+
+00:03:39.746 --> 00:03:43.456 align:middle
+querido comprobar si el
+usuario está conectado,
+
+00:03:43.806 --> 00:03:46.156 align:middle
+o hemos comprobado si tiene un rol específico.
+
+00:03:46.706 --> 00:03:49.426 align:middle
+Pero la seguridad no siempre es tan sencilla.
+
+00:03:50.316 --> 00:03:54.926 align:middle
+En el caso de nuestra página de edición de preguntas,
+no podemos limitarnos a comprobar un rol global.
+
+00:03:55.586 --> 00:04:00.756 align:middle
+Tenemos que comprobar si el usuario
+actual es el propietario de esta pregunta.
+
+00:04:01.596 --> 00:04:06.016 align:middle
+Sí: la lógica de seguridad es
+específica para algunos datos.
+
+00:04:06.546 --> 00:04:08.926 align:middle
+En este caso, el objeto Question.
+
+00:04:09.746 --> 00:04:14.316 align:middle
+Poner la lógica en el controlador
+funcionó, pero significa que vamos a tener
+
+00:04:14.316 --> 00:04:20.596 align:middle
+que duplicar esta lógica en nuestra plantilla Twig
+para ocultar o mostrar el enlace "editar pregunta".
+
+00:04:21.516 --> 00:04:27.496 align:middle
+La forma de arreglar esto es creando nuestro propio
+votador personalizado que centralice nuestra lógica.
+
+00:04:28.336 --> 00:04:34.996 align:middle
+Para ello, elimina todo este código y sustitúyelo
+por $this->denyAccessUnlessGranted().
+
+00:04:35.806 --> 00:04:42.186 align:middle
+Aquí es donde las cosas se ponen interesantes: vamos
+a "inventar" una nueva cadena para pasársela a esto.
+
+00:04:42.846 --> 00:04:46.736 align:middle
+Estas cadenas -que hasta ahora habías considerado
+como "roles"- se llaman en realidad atributos
+
+00:04:46.786 --> 00:04:50.046 align:middle
+hasta ahora- se llaman en realidad atributos.
+
+00:04:50.816 --> 00:04:55.046 align:middle
+Digamos EDIT. Me lo acabo de inventar.
+
+00:04:55.276 --> 00:04:57.436 align:middle
+Verás cómo se utiliza en un minuto.
+
+00:04:58.246 --> 00:05:03.166 align:middle
+Luego, aún no lo hemos visto, pero
+también puedes pasar un segundo argumento
+
+00:05:03.166 --> 00:05:09.256 align:middle
+a denyAccessUnlessGranted(), que es algún dato
+relacionado con esta comprobación de seguridad.
+
+00:05:09.786 --> 00:05:11.886 align:middle
+Pasa el objeto Question:
+
+00:05:12.726 --> 00:05:15.636 align:middle
+Vale, para ahora mismo y haz
+clic en la página de edición.
+
+00:05:15.636 --> 00:05:20.426 align:middle
+Ooh, obtenemos "acceso denegado".
+
+00:05:21.246 --> 00:05:23.966 align:middle
+Bueno, nos ha redirigido
+a la página de acceso...
+
+00:05:24.016 --> 00:05:26.656 align:middle
+pero eso significa que no tenemos acceso.
+
+00:05:27.346 --> 00:05:33.166 align:middle
+Haz clic en cualquier enlace de la barra de herramientas de depuración
+de la web para saltar al perfilador, haz clic en "Últimos 10",
+
+00:05:33.586 --> 00:05:36.656 align:middle
+y luego busca la petición a la
+página de edición de la pregunta.
+
+00:05:37.206 --> 00:05:39.316 align:middle
+Haz clic para ver la
+información de su perfil...
+
+00:05:39.866 --> 00:05:42.206 align:middle
+y baja a la sección de Seguridad. En la
+
+00:05:42.876 --> 00:05:45.956 align:middle
+parte inferior, bajo el "Registro
+de decisiones de acceso", el
+
+00:05:46.226 --> 00:05:51.396 align:middle
+acceso fue denegado para el atributo
+"EDITAR" y este objeto Question.
+
+00:05:52.176 --> 00:05:54.426 align:middle
+Si miras los detalles del votante...
+
+00:05:54.766 --> 00:05:57.936 align:middle
+¡oh! Todos se abstuvieron.
+
+00:05:58.406 --> 00:06:06.196 align:middle
+Así que todos los votantes dijeron: No tengo ni idea de
+cómo votar el atributo "EDITAR" y un objeto Question.
+
+00:06:06.786 --> 00:06:10.496 align:middle
+Si todos los votantes se abstienen,
+tenemos el acceso denegado.
+
+00:06:11.416 --> 00:06:15.326 align:middle
+Siguiente: vamos a arreglar esto añadiendo
+nuestro propio votante personalizado
+
+00:06:15.326 --> 00:06:18.226 align:middle
+que sí sabe cómo votar en esta
+situación. Una vez que hayamos
+
+00:06:18.916 --> 00:06:22.306 align:middle
+terminado, haremos que nuestra
+lógica sea aún más compleja
+
+00:06:22.456 --> 00:06:26.316 align:middle
+permitiendo también que los usuarios
+administradores accedan a la página de edición
