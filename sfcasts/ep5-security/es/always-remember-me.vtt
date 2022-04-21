@@ -1,0 +1,324 @@
+WEBVTT
+
+00:00:01.016 --> 00:00:05.496 align:middle
+Ahora que tenemos el sistema "recuérdame"
+funcionando, ¡juguemos con él!
+
+00:00:06.086 --> 00:00:10.776 align:middle
+En lugar de dar al usuario la opción de
+activar "recuérdame", ¿podríamos...
+
+00:00:10.776 --> 00:00:12.646 align:middle
+habilitarlo siempre?
+
+00:00:13.116 --> 00:00:17.726 align:middle
+En este caso, ya no necesitamos
+la casilla "Recuérdame"...
+
+00:00:17.886 --> 00:00:19.946 align:middle
+así que la eliminamos por completo.
+
+00:00:20.776 --> 00:00:24.426 align:middle
+Hay dos maneras de "forzar"
+al sistema "recuérdame"
+
+00:00:24.426 --> 00:00:29.026 align:middle
+a establecer siempre una cookie aunque
+no esté la casilla de verificación.
+
+00:00:29.916 --> 00:00:35.466 align:middle
+La primera es en security.yaml:
+establecer always_remember_me: en true:
+
+00:00:36.416 --> 00:00:39.396 align:middle
+Sí, acabo de escribir mal remember...
+
+00:00:39.556 --> 00:00:40.866 align:middle
+¡así que no lo hagas!
+
+00:00:41.576 --> 00:00:46.086 align:middle
+Con esto, nuestro autentificador sigue
+necesitando añadir un RememberMeBadge:
+
+00:00:46.516 --> 00:00:49.536 align:middle
+Pero el sistema ya no buscará esa casilla.
+
+00:00:50.246 --> 00:00:54.056 align:middle
+Mientras vea esta insignia,
+añadirá la cookie. La
+
+00:00:54.916 --> 00:00:57.856 align:middle
+otra forma de habilitar la cookie remember me
+
+00:00:58.246 --> 00:01:02.126 align:middle
+en todas las situaciones es a
+través de la propia insignia.
+
+00:01:02.616 --> 00:01:04.326 align:middle
+Comenta la nueva opción.
+
+00:01:04.816 --> 00:01:08.696 align:middle
+Bueno... déjame arreglar mi error
+tipográfico y luego comentarlo:
+
+00:01:09.536 --> 00:01:15.886 align:middle
+Dentro de LoginFormAuthenticator, en la propia
+insignia, puedes llamar a ->enable()...
+
+00:01:16.216 --> 00:01:18.396 align:middle
+que devuelve la instancia de la insignia:
+
+00:01:19.206 --> 00:01:23.716 align:middle
+Esto dice: No me importa ninguna otra
+configuración ni la casilla de verificación:
+
+00:01:24.116 --> 00:01:28.056 align:middle
+Definitivamente quiero que el sistema
+"recuérdame" añada una cookie.
+
+00:01:28.906 --> 00:01:29.946 align:middle
+¡Vamos a probarlo!
+
+00:01:32.036 --> 00:01:34.616 align:middle
+Borra la sesión y la cookie REMEMBERME.
+
+00:01:35.546 --> 00:01:37.436 align:middle
+Esta vez, cuando iniciemos la sesión...
+
+00:01:40.436 --> 00:01:43.086 align:middle
+¡oh, token CSRF no válido!
+
+00:01:43.586 --> 00:01:48.256 align:middle
+Eso es porque acabo de matar mi
+sesión sin refrescar - ¡tonto Ryan!
+
+00:01:48.876 --> 00:01:50.406 align:middle
+Refresca e inténtalo de nuevo.
+
+00:01:53.676 --> 00:01:54.356 align:middle
+¡Muy bien!
+
+00:01:54.616 --> 00:01:56.456 align:middle
+¡Tenemos la cookie REMEMBERME!
+
+00:01:57.386 --> 00:02:02.626 align:middle
+Hay una cosa con la que hay que tener cuidado
+cuando se trata de cookies remember me.
+
+00:02:03.136 --> 00:02:08.666 align:middle
+Si un usuario malintencionado consiguiera de alguna manera
+acceder a mi cuenta -como si robara mi contraseña-,
+
+00:02:09.176 --> 00:02:11.956 align:middle
+podría, por supuesto, entrar en ella.
+
+00:02:12.496 --> 00:02:14.856 align:middle
+Normalmente, eso es una mierda...
+
+00:02:15.246 --> 00:02:20.526 align:middle
+pero tan pronto como lo descubra, podría cambiar
+mi contraseña, lo que los desconectaría.
+
+00:02:21.206 --> 00:02:25.226 align:middle
+Pero... si ese mal usuario tiene
+una cookie de REMEMEBERME...
+
+00:02:25.646 --> 00:02:32.566 align:middle
+entonces, aunque cambie mi contraseña, seguirá
+conectado hasta que esa cookie caduque...
+
+00:02:32.566 --> 00:02:35.556 align:middle
+lo que podría ocurrir dentro de mucho tiempo.
+
+00:02:36.406 --> 00:02:39.656 align:middle
+Estas cookies son casi tan
+buenas como las reales:
+
+00:02:40.276 --> 00:02:43.406 align:middle
+actúan como "billetes de
+autentificación gratuitos".
+
+00:02:43.966 --> 00:02:49.256 align:middle
+Y siguen funcionando -independientemente
+de lo que hagamos- hasta que caducan.
+
+00:02:50.046 --> 00:02:56.526 align:middle
+Afortunadamente, en el nuevo sistema de autenticación,
+hay una forma muy interesante de evitar esto.
+
+00:02:56.996 --> 00:03:03.986 align:middle
+En security.yaml, debajo de remember_me, añade una
+nueva opción llamada signature_properties configurada
+
+00:03:03.986 --> 00:03:06.456 align:middle
+en un array con password dentro:
+
+00:03:07.376 --> 00:03:08.826 align:middle
+Me explico.
+
+00:03:09.416 --> 00:03:13.556 align:middle
+Cuando Symfony crea la cookie
+remember me, crea una "firma"
+
+00:03:13.646 --> 00:03:16.426 align:middle
+que demuestra que esta cookie es válida.
+
+00:03:17.376 --> 00:03:22.956 align:middle
+Gracias a esta configuración, ahora obtendrá
+la propiedad password de nuestro User
+
+00:03:23.356 --> 00:03:26.156 align:middle
+y la incluirá en la firma.
+
+00:03:26.806 --> 00:03:29.696 align:middle
+Entonces, cuando esa cookie
+se utilice para autenticarse,
+
+00:03:30.156 --> 00:03:34.986 align:middle
+Symfony volverá a crear la firma utilizando
+el password del User que está actualmente
+
+00:03:34.986 --> 00:03:40.096 align:middle
+en la base de datos y se asegurará
+de que las dos firmas coincidan.
+
+00:03:40.796 --> 00:03:45.426 align:middle
+Así que si el password de la base de datos
+es diferente a la contraseña que se utilizó
+
+00:03:45.426 --> 00:03:47.396 align:middle
+para crear originalmente la cookie...
+
+00:03:47.776 --> 00:03:50.426 align:middle
+¡la coincidencia de la firma fallará! En
+
+00:03:51.246 --> 00:03:57.716 align:middle
+otras palabras, para cualquier propiedad de esta lista,
+si incluso una de estas cambia en la base de datos
+
+00:03:57.746 --> 00:04:03.896 align:middle
+en ese User, todas las cookies "Recuérdame"
+para ese usuario serán invalidadas al instante.
+
+00:04:04.516 --> 00:04:09.156 align:middle
+Así que si un usuario malo me roba la cuenta, todo
+lo que tengo que hacer es cambiar mi contraseña
+
+00:04:09.586 --> 00:04:12.356 align:middle
+y ese usuario malo será expulsado.
+
+00:04:13.086 --> 00:04:14.886 align:middle
+Es genial ver esto en acción.
+
+00:04:15.446 --> 00:04:16.346 align:middle
+Actualiza la página.
+
+00:04:17.096 --> 00:04:22.656 align:middle
+Si modificas la configuración de signature_properties,
+se invalidarán todas las cookies de REMEMBERME
+
+00:04:22.656 --> 00:04:28.666 align:middle
+en todo el sistema: así que asegúrate de que la
+configuración es correcta cuando lo configures por primera vez.
+
+00:04:29.516 --> 00:04:32.766 align:middle
+Observa: si borro la cookie
+de sesión y actualizo...
+
+00:04:33.406 --> 00:04:38.796 align:middle
+¡sí! No estoy autentificado: la
+cookie de REMEMBERME no ha funcionado.
+
+00:04:39.166 --> 00:04:40.396 align:middle
+Sigue estando ahí...
+
+00:04:40.396 --> 00:04:42.056 align:middle
+pero no es funcional.
+
+00:04:42.866 --> 00:04:45.736 align:middle
+Iniciemos la sesión - con nuestra
+dirección de correo electrónico normal...
+
+00:04:45.956 --> 00:04:46.886 align:middle
+y contraseña...
+
+00:04:47.396 --> 00:04:52.986 align:middle
+para que obtengamos una nueva cookie
+"recuérdame" creada con la contraseña con hash.
+
+00:04:53.546 --> 00:04:59.196 align:middle
+¡Genial! Y ahora, en condiciones normales,
+las cosas funcionarán como siempre.
+
+00:04:59.846 --> 00:05:04.126 align:middle
+Puedo eliminar la cookie de sesión,
+actualizarla y seguiré conectado.
+
+00:05:04.736 --> 00:05:09.006 align:middle
+Pero ahora, vamos a cambiar la contraseña
+del usuario en la base de datos.
+
+00:05:09.616 --> 00:05:12.096 align:middle
+Podemos hacer trampa y hacer
+esto en la línea de comandos:
+
+00:05:12.506 --> 00:05:19.426 align:middle
+symfony console doctrine:query:sql 'UPDATE
+user SET password="foo" WHERE email =
+
+00:05:19.536 --> 00:05:26.386 align:middle
+"abraca_admin@example.com"' Poner la contraseña
+en foo es una auténtica tontería...
+
+00:05:26.916 --> 00:05:30.726 align:middle
+ya que esta columna debe contener
+una contraseña con hash...
+
+00:05:31.156 --> 00:05:33.576 align:middle
+pero estará bien para nuestros propósitos.
+
+00:05:34.416 --> 00:05:35.456 align:middle
+Pulsa y...
+
+00:05:35.756 --> 00:05:41.536 align:middle
+¡impresionante! Esto imita lo que ocurriría
+si cambiara la contraseña de mi cuenta.
+
+00:05:42.516 --> 00:05:46.466 align:middle
+Ahora, si somos el usuario malo, la
+próxima vez que volvamos al sitio...
+
+00:05:46.856 --> 00:05:48.806 align:middle
+¡de repente se nos cierra la sesión!
+
+00:05:49.546 --> 00:05:53.626 align:middle
+¡Una barbaridad! ¡Y yo también me habría salido con
+la mía si no fuera por vosotros, niños entrometidos!
+
+00:05:54.446 --> 00:05:56.356 align:middle
+La cookie "recuérdame" está ahí...
+
+00:05:56.676 --> 00:05:58.326 align:middle
+pero no funciona.
+
+00:05:58.616 --> 00:05:59.856 align:middle
+Me encanta esta función.
+
+00:06:00.706 --> 00:06:01.426 align:middle
+Volvamos atrás...
+
+00:06:01.646 --> 00:06:07.626 align:middle
+y recargue nuestros accesorios
+para arreglar mi contraseña: Y...
+
+00:06:07.626 --> 00:06:13.856 align:middle
+una vez hecho esto, entra de nuevo como
+abraca_admin@example.com, contraseña tada.
+
+00:06:15.186 --> 00:06:20.056 align:middle
+A continuación: ¡es el momento de tener un
+viaje de poder y empezar a negar el acceso!
+
+00:06:20.486 --> 00:06:26.956 align:middle
+Veamos access_control: la forma más sencilla de
+bloquear el acceso a secciones enteras de tu sitio
