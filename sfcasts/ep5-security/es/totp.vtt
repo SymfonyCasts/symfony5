@@ -1,0 +1,261 @@
+WEBVTT
+
+00:00:01.016 --> 00:00:05.166 align:middle
+Puede que aún no lo parezca, pero
+el paquete ya está configurado...
+
+00:00:05.476 --> 00:00:09.686 align:middle
+excepto por una gran pieza que falta:
+¿cómo queremos que nuestros usuarios
+
+00:00:09.686 --> 00:00:13.946 align:middle
+obtengan el token temporal que
+introducirán en el formulario?
+
+00:00:14.846 --> 00:00:17.286 align:middle
+En los documentos, hay 3 opciones...
+
+00:00:17.576 --> 00:00:18.886 align:middle
+bueno, más o menos sólo 2.
+
+00:00:19.446 --> 00:00:22.906 align:middle
+Las dos primeras consisten en utilizar
+una aplicación de autentificación,
+
+00:00:23.146 --> 00:00:25.756 align:middle
+como Google Authenticator o Authy.
+
+00:00:26.476 --> 00:00:29.516 align:middle
+La otra opción es enviar el código
+por correo electrónico. Vamos a
+
+00:00:30.316 --> 00:00:35.626 align:middle
+utilizar esta autenticación
+"totp", que es básicamente lo mismo
+
+00:00:35.626 --> 00:00:40.936 align:middle
+que el autenticador de Google y significa
+"contraseña de un solo uso basada en el tiempo".
+
+00:00:41.676 --> 00:00:44.566 align:middle
+La lógica para esto vive en
+realidad en una biblioteca separada.
+
+00:00:45.266 --> 00:00:49.106 align:middle
+Copia la línea requerida por
+Composer, busca tu terminal y pégala:
+
+00:00:49.106 --> 00:00:52.456 align:middle
+composer require "scheb/2fa-totp:^5.13"
+Esta vez no hay ninguna receta
+
+00:00:52.456 --> 00:00:56.096 align:middle
+ni nada extravagante: simplemente
+se instala la biblioteca.
+
+00:00:56.816 --> 00:01:00.746 align:middle
+A continuación, si vuelves a la
+documentación, tenemos que habilitar esto
+
+00:01:00.796 --> 00:01:04.056 align:middle
+como método de autenticación
+dentro del archivo de configuración.
+
+00:01:04.746 --> 00:01:08.796 align:middle
+Eso está en config/packages/scheb_2fa.yaml.
+
+00:01:09.356 --> 00:01:10.926 align:middle
+Pégalo en la parte inferior:
+
+00:01:11.876 --> 00:01:14.696 align:middle
+El último paso, si miras la documentación,
+
+00:01:15.186 --> 00:01:19.486 align:middle
+es hacer que nuestro User
+implemente un TwoFactorInterface.
+
+00:01:20.366 --> 00:01:26.326 align:middle
+Abre nuestra clase de usuario:
+src/Entity/User.php, añade TwoFactorInterface:
+
+00:01:27.646 --> 00:01:29.326 align:middle
+Luego dirígete a la parte inferior.
+
+00:01:31.036 --> 00:01:34.936 align:middle
+Ahora ve al menú "Código"->"Generar"
+-o Command+N en un Mac- y elige implementar
+
+00:01:35.416 --> 00:01:39.436 align:middle
+métodos para generar los 3 que
+necesitamos: Hermoso. Así es
+
+00:01:40.276 --> 00:01:40.926 align:middle
+como
+
+00:01:41.576 --> 00:01:44.966 align:middle
+funciona la autenticación TOTP. Cada usuario
+
+00:01:45.546 --> 00:01:49.696 align:middle
+que decida activar la autenticación
+de dos factores para su
+
+00:01:49.696 --> 00:01:57.096 align:middle
+cuenta tendrá un secreto TOTP -una cadena
+aleatoria- almacenado en una propiedad. Ésta se
+
+00:01:57.776 --> 00:02:02.826 align:middle
+utilizará para validar el código y servirá
+para ayudar al usuario a configurar su
+
+00:02:02.826 --> 00:02:07.256 align:middle
+aplicación de autenticación cuando active por primera
+vez la autenticación de dos factores. Los métodos
+
+00:02:08.116 --> 00:02:11.166 align:middle
+de la interfaz son bastante sencillos.
+isTotpAuthenticationEnabled() devuelve
+
+00:02:11.646 --> 00:02:19.266 align:middle
+si el usuario ha activado o no la
+autenticación de dos factores... y
+
+00:02:19.266 --> 00:02:22.236 align:middle
+podemos comprobar simplemente si la propiedad está
+establecida. El método getTotpAuthenticationUsername() se
+
+00:02:23.136 --> 00:02:30.236 align:middle
+utiliza para ayudar a generar algo de información
+sobre el código QR. El último método
+
+00:02:30.976 --> 00:02:35.296 align:middle
+- getTotpAuthenticationConfiguration() - es el
+
+00:02:35.646 --> 00:02:41.876 align:middle
+más interesante: determina cómo se generan
+los códigos, incluyendo el número de dígitos
+
+00:02:41.876 --> 00:02:45.556 align:middle
+y la duración de cada uno. Normalmente,
+las aplicaciones de autenticación
+
+00:02:46.216 --> 00:02:50.976 align:middle
+generan un nuevo código
+cada 30 segundos. Copia la
+
+00:02:51.776 --> 00:02:58.046 align:middle
+propiedad$totpSecret, desplázate hasta las
+propiedades de nuestra clase y pégala: Luego
+
+00:02:59.306 --> 00:03:04.396 align:middle
+vuelve a la parte inferior y utiliza el menú
+"Código"->"Generar" para generar un getter
+
+00:03:04.396 --> 00:03:06.706 align:middle
+y un setter para esto. Pero podemos
+
+00:03:08.536 --> 00:03:13.606 align:middle
+hacerlo más bonito: dale al argumento un tipo
+de cadena anulable, un tipo de retorno self
+
+00:03:14.346 --> 00:03:17.296 align:middle
+y devuelve $this... porque el resto de
+
+00:03:17.846 --> 00:03:21.026 align:middle
+nuestros establecedores son "fluidos"
+como éste: Para el getter ... vamos a
+
+00:03:21.026 --> 00:03:22.516 align:middle
+eliminarlo por completo. No
+
+00:03:22.916 --> 00:03:24.726 align:middle
+lo vamos a necesitar...
+
+00:03:25.446 --> 00:03:27.336 align:middle
+y es
+
+00:03:27.336 --> 00:03:29.386 align:middle
+un valor algo sensible. Vamos a rellenar los
+
+00:03:30.306 --> 00:03:31.846 align:middle
+tres métodos. Robaré el código
+
+00:03:32.406 --> 00:03:34.306 align:middle
+del primero... y lo pegaré: Para el
+
+00:03:36.476 --> 00:03:37.336 align:middle
+nombre de usuario, en
+
+00:03:37.336 --> 00:03:40.556 align:middle
+nuestro caso, devuelve
+$this->getUserIdentifier(), que
+
+00:03:40.876 --> 00:03:46.406 align:middle
+en realidad es nuestro correo electrónico:
+Para el último método, copia
+
+00:03:48.406 --> 00:03:51.676 align:middle
+la configuración de los documentos...
+y pega: Vuelvo a escribir
+
+00:03:54.476 --> 00:03:55.536 align:middle
+el final
+
+00:03:56.476 --> 00:04:01.236 align:middle
+de TotpConfiguration y pulso el
+tabulador para que PhpStorm añada
+
+00:04:01.386 --> 00:04:04.776 align:middle
+la declaración use encima:
+Pero, ten cuidado. Cambia
+
+00:04:05.426 --> 00:04:07.186 align:middle
+el 20 por el
+
+00:04:07.746 --> 00:04:12.036 align:middle
+30, y el 8 por el 6: Esto dice que cada
+
+00:04:12.906 --> 00:04:18.876 align:middle
+código debe durar 30 segundos y contener
+6 dígitos. La razón por la que utilizo
+
+00:04:19.816 --> 00:04:25.116 align:middle
+estos valores exactos -incluyendo el
+algoritmo- es para dar soporte a la
+
+00:04:25.576 --> 00:04:28.626 align:middle
+aplicación Google Authenticator.
+Otras aplicaciones, aparentemente,
+
+00:04:29.316 --> 00:04:35.026 align:middle
+te permiten ajustar estos valores, pero Google Authenticator no
+lo hace. Así que , si quieres dar soporte a Google Authenticator
+
+00:04:35.716 --> 00:04:39.286 align:middle
+, quédate con esta configuración.
+Bien, ¡nuestro sistema de usuarios
+
+00:04:40.216 --> 00:04:42.886 align:middle
+está listo! En teoría, si
+
+00:04:43.376 --> 00:04:49.786 align:middle
+estableciéramos un valor totpSecret para uno de nuestros
+usuarios en la base de datos, y luego intentáramos
+
+00:04:50.236 --> 00:04:56.856 align:middle
+iniciar sesión como ese usuario, seríamos redirigidos
+al formulario "introduce tu código". Pero, nos falta un
+
+00:04:57.546 --> 00:04:59.386 align:middle
+paso. Siguiente: vamos a añadir una
+
+00:05:00.276 --> 00:05:06.736 align:middle
+forma de que un usuario active la autenticación
+de dos factores en su cuenta. Cuando lo haga,
+
+00:05:07.376 --> 00:05:13.416 align:middle
+generaremos un totpSecret y, lo que es más
+importante, lo utilizaremos para mostrar
+
+00:05:13.686 --> 00:05:19.306 align:middle
+un código QR que el usuario puede escanear
+para configurar su aplicación de autenticación
