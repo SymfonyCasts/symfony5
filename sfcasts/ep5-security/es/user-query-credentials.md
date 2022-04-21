@@ -54,11 +54,11 @@ Si usas `CustomCredentials`, Symfony ejecuta la llamada de retorno... y nuestro 
 
 ## Fallo y éxito de la autenticación
 
-Si devolvemos `true` desde esta función, ¡la autenticación ha sido un éxito! ¡Vaya! Si devolvemos `false`, la autenticación falla. Para comprobarlo, baja a`onAuthenticationSuccess()` y `dd('success')`. Haz lo mismo dentro de `onAuthenticationFailure()`:
+Si devolvemos `true` desde esta función, ¡la autenticación ha sido un éxito! ¡Vaya! Si devolvemos `false`, la autenticación falla. Para comprobarlo, baja a `onAuthenticationSuccess()` y `dd('success')`. Haz lo mismo dentro de `onAuthenticationFailure()`:
 
 [[[ code('cbdce16714') ]]]
 
-Pronto pondremos código real en estos métodos... pero su propósito se explica por sí mismo: si la autenticación tiene éxito, Symfony llamará a`onAuthenticationSuccess()`. Si la autenticación falla por cualquier motivo - como un correo electrónico o una contraseña no válidos - Symfony llamará a `onAuthenticationFailure()`.
+Pronto pondremos código real en estos métodos... pero su propósito se explica por sí mismo: si la autenticación tiene éxito, Symfony llamará a `onAuthenticationSuccess()`. Si la autenticación falla por cualquier motivo - como un correo electrónico o una contraseña no válidos - Symfony llamará a `onAuthenticationFailure()`.
 
 ¡Vamos a probarlo! Vuelve directamente a `/login`. Utiliza de nuevo el correo electrónico real -`abraca_admin@example.com` con la contraseña correcta: `tada`. Envía y... ¡sí! llama a `onAuthenticationSuccess()`. ¡La autenticación se ha completado!
 
