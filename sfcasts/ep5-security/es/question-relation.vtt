@@ -1,0 +1,257 @@
+WEBVTT
+
+00:00:01.026 --> 00:00:06.256 align:middle
+Nuestro sitio tiene usuarios y estas
+preguntas son creadas por esos usuarios.
+
+00:00:06.896 --> 00:00:11.416 align:middle
+Por tanto, en la base de datos, cada
+Question debe estar relacionado con el User
+
+00:00:11.416 --> 00:00:14.596 align:middle
+que lo creó mediante una relación Doctrine.
+
+00:00:15.116 --> 00:00:21.626 align:middle
+Ahora mismo, si abres
+src/Entity/Question.php, ese no es el caso.
+
+00:00:22.186 --> 00:00:26.576 align:middle
+No hay nada que lo relacione
+con el User que lo creó.
+
+00:00:27.076 --> 00:00:28.356 align:middle
+Es hora de arreglar eso.
+
+00:00:29.076 --> 00:00:32.606 align:middle
+Necesitaremos esto para poder
+hablar correctamente de los votantes
+
+00:00:33.316 --> 00:00:37.996 align:middle
+Busca tu terminal y ejecuta:
+symfony console make:entity Vamos a
+
+00:00:37.996 --> 00:00:42.596 align:middle
+modificar la entidad Question y añadir
+una nueva propiedad llamada owner,
+
+00:00:43.036 --> 00:00:46.186 align:middle
+que será el "usuario" que posee este Question.
+
+00:00:46.916 --> 00:00:49.386 align:middle
+Necesitamos una relación ManyToOne.
+
+00:00:49.996 --> 00:00:55.456 align:middle
+Si alguna vez no estás seguro, escribe "relación"
+y te guiará a través de un asistente para ayudarte.
+
+00:00:56.386 --> 00:00:58.626 align:middle
+Esta será una relación con la clase User...
+
+00:00:59.036 --> 00:01:05.856 align:middle
+y la propiedad owner no será anulable: cada
+pregunta debe ser propiedad de algún usuario.
+
+00:01:06.576 --> 00:01:10.706 align:middle
+A continuación nos pregunta si queremos
+mapear el otro lado de la relación para
+
+00:01:11.076 --> 00:01:14.396 align:middle
+que podamos decir $user->getQuestions().
+
+00:01:15.046 --> 00:01:18.196 align:middle
+Eso puede ser útil, así que digamos que sí.
+
+00:01:18.516 --> 00:01:20.376 align:middle
+Y llamaremos a esa propiedad questions.
+
+00:01:21.186 --> 00:01:24.426 align:middle
+Por último, voy a decir que no
+a la eliminación de huérfanos.
+
+00:01:24.886 --> 00:01:25.956 align:middle
+Y... ¡listo!
+
+00:01:26.696 --> 00:01:29.246 align:middle
+Si has pasado por nuestro tutorial
+sobre las relaciones de Doctrine,
+
+00:01:29.646 --> 00:01:32.426 align:middle
+sabrás que aquí no hay nada especial.
+
+00:01:32.876 --> 00:01:36.786 align:middle
+Esto añadió una relación ManyToOne
+sobre una nueva propiedad $owner...
+
+00:01:37.206 --> 00:01:40.156 align:middle
+y ha hecho métodos getter y
+setter en la parte inferior:
+
+00:01:41.476 --> 00:01:46.036 align:middle
+En la clase User, también mapeó
+el lado inverso de la relación:
+
+00:01:46.846 --> 00:01:52.536 align:middle
+Vamos a hacer una migración para este
+cambio: symfony console make:migration Y...
+
+00:01:52.536 --> 00:01:55.856 align:middle
+como de costumbre, pasaremos al
+nuevo archivo de migración...
+
+00:01:56.086 --> 00:01:58.926 align:middle
+para asegurarnos de que sólo
+contiene lo que esperamos.
+
+00:01:59.506 --> 00:02:04.146 align:middle
+Sí: ALTER TABLE question, añade
+owner_id y luego lo de la clave foránea:
+
+00:02:04.946 --> 00:02:10.486 align:middle
+Vamos a ejecutarlo: symfony console
+doctrine:migrations:migrate Y...
+
+00:02:10.726 --> 00:02:11.826 align:middle
+¡ha fallado!
+
+00:02:12.516 --> 00:02:13.576 align:middle
+No pasa nada.
+
+00:02:14.136 --> 00:02:18.296 align:middle
+Falla porque ya hay filas en la tabla question.
+
+00:02:18.716 --> 00:02:24.756 align:middle
+Así que añadir un nuevo owner_id NOT
+NULL hace que esos registros existentes...
+
+00:02:24.756 --> 00:02:29.166 align:middle
+exploten. En el tutorial de relaciones
+de Doctrine , hablamos de cómo
+
+00:02:29.166 --> 00:02:33.306 align:middle
+manejar, arreglar y probar
+responsablemente las migraciones fallidas.
+
+00:02:33.986 --> 00:02:38.566 align:middle
+Como ya hablamos de ello allí, voy
+a tomar el camino más fácil aquí
+
+00:02:38.666 --> 00:02:43.356 align:middle
+y simplemente eliminar nuestra base de
+datos: symfony console doctrine:database:drop
+
+00:02:43.696 --> 00:02:47.056 align:middle
+--force Luego crearé una base de datos nueva:
+
+00:02:47.536 --> 00:02:51.936 align:middle
+symfony console doctrine:database:create
+Y migrar de nuevo.
+
+00:02:54.576 --> 00:02:57.016 align:middle
+Ahora ya funciona.
+
+00:02:57.806 --> 00:03:03.296 align:middle
+Recarga los accesorios: symfony
+console doctrine:fixtures:load Y...
+
+00:03:03.676 --> 00:03:05.516 align:middle
+¡también ha explotado!
+
+00:03:05.686 --> 00:03:11.926 align:middle
+¡Vamos! La inserción en la pregunta está
+fallando porque owner_id no puede ser nula.
+
+00:03:12.446 --> 00:03:19.286 align:middle
+Eso tiene sentido: aún no hemos entrado en nuestros
+dispositivos y no hemos dado un propietario a cada pregunta.
+
+00:03:19.926 --> 00:03:20.866 align:middle
+Hagámoslo.
+
+00:03:21.376 --> 00:03:24.926 align:middle
+Abre src/Factory/QuestionFactory.php.
+
+00:03:24.926 --> 00:03:31.386 align:middle
+Nuestro trabajo en getDefaults(), es proporcionar
+un valor por defecto para cada propiedad requerida.
+
+00:03:32.186 --> 00:03:37.876 align:middle
+Así que ahora voy a añadir una clave owner
+establecida en UserFactory::new() : Gracias
+
+00:03:38.686 --> 00:03:44.586 align:middle
+a esto, si ejecutamos QuestionFactory
+sin anular ninguna variable, se
+
+00:03:45.016 --> 00:03:49.016 align:middle
+creará un nuevo usuario
+para cada nueva pregunta.
+
+00:03:49.886 --> 00:03:52.666 align:middle
+Pero dentro de nuestros accesorios, eso es...
+
+00:03:52.666 --> 00:03:54.336 align:middle
+no es exactamente lo que queremos.
+
+00:03:55.016 --> 00:03:57.696 align:middle
+Dirígete a la parte inferior,
+donde creamos los usuarios.
+
+00:03:58.376 --> 00:04:01.856 align:middle
+Lo que quiero hacer es crear
+primero estos usuarios.
+
+00:04:02.376 --> 00:04:05.266 align:middle
+Y luego, cuando creemos las
+preguntas aquí arriba...
+
+00:04:05.706 --> 00:04:12.226 align:middle
+oh, en realidad aquí mismo, quiero utilizar un
+usuario aleatorio de los que ya hemos creado.
+
+00:04:13.046 --> 00:04:18.276 align:middle
+Para ello, primero tenemos que mover nuestros usuarios
+a la parte superior para que se creen primero:
+
+00:04:22.236 --> 00:04:24.876 align:middle
+Luego, aquí abajo para
+nuestras preguntas principales,
+
+00:04:25.036 --> 00:04:29.326 align:middle
+pasar una función al segundo
+argumento y devolver un array...
+
+00:04:29.836 --> 00:04:32.456 align:middle
+para que podamos anular la propiedad owner.
+
+00:04:33.046 --> 00:04:36.126 align:middle
+Ponlo en UserFactory::random():
+
+00:04:37.086 --> 00:04:41.496 align:middle
+No me voy a preocupar de hacer esto también para
+las preguntas no publicadas de aquí abajo...
+
+00:04:41.776 --> 00:04:42.626 align:middle
+pero podríamos hacerlo.
+
+00:04:43.496 --> 00:04:49.916 align:middle
+Bien: probemos de nuevo los accesorios: symfony
+console doctrine:fixtures:load Esta vez...
+
+00:04:50.916 --> 00:04:52.046 align:middle
+¡funcionan!
+
+00:04:52.646 --> 00:04:57.146 align:middle
+¡Genial! Así que vamos a aprovechar
+la nueva relación en nuestro sitio
+
+00:04:57.246 --> 00:04:59.806 align:middle
+para imprimir el verdadero
+propietario de cada pregunta.
+
+00:05:00.606 --> 00:05:04.466 align:middle
+También vamos a iniciar una página
+de edición de preguntas y luego...
+
+00:05:04.466 --> 00:05:10.606 align:middle
+tendremos que averiguar cómo hacer que sólo el
+propietario de cada pregunta pueda acceder a ella
