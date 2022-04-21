@@ -1,0 +1,320 @@
+WEBVTT
+
+00:00:01.036 --> 00:00:04.496 align:middle
+Acabamos de iniciar la sesión con éxito
+utilizando la autenticación de dos factores.
+
+00:00:04.846 --> 00:00:09.356 align:middle
+¡Guau! Pero el formulario en el que
+hemos introducido el código era feo.
+
+00:00:09.686 --> 00:00:10.756 align:middle
+Es hora de arreglarlo
+
+00:00:11.446 --> 00:00:11.906 align:middle
+Cerramos la sesión...
+
+00:00:12.406 --> 00:00:13.756 align:middle
+y vuelve a iniciar la sesión...
+
+00:00:14.106 --> 00:00:15.686 align:middle
+con nuestro correo electrónico habitual...
+
+00:00:15.856 --> 00:00:17.046 align:middle
+y la contraseña tada.
+
+00:00:19.236 --> 00:00:20.696 align:middle
+Este es nuestro feo formulario.
+
+00:00:21.346 --> 00:00:22.876 align:middle
+¿Cómo podemos personalizarlo?
+
+00:00:23.506 --> 00:00:27.666 align:middle
+Bueno, la maravillosa documentación,
+por supuesto, podría decírnoslo.
+
+00:00:28.146 --> 00:00:31.306 align:middle
+Pero vamos a ser intrigantes y ver si
+podemos descubrirlo por nosotros mismos.
+
+00:00:32.146 --> 00:00:35.106 align:middle
+Busca tu terminal y carga
+la configuración actual
+
+00:00:35.106 --> 00:00:38.116 align:middle
+de este paquete: symfony
+console debug:config...
+
+00:00:38.966 --> 00:00:45.146 align:middle
+y luego, busca el archivo de configuración, copia
+la clave raíz - scheb_two_factor - y pégala.
+
+00:00:46.706 --> 00:00:51.086 align:middle
+¡Genial! Vemos security_tokens
+con UsernamePasswordToken...
+
+00:00:51.676 --> 00:00:54.556 align:middle
+que no es ninguna sorpresa
+porque es lo que tenemos aquí.
+
+00:00:55.226 --> 00:00:59.856 align:middle
+Pero esto también nos muestra algunos valores por
+defecto que no hemos configurado específicamente.
+
+00:01:00.446 --> 00:01:03.486 align:middle
+El que nos interesa es template.
+
+00:01:04.206 --> 00:01:09.416 align:middle
+Esta es la plantilla que se renderiza actualmente para
+mostrar la página de dos factores "introduce el código".
+
+00:01:10.046 --> 00:01:10.906 align:middle
+Vamos a comprobarlo.
+
+00:01:11.646 --> 00:01:16.386 align:middle
+Copia la mayor parte del nombre del
+archivo, pulsa Shift+Shift, pega y...
+
+00:01:16.976 --> 00:01:17.686 align:middle
+¡aquí está!
+
+00:01:18.146 --> 00:01:22.606 align:middle
+No es demasiado complejo: tenemos
+una variable authenticationError
+
+00:01:22.606 --> 00:01:25.616 align:middle
+que muestra un mensaje si
+escribimos un código no válido.
+
+00:01:26.206 --> 00:01:29.726 align:middle
+Entonces... básicamente tenemos un
+formulario con una acción establecida
+
+00:01:29.726 --> 00:01:32.896 align:middle
+en la ruta de envío correcta,
+una entrada y un botón.
+
+00:01:33.666 --> 00:01:37.786 align:middle
+Para personalizar esto, baja al
+directorio templates/security/
+
+00:01:37.956 --> 00:01:43.476 align:middle
+y crea un nuevo archivo llamado,
+qué tal, 2fa_form.html.twig.
+
+00:01:44.756 --> 00:01:46.886 align:middle
+Pondré una estructura para empezar:
+
+00:01:47.506 --> 00:01:49.886 align:middle
+Esto extiende base.html.twig...
+
+00:01:50.306 --> 00:01:54.826 align:middle
+pero aún no hay nada dinámico:
+el formulario es un gran TODO.
+
+00:01:55.616 --> 00:01:57.856 align:middle
+Así que, obviamente, esto no está hecho...
+
+00:01:58.186 --> 00:02:00.146 align:middle
+pero, ¡intentemos utilizarlo
+de todos modos! De nuevo
+
+00:02:00.876 --> 00:02:05.756 align:middle
+en config/packages/scheb_2fa.yaml, bajo totp,
+
+00:02:06.126 --> 00:02:12.026 align:middle
+añade template ajustado a
+security/2fa_form.html.twig:
+
+00:02:12.936 --> 00:02:15.506 align:middle
+De vuelta al navegador, actualiza y...
+
+00:02:15.916 --> 00:02:17.866 align:middle
+¡sí! ¡Esa es nuestra plantilla!
+
+00:02:18.636 --> 00:02:24.956 align:middle
+Ah, y ahora que esto renderiza una página HTML completa, tenemos
+de nuevo nuestra barra de herramientas de depuración web.
+
+00:02:25.746 --> 00:02:29.086 align:middle
+Pasa el ratón por encima del icono de
+seguridad para ver una cosa interesante.
+
+00:02:29.746 --> 00:02:35.086 align:middle
+Estamos, más o menos, autentificados,
+pero con este TwoFactorToken especial.
+
+00:02:35.756 --> 00:02:39.116 align:middle
+Y si te fijas, no tenemos ningún rol.
+
+00:02:39.716 --> 00:02:43.326 align:middle
+Por lo tanto, estamos como
+conectados, pero sin ningún rol.
+
+00:02:43.916 --> 00:02:48.816 align:middle
+Y además, el paquete de dos factores
+ejecuta un escuchador al inicio de cada
+
+00:02:49.056 --> 00:02:54.436 align:middle
+petición que garantiza que el usuario no puede intentar
+navegar por el sitio en este estado de media sesión:
+
+00:02:55.256 --> 00:02:59.616 align:middle
+detiene todas las peticiones
+y las redirige a esta URL.
+
+00:03:00.276 --> 00:03:07.066 align:middle
+Y si se desplaza hacia abajo, incluso en esta página, todas
+las comprobaciones de seguridad devuelven el ACCESO DENEGADO.
+
+00:03:07.676 --> 00:03:11.626 align:middle
+El paquete de dos factores se engancha al
+sistema de seguridad para provocar esto.
+
+00:03:12.506 --> 00:03:15.266 align:middle
+De todos modos, vamos a rellenar
+la parte del formulario TODO.
+
+00:03:15.886 --> 00:03:20.406 align:middle
+Para ello, copia toda la plantilla del
+núcleo, y pégala sobre nuestro TODO:
+
+00:03:22.076 --> 00:03:24.886 align:middle
+Ahora... es cuestión de personalizar esto.
+
+00:03:25.616 --> 00:03:30.226 align:middle
+Cambia el error p por un div
+con class="alert alert-error".
+
+00:03:30.876 --> 00:03:33.156 align:middle
+Eso debería ser alert-danger...
+
+00:03:33.286 --> 00:03:34.336 align:middle
+Lo arreglaré en un momento.
+A continuación, voy a
+
+00:03:35.116 --> 00:03:39.076 align:middle
+eliminar los enlaces para
+autenticar de forma diferente
+
+00:03:39.376 --> 00:03:41.866 align:middle
+porque sólo soportamos totp.
+
+00:03:42.676 --> 00:03:46.066 align:middle
+Para el input necesitamos class="form-control".
+
+00:03:47.146 --> 00:03:51.456 align:middle
+Luego, aquí abajo, dejaré
+estas secciones displayTrusted
+
+00:03:51.456 --> 00:03:54.596 align:middle
+y isCsrfProtectionEnabled...
+
+00:03:54.936 --> 00:03:56.286 align:middle
+aunque no las voy a utilizar.
+
+00:03:56.916 --> 00:03:58.736 align:middle
+Puedes activarlas en la configuración.
+
+00:03:59.716 --> 00:04:03.956 align:middle
+Por último, quita el p alrededor
+del botón, cámbialo por un button -
+
+00:04:04.236 --> 00:04:08.246 align:middle
+me gustan más esos - pon el
+texto dentro de la etiqueta...
+
+00:04:12.436 --> 00:04:14.516 align:middle
+y añade unas cuantas clases.
+
+00:04:17.136 --> 00:04:20.306 align:middle
+Ah, y también voy a mover el enlace
+"Cerrar sesión" un poco hacia arriba...
+
+00:04:22.536 --> 00:04:23.636 align:middle
+limpiarlo un poco...
+
+00:04:24.726 --> 00:04:26.806 align:middle
+y añadiré algunas clases adicionales:
+
+00:04:29.536 --> 00:04:34.156 align:middle
+¡Uf! Con un poco de suerte, eso
+debería hacer que se vea bastante bien.
+
+00:04:34.786 --> 00:04:35.956 align:middle
+Refresca y...
+
+00:04:36.246 --> 00:04:41.826 align:middle
+¡qué bien! Bah, excepto por una
+pequeña cita extra en mi "Login".
+
+00:04:42.346 --> 00:04:43.376 align:middle
+Siempre hago eso.
+
+00:04:44.936 --> 00:04:47.126 align:middle
+Ya está, se ve mejor:
+
+00:04:48.006 --> 00:04:49.716 align:middle
+Si escribimos un código no válido...
+
+00:04:50.306 --> 00:04:53.336 align:middle
+¡error! Ah, pero no es rojo...
+
+00:04:53.776 --> 00:04:56.386 align:middle
+la clase debería ser alert-danger.
+
+00:04:56.976 --> 00:04:58.616 align:middle
+¡Por eso probamos las cosas!
+
+00:04:59.376 --> 00:04:59.876 align:middle
+Y ahora...
+
+00:05:00.846 --> 00:05:01.456 align:middle
+esto está mejor:
+
+00:05:02.216 --> 00:05:06.566 align:middle
+Si escribimos un código válido desde
+mi aplicación Authy, ¡lo tenemos!
+
+00:05:06.916 --> 00:05:08.686 align:middle
+¡Misión cumplida!
+
+00:05:09.276 --> 00:05:15.756 align:middle
+Además, aunque no hablemos de ellos, el paquete de
+dos factores también admite "códigos de respaldo"
+
+00:05:15.756 --> 00:05:19.256 align:middle
+y "dispositivos de confianza", en
+los que el usuario puede elegir
+
+00:05:19.256 --> 00:05:23.896 align:middle
+omitir la futura autenticación de dos
+factores en un dispositivo específico.
+
+00:05:24.476 --> 00:05:26.256 align:middle
+Consulta la documentación
+para conocer los detalles.
+
+00:05:27.046 --> 00:05:28.646 align:middle
+Y... ¡lo hemos conseguido!
+
+00:05:29.076 --> 00:05:32.086 align:middle
+¡Enhorabuena por tu increíble trabajo!
+
+00:05:32.646 --> 00:05:39.556 align:middle
+Se supone que la seguridad es un tema árido
+y aburrido, pero a mí me encanta este tema.
+
+00:05:40.246 --> 00:05:42.426 align:middle
+Espero que hayas disfrutado
+del viaje tanto como yo.
+
+00:05:43.016 --> 00:05:46.656 align:middle
+Si hay algo que no hayamos cubierto o
+todavía tienes algunas preguntas, estamos
+
+00:05:47.076 --> 00:05:49.586 align:middle
+aquí para ti en la sección de comentarios.
+
+00:05:50.316 --> 00:05:51.886 align:middle
+Muy bien amigos, ¡hasta la próxima!
