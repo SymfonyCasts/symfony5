@@ -46,7 +46,7 @@ Como habrás adivinado por su nombre, ¡este archivo alimenta el sistema de segu
 
 ## enable_authenticator_manager
 
-Oh, pero ¿ves esta clave `enable_authenticator_manager`?
+Oh, ¿pero ves esta clave `enable_authenticator_manager`?
 
 [[[ code('880f2debfa') ]]]
 
