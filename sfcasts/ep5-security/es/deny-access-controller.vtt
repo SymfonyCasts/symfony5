@@ -1,0 +1,259 @@
+WEBVTT
+
+00:00:01.016 --> 00:00:07.566 align:middle
+Me gusta utilizar el control de acceso en security.yaml
+para ayudarme a proteger secciones enteras de mi sitio...
+
+00:00:07.886 --> 00:00:12.226 align:middle
+como todo lo que está bajo
+/admin requiere algún rol:
+
+00:00:12.816 --> 00:00:17.686 align:middle
+Pero la mayor parte del tiempo, protejo mi
+sitio en base a un controlador por otro.
+
+00:00:18.376 --> 00:00:21.086 align:middle
+Abre QuestionController y
+encuentra la acción new():
+
+00:00:21.546 --> 00:00:23.366 align:middle
+Esto... obviamente...
+
+00:00:23.366 --> 00:00:25.286 align:middle
+no es una página real...
+
+00:00:25.556 --> 00:00:27.926 align:middle
+pero algún día la terminaremos...
+
+00:00:28.146 --> 00:00:32.406 align:middle
+probablemente. Vamos a suponer que esta
+página sí funciona y que cualquier persona
+
+00:00:32.406 --> 00:00:35.626 align:middle
+de nuestro sitio puede
+hacer nuevas preguntas...
+
+00:00:36.016 --> 00:00:39.226 align:middle
+pero es necesario estar conectado
+para cargar esta página.
+
+00:00:39.806 --> 00:00:43.126 align:middle
+Para imponerlo, en el controlador
+-en la primera línea- pongamos
+
+00:00:43.306 --> 00:00:48.526 align:middle
+$this->denyAccessUnlessGranted('ROLE_USER'):
+
+00:00:49.426 --> 00:00:53.816 align:middle
+Así que si el usuario no tiene
+ROLE_USER - lo que sólo es posible si
+
+00:00:53.816 --> 00:00:57.346 align:middle
+no está conectado - entonces niega el acceso.
+
+00:00:57.876 --> 00:01:01.756 align:middle
+Sí, denegar el acceso en un
+controlador es así de fácil.
+
+00:01:02.576 --> 00:01:03.496 align:middle
+Cerremos la sesión...
+
+00:01:03.836 --> 00:01:07.036 align:middle
+y luego vayamos a esa página: /questions/new.
+
+00:01:07.826 --> 00:01:08.456 align:middle
+¡Qué bien!
+
+00:01:08.826 --> 00:01:13.016 align:middle
+Como somos anónimos, nos redirige a /login.
+
+00:01:13.676 --> 00:01:18.516 align:middle
+Ahora iniciemos la sesión -
+abraca_admin@example.com, contraseña tada y...
+
+00:01:19.296 --> 00:01:20.656 align:middle
+¡acceso concedido!
+
+00:01:21.216 --> 00:01:23.886 align:middle
+Si cambiamos esto a ROLE_ADMIN...
+
+00:01:24.186 --> 00:01:28.156 align:middle
+que no es un rol que tengamos,
+obtenemos acceso denegado:
+
+00:01:29.006 --> 00:01:32.806 align:middle
+Una cosa genial del método
+denyAccessUnlessGranted() es
+
+00:01:32.806 --> 00:01:35.056 align:middle
+que no devolvemos el valor.
+
+00:01:35.606 --> 00:01:41.486 align:middle
+Podemos decir simplemente $this->denyAccessUnlessGranted()
+y eso interrumpe el controlador....
+
+00:01:42.046 --> 00:01:45.226 align:middle
+lo que significa que el código
+de aquí abajo nunca se ejecuta.
+
+00:01:46.036 --> 00:01:48.946 align:middle
+Esto funciona porque, para
+denegar el acceso en Symfony,
+
+00:01:49.426 --> 00:01:54.516 align:middle
+en realidad se lanza una clase de
+excepción especial: AccessDeniedException.
+
+00:01:55.146 --> 00:01:57.486 align:middle
+Esta línea lanza esa excepción.
+
+00:01:58.246 --> 00:02:01.656 align:middle
+En realidad, podemos reescribir
+este código de forma más larga...
+
+00:02:01.926 --> 00:02:03.316 align:middle
+sólo para aprender.
+
+00:02:03.846 --> 00:02:10.386 align:middle
+Esta única línea es idéntica a decir:
+si no $this->isGranted('ROLE_ADMIN') -
+
+00:02:10.836 --> 00:02:16.686 align:middle
+isGranted() es otro método de ayuda en la clase
+base - entonces lanza esa excepción especial
+
+00:02:16.746 --> 00:02:21.306 align:middle
+diciendo throw
+$this->createAccessDeniedException() con:
+
+00:02:21.586 --> 00:02:23.056 align:middle
+¡No hay acceso para ti!
+
+00:02:23.816 --> 00:02:25.786 align:middle
+Esto hace lo mismo que antes....
+
+00:02:26.346 --> 00:02:31.346 align:middle
+y el mensaje que pases a la excepción
+sólo lo verán los desarrolladores.
+
+00:02:32.116 --> 00:02:36.696 align:middle
+Mantén pulsado Command o Ctrl para saltar
+al método createAccessDeniedException()...
+
+00:02:37.316 --> 00:02:39.726 align:middle
+puedes ver que vive en AbstractController.
+
+00:02:40.516 --> 00:02:47.076 align:middle
+Este método es tan bonito y aburrido: crea
+y devuelve un nuevo AccessDeniedException.
+
+00:02:47.946 --> 00:02:55.136 align:middle
+Esta excepción es la clave para denegar el acceso, y
+podrías lanzarla desde cualquier parte de tu código.
+
+00:02:55.946 --> 00:02:56.466 align:middle
+Cierra eso...
+
+00:02:56.706 --> 00:02:58.606 align:middle
+y luego ve a actualizar.
+
+00:02:59.236 --> 00:03:01.426 align:middle
+Sí, obtenemos lo mismo que antes.
+
+00:03:02.256 --> 00:03:06.096 align:middle
+Hay otra forma interesante de denegar
+el acceso en un controlador...
+
+00:03:06.566 --> 00:03:10.556 align:middle
+y funciona si tienes instalado
+sensio/framework-extra-bundle, como
+
+00:03:10.816 --> 00:03:11.456 align:middle
+es nuestro caso.
+
+00:03:12.246 --> 00:03:16.316 align:middle
+En lugar de escribir tus reglas de
+seguridad en PHP, puedes escribirlas
+
+00:03:16.316 --> 00:03:19.726 align:middle
+como anotaciones o atributos
+de PHP. Compruébalo
+
+00:03:20.676 --> 00:03:26.586 align:middle
+: por encima del controlador, di @IsGranted()
+- le daré al tabulador para autocompletarlo
+
+00:03:26.586 --> 00:03:30.826 align:middle
+y así obtendré la declaración
+use - y luego "ROLE_ADMIN":
+
+00:03:31.736 --> 00:03:32.836 align:middle
+Si intentamos esto...
+
+00:03:34.586 --> 00:03:35.726 align:middle
+¡acceso denegado!
+
+00:03:36.306 --> 00:03:39.586 align:middle
+Nosotros, como desarrolladores, vemos un
+mensaje de error ligeramente diferente,
+
+00:03:39.776 --> 00:03:43.796 align:middle
+pero el usuario final vería
+la misma página de error 403.
+
+00:03:44.606 --> 00:03:49.576 align:middle
+Ah, y si usas PHP 8, puedes usar IsGranted
+
+00:03:49.576 --> 00:03:51.926 align:middle
+como un atributo PHP en
+lugar de una anotación:
+
+00:03:53.116 --> 00:03:57.866 align:middle
+Una de las cosas más geniales de la
+anotación o atributo IsGranted es
+
+00:03:57.866 --> 00:04:01.356 align:middle
+que puedes utilizarlo en
+la clase del controlador.
+
+00:04:01.976 --> 00:04:07.656 align:middle
+Así que por encima de QuestionController,
+añade @IsGranted("ROLE_ADMIN"):
+
+00:04:08.306 --> 00:04:13.856 align:middle
+De repente, ROLE_ADMIN será necesario para
+ejecutar cualquier controlador en este archivo.
+
+00:04:14.486 --> 00:04:16.116 align:middle
+Yo no haré esto...
+
+00:04:16.286 --> 00:04:21.356 align:middle
+porque entonces sólo los usuarios administradores podrían
+acceder a mi página web, pero es una gran función.
+
+00:04:22.376 --> 00:04:26.856 align:middle
+Bien, volvamos a new(),
+cambiemos esto por ROLE_USER...
+
+00:04:27.286 --> 00:04:29.686 align:middle
+para que la página vuelva a funcionar:
+
+00:04:30.946 --> 00:04:34.926 align:middle
+Ahora mismo, todos los usuarios
+sólo tienen ROLE_USER.
+
+00:04:35.626 --> 00:04:40.376 align:middle
+Así que lo siguiente: vamos a empezar a añadir roles
+adicionales a algunos usuarios en la base de datos
+
+00:04:40.676 --> 00:04:44.686 align:middle
+para diferenciar entre los usuarios
+normales y los administradores.
+
+00:04:45.366 --> 00:04:48.916 align:middle
+También aprenderemos a comprobar las
+reglas de autorización en Twig para
+
+00:04:49.356 --> 00:04:56.166 align:middle
+poder mostrar condicionalmente los enlaces -como "iniciar
+sesión" o "cerrar sesión"- en la situación adecuada
