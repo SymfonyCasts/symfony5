@@ -1,4 +1,4 @@
-# Hacer un hash de las contraseñas en texto plano y de las contraseñas-credenciales
+# Hash de contraseñas en texto plano y PasswordCredentials
 
 El proceso de guardar la contraseña de un usuario siempre es el siguiente: empieza con una contraseña en texto plano, haz un hash de la misma, y luego guarda la versión hash en el `User`. Esto es algo que vamos a hacer en los accesorios... pero también lo haremos en un formulario de registro más adelante... y también lo necesitarías en un formulario de cambio de contraseña.
 
