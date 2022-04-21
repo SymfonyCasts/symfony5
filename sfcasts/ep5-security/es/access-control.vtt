@@ -1,0 +1,264 @@
+WEBVTT
+
+00:00:01.016 --> 00:00:06.106 align:middle
+Ya hemos hablado mucho de la autenticación:
+el proceso de inicio de sesión.
+
+00:00:06.636 --> 00:00:09.526 align:middle
+Y... incluso ya hemos iniciado la sesión.
+
+00:00:10.346 --> 00:00:14.296 align:middle
+Así que vamos a echar nuestro
+primer vistazo a la autorización.
+
+00:00:14.816 --> 00:00:20.166 align:middle
+Esta es la parte divertida, en la que podemos ir de un lado a
+otro y denegar el acceso a diferentes partes de nuestro sitio. La
+
+00:00:20.956 --> 00:00:25.886 align:middle
+forma más fácil de expulsar a alguien
+de tu fiesta es en realidad dentro de
+
+00:00:25.886 --> 00:00:28.716 align:middle
+config/packages/security.yaml.
+
+00:00:28.986 --> 00:00:30.926 align:middle
+Es a través de access_control:
+
+00:00:31.816 --> 00:00:33.256 align:middle
+Descomenta la primera entrada:
+
+00:00:33.876 --> 00:00:36.686 align:middle
+El path es una expresión regular.
+
+00:00:36.876 --> 00:00:44.946 align:middle
+Así que esto dice básicamente: Si una URL
+comienza con /admin - así que /admin o /admin* -
+
+00:00:45.946 --> 00:00:51.626 align:middle
+entonces denegaré el acceso a menos
+que el usuario tenga ROLE_ADMIN.
+
+00:00:52.416 --> 00:00:54.226 align:middle
+Hablaremos más sobre los
+roles dentro de un minuto...
+
+00:00:54.406 --> 00:00:59.056 align:middle
+pero puedo decirte que nuestro
+usuario no tiene ese rol.
+
+00:00:59.446 --> 00:01:03.686 align:middle
+Así que... vamos a intentar ir a
+una URL que coincida con esta ruta.
+
+00:01:04.596 --> 00:01:07.796 align:middle
+En realidad tenemos una pequeña sección
+de administración en nuestro sitio.
+
+00:01:08.476 --> 00:01:09.606 align:middle
+Asegúrate de que estás conectado...
+
+00:01:09.876 --> 00:01:11.496 align:middle
+y luego ve a /admin.
+
+00:01:12.866 --> 00:01:14.356 align:middle
+¡Acceso denegado!
+
+00:01:14.756 --> 00:01:17.586 align:middle
+Nunca me había alegrado
+tanto de ser rechazado.
+
+00:01:18.426 --> 00:01:20.826 align:middle
+Nos echan con un error 403.
+
+00:01:21.346 --> 00:01:26.356 align:middle
+En producción, puedes personalizar el
+aspecto de esta página de error 403...
+
+00:01:26.726 --> 00:01:31.586 align:middle
+además de personalizar la
+página de error 404 o 422.
+
+00:01:32.416 --> 00:01:35.826 align:middle
+Así que hablemos de estos "roles".
+
+00:01:36.386 --> 00:01:39.506 align:middle
+Abre la clase User: src/Entity/User.php.
+
+00:01:41.336 --> 00:01:42.756 align:middle
+Esto funciona así. En
+
+00:01:43.106 --> 00:01:47.456 align:middle
+el momento en que nos conectamos,
+Symfony llama a este método getRoles()
+
+00:01:48.016 --> 00:01:49.976 align:middle
+, que forma parte de
+
+00:01:50.646 --> 00:01:54.796 align:middle
+UserInterface: Devolvemos un array con
+los roles que debe tener este usuario.
+
+00:01:55.576 --> 00:02:01.916 align:middle
+El comando make:user generó esto para
+que siempre tengamos un rol llamado
+
+00:02:02.376 --> 00:02:06.986 align:middle
+ROLE_USER.. . más cualquier rol extra
+almacenado en la propiedad $this->roles
+
+00:02:07.676 --> 00:02:10.926 align:middle
+. Esa propiedad contiene una matriz de
+
+00:02:11.246 --> 00:02:13.976 align:middle
+cadenas... que se almacenan
+en la base de datos como
+
+00:02:14.776 --> 00:02:19.486 align:middle
+JSON: Esto significa que podemos
+dar a cada usuario tantos roles como
+
+00:02:20.266 --> 00:02:25.736 align:middle
+queramos. Hasta ahora, cuando hemos creado
+nuestros usuarios, no les hemos dado ningún rol...
+
+00:02:26.386 --> 00:02:28.856 align:middle
+por lo que nuestra propiedad roles está
+
+00:02:29.556 --> 00:02:35.856 align:middle
+vacía. Pero gracias a cómo está escrito el
+método getRoles(), cada usuario tiene al menos
+
+00:02:36.676 --> 00:02:39.826 align:middle
+ROLE_USER. El comando
+make:user generó el código
+
+00:02:40.186 --> 00:02:44.056 align:middle
+así porque todos los usuarios
+necesitan tener al menos un rol...
+
+00:02:44.646 --> 00:02:49.236 align:middle
+de lo contrario vagan por nuestro sitio
+como usuarios zombis medio muertos.
+
+00:02:49.406 --> 00:02:50.566 align:middle
+No es...
+
+00:02:51.406 --> 00:02:56.596 align:middle
+bonito. Así que, por convención,
+siempre damos a un usuario al menos
+
+00:02:57.456 --> 00:03:06.156 align:middle
+ROLE_USER. Ah, y la única regla sobre los roles
+-eso es un trabalenguas- es que deben empezar por
+
+00:03:06.746 --> 00:03:09.686 align:middle
+ROLE_. Más adelante en
+el tutorial, aprenderemos
+
+00:03:10.546 --> 00:03:14.246 align:middle
+por qué. En cualquier caso, en el momento
+en que nos conectamos, Symfony llama a
+
+00:03:14.536 --> 00:03:17.956 align:middle
+getRoles() , nos devuelve el
+array de roles, y los almacena.
+
+00:03:18.806 --> 00:03:23.246 align:middle
+De hecho, podemos ver esto si hacemos clic en el icono de
+seguridad de la barra de herramientas de depuración de la web
+
+00:03:23.846 --> 00:03:26.486 align:middle
+. ¡Sí! Roles:
+
+00:03:27.176 --> 00:03:33.166 align:middle
+ROLE_USER. Entonces, cuando vamos a /admin, esto
+coincide con nuestra primera entrada access_control
+
+00:03:33.446 --> 00:03:39.156 align:middle
+, comprueba si tenemos ROLE_ADMIN,
+no lo tenemos, y deniega el
+
+00:03:39.906 --> 00:03:44.126 align:middle
+acceso. Ah, pero hay un detalle
+importante que hay que saber sobre
+
+00:03:44.556 --> 00:03:48.666 align:middle
+access_control : sólo se encontrará
+una coincidencia en una petición.
+
+00:03:49.316 --> 00:03:53.546 align:middle
+Por ejemplo, supón que tienes
+dos controles de acceso como
+
+00:03:54.186 --> 00:04:01.256 align:middle
+éste: Si fuéramos a /admin, eso coincid iría
+con la primera regla y sólo utilizaría la primera
+
+00:04:01.986 --> 00:04:08.936 align:middle
+regla. Funciona como el enrutamiento: recorre la
+lista de control de acceso de uno en uno y , en
+
+00:04:08.936 --> 00:04:14.326 align:middle
+cuanto encuentra la primera coincidencia,
+se detiene y sólo utiliza esa
+
+00:04:15.016 --> 00:04:21.956 align:middle
+entrada. Esto nos ayudará más adelante, cuando
+neguemos el acceso a toda una sección excepto a una
+
+00:04:22.616 --> 00:04:24.476 align:middle
+URL. Pero por ahora, ¡sólo
+
+00:04:25.336 --> 00:04:26.766 align:middle
+tenlo en cuenta! Y ... eso es
+
+00:04:27.126 --> 00:04:32.506 align:middle
+todo. Los controles de acceso nos ofrecen una forma
+realmente sencilla de asegurar secciones enteras de nuestro
+
+00:04:33.076 --> 00:04:36.316 align:middle
+sitio. Pero es sólo una forma de denegar el
+
+00:04:36.916 --> 00:04:40.316 align:middle
+acceso. Pronto hablaremos de
+cómo podemos denegar el acceso
+
+00:04:40.376 --> 00:04:44.826 align:middle
+controlador por controlador, algo que
+
+00:04:45.646 --> 00:04:49.156 align:middle
+me gusta mucho. Pero antes de hacerlo,
+sé que si intento acceder a esta
+
+00:04:49.216 --> 00:04:54.036 align:middle
+página sin ROLE_ADMIN,
+obtengo el error 403 prohibido.
+
+00:04:54.886 --> 00:04:59.486 align:middle
+¿Pero qué pasa si intento acceder a
+esta página como usuario anónimo ? Ve
+
+00:05:00.086 --> 00:05:01.666 align:middle
+a
+
+00:05:02.176 --> 00:05:03.716 align:middle
+/logout ? Ahora no estamos
+
+00:05:04.396 --> 00:05:06.096 align:middle
+conectados. Vuelve a /admin
+
+00:05:06.676 --> 00:05:08.286 align:middle
+y... ¡whoa! ¡ Un error
+
+00:05:08.586 --> 00:05:12.176 align:middle
+! Se requiere una autentificación
+completa para acceder a este
+
+00:05:13.116 --> 00:05:16.426 align:middle
+recurso. A continuación, vamos a
+hablar del "punto de entrada" de tu
+
+00:05:16.776 --> 00:05:20.926 align:middle
+cortafuegos: la forma en que ayudas a los
+usuarios anónimos a iniciar la sesión
