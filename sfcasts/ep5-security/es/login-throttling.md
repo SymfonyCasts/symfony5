@@ -1,4 +1,4 @@
-# Estrangulamiento de inicio de sesión y eventos
+# Ralentización de inicio de sesión y eventos
 
 El sistema de seguridad de Symfony viene repleto de cosas interesantes, como recordar mi nombre, suplantación de identidad y votantes. Incluso tiene soporte incorporado para un autentificador de "enlace de inicio de sesión", también conocido como "enlaces mágicos de inicio de sesión". En este caso, envías un enlace por correo electrónico a tu usuario y éste hace clic en él para iniciar la sesión.
 
@@ -46,7 +46,7 @@ symfony console debug:config security
 
 Y... busca `login_throttling`. Ahí está. Sí, este `max_attempts` está predeterminado a 5 y `interval` a 1 minuto. Ah, y por cierto, esto también bloqueará que la misma dirección IP haga 5 veces el `max_attempts` para cualquier correo electrónico. En otras palabras, si la misma dirección IP intentara rápidamente 25 correos electrónicos diferentes, los seguiría bloqueando. Y si quieres una primera línea de defensa impresionante, también te recomiendo encarecidamente que utilices algo como Cloudflare, que puede bloquear a los malos usuarios incluso antes de que lleguen a tu servidor... o activar las defensas si tu sitio es atacado desde muchas direcciones IP.
 
-## Profundizando en cómo funciona el estrangulamiento del inicio de sesión
+## Profundizando en Cómo Funciona la Ralentización de inicio de sesión
 
 Así que... creo que esta función es bastante genial. Pero lo más interesante para nosotros es cómo funciona entre bastidores. Funciona a través del sistema de oyentes de Symfony. Después de iniciar la sesión, ya sea con éxito o sin éxito, se envían una serie de eventos a lo largo de ese proceso. Podemos engancharnos a esos eventos para hacer todo tipo de cosas interesantes.
 
