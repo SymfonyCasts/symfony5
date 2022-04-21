@@ -1,0 +1,198 @@
+WEBVTT
+
+00:00:01.016 --> 00:00:05.396 align:middle
+Esta es la pregunta del millón cuando
+se trata de la seguridad y las API:
+
+00:00:05.786 --> 00:00:10.716 align:middle
+¿necesita mi sitio algún tipo de
+autentificación con token de API? Es
+
+00:00:11.476 --> 00:00:14.956 align:middle
+muy probable que la respuesta sea no. Incluso
+
+00:00:15.576 --> 00:00:22.096 align:middle
+si tu aplicación tiene algunas rúbricas de API -como la
+nuestra-, si estás creando estas rúbricas únicamente para
+
+00:00:22.096 --> 00:00:27.076 align:middle
+que tu propio JavaScript para tu propio
+sitio pueda utilizarlas, entonces
+
+00:00:27.506 --> 00:00:31.686 align:middle
+no necesitas un sistema de
+autenticación por token de API. No,
+
+00:00:32.446 --> 00:00:37.416 align:middle
+tu vida será mucho más sencilla si utilizas un formulario
+de acceso normal y una autenticación basada en la sesión.
+
+00:00:37.516 --> 00:00:39.786 align:middle
+La autenticación basada en la sesión
+
+00:00:40.576 --> 00:00:44.686 align:middle
+es precisamente la razón
+por la que tenemos acceso a
+
+00:00:44.686 --> 00:00:48.056 align:middle
+esta ruta : nos hemos
+conectado previamente... y
+
+00:00:48.416 --> 00:00:51.576 align:middle
+nuestra cookie de sesión se
+utiliza para autenticarnos. Esto
+
+00:00:52.286 --> 00:00:56.666 align:middle
+funciona igual de bien en una página
+real que en un endpoint de la API. Para
+
+00:00:57.476 --> 00:01:00.156 align:middle
+probarlo, antes de empezar el tutorial, he
+
+00:01:00.436 --> 00:01:04.906 align:middle
+creado un controlador Stimulus
+llamado user-api_controller.js: Es
+
+00:01:04.906 --> 00:01:08.616 align:middle
+muy sencillo: hace una petición a la API... y
+
+00:01:08.856 --> 00:01:10.416 align:middle
+registra el resultado. Vamos a
+
+00:01:11.006 --> 00:01:17.166 align:middle
+utilizarlo para hacer una petición
+de API a /api/me para demostrar que
+
+00:01:17.246 --> 00:01:21.336 align:middle
+las llamadas Ajax pueden acceder
+a las rutas autenticadas. Para
+
+00:01:22.146 --> 00:01:27.196 align:middle
+activar el controlador Stimulus ,
+abre templates/base.html.twig... y
+
+00:01:27.786 --> 00:01:32.316 align:middle
+encuentra el elemento body: ese es
+un lugar fácil para adjuntarlo: si
+
+00:01:33.216 --> 00:01:36.116 align:middle
+is_granted('IS_AUTHENTICATED_REMEMBERED')
+, entonces
+
+00:01:38.936 --> 00:01:44.636 align:middle
+{{ stimulus_controller() }}
+y el nombre: user-api: Así,
+
+00:01:45.596 --> 00:01:49.756 align:middle
+nuestro JavaScript será llamado
+sólo si estamos conectados. Para
+
+00:01:50.496 --> 00:02:00.876 align:middle
+pasar la URL a la ruta , añade un segundo argumento
+con url establecido en path('app_user_api_me'): Y
+
+00:02:00.876 --> 00:02:06.226 align:middle
+me doy cuenta de que aún no he dado a nuestro punto
+final de la API un nombre de ruta ... así que vamos a
+
+00:02:06.806 --> 00:02:08.006 align:middle
+hacerlo: De nuevo
+
+00:02:08.846 --> 00:02:11.706 align:middle
+en base.html.twig, ¡sí! Mi
+
+00:02:11.936 --> 00:02:13.766 align:middle
+editor parece feliz ahora. Vale,
+
+00:02:14.956 --> 00:02:21.146 align:middle
+vuelvo a la página de inicio, inspecciono el
+elemento, voy a la consola y... ¡ahí están
+
+00:02:22.936 --> 00:02:24.756 align:middle
+mis datos de usuario! La petición
+
+00:02:25.576 --> 00:02:28.846 align:middle
+Ajax envía la cookie de sesión
+y así... la autenticación
+
+00:02:29.116 --> 00:02:31.466 align:middle
+funciona. Así que
+
+00:02:31.906 --> 00:02:40.426 align:middle
+si lo único que necesita utilizar tu API es
+tu propio JavaScript, ahórrate un montón de
+
+00:02:40.426 --> 00:02:43.116 align:middle
+problemas y utiliza simplemente
+un formulario de acceso. Y
+
+00:02:43.706 --> 00:02:49.866 align:middle
+si quieres ponerte elegante y enviar tu inicio de sesión
+por medio de Ajax, puedes hacerlo perfectamente. De
+
+00:02:50.586 --> 00:02:54.256 align:middle
+hecho, si utilizas Turbo, eso
+ocurre automáticamente. Pero
+
+00:02:54.846 --> 00:02:58.756 align:middle
+si quieres escribir algún JavaScript
+personalizado, no hay problema. Sólo tienes que
+
+00:02:59.356 --> 00:03:01.886 align:middle
+utilizar Ajax para enviar el
+formulario de inicio de sesión y
+
+00:03:02.326 --> 00:03:05.716 align:middle
+la cookie de sesión se establecerá
+automáticamente de forma normal. Si decides
+
+00:03:06.516 --> 00:03:10.266 align:middle
+hacer esto, el único
+ajuste que necesitarás es
+
+00:03:10.266 --> 00:03:15.316 align:middle
+hacer que el autentificador del formulario de inicio
+de sesión devuelva JSON en lugar de redirigir. Yo
+
+00:03:16.076 --> 00:03:20.416 align:middle
+probablemente volvería a usar mi
+LoginFormAuthenticator personalizado porque
+
+00:03:20.886 --> 00:03:26.776 align:middle
+sería súper fácil devolver JSON
+desde onAuthenticationSuccess():
+
+00:03:27.406 --> 00:03:32.556 align:middle
+Entonces, ¿cuándo necesitamos un sistema
+de autenticación por token de API? La
+
+00:03:33.246 --> 00:03:36.566 align:middle
+respuesta es bastante
+sencilla: si alguien que no sea
+
+00:03:36.566 --> 00:03:40.086 align:middle
+el JavaScript de tu propio sitio
+necesita acceder a tu API... incluso
+
+00:03:40.946 --> 00:03:44.986 align:middle
+si tu JavaScript vive en un
+dominio completamente diferente. Si
+
+00:03:45.606 --> 00:03:51.356 align:middle
+te encuentras en esta situación, probablemente
+necesitarás algún tipo de sistema de token de API. Si
+
+00:03:51.986 --> 00:03:54.886 align:middle
+necesitas OAuth o un sistema
+más sencillo... depende.
+
+00:03:55.036 --> 00:04:01.306 align:middle
+No cubriremos los tokens de la API en este
+tutorial, pero creamos un sistema bastante bueno en
+
+00:04:01.306 --> 00:04:04.896 align:middle
+nuestro tutorial de seguridad de Symfony
+4, que puedes consultar. Siguiente:
+
+00:04:05.746 --> 00:04:08.476 align:middle
+¡añadamos un formulario de registro!
