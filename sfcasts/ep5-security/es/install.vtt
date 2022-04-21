@@ -1,10 +1,10 @@
 WEBVTT
 
 00:00:00.056 --> 00:00:04.956 align:middle
-¡Bienvenidos de nuevo amigos! Estoy
+¡Bienvenidos de nuevo amigos!
 
 00:00:05.406 --> 00:00:07.296 align:middle
-muy contento de que te hayas topado
+Estoy muy contento de que te hayas topado
 
 00:00:07.296 --> 00:00:11.196 align:middle
 con mi tutorial de seguridad de
@@ -254,4 +254,4 @@ hacia el nuevo y brillante sistema de autenticación
 
 00:05:00.316 --> 00:05:05.026 align:middle
 creando la parte más básica de la
-autenticación: una clase de usuario
+autenticación: una clase de usuario.
