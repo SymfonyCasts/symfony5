@@ -17,6 +17,8 @@ we *will* make sure that, by the end, we've upgraded everything.
 Okay, what we need to do is change all of these `5.0.*` to `5.4.*`. I'm going to
 do a "Find & Replace" to replace `5.0.*` with `5.4.*`. Hit "Replace All".
 
+[[[ code('ead5944d18') ]]]
+
 Nice! And notice that, in addition to the packages themselves, we also needed to
 change the `extra.symfony.require` key. This is a performance optimization from Flex:
 it basically makes sure that Flex only considers Symfony packages that match this
