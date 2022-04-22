@@ -5,6 +5,7 @@ chapters:
   - rector-fixup
   - framework-bundle-recipe
   - upgrade-recipes
+  - upgrade-recipes2
   - encore-upgrade
   - php8
   - annotations-to-attributes
