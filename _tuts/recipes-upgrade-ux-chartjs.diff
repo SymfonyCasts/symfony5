@@ -12,7 +12,7 @@ index 1783c700..1af7df2d 100755
          "symfony/webpack-encore-bundle": "^1.7",
          "symfony/yaml": "5.4.*",
 diff --git a/composer.lock b/composer.lock
-index d6d0b3c9..2a9dc160 100644
+index 20283898..5bce50f4 100644
 --- a/composer.lock
 +++ b/composer.lock
 @@ -4,7 +4,7 @@
