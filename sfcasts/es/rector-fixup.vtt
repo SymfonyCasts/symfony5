@@ -1,0 +1,489 @@
+WEBVTT
+
+00:00:01.016 --> 00:00:05.106 align:middle
+Rector acaba de automatizar varios cambios
+en nuestra aplicación que son necesarios
+
+00:00:05.106 --> 00:00:07.826 align:middle
+para eliminar las
+desapariciones en Symfony 5.4.
+
+00:00:08.216 --> 00:00:14.406 align:middle
+Además, ha realizado algunas refactorizaciones adicionales,
+como añadir el tipo de retorno opcional Response
+
+00:00:14.636 --> 00:00:15.796 align:middle
+en nuestros controladores.
+
+00:00:16.536 --> 00:00:19.696 align:middle
+Pero por muy bonito que sea, no es perfecto.
+
+00:00:20.116 --> 00:00:24.266 align:middle
+Todos los nombres de las clases están inline,
+en lugar de tener una declaración use.
+
+00:00:24.816 --> 00:00:30.576 align:middle
+Y aunque ha cambiado el nombre de algunas interfaces,
+no ha cambiado el nombre de los métodos que llamamos
+
+00:00:30.576 --> 00:00:33.676 align:middle
+en esos objetos para reflejar el cambio.
+
+00:00:34.076 --> 00:00:35.866 align:middle
+Pero no hay que preocuparse.
+
+00:00:36.476 --> 00:00:41.596 align:middle
+El rector nos ha dado un gran comienzo y nos ha ayudado
+a poner de relieve varios cambios que debemos hacer.
+
+00:00:42.006 --> 00:00:44.246 align:middle
+Ahora, vamos a terminar el trabajo. En
+
+00:00:44.246 --> 00:00:51.356 align:middle
+primer lugar, para estos largos nombres de clase sin declaración
+use y, en general, para los estilos de codificación,
+
+00:00:51.756 --> 00:00:54.516 align:middle
+Rector no sabe qué estilo
+de codificación preferimos,
+
+00:00:54.516 --> 00:00:57.696 align:middle
+así que ni siquiera intenta
+formatear las cosas correctamente.
+
+00:00:58.446 --> 00:01:05.366 align:middle
+La recomendación oficial es utilizar una
+herramienta en tu proyecto como PHP CS Fixer
+
+00:01:05.646 --> 00:01:08.786 align:middle
+para reformatear el código
+después de ejecutar Rector.
+
+00:01:08.786 --> 00:01:12.176 align:middle
+De todas formas, PHP CS Fixer
+es una gran herramienta...
+
+00:01:12.446 --> 00:01:17.026 align:middle
+así que vamos a instalarla para
+que nos ayude en nuestro camino.
+
+00:01:17.846 --> 00:01:24.576 align:middle
+Puedes instalar PHP CS Fixer de varias formas,
+pero curiosamente, la forma recomendada
+
+00:01:24.876 --> 00:01:30.756 align:middle
+-y la que a mí me gusta- es instalarlo a
+través de Composer en su propio directorio.
+
+00:01:31.606 --> 00:01:38.126 align:middle
+Ejecuta: mkdir -p tools/php-cs-fixer
+No hay nada especial aquí:
+
+00:01:38.406 --> 00:01:42.996 align:middle
+sólo un nuevo directorio
+tools/ con php-cs-fixer/ dentro.
+
+00:01:43.606 --> 00:01:48.196 align:middle
+Ahora instálalo en ese directorio
+ejecutando composer require
+
+00:01:48.406 --> 00:01:56.636 align:middle
+--working-dir=tools/php-cs-fixer - que le dice a
+Composer que se comporte como si lo estuviera ejecutando
+
+00:01:56.636 --> 00:02:04.236 align:middle
+desde dentro de tools/php-cs-fixer
+- y luego friendsofphp/php-cs-fixer.
+
+00:02:05.046 --> 00:02:09.236 align:middle
+Si te preguntas por qué no
+instalamos esto directamente
+
+00:02:09.236 --> 00:02:13.126 align:middle
+en nuestras dependencias principales
+de composer.json, bueno...
+
+00:02:13.376 --> 00:02:14.506 align:middle
+eso es un poco complicado.
+
+00:02:14.506 --> 00:02:19.626 align:middle
+PHP CS Fixer es una herramienta
+ejecutable independiente.
+
+00:02:20.316 --> 00:02:26.306 align:middle
+Si la instalo en las dependencias de nuestra
+aplicación, podría causar problemas si algunas
+
+00:02:26.306 --> 00:02:32.096 align:middle
+de sus dependencias no coinciden con las
+versiones que ya tenemos en nuestra aplicación.
+
+00:02:33.046 --> 00:02:38.126 align:middle
+En realidad, este es un problema potencial
+siempre que se instala cualquier biblioteca.
+
+00:02:38.716 --> 00:02:41.756 align:middle
+Pero como todo lo que necesitamos
+es un binario independiente...
+
+00:02:42.076 --> 00:02:44.606 align:middle
+no hay razón para mezclarlo
+en nuestra aplicación.
+
+00:02:45.416 --> 00:02:47.736 align:middle
+Podríamos haber hecho lo mismo con Rector.
+
+00:02:48.546 --> 00:02:54.296 align:middle
+Esto nos da, en ese directorio, los
+archivos composer.json y composer.lock.
+
+00:02:55.146 --> 00:02:57.756 align:middle
+Y en su directorio vendor/bin...
+
+00:02:58.106 --> 00:03:00.466 align:middle
+sí: php-cs-fixer.
+
+00:03:00.776 --> 00:03:02.396 align:middle
+Ese es el ejecutable.
+
+00:03:03.236 --> 00:03:09.636 align:middle
+Y como tenemos un nuevo directorio vendor/, abre
+el archivo raíz .gitignore y, al final, ignora
+
+00:03:09.636 --> 00:03:15.626 align:middle
+esto: /tools/php-cs-fixer/vendor.
+
+00:03:16.476 --> 00:03:23.576 align:middle
+Y ya que estamos aquí, ignoremos
+también /.php-cs-fixer.cache.
+
+00:03:24.206 --> 00:03:29.236 align:middle
+Ese es un archivo de caché que creará
+PHP CS Fixer cuando haga su trabajo.
+
+00:03:30.106 --> 00:03:33.856 align:middle
+Lo último que tenemos que hacer es
+añadir un archivo de configuración.
+
+00:03:34.546 --> 00:03:40.436 align:middle
+Aquí arriba, crea un nuevo
+archivo llamado .php-cs-fixer.php.
+
+00:03:40.436 --> 00:03:44.036 align:middle
+Dentro, voy a pegar unas 10 líneas de código.
+
+00:03:44.876 --> 00:03:46.296 align:middle
+Esto es bastante sencillo.
+
+00:03:46.716 --> 00:03:50.686 align:middle
+Le dice a PHP CS Fixer dónde
+encontrar nuestros archivos src/...
+
+00:03:51.146 --> 00:03:54.366 align:middle
+y luego, a continuación, qué reglas aplicar.
+
+00:03:54.946 --> 00:03:58.166 align:middle
+Estoy utilizando un conjunto de
+reglas bastante estándar de Symfony.
+
+00:03:58.946 --> 00:04:01.516 align:middle
+Y... ¡estamos listos para ejecutar esto!
+
+00:04:01.516 --> 00:04:07.666 align:middle
+Para ver lo que hace, en la línea de comandos,
+añade todos los cambios a git con: git add .
+
+00:04:08.706 --> 00:04:12.426 align:middle
+Y luego revísalos: Pero
+no los confirmes todavía.
+
+00:04:13.076 --> 00:04:18.906 align:middle
+Todavía quiero poder revisar los cambios que ha
+hecho Rector antes de confirmarlos finalmente.
+
+00:04:19.646 --> 00:04:24.636 align:middle
+Pero al menos, ahora, podremos
+ver lo que hace PHP CS Fixer.
+
+00:04:25.146 --> 00:04:26.096 align:middle
+Vamos a ejecutarlo:
+./tools/php-cs-fixer/vendor/bin/php-cs-fixer
+
+00:04:26.786 --> 00:04:33.256 align:middle
+fix Y... ¡qué bien!
+
+00:04:33.256 --> 00:04:36.476 align:middle
+Ha modificado 6 archivos. ¡Vamos a verlos
+
+00:04:37.006 --> 00:04:37.876 align:middle
+! git
+
+00:04:38.576 --> 00:04:41.116 align:middle
+diff ¡Genial! Ha
+
+00:04:41.506 --> 00:04:48.106 align:middle
+eliminado los nombres de clase largos
+de Response en todo nuestro código base
+
+00:04:48.106 --> 00:04:51.666 align:middle
+También ha eliminado unas cuantas declaraciones
+antiguas de use que no necesitamos. Así que
+
+00:04:51.666 --> 00:04:58.106 align:middle
+el código de Rector sigue sin ser perfecto,
+¡pero ha sido un buen paso para mejorarlo! Para
+
+00:04:58.106 --> 00:05:03.466 align:middle
+las correcciones finales, las
+haremos manualmente hurgando en
+
+00:05:03.466 --> 00:05:06.356 align:middle
+los cambios que hizo Rector, uno por uno.
+
+00:05:07.176 --> 00:05:12.156 align:middle
+Te ayudaré acercándonos a los lugares
+que necesitan ser actualizados. El
+
+00:05:12.156 --> 00:05:17.716 align:middle
+primero es RegistrationController:
+src/Controller/RegistrationController.php. Este
+
+00:05:17.716 --> 00:05:22.246 align:middle
+es uno de los lugares donde cambió
+UserPasswordEncoderInterface por
+
+00:05:22.546 --> 00:05:26.046 align:middle
+UserPasswordHasherInterface. Fíjate en
+
+00:05:26.046 --> 00:05:32.226 align:middle
+que PHP CS Fixer arregló muchos de los
+nombres de clase largos e inline... pero
+
+00:05:32.306 --> 00:05:33.886 align:middle
+no todos.
+
+00:05:34.576 --> 00:05:38.506 align:middle
+Depende de si ya había una declaración use
+para esa clase o no. Así que vamos a arreglar
+
+00:05:38.506 --> 00:05:40.566 align:middle
+esto a mano. Pasa el ratón
+
+00:05:41.146 --> 00:05:48.356 align:middle
+por encima de la clase, pulsa "alt" +
+"enter" y luego ve a "Simplificar FQN". Eso
+
+00:05:48.976 --> 00:05:52.506 align:middle
+lo acorta y añade la declaración
+use en la parte superior. Pero hay
+
+00:05:53.216 --> 00:05:54.826 align:middle
+otro problema. Si
+
+00:05:55.406 --> 00:06:02.926 align:middle
+rastreamos hasta donde se utiliza esto, antes
+llamábamos a ->encodePassword(). Pero...
+
+00:06:03.606 --> 00:06:07.716 align:middle
+¡ese método no existe en
+la nueva interfaz! Tenemos
+
+00:06:08.306 --> 00:06:11.146 align:middle
+que llamar a ->hashPassword().
+
+00:06:12.676 --> 00:06:14.936 align:middle
+También voy a cambiar el
+nombre del argumento. Ve
+
+00:06:15.406 --> 00:06:20.526 align:middle
+a "Refactorizar" y luego a "Renombrar"
+y llámalo $userPasswordHasher... sólo
+
+00:06:21.086 --> 00:06:23.756 align:middle
+porque es un nombre más
+apropiado. Lo siguiente
+
+00:06:24.746 --> 00:06:29.806 align:middle
+es src/Factory/UserFactory.php
+para el mismo cambio. Desplázate
+
+00:06:29.806 --> 00:06:32.046 align:middle
+hacia abajo y ... una
+
+00:06:32.106 --> 00:06:34.756 align:middle
+vez más, tenemos un nombre
+de clase largo. Pulsa
+
+00:06:35.266 --> 00:06:40.336 align:middle
+"alt" + "enter" y ve a "Simplificar FQN"
+para añadir esa declaración use. Luego...
+
+00:06:41.146 --> 00:06:45.356 align:middle
+vamos a "Refactorizar" y "Renombrar" el
+argumento a $passwordHasher... bien...
+
+00:06:46.406 --> 00:06:52.136 align:middle
+y "Refactorizar", "Renombrar" la propiedad
+también a $passwordHasher. Por último,
+
+00:06:52.136 --> 00:06:58.936 align:middle
+a continuación, tenemos que llamar a ->hashPassword()
+en lugar de a ->encodePassword(). ¡Listo!
+
+00:06:59.796 --> 00:07:08.716 align:middle
+Sólo hay un punto más en el que necesitamos este
+mismo cambio: src/Security/LoginFormAuthenticator.php.
+
+00:07:08.716 --> 00:07:12.986 align:middle
+Más adelante refactorizaremos esta clase para
+utilizar el nuevo sistema de seguridad... pero
+
+00:07:13.516 --> 00:07:15.346 align:middle
+al menos hagamos que funcione. Busca
+
+00:07:15.346 --> 00:07:22.236 align:middle
+el argumento UserPasswordHasherInterface,
+acórtalo con "Simplificar FQN"... luego
+
+00:07:24.736 --> 00:07:27.906 align:middle
+cambia el nombre del argumento
+a $passwordHasher... y
+
+00:07:32.236 --> 00:07:35.166 align:middle
+cambia el nombre de la propiedad
+a $passwordHasher. Luego
+
+00:07:36.076 --> 00:07:39.036 align:middle
+comprobamos dónde se utiliza esto ... Buscaré
+
+00:07:39.546 --> 00:07:41.166 align:middle
+"hasher"... ¡ahí
+
+00:07:41.746 --> 00:07:42.206 align:middle
+vamos! En la
+
+00:07:42.976 --> 00:07:49.406 align:middle
+línea 84, el ->isPasswordValid() existe
+realmente en la nueva interfaz, así que
+
+00:07:49.406 --> 00:07:54.176 align:middle
+éste es un caso en el que no
+necesitamos cambiar nada más. Ah,
+
+00:07:54.176 --> 00:07:55.716 align:middle
+pero ya que estamos aquí, el
+
+00:07:55.936 --> 00:07:59.856 align:middle
+UserNotFoundException es otro nombre
+de clase largo. Vuelve a pulsar
+
+00:08:00.586 --> 00:08:03.126 align:middle
+"Simplificar FQN". Muy bien
+
+00:08:04.106 --> 00:08:04.726 align:middle
+Eso
+
+00:08:04.936 --> 00:08:06.726 align:middle
+debería ser todo. La
+
+00:08:07.476 --> 00:08:11.366 align:middle
+gran pregunta ahora es:
+¿funciona nuestra aplicación? Si
+
+00:08:11.876 --> 00:08:13.886 align:middle
+volvemos a la página de inicio...
+
+00:08:15.576 --> 00:08:16.656 align:middle
+no lo hace.
+
+00:08:17.146 --> 00:08:19.946 align:middle
+¿Volvemos a la página de
+Bienvenida a Symfony? Eso es
+
+00:08:20.406 --> 00:08:21.666 align:middle
+raro...
+
+00:08:21.666 --> 00:08:28.156 align:middle
+Vuelve a tu terminal y ejecuta: php
+bin/console debug:router Vaya. De
+
+00:08:28.616 --> 00:08:31.046 align:middle
+hecho, todas nuestras rutas
+han desaparecido. Esto se debe
+
+00:08:31.706 --> 00:08:37.716 align:middle
+a otro cambio que hizo Rector y al que
+debemos prestar mucha atención. Está
+
+00:08:38.136 --> 00:08:40.106 align:middle
+dentro de nuestra clase Kernel.
+
+00:08:40.976 --> 00:08:44.866 align:middle
+Hablaremos más sobre esta clase más adelante,
+cuando actualicemos nuestras recetas. Rector
+
+00:08:45.506 --> 00:08:48.756 align:middle
+cambió el argumento a
+RoutingConfigurator, pero
+
+00:08:49.216 --> 00:08:51.636 align:middle
+no actualizó el código de abajo. Así que,
+
+00:08:51.636 --> 00:08:56.436 align:middle
+de nuevo, Rector es muy bueno para
+encontrar algunos de estos cambios, pero
+
+00:08:56.876 --> 00:08:59.496 align:middle
+siempre debes comprobar dos veces
+el resultado final. Afortunadamente,
+
+00:08:59.496 --> 00:09:07.566 align:middle
+todo el método configureRoutes() se
+ha trasladado a este MicroKernelTrait
+
+00:09:08.046 --> 00:09:10.246 align:middle
+-hecho del que hablaré
+más adelante-. Así que
+
+00:09:10.246 --> 00:09:14.786 align:middle
+ya no necesitamos este
+método en nuestra clase. En
+
+00:09:15.506 --> 00:09:20.426 align:middle
+cuanto lo eliminamos, se utiliza la versión
+correcta del trait... ¡nuestras rutas
+
+00:09:20.956 --> 00:09:22.736 align:middle
+vuelven a .... y
+
+00:09:23.756 --> 00:09:26.666 align:middle
+la página funciona! ¡Woohoo!
+
+00:09:26.916 --> 00:09:32.186 align:middle
+Y, con suerte, tenemos unas cuantas
+desapariciones menos que antes.
+
+00:09:32.536 --> 00:09:34.466 align:middle
+Ahora veo 58. ¡Progreso!
+
+00:09:34.976 --> 00:09:37.926 align:middle
+¿Y qué es lo siguiente? Hemos
+
+00:09:37.926 --> 00:09:43.566 align:middle
+actualizado nuestras dependencias y automatizado algunos de
+los cambios que necesitamos con Rector. Bueno, todavía hay
+
+00:09:44.376 --> 00:09:49.216 align:middle
+una cosa más que podemos hacer
+antes de empezar a repasar
+
+00:09:49.216 --> 00:09:54.226 align:middle
+cada deprecación manualmente:
+actualizar nuestras recetas. Y
+
+00:09:54.906 --> 00:09:59.966 align:middle
+esto se ha vuelto mucho más fácil que
+la última vez que se actualizó. Veamos
+
+00:10:00.446 --> 00:10:03.676 align:middle
+cómo a continuación
