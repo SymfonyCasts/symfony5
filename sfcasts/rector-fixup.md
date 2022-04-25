@@ -48,12 +48,16 @@ and, at the bottom, *ignore* that: `/tools/php-cs-fixer/vendor`. And while we're
 here, let's also ignore `/.php-cs-fixer.cache`. That's a cache file that PHP CS
 Fixer will create when it does its work.
 
+[[[ code('1915cbf8cc') ]]]
+
 ## Adding php-cs-fixer Config
 
 The *last* thing we need to do is add a config file. Up here, create a new file called
 `.php-cs-fixer.php`. Inside, I'm going to paste about 10 lines of code. This is
 pretty simple. It tells PHP CS Fixer where to find our `src/` files... then,
 below, which *rules* to apply. I'm using a pretty standard Symfony set of rules.
+
+[[[ code('235dd5df15') ]]]
 
 And... we're ready to run this! To see what it does, over at the command line,
 add all the changes to git with:
@@ -102,6 +106,8 @@ was already a `use` statement for that class or not.
 So let's fix this by hand. Hover over the class, hit "alt" + "enter" and then
 go to "Simplify FQN". That shortens it and adds the `use` statement on top.
 
+[[[ code('ef0afb3c2f') ]]]
+
 But there's another problem. If we trace down to where this is used, previously
 we were calling `->encodePassword()`. But... that method doesn't exist on the
 new interface! We need to call `->hashPassword()`.
@@ -109,13 +115,19 @@ new interface! We need to call `->hashPassword()`.
 I'm also going to rename the argument. Go to "Refactor" then "Rename" and call
 it `$userPasswordHasher`... just because that's a more fitting name.
 
+[[[ code('26d91653ae') ]]]
+
 Next up is `src/Factory/UserFactory.php` for the *same* change. Scroll down and...
 once again, we have a long class name. Hit "alt" + "enter" and go to "Simplify
 FQN" to add that `use` statement. Then... let's "Refactor" and "Rename" the
 argument to `$passwordHasher`... good... and "Refactor", "Rename" the property
 *also* to `$passwordHasher`.
 
+[[[ code('3d7190c49d') ]]]
+
 Finally, below, we need to call `->hashPassword()` instead of `->encodePassword()`.
+
+[[[ code('b12a0bd471') ]]]
 
 Done!
 
@@ -126,10 +138,14 @@ to use the new security system... but let's at least get it working. Find the
 rename the argument to `$passwordHasher`... and rename the property to
 `$passwordHasher`.
 
+[[[ code('20582a68fc') ]]]
+
 Then we check to see where this is used... I'll search for "hasher"... there
 we go! Down on line 84, the `->isPasswordValid()` actually *does*
 exist on the new interface, so this is one case where we *don't* need to change
 anything else.
+
+[[[ code('4e44da103d') ]]]
 
 Oh, but while we're in here, the `UserNotFoundException` is another *long* class
 name. Hit "Simplify FQN" again.
@@ -149,7 +165,11 @@ Wow. In fact, *all* of our routes are *gone*. This is due to one other change
 that Rector made that we need to pay close attention to. It's inside of our `Kernel`
 class. We're going to talk more about this class later when we upgrade our recipes.
 Rector changed the argument to `RoutingConfigurator`, but it didn't update the
-code below. So again, Rector is really good for finding some of these changes,
+code below. 
+
+[[[ code('338cffd1cf') ]]]
+
+So again, Rector is really good for finding some of these changes,
 but you should always double-check the final result.
 
 Fortunately, the entire `configureRoutes()` method has been moved into this
