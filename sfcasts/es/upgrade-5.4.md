@@ -2,7 +2,7 @@
 
 El primer paso para actualizar nuestra aplicación a Symfony 6 es actualizar todas las librerías de Symfony a la 5.4. Y... eso es bastante fácil: es sólo una cosa del compositor.
 
-## Ajustando las restricciones de la versión de Composer
+## Ajustando la Restricciones de versiones de Composer
 
 En `composer.json`, tenemos bastantes librerías que empiezan por `symfony/`. La mayoría de ellas forman parte del proyecto "principal" de Symfony y siguen el conocido versionado de Symfony, con versiones como 5.0, 5.1, hasta 5.4 y luego 6.0. Esos son los paquetes en los que nos vamos a centrar para actualizarlos.
 
@@ -18,7 +18,7 @@ Bien... veamos. Esto actualizó un montón de bibliotecas. Para asegurarnos de q
 
 Y... todo lo demás parece estar bien: cada uno se cambia a `5.4.*` o tiene su propia estrategia de versionado... y no vamos a preocuparnos por ello ahora.
 
-## Actualizar las dependencias
+## Actualizando las Dependencias
 
 Para actualizarlas realmente, en tu terminal, podríamos intentar actualizar sólo los paquetes de Symfony con:
 
@@ -46,7 +46,7 @@ Y... ¡hola actualizaciones! ¡Vaya! ¡Mira qué lista tan grande! Muchas cosas 
 
 Vale, así que ha sido una gran actualización. ¿Sigue funcionando el sitio? No lo sé Dirígete, actualiza y... ¡funciona! ¡Symfony es increíble!
 
-## Comprobando las desapariciones
+## Revisando las Depreciaciones
 
 Ahora que estamos en Symfony 5.4, podemos ver la lista completa de rutas de código obsoletas que encontramos al renderizar esta página. Tu número variará... y el número puede incluso cambiar cuando actualices la página... eso se debe a que algunas páginas utilizan la caché. Parece que tengo unas 71 depreciaciones.
 
