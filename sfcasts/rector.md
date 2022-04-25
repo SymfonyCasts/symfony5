@@ -37,6 +37,8 @@ root of our project. Inside of this callback function, our job is to configure
 which *types* of upgrades we want to apply. These are called "rules" or sometimes
 "set lists" or rules. We're going to start with a set of Symfony upgrades.
 
+[[[ code('78b4802847') ]]]
+
 ## Configuring Rector for the Symfony Upgrade
 
 If you look back at the documentation, you'll see a link to a
@@ -45,6 +47,9 @@ you about a bunch of Symfony "rules" - fancy word for "upgrades" - that they've
 already prepared! That was nice of them!
 
 Below, copy the inside of their callback function... and paste it over what we have.
+
+[[[ code('823e1917b2') ]]]
+
 This points Rector to a cache file that helps it do its job... and most importantly,
 it tells Rector that we want to upgrade our code to be Symfony 5.2 compatible, as
 well as upgrade our code to some Symfony code quality standards and "constructor"
@@ -56,6 +61,8 @@ But, wait, we don't want to upgrade our code to Symfony 5.2! We want to upgrade 
 we *could* do that. But instead, I'm going to use
 `SymfonyLevelSetList::UP_TO_SYMFONY_54`. Oh... it looks like I also need to add a
 `use` statement for `SymfonySetList::`. Let me retype that, hit "tab" and... great!
+
+[[[ code('70d7fc2a83') ]]]
 
 Anyways. We need to upgrade our code from 5.0 to 5.1... then 5.1 to 5.2.. and so
 on *up* to Symfony 5.4. That's what `UP_TO_SYMFONY_54` means: it will include *all*
@@ -100,11 +107,15 @@ Second, while it *did* change the interface from `UserPasswordEncoderInterface` 
 `UserPasswordHasherInterface`, it inlined the *whole* class name... instead of
 adding a `use` statement.
 
+[[[ code('56251b8246') ]]]
+
 And third, it didn't change any variable names. So even though it changed this
 argument to `UserPasswordHasherInterface`, the argument is still called
 `$passwordEncoder`... along with the property. Worse, the
 `UserPasswordHasherInterface` has a different *method* on it... and it didn't update
 the code down here to *use* that new method name.
+
+[[[ code('e8ad63ade3') ]]]
 
 So Rector is a *great* starting point to catch a bunch of changes. But we're
 going to need to take what we've found and finish the job. Let's do that next.
