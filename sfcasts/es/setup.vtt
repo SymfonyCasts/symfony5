@@ -1,0 +1,217 @@
+WEBVTT
+
+00:00:03.046 --> 00:00:03.636 align:middle
+¡Hola amigos!
+
+00:00:04.146 --> 00:00:09.556 align:middle
+Si eres como yo, probablemente tengas
+un proyecto Symfony 5 -o 10- por
+
+00:00:09.786 --> 00:00:13.846 align:middle
+ahí esperando a ser actualizado a Symfony 6.
+
+00:00:14.676 --> 00:00:17.106 align:middle
+Bueno... ¡has venido al lugar adecuado!
+
+00:00:17.416 --> 00:00:20.696 align:middle
+¡Eso es exactamente lo que
+vamos a hacer en este tutorial!
+
+00:00:21.136 --> 00:00:22.476 align:middle
+Pero, ¡más que eso! Se trata de
+
+00:00:22.876 --> 00:00:25.756 align:middle
+una actualización especialmente interesante,
+
+00:00:26.176 --> 00:00:30.656 align:middle
+porque también implica la actualización
+de nuestro código para utilizar PHP 8.
+
+00:00:31.216 --> 00:00:37.636 align:middle
+Y eso incluye una transformación del
+uso de anotaciones a atributos de PHP 8.
+
+00:00:38.126 --> 00:00:41.646 align:middle
+Necesito encontrar mi monóculo,
+porque nos estamos poniendo elegantes.
+
+00:00:42.456 --> 00:00:46.916 align:middle
+También incluye otras características
+de PHP 8, que te van a gustar mucho.
+
+00:00:47.506 --> 00:00:52.056 align:middle
+Además, por primera vez, vamos a
+utilizar una herramienta llamada "Rector"
+
+00:00:52.386 --> 00:00:55.186 align:middle
+para automatizar todo lo posible.
+
+00:00:55.846 --> 00:00:58.656 align:middle
+Y... porque no puedo evitarlo,
+
+00:00:58.926 --> 00:01:03.056 align:middle
+descubriremos nuevas y bonitas
+características de Symfony 6 por el camino.
+
+00:01:03.806 --> 00:01:04.196 align:middle
+¡Muy bien!
+
+00:01:04.406 --> 00:01:08.846 align:middle
+Para empezar esta fiesta de la
+actualización, deberías codificar conmigo.
+
+00:01:09.346 --> 00:01:12.746 align:middle
+Descarga el código del curso
+desde esta página y descomprímelo
+
+00:01:12.746 --> 00:01:16.016 align:middle
+para encontrar un directorio start/
+con el mismo código que ves aquí.
+
+00:01:16.716 --> 00:01:21.186 align:middle
+Sigue este archivo README.md para ver
+todos los detalles de la configuración.
+
+00:01:21.716 --> 00:01:24.036 align:middle
+Ya he seguido la mayoría de estos pasos...
+
+00:01:24.346 --> 00:01:29.556 align:middle
+pero todavía tengo que construir mis activos
+de Webpack Encore e iniciar un servidor web.
+
+00:01:29.926 --> 00:01:31.756 align:middle
+Así que vamos a hacerlo En
+
+00:01:32.346 --> 00:01:38.256 align:middle
+mi terminal (esto ya está dentro
+del proyecto), ejecuta yarn install
+
+00:01:38.606 --> 00:01:42.116 align:middle
+o npm install para descargar
+los paquetes de Node.
+
+00:01:42.916 --> 00:01:47.286 align:middle
+Quiero que esto se ejecute correctamente
+porque vamos a actualizar algunas
+
+00:01:47.286 --> 00:01:49.286 align:middle
+de nuestras herramientas
+JavaScript un poco más tarde.
+
+00:01:50.016 --> 00:01:55.046 align:middle
+Luego ejecuta: yarn watch o npm run watch
+para construir los activos del frontend...
+
+00:01:55.046 --> 00:01:56.526 align:middle
+y luego observa los cambios.
+
+00:01:57.416 --> 00:02:02.596 align:middle
+Para el último paso: abre una nueva pestaña de
+terminal y pon en marcha un servidor web local.
+
+00:02:03.346 --> 00:02:10.586 align:middle
+Voy a utilizar el servidor Symfony de forma
+normal ejecutando symfony serve -d Y...
+
+00:02:10.956 --> 00:02:17.636 align:middle
+¡impresionante! Eso inicia un nuevo
+servidor web en https://127.0.0.1:8000.
+
+00:02:18.336 --> 00:02:20.726 align:middle
+Haré clic en él y diré...
+
+00:02:21.206 --> 00:02:23.906 align:middle
+¡"Hola" a Cauldron Overflow!
+
+00:02:24.176 --> 00:02:25.346 align:middle
+¡Mi viejo amigo!
+
+00:02:25.886 --> 00:02:30.216 align:middle
+Este es el sitio que hemos estado construyendo
+a lo largo de nuestra serie Symfony 5.
+
+00:02:30.706 --> 00:02:33.426 align:middle
+Y si compruebas su archivo composer.json...
+
+00:02:33.876 --> 00:02:36.186 align:middle
+y buscas aquí abajo cosas de Symfony...
+
+00:02:36.586 --> 00:02:39.136 align:middle
+es antiguo.
+
+00:02:40.006 --> 00:02:43.926 align:middle
+Todas las librerías principales de
+Symfony son de la versión "5.0".
+
+00:02:44.316 --> 00:02:45.726 align:middle
+Eso fue hace años.
+
+00:02:46.076 --> 00:02:47.356 align:middle
+¡Yo era tan joven entonces!
+
+00:02:48.216 --> 00:02:50.286 align:middle
+Esta es nuestra estrategia de actualización.
+
+00:02:50.956 --> 00:02:55.026 align:middle
+Primer paso: vamos a actualizar
+nuestro proyecto a Symfony 5.4.
+
+00:02:55.846 --> 00:03:01.546 align:middle
+Esto es seguro porque Symfony no incluye
+ninguna ruptura de compatibilidad hacia atrás
+
+00:03:01.696 --> 00:03:03.926 align:middle
+en la actualización de versiones menores.
+
+00:03:04.546 --> 00:03:09.526 align:middle
+Así que cada vez que actualices sólo este
+número intermedio -llamado número "menor",
+
+00:03:09.656 --> 00:03:15.036 align:middle
+como 5.0 a 5.4- siempre será seguro.
+
+00:03:15.716 --> 00:03:22.416 align:middle
+Segundo paso: una vez que estemos en Symfony 5.4,
+para preparar nuestro código para Symfony 6,
+
+00:03:22.916 --> 00:03:28.256 align:middle
+todo lo que tenemos que hacer es buscar y arreglar
+todas las depreciaciones de nuestro código.
+
+00:03:29.016 --> 00:03:33.186 align:middle
+Una vez que las hayamos arreglado,
+será seguro pasar a Symfony 6.
+
+00:03:34.086 --> 00:03:40.866 align:middle
+Para encontrar esas depreciaciones, vamos a utilizar
+algunas herramientas, como "Rector" para actualizar partes
+
+00:03:40.866 --> 00:03:44.246 align:middle
+de nuestro código, el nuevo
+sistema de actualización de recetas
+
+00:03:44.666 --> 00:03:48.856 align:middle
+y el probado "informe de
+depreciaciones" de Symfony.
+
+00:03:49.526 --> 00:03:55.716 align:middle
+Después de todo eso, cuando tengamos un
+proyecto Symfony 5.4 sin depreciaciones...
+
+00:03:56.016 --> 00:04:00.036 align:middle
+podemos simplemente "pulsar el
+interruptor" y actualizar a Symfony 6.
+
+00:04:00.306 --> 00:04:01.476 align:middle
+¡Muy fácil!
+
+00:04:02.226 --> 00:04:07.396 align:middle
+Y al final, cubriremos algunas nuevas
+características más que podrían gustarte.
+
+00:04:08.026 --> 00:04:08.566 align:middle
+¿Estás preparado?
+
+00:04:08.976 --> 00:04:13.166 align:middle
+¡Genial! Vamos a actualizar nuestro
+sitio a Symfony 5.4 a continuación
