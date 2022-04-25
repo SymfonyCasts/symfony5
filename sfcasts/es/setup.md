@@ -1,8 +1,8 @@
-# La configuración del proyecto y el plan
+# Configuración del Proyecto y el Plan
 
 ¡Hola amigos! Si eres como yo, probablemente tienes un proyecto Symfony 5 - o 10 - por ahí esperando a ser actualizado a Symfony 6. Bueno... ¡has venido al lugar correcto! ¡Eso es exactamente lo que vamos a hacer en este tutorial! Pero, ¡más que eso! Se trata de una actualización especialmente interesante, porque también implica la actualización de nuestro código para utilizar PHP 8. Y eso incluye una transformación del uso de anotaciones a atributos de PHP 8. Necesito encontrar mi monóculo, porque nos estamos poniendo elegantes. También incluye varias otras características de PHP 8, que realmente te van a gustar. Además, por primera vez, vamos a utilizar una herramienta llamada "Rector" para automatizar todo lo posible. Y... porque no puedo evitarlo, descubriremos nuevas y bonitas características de Symfony 6 por el camino.
 
-## Poner en marcha el proyecto
+## Poniendo en Marcha el Proyecto
 
 ¡Muy bien! Para empezar esta fiesta de la actualización, deberías codificar conmigo. Descarga el código del curso desde esta página y descomprímelo para encontrar un directorio `start/`con el mismo código que ves aquí. Sigue este archivo `README.md` para ver todos los detalles de la configuración. Ya he seguido la mayor parte de estos pasos... pero todavía tengo que construir mis activos de Webpack Encore e iniciar un servidor web. Así que vamos a hacerlo
 
@@ -42,7 +42,7 @@ symfony serve -d
 
 Y... ¡impresionante! Eso inicia un nuevo servidor web en https://127.0.0.1:8000. Haré clic en él y diré... ¡"Hola" a Cauldron Overflow! ¡Mi viejo amigo! Este es el sitio que hemos estado construyendo a lo largo de nuestra serie Symfony 5. Y si compruebas su archivo `composer.json`... y buscas aquí abajo cosas de Symfony... whoa... es viejo. Todas las librerías principales de Symfony son de la versión "5.0". Eso fue hace años. ¡Era tan joven entonces!
 
-## El plan
+## El Plan
 
 Esta es nuestra estrategia de actualización. Primer paso: vamos a actualizar nuestro proyecto a Symfony 5.4. Esto es seguro porque Symfony no incluye ninguna ruptura de compatibilidad hacia atrás en la actualización de versiones menores. Así que cada vez que actualices sólo este número intermedio -llamado número "menor", como 5.0 a 5.4- siempre será seguro.
 
