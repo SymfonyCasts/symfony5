@@ -1,0 +1,362 @@
+WEBVTT
+
+00:00:01.026 --> 00:00:04.226 align:middle
+Ahora que estamos en Symfony
+5.4, nuestro trabajo es sencillo
+
+00:00:04.576 --> 00:00:07.966 align:middle
+buscar y actualizar todo
+nuestro código obsoleto.
+
+00:00:08.836 --> 00:00:13.706 align:middle
+En cuanto lo hagamos, será
+seguro actualizar a Symfony 6.
+
+00:00:14.316 --> 00:00:20.706 align:middle
+Esto se debe a que la única
+diferencia entre Symfony 5.4 y 6.0 es
+
+00:00:20.706 --> 00:00:24.046 align:middle
+que se han eliminado todas
+las rutas de código obsoleto.
+
+00:00:24.856 --> 00:00:28.856 align:middle
+Afortunadamente, Symfony
+es increíble y nos dice -a
+
+00:00:29.076 --> 00:00:33.356 align:middle
+través de la barra de herramientas de depuración
+web- exactamente qué código está obsoleto.
+
+00:00:34.006 --> 00:00:36.256 align:middle
+Pero entender lo que significa todo esto...
+
+00:00:36.536 --> 00:00:38.096 align:middle
+no siempre es fácil.
+
+00:00:38.496 --> 00:00:43.926 align:middle
+Así que antes de intentarlo, vamos
+a automatizar todo lo posible.
+
+00:00:44.566 --> 00:00:47.526 align:middle
+Y vamos a hacerlo con una
+herramienta llamada Rector.
+
+00:00:48.386 --> 00:00:52.096 align:middle
+Dirígete a
+https://github.com/rectorphp/rector. Se trata de
+
+00:00:52.846 --> 00:01:00.036 align:middle
+una impresionante herramienta de línea de comandos con un
+único trabajo: automatizar todo tipo de actualizaciones
+
+00:01:00.036 --> 00:01:02.776 align:middle
+de tu código, como actualizar tu código
+
+00:01:02.776 --> 00:01:08.496 align:middle
+de compatible con Symfony 5.0
+a compatible con Symfony 5.4.
+
+00:01:09.126 --> 00:01:12.956 align:middle
+O actualizar tu código para
+que sea compatible con PHP 8.
+
+00:01:13.776 --> 00:01:15.206 align:middle
+Es una herramienta poderosa...
+
+00:01:15.636 --> 00:01:21.396 align:middle
+y si quieres aprender más sobre ella, incluso han
+publicado un libro en el que puedes profundizar...
+
+00:01:21.616 --> 00:01:24.056 align:middle
+y también ayudar a apoyar el proyecto.
+
+00:01:24.876 --> 00:01:26.626 align:middle
+Muy bien, ¡vamos a instalar esta cosa!
+
+00:01:27.076 --> 00:01:37.356 align:middle
+Dirígete a tu terminal y ejecuta: composer
+require rector/rector --dev ¡Hermoso!
+
+00:01:37.976 --> 00:01:41.426 align:middle
+Para que rector funcione, necesita
+un archivo de configuración.
+
+00:01:42.036 --> 00:01:44.996 align:middle
+Y podemos arrancar uno ejecutando
+rector con: ./vendor/bin/rector
+
+00:01:45.506 --> 00:01:49.326 align:middle
+init ¡Impresionante! Eso
+
+00:01:49.646 --> 00:01:51.956 align:middle
+crea el archivo rector.php ... que
+
+00:01:52.386 --> 00:01:55.326 align:middle
+podemos ver en la raíz de
+nuestro proyecto. Dentro
+
+00:01:56.116 --> 00:01:59.636 align:middle
+de esta función de devolución de llamada,
+nuestro trabajo consiste en configurar qué
+
+00:01:59.636 --> 00:02:02.726 align:middle
+tipos de actualizaciones queremos aplicar. Esto
+
+00:02:03.516 --> 00:02:07.856 align:middle
+se llama "reglas" o a veces "listas
+de conjuntos" o reglas. Vamos a
+
+00:02:08.406 --> 00:02:11.026 align:middle
+empezar con un conjunto de
+actualizaciones de Symfony. Si echas
+
+00:02:11.846 --> 00:02:16.316 align:middle
+un vistazo a la documentación, verás un
+enlace a un repositorio de Symfony donde
+
+00:02:16.706 --> 00:02:19.796 align:middle
+te habla de un montón de "reglas" de Symfony
+
+00:02:20.116 --> 00:02:24.296 align:middle
+-palabra elegante para "actualizaciones"- que
+ya han preparado ¡ Muy amable por su parte
+
+00:02:24.746 --> 00:02:25.756 align:middle
+! A continuación,
+
+00:02:26.636 --> 00:02:29.796 align:middle
+copia el interior de su función
+de devolución de llamada... y
+
+00:02:30.246 --> 00:02:32.606 align:middle
+pégalo sobre lo que tenemos. Esto
+
+00:02:34.176 --> 00:02:37.666 align:middle
+apunta a Rector a un archivo de caché que
+le ayuda a hacer su trabajo... y lo que
+
+00:02:38.136 --> 00:02:43.126 align:middle
+es más importante, le dice a Rector que
+queremos actualizar nuestro código para que
+
+00:02:43.276 --> 00:02:48.266 align:middle
+sea compatible con Symfony 5.2, así
+como actualizar nuestro código a
+
+00:02:48.266 --> 00:02:52.486 align:middle
+algunos estándares de calidad de código
+Symfony e inyección de "constructores". Si
+
+00:02:53.286 --> 00:02:55.686 align:middle
+quieres saber más sobre lo que hacen,
+
+00:02:56.056 --> 00:02:58.596 align:middle
+puedes seguir las constantes
+para ver el código. Pero,
+
+00:02:59.466 --> 00:03:03.156 align:middle
+espera, ¡no queremos actualizar nuestro código a
+Symfony 5.2! Queremos actualizarlo por completo a
+
+00:03:03.506 --> 00:03:07.356 align:middle
+Symfony 5.4.
+
+00:03:08.306 --> 00:03:11.556 align:middle
+Podrías esperar que pusiera
+simplemente "54" aquí. Y
+
+00:03:11.976 --> 00:03:13.666 align:middle
+podríamos hacerlo. Pero
+
+00:03:14.086 --> 00:03:20.356 align:middle
+en lugar de eso, voy a utilizar
+SymfonyLevelSetList::UP_TO_SYMFONY_54. Oh...
+
+00:03:21.286 --> 00:03:25.796 align:middle
+parece que también tengo que añadir una
+declaración use para SymfonySetList::. Déjame
+
+00:03:26.476 --> 00:03:29.696 align:middle
+volver a escribir eso,
+pulsar "tab" y... ¡genial!
+
+00:03:29.816 --> 00:03:31.316 align:middle
+En fin.
+
+00:03:31.636 --> 00:03:35.956 align:middle
+Tenemos que actualizar nuestro código
+de la 5.0 a la 5.1... luego de la
+
+00:03:36.316 --> 00:03:38.686 align:middle
+5.1 a la 5.2... y así hasta la
+
+00:03:39.076 --> 00:03:42.086 align:middle
+Symfony 5.4. Eso es
+
+00:03:42.676 --> 00:03:48.956 align:middle
+lo que significa UP_TO_SYMFONY_54:
+incluirá todas las "reglas" para
+
+00:03:48.956 --> 00:03:55.586 align:middle
+actualizar nuestro código a la 5.1,
+5.2, 5.3 y finalmente a la 5.4. Y...
+
+00:03:56.316 --> 00:03:57.366 align:middle
+¡ya está! Estamos
+
+00:03:57.716 --> 00:03:59.356 align:middle
+listos para ejecutar esto. Pero
+
+00:04:00.056 --> 00:04:03.426 align:middle
+antes de hacerlo, tengo curiosidad por saber
+qué cambios hará esto. Así que vamos a
+
+00:04:03.826 --> 00:04:06.136 align:middle
+añadir todos los cambios a git... y a
+
+00:04:06.576 --> 00:04:07.476 align:middle
+confirmar. ¡Perfecto!
+
+00:04:10.676 --> 00:04:13.296 align:middle
+Para ejecutar Rector, digamos
+./vendor/bin/rector process
+
+00:04:13.366 --> 00:04:16.346 align:middle
+src/ . También podríamos
+
+00:04:17.086 --> 00:04:20.686 align:middle
+dirigirlo a los directorios
+config/ o templates/... pero la
+
+00:04:21.116 --> 00:04:28.026 align:middle
+gran mayoría de los cambios que hará se aplican
+a nuestras clases en src/: Y... ¡funciona!
+
+00:04:28.406 --> 00:04:29.756 align:middle
+¡Espectacular! El rector ha cambiado ocho
+
+00:04:30.476 --> 00:04:33.996 align:middle
+archivos. Desplacémonos
+
+00:04:34.646 --> 00:04:35.866 align:middle
+hasta la parte superior. Esto es
+
+00:04:36.746 --> 00:04:43.136 align:middle
+genial: te muestra el archivo que se
+modificó, el cambio real y, debajo, qué
+
+00:04:43.136 --> 00:04:46.526 align:middle
+reglas causaron ese cambio. Una
+de las modificaciones que hizo
+
+00:04:47.146 --> 00:04:50.886 align:middle
+es UserPasswordEncoderInterface
+a UserPasswordHasherInterface. Es
+
+00:04:51.026 --> 00:04:53.836 align:middle
+un
+
+00:04:54.446 --> 00:05:00.186 align:middle
+buen cambio: la antigua interfaz queda
+obsoleta en favor de la nueva. También cambió
+
+00:05:00.876 --> 00:05:05.496 align:middle
+UsernameNotFoundException por
+UserNotFoundException. Otra buena
+
+00:05:05.996 --> 00:05:09.696 align:middle
+actualización de bajo nivel
+de un código obsoleto.
+
+00:05:10.386 --> 00:05:12.986 align:middle
+También hubo un cambio en una
+clase en Kernel... y algunas
+
+00:05:13.526 --> 00:05:15.486 align:middle
+otras cosas similares. Cerca del
+
+00:05:16.376 --> 00:05:22.736 align:middle
+final, la lista de conjuntos de calidad de código de
+Symfony añadió un tipo de retorno Response a cada
+
+00:05:22.736 --> 00:05:23.826 align:middle
+controlador. Eso es opcional...
+
+00:05:24.446 --> 00:05:25.576 align:middle
+¡pero está bien!
+
+00:05:25.886 --> 00:05:31.876 align:middle
+Así que no hizo una tonelada de cambios,
+pero arregló algunas desaprobaciones sin que
+
+00:05:31.996 --> 00:05:34.356 align:middle
+tuviéramos que hacer nada. Aunque...
+
+00:05:34.846 --> 00:05:36.996 align:middle
+no es perfecto. Un problema
+
+00:05:37.676 --> 00:05:42.956 align:middle
+es que, a veces, Rector se mete con tu
+estilo de codificación. Eso es porque Rector
+
+00:05:43.586 --> 00:05:47.436 align:middle
+no entiende realmente cuál es tu
+estilo de codificación... y por eso
+
+00:05:47.606 --> 00:05:49.496 align:middle
+ni siquiera lo intenta. Pero eso es
+
+00:05:50.076 --> 00:05:53.306 align:middle
+por diseño y será fácil de
+arreglar. En segundo lugar , aunque
+
+00:05:54.016 --> 00:05:59.396 align:middle
+cambió la interfaz de UserPasswordEncoderInterface
+a UserPasswordHasherInterface,
+
+00:05:59.506 --> 00:06:05.156 align:middle
+inlineó todo el nombre
+de la clase... en lugar de
+
+00:06:05.546 --> 00:06:07.596 align:middle
+añadir una declaración use. Y tercero, no
+
+00:06:08.446 --> 00:06:11.626 align:middle
+cambió ningún nombre de variable. Así que
+
+00:06:12.116 --> 00:06:16.386 align:middle
+aunque cambió este argumento a
+UserPasswordHasherInterface, el argumento
+
+00:06:16.746 --> 00:06:19.296 align:middle
+sigue llamándose $passwordEncoder... junto con
+
+00:06:19.616 --> 00:06:20.996 align:middle
+la propiedad. Y lo que es peor, el
+
+00:06:21.776 --> 00:06:26.356 align:middle
+UserPasswordHasherInterface tiene
+un método diferente... y no
+
+00:06:26.356 --> 00:06:31.416 align:middle
+actualizó el código aquí abajo para utilizar
+ese nuevo nombre de método. Así que Rector
+
+00:06:32.216 --> 00:06:36.256 align:middle
+es un gran punto de partida para captar
+un montón de cambios. Pero vamos a
+
+00:06:36.846 --> 00:06:40.656 align:middle
+tener que coger lo que hemos encontrado
+y terminar el trabajo. Hagamos
+
+00:06:41.276 --> 00:06:42.666 align:middle
+eso a continuación. Haremos
+
+00:06:43.086 --> 00:06:44.556 align:middle
+parte de eso a mano... pero
+
+00:06:44.906 --> 00:06:49.316 align:middle
+gran parte lo haremos
+automáticamente con PHP CS Fixer
