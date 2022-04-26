@@ -60,6 +60,6 @@ Si devolvemos `true` desde esta función, ¡la autenticación ha sido un éxito!
 
 Pronto pondremos código real en estos métodos... pero su propósito se explica por sí mismo: si la autenticación tiene éxito, Symfony llamará a `onAuthenticationSuccess()`. Si la autenticación falla por cualquier motivo - como un correo electrónico o una contraseña no válidos - Symfony llamará a `onAuthenticationFailure()`.
 
-¡Vamos a probarlo! Vuelve directamente a `/login`. Utiliza de nuevo el correo electrónico real -`abraca_admin@example.com` con la contraseña correcta: `tada`. Envía y... ¡sí! llama a `onAuthenticationSuccess()`. ¡La autenticación se ha completado!
+¡Vamos a probarlo! Vuelve directamente a `/login`. Utiliza de nuevo el correo electrónico real -`abraca_admin@example.com` con la contraseña correcta: `tada`. Envía y... ¡sí! llamó a `onAuthenticationSuccess()`. ¡La autenticación se ha completado!
 
 Lo sé, todavía no parece gran cosa... así que a continuación, vamos a hacer algo en caso de éxito, como redirigir a otra página. También vamos a conocer el otro trabajo crítico de un proveedor de usuarios: refrescar el usuario de la sesión al principio de cada petición para mantenernos conectados.
