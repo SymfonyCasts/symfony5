@@ -23,7 +23,7 @@ Y... todo lo demás parece estar bien: cada uno se cambia a `5.4.*` o tiene su p
 Para actualizarlas realmente, en tu terminal, podríamos intentar actualizar sólo los paquetes de Symfony con:
 
 ```terminal
-composer up 'symfony/*
+composer up 'symfony/*'
 ```
 
 Es muy probable que eso falle... porque para actualizar todos los paquetes de Symfony, habrá que actualizar algún otro paquete, como`symfony/proxy-manager-bridge`. Si quisieras, podrías añadir eso al comando`composer up`... o añadir la bandera `-W`, que indica a Composer que actualice todas las bibliotecas de `symfony/` y sus dependencias.
