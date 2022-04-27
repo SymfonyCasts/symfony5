@@ -39,7 +39,7 @@ To *actually* update these, over at your terminal, we *could* try to upgrade *ju
 the Symfony packages with:
 
 ```terminal
-composer up 'symfony/*
+composer up 'symfony/*'
 ```
 
 There's a good chance that's going to fail... because in order to upgrade all of
