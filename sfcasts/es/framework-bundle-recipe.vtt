@@ -1,0 +1,521 @@
+WEBVTT
+
+00:00:01.016 --> 00:00:05.676 align:middle
+En tu terminal, ejecuta: composer
+recipes Como probablemente sepas,
+
+00:00:05.946 --> 00:00:12.156 align:middle
+cada vez que instalamos un nuevo paquete, ese
+paquete puede venir con una receta que hace cosas
+
+00:00:12.156 --> 00:00:18.576 align:middle
+como añadir archivos de configuración, modificar
+ciertos archivos como .env, o añadir otros archivos.
+
+00:00:19.316 --> 00:00:24.076 align:middle
+Con el tiempo, Symfony realiza
+actualizaciones de estas recetas.
+
+00:00:24.816 --> 00:00:26.166 align:middle
+A veces son menores...
+
+00:00:26.546 --> 00:00:29.856 align:middle
+como la adición de un comentario
+en un archivo de configuración.
+
+00:00:30.486 --> 00:00:39.416 align:middle
+Pero otras veces, son mayores, como cambiar el nombre de las claves de
+configuración para que coincidan con los cambios en el propio Symfony.
+
+00:00:39.416 --> 00:00:42.136 align:middle
+Y aunque no tienes que
+actualizar tus recetas, es
+
+00:00:42.446 --> 00:00:47.636 align:middle
+una gran manera de mantener tu aplicación
+como una aplicación estándar de Symfony.
+
+00:00:48.496 --> 00:00:52.936 align:middle
+También es una forma gratuita
+de actualizar el código obsoleto
+
+00:00:53.776 --> 00:00:57.826 align:middle
+Hasta hace poco, la actualización de
+las recetas era un dolor de cabeza.
+
+00:00:58.386 --> 00:01:03.496 align:middle
+Si no estás familiarizado, ¡consulta
+nuestro tutorial "Actualizar a Symfony 5"!
+
+00:01:03.806 --> 00:01:06.886 align:middle
+Yikes. ¡Pero ya no!
+
+00:01:07.246 --> 00:01:15.806 align:middle
+A partir de Symfony Flex 1.18 o 2.1, Composer
+tiene un comando propio recipes:update.
+
+00:01:16.346 --> 00:01:20.166 align:middle
+Literalmente, parchea tus
+archivos a la última versión...
+
+00:01:20.576 --> 00:01:22.086 align:middle
+y es increíble.
+
+00:01:22.416 --> 00:01:23.276 align:middle
+¡Vamos a probarlo!
+
+00:01:24.046 --> 00:01:27.486 align:middle
+Ejecuta: composer recipes:update ¡Oh!
+
+00:01:27.546 --> 00:01:31.996 align:middle
+Antes de ejecutar esto, nos dice que
+confirmemos todo lo que hemos estado trabajando.
+
+00:01:32.456 --> 00:01:36.606 align:middle
+¡Buena idea!
+
+00:01:36.606 --> 00:01:43.266 align:middle
+Diré que estamos: ¡actualizando algo de
+código a Symfony 5.4 con Rector Perfect!
+
+00:01:43.646 --> 00:01:46.156 align:middle
+Prueba de nuevo el comando recipes:update.
+
+00:01:46.946 --> 00:01:53.966 align:middle
+La razón por la que quiere que nuestra copia de trabajo esté
+limpia es porque está a punto de parchear algunos archivos...
+
+00:01:54.346 --> 00:01:56.676 align:middle
+que podrían implicar conflictos.
+
+00:01:57.666 --> 00:02:03.086 align:middle
+Empecemos por symfony/framework-bundle,
+porque es el más importante.
+
+00:02:03.646 --> 00:02:07.766 align:middle
+Los archivos más importantes de nuestro
+proyecto provienen de esta receta.
+
+00:02:08.476 --> 00:02:12.116 align:middle
+Voy a pulsar 4, despejar
+la pantalla, y ¡adelante!
+
+00:02:12.976 --> 00:02:16.816 align:middle
+Entre bastidores, esto comprueba
+el aspecto de la receta
+
+00:02:16.816 --> 00:02:23.096 align:middle
+cuando la instalamos originalmente, lo
+compara con el aspecto actual de la receta
+
+00:02:23.586 --> 00:02:28.136 align:middle
+y genera un diff que luego
+aplica a nuestro proyecto.
+
+00:02:28.716 --> 00:02:34.686 align:middle
+En algunos casos, como éste, esto puede causar
+algunos conflictos, lo cual es bastante genial.
+
+00:02:35.476 --> 00:02:42.866 align:middle
+La mejor parte podría ser que genera un registro
+de cambios que contiene todos los pull requests
+
+00:02:42.866 --> 00:02:45.226 align:middle
+que contribuyeron a estas actualizaciones.
+
+00:02:45.226 --> 00:02:50.466 align:middle
+Si necesitas averiguar por qué ha
+cambiado algo, esto será tu amigo.
+
+00:02:51.306 --> 00:02:57.116 align:middle
+Ah, pero crear el registro de cambios requiere
+hacer un montón de llamadas a la API de GitHub.
+
+00:02:57.116 --> 00:03:01.066 align:middle
+Así que es posible que Compositor te pida
+
+00:03:01.066 --> 00:03:04.886 align:middle
+un token de acceso personal,
+como acaba de hacer conmigo.
+
+00:03:05.706 --> 00:03:12.686 align:middle
+En algunos casos raros con una receta gigante
+como framework-bundle, si tu receta es muy,
+
+00:03:12.686 --> 00:03:19.266 align:middle
+muy antigua, puede que te aparezca este mensaje
+aunque hayas dado un token de acceso a Composer.
+
+00:03:20.046 --> 00:03:23.106 align:middle
+Si esto ocurre, espera 1 minuto...
+
+00:03:23.376 --> 00:03:25.826 align:middle
+y luego vuelve a introducir tu clave de acceso.
+
+00:03:26.436 --> 00:03:31.606 align:middle
+Enhorabuena, acabas de alcanzar el
+límite de la API por minuto de GitHub.
+
+00:03:32.506 --> 00:03:34.936 align:middle
+De todos modos, ahí está el CHANGELOG.
+
+00:03:35.506 --> 00:03:40.806 align:middle
+No suele ser tan largo, pero esta
+receta es la más importante y...
+
+00:03:41.006 --> 00:03:43.636 align:middle
+bueno... estaba terriblemente desactualizada.
+
+00:03:44.276 --> 00:03:50.036 align:middle
+Ah, y si tienes un terminal de moda como yo -esto
+es iTerm- puedes hacer clic en estos enlaces
+
+00:03:50.036 --> 00:03:56.756 align:middle
+para saltar directamente al pull request, que
+vivirá en https://github.com/symfony/recipes.
+
+00:03:57.626 --> 00:04:00.266 align:middle
+Muy bien, vamos a ver los
+cambios que se han hecho.
+
+00:04:00.706 --> 00:04:05.806 align:middle
+Esta es la receta más grande e
+importante, así que quiero cubrir todo.
+
+00:04:05.806 --> 00:04:13.276 align:middle
+Como ya he hecho los deberes, borraré el
+registro de cambios y correré: git status Woh.
+
+00:04:13.706 --> 00:04:18.696 align:middle
+Ha hecho un montón de cambios,
+incluyendo tres conflictos.
+
+00:04:18.696 --> 00:04:21.496 align:middle
+¡Qué divertido! Revisemos primero esos.
+
+00:04:22.246 --> 00:04:24.656 align:middle
+Muévete y empieza dentro de .env.
+
+00:04:25.476 --> 00:04:33.366 align:middle
+Veamos: aparentemente la receta eliminó estas
+líneas #TRUSTED_PROXIES y #TRUSTED_HOSTS.
+
+00:04:34.046 --> 00:04:36.466 align:middle
+Ambas se establecen ahora en
+un archivo de configuración.
+
+00:04:37.006 --> 00:04:43.316 align:middle
+Y aunque todavía puedes establecer una variable de entorno y
+hacer referencia a ella desde ese archivo de configuración,
+
+00:04:43.716 --> 00:04:46.796 align:middle
+la receta ya no incluye estos comentarios.
+
+00:04:47.506 --> 00:04:51.256 align:middle
+No estoy seguro de por qué esto ha causado
+un conflicto, pero vamos a eliminarlos.
+
+00:04:52.106 --> 00:04:55.926 align:middle
+El siguiente conflicto está
+en config/services.yaml.
+
+00:04:56.636 --> 00:04:58.156 align:middle
+Este es bastante sencillo.
+
+00:04:58.636 --> 00:05:02.266 align:middle
+Esta es nuestra configuración y
+abajo, la nueva configuración.
+
+00:05:02.906 --> 00:05:06.846 align:middle
+La receta ha eliminado la
+entrada App\Controller\.
+
+00:05:07.676 --> 00:05:12.566 align:middle
+Esto... nunca fue necesario a no ser
+que hagas controladores súper elegantes
+
+00:05:12.616 --> 00:05:15.736 align:middle
+que no extiendan AbstractController.
+
+00:05:16.396 --> 00:05:19.476 align:middle
+Se eliminó de la receta por simplicidad.
+
+00:05:20.326 --> 00:05:28.126 align:middle
+También parece que la receta actualizada reformatea
+el exclude en varias líneas, lo que está bien.
+
+00:05:28.886 --> 00:05:31.306 align:middle
+Así que tomemos su versión por completo.
+
+00:05:33.576 --> 00:05:38.396 align:middle
+El conflicto final está en src/Kernel.php...
+
+00:05:38.396 --> 00:05:42.436 align:middle
+donde puedes ver que nuestro lado
+tiene un montón de código...
+
+00:05:42.936 --> 00:05:45.246 align:middle
+y su lado no tiene nada.
+
+00:05:46.166 --> 00:05:51.076 align:middle
+¿Recuerdas que mencioné que configureRoutes()
+se trasladó a MicroKernelTrait?
+
+00:05:51.676 --> 00:05:56.406 align:middle
+Pues resulta que todos estos métodos
+fueron trasladados a MicroKernelTrait.
+
+00:05:57.076 --> 00:06:02.726 align:middle
+Así que, a menos que tengas alguna lógica personalizada
+-lo que es bastante raro-, puedes borrarlo todo.
+
+00:06:04.016 --> 00:06:11.066 align:middle
+Bien, de vuelta al terminal, vamos a añadir
+esos tres archivos: Y luego ejecuta git status
+
+00:06:11.306 --> 00:06:14.106 align:middle
+para ver qué más hizo la
+actualización de la receta.
+
+00:06:14.856 --> 00:06:15.616 align:middle
+Interesante.
+
+00:06:16.146 --> 00:06:24.196 align:middle
+Eliminó config/bootstrap.php
+y modificó public/index.php.
+
+00:06:24.196 --> 00:06:25.736 align:middle
+Están relacionados.
+
+00:06:26.466 --> 00:06:35.506 align:middle
+Mira el diff de index.php: Este archivo
+solía requerir config/bootstrap.php.
+
+00:06:35.506 --> 00:06:40.976 align:middle
+Y el trabajo de ese archivo era leer y
+configurar todas las variables de entorno:
+
+00:06:42.416 --> 00:06:46.586 align:middle
+Vamos a ver el nuevo public/index.php.
+
+00:06:46.586 --> 00:06:47.106 align:middle
+Aquí está.
+
+00:06:47.976 --> 00:06:53.716 align:middle
+Ahora esto requiere
+vendor/autoload_runtime.php.
+
+00:06:53.716 --> 00:06:56.256 align:middle
+Y el archivo es mucho más corto que antes.
+
+00:06:56.256 --> 00:07:01.956 align:middle
+Lo que estamos viendo es el nuevo
+componente Runtime de Symfony en acción.
+
+00:07:02.896 --> 00:07:07.986 align:middle
+Puedes consultar su post de introducción
+en el blog para saber más sobre él.
+
+00:07:07.986 --> 00:07:12.136 align:middle
+Básicamente, el trabajo de
+arrancar Symfony y cargar todas las
+
+00:07:12.136 --> 00:07:17.706 align:middle
+variables de entorno se ha
+extraído al componente Runtime.
+
+00:07:18.586 --> 00:07:22.636 align:middle
+Pero... en realidad aún no
+tenemos ese componente instalado...
+
+00:07:23.076 --> 00:07:28.236 align:middle
+por lo que, si intentamos actualizar
+la página, lo pasaremos mal:
+
+00:07:28.236 --> 00:07:32.416 align:middle
+Fallo al abrir autoload_runtime.php.
+
+00:07:32.416 --> 00:07:35.596 align:middle
+Para solucionar esto, dirígete
+a tu terminal y ejecuta
+
+00:07:35.786 --> 00:07:42.096 align:middle
+composer require symfony/runtime Este
+paquete incluye un plugin de Composer...
+
+00:07:42.096 --> 00:07:44.806 align:middle
+y nos preguntará si confiamos en él.
+
+00:07:45.116 --> 00:07:46.216 align:middle
+Di "sí".
+
+00:07:47.106 --> 00:07:48.496 align:middle
+Entonces se instala...
+
+00:07:49.176 --> 00:07:53.036 align:middle
+y enseguida explota cuando
+intenta borrar la caché
+
+00:07:53.376 --> 00:07:56.676 align:middle
+Ignora eso por ahora: lo
+arreglaremos en unos minutos.
+
+00:07:57.116 --> 00:07:59.896 align:middle
+Se trata de actualizar otra receta.
+
+00:08:00.546 --> 00:08:02.646 align:middle
+Pero si probamos nuestro sitio...
+
+00:08:04.376 --> 00:08:08.256 align:middle
+¡funciona! Bien, ¡ya casi hemos terminado!
+
+00:08:08.746 --> 00:08:11.736 align:middle
+De vuelta al terminal,
+veamos qué más ha cambiado:
+
+00:08:13.016 --> 00:08:18.246 align:middle
+Observa que ha eliminado
+config/packages/test/framework.yaml,
+
+00:08:18.806 --> 00:08:22.736 align:middle
+pero ha modificado
+config/packages/framework.yaml.
+
+00:08:23.606 --> 00:08:30.366 align:middle
+Este es probablemente el cambio más común
+que verás cuando actualices tus recetas hoy.
+
+00:08:31.206 --> 00:08:34.016 align:middle
+Abre config/packages/framework.yaml.
+
+00:08:34.696 --> 00:08:36.026 align:middle
+En la parte inferior...
+
+00:08:36.516 --> 00:08:40.106 align:middle
+hay una nueva sección when@test.
+
+00:08:40.106 --> 00:08:48.456 align:middle
+A partir de Symfony 5.3, ahora puedes añadir una
+configuración específica del entorno utilizando esta sintaxis.
+
+00:08:49.106 --> 00:08:56.626 align:middle
+Esta configuración solía vivir dentro
+de config/packages/test/framework.yaml.
+
+00:08:57.296 --> 00:09:02.266 align:middle
+Pero para simplificar, la receta ha
+eliminado ese archivo y simplemente ha movido
+
+00:09:02.266 --> 00:09:04.796 align:middle
+esa configuración al final de este archivo.
+
+00:09:05.656 --> 00:09:07.996 align:middle
+De vuelta al terminal, difunde ese archivo...
+
+00:09:08.676 --> 00:09:16.866 align:middle
+oculta otros dos cambios: La receta también
+ha cambiado http_method_override por false.
+
+00:09:17.506 --> 00:09:23.246 align:middle
+Eso desactiva, por defecto, una función que
+probablemente no estabas utilizando de todos modos.
+
+00:09:24.026 --> 00:09:30.346 align:middle
+También ha cambiado storage_factory_id
+por session.storage.factory.native.
+
+00:09:31.316 --> 00:09:33.836 align:middle
+Esto tiene que ver con cómo
+se almacena tu sesión.
+
+00:09:34.416 --> 00:09:37.516 align:middle
+Internamente, la clave cambió de storage_id
+
+00:09:37.516 --> 00:09:44.406 align:middle
+a storage_factory_id, y ahora
+debería estar configurada.
+
+00:09:45.206 --> 00:09:48.366 align:middle
+De vuelta al terminal,
+veamos los cambios finales:
+
+00:09:48.946 --> 00:09:55.356 align:middle
+Hablando de configuración específica del entorno, puedes
+hacer el mismo truco con los archivos de enrutamiento.
+
+00:09:55.356 --> 00:10:01.256 align:middle
+¿Ves cómo ha eliminado
+config/routes/dev/framework.yaml,
+
+00:10:01.606 --> 00:10:05.046 align:middle
+pero ha añadido config/routes/framework.yaml?
+
+00:10:05.916 --> 00:10:10.566 align:middle
+Si abrimos config/routes/framework.yaml, ¡sí!
+
+00:10:11.076 --> 00:10:18.546 align:middle
+Tiene when@dev e importa las rutas que nos
+permiten probar nuestras páginas de error.
+
+00:10:19.046 --> 00:10:25.416 align:middle
+Este es otro ejemplo de cómo la receta mueve la
+configuración fuera del directorio de entorno
+
+00:10:26.016 --> 00:10:28.496 align:middle
+y dentro del archivo de
+configuración principal...
+
+00:10:28.876 --> 00:10:30.456 align:middle
+sólo para simplificar.
+
+00:10:30.456 --> 00:10:36.396 align:middle
+Por último, la receta ha añadido
+un archivo config/preload.php.
+
+00:10:37.136 --> 00:10:42.756 align:middle
+Este es bastante sencillo, y aprovecha
+la funcionalidad de precarga de PHP.
+
+00:10:43.366 --> 00:10:51.736 align:middle
+Esencialmente, en producción, si apuntas
+tu php.ini, opcache.preload a este archivo,
+
+00:10:52.106 --> 00:10:54.736 align:middle
+¡obtendrás un aumento
+de rendimiento gratuito!
+
+00:10:55.236 --> 00:10:56.586 align:middle
+Es así de sencillo.
+
+00:10:57.016 --> 00:10:59.116 align:middle
+Bueno... casi así de sencillo.
+
+00:10:59.876 --> 00:11:05.066 align:middle
+Lo único que tienes que hacer es reiniciar
+tu servidor web en cada despliegue...
+
+00:11:05.376 --> 00:11:07.966 align:middle
+o PHP-FPM si lo estás utilizando.
+
+00:11:08.476 --> 00:11:13.346 align:middle
+En SymfonyCasts lo aprovechamos
+para aumentar el rendimiento.
+
+00:11:14.346 --> 00:11:15.956 align:middle
+Y... ¡uf!
+
+00:11:16.506 --> 00:11:19.226 align:middle
+La mayor actualización
+de la receta está hecha.
+
+00:11:20.046 --> 00:11:25.416 align:middle
+Así que vamos a añadirlo
+todo y a confirmarlo.
+
+00:11:26.106 --> 00:11:29.336 align:middle
+Porque a continuación, ¡más
+actualizaciones de recetas!
+
+00:11:29.906 --> 00:11:34.766 align:middle
+Pero con FrameworkBundle detrás de nosotros,
+el resto será más fácil y rápido
