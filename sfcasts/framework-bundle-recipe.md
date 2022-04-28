@@ -80,8 +80,11 @@ git status
 
 Woh. It made a *bunch* of changes, including three conflicts. Fun! Let's go
 through those first. Move over and start inside `.env`. Let's see: apparently the
-recipe *removed* these `#TRUSTED_PROXIES` and `#TRUSTED_HOSTS` lines. Both of
-these are now set in a config file. And while you *could* still set an
+recipe *removed* these `#TRUSTED_PROXIES` and `#TRUSTED_HOSTS` lines. 
+
+[[[ code('71db1a63ff') ]]]
+
+Both of these are now set in a config file. And while you *could* still set an
 environment variable and reference it from that config file, the recipe no longer
 ships with these comments. I'm not sure why this caused a conflict, but let's
 delete them.
@@ -95,6 +98,8 @@ do *not* extend `AbstractController`. It was removed from the recipe for simplic
 It also looks like the updated recipe reformats the `exclude` onto multiple lines,
 which is nice. So let's take their version entirely.
 
+[[[ code('6ce8a07342') ]]]
+
 ## Changes to src/Kernel.php
 
 The final conflict is in `src/Kernel.php`... where you can see that *our* side has
@@ -103,6 +108,8 @@ a bunch of code in it... and their side has nothing.
 Remember how I mentioned that `configureRoutes()` was moved into `MicroKernelTrait`?
 Well it turns out that *all* of these methods were moved into `MicroKernelTrait`. So
 unless you have some custom logic - which is pretty rare - you can delete everything.
+
+[[[ code('a8c5798ce7') ]]]
 
 Ok, back at the terminal, let's add those three files:
 
@@ -136,8 +143,11 @@ git diff --cached config/
 
 Let's go check out the *new* `public/index.php`. Here it is. *Now* this requires
 some `vendor/autoload_runtime.php`. And the file is much shorter than before.
-What we're seeing is Symfony's new Runtime component in action. You can check out
-its
+What we're seeing is Symfony's new Runtime component in action. 
+
+[[[ code('903d5ebef5') ]]]
+
+You can check out its
 [introduction blog post](https://symfony.com/blog/new-in-symfony-5-3-runtime-component)
 to learn more about it.
 
@@ -174,10 +184,14 @@ Notice that it deleted `config/packages/test/framework.yaml`, but *modified*
 you'll see when you update your recipes today.
 
 Open `config/packages/framework.yaml`. At the bottom... there's a new `when@test`
-section. Starting in Symfony 5.3, you can now add environment-specific config using
-this syntax. This configuration *used* to live inside of
-`config/packages/test/framework.yaml`. But for simplicity, the recipe *deleted* that
-file and just moved that config to the bottom of *this* file.
+section. 
+
+[[[ code('9e6558d29c') ]]]
+
+Starting in Symfony 5.3, you can now add environment-specific config using this syntax. 
+This configuration *used* to live inside of `config/packages/test/framework.yaml`. 
+But for simplicity, the recipe *deleted* that file and just moved that config to 
+the bottom of *this* file.
 
 Back at the terminal, diff that file... it's hiding two other changes:
 
@@ -203,17 +217,24 @@ Speaking of environment-specific config, you can do that same trick with routing
 files. See how it deleted `config/routes/dev/framework.yaml`, but *added*
 `config/routes/framework.yaml`? If we open up `config/routes/framework.yaml`, yup!
 It has `when@dev` and it imports the routes that allow us to test our error pages.
+
+[[[ code('8c7bee0d3c') ]]]
+
 This is yet another example of the recipe moving configuration out of the
 environment directory and into the main configuration file... just for simplicity.
 
 ## The new preload.php File
 
 Finally, the recipe added a `config/preload.php` file. This one is pretty simple,
-and it leverages PHP's preloading functionality. Essentially, on production, if you
-point your `php.ini`, `opcache.preload` at this file, you'll get a free performance
-boost! It's *that* simple. Well... *mostly* that simple. The only other thing you
-need to do is restart your web server on every deploy... or PHP-FPM if you're
-using that. We leverage this at SymfonyCasts for a little extra performance boost.
+and it leverages PHP's preloading functionality. 
+
+[[[ code('a250923ee6') ]]]
+
+Essentially, on production, if you point your `php.ini`, `opcache.preload` at this
+file, you'll get a free performance boost! It's *that* simple. Well... *mostly* that
+simple. The only other thing you need to do is restart your web server on every
+deploy... or PHP-FPM if you're using that. We leverage this at SymfonyCasts for a
+little extra performance boost.
 
 And... phew! The biggest recipe update is *done*. So let's add everything and
 commit. Because next, *more* recipe updates! But with FrameworkBundle behind us,
