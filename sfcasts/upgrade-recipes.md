@@ -42,11 +42,15 @@ Once again, we're seeing the new environment-specific config feature. This
 been moved here. And because I have a custom `form_themes` config, it conflicted.
 We want to keep both things.
 
+[[[ code('1ab964c841') ]]]
+
 The second conflict is in `templates/base.html.twig`. Our `base.html.twig` is pretty
 customized, so we likely don't need to worry about any new changes. The recipe
 added a new `favicon` by default. You probably *won't* use this since you'll
 have your own. To fix this conflict, since my project *doesn't* have a `favicon`
 yet, I'll copy the new stuff, use *our* code, but paste the `favicon`.
+
+[[[ code('10d8e81961') ]]]
 
 Perfect! Now we can commit everything.
 
@@ -76,6 +80,8 @@ cool, I'll at least take their new example config... which looks a *little*
 different... and update my comments on top with it. Then I'll use *my* version of
 the conflict. The end-result is a few tweaks to the comments, but nothing else.
 
+[[[ code('d15400b32d') ]]]
+
 The other changes from the recipe relate to the config files, and I bet you can see
 what's happening. It deleted two environment-specific config files and updated
 the main one. Hmm.
@@ -84,6 +90,8 @@ Open `config/packages/doctrine.yaml`. Sure enough, at the bottom, we see `when@t
 and `when@prod`. That's nice! Everything is now in one file. Just make sure that
 if you had any custom config in the *old* deleted, files, that you move it over
 to *this* file.
+
+[[[ code('b8f9574c69') ]]]
 
 One other change that's new is this `dbname_suffix` under `when@test`. This is
 cool. When you're running tests, this will automatically reuse the same database
