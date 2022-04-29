@@ -1,0 +1,307 @@
+WEBVTT
+
+00:00:01.016 --> 00:00:03.556 align:middle
+¡Sigamos mejorando las recetas!
+
+00:00:03.946 --> 00:00:07.526 align:middle
+Hay un montón de ellas para hacer,
+pero la mayoría serán fáciles.
+
+00:00:08.046 --> 00:00:12.616 align:middle
+Nos moveremos rápidamente, pero destacaré
+los cambios importantes a medida que avancemos.
+
+00:00:13.546 --> 00:00:16.756 align:middle
+Para la siguiente actualización, vamos
+a pasar a symfony/console , ya que es
+
+00:00:16.966 --> 00:00:18.836 align:middle
+otra importante.
+
+00:00:21.206 --> 00:00:24.356 align:middle
+Esto actualiza sólo un archivo: bin/console.
+
+00:00:25.116 --> 00:00:31.216 align:middle
+Comprueba los cambios con: git
+diff --cached bin/console Hmm.
+
+00:00:31.746 --> 00:00:34.936 align:middle
+Ha pasado de ser un poco largo a...
+
+00:00:34.936 --> 00:00:36.556 align:middle
+¡bastante corto!
+
+00:00:37.176 --> 00:00:42.896 align:middle
+Esto es, una vez más, el componente
+Symfony Runtime en acción.
+
+00:00:43.776 --> 00:00:49.126 align:middle
+El código para arrancar Symfony para la
+consola se ha trasladado a symfony/runtime.
+
+00:00:50.246 --> 00:00:55.216 align:middle
+Y... esto arregló nuestro comando
+bin/console, que estaba roto
+
+00:00:55.216 --> 00:00:57.686 align:middle
+desde que actualizamos la
+receta de FrameworkBundle.
+
+00:00:58.616 --> 00:00:59.786 align:middle
+Vamos a confirmar este cambio...
+
+00:00:59.786 --> 00:01:06.126 align:middle
+y sigamos adelante: Baja a symfony/twig-bundle.
+
+00:01:06.336 --> 00:01:07.426 align:middle
+Ese es el número 7.
+
+00:01:07.916 --> 00:01:09.866 align:middle
+Voy a borrar la pantalla y...
+
+00:01:10.476 --> 00:01:13.336 align:middle
+¡bien! Tenemos conflictos.
+
+00:01:13.576 --> 00:01:18.886 align:middle
+¡Emocionante! Borraré el registro
+de cambios, ya que lo he mirado.
+
+00:01:18.886 --> 00:01:22.846 align:middle
+Vale, esto ha eliminado un archivo de
+configuración específico del entorno...
+
+00:01:23.446 --> 00:01:25.806 align:middle
+y tenemos dos conflictos.
+
+00:01:26.286 --> 00:01:29.296 align:middle
+Vamos a ver config/packages/twig.yaml.
+
+00:01:30.036 --> 00:01:34.756 align:middle
+Una vez más, vemos la nueva función de
+configuración específica del entorno.
+
+00:01:35.576 --> 00:01:39.136 align:middle
+Estas cosas de when@test solían vivir
+
+00:01:39.136 --> 00:01:46.226 align:middle
+en config/packages/test/twig.yaml,
+pero ahora se han trasladado aquí.
+
+00:01:46.946 --> 00:01:51.686 align:middle
+Y como tengo una configuración personalizada
+de form_themes, entraba en conflicto.
+
+00:01:52.076 --> 00:01:54.056 align:middle
+Queremos mantener ambas cosas.
+
+00:01:55.046 --> 00:01:58.886 align:middle
+El segundo conflicto está
+en templates/base.html.twig.
+
+00:01:59.756 --> 00:02:02.986 align:middle
+Nuestro base.html.twig está
+bastante personalizado,
+
+00:02:03.516 --> 00:02:06.756 align:middle
+así que probablemente no tengamos que
+preocuparnos por ningún cambio nuevo.
+
+00:02:07.376 --> 00:02:10.376 align:middle
+La receta añadió un
+nuevo favicon por defecto.
+
+00:02:11.076 --> 00:02:14.696 align:middle
+Probablemente no lo utilices,
+ya que tendrás el tuyo propio.
+
+00:02:15.446 --> 00:02:22.156 align:middle
+Para solucionar este conflicto, ya que mi proyecto
+no tiene todavía un favicon, copiaré lo nuevo,
+
+00:02:22.786 --> 00:02:26.266 align:middle
+usaré nuestro código,
+pero pegaré el favicon.
+
+00:02:28.336 --> 00:02:31.206 align:middle
+Perfecto Ahora podemos confirmar todo.
+
+00:02:33.936 --> 00:02:34.686 align:middle
+¡Sigamos adelante!
+
+00:02:35.346 --> 00:02:39.926 align:middle
+composer recipes:update Trabajaremos
+en el resto de arriba a abajo.
+
+00:02:40.476 --> 00:02:42.876 align:middle
+Lo siguiente es doctrine/doctrine-bundle.
+
+00:02:44.256 --> 00:02:45.926 align:middle
+Esta es una actualización genial.
+
+00:02:46.446 --> 00:02:54.356 align:middle
+Una vez más, borraré la pantalla y ejecutaré: git status
+Se ha producido un conflicto dentro del archivo .env...
+
+00:02:54.946 --> 00:02:58.336 align:middle
+que es probablemente el
+cambio menos interesante.
+
+00:02:59.006 --> 00:03:02.686 align:middle
+Recientemente, la receta de
+DoctrineBundle empezó a enviarse
+
+00:03:02.946 --> 00:03:06.036 align:middle
+con PostgreSQL como base de datos por defecto.
+
+00:03:06.616 --> 00:03:09.416 align:middle
+Puedes cambiarlo totalmente
+para que sea lo que quieras,
+
+00:03:09.876 --> 00:03:14.216 align:middle
+pero PostgreSQL es un motor de base de datos
+tan bueno que empez amos a enviarlo como
+
+00:03:14.216 --> 00:03:16.726 align:middle
+sugerencia por defecto.
+
+00:03:17.446 --> 00:03:21.096 align:middle
+Pero yo estoy usando MySQL en este
+proyecto, así que voy a mantenerlo.
+
+00:03:21.686 --> 00:03:26.596 align:middle
+Pero para ser superguay, al menos tomaré
+su nueva configuración de ejemplo...
+
+00:03:27.046 --> 00:03:28.636 align:middle
+que parece un poco diferente...
+
+00:03:28.946 --> 00:03:31.196 align:middle
+y actualizaré mis comentarios encima con ella.
+
+00:03:31.976 --> 00:03:34.696 align:middle
+Luego utilizaré mi versión del conflicto.
+
+00:03:35.716 --> 00:03:40.026 align:middle
+El resultado final son unos cuantos
+retoques en los comentarios, pero nada más.
+
+00:03:40.806 --> 00:03:44.356 align:middle
+Los otros cambios de la receta se
+refieren a los archivos de configuración,
+
+00:03:44.826 --> 00:03:47.316 align:middle
+y seguro que puedes ver lo que ocurre.
+
+00:03:47.946 --> 00:03:53.946 align:middle
+Ha eliminado dos archivos de configuración
+específicos del entorno y ha actualizado el principal.
+
+00:03:54.106 --> 00:03:58.586 align:middle
+Hmm. Abre config/packages/doctrine.yaml.
+
+00:03:59.476 --> 00:04:05.996 align:middle
+Efectivamente, en la parte inferior
+vemos when@test y when@prod.
+
+00:04:06.516 --> 00:04:07.826 align:middle
+¡Qué bien!
+
+00:04:08.166 --> 00:04:10.086 align:middle
+Ahora todo está en un solo archivo.
+
+00:04:10.896 --> 00:04:16.826 align:middle
+Sólo asegúrate de que si tienes alguna configuración
+personalizada en los antiguos archivos eliminados,
+
+00:04:17.146 --> 00:04:19.156 align:middle
+la trasladas a este archivo.
+
+00:04:19.976 --> 00:04:25.506 align:middle
+Otro cambio nuevo es este
+dbname_suffix bajo when@test.
+
+00:04:25.986 --> 00:04:26.876 align:middle
+Esto es genial.
+
+00:04:27.446 --> 00:04:28.686 align:middle
+Cuando ejecutes pruebas,
+
+00:04:29.006 --> 00:04:33.886 align:middle
+esto reutilizará automáticamente la misma
+configuración de conexión a la base de datos,
+
+00:04:34.176 --> 00:04:39.706 align:middle
+pero con un nombre de base de datos
+diferente: tu nombre normal seguido de _test.
+
+00:04:40.546 --> 00:04:47.486 align:middle
+Y esta parte elegante del final hace que sea muy
+fácil ejecutar pruebas paralelas con Paratest.
+
+00:04:48.106 --> 00:04:52.516 align:middle
+Esto garantizará que cada proceso paralelo
+utilice un nombre de base de datos diferente.
+
+00:04:53.246 --> 00:04:57.456 align:middle
+Todo esto lo consigues, de forma
+gratuita, gracias a la receta actualizada.
+
+00:04:58.426 --> 00:05:01.956 align:middle
+Hay otro cambio en este
+archivo, y es importante.
+
+00:05:02.586 --> 00:05:09.226 align:middle
+En PHPStorm, puedo ver que la actualización de
+la receta ha eliminado la línea type: annotation.
+
+00:05:09.976 --> 00:05:15.386 align:middle
+Ahora mismo, seguimos utilizando anotaciones en nuestro
+proyecto para la configuración de las entidades. Vamos a
+
+00:05:16.146 --> 00:05:18.516 align:middle
+cambiar eso en unos minutos
+
+00:05:18.516 --> 00:05:22.946 align:middle
+para utilizar los atributos de
+PHP 8, que va a ser increíble.
+
+00:05:23.416 --> 00:05:25.586 align:middle
+Pero de todos modos, en la
+configuración de DoctrineBundle,
+
+00:05:25.816 --> 00:05:29.286 align:middle
+ya no necesitas esta línea type: annotation.
+
+00:05:30.156 --> 00:05:36.356 align:middle
+Si no la tienes, el formato correcto
+se detectará automáticamente.
+
+00:05:37.046 --> 00:05:40.906 align:middle
+Si Doctrine ve anotaciones,
+cargará las anotaciones
+
+00:05:41.386 --> 00:05:45.626 align:middle
+Si ve atributos de PHP 8, los cargará.
+
+00:05:46.146 --> 00:05:49.256 align:middle
+Así que la mejor configuración
+es no configurar...
+
+00:05:49.646 --> 00:05:52.766 align:middle
+que le dice a Doctrine que
+descubra las cosas por nosotros.
+
+00:05:53.716 --> 00:05:59.356 align:middle
+Una vez más, añade todos estos
+cambios, haz un commit y...
+
+00:05:59.676 --> 00:06:01.056 align:middle
+¡continuemos! ¡
+
+00:06:01.486 --> 00:06:07.096 align:middle
+Bueno, sigamos en el próximo capítulo,
+donde actualizaremos DoctrineExtensionsBundle,
+
+00:06:07.376 --> 00:06:11.496 align:middle
+algunas recetas de depuración,
+enrutamiento, seguridad y más!
