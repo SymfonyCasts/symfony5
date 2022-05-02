@@ -80,6 +80,18 @@ Inside, paste the root key, then set `default_view:` to `twitter_bootstrap5`.
 Before recording, I dug into the documentation to discover that this is one of
 the valid values.
 
+***TIP
+If you need your pagination links to be translated, try this config in `pagerfanta.yaml`:
+ 
+```yaml
+babdev_pagerfanta:
+    default_view: twig
+    default_twig_template: '@BabDevPagerfanta/twitter_bootstrap5.html.twig'
+```
+
+Hat-tip to Tomas in the comments for figuring that out!
+***
+
 [[[ code('9e3865e172') ]]]
 
 Let's check it! Refresh and... huh... nothing changes: it's still rendering
