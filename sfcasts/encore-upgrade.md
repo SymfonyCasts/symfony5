@@ -1,8 +1,9 @@
 # Upgrading Encore and your assets/ Setup
 
 Just two recipes left to update! Let's do `webpack-encore-bundle` next. This recipe
-has changed quite a bit over the past year and a half, so depending on how old your
-version is, this might be easy.... *or* maybe not so easy. Let's say, "interesting".
+changed quite a bit over the past year and a half, so depending on how old your
+version is, this might be easy.... *or* maybe not so easy. Hmm, let's say that
+it might be "interesting".
 
 To see what we're working with, run:
 
@@ -10,25 +11,23 @@ To see what we're working with, run:
 git status
 ```
 
-All right, so we have a *number* of modified and deleted files *and* some conflicts.
-Let's go through the conflicts first, starting with `assets/app.js`. As you can see,
+Ok: we have a *number* of modified and deleted files *and* some conflicts.
+Let's go through those first, starting with `assets/app.js`. As you can see,
 I enabled some custom `Collapse` functionality from bootstrap. I'm not sure why
 this conflicted, but it's an easy fix.
 
 Next is `bootstrap.js`. This might actually be a *new* file for you, depending on how
-old your recipe was. This file was added a while ago, and its job is to initialize
-Stimulus into our app and load all of the files in the `controllers/` directory
-as Stimulus controllers. In this case, I already *had* this file, but apparently
-the expression for how it finds the files changed slightly. The new version is
-probably better, so I'll use it instead.
+old your recipe was. The job of this file is to initialize the Stimulus JavaScript
+library and load all of the files in the `controllers/` directory as Stimulus
+controllers. In this case, I already *had* this file, but apparently the expression
+for how it finds the files changed slightly. The new version is probably better,
+so let's use that.
 
-Next up is `controllers.json`. I'm not sure why this is conflicting either, I
+Next up is `controllers.json`. I'm not sure why this is conflicting either... I
 have a feeling that I may have added these files manually in the past... and now
 the recipe upgrade is *re-adding* them. I want to keep my custom version.
-If you have an older project, the recipe update would have just *added* all of
-these as new files.
 
-Another conflict is in `styles/app.css`. The same thing happened here. The recipe
+Next up is `styles/app.css`. The same thing happened here. The recipe
 added this file... all the way at the bottom... with just a body background-color.
 I must have added this file manually... so conflict! Keep all of our custom stuff
 and... good!
@@ -41,21 +40,24 @@ and also Symfony's `stimulus-bridge`. The updated recipe now has `@hotwired/stim
 and instead of `"@symfony/stimulus-bridge": "^2.0.0"`, it has
 `"@symfony/stimulus-bridge": "^3.0.0"`.
 
-So what's going on? First, Stimulus version *3* was released. But... the only
+So what's going on? First, Stimulus version *3* was released. Yay! But... the only
 real difference between version 2 and 3 is that they renamed the library from
 `stimulus` to `@hotwired/stimulus`. And in order to get version 3 to work, we
 *also* need version 3 of `stimulus-bridge`... instead of 2.
 
 So let's take this as a golden opportunity to upgrade from Stimulus 2 to Stimulus 3.
-So, keep `@hotwired/stimulus`... but move it up so it's in alphabetical order. Let's
-also use version 3 of `stimulus-bridge`. And even though it doesn't *really* matter
-since this version constraint allows *any* version `one`, I'll also use the new
-`webpack-encore` version... and then fix the conflict. Oh, the other thing you want
-to make sure you do is delete `stimulus`. We don't want version 2 of `stimulus` in
-there at *all* anymore.
+As a bonus, after upgrading, you'll get cool new debugging messages in your browser's
+console when working with Stimulus locally.
 
-Fantastic! Because we just changed some files in our `package.json` file, find your
-terminal tab that's running Encore, hit "ctrl" + "C", and then run:
+Anyways, keep `@hotwired/stimulus`... but move it up so it's in alphabetical order.
+Use version 3 of `stimulus-bridge`... and even though it doesn't *really* matter
+since this version constraint allows *any* version `1`, I'll also use the new
+`webpack-encore` version... and then fix the conflict. Oh, and be sure to
+delete `stimulus`. We don't want version 2 of `stimulus` hanging around and
+confusing things.
+
+Fantastic! Because we just changed some files in `package.json`, find your
+terminal tab that's rocking Encore, hit "ctrl" + "C", and then run:
 
 ```terminal
 yarn install
@@ -67,25 +69,25 @@ or
 node install
 ```
 
-Perfect! I'll clear this and run:
+Perfect! Now restart Encore:
 
 ```terminal
 yarn watch
 ```
 
-to rerun Encore. And... it fails! That's a... long error message... but it eventually
-says:
+And... it fails!? That's a long error message... but it eventually says:
 
-`assets/controllers/answer-vote_controller.js contains a reference to the file "stimulus"`.
+> `assets/controllers/answer-vote_controller.js contains a reference to the
+> file "stimulus"`.
 
-The most important, but *boring* part when you upgrade from Stimulus 2 to 3 is that
-you need to go into all of your controllers and change this
-the `import { Controller } from 'stimulus'` to
+The most important, but *boring* part of upgrading from Stimulus 2 to 3 is that
+you need to go into all of your controllers and change
+`import { Controller } from 'stimulus'` to
 `import { Controller } from '@hotwired/stimulus'`.
 
-It's *that* simple. I'm also going to delete `hello_controller.js` while I'm here.
-This is an example controller that the recipe just gave me. In the other controller
-here, change to `@hotwired/stimulus`.
+But it's *that* simple. I'm also going to delete `hello_controller.js`...
+this is just an example controller that the recipe gave us. In the last controller,
+change to `@hotwired/stimulus`.
 
 Awesome! Stop `yarn watch` again.. and re-run it:
 
@@ -103,7 +105,7 @@ packages that *also* give you some JavaScript. Apparently, the JavaScript for th
 package is still referencing `stimulus` instead of the new `@hotwired/stimulus`. What
 this tells me is that I probably need to upgrade that PHP package. So, in
 `composer.json`, down here on `symfony/ux-chartjs`, if you do some research, you'll
-find out that there's a new version 2 out that, which supports Stimulus 3.
+find out that there's a new version 2 out that supports Stimulus 3.
 
 After changing that, find your main terminal tab and run:
 
@@ -124,12 +126,12 @@ npm install --force
 yarn install --force
 ```
 
-That re-initializes the JavaScript from that package. One thing I want to highlight
+That re-initializes the JavaScript from the package. One thing I want to highlight
 for this *particular* package is that when we upgraded to version 2 in our
-`package.json` file, it actually upgraded our `chart.js` dependency from version 2.9
+`package.json` file, Flex then updated our `chart.js` dependency from version 2.9
 to 3.4. That's because the JavaScript in this new version is meant to work with
-`chart.js` 3 instead of `chart.js` 2. So it made that change *for* us. We don't need
-to do anything here, but it's good to be aware of this.
+`chart.js` 3 instead of `chart.js` 2. Flex made that change *for* us. We don't need
+to do anything here, but it's good to be aware of that.
 
 At last! We should be ready to go. Run
 
@@ -137,13 +139,12 @@ At last! We should be ready to go. Run
 yarn watch
 ```
 
-and... got it! It builds successfully! Over in the main terminal tab, go ahead and
-add everything, since we've fixed all of our conflicts and made all of those changes.
-And commit!
+and... got it! Successful build! Over in the main terminal tab, let's
+add everything... since we fixed all of the conflicts... and commit!
 
 ## Upgrading Foundry's Recipe
 
-Now, dear friends, we are onto the *last* update. It's `zenstruck/foundry`.
+Now, dear friends, we are on the *last* update. It's `zenstruck/foundry`.
 This is an easy one. Run:
 
 ```terminal
@@ -151,7 +152,7 @@ git status
 ```
 
 It is, once again, environment configuration going into a main file. So let's commit
-that. Beautiful! And we are *done*! All of our recipes are updated! And remember,
+that. And... we're *done*! All of our recipes are updated! And remember,
 part of the reason we did all of this is because some of those recipes replaced old
 deprecated code with new *shiny* code. Hopefully, when we refresh the page, our
 site will not only still *work*, but will have less deprecations. On my project,
