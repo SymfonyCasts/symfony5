@@ -66,7 +66,7 @@ yarn install
 or
 
 ```terminal
-node install
+npm install
 ```
 
 Perfect! Now restart Encore:
@@ -128,7 +128,7 @@ yarn install --force
 
 That re-initializes the JavaScript from the package. One thing I want to highlight
 for this *particular* package is that when we upgraded to version 2 in our
-`package.json` file, Flex then updated our `chart.js` dependency from version 2.9
+`composer.json` file, Flex then updated our `chart.js` dependency from version 2.9
 to 3.4. That's because the JavaScript in this new version is meant to work with
 `chart.js` 3 instead of `chart.js` 2. Flex made that change *for* us. We don't need
 to do anything here, but it's good to be aware of that.
