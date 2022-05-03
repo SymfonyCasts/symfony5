@@ -28,6 +28,8 @@ environment *and* `test` environment. We now recommend *only* loading it in the 
 environment. You *can* load it in `test` environment, but it tends to slow things
 down, so it's been removed by default.
 
+[[[ code('e0e76dc964') ]]]
+
 Easy! Commit those changes... and keep going!
 
 ## symfony/monolog-bundle Recipe
@@ -43,9 +45,13 @@ and `test/` directories. These have *all* been moved into the central
 is because I had previously created this file in a tutorial to add a new `markdown`
 channel. I'll move my `markdown` channel down here... and keep the new stuff.
 
+[[[ code('5de4ed9382') ]]]
+
 Below this, you can see the `dev` configuration for logging, the `test` config,
 and `prod` config. Again, if you had custom config in your old files, make sure
 you bring that over to the *new* file so it doesn't get lost.
+
+[[[ code('04e101b0ac') ]]]
 
 Add *these* changes... and... commit.
 
@@ -65,6 +71,8 @@ from inside a command.
 Previously, you accomplished this by setting `router.request_context` parameters.
 It's easier now, and this advertises that.
 
+[[[ code('1cbacc68f3') ]]]
+
 Commit this stuff... and let's keep going!
 
 ## symfony/security-bundle Recipe
@@ -79,18 +87,26 @@ The recipe update added `enable_authenticator_manager: true`. This enables
 the new security system. We're going to talk about that later. For now, set this
 to `false` so that we're still using the *old* security system.
 
+[[[ code('ff4f02678c') ]]]
+
 It also added something called `password_hashers`, which replaces `encoders`. We're
 also going to talk about *that* later. For right now, I want you to keep both
 things.
+
+[[[ code('6600441dec') ]]]
 
 There's also a conflict down on the firewall. The important change is that
 the new recipe has `lazy: true`. That replaces `anonymous: lazy`, so we can go
 ahead and keep that change... but use the rest of *our* firewall.
 
+[[[ code('16d29f55ba') ]]]
+
 Oh, and at the bottom, we get one shiny new `when@test` section, which sets a custom
 password hasher. You can read the comment. This accelerates your tests by
 making it *much* faster to hash passwords in the test environment, where we don't
 care how secure our hashing algorithm is.
+
+[[[ code('370ab38f70') ]]]
 
 Let's add the files... then keep going.
 
@@ -99,6 +115,8 @@ Let's add the files... then keep going.
 Next up is `symfony/translation`. This isn't important... it just shows off
 some new config options. Those are all commented out, so... they're cool to see,
 but not important.
+
+[[[ code('8ad40575d1') ]]]
 
 Commit and... keep going!
 
