@@ -84,6 +84,7 @@ the valid values.
 If you need your pagination links to be translated, try this config in `pagerfanta.yaml`:
  
 ```yaml
+# config/packages/pagerfanta.yaml
 babdev_pagerfanta:
     default_view: twig
     default_twig_template: '@BabDevPagerfanta/twitter_bootstrap5.html.twig'
