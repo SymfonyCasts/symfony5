@@ -1,41 +1,163 @@
 # Adding Property Types to Entities
 
-A new feature snuck into Doctrine a while back, and it's *super* cool. Doctrine can now *guess* some configuration about a property via it's type hint. We'll start with the relationship properties, but first, I want to make sure that my database is in sync with my entities. So let's run:
+A new feature snuck into Doctrine a while back, and it's *super* cool. Doctrine can
+now *guess* some configuration about a property via its *type*. We'll start with
+the relationship properties. But first, I want to make sure that my database is in
+sync with my entities. Run:
 
 ```terminal
 symfony console doctrine:schema:update --dump-sql
 ```
 
-And... yep! My database *does* look like my entities. By the way, looking at all these deprecations down there, we can see there are still some things we need to fix. And we *will* fix them... eventually. We'll run this command again later after we make a bunch of changes, because our goal isn't actually to *change* any of our database configuration - just to simplify it.
+And... yep! My database *does* look like my entities. We'll run this command again
+later after we make a bunch of changes... because our goal isn't actually to
+*change* any of our database config: just to simplify it. Oh, and yes, this
+dumped out a bunch of deprecations... we *will* fix those... eventually... I promise!
 
-Okay, so here's change number one. This `Question` property here holds a `$question` object. I'm going to add `Question` as a type hint, but we have to be careful. It's technically a *nullable* `Question`. Even if this is required in the database, after we instantiate the object, it's possible that the object *will* be instantiated, but the `Question` property will still be null. You'll see me do this with all of my type hints on my entity property types. Truthfully, even if I feel this is technically required in the database, if it's *possible* that it's null in PHP, I'm going to have it be null.
+## Removing targetEntity
 
-I'm also going to set this to `= null`. That way, if I reference the `Question` property before it's set, instead of getting an error, it will just return null. That change had nothing to do with Doctrine. That's just adding property types. The cool thing is, we don't need this `targetEntity` anymore, because Doctrine's going to be able to figure that out for us. So delete this, and we get to make our configuration a little simpler.
+So here's change number one. This `question` property holds a `Question` object.
+So let's add a `Question` *type*. But we have to be careful. It needs to be a
+*nullable* `Question`. Even though this is required in the database, after
+we instantiate the object, the property won't *instantly* be populated: it will,
+at least temporarily, *not* be set. You'll see me do this with all of my entity
+property types. If it's *possible* for a property to be `null` - even for a
+moment - we need to reflect that.
 
-The next entity is in `Question.php`. We're going to do the *same* thing. I'm looking specifically for our relationship fields. This one here is a `OneToMany`, which holds a collection of `$answers`. We're going to add a type hint here in a second, but it's going to be a collection instance. When we do that, it's not going to allow us to get rid of the target entity, because all we're going to be type hinting down here is just `Collection`. I'll skip this one for now and we'll come back. We're just going to focus on the `ManyToOne` relationships for now.
+I'm also going to initialize this with `= null`. If you're new to property types,
+here's the deal. If you add a type to a property... then try to access it *before*
+that property has been set to some value, you'll get an error, like
 
-Down here, for owner, let's add `?User` and then `$owner = null`. We can also get rid of that `targetEntity`. And then, over in `QuestionTag`, we'll do the same thing: `?Question $question = null`. Celebrate by getting rid of the `targetEntity`, and then do this *all over again* down here - `?Tag $tag = null`, and then get rid of the `targetEntity` one more time. Whew... done!
+> Typed property Answer::$question must not be accessed before initialization.
 
-This is a nice change that made it easier to write our relationships. To make sure I didn't mess anything up, I'll rerun that `schema:update` command we used earlier and... we're still clean!
+*Without* a property type, the `= null` isn't needed, but now it is. Thanks to
+this, if we instantiate an `Answer` and then call `getQuestion()` before that
+property is set, things won't explode.
 
-All right, now let's go further and add property types to *every* property. This is going to be a little more work, but the result is worth it. Do the same thing here - `?int $id = null` - but because of that, I don't have to have the `type: 'integer'` anymore, so we can delete that. Down here, for `$content`, we'll do the same thing. This is going to be a nullable string, and I'll say `= null`, but in this case, I *do* need to keep `type: 'text'`. The `type: 'text'` means it holds *a lot* of text. If you use the string property type, Doctrine is, by default, going to guess that as the `type: 'string'`. In this case, I want to specify `type: 'text'`, so I'll leave it. By the way, some of you might be wondering why I don't have `string $content = ''` and just remove the question mark. The reason is that this field is required in the database. If I did this and then I had a bug in my code where I *forgot* to set the `$content` property, it would *successfully* save into the database with empty quotes for this `$content` field. By initializing it to null, if I forget to save it, it's actually going to explode when it enters a database. Then I'll be aware of my bug and can fix it instead of it just silently saving the empty quotes. It may be sneaky, but we're *sneakier*.
+Ok, so adding property types is nice: it makes our code cleaner and tighter. *But*,
+there's another big advantage: we don't need the `targetEntity` anymore! Doctrine
+is now able able to figure that out for us. So delete this... and celebrate!
 
-Okay, let's keep going! A lot of this is going to be busy work, so patience is key. I can get rid of `type: 'string'`, and I can also get rid of the `length` (The default has always been `255`). The `$votes` already looks good, but I can get rid of the `type: 'integer'`. And then, down here on `$status`, this already has the string type, so I'll just remove `type: 'string'`, but I *do* need to keep the `length` if I want it to be shorter.
+Then... keep going to `Question`. I'm looking specifically for relationship fields.
+This one is a `OneToMany`, which holds a collection of `$answers`. We *are* going
+to add a type here... but in a minute. Let's focus on the `ManyToOne` relationships
+first.
 
-Moving on to the `Question` entity. This is going to be a lot of the same stuff here. So `?int` on `$id = null`, remove the `type: 'integer'`, update `$name`... and make *that much simpler*. Repeat the same thing for `$slug`. Notice this still uses an annotation from `@Gedmo\Slug`. We're going to fix that in a minute, but I want to finish fixing all of these property types first.
+Down here, for `owner`, add `?User`, `$owner = null`, then get rid of `targetEntity`.
+And then in `QuestionTag`, do the same thing: `?Question $question = null`...
+and do your victory lap by removing `targetEntity`.
 
-Update `$question`... then update `$askedAt`. This is a `type: 'datetime'`, so that's going to hold a `?\datetime` instance. I'll also initialize that to null. Next, down here, is the `OneToMany` relationship. If you look down here, it's actually initialized in `__construct` to an `ArrayCollection()`. You might think we would put `ArrayCollection` here, but we're actually going to say `Collection`. That's an interface from Doctrine that `ArrayCollection()` implements. We need to use `Collection` here because, when we query for a question in the database, and then fetch the `$answers` property, it's actually a different object called a `PersistentCollection()`. So this property could *actually* be a `Collection`, an `ArrayCollection()`, *or* a `PersistentCollection()`, but in all cases, it's going to implement this `Collection` interface. This *doesn't* need to be nullable because it's initialized *inside* the constructor. I'll do the same thing right below for `$questionTags`.
+And... down here... one more time! `?Tag $tag = null`... and say bye bye to
+`targetEntity`.
 
-All right, we're making good progress! I'll go through `QuestionTag` and speed through some of these repetitive changes. Perfect!
+Sweet! To make sure we didn't mess anything up, re-run the `schema:update` command
+from earlier:
 
-Down here, on `$taggedAt`, this is a `datetime_immutable`, so I'm going to put `\DateTimeImmutable` here. Notice that I did *not* make this nullable and I'm not initializing that to null. That's simply because we are setting this in the constructor, so I'm guaranteed to have a `\DateTimeImmutable` instance. It will never be null and it doesn't need to be initialized to null.
+```terminal-silent
+symfony console doctrine:schema:update --dump-sql
+```
 
-Over in `Tag`, we'll make the easy changes quickly. And actually, I forgot to remove that `type: 'integer'` in `QuestionTag`. It wouldn't hurt anything, but we don't need it anymore. Perfect! I'll also remove this `type: 'datetime_immutable`.
+And... we're still good!
 
-Back in `Tag`, let's keep going. We'll set the `$name` property and simplify its config. And then one more class: `User`. We'll set the property type on `?int` and update the `$email` property. Down here, for the hashed `$password`, we can remove `type: 'string'`. I'm also going to remove the PHP Doc on this, because we can already guess that it's a string or null from the property type. I'll do the same thing down here for my `$plainPassword`, which should actually be a string or null. And then I have a number of other normal fields. I'll update `$firstName`, add `Collection` for `$questions`, and we can remove the type of boolean for `$isVerified`.
+## Adding Types to All Properties
 
-Okay! That is *so* much better! It's a little tricky, but it will be much easier going forward, knowing that we didn't mess anything up. This is what's so great about that command. If we run `doctrine:schema:update` again... it's clean! If we had messed something up or accidentally changed our config, this would show us some queries we would need to run to update our database. That would signal that something was wrong with the property, and urge us to take a closer look.
+Ok, let's go further and add types to *every* property. This will be more work,
+but the result is worth it. For `$id`, this will be a nullable `int`... and
+initialize it to `null`. Thanks to that, we don't need `type: 'integer'`: Doctrine
+can now figure that out.
 
-There was one last annotation that we needed to fix, and this one we're just going to fix by hand. It's in the `Question` entity above the `$slug` field, and it comes from the Doctrine extensions library. It's really simple! As long as you have Doctrine Extensions 3.6 or higher, you can use this as an attribute - so `@Gedmo\Slug` - and then we'll say `fields`. And then we need to set this to an array. The cool thing about PHP attributes is it's just PHP code, so an array is a PHP array, and inside, we need `'name'`. I use single quotes, just like PHP. And we are *good*! Whew...
+For `$content`, a nullable string... with `= null`. But in this case, we *do* need
+to keep `type: 'text'`. When Doctrine sees the `string` type, it *guesses*
+`type:  'string'`... which holds a maximum of 255 characters. Since this field
+holds a *lot* of text, override the guess with `type: 'text'`.
 
-All right, team. We just took our code base a *huge* step forward. Next, let's dial in on these remaining deprecations and work on squashing them so we're ready for Symfony 6. We're going to start with the elephant in the room, which is converting to the new security system. But don't worry! It's easier than you might think!
+## Initialize string Field to null or ''?
+
+By the way, some of you might be wondering why I don't use `$content = ''`
+instead. Heck, then we could remove the nullable `?` on the type! That's a good
+question! The reason is that this field is required in the database. If we initialize
+the property to empty quotes... and I had a bug in my code where I *forgot* to set
+the `$content` property, it would *successfully* save to the database with content
+set to an empty string. By initializing it to `null`, if we forget to set this
+field, it will *explode* before it enters the database. Then, we can fix that
+bug... instead of it just silently saving the empty string. It may be sneaky, but
+we're *sneakier*.
+
+Okay, let's keep going! A lot of this will be busy work... so let's move as quickly
+as we can. Add the type to `username`... and remove the Doctrine `type` option.
+We can also delete `length`... since the default has always been `255`. The `$votes`
+property looks good, but we can get rid of `type: 'integer'`. And down here
+for `$status`, this already has the type, so delete `type: 'string'`. But we *do*
+need to keep the `length` if we want it to be shorter than 255.
+
+Moving on to the `Question` entity. Give `$id` the type... remove its `type` Doctrine
+option, update `$name`... delete *all* of its options.... and repeat this for `$slug`.
+Notice that `$slug` still uses an annotation from `@Gedmo\Slug`. We'll fix that
+in a minute.
+
+Update `$question`... then `$askedAt`. This is a `type: 'datetime'`, so that's
+going to hold a `?\DateTime` instance. I'll also initialize it to null. Oh, and
+I forgot to do it, but we *could* now remove `type: 'datetime'`.
+
+## Typing Collection Properties
+
+And now we're back to the `OneToMany` relationship. If you look down, this is
+initialized in the constructor to an `ArrayCollection`. So you might think we should
+use `ArrayCollection` for the type. But instead, say `Collection`.
+
+That's an interface from Doctrine that `ArrayCollection` implements. We need to
+use `Collection` here because, when we *query* for a `Question` from the database
+and then fetch the `$answers` property, Doctrine will set that to a *different*
+object: a `PersistentCollection`. So this property might be an `ArrayCollection`,
+*or* a `PersistentCollection`... but in all cases, it will implement this
+`Collection` interface. And this does *not* need to be nullable because it's
+initialized *inside* the constructor. Do the same thing for `$questionTags`.
+
+Believe it our not, we're in the home stretch! In `QuestionTag`... make our
+usual `$id` changes... then head down to `$taggedAt`. This is a `datetime_immutable`
+type, so use `\DateTimeImmutable`. Notice that I did *not* make this nullable
+and I'm not *initializing* it to null. That's simply because we're setting this
+in the constructor. So we're guaranteed that it will *always* hold a
+`\DateTimeImmutable` instance: it will never be null.
+
+Ok, now to `Tag`. Do our usual `$id` dance. But wait... back in `QuestionTag`, I
+forgot to remove the `type: 'integer'`. It doesn't hurt anything... it's just
+not needed. And... same for `type: 'datetime_immutable`.
+
+Back over in `Tag`, let's keep going with the `$name` property... this is all normal...
+then jump to our *last* class: `User`. I'll speed through the boring changes
+to `$id` and `$email`... and `$password`. Let's also remove the `@var` PHP Doc
+above this: that's now totally redundant. Do that same thing for `$plainPassword`.
+Heck, this `@var` wasn't even right - it should have been `string|null`!
+
+Let's zoom through the last changes: `$firstName`, add `Collection` to
+`$questions`... and no `type` needed for `$isVerified`.
+
+And... we're done! This *was* a chore. But going forward, using property types
+will mean tighter code... and less Doctrine config.
+
+But... let's see if we messed anything up. Run `doctrine:schema:update` one
+last time:
+
+```terminal-silent
+symfony console doctrine:schema:update --dump-sql
+```
+
+It's clean! We changed a ton of config, but that didn't actually change how
+any of our entities are mapped. Mission accomplished.
+
+## Updating Gedmo\\Slug Annotation
+
+Oh, and as promised, there's one last annotation that we need to change: it's
+in the `Question` entity above the `$slug` field. This comes from the Doctrine
+extensions library. Rector didn't update it... but it's super easy. As long as you
+have Doctrine Extensions 3.6 or higher, you can use this as an attribute. So
+`#[Gedmo\Slug()]` with a `fields` option that we need to set to an array. The cool
+thing about PHP attributes are... they're just PHP code! So writing an array in
+attributes... is the same as writing an array in PHP. Inside, pass `'name'`...
+using single quotes, just like we usually do in PHP.
+
+Ok team: we just took our codebase a *huge* step forward. Next, let's dial
+in on these remaining deprecations and work on squashing them. We're going to start
+with the elephant in the room: converting to the new security system. But
+don't worry! It's easier than you might think!
