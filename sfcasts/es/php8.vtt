@@ -1,0 +1,373 @@
+WEBVTT
+
+00:00:01.016 --> 00:00:02.616 align:middle
+No perdamos de vista nuestro objetivo.
+
+00:00:03.206 --> 00:00:08.736 align:middle
+Ahora que hemos actualizado a Symfony 5.4, en
+cuanto eliminemos todas estas depreciaciones,
+
+00:00:09.076 --> 00:00:11.496 align:middle
+podremos actualizar con seguridad a Symfony 6.
+
+00:00:11.876 --> 00:00:19.526 align:middle
+Pero Symfony 6 requiere PHP 8, y yo he
+estado construyendo este proyecto en PHP 7.
+
+00:00:19.846 --> 00:00:24.896 align:middle
+Así que el siguiente paso es actualizar nuestro
+código para que sea compatible con PHP 8.
+
+00:00:25.756 --> 00:00:31.946 align:middle
+En la práctica, eso significa actualizar partes de nuestro código
+para utilizar algunas nuevas y geniales características de PHP 8.
+
+00:00:32.306 --> 00:00:36.366 align:middle
+¡Vaya! Y este es otro punto en
+el que Rector puede ayudarnos.
+
+00:00:36.366 --> 00:00:42.496 align:middle
+Empieza por abrir rector.php y eliminar las
+tres líneas de actualización de Symfony.
+
+00:00:43.276 --> 00:00:49.096 align:middle
+Sustitúyelas por
+LevelSetList::UP_TO_PHP_80. Al
+
+00:00:49.096 --> 00:00:56.316 align:middle
+igual que con Symfony, puedes actualizar
+específicamente a PHP 7.3 o 7.4,
+
+00:00:56.776 --> 00:00:58.836 align:middle
+pero tienen estas bonitas
+declaraciones UP_TO_[...]
+
+00:00:58.836 --> 00:01:05.236 align:middle
+que actualizarán nuestro código en todas
+las versiones de PHP hasta PHP 8.0. Y...
+
+00:01:06.006 --> 00:01:08.036 align:middle
+¡eso es todo lo que necesitamos!
+
+00:01:08.546 --> 00:01:13.496 align:middle
+En tu terminal, he confirmado todos mis cambios,
+excepto el que acabamos de hacer. Así que
+
+00:01:13.496 --> 00:01:21.456 align:middle
+ahora podemos ejecutar: vendor/bin/rector
+process src ¡Genial! Vamos a
+
+00:01:21.806 --> 00:01:24.016 align:middle
+revisar algunos de estos cambios. Si quieres
+
+00:01:24.646 --> 00:01:29.036 align:middle
+profundizar, busca una entrada
+del blog getrector.org, que
+
+00:01:29.446 --> 00:01:32.236 align:middle
+te muestra cómo hacer lo
+que acabamos de hacer... pero
+
+00:01:32.616 --> 00:01:38.276 align:middle
+también te da más información sobre
+lo que hizo Rector y por qué. Por
+
+00:01:38.276 --> 00:01:43.996 align:middle
+ejemplo, uno de los cambios que hace es
+sustituir las sentencias switch() por
+
+00:01:44.216 --> 00:01:47.226 align:middle
+una nueva función de PHP 8 match(). Esto
+
+00:01:47.906 --> 00:01:49.466 align:middle
+explica eso... y
+
+00:01:49.766 --> 00:01:51.286 align:middle
+muchos otros cambios. Ah,
+
+00:01:52.136 --> 00:01:56.676 align:middle
+y la gran mayoría de estos
+cambios no son necesarios:
+
+00:01:57.016 --> 00:01:59.806 align:middle
+no tienes que hacerlos para actualizar a PHP 8.
+
+00:02:00.276 --> 00:02:01.926 align:middle
+Simplemente están bien. El
+
+00:02:02.746 --> 00:02:07.686 align:middle
+cambio más importante, que
+casualmente es el más común, es
+
+00:02:07.976 --> 00:02:10.766 align:middle
+algo llamado "Propiedades Promocionadas". Esta
+
+00:02:11.506 --> 00:02:16.726 align:middle
+es una de mis características favoritas
+en PHP 8, y puedes verla aquí. En PHP 8
+
+00:02:17.486 --> 00:02:20.916 align:middle
+, puedes añadir una palabra
+clave private, public, o
+
+00:02:20.916 --> 00:02:26.056 align:middle
+protected justo antes de un
+argumento en el constructor... y
+
+00:02:26.446 --> 00:02:31.566 align:middle
+eso creará esa propiedad y la
+establecerá a este valor. Así que
+
+00:02:31.566 --> 00:02:36.826 align:middle
+ya no tienes que añadir una propiedad manualmente
+ni establecerla a continuación. Sólo tienes que
+
+00:02:37.316 --> 00:02:39.926 align:middle
+añadir private y... ¡listo!
+
+00:02:40.186 --> 00:02:46.036 align:middle
+La gran mayoría de los cambios en este
+archivo son exactamente eso ... aquí hay
+
+00:02:46.536 --> 00:02:48.866 align:middle
+otro ejemplo en MarkdownHelper.
+La mayoría de los
+
+00:02:49.676 --> 00:02:51.936 align:middle
+demás cambios son menores. Se han
+
+00:02:52.586 --> 00:02:54.346 align:middle
+modificado algunas funciones
+de devolución de llamada para
+
+00:02:54.346 --> 00:02:59.756 align:middle
+utilizar la nueva sintaxis corta
+=>, que en realidad es de PHP 7.4.
+
+00:03:00.616 --> 00:03:04.006 align:middle
+También puedes ver, aquí abajo, un ejemplo de
+
+00:03:04.006 --> 00:03:08.426 align:middle
+refactorización de las sentencias switch()
+para utilizar la nueva función match(). Todo
+
+00:03:09.176 --> 00:03:11.566 align:middle
+esto es opcional, pero está bien que
+
+00:03:11.566 --> 00:03:15.266 align:middle
+nuestro código se haya actualizado para
+utilizar algunas de las nuevas funciones. Si me
+
+00:03:16.076 --> 00:03:19.726 align:middle
+desplazo un poco más hacia
+abajo, verás más de esto. Ah,
+
+00:03:20.676 --> 00:03:27.276 align:middle
+y dentro de nuestras entidades, fíjate en que, en algunos
+casos, ¡se han añadido tipos de propiedades! En el caso de
+
+00:03:27.276 --> 00:03:32.496 align:middle
+$roles , esta propiedad se
+inicializa en una matriz. Rector
+
+00:03:33.006 --> 00:03:34.806 align:middle
+se dio cuenta de eso... así que añadió
+
+00:03:34.806 --> 00:03:37.646 align:middle
+el tipo array. En
+
+00:03:38.646 --> 00:03:44.206 align:middle
+otros casos, como $password, vio que tenemos
+PHPDoc por encima, así que también añadió
+
+00:03:44.586 --> 00:03:47.056 align:middle
+el tipo allí. Sin embargo,
+
+00:03:47.776 --> 00:03:50.696 align:middle
+esto es un poco cuestionable. El
+
+00:03:51.406 --> 00:03:54.386 align:middle
+$password también podría ser nulo. Abre
+
+00:03:55.316 --> 00:04:00.466 align:middle
+src/Entity/User.php y baja
+hasta $password. El rector le
+
+00:04:01.306 --> 00:04:03.606 align:middle
+dio un tipo string... ¡pero
+
+00:04:04.056 --> 00:04:05.646 align:middle
+eso está mal! Si
+
+00:04:05.646 --> 00:04:12.016 align:middle
+te fijas en el constructor de aquí abajo, no
+inicializamos $password a ningún valor... lo que
+
+00:04:12.506 --> 00:04:14.756 align:middle
+significa que empezará null. Así que el tipo
+
+00:04:15.416 --> 00:04:19.356 align:middle
+correcto para esto es un ?string anulable. La
+
+00:04:20.146 --> 00:04:22.926 align:middle
+razón por la que Rector
+hizo esto mal es... bueno...
+
+00:04:23.136 --> 00:04:27.426 align:middle
+porque tenía un error en
+la documentación!. Esto
+
+00:04:27.906 --> 00:04:34.546 align:middle
+debería ser string|null Uno de los mayores
+cambios que he hecho en mi código durante el
+
+00:04:34.546 --> 00:04:41.216 align:middle
+último año, más o menos desde que se lanzó
+PHP 7.3, ha sido añadir tipos de propiedades como
+
+00:04:41.216 --> 00:04:46.646 align:middle
+ésta, tanto en mis clases de entidad
+como en mis clases de servicio. Si
+
+00:04:47.516 --> 00:04:50.596 align:middle
+esto ha sido un poco confuso,
+no te preocupes. Vamos a
+
+00:04:51.046 --> 00:04:56.926 align:middle
+hablar más sobre los tipos de propiedades
+dentro de las entidades en unos minutos.
+
+00:04:56.926 --> 00:05:01.956 align:middle
+Puedes ver que Rector ha añadido algunos, pero a muchas
+de nuestras propiedades todavía les faltan. Bien,
+
+00:05:02.816 --> 00:05:06.996 align:middle
+nuestro código debería estar
+ahora listo para PHP 8. ¡Yay!
+
+00:05:06.996 --> 00:05:11.496 align:middle
+Así que vamos a actualizar
+nuestras dependencias para PHP 8. En
+
+00:05:11.496 --> 00:05:15.616 align:middle
+composer.json, bajo la clave require,
+
+00:05:16.146 --> 00:05:21.046 align:middle
+actualmente dice que mi proyecto
+funciona con PHP 7.4 u 8. Voy a
+
+00:05:21.046 --> 00:05:26.776 align:middle
+cambiar eso para que sólo
+diga "php": "^8.0.2", que
+
+00:05:27.516 --> 00:05:30.806 align:middle
+es la versión mínima para Symfony 6.0. Por
+
+00:05:30.976 --> 00:05:35.506 align:middle
+cierto, Symfony 6.1 requiere
+PHP 8.1. Así que si vas a
+
+00:05:35.506 --> 00:05:41.056 align:middle
+actualizarte a eso muy pronto, puedes
+saltar directamente a la 8.1. Hay
+
+00:05:41.936 --> 00:05:44.556 align:middle
+otra cosa que tengo aquí abajo,
+cerca de la parte inferior.
+
+00:05:45.106 --> 00:05:45.896 align:middle
+Veamos... aquí
+
+00:05:46.166 --> 00:05:46.656 align:middle
+vamos. En
+
+00:05:47.276 --> 00:05:52.356 align:middle
+config, platform, tengo
+PHP configurado en 7.4. Eso
+
+00:05:53.046 --> 00:05:56.406 align:middle
+asegura que si alguien
+está usando PHP 8, Composer
+
+00:05:56.906 --> 00:06:02.896 align:middle
+seguirá asegurándose de descargar
+dependencias compatibles con PHP 7.4. Cambia
+
+00:06:03.746 --> 00:06:06.406 align:middle
+esto por 8.0.2. ¡Genial!
+
+00:06:06.406 --> 00:06:12.106 align:middle
+Y ahora, como estamos usando
+PHP 8 en nuestro proyecto, es
+
+00:06:12.406 --> 00:06:16.866 align:middle
+muy probable que algunas dependencias
+puedan ser actualizadas. Ejecuta:
+
+00:06:17.646 --> 00:06:21.136 align:middle
+composer up Y... ¡sí!
+
+00:06:21.376 --> 00:06:23.626 align:middle
+Hay varias.
+
+00:06:24.176 --> 00:06:30.836 align:middle
+Parece que psr/cache, psr/log, y
+symfony/event-dispatcher-contracts se han actualizado. Lo más
+
+00:06:31.416 --> 00:06:35.716 align:middle
+probable es que todas estas
+nuevas versiones requieran PHP 8.
+
+00:06:35.716 --> 00:06:40.166 align:middle
+Antes no podíamos actualizar,
+pero ahora sí. Si vamos
+
+00:06:40.166 --> 00:06:43.206 align:middle
+a nuestra página y recargamos... ¡todo
+
+00:06:45.306 --> 00:06:47.226 align:middle
+sigue funcionando!
+
+00:06:48.076 --> 00:06:52.566 align:middle
+Otra cosa en composer.json es
+el propio Symfony Flex. Flex
+
+00:06:52.566 --> 00:06:59.086 align:middle
+utiliza su propio esquema de versiones,
+y la última versión es la 2. 1. En
+
+00:06:59.876 --> 00:07:05.626 align:middle
+este momento, la versión 2 de Flex y la
+versión 1 de Flex son idénticas... excepto
+
+00:07:06.076 --> 00:07:10.226 align:middle
+que Flex 2 requiere PHP 8. Ya que estamos
+
+00:07:10.936 --> 00:07:13.796 align:middle
+usando eso, ¡actualicemos! Cambia
+
+00:07:14.406 --> 00:07:16.756 align:middle
+la versión a ^2.1... luego
+
+00:07:17.416 --> 00:07:22.006 align:middle
+vuelve a tu terminal y ejecuta:
+composer up una vez más. ¡Muy bien! ¡
+
+00:07:25.406 --> 00:07:26.226 align:middle
+Muy
+
+00:07:27.086 --> 00:07:27.826 align:middle
+bien, equipo! Nuestro
+
+00:07:28.116 --> 00:07:30.736 align:middle
+proyecto ya utiliza PHP 8. Para
+
+00:07:31.276 --> 00:07:39.266 align:middle
+celebrarlo, vamos a refactorizar pasando de usar
+anotaciones a atributos nativos de PHP 8. OOOoo.
+
+00:07:39.446 --> 00:07:42.406 align:middle
+Me encanta este cambio... en
+
+00:07:42.546 --> 00:07:46.186 align:middle
+parte porque Rector lo hace súper fácil
