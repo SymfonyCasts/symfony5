@@ -24,6 +24,8 @@ except we don't need the `NetteSetList`... and we need to add a few `use` statem
 I'll retype the "t" in `DoctrineSetList`, hit "tab", and do the same for
 `SensiolabsSetList`.
 
+[[[ code('e0640cbb60') ]]]
+
 Now, you know the drill. Run
 
 ```terminal
@@ -34,6 +36,10 @@ and see what happens. Whoa... this is awesome! Look! It beautifully refactored t
 annotation to an attribute and... it did this *all over* the place! We have routes
 up here. And all of our entity annotations, like the `Answer` entity have *also*
 been converted. That was a *ton* of work... all automatic!
+
+[[[ code('8d77ced2f8') ]]]
+
+[[[ code('8b2965fb32') ]]]
 
 ## Fixing PHP CS
 
@@ -62,6 +68,8 @@ It killed the line breaks between our properties! It's not super obvious on the 
 but if you open any entity... yikes! This looks... *cramped*. I *like* the
 line breaks between my entity properties.
 
+[[[ code('6ff510a109') ]]]
+
 We *could* fix this by hand... but I'm wondering if we can teach PHP CS Fixer to
 do this for us.
 
@@ -73,6 +81,8 @@ should behave. For example, we can say `['method' => 'one']` to say that we want
 have one line break between our properties. There's also another called `trait_import`.
 Set that to `one` too. That gives us an empty line between our trait imports, which
 is something that we have on top of `Answer`.
+
+[[[ code('ad6d04f79f') ]]]
 
 Now try php-cs-fixer again:
 
@@ -87,6 +97,8 @@ Whoops!
 I meant to say `class_attributes_separation` with an "s". What a great error though.
 Let's try that again and... cool! It changed five files, and if you check those...
 they're back!
+
+[[[ code('b249f94c45') ]]]
 
 With just a few commands we've converted our entire site from annotations to
 attributes. Woo!
