@@ -14,6 +14,8 @@ lines. Replace these with `LevelSetList::UP_TO_PHP_80`. Just like with Symfony, 
 can upgrade *specifically* to PHP 7.3 or 7.4, but they have these nice `UP_TO_[...]`
 statements that will upgrade our code across all versions of PHP *up to* PHP 8.0.
 
+[[[ code('624efe53db') ]]]
+
 And... that's all we need!
 
 Over at your terminal, I've committed all of my changes, except for the one we just
@@ -42,21 +44,37 @@ can see it right here. In PHP 8, you can add a `private`, `public`, or
 both *create* that property and *set* it to this value. So you no longer need to
 add a property manually or set it below. Just add `private` and... done!
 
+[[[ code('9ab94501d9') ]]]
+
 The vast majority of the changes in this file are exactly that... here's another
 example in `MarkdownHelper`. Most of the *other* changes are minor. It altered
 some callback functions to use the new short `=>` syntax, which is actually
-from PHP 7.4. You can also see, down here, an example of refactoring `switch()`
-statements to use the new `match()` function. All of this is optional, but it's nice
-that our code has been updated to use some of the new features. If I scroll down
-just a little more, you'll see more of these.
+from PHP 7.4. 
+
+[[[ code('fa54ec03f3') ]]]
+
+You can also see, down here, an example of refactoring `switch()` statements to 
+use the new `match()` function. 
+
+[[[ code('ae1ff2b43f') ]]]
+
+All of this is optional, but it's nice that our code has been updated to use some 
+of the new features. If I scroll down just a little more, you'll see more of these.
 
 ## Entity Property Types?
 
 Oh, and inside of our entities, notice that, in some cases, it added property types!
 For `$roles`, this property is initialized to an array. Rector *realized*
-that... so it added the `array` type. In other cases, like `$password`, it saw
-that we have PHPDoc above it, so it added the type there as well. Though, this
-is a little questionable. The `$password` *could* also be null.
+that... so it added the `array` type. 
+
+[[[ code('cbbfe91cbc') ]]]
+
+In other cases, like `$password`, it saw that we have PHPDoc above it, so it added 
+the type there as well. 
+
+[[[ code('d80a7f97b8') ]]]
+
+Though, this is a little questionable. The `$password` *could* also be null.
 
 Open up `src/Entity/User.php` and scroll down to `$password`. Rector gave this
 a `string` type... but that's wrong! If you look at the constructor down here, we
@@ -64,6 +82,8 @@ don't initialize `$password` to any value... which means it will *start* `null`.
 So the *correct* type for this is a *nullable* `?string`. The reason Rector did
 this wrong is... well.. because *I* had a bug in my documentation!. This should be
 `string|null`
+
+[[[ code('d74a5cc7b3') ]]]
 
 One of the biggest changes that I've been doing in my code over the past year or so
 since PHP 7.3 was released, has been adding property types like this, both in my
@@ -77,14 +97,19 @@ are still missing them.
 Okay, our code *should* now be ready for PHP 8. Yay! So let's go upgrade our
 *dependencies* for PHP 8. In `composer.json`, under the `require` key, it currently
 says that my project works with PHP 7.4 or 8. I'm going to change that to just say
-`"php": "^8.0.2"`, which is the minimum version for Symfony 6.0. By the way, Symfony
-6.1 requires PHP 8.1. So if you're going to upgrade to that pretty soon, you could
-jump straight to 8.1.
+`"php": "^8.0.2"`, which is the minimum version for Symfony 6.0. 
+
+[[[ code('fcc930eb39') ]]]
+
+By the way, Symfony 6.1 requires PHP 8.1. So if you're going to upgrade to that 
+pretty soon, you could jump straight to 8.1.
 
 There's one other thing I have down here near the bottom. Let's see... here we go. On
 `config`, `platform`, I have PHP set to 7.4. That ensures that if someone is using
 PHP 8, Composer will *still* make sure it downloads dependencies compatible with
 PHP 7.4. Change this to `8.0.2`.
+
+[[[ code('d34f920232') ]]]
 
 Sweet! And now, because we're using PHP 8 in our project, there's a good chance
 some dependencies will be eligible for updates. Run:
