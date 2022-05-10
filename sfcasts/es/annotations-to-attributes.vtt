@@ -1,0 +1,271 @@
+WEBVTT
+
+00:00:00.956 --> 00:00:05.256 align:middle
+Ahora que estamos en PHP 8, vamos a
+convertir nuestras anotaciones de PHP
+
+00:00:05.256 --> 00:00:09.506 align:middle
+en los atributos de PHP 8,
+que están más de moda.
+
+00:00:09.986 --> 00:00:13.976 align:middle
+Refactorizar anotaciones a
+atributos es básicamente...
+
+00:00:14.106 --> 00:00:14.776 align:middle
+un trabajo muy duro.
+
+00:00:15.476 --> 00:00:18.306 align:middle
+Puedes hacerlo a mano: los atributos
+
+00:00:18.306 --> 00:00:22.766 align:middle
+y las anotaciones funcionan exactamente
+igual y utilizan las mismas clases.
+
+00:00:23.656 --> 00:00:29.336 align:middle
+Incluso la sintaxis es sólo un poco diferente:
+utilizas dos puntos para separar los argumentos...
+
+00:00:29.706 --> 00:00:34.316 align:middle
+porque en realidad estás aprovechando
+los argumentos con nombre de PHP.
+
+00:00:34.316 --> 00:00:37.546 align:middle
+Genial. Así que la conversión es sencilla...
+
+00:00:37.746 --> 00:00:42.516 align:middle
+pero no me entusiasma
+hacer todo eso manualmente.
+
+00:00:42.516 --> 00:00:46.056 align:middle
+Afortunadamente, ¡Rector vuelve al rescate!
+
+00:00:46.056 --> 00:00:51.446 align:middle
+Busca "rector annotations to attributes"
+para encontrar una entrada del blog
+
+00:00:51.446 --> 00:00:57.386 align:middle
+que te dice la configuración exacta de
+importación que necesitamos en rector.php.
+
+00:00:57.386 --> 00:00:58.896 align:middle
+Copia estas tres cosas.
+
+00:00:59.606 --> 00:01:04.176 align:middle
+Ah, y a partir de Rector 0.12, hay un nuevo
+
+00:01:04.176 --> 00:01:08.636 align:middle
+objeto RectorConfig más sencillo
+que verás en esta página.
+
+00:01:09.286 --> 00:01:12.636 align:middle
+Si tienes esa versión, no
+dudes en utilizar ese código.
+
+00:01:13.506 --> 00:01:19.986 align:middle
+Ah, y antes de pegar esto, busca
+tu terminal, añade todo...
+
+00:01:20.176 --> 00:01:21.806 align:middle
+y luego confirma.
+
+00:01:23.306 --> 00:01:30.466 align:middle
+Perfecto De vuelta en rector.php, sustituye
+la única línea por estas cuatro líneas...
+
+00:01:30.776 --> 00:01:33.306 align:middle
+excepto que no necesitamos el NetteSetList...
+
+00:01:33.906 --> 00:01:37.116 align:middle
+y tenemos que añadir unas
+cuantas declaraciones use.
+
+00:01:37.116 --> 00:01:44.546 align:middle
+Volveré a escribir la "t" en DoctrineSetList, pulsaré
+"tab", y haré lo mismo para SensiolabsSetList.
+
+00:01:45.346 --> 00:01:47.696 align:middle
+Ahora, ya sabes lo que hay que hacer.
+
+00:01:48.176 --> 00:01:54.506 align:middle
+Ejecuta vendor/bin/rector
+process src y mira lo que ocurre.
+
+00:01:56.466 --> 00:01:58.266 align:middle
+Guau... ¡esto es impresionante!
+
+00:01:58.546 --> 00:02:04.006 align:middle
+Mira! Ha refactorizado maravillosamente
+esta anotación a un atributo y...
+
+00:02:04.216 --> 00:02:06.296 align:middle
+¡hizo esto en todo el lugar!
+
+00:02:06.876 --> 00:02:08.186 align:middle
+Tenemos rutas aquí arriba.
+
+00:02:08.646 --> 00:02:15.066 align:middle
+Y todas nuestras anotaciones de entidades, como
+la entidad Answer también se han convertido.
+
+00:02:15.576 --> 00:02:17.196 align:middle
+Eso fue una tonelada de trabajo...
+
+00:02:17.306 --> 00:02:18.576 align:middle
+¡todo automático!
+
+00:02:19.076 --> 00:02:24.786 align:middle
+Aunque, como a veces hace Rector, estropeó
+algunas de nuestras normas de codificación. Por
+
+00:02:24.786 --> 00:02:27.756 align:middle
+ejemplo, en la parte inferior,
+
+00:02:28.176 --> 00:02:32.036 align:middle
+refactorizó esta anotación
+Route a un atributo...
+
+00:02:32.446 --> 00:02:37.606 align:middle
+pero luego añadió un pequeño espacio
+extra antes del tipo de retorno Response.
+
+00:02:38.316 --> 00:02:39.106 align:middle
+Eso no es un problema.
+
+00:02:39.106 --> 00:02:44.426 align:middle
+Después de ejecutar Rector, siempre es
+una buena idea ejecutar PHP CS Fixer.
+
+00:02:45.176 --> 00:02:45.496 align:middle
+Hazlo:
+
+00:02:45.846 --> 00:02:52.346 align:middle
+tools/php-cs-fixer/vendor/bin/php-cs-fixer
+fix Me encanta.
+
+00:02:52.776 --> 00:02:55.696 align:middle
+Un montón de correcciones para que
+nuestro código vuelva a estar en línea.
+
+00:02:56.686 --> 00:02:59.166 align:middle
+Ejecuta para ver cómo quedan
+las cosas ahora. git diff
+
+00:03:01.136 --> 00:03:03.406 align:middle
+La anotación se ha convertido
+en un atributo Route...
+
+00:03:03.676 --> 00:03:08.806 align:middle
+y PHP CS Fixer puso el tipo de
+retorno como estaba antes. Response
+
+00:03:09.806 --> 00:03:15.576 align:middle
+Rector incluso refactorizó de
+SensioFrameworkExtraBundle a un atributo. IsGranted
+
+00:03:16.276 --> 00:03:19.096 align:middle
+Pero si sigues bajando hasta
+encontrar una entidad...
+
+00:03:20.436 --> 00:03:21.226 align:middle
+aquí tenemos...
+
+00:03:21.716 --> 00:03:25.666 align:middle
+¡oh! ¡Ha matado los saltos de
+línea entre nuestras propiedades!
+
+00:03:26.376 --> 00:03:31.096 align:middle
+No es súper obvio en el diff,
+pero si abres cualquier entidad...
+
+00:03:32.206 --> 00:03:34.326 align:middle
+¡vaya! Esto parece...
+
+00:03:34.326 --> 00:03:38.896 align:middle
+estrecho. Me gustan los saltos de línea
+entre las propiedades de mis entidades.
+
+00:03:39.646 --> 00:03:41.486 align:middle
+Podríamos arreglar esto a mano...
+
+00:03:42.006 --> 00:03:46.426 align:middle
+pero me pregunto si podemos enseñar a
+PHP CS Fixer a hacer esto por nosotros.
+
+00:03:47.146 --> 00:03:49.886 align:middle
+Abre . php-cs-fixer.php
+
+00:03:49.886 --> 00:03:55.556 align:middle
+La regla que controla estos saltos de
+línea se llama class_attributes_separation
+
+00:03:55.736 --> 00:03:58.536 align:middle
+con una "s" - lo arreglaré en un minuto.
+
+00:03:58.536 --> 00:04:02.746 align:middle
+Ponlo en una matriz que describa
+todas las diferentes partes
+
+00:04:02.746 --> 00:04:05.246 align:middle
+de nuestra clase y cómo
+debe comportarse cada una.
+
+00:04:05.316 --> 00:04:09.556 align:middle
+Por ejemplo, podemos decir para
+decir ['method' => 'one']
+
+00:04:09.556 --> 00:04:12.706 align:middle
+que queremos una línea
+vacía entre cada método.
+
+00:04:13.336 --> 00:04:18.206 align:middle
+También podemos decir para tener un salto de línea
+entre nuestras propiedades. ['property' => 'one']
+
+00:04:19.006 --> 00:04:21.346 align:middle
+También hay otro llamado . trait_import
+
+00:04:21.816 --> 00:04:23.486 align:middle
+Ponlo también en . one
+
+00:04:24.146 --> 00:04:27.476 align:middle
+Eso nos da una línea vacía entre
+nuestras importaciones de rasgos,
+
+00:04:27.676 --> 00:04:30.426 align:middle
+que es algo que tenemos encima de . Answer
+
+00:04:31.276 --> 00:04:35.176 align:middle
+Ahora prueba de nuevo con php-cs-fixer: ¡Ups!
+
+00:04:35.176 --> 00:04:40.896 align:middle
+Las reglas contienen fijadores desconocidos:
+"class_attribute_separation" Quise
+
+00:04:40.896 --> 00:04:44.426 align:middle
+decir con una "s class_attributes_separation ".
+
+00:04:44.906 --> 00:04:46.266 align:middle
+Sin embargo, qué gran error.
+
+00:04:46.266 --> 00:04:48.676 align:middle
+Probemos de nuevo y...
+
+00:04:49.246 --> 00:04:53.356 align:middle
+¡guay! Ha cambiado cinco
+archivos, y si los compruebas...
+
+00:04:53.736 --> 00:04:54.966 align:middle
+¡han vuelto!
+
+00:04:55.746 --> 00:05:01.676 align:middle
+Con sólo unos pocos comandos hemos convertido
+todo nuestro sitio de anotaciones a atributos.
+
+00:05:02.016 --> 00:05:06.556 align:middle
+¡Guau! A continuación, vamos a añadir
+tipos de propiedades a nuestras entidades.
+
+00:05:07.106 --> 00:05:12.706 align:middle
+Eso nos va a permitir tener menos configuración de
+entidades gracias a una nueva función de Doctrine
