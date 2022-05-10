@@ -16,6 +16,8 @@ Let's go through those first, starting with `assets/app.js`. As you can see,
 I enabled some custom `Collapse` functionality from bootstrap. I'm not sure why
 this conflicted, but it's an easy fix.
 
+[[[ code('25832477e1') ]]]
+
 Next is `bootstrap.js`. This might actually be a *new* file for you, depending on how
 old your recipe was. The job of this file is to initialize the Stimulus JavaScript
 library and load all of the files in the `controllers/` directory as Stimulus
@@ -23,14 +25,20 @@ controllers. In this case, I already *had* this file, but apparently the express
 for how it finds the files changed slightly. The new version is probably better,
 so let's use that.
 
+[[[ code('ebce24514b') ]]]
+
 Next up is `controllers.json`. I'm not sure why this is conflicting either... I
 have a feeling that I may have added these files manually in the past... and now
 the recipe upgrade is *re-adding* them. I want to keep my custom version.
+
+[[[ code('bd3b4aed39') ]]]
 
 Next up is `styles/app.css`. The same thing happened here. The recipe
 added this file... all the way at the bottom... with just a body background-color.
 I must have added this file manually... so conflict! Keep all of our custom stuff
 and... good!
+
+[[[ code('00d6621040') ]]]
 
 ## Hello @hotwired/Stimulus v3
 
@@ -55,6 +63,8 @@ since this version constraint allows *any* version `1`, I'll also use the new
 `webpack-encore` version... and then fix the conflict. Oh, and be sure to
 delete `stimulus`. We don't want version 2 of `stimulus` hanging around and
 confusing things.
+
+[[[ code('5eefb686c5') ]]]
 
 Fantastic! Because we just changed some files in `package.json`, find your
 terminal tab that's rocking Encore, hit "ctrl" + "C", and then run:
@@ -85,9 +95,13 @@ you need to go into all of your controllers and change
 `import { Controller } from 'stimulus'` to
 `import { Controller } from '@hotwired/stimulus'`.
 
+[[[ code('fd1a46cd51') ]]]
+
 But it's *that* simple. I'm also going to delete `hello_controller.js`...
 this is just an example controller that the recipe gave us. In the last controller,
 change to `@hotwired/stimulus`.
+
+[[[ code('eaf18a032d') ]]]
 
 Awesome! Stop `yarn watch` again.. and re-run it:
 
@@ -106,6 +120,8 @@ package is still referencing `stimulus` instead of the new `@hotwired/stimulus`.
 this tells me is that I probably need to upgrade that PHP package. So, in
 `composer.json`, down here on `symfony/ux-chartjs`, if you do some research, you'll
 find out that there's a new version 2 out that supports Stimulus 3.
+
+[[[ code('f77dece130') ]]]
 
 After changing that, find your main terminal tab and run:
 
@@ -152,8 +168,12 @@ git status
 ```
 
 It is, once again, environment configuration going into a main file. So let's commit
-that. And... we're *done*! All of our recipes are updated! And remember,
-part of the reason we did all of this is because some of those recipes replaced old
+that. 
+
+[[[ code('80c6b85687') ]]]
+
+And... we're *done*! All of our recipes are updated! And remember, part of 
+the reason we did all of this is because some of those recipes replaced old
 deprecated code with new *shiny* code. Hopefully, when we refresh the page, our
 site will not only still *work*, but will have less deprecations. On my project,
 if I refresh a few times, it looks like I'm settling in at about 22. Progress!
