@@ -1,0 +1,416 @@
+WEBVTT
+
+00:00:01.016 --> 00:00:03.306 align:middle
+¡Sólo quedan dos recetas por actualizar!
+
+00:00:03.676 --> 00:00:05.846 align:middle
+La siguiente es webpack-encore-bundle.
+
+00:00:06.546 --> 00:00:10.356 align:middle
+Esta receta ha cambiado bastante a
+lo largo del último año y medio,
+
+00:00:10.546 --> 00:00:15.426 align:middle
+así que dependiendo de lo antigua que
+sea tu versión, esto puede ser fácil....
+
+00:00:15.746 --> 00:00:17.696 align:middle
+o tal vez no sea tan fácil.
+
+00:00:18.276 --> 00:00:21.156 align:middle
+Digamos que puede ser "interesante".
+
+00:00:21.916 --> 00:00:28.186 align:middle
+Para ver con qué estamos trabajando, ejecuta: git
+status Vale: tenemos una serie de archivos modificados
+
+00:00:28.186 --> 00:00:31.386 align:middle
+y eliminados y algunos conflictos.
+
+00:00:32.016 --> 00:00:35.926 align:middle
+Vamos a revisarlos primero,
+empezando por assets/app.js.
+
+00:00:36.376 --> 00:00:41.536 align:middle
+Como puedes ver, he habilitado una funcionalidad
+personalizada de Collapse desde bootstrap.
+
+00:00:42.246 --> 00:00:45.596 align:middle
+No estoy seguro de por qué esto entraba
+en conflicto, pero es una solución fácil.
+
+00:00:46.586 --> 00:00:48.656 align:middle
+Lo siguiente es bootstrap.js.
+
+00:00:49.376 --> 00:00:54.726 align:middle
+Este puede ser un archivo nuevo para ti,
+dependiendo de la antigüedad de tu receta. La
+
+00:00:55.416 --> 00:01:01.596 align:middle
+función de este archivo es inicializar la
+biblioteca JavaScript de Stimulus y cargar todos los
+
+00:01:01.596 --> 00:01:05.726 align:middle
+archivos del directorio controllers/
+como controladores de Stimulus.
+
+00:01:06.516 --> 00:01:12.336 align:middle
+En este caso, ya tenía este archivo,
+pero aparentemente la expresión
+
+00:01:12.336 --> 00:01:15.276 align:middle
+de cómo encuentra los
+archivos cambió ligeramente.
+
+00:01:16.046 --> 00:01:19.326 align:middle
+La nueva versión es probablemente
+mejor, así que vamos a utilizarla.
+
+00:01:20.186 --> 00:01:22.456 align:middle
+Lo siguiente es controllers.json.
+
+00:01:23.116 --> 00:01:25.696 align:middle
+Tampoco estoy seguro de por
+qué esto es conflictivo...
+
+00:01:26.176 --> 00:01:31.086 align:middle
+Tengo la sensación de que puede que haya añadido
+estos archivos manualmente en el pasado...
+
+00:01:31.396 --> 00:01:34.786 align:middle
+y ahora la actualización de
+la receta los vuelve a añadir.
+
+00:01:35.396 --> 00:01:37.446 align:middle
+Quiero mantener mi versión personalizada.
+
+00:01:39.066 --> 00:01:41.266 align:middle
+Lo siguiente es styles/app.css.
+
+00:01:42.376 --> 00:01:43.786 align:middle
+Aquí ocurrió lo mismo.
+
+00:01:44.416 --> 00:01:46.286 align:middle
+La receta añadió este archivo...
+
+00:01:46.716 --> 00:01:48.056 align:middle
+hasta el fondo...
+
+00:01:48.676 --> 00:01:50.996 align:middle
+con sólo un color de fondo del cuerpo.
+
+00:01:51.626 --> 00:01:53.726 align:middle
+Debo haber añadido este archivo manualmente...
+
+00:01:53.886 --> 00:01:55.426 align:middle
+¡tan conflictivo!
+
+00:01:55.976 --> 00:01:58.496 align:middle
+Mantén todas nuestras
+cosas personalizadas y...
+
+00:01:58.736 --> 00:02:03.686 align:middle
+¡bien! El último conflicto está
+aquí abajo, en package.json.
+
+00:02:04.076 --> 00:02:06.756 align:middle
+Este es un poco más interesante.
+
+00:02:07.446 --> 00:02:12.526 align:middle
+Mi proyecto ya utilizaba Stimulus:
+tengo stimulus aquí abajo
+
+00:02:12.896 --> 00:02:15.896 align:middle
+y también stimulus-bridge de Symfony.
+
+00:02:16.706 --> 00:02:24.016 align:middle
+La receta actualizada tiene ahora @hotwired/stimulus,
+y en lugar de "@symfony/stimulus-bridge":
+
+00:02:24.016 --> 00:02:29.556 align:middle
+"^2.0.0" , tiene
+"@symfony/stimulus-bridge": "^3.0.0".
+
+00:02:29.626 --> 00:02:30.756 align:middle
+Entonces, ¿qué ocurre?
+
+00:02:31.346 --> 00:02:35.276 align:middle
+En primer lugar, se ha lanzado
+la versión 3 de Stimulus.
+
+00:02:35.576 --> 00:02:37.366 align:middle
+¡Sí! Pero...
+
+00:02:37.366 --> 00:02:44.416 align:middle
+la única diferencia real entre la versión 2 y
+la 3 es que cambiaron el nombre de la biblioteca
+
+00:02:44.416 --> 00:02:48.136 align:middle
+de stimulus a @hotwired/stimulus.
+
+00:02:48.676 --> 00:02:54.856 align:middle
+Y para que la versión 3 funcione, también
+necesitamos la versión 3 de stimulus-bridge...
+
+00:02:55.076 --> 00:02:56.036 align:middle
+en lugar de la 2.
+
+00:02:56.866 --> 00:03:03.256 align:middle
+Así que tomemos esto como una oportunidad de oro
+para actualizar de Estímulo 2 a Estímulo 3. Como
+
+00:03:03.766 --> 00:03:10.896 align:middle
+ventaja, después de la actualización, obtendrás nuevos y
+geniales mensajes de depuración en la consola de tu navegador
+
+00:03:11.146 --> 00:03:13.266 align:middle
+cuando trabajes con Stimulus localmente.
+
+00:03:13.976 --> 00:03:16.926 align:middle
+De todos modos, mantén @hotwired/stimulus...
+
+00:03:17.286 --> 00:03:20.356 align:middle
+pero muévelo hacia arriba para
+que esté en orden alfabético.
+
+00:03:21.276 --> 00:03:23.656 align:middle
+Utiliza la versión 3 de stimulus-bridge...
+
+00:03:24.416 --> 00:03:30.626 align:middle
+y aunque realmente no importa ya que esta
+restricción de versión permite cualquier versión 1,
+
+00:03:31.116 --> 00:03:34.486 align:middle
+también usaré la nueva
+versión webpack-encore...
+
+00:03:35.026 --> 00:03:36.676 align:middle
+y luego arreglar el conflicto.
+
+00:03:37.566 --> 00:03:39.926 align:middle
+Ah, y asegúrate de eliminar stimulus.
+
+00:03:40.246 --> 00:03:44.526 align:middle
+No queremos que la versión 2 de stimulus
+ande por ahí confundiendo las cosas.
+
+00:03:44.976 --> 00:03:46.426 align:middle
+¡Fantástico!
+
+00:03:47.116 --> 00:03:50.326 align:middle
+Como acabamos de cambiar algunos
+archivos en package.json,
+
+00:03:50.546 --> 00:03:55.396 align:middle
+busca la pestaña de tu terminal que está rockeando
+Encore, pulsa "ctrl" + "C", y luego ejecuta
+
+00:03:55.536 --> 00:04:02.196 align:middle
+yarn install o npm install ¡Perfecto!
+
+00:04:02.306 --> 00:04:07.406 align:middle
+Ahora reinicia Encore: yarn watch Y...
+
+00:04:07.916 --> 00:04:09.276 align:middle
+¿¡Falla!?
+
+00:04:09.906 --> 00:04:11.906 align:middle
+Es un largo mensaje de error...
+
+00:04:12.136 --> 00:04:13.736 align:middle
+pero al final dice:
+
+00:04:14.016 --> 00:04:20.356 align:middle
+assets/controllers/answer-vote_controller.js
+contains a reference to the file "stimulus".
+
+00:04:21.176 --> 00:04:29.046 align:middle
+La parte más importante, aunque aburrida, de la
+actualización de Estímulo 2 a 3 es que tienes que
+
+00:04:29.046 --> 00:04:33.926 align:middle
+entrar en todos tus controladores y cambiar
+import { Controller } from 'stimulus'
+
+00:04:34.386 --> 00:04:38.206 align:middle
+por import { Controller }
+from '@hotwired/stimulus'.
+
+00:04:38.616 --> 00:04:40.126 align:middle
+Pero es así de sencillo.
+
+00:04:40.816 --> 00:04:43.356 align:middle
+También voy a eliminar hello_controller.js...
+
+00:04:44.306 --> 00:04:47.866 align:middle
+esto es sólo un controlador de
+ejemplo que nos dio la receta.
+
+00:04:49.536 --> 00:04:53.866 align:middle
+En el último controlador,
+cambia a @hotwired/stimulus.
+
+00:04:54.606 --> 00:04:57.386 align:middle
+¡Impresionante! Vuelve a parar yarn watch..
+
+00:04:57.806 --> 00:05:01.326 align:middle
+y vuelve a ejecutarlo: ¡Diablos!
+
+00:05:01.406 --> 00:05:02.556 align:middle
+¡Seguimos obteniendo un error!
+
+00:05:03.376 --> 00:05:08.896 align:middle
+Esto viene de
+@symfony/ux-chartjs/dist/controller.js.
+
+00:05:10.096 --> 00:05:17.026 align:middle
+En mi proyecto, he instalado uno de los
+paquetes UX de Symfony, que son paquetes de PHP
+
+00:05:17.136 --> 00:05:19.356 align:middle
+que también proporcionan algo de JavaScript.
+
+00:05:20.216 --> 00:05:26.476 align:middle
+Aparentemente, el JavaScript de ese paquete
+sigue haciendo referencia a stimulus en lugar
+
+00:05:26.476 --> 00:05:29.186 align:middle
+de al nuevo @hotwired/stimulus.
+
+00:05:29.836 --> 00:05:35.116 align:middle
+Lo que esto me dice es que probablemente
+tengo que actualizar ese paquete PHP.
+
+00:05:35.916 --> 00:05:43.326 align:middle
+Así que, en composer.json, aquí abajo en symfony/ux-chartjs,
+si investigas un poco, descubrirás que hay
+
+00:05:43.716 --> 00:05:48.756 align:middle
+una nueva versión 2 que
+soporta el Estímulo 3.
+
+00:05:49.476 --> 00:05:53.556 align:middle
+Después de cambiar eso, busca la pestaña
+principal de tu terminal y ejecuta
+
+00:05:54.096 --> 00:05:59.976 align:middle
+composer up symfony/ux-chartjs
+para actualizar ese paquete.
+
+00:06:00.946 --> 00:06:02.546 align:middle
+Y... ¡qué bien!
+
+00:06:02.836 --> 00:06:05.896 align:middle
+Hemos actualizado a la versión 2.1.0.
+
+00:06:06.806 --> 00:06:11.986 align:middle
+Ahora quiere que ejecutemos: npm
+install --force o yarn install
+
+00:06:12.476 --> 00:06:17.226 align:middle
+--force Eso reinicializa
+el JavaScript del paquete.
+
+00:06:18.016 --> 00:06:23.406 align:middle
+Una cosa que quiero destacar de este paquete
+en particular es que cuando actualizamos
+
+00:06:23.406 --> 00:06:26.696 align:middle
+a la versión 2 en nuestro
+archivo composer.json,
+
+00:06:26.946 --> 00:06:34.826 align:middle
+Flex actualizó nuestra dependencia de
+chart.js de la versión 2.9 a la 3.4.
+
+00:06:35.476 --> 00:06:39.556 align:middle
+Esto se debe a que el JavaScript de esta
+nueva versión está pensado para funcionar
+
+00:06:39.556 --> 00:06:43.886 align:middle
+con chart.js 3 en lugar de con chart.js 2.
+
+00:06:44.676 --> 00:06:46.826 align:middle
+Flex hizo ese cambio por nosotros.
+
+00:06:47.416 --> 00:06:51.096 align:middle
+No tenemos que hacer nada aquí,
+pero es bueno tenerlo en cuenta.
+
+00:06:52.006 --> 00:06:55.036 align:middle
+¡Por fin! Deberíamos
+estar listos para empezar.
+
+00:06:55.316 --> 00:06:59.326 align:middle
+Ejecuta yarn watch y...
+
+00:07:00.216 --> 00:07:02.566 align:middle
+¡ya está! La construcción
+se ha realizado con éxito
+
+00:07:03.126 --> 00:07:06.696 align:middle
+En la pestaña principal del
+terminal, vamos a añadir todo...
+
+00:07:06.896 --> 00:07:08.966 align:middle
+ya que hemos arreglado todos los conflictos...
+
+00:07:10.076 --> 00:07:11.236 align:middle
+¡y confirmemos!
+
+00:07:12.906 --> 00:07:17.236 align:middle
+Ahora, queridos amigos, estamos
+en la última actualización.
+
+00:07:17.786 --> 00:07:19.626 align:middle
+Es zenstruck/foundry.
+
+00:07:20.076 --> 00:07:21.756 align:middle
+Esta es fácil.
+
+00:07:22.146 --> 00:07:29.946 align:middle
+Ejecuta: git status Es, una vez más, la configuración
+del entorno que va a un archivo principal.
+
+00:07:30.476 --> 00:07:32.596 align:middle
+Así que vamos a confirmarlo.
+
+00:07:33.486 --> 00:07:35.756 align:middle
+Y... ¡hemos terminado!
+
+00:07:36.146 --> 00:07:38.166 align:middle
+¡Todas nuestras recetas están actualizadas!
+
+00:07:38.776 --> 00:07:43.466 align:middle
+Y recuerda que parte de la razón por la
+que hemos hecho todo esto es porque algunas
+
+00:07:43.466 --> 00:07:49.496 align:middle
+de esas recetas han sustituido el viejo código
+obsoleto por el nuevo código brillante.
+
+00:07:50.276 --> 00:07:52.836 align:middle
+Con suerte, cuando actualicemos la página,
+
+00:07:53.326 --> 00:07:58.236 align:middle
+nuestro sitio no sólo seguirá funcionando,
+sino que tendrá menos depreciaciones.
+
+00:07:59.136 --> 00:08:05.926 align:middle
+En mi proyecto, si refresco unas cuantas veces,
+parece que me estoy asentando en unas 22.
+
+00:08:06.476 --> 00:08:10.826 align:middle
+¡Progreso! Tenemos que
+aplastar esas depreciaciones.
+
+00:08:11.176 --> 00:08:14.626 align:middle
+Pero a continuación, otra cosa
+que tenemos que hacer es...
+
+00:08:14.756 --> 00:08:17.436 align:middle
+¡actualizar nuestro código a PHP 8!
+
+00:08:18.176 --> 00:08:21.006 align:middle
+¡Este es otro punto en el
+que Rector puede ayudar!
