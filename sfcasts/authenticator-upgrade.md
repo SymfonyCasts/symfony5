@@ -1,202 +1,68 @@
 # Authenticator & Security Upgrade
 
-Coming soon...
+It's time to fix these deprecations, so we can *finally* upgrade to Symfony 6. If you go to any page on your site and click the deprecations down here, you'll see this big list. But a lot of these are the same thing. What's most likely the biggest change going from Symfony 5.4 to Symfony 6 is a new security system. But don't worry. It's not *that* much different from the old one. and the upgrade path is surprisingly easy. Let's start by updating our current security system to work with the new system. We'll begin this process inside of our `User` entity.
 
-All right time to fix these DEP applications. So we can upgrade two Symfony six. If
-you go to any page in your site and Like we've already done a and then click the
-deprecation down here, you'll see this big Le list. But a lot of these are the same
-thing. It's talking about. Something about guard being deprecated, Probably the
-biggest change going from Symfony 5.4 to Symfony six is a new security system, but
-don't worry. It's not that much different from the old one. The upgrade path is easy.
-So basically what we need to do is prepare our system for, So let's update our
-security system to work with the new system. We're going to start this actually
-inside of our user entity.
+In addition to `UserInterface`, add a second `PasswordAuthenticatedUserInterface`. Previously, `UserInterface` had a lot of different methods on it, including `getPassword()`. This didn't always make sense, because some security systems have users that *don't* have passwords. Like, for example, logging in via some single sign on where a totally different application handles passwords. So to make this cleaner, in Symfony 6, you *always* have to implement `UserInterface`. If your user has a password that your application actually checks, *then* you implement `PasswordAuthenticatedUserInterface` as well. It makes life a lot easier for applications with users that don't need to check the user's password.
 
-So in
+Another change relates to `getUsername()`. This `getUsername()` is a method that lives on `UserInterface`, but its name was always confusing. It made it *seem* like you needed to have a username, when really, this method is *supposed* to return some unique user identifier - not *necessarily* a username. Because of that, in Symfony 6, this has been renamed from `getUsername()` to `getUserIdentifier()`. I'm going to copy this, change `getUsername` to `getUserIdentifier()`, and have the exact same thing. We *do* need to keep this `getUsername()` method for now because we're still on Symfony 5.4, but once we upgrade to Symfony 6, we can safely remove this.
 
-Addition to user interface, add a second password authenticated user interface. So
-what happened here is that previously user interface had a lot of different methods
-on it, including get password. This didn't always make sense because some security
-systems have users that don't have passwords. Like for example, if you log in via
-some single sign on where a totally different application handles passwords, so to
-make this cleaner in Symfony's six, you always have to implement user interface, but
-this only has a few simple methods on it. Then if your applica, if your user has a
-password that your application actually checks, then you implement password
-authenticated, user interface as well. So it basically makes life E easier For
-applications that have users that don't check the user's password. All right. Another
-change
+The *biggest* change in Symfony security is in `/config/packages/security.yaml`. It's this `enable_authenticator_manager`. When we upgraded, the recipe gave us this config, but it had it set to `true`. Basically, this switches from the old security system to the new one. And what *that* means, in practice, is that all of the ways you authenticate, like a custom authenticator or `form_login` or HTTP Basic, have been converted from an old authentication system to a new *authenticator* system. For the most part, if you're using something like `form_login` here, you won't even notice. You can turn on the new system, or set this to true, and even though the internals of `form_login` are suddenly going to be very different, everything will work exactly the same as it did before. In a lot of ways, the new security system is an internal refactoring to make life a lot cleaner and simpler inside the core.
 
-Relates to down here, if you look for get username. So get username is a method that
-lives on user interface, but its name was always confusing. Cause it made it seem
-like you needed to have a username when really what this method is supposed to return
-is some unique user identifier. So because of that in Symfony six, this has been
-renamed from get username to get user identifier. So I'm just going to copy that, get
-user identifier and have the exact same thing. We do need to keep this username
-method for now because we're still on Symfony 5.4. But once the upgrade is Symfony
-six, we can safely remove this. All right? But the biggest change in Symfony
-security, you can see in config packages, security.yamal it's. This enable
-authenticator manager. When we upgraded the recipe gave us this config, but it had it
-set to true. What this basically does is switch from the, the old security system to
-the new security system. And what that means
+*However*, if you have a custom `guard` authenticator like we have, we'll need to convert this to the new authenticator system. So let's do that. Open up that class in `/src/Security LoginFormAuthenticator.php`, and you can already see the `AbstractFormLoginAuthenticator` from the old system is deprecated. So change this from `AbstractFormLoginAuthenticator` to `AbstractLoginFormAuthenticator`. It's pretty much the same name, with "Form" and "Login" switched around. The new class does the *same* job as the old class, but it's *not* deprecated. And now we don't need to implement this `PasswordAuthenticatedInterface` because that's an old thing for Guard.
 
-In practice is that all of the ways that you authenticate like a custom authenticator
-or form_login or HTB basic, all of these have been, been converted it from an old
-authentication system to a new authenticator system. For the most part, if you're
-using something like form login in here, you won't even notice you can change. You
-can turn on the new system, you can set this to true. And even though the internals
-of form_login are suddenly going to be very different. Everything is, is just going
-to work exactly the same it was before. So in a lot of ways, the new security system
-is an internal refactoring to make life a lot cleaner and simpler inside the court.
-However, If you have a custom guard authenticator, like we have, we need to convert
-this to the new authenticator system. So let's do that open up that class source
-security login form authenticator, and you can already see the abstract form login
-authenticator from the old system is deprecated. So change this to Login form a
+You can *immediately* see that this is mad because I now need to implement a new method called `authenticate()`. So I'm going to go down here, below `supports()`, and go to "Code Generate" or "cmd" + "N" on a Mac,  and implement that new `authenticate()` method. This is the core of the new authenticator system, and we're going to talk about it in a few minutes, The *old* authenticator system and the *new* authenticator system actually share a lot of the same methods. For example, they both have a method in here called `supports()`, but the new system has a `bool` return type. As soon as we add that, you can see PhpStorm is happy.
 
-No.
+Below, on `onAuthenticationSuccess`, it looks like we need to add a new return type here as well. At the end of this line, add the `Response` return type from HttpFoundation. Nice! While we're here, let's also rename this `$providerKey` to `$firewallName`. That doesn't make any difference, since that's just what it's named now, but it just makes it more clear. Then, down here for `onAuthenticationFailure`, I'm going to add the `Response` return type there as well. And for `onAuthenticationSuccess()`, I just remembered this can be a nullable response. In some authentication systems, you will *not* return a response, so I'll just add a question mark right before its return type. Finally, we have `getLoginUrl()`, but in the new system, this passes a `Request $request` argument and it returns a `string`. Awesome! We still need to fill in some guts here, but at least we're implementing the abstract functions correctly.
 
-This changes from abstract form login authenticator to abstract login form
-authenticator. It's almost the same name, but this is the new class that does the
-same job was the old class, But it's not deprecated. And then we don't need to
-implement this password authenticated interface. That's an old thing for guard. All
-right. So you can immediately see that this is mad because I now need to implement a
-new method called authenticate. So I'm going to go down below supports and go do code
-generate or command and on the Mac and implement that new authenticate method. This
-is the core of the new authenticator system. And we're going to talk about it in a
-few minutes, But first The old authenticator system and the new a authenticator
-system actually share a lot of the same methods. Like for example, they both have a
-method in here called supports, but the new system has a bull return type. So as soon
-as they add that, you can see PhpStorm is happy,
+The next step we can take, which is pretty cool, is deleting the `supports()` method. The reason we're doing this, which you can see if you jump into the base class, is that in the new system, the `supports()` method is implemented *for* you. It basically checks to make sure that this is a post request, and that the *current* URL is the same as the *login* URL. Basically, it says *I support authenticating this request if this is a post request to the login URL*. That's actually *exactly* what we had down here before, but written a little differently.
 
-All
+Finally, let's go down to this `authenticate()` method. In the old guard system, we split up authentication into a few methods. We had `getCredentials()`, where we grab some information, `getUser()`, where we found the user object, and `checkCredentials()`, where we checked the password. All three of these things are now combined into the `authenticate()` method, and with a couple of nice bonuses. For example, as you'll see in a second, it's no longer going to be our responsibility to check the password. That will now happen *automatically*.
 
-Turn type on that From HTB foundation. I'm also, while I'm hearing, I'm going to
-rename this provider key To firewall name, I that's actually how it's named now that
-doesn't make any difference, but it just makes it more clear. This is always the
-firewall name. Then down here for on authentication failure, I'm going to add the
-response return type there as well, and actually for on authentication success. I
-just remember this can be a nullable response in some authentication systems. You
-will not return a response, even though we are returning a response right here.
-Finally, We do have a get log in URL, but in the new system, this has passed a
-request argument And it returns a strength.
+Our job in `authenticate()` is to return a `Passport`. So go ahead and add a `Passport` return type. The reason that wasn't added *for* us is because that was actually a change that occurred in an update from Symfony 5.3 to 5.4, where `PassportInterface` became `Passport`. Long story short, you should have a return type `Passport` here, and then we'll `return new Passport()`. If you're new to this system, you should check out our Symfony 5 Security tutorial, which talks all about this new system. I'll go through some of the basics here, but the Security tutorial is there for you if you want to dive a little deeper.
 
-Awesome.
+Before I fill in this `Passport`, I'm going to grab all of the information from the `Request` for the `email`, `password`, and `_csrf_token`, and I'm going to set them as variables. Say `email =`, `password =`, and I'll save the `-csrf_token` for later. So the first argument to the `Passport()` is going to be a `new UserBadge()`. What you pass here is the *user identifier*. In our system, we're logging in via the email, so we'll use `$email`. If you want to, you can stop right there. If you just pass a single argument to `UserBadge()`, Symfony will use your `app_user_provider` from `security.yaml` to find that user. I have an `entity` provider here, which tells Symfony to try to locate the user object in the database via the `email` property.
 
-So now we still need to fill in some guts here, but at least we are implementing the
-abstract functions correctly. All right, the next step we can do this is kind of cool
-is we can delete the supports method, the reason, and you can see it. If you jump
-into the base class, is that in the new system, the supports method is implemented
-for you basically checks to make sure that this is a post request To, and that the
-current URL = the login URL. So basically make sure that it says I support
-authenticating this request if this is a post request to the login URL. So that was
-actually exactly what we had before down here written a little bit differently, but
-it's the same thing. So I'm going to delete the supports method. Okay. Finally, let's
-get down to this authenticate method. So in the old guard system, we kind of split up
-authentic authentication into a few methods. We had get credentials where we grab
-some information. We had get user where we found the user object, and then we had
-check credentials where we checked the password. All three of these things are now
-combined into the authenticate method,
+In the old system, however, we did this all manually by querying the user repository for the email. And sometimes, if you have some custom logic, you will *still* need to do it manually. I'm going to show you the longer, manual version up here. We'll pass `function()` as a second argument, and we'll pass *that* the `$userIdentifier`.
 
-But with a couple of nice bonuses for, for example, as you'll see a second, it's no
-longer going to be our responsibility check the password that will now happen
-automatically. So anyways, Our job in authenticate is to return a passport. So go
-ahead and add a passport return type. The reason that wasn't added for us is because
-that was actually changed from Symfony 5.3 to 5.4 from passport interface to
-passport, long story short, you should have a return type passport on there, and then
-we'll return a new passport. If you're new to this system, you should check out our
-Symfony five security tutorial, which talks all about this new system. So I'll kind
-of go through the basics here Before I fill in this passport. I'm going to grab all
-of the information from the request for the email password. And CSRF token Ms. Set
-these all as variables. So I'll say email = Password equals. And actually I'll say
-the CSF password token for later. So the first argument to the passport is going to
-be a new user badge.
+Inside of this, your job is to take this `$userIdentifier` - the email - and return the `$user`. So I'll say:
 
-And what you pass here is the user identifier. So in our system, we're logging in via
-the email. Now, if you want to, you can stop right there. If you just pass a single
-argument to user badge, then Symfony is going to use your user provider from secure
-to that yam to find that user, I have an entity provider here, which tells Symfony to
-try to locate the user in the database via the email property. So it would in fact,
-just find, be able to take this email and go find the user object. But in the old
-system, I kind of did this all manually by querying the user repository for the
-email. And sometimes you, if you have some custom logic, you will need to do it
-manually. So I'm going to kind of show you the longer, more manual version up here.
-And that is where you pass a function as a second argument, This is going to be past
-the user identifier that you pass. So the email Inside here, your job is to take this
-user identifier. So the email And return the user. So I'll say user = this->entity
-manager,
+```
+$user = $this->entityManager
+    ->getRepository(User::class)
+```
 
-Arrow get repository user class. I also could have injected the user repository
-directly. That's probably a better idea. And then find one by Email And then user
-identifier. And then down, we have to do, if not user, we actually need to throw a
-new user, not found exception Because this callback needs to always return a user or
-throw that exception. Perfect. All right. The second argument down here actually
-don't need a semi, but a comma. Second argument is a new password credential And we
-pass this. The password is submitted password and that's all we need to do here. So
-this is a really cool thing where we don't actually need to check the password
-ourselves. We just need to pass this password credentials thing, and there's going to
-be another system. That's going to check the hashed password in the database
-automatically. Finally, we can pass an array of extra badges. We want to pass. We
-need just one badge. It's the new CSF RF CSRF token badge. This is because our login
-form uses a CSRF token. You can see that we actually
+I also could have injected the user repository directly. That's probably a better idea.
 
-Checked it manually before we don't need to do that anymore. We can just pass the
-string authenticate as the first argument that matches the string that we're using in
-our login template. So if we look in templates, security log, do H twig. I look for
-CSR token. We just use whatever string we use here. When we generate it, that's the
-same string we need to use here. And then we're going to pass it. The, the submitted
-CRS CSRF token, which for us is going to request error, request->GI. And then the
-name of the field is underscore. CSRF_token in. You can see that in the login form,
-And that is all we need to do just by passing that token, that badge here, the CSRF
-token is going to be validated. And the last thing I'll do here is I don't need to do
-this, but I'm going to pass a new, remember me badge. If you use the remember me
-system, then you and need to pass this, or remember me badge. It tells the system
-that you opt into the remember me system. You'll still need to either have a remember
-me Check box here.
+Below that, I'll say:
 
-Or if you want to always enable it, You can say enable. But if you do have remember
-me stuff here in order to activate it, you need to also have, remember me under your
-firewall, which I actually don't have right now. So if I wanted to remember me to
-work, I would need to add, remember me under my firewall. All right. And we are done
-if that was a lot back up and watch our Symfony security tutorial. So we can explain
-all these things in a little more detail. But the cool thing is that We don't need
-the GI credentials method anymore user method, or the check credentials method
-anymore, or this get password method anymore. It's just as simple as authenticate On
-authentication success on authentication failure and get log URL. We can even
-celebrate up here by removing a whole bunch of old use statements. Yay. And if we
-look at our construction here, a few of these arguments we don't need, we don't need
-the CSR token manager or the user password Hasher interface, cause we're not checking
-the CSF token or the, um, password, uh, manually anymore. And that gives us two more
-use statements that we can delete.
+```
+->findOneBy(['email' => $userIdentifier])
+```
 
-Okay? So at this point, our one custom authenticator has been moved to the new
-authenticator system, which means in security, that YAML, we are ready to switch to
-the new system. So say enable authenticator, authenticator manager. True. And also
-sort if custom authenticators aren't under a guard key anymore. They're now under a
-custom Authenticator key And we'll put it right directly below that. All right,
-moment of truth. We just completely switched security systems to the new system. So
-let's head back the homepage and It works and check out those depre went down from
-like 45 to four. Yikes. That's awesome. And if you look at them, one of 'em talking
-about the child node in coders at path security is deprecated use password hatchers
-instead, This is another change we saw when we upgraded the, uh, security bundle
-recipe. Originally we had in coders here, this tells Symfony what password algorithm
-to use to, uh, ask your users and the new, this has been reamed to password hatchers.
-And instead of having our custom class here, you can just always use this config, or
-it basically says any class that implements password authenticated user interface,
-which will, which our user class will always implement, use the auto algorithm. So
-use this new config. If you did have some different algorithm here, move that down to
-this line, but ultimately delete the encoders. We don't need that anymore. It's
-reading from password hatchers
+And then, down here, we need to add `if (!$user)`. Inside, we need to `throw new UserNotFoundException()` because this callback always needs to `return $user` or throw that exception. Perfect!
 
-And now on the homepage, We have even less D two. All right. Let's try to log in. Oh,
-I'm checking my login for man. I think I missed some conflicts on my base layout
-earlier. Just fix that real quick templates based that HML twig. Yep. I was sloppy.
-This is early away from way earlier. When we upgraded the twig bundle recipe, I
-hadn't even noticed. There we go. That's better. All right. We haven't. You are
-called admin@example.com password TA da, sign in, and it works By the way. Speaking
-about securities and firewalls, there is a new command you can use to debug your
-firewall a little bit. It's called debug firewall. If you run a have no arguments, it
-will tell you your two are your firewall names and we can rerun it with name. And it
-just gives us some information about it tells us what authenticators we have for this
-also, um, our user provider's using and also the entry point, which is something that
-we talk about, uh, in our, in our security tutorial, Our team. Next, we are going to
-crush these last few deprecations And learn how we can be sure that we didn't miss
-any.
+For the second argument down here - I'll change this semicolon to a comma - add `new PasswordCredentials()`, and we pass this the submitted `$password`. That's all we need to do here. This is a really cool thing where we don't actually need to check the password ourselves. We just need to pass `PasswordCredentials()`, and there's going to be another system that's going to check the hashed password in the database automatically.
+
+Finally, we can pass an array of extra badges. We only need *one* badge, and it's the `new CsrfTokenBadge()`. This is because our login form uses a `CsrfToken`. We checked it manually before, but we don't need to do that anymore. We can just pass the string `authenticate` as the first argument that matches the string that we're using in our login template. If we go to `/templates/security/login.html.twig` and search for `csrf_token`, we'll just use the same string we use here.
+
+Now, we're going to pass it the submitted CSRF token which, for us, is `$request->request->get('_csrf_token')`. You can see that in the login form. Just by passing that that badge here, the CSRF token is going to be validated.
+
+The last thing I'll do here isn't *required*, but I'm going to pass a `new RememberMeBadge`. If you use the "Remember Me" system, then you and need to pass this `RememberMeBadge`, which signals that you're opting into it. You'll *still* need have a "Remember Me" checkbox here, *or* if you *always* want it to be enabled, you can add `->enable()`. If you *do* have "Remember Me" stuff here, in order to activate it, you also need to have "Remember Me" under your firewall. I don't have this right now, so if I wanted "Remember Me" to work, I would need to add it here.
+
+All right, we are *done*! If that was overwhelming, back up and watch our Symfony Security tutorial so we can explain all of these things in a little more detail. The cool thing is that we don't need `getCredentials()`, `getUser()`, `checkCredentials()`, *or* `getPassword()` anymore. It's just as simple as `authenticate()`, `onAuthenticationSuccess()`, `onAuthenticationFailure()`, and `getLoginUrl()`. We can even celebrate up here by removing a whole bunch of old use statements. Yay! And if we look at our constructor here, a few of these arguments are no longer needed, including the `CsrfTokenManagerInterface` or the `UserPasswordHasherInterface`. That's because we're not checking the CSRF Token or the password manually anymore. And that gives us two *more* use statements that we can delete.
+
+At this point, our one custom authenticator has been moved to the new authenticator system, which means in `security.yaml`, we are ready to switch to the new system. Say `enable_authenticator_manager.: true`. These custom authenticators aren't under a `guard` key anymore. Instead, they're under a `custom_authenticator` key, so we'll put them directly below that.
+
+Okay, moment of truth! We just completely switched security systems to the new system, so let's head back to the homepage, reload and... it works! And check out those deprecations! It went down from around 45 to 4. That's *awesome*! And if you look at what's left, one of them says:
+
+`The child node "encoders" at path "security" is
+deprecated, use "password_hashers" instead.`
+
+This is another change we saw when we upgraded the `security-bundle` recipe. Originally we had `encoders` here. This tells Symfony what password algorithm to use to hash your users. This has been renamed to `password_hashers`. And instead of having our custom class here, you can always just use this config, which basically says *any class that implements `PasswordAuthenticatedUserInterface`, which our user class will always implement, use the `auto` algorithm*. Use this new config, and if you *did* have a different algorithm here, move that down to this line, but ultimately delete the `encoders`. We don't need that anymore. It's reading from `password_hashers`.
+
+Now, on the homepage... we have even less deprecations! Two left! Let's try to log in. Oh! Check out the login form. I think I missed some conflicts on my base layout
+earlier. I'll swing over and fix these really quick. In `/templates/base.html.twig`... ah, yep. I missed a couple of lines. When we upgraded the `twig-bundle` recipe, I hadn't even noticed. There we go! That's better.
+
+Okay, we have a user called `abraca_admin@example.com` with password `tada`. Sign in and... it works! By the way, speaking of "securities" and "firewalls", there's a new command you can use to debug your firewall. It's called, appropriately, `debug:firewall`. If you run it with no arguments, it will tell you your firewall names (mine are `dev` and `main`) and we can rerun it with `main`. This just gives us some information about it. It tells us what authenticators we have for it, the user provider it's using, and also the entry point, which is something we talk about in our Security tutorial.
+
+Next, we're going to *crush* the last few deprecations and learn how we can be sure we didn't miss any.
