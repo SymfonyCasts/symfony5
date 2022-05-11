@@ -12,6 +12,7 @@ chapters:
   - entity-prop-types
   - authenticator-upgrade
   - custom-authenticator
+  - password-hashers
   - final-deprecations
   - upgrade-symfony6
   - final-upgrades
