@@ -11,6 +11,7 @@ chapters:
   - annotations-to-attributes
   - entity-prop-types
   - authenticator-upgrade
+  - custom-authenticator
   - final-deprecations
   - upgrade-symfony6
   - final-upgrades
