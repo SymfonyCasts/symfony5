@@ -1,46 +1,147 @@
 # Hunting Down the Final Deprecations
 
-All right team! Let's fix the last few deprecations. One tricky thing about deprecations is that, sometimes, they come from third-party bundles. I don't have any examples here, but sometimes you'll get deprecations and if you look into it, you'll realize they're not your fault. They're coming from a library or a bundle you're using. In that case, you'll need to upgrade that bundle, and *hope* there's a new version that doesn't have any deprecations. We actually *did* have some examples of that *way* back at the beginning of the tutorial, but we've already run `composer update` a few times, and we've upgraded all of our dependencies to versions that don't have any deprecations. Yay, efficiency!
+All right team! Let's fix the last few deprecations. One of the trickiest things about
+deprecations is that, sometimes, they come from third-party bundles. We don't have any
+examples here, but sometimes you'll get deprecations and... if you look into it,
+you'll realize they're not your fault. They're coming from a library or a bundle
+you're using. When this happens, you need to upgrade that bundle, and *hope* there's
+a new version that doesn't have any deprecations. We actually *did* have some examples
+of this *way* back at the beginning of the tutorial. But... we've already run
+`composer update` a few times, and have, apparently, upgraded all of our dependencies
+to versions *without* deprecations. Yay, efficiency!
 
-All right, let's take a look at this list down here. It says that, in Symfony 5.1, `ROLE_PREVIOUS_ADMIN` is deprecated and we should use `IS_IMPERSONATOR` instead. And you can show the context or trace on this to try to get more information about it, such as where it lives, but that isn't always obvious. You can see here that this one is coming from `base.html.twig`.
+## ROLE_PREVIOUS_ADMIN -> IS_IMPERSONATOR
 
-Let's go check that out over in `/templates/base.html.twig`. I'll search for "previous admin". In another tutorial, we used this to check to see if you were currently impersonating a user and we could use it to change the background to red so it was really obvious. To fix this deprecation, very simply, we just change this to `IS_IMPERSONATOR`. Easy, right? I'll copy that... and there's one other spot on this page where we need to do the same thing: `IS_IMPERSONATOR`. Done! One less deprecation!
+All right, let's take a look at this list. It says that, in Symfony 5.1,
+`ROLE_PREVIOUS_ADMIN` is deprecated and we should use `IS_IMPERSONATOR` instead. And
+you can show the context or trace to try to get more info, like *where* this is
+coming from. It isn't always obvious... and that's one of the trickiest things
+about deprecations. But *this* one is coming from `base.html.twig`.
 
-While we're talking about this, go to `/config/packages/security.yaml` and head down to `access_control`. I have a couple pages here - `/logout`, `/admin/login`, and `/login` - that I want to make *absolutely* sure are accessible by *everyone*, even if they're not logged in. In order to do this before, we put these rules on top and used `IS_AUTHENTICATED_ANONYMOUSLY`. So if I go to `/logout`, *only* this `access_control` is matched and the `role` is authenticated anonymously because it always returns `true`, and it allows access. In Symfony 6, `IS_AUTHENTICATED_ANONYMOUSLY` has changed to `PUBLIC_ACCESS`, so I'm going to use that in both places.
+Let's go check that out! Open `templates/base.html.twig` and search for
+"previous_admin". In a previous tutorial, we used this to check if we are
+currently impersonating a user with Symfony's `switch_user` feature. If we *are*,
+we changed the background to red to make it really obvious.
 
-If you're wondering why we didn't have a deprecation for that, this is a rare case where Symfony was unable to catch that deprecated path and show it to you. This doesn't happen very often, but it's a situation where a tool like SymfonyInsight can catch it, even when Symfony itself can't.
+To fix this deprecation, very simply, change this to `IS_IMPERSONATOR`. Copy that...
+because there's one other spot on this page where we need to do the same thing:
+`IS_IMPERSONATOR`. Done! One less deprecation!
 
-Okay, the last deprecation I have on the list says:
+## IS_AUTHENTICATED_ANONYMOUSLY -> PUBLIC_ACCESS
 
-`SessionInterface aliases are deprecated, use
-"$requestStack->$getSession()" instead. It is
-being referenced by the "App/Security/
-LoginFormAuthenticator" service.`
+While we're talking about this, open up `config/packages/security.yaml` and head down
+to `access_control`. I have a few entries - `/logout`, `/admin/login`, and
+`/login` - that I want to make *absolutely* sure are accessible by *everyone*, even
+if the user is not logged in. To do, we added these rules on top and, *previously*
+used `IS_AUTHENTICATED_ANONYMOUSLY`. So if I go to `/logout`, *only* this
+`access_control` is matched... and since the `role` is `IS_AUTHENTICATED_ANONYMOUSLY`
+it *always* allows access.
 
-Let's go check that out in `/src/Security/Voter/LoginFormAuthenticator.php`. If you look here, you can see I'm autowiring the `$session` service. In Symfony 6, the `$session` service doesn't exist anymore. There are some technical reasons for this, but long story short, the session is not really a *true* service. What you're supposed to do now is get it from the request instead. This really isn't *that* big of deal. We can remove the `SessionInterface` constructor argument, and I don't need this use statement anymore either. Then, if I search for "session", you can see I was using it down here in `onAuthenticationSuccess`. Fortunately, this already passes us the `$request` object, so we can just say `$request->getSession()`. This gives us the session object off of the `$request`.
+In Symfony 6, `IS_AUTHENTICATED_ANONYMOUSLY` has changed to `PUBLIC_ACCESS`. So
+use that in both places.
 
-All right, if we head back to the homepage and refresh... no deprecations! And if we surf around our site a little bit... I'm not seeing any deprecations on any of these pages. Woohoo! Does this mean we're done? Well, we've manually tested all of the pages that were with `GET` requests, but what about `POST` requests like submitting the login form or submitting the registration form? Or what about API endpoints? We have one called `/api/me`, which doesn't work because I'm not logged in. Log *back* in as "abraca_admin@example.com" with password "tada" and then... `/api/me` works. Cool!
+If you're wondering why we didn't have a deprecation for that... well... this is
+a rare case where Symfony was unable to catch that deprecated path and show it to
+you. This doesn't happen very often, but it's a situation where a tool like
+SymfonyInsight can help catch this.... even when Symfony itself can't.
 
-We can't see the web debug toolbar for this, but you probably already know the trick. We can go to `/_profiler`, and it will show us the last ten requests. Here's the `POST` request with `/login`. If we go down to Logs, that had no deprecations. If I go back, I can also check our API endpoint, and if we look at Logs again, it had no deprecations either. Yay!
+## The Deprecated Session Service
 
-Another option, instead of just checking the profiler all the time, is to go over your terminal and we can tail the log file. Say:
+Okay, the last deprecation we have on the list says:
+
+> `SessionInterface` aliases are deprecated, use `$requestStack->getSession()`
+> instead. It's being referenced by the `App/Security/LoginFormAuthenticator` service.
+
+Let's go check that out! Open `src/Security/LoginFormAuthenticator.php`. Ahh.
+I'm autowiring the `SessionInterface` service. In Symfony 6, that service *no*
+longer exists. there are some technical reasons for this... but long story
+short, the session is not really a *true* service. What you're supposed to do now
+is get it from the `Request`.
+
+This really isn't *that* big of deal. Remove the `SessionInterface` constructor
+argument... and we don't need this `use` statement anymore either. Now search for
+"session". We're using it down here in `onAuthenticationSuccess()`. Fortunately,
+this already passes us the `$request` object! So we can just say
+`$request->getSession()`.
+
+## Hunting Down the Final Deprecations
+
+Done! So... did we do it? Have we achieved zero deprecations? Go back to the
+homepage, refresh and... we did! No deprecations! And if we surf around our site
+a little bit... I'm not seeing any deprecations on *any* of these pages!
+
+Does this mean we're done? Well, we've manually tested all of the pages that we
+can click on. But what about `POST` requests... like submitting the login form
+or the registration form? And what about API endpoints? We have one called
+`/api/me`... which doesn't work because I'm not logged in. Log *back* in as
+"abraca_admin@example.com" with password "tada" and then... yea. `/api/me` works.
+
+We can't see the web debug toolbar for this, but you probably already know the trick
+to see it. Go to `/_profiler` to see the last ten requests. Here's the
+`POST` request to `/login`. Go down to Logs. Great! That had no deprecations.
+Go back and also check the API endpoint. And if we look at Logs again, it *also*
+had no deprecations either. Yay!
+
+Another option, instead of checking the profiler all the time, is to go over
+your terminal and tail the log file:
 
 ```terminal
 tail -f var/log/dev.log
 ```
 
-This is something that *constantly* streams logs. I'm going to hit "ctrl" + "C" because I'm actually going to grep that for deprecation: `| grep deprecation`. Now it will sit here and if any logs come through that have deprecations, we'll see them. For example, let's go register as a new user. I'll log out, then "Sign up". It asks me for my name, my email, and a password, and then we'll "Agree" to the terms. Submit and... oh, my password is too short. I'll fix that really quick, hit "Register" again and... beautiful! That works! But if we scroll over, it says:
+This is something that *constantly* streams logs. Hit "ctrl" + "C" and run that
+again, but grep for `deprecations`:
 
-`Since symfony/framework-bundle 5.4, Method "[...]
-/AbstractController::getDoctrine()" is
-deprecated,
-inject an instance of ManagerRegistry in your
-controller instead.`
+```terminal-silent
+tail -f var/log/dev.log | grep deprecation
+```
 
-It's not easy to see where this is coming from in my code from here, but I *did* just re-register. So I'm going to go check out `RegistrationController.php`. What it's complaining about is right here - this `getDoctrine()` is deprecated. Instead of using this, we'll just inject the `$entityManager`. At the end of the argument list here, we'll hotwire one more argument: `EntityManagerInterface $entityManager`. Beautiful! Down here, we can just delete that line because `$entityManager` is now being injected. And *that* is another deprecation gone!
+Perfect. Now, if any logs come through that contain the word "deprecation", we'll
+see them. And since any deprecate code paths trigger a log in the `dev` environment,
+this is a powerful tool.
 
-Are we done now? *Probably.* Our project is pretty small, so checking out the pages manually is not that big of a deal, but for bigger projects, it might be more difficult. And you *really* want to be sure that you didn't miss anything before you upgrade.
+## Deprecated $this->getDoctrine() Method
 
-One really great option for this on production is actually to *log* your deprecations. Open `/config/packages/monolog.yaml` and go down to `when@prod`. You can see there are a number of handlers here. By default, it's going to log all errors as a standard error. But down here it has this `deprecation` thing. This says it's going to log any deprecation messages (that's what this `channels: [deprecation]` means) to `php://stderr`. So if you *are* going to have a production system set up to capture logs that go to `php://stderr`, you can deploy your site, let it run for a day or a week, and then check this for any deprecation log messages. If you want to use a file instead, you can just change this path to a deprecation file, like `%kernel.logs/_dir%/deprecations.log`. I'm not going to use this, so I'll change it back. That's my favorite thing to do: Deploy it, and then you get to see whether or not you still have deprecations from up on production.
+For example, let's go register as a new user. I'll log out, then "Sign up". It asks
+me for my name, email, and a password. Click to "Agree" to some made-up terms and
+submit. Oh, my password is too short: my own validation coming back to haunt me!
+Fix that, hit "Register" again and... beautiful! It works!
 
-At this point, I'm not seeing any more deprecations on our web debug toolbar, so I think we've removed all of them. Woo! And that means we are ready for Symfony 6! Let's make the switch next.
+But if we go *back* to our terminal... rut roo!
+
+> Since symfony/framework-bundle 5.4, Method `AbstractController::getDoctrine()`
+> is deprecated. Inject an instance of `ManagerRegistry` in your controller instead.
+
+It's not easy to see where this is coming from in our code, but we *did* just
+register... so let's open up `RegistrationController`. Ah, it's complaining about
+this right here: the `getDoctrine()` method is deprecated.
+
+Instead of using this, we can inject the `$entityManager`. At the end of the argument
+list, autowire one more argument: `EntityManagerInterface $entityManager`.
+And... then down here, delete this line because `$entityManager` is now being
+injected. Another deprecation gone!
+
+## Logging Deprecations on Production
+
+Are we done now? *Probably.* Our project is pretty small, so checking out the pages
+manually isn't that big of a deal. But for bigger projects, it might be... well...
+a *huge* deal to check everything manually! And you *really* want to be sure that
+you didn't miss anything before you upgrade.
+
+One great option to make sure you didn't miss anything is to *log* your deprecations
+on production. Open `config/packages/monolog.yaml` and go down to `when@prod`. This
+has a number of handlers here. By default, it will log all errors as to `stderr`.
+But down here, it has this `deprecation` thing. With this config, Symfony will
+log any deprecation messages (that's what this `channels: [deprecation]` means) to
+`php://stderr`.
+
+With this, you can deploy, wait for an hour, day or week, then... check the log!
+If you want to log to a file instead, just change the path to a file, like
+`%kernel.logs_dir%/deprecations.log`.
+
+So that's *my* favorite thing to do: deploy it, and then see - in the *real* world -
+whether or not anyone is still hitting deprecated code paths.
+
+At this point, I'm not seeing any more deprecations on our web debug toolbar, so I
+think we're done. Woo! And *that* means we're ready for Symfony 6! Let's do the upgrade
+next!
