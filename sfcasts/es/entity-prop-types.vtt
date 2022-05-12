@@ -1,0 +1,563 @@
+WEBVTT
+
+00:00:01.016 --> 00:00:05.526 align:middle
+Hace un tiempo se coló una nueva
+función en Doctrine, y es superguay.
+
+00:00:05.916 --> 00:00:10.616 align:middle
+Ahora Doctrine puede adivinar alguna configuración
+sobre una propiedad a través de su tipo.
+
+00:00:11.246 --> 00:00:13.656 align:middle
+Empezaremos con las propiedades de relación.
+
+00:00:14.176 --> 00:00:19.296 align:middle
+Pero antes, quiero asegurarme de que mi base
+de datos está sincronizada con mis entidades.
+
+00:00:19.916 --> 00:00:25.676 align:middle
+Corre: symfony console
+doctrine:schema:update --dump-sql Y...
+
+00:00:26.116 --> 00:00:29.656 align:middle
+¡sí! Mi base de datos sí
+se parece a mis entidades.
+
+00:00:30.516 --> 00:00:35.166 align:middle
+Volveremos a ejecutar este comando más tarde,
+después de hacer un montón de cambios...
+
+00:00:35.546 --> 00:00:42.366 align:middle
+porque nuestro objetivo no es realmente cambiar nada de la
+configuración de nuestra base de datos: sólo simplificarla.
+
+00:00:43.146 --> 00:00:46.936 align:middle
+Ah, y sí, esto volcó un
+montón de depreciaciones...
+
+00:00:47.246 --> 00:00:49.046 align:middle
+las arreglaremos...
+
+00:00:49.376 --> 00:00:50.056 align:middle
+con el tiempo...
+
+00:00:50.306 --> 00:00:50.876 align:middle
+¡Lo prometo!
+
+00:00:50.876 --> 00:00:53.196 align:middle
+Así que aquí está el cambio número uno.
+
+00:00:53.506 --> 00:00:56.966 align:middle
+Esta propiedad question
+contiene un objeto Question.
+
+00:00:56.966 --> 00:00:59.666 align:middle
+Así que vamos a añadir un tipo Question.
+
+00:00:59.666 --> 00:01:01.686 align:middle
+Pero tenemos que tener cuidado.
+
+00:01:02.246 --> 00:01:04.596 align:middle
+Tiene que ser un Question anulable.
+
+00:01:05.346 --> 00:01:10.436 align:middle
+Aunque sea necesario en la base de
+datos, después de instanciar el objeto,
+
+00:01:10.846 --> 00:01:18.156 align:middle
+la propiedad no se rellenará instantáneamente:
+al menos temporalmente, no se establecerá.
+
+00:01:18.956 --> 00:01:22.686 align:middle
+Verás que hago esto con todos mis
+tipos de propiedades de entidad.
+
+00:01:23.186 --> 00:01:29.476 align:middle
+Si es posible que una propiedad esté en null,
+aunque sea por un momento, debemos reflejarlo.
+
+00:01:30.376 --> 00:01:33.926 align:middle
+También voy a inicializar esto con = null.
+
+00:01:34.746 --> 00:01:37.646 align:middle
+Si eres nuevo en esto de los tipos
+de propiedad, esto es lo que pasa.
+
+00:01:38.286 --> 00:01:40.286 align:middle
+Si añades un tipo a una propiedad...
+
+00:01:40.646 --> 00:01:47.796 align:middle
+y luego intentas acceder a ella antes de que esa propiedad
+haya sido establecida con algún valor, obtendrás un error,
+
+00:01:48.206 --> 00:01:54.896 align:middle
+como La propiedad tipo Answer::$question no
+debe ser accedida antes de la inicialización.
+
+00:01:55.766 --> 00:02:01.776 align:middle
+Sin un tipo de propiedad, el = null no
+es necesario, pero ahora sí. Gracias
+
+00:02:01.776 --> 00:02:08.506 align:middle
+a esto, si instanciamos un Answer y luego
+llamamos a getQuestion() antes de que
+
+00:02:08.506 --> 00:02:11.536 align:middle
+se establezca esa propiedad,
+las cosas no explotarán.
+
+00:02:12.346 --> 00:02:17.726 align:middle
+Vale, añadir tipos de propiedades está bien: hace
+que nuestro código sea más limpio y ajustado.
+
+00:02:18.286 --> 00:02:25.526 align:middle
+Pero hay otra gran ventaja: ¡ya
+no necesitamos el targetEntity!
+
+00:02:26.246 --> 00:02:29.216 align:middle
+Ahora Doctrine es capaz de
+resolverlo por nosotros. Así que
+
+00:02:29.746 --> 00:02:30.946 align:middle
+borra esto... ¡y
+
+00:02:31.216 --> 00:02:32.676 align:middle
+celébralo! Entonces...
+
+00:02:33.206 --> 00:02:35.226 align:middle
+sigue con Question. Estoy
+
+00:02:36.076 --> 00:02:39.206 align:middle
+buscando específicamente
+campos de relación. Éste
+
+00:02:39.636 --> 00:02:45.066 align:middle
+es un OneToMany, que contiene una
+colección de $answers . Vamos a
+
+00:02:45.066 --> 00:02:46.746 align:middle
+añadir un tipo aquí... pero
+
+00:02:46.886 --> 00:02:47.806 align:middle
+en un minuto.
+
+00:02:48.176 --> 00:02:51.186 align:middle
+Centrémonos primero en las
+relaciones de ManyToOne. Aquí abajo
+
+00:02:52.006 --> 00:02:59.926 align:middle
+, para owner, añade ?User, $owner =
+null, y luego deshazte de targetEntity . Y
+
+00:03:00.846 --> 00:03:07.526 align:middle
+luego en QuestionTag, haz lo mismo:
+?Question $question = null... y
+
+00:03:07.976 --> 00:03:11.316 align:middle
+da la vuelta de la victoria
+eliminando targetEntity. Y...
+
+00:03:12.056 --> 00:03:12.926 align:middle
+aquí abajo... ¡una
+
+00:03:13.016 --> 00:03:14.536 align:middle
+vez más! ?Tag
+
+00:03:14.536 --> 00:03:17.296 align:middle
+$tag = null.. . y
+
+00:03:17.886 --> 00:03:20.406 align:middle
+despídete de targetEntity. ¡Dulce!
+
+00:03:20.406 --> 00:03:24.736 align:middle
+Para asegurarnos de que no hemos
+estropeado nada, vuelve a ejecutar
+
+00:03:24.936 --> 00:03:29.466 align:middle
+el comando schema:update de antes: Y...
+
+00:03:29.806 --> 00:03:30.736 align:middle
+¡todavía estamos bien! Bien,
+
+00:03:31.446 --> 00:03:35.696 align:middle
+vayamos más allá y añadamos
+tipos a cada propiedad. Esto
+
+00:03:36.276 --> 00:03:39.706 align:middle
+supondrá más trabajo, pero el
+resultado merece la pena. En el caso de
+
+00:03:39.706 --> 00:03:43.976 align:middle
+$id, será un int anulable... e
+
+00:03:44.216 --> 00:03:46.086 align:middle
+inicializarlo a null. Gracias
+
+00:03:46.086 --> 00:03:52.716 align:middle
+a ello, no necesitamos type: 'integer':
+Doctrine ya puede resolverlo. Para
+
+00:03:52.716 --> 00:03:56.346 align:middle
+$content , una cadena anulable... con
+
+00:03:56.346 --> 00:03:57.596 align:middle
+= null. Pero
+
+00:03:58.146 --> 00:04:01.726 align:middle
+en este caso, sí necesitamos
+mantener type: 'text'. Cuando Doctrine
+
+00:04:02.146 --> 00:04:06.456 align:middle
+ve el tipo string, adivina type:
+'string' ... que contiene un
+
+00:04:06.936 --> 00:04:10.936 align:middle
+máximo de 255 caracteres. Como
+
+00:04:10.936 --> 00:04:16.696 align:middle
+este campo contiene mucho texto, anula
+la suposición con type: 'text'. Por
+
+00:04:17.606 --> 00:04:24.236 align:middle
+cierto, algunos os preguntaréis por qué
+no uso $content = '' en su lugar. Diablos,
+
+00:04:24.806 --> 00:04:28.086 align:middle
+¡entonces podríamos eliminar el anulable ? en
+
+00:04:28.086 --> 00:04:28.596 align:middle
+el tipo! ¡Es
+
+00:04:28.596 --> 00:04:30.896 align:middle
+una buena pregunta! La
+
+00:04:31.446 --> 00:04:35.696 align:middle
+razón es que este campo es obligatorio
+en la base de datos. Si inicializamos
+
+00:04:36.486 --> 00:04:39.626 align:middle
+la propiedad a comillas vacías... y
+
+00:04:39.886 --> 00:04:45.586 align:middle
+tengo un error en mi código por el que me
+olvidé de establecer la propiedad $content , se
+
+00:04:46.046 --> 00:04:51.756 align:middle
+guardaría con éxito en la base de datos con el
+contenido establecido en una cadena vacía. Al
+
+00:04:52.446 --> 00:04:56.736 align:middle
+inicializarlo a null, si nos
+olvidamos de establecer este campo,
+
+00:04:57.046 --> 00:05:00.506 align:middle
+explotará antes de entrar en
+la base de datos. Entonces,
+
+00:05:01.006 --> 00:05:02.796 align:middle
+podemos arreglar ese error ... en lugar
+
+00:05:03.056 --> 00:05:06.526 align:middle
+de que guarde silenciosamente la cadena vacía.
+
+00:05:07.086 --> 00:05:09.736 align:middle
+Puede que sea furtivo, pero
+nosotros lo somos más. Bien,
+
+00:05:10.546 --> 00:05:11.856 align:middle
+¡continuemos!
+
+00:05:12.406 --> 00:05:14.726 align:middle
+Gran parte de esto será un trabajo
+de mucho trabajo... así que
+
+00:05:14.726 --> 00:05:16.856 align:middle
+avancemos lo más rápido posible. Añade
+
+00:05:17.676 --> 00:05:18.996 align:middle
+el tipo a username... y elimina
+
+00:05:20.746 --> 00:05:22.966 align:middle
+la opción Doctrina type.
+
+00:05:23.816 --> 00:05:25.746 align:middle
+También podemos eliminar length... ya que
+
+00:05:25.746 --> 00:05:28.926 align:middle
+el valor por defecto siempre ha sido 255. La
+
+00:05:29.706 --> 00:05:33.656 align:middle
+propiedad$votes se ve bien, pero podemos
+deshacernos de type: 'integer'. Y
+
+00:05:34.446 --> 00:05:40.056 align:middle
+aquí abajo para $status, esto ya tiene el tipo,
+así que elimina type: 'string'. Pero tenemos
+
+00:05:40.716 --> 00:05:46.406 align:middle
+que mantener el length si queremos
+que sea más corto que el 255. Pasamos
+
+00:05:46.406 --> 00:05:48.256 align:middle
+a la entidad Question. Dale a
+
+00:05:49.476 --> 00:05:50.516 align:middle
+$id el tipo... elimina su opción
+
+00:05:52.676 --> 00:05:57.106 align:middle
+type Doctrina, actualiza $name... elimina
+
+00:05:59.106 --> 00:06:00.936 align:middle
+todas sus opciones.... y
+
+00:06:02.316 --> 00:06:04.116 align:middle
+repite esto para $slug. Observa
+
+00:06:06.136 --> 00:06:11.126 align:middle
+que $slug sigue utilizando
+una anotación de @Gedmo\Slug.
+
+00:06:11.676 --> 00:06:12.806 align:middle
+Lo arreglaremos en un momento. Actualiza
+
+00:06:13.556 --> 00:06:14.566 align:middle
+$question.. . y luego
+
+00:06:17.276 --> 00:06:18.776 align:middle
+$askedAt. Esto
+
+00:06:19.376 --> 00:06:25.596 align:middle
+es un type: 'datetime', así que va a
+contener una instancia de ?\DateTime.
+
+00:06:26.426 --> 00:06:28.456 align:middle
+También la inicializaré a null. Ah,
+
+00:06:29.206 --> 00:06:33.726 align:middle
+y me olvidé de hacerlo, pero ahora
+podemos eliminar type: 'datetime'. Y
+
+00:06:34.506 --> 00:06:37.406 align:middle
+ahora volvemos a la relación OneToMany. Si
+
+00:06:37.406 --> 00:06:43.606 align:middle
+miras hacia abajo, esto se inicializa en el
+constructor a un ArrayCollection. Así que
+
+00:06:43.606 --> 00:06:47.476 align:middle
+podrías pensar que deberíamos usar
+ArrayCollection para el tipo. Pero
+
+00:06:47.946 --> 00:06:50.156 align:middle
+en su lugar, digamos Collection. Esa es
+
+00:06:50.846 --> 00:06:56.166 align:middle
+una interfaz de Doctrine que
+implementa ArrayCollection. Tenemos que
+
+00:06:56.166 --> 00:07:01.596 align:middle
+utilizar Collection aquí porque, cuando
+busquemos un Question en la base de datos y
+
+00:07:01.846 --> 00:07:04.156 align:middle
+obtengamos la propiedad $answers, Doctrine
+
+00:07:04.616 --> 00:07:10.376 align:middle
+la establecerá en un objeto diferente:
+un PersistentCollection. Así que
+
+00:07:10.376 --> 00:07:15.886 align:middle
+esta propiedad puede ser un ArrayCollection,
+o un PersistentCollection... pero
+
+00:07:16.316 --> 00:07:21.036 align:middle
+en todos los casos, implementará
+esta interfaz Collection. Y
+
+00:07:21.876 --> 00:07:27.956 align:middle
+esto no necesita ser anulable porque se
+inicializa dentro del constructor. Haz lo mismo
+
+00:07:28.776 --> 00:07:31.436 align:middle
+con $questionTags . Aunque no lo creas
+
+00:07:32.516 --> 00:07:35.056 align:middle
+, ¡estamos en la recta final! En
+
+00:07:35.516 --> 00:07:36.636 align:middle
+QuestionTag.. . haz
+
+00:07:37.046 --> 00:07:39.456 align:middle
+nuestros cambios habituales en $id... y luego
+
+00:07:40.176 --> 00:07:42.406 align:middle
+baja a $taggedAt . Este es
+
+00:07:43.076 --> 00:07:47.926 align:middle
+un tipo datetime_immutable, así que
+utiliza \DateTimeImmutable. Fíjate en
+
+00:07:48.886 --> 00:07:54.696 align:middle
+que no lo he hecho anulable y no lo
+estoy inicializando a null. Eso es
+
+00:07:55.366 --> 00:07:58.856 align:middle
+simplemente porque lo estamos
+estableciendo en el constructor. Así nos
+
+00:07:58.856 --> 00:08:04.456 align:middle
+garantizamos que siempre contendrá
+una instancia de \DateTimeImmutable:
+
+00:08:04.456 --> 00:08:06.226 align:middle
+nunca será nula. Bien,
+
+00:08:07.036 --> 00:08:09.266 align:middle
+ahora a Tag. Haz
+
+00:08:09.906 --> 00:08:12.376 align:middle
+nuestro habitual baile de $id. Pero
+
+00:08:14.406 --> 00:08:15.106 align:middle
+espera...
+
+00:08:15.606 --> 00:08:19.936 align:middle
+en QuestionTag, me olvidé de
+quitar el type: 'integer' . No
+
+00:08:20.376 --> 00:08:21.796 align:middle
+hace nada...
+
+00:08:21.916 --> 00:08:23.296 align:middle
+simplemente no es necesario. Y...
+
+00:08:23.906 --> 00:08:26.716 align:middle
+lo mismo para type:
+'datetime_immutable . De vuelta en
+
+00:08:27.576 --> 00:08:31.326 align:middle
+Tag, sigamos con la propiedad $name... esto
+
+00:08:31.836 --> 00:08:33.166 align:middle
+es todo normal... Luego salta
+
+00:08:34.806 --> 00:08:37.996 align:middle
+a nuestra última clase: User.
+
+00:08:38.846 --> 00:08:47.556 align:middle
+Aceleraré los aburridos
+cambios en $id y $email... y
+
+00:08:47.556 --> 00:08:48.466 align:middle
+$password.
+
+00:08:49.066 --> 00:08:56.066 align:middle
+Eliminemos también el PHP Doc de @var que está por
+encima de éste: ahora es totalmente redundante. Hagamos
+
+00:08:57.016 --> 00:08:59.036 align:middle
+lo mismo con $plainPassword. Diablos,
+
+00:08:59.636 --> 00:09:05.196 align:middle
+este @var ni siquiera estaba bien -
+¡debería haber sido string|null! Vamos a
+
+00:09:06.206 --> 00:09:15.596 align:middle
+hacer un acercamiento a los últimos cambios:
+$firstName, añade Collection a $questions... y
+
+00:09:16.446 --> 00:09:19.526 align:middle
+no hace falta type para $isVerified. Y...
+
+00:09:20.376 --> 00:09:22.076 align:middle
+¡hemos terminado! Esto
+
+00:09:22.576 --> 00:09:24.486 align:middle
+ha sido una faena. Pero en
+
+00:09:25.076 --> 00:09:29.506 align:middle
+adelante, el uso de tipos de propiedades
+significará un código más ajustado... y
+
+00:09:29.776 --> 00:09:31.766 align:middle
+menos configuración de Doctrine. Pero...
+
+00:09:32.536 --> 00:09:34.876 align:middle
+veamos si hemos estropeado algo. Ejecuta
+
+00:09:35.376 --> 00:09:40.396 align:middle
+doctrine:schema:update por
+última vez: ¡Está limpio! Hemos
+
+00:09:41.136 --> 00:09:46.596 align:middle
+cambiado una tonelada de configuración, pero en
+realidad no ha cambiado cómo se mapea ninguna de
+
+00:09:46.596 --> 00:09:48.396 align:middle
+nuestras entidades. Misión
+
+00:09:48.676 --> 00:09:50.196 align:middle
+cumplida. Ah,
+
+00:09:51.106 --> 00:09:56.036 align:middle
+y como prometimos, hay una última
+anotación que debemos cambiar: está
+
+00:09:56.426 --> 00:09:59.466 align:middle
+en la entidad Question,
+encima del campo $slug. Esto
+
+00:10:00.106 --> 00:10:02.896 align:middle
+proviene de la biblioteca de
+extensiones de Doctrine. El rector
+
+00:10:03.486 --> 00:10:05.046 align:middle
+no lo ha actualizado... pero
+
+00:10:05.476 --> 00:10:06.896 align:middle
+es súper fácil.
+
+00:10:07.756 --> 00:10:14.436 align:middle
+Siempre que tengas Doctrine Extensions 3.6 o
+superior, puedes utilizarlo como atributo. Así que
+
+00:10:14.436 --> 00:10:21.056 align:middle
+#[Gedmo\Slug()] con una opción fields
+que tenemos que establecer en un array. Lo
+
+00:10:21.846 --> 00:10:24.696 align:middle
+bueno de los atributos PHP es que...
+
+00:10:25.176 --> 00:10:27.266 align:middle
+¡sólo son código PHP! Así que
+
+00:10:27.746 --> 00:10:30.356 align:middle
+escribir un array en atributos... es
+
+00:10:30.586 --> 00:10:33.546 align:middle
+lo mismo que escribir un array en PHP. Dentro,
+
+00:10:34.436 --> 00:10:36.076 align:middle
+pasa 'name'... utilizando
+
+00:10:36.216 --> 00:10:41.396 align:middle
+comillas simples, como
+solemos hacer en PHP. Bien,
+
+00:10:41.396 --> 00:10:45.206 align:middle
+equipo: acabamos de dar un gran paso adelante en nuestro
+código base. A continuación, vamos a centrarnos
+
+00:10:46.016 --> 00:10:52.396 align:middle
+en las desaprobaciones restantes y
+a trabajar para aplastarlas. Vamos a
+
+00:10:53.176 --> 00:10:58.426 align:middle
+empezar con el elefante en la habitación: la
+conversión al nuevo sistema de seguridad. Pero
+
+00:10:58.986 --> 00:10:59.626 align:middle
+no te preocupes Es
+
+00:10:59.966 --> 00:11:01.736 align:middle
+más fácil de lo que crees
