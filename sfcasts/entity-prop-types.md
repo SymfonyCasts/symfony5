@@ -24,6 +24,8 @@ at least temporarily, *not* be set. You'll see me do this with all of my entity
 property types. If it's *possible* for a property to be `null` - even for a
 moment - we need to reflect that.
 
+[[[ code('45f929546f') ]]]
+
 I'm also going to initialize this with `= null`. If you're new to property types,
 here's the deal. If you add a type to a property... then try to access it *before*
 that property has been set to some value, you'll get an error, like
@@ -36,7 +38,9 @@ property is set, things won't explode.
 
 Ok, so adding property types is nice: it makes our code cleaner and tighter. *But*,
 there's another big advantage: we don't need the `targetEntity` anymore! Doctrine
-is now able able to figure that out for us. So delete this... and celebrate!
+is now able to figure that out for us. So delete this... and celebrate!
+
+[[[ code('8e5a44c12a') ]]]
 
 Then... keep going to `Question`. I'm looking specifically for relationship fields.
 This one is a `OneToMany`, which holds a collection of `$answers`. We *are* going
@@ -44,11 +48,18 @@ to add a type here... but in a minute. Let's focus on the `ManyToOne` relationsh
 first.
 
 Down here, for `owner`, add `?User`, `$owner = null`, then get rid of `targetEntity`.
+
+[[[ code('5b73d33004') ]]]
+
 And then in `QuestionTag`, do the same thing: `?Question $question = null`...
 and do your victory lap by removing `targetEntity`.
 
+[[[ code('fdb63095ef') ]]]
+
 And... down here... one more time! `?Tag $tag = null`... and say bye bye to
 `targetEntity`.
+
+[[[ code('d0e193d1fc') ]]]
 
 Sweet! To make sure we didn't mess anything up, re-run the `schema:update` command
 from earlier:
@@ -66,10 +77,14 @@ but the result is worth it. For `$id`, this will be a nullable `int`... and
 initialize it to `null`. Thanks to that, we don't need `type: 'integer'`: Doctrine
 can now figure that out.
 
+[[[ code('b57ef42441') ]]]
+
 For `$content`, a nullable string... with `= null`. But in this case, we *do* need
 to keep `type: 'text'`. When Doctrine sees the `string` type, it *guesses*
 `type:  'string'`... which holds a maximum of 255 characters. Since this field
 holds a *lot* of text, override the guess with `type: 'text'`.
+
+[[[ code('d1d76cdc69') ]]]
 
 ## Initialize string Field to null or ''?
 
@@ -90,6 +105,8 @@ property looks good, but we can get rid of `type: 'integer'`. And down here
 for `$status`, this already has the type, so delete `type: 'string'`. But we *do*
 need to keep the `length` if we want it to be shorter than 255.
 
+[[[ code('7483772e0c') ]]]
+
 Moving on to the `Question` entity. Give `$id` the type... remove its `type` Doctrine
 option, update `$name`... delete *all* of its options.... and repeat this for `$slug`.
 Notice that `$slug` still uses an annotation from `@Gedmo\Slug`. We'll fix that
@@ -98,6 +115,8 @@ in a minute.
 Update `$question`... then `$askedAt`. This is a `type: 'datetime'`, so that's
 going to hold a `?\DateTime` instance. I'll also initialize it to null. Oh, and
 I forgot to do it, but we *could* now remove `type: 'datetime'`.
+
+[[[ code('67b6a1213f') ]]]
 
 ## Typing Collection Properties
 
@@ -113,6 +132,8 @@ object: a `PersistentCollection`. So this property might be an `ArrayCollection`
 `Collection` interface. And this does *not* need to be nullable because it's
 initialized *inside* the constructor. Do the same thing for `$questionTags`.
 
+[[[ code('3431e42217') ]]]
+
 Believe it our not, we're in the home stretch! In `QuestionTag`... make our
 usual `$id` changes... then head down to `$taggedAt`. This is a `datetime_immutable`
 type, so use `\DateTimeImmutable`. Notice that I did *not* make this nullable
@@ -120,18 +141,25 @@ and I'm not *initializing* it to null. That's simply because we're setting this
 in the constructor. So we're guaranteed that it will *always* hold a
 `\DateTimeImmutable` instance: it will never be null.
 
+[[[ code('7e6d2f0e16') ]]]
+
 Ok, now to `Tag`. Do our usual `$id` dance. But wait... back in `QuestionTag`, I
 forgot to remove the `type: 'integer'`. It doesn't hurt anything... it's just
 not needed. And... same for `type: 'datetime_immutable`.
 
 Back over in `Tag`, let's keep going with the `$name` property... this is all normal...
-then jump to our *last* class: `User`. I'll speed through the boring changes
+
+[[[ code('a3b1c6a68a') ]]]
+
+Then jump to our *last* class: `User`. I'll speed through the boring changes
 to `$id` and `$email`... and `$password`. Let's also remove the `@var` PHP Doc
 above this: that's now totally redundant. Do that same thing for `$plainPassword`.
 Heck, this `@var` wasn't even right - it should have been `string|null`!
 
 Let's zoom through the last changes: `$firstName`, add `Collection` to
 `$questions`... and no `type` needed for `$isVerified`.
+
+[[[ code('1e4343d0a9') ]]]
 
 And... we're done! This *was* a chore. But going forward, using property types
 will mean tighter code... and less Doctrine config.
@@ -156,6 +184,8 @@ have Doctrine Extensions 3.6 or higher, you can use this as an attribute. So
 thing about PHP attributes are... they're just PHP code! So writing an array in
 attributes... is the same as writing an array in PHP. Inside, pass `'name'`...
 using single quotes, just like we usually do in PHP.
+
+[[[ code('e56a121ed0') ]]]
 
 Ok team: we just took our codebase a *huge* step forward. Next, let's dial
 in on these remaining deprecations and work on squashing them. We're going to start
