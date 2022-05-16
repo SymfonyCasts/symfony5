@@ -13,11 +13,14 @@ the old one... and the upgrade path is surprisingly easy.
 
 For the first change, open up the `User` entity. In addition to `UserInterface`,
 add a second `PasswordAuthenticatedUserInterface`. Until recently, `UserInterface`
-had a *lot* of methods on it, including `getPassword()`. But... this didn't always
-make sense. For example, some security systems have users that *don't* have passwords.
-For example, if your users log in via a single sign-on system, then there *are*
-no passwords to handle. Well, the user might enter their password into *that* system...
-but as far as our app is concerned, there are no passwords.
+had a *lot* of methods on it, including `getPassword()`. 
+
+[[[ code('e9bfb6bfc1') ]]]
+
+But... this didn't always make sense. For example, some security systems have users 
+that *don't* have passwords. For example, if your users log in via a single sign-on 
+system, then there *are* no passwords to handle. Well, the user might enter their 
+password into *that* system... but as far as our app is concerned, there are no passwords.
 
 To make this cleaner, in Symfony 6, `getPassword()` was *removed* from
 `UserInterface`. So you *still* always need to implement `UserInterface`... but
@@ -33,6 +36,8 @@ user identifier - not *necessarily* a username. Because of that, in Symfony 6, t
 has been renamed from `getUsername()` to `getUserIdentifier()`. Copy this, paste,
 change `getUsername` to `getUserIdentifier()`... and that's it.
 
+[[[ code('6d0889f816') ]]]
+
 We *do* need to keep `getUsername()` for now because we're still on Symfony 5.4...
 but once we upgrade to Symfony 6, we can safely remove it.
 
@@ -40,8 +45,11 @@ but once we upgrade to Symfony 6, we can safely remove it.
 
 But the *biggest* change in Symfony's security system can be found in
 `config/packages/security.yaml`. It's this `enable_authenticator_manager`. When we
-upgraded the recipe, it gave us this config... but it was set to `true`. This
-teenie, tiny, innocent-looking line allows us to switch from the old security system
+upgraded the recipe, it gave us this config... but it was set to `true`. 
+
+[[[ code('3466e83445') ]]]
+
+This teenie, tiny, innocent-looking line allows us to switch from the old security system
 to the new one. And what *that* means, in practice, is that all of the ways you
 authenticate - like a custom authenticator or `form_login` or `http_basic` - will
 suddenly start using an entirely new system under the hood.
@@ -64,6 +72,8 @@ Open up our custom authenticator: `src/Security/LoginFormAuthenticator.php`. We
 can already see that `AbstractFormLoginAuthenticator` from the old system is
 deprecated. Change this to `AbstractLoginFormAuthenticator`.
 
+[[[ code('8ba94eb55e') ]]]
+
 I know, it's almost the exact same name: we just swapped "Form" and "Login" around.
 If your custom authenticator is *not* for a login form, then change your class to
 `AbstractAuthenticator`.
@@ -83,14 +93,20 @@ Ok! I'll go down below `supports()`, go to "Code Generate" - or "cmd" + "N"
 on a Mac - and implement that new `authenticate()` method. This is the *core* of
 the new authenticator system... and we're going to talk about it in a few minutes.
 
+[[[ code('62d97273bb') ]]]
+
 Oh, but the old and new systems do *share* several methods. Like, they
 both have a method called `supports()`... but the new system has a `bool` return
 type. As soon as we add that, PhpStorm is happy.
+
+[[[ code('e446272141') ]]]
 
 Below, on `onAuthenticationSuccess()`, it looks like we need to add a return
 type here as well. At the end, add the `Response` type from HttpFoundation.
 Nice! And while we're working on this method, rename the `$providerKey` argument to
 `$firewallName`.
+
+[[[ code('907739307b') ]]]
 
 You don't *have* to do this, that's just the new name of the argument... and it's
 more clear.
@@ -100,8 +116,12 @@ as well. Oh, and for `onAuthenticationSuccess()`, I just remembered that this ca
 return a *nullable* `Response`. In some systems - like API token authentication -
 you will *not* return a response.
 
+[[[ code('780942b5ca') ]]]
+
 Finally, we *still* need a `getLoginUrl()` method, but in the new system, this
 accepts a `Request $request` argument and returns a `string`.
+
+[[[ code('87b5769d3e') ]]]
 
 Alright! we still need to fill in the "guts", but we *at least* have all the
 methods we need.
@@ -109,6 +129,8 @@ methods we need.
 ## Removing supports() for "form login" authenticators
 
 And actually, we can remove one of these! Delete the `supports()` method.
+
+[[[ code('8a3ab4b226') ]]]
 
 Ok, this method *is* still needed by custom authenticators and its job is the
 same as before. But, if you jump into the base class, in the new system, the
