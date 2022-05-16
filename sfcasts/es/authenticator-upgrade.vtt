@@ -1,0 +1,386 @@
+WEBVTT
+
+00:00:01.006 --> 00:00:05.616 align:middle
+Es hora de arreglar estas depreciaciones para
+que podamos finalmente actualizar a Symfony 6.
+
+00:00:06.106 --> 00:00:08.926 align:middle
+Ve a cualquier página del sitio y
+haz clic en las depreciaciones de
+
+00:00:08.986 --> 00:00:11.766 align:middle
+la barra de herramientas de
+depuración web para ver la lista.
+
+00:00:12.646 --> 00:00:15.156 align:middle
+Es una lista grande...
+
+00:00:15.676 --> 00:00:19.246 align:middle
+pero muchas de ellas están
+relacionadas con lo mismo: la seguridad.
+
+00:00:20.076 --> 00:00:24.956 align:middle
+El mayor cambio -y quizás el
+más maravilloso- en Symfony 5.4
+
+00:00:24.956 --> 00:00:28.256 align:middle
+y Symfony 6, es el nuevo sistema de seguridad.
+
+00:00:28.976 --> 00:00:30.456 align:middle
+Pero no te preocupes.
+
+00:00:30.936 --> 00:00:33.346 align:middle
+No es muy diferente del anterior...
+
+00:00:33.746 --> 00:00:36.696 align:middle
+y la ruta de actualización
+es sorprendentemente fácil.
+
+00:00:37.516 --> 00:00:40.686 align:middle
+Para el primer cambio, abre la entidad User.
+
+00:00:41.356 --> 00:00:47.146 align:middle
+Además de UserInterface, añade un
+segundo PasswordAuthenticatedUserInterface.
+
+00:00:47.876 --> 00:00:54.556 align:middle
+Hasta hace poco, UserInterface tenía un
+montón de métodos, entre ellos getPassword().
+
+00:00:55.286 --> 00:00:58.256 align:middle
+Pero... esto no siempre tenía sentido.
+
+00:00:58.256 --> 00:01:03.116 align:middle
+Por ejemplo, algunos sistemas de seguridad
+tienen usuarios que no tienen contraseñas. Por
+
+00:01:03.646 --> 00:01:08.516 align:middle
+ejemplo, si tus usuarios se conectan a través
+de un sistema de inicio de sesión único,
+
+00:01:08.876 --> 00:01:11.696 align:middle
+entonces no hay contraseñas que manejar.
+
+00:01:12.246 --> 00:01:16.186 align:middle
+Bien, el usuario podría introducir
+su contraseña en ese sistema...
+
+00:01:16.656 --> 00:01:20.666 align:middle
+pero en lo que respecta a nuestra
+aplicación, no hay contraseñas.
+
+00:01:21.576 --> 00:01:27.416 align:middle
+Para hacer esto más limpio, en Symfony 6,
+se eliminó getPassword() de UserInterface.
+
+00:01:27.906 --> 00:01:31.236 align:middle
+Así que siempre hay que
+implementar UserInterface...
+
+00:01:31.636 --> 00:01:37.956 align:middle
+pero el método getPassword() y su
+PasswordAuthenticatedUserInterface son opcionales.
+
+00:01:38.846 --> 00:01:41.286 align:middle
+Otro cambio se refiere a getUsername().
+
+00:01:41.776 --> 00:01:44.296 align:middle
+Este método vive en UserInterface...
+
+00:01:44.616 --> 00:01:47.856 align:middle
+pero su nombre siempre era confuso.
+
+00:01:48.586 --> 00:01:52.326 align:middle
+Hacía parecer que era necesario
+tener un nombre de usuario...
+
+00:01:52.606 --> 00:01:55.466 align:middle
+cuando en realidad, este método se supone
+
+00:01:55.466 --> 00:02:01.526 align:middle
+que devuelve cualquier identificador de usuario
+único, no necesariamente un nombre de usuario. Por
+
+00:02:02.266 --> 00:02:06.146 align:middle
+eso, en Symfony 6, se ha cambiado el nombre
+
+00:02:06.146 --> 00:02:10.146 align:middle
+de getUsername() a getUserIdentifier().
+
+00:02:10.906 --> 00:02:17.766 align:middle
+Copia esto, pégalo, cambia
+getUsername por getUserIdentifier()...
+
+00:02:18.586 --> 00:02:20.126 align:middle
+y ya está.
+
+00:02:20.756 --> 00:02:26.856 align:middle
+Tenemos que mantener getUsername() por ahora
+porque todavía estamos en Symfony 5.4...
+
+00:02:27.246 --> 00:02:31.036 align:middle
+pero una vez que actualicemos a Symfony
+6, podremos eliminarlo sin problemas.
+
+00:02:31.816 --> 00:02:35.876 align:middle
+Pero el mayor cambio en el sistema
+de seguridad de Sym fony se encuentra
+
+00:02:35.876 --> 00:02:38.926 align:middle
+en config/packages/security.yaml.
+
+00:02:39.346 --> 00:02:42.386 align:middle
+Es este enable_authenticator_manager.
+
+00:02:43.206 --> 00:02:46.876 align:middle
+Cuando actualizamos la receta,
+nos dio esta configuración...
+
+00:02:47.346 --> 00:02:49.226 align:middle
+pero estaba configurada en true.
+
+00:02:49.886 --> 00:02:54.856 align:middle
+Esta pequeñísima línea de aspecto
+inocente nos permite cambiar del
+
+00:02:54.886 --> 00:02:57.866 align:middle
+antiguo sistema de seguridad al nuevo.
+
+00:02:58.776 --> 00:03:04.196 align:middle
+Y lo que esto significa, en la práctica,
+es que todas las formas de autenticación
+
+00:03:04.446 --> 00:03:11.026 align:middle
+-como un autentificador personalizado
+o form_login o http_basic -
+
+00:03:11.576 --> 00:03:16.606 align:middle
+empezarán de repente a utilizar un sistema
+completamente nuevo bajo el capó. En su
+
+00:03:17.516 --> 00:03:19.616 align:middle
+mayor parte, si utilizas uno
+
+00:03:19.616 --> 00:03:25.986 align:middle
+de los sistemas de autenticación
+incorporados, como form_login o http_basic...
+
+00:03:26.486 --> 00:03:29.086 align:middle
+probablemente no notarás ningún cambio.
+
+00:03:29.886 --> 00:03:32.946 align:middle
+Puedes activar el nuevo sistema
+estableciendo esto como verdadero...
+
+00:03:33.446 --> 00:03:36.846 align:middle
+y todo funcionará exactamente como antes....
+
+00:03:37.296 --> 00:03:42.876 align:middle
+aunque el código detrás de form_login será
+de repente muy diferente. En muchos sentidos
+
+00:03:43.686 --> 00:03:49.426 align:middle
+, el nuevo sistema de seguridad
+es una refactorización interna
+
+00:03:49.746 --> 00:03:55.266 align:middle
+para hacer más legible el código del núcleo y
+para darnos más flexibilidad, cuando la necesitemos.
+
+00:03:55.946 --> 00:04:00.296 align:middle
+Sin embargo, si tienes algún
+autentificador personalizado de guard...
+
+00:04:00.546 --> 00:04:05.526 align:middle
+como nosotros, tendrás que convertirlos
+al nuevo sistema de autenticadores...
+
+00:04:06.136 --> 00:04:08.076 align:middle
+que de todas formas es súper divertido...
+
+00:04:08.186 --> 00:04:09.856 align:middle
+¡así que vamos a hacerlo!
+
+00:04:10.726 --> 00:04:16.936 align:middle
+Abre nuestro autentificador personalizado:
+src/Security/LoginFormAuthenticator.php.
+
+00:04:16.936 --> 00:04:20.736 align:middle
+Ya podemos ver que
+AbstractFormLoginAuthenticator
+
+00:04:20.736 --> 00:04:23.156 align:middle
+del antiguo sistema está obsoleto.
+
+00:04:23.706 --> 00:04:27.596 align:middle
+Cámbialo por AbstractLoginFormAuthenticator.
+
+00:04:28.436 --> 00:04:33.966 align:middle
+Lo sé, es casi el mismo nombre: sólo
+hemos intercambiado "Formulario" y "Login".
+
+00:04:34.806 --> 00:04:38.286 align:middle
+Si tu autentificador personalizado no es
+para un formulario de inicio de sesión,
+
+00:04:38.716 --> 00:04:41.656 align:middle
+entonces cambia tu clase
+a AbstractAuthenticator.
+
+00:04:42.546 --> 00:04:46.886 align:middle
+Ah, y ya no necesitamos implementar
+PasswordAuthenticatedInterface:
+
+00:04:47.406 --> 00:04:49.466 align:middle
+eso era algo para el antiguo sistema.
+
+00:04:50.416 --> 00:04:55.886 align:middle
+El antiguo sistema de Guardia y el nuevo
+sistema de autentificadores hacen lo mismo:
+
+00:04:56.316 --> 00:05:00.186 align:middle
+averiguan quién está intentando
+conectarse, comprueban la contraseña
+
+00:05:00.546 --> 00:05:04.056 align:middle
+y deciden qué hacer en
+caso de éxito o fracaso.
+
+00:05:04.796 --> 00:05:08.706 align:middle
+Pero el nuevo estilo del autentificador
+será bastante diferente.
+
+00:05:09.446 --> 00:05:15.736 align:middle
+Por ejemplo, puedes ver inmediatamente que
+PhpStorm está furioso porque ahora tenemos
+
+00:05:15.736 --> 00:05:18.606 align:middle
+que implementar un nuevo
+método llamado authenticate().
+
+00:05:19.516 --> 00:05:25.366 align:middle
+Bien, bajaré a supports(), iré a
+"Generar código" -o "cmd" + "N" en un Mac-
+
+00:05:25.916 --> 00:05:28.656 align:middle
+e implementaré ese nuevo
+método authenticate().
+
+00:05:29.676 --> 00:05:33.086 align:middle
+Este es el núcleo del nuevo
+sistema de autentificación...
+
+00:05:33.746 --> 00:05:36.056 align:middle
+y vamos a hablar de él en unos minutos.
+
+00:05:36.846 --> 00:05:41.116 align:middle
+Pero los sistemas antiguo y
+nuevo comparten varios métodos.
+
+00:05:41.636 --> 00:05:44.876 align:middle
+Por ejemplo, ambos tienen un
+método llamado supports()...
+
+00:05:45.606 --> 00:05:48.846 align:middle
+pero el nuevo sistema tiene
+un tipo de retorno bool.
+
+00:05:49.566 --> 00:05:52.986 align:middle
+En cuanto añadimos eso, PhpStorm se alegra.
+
+00:05:53.776 --> 00:05:59.756 align:middle
+A continuación, en onAuthenticationSuccess(), parece que
+también tenemos que añadir un tipo de retorno aquí.
+
+00:06:00.316 --> 00:06:04.806 align:middle
+Al final, añade el tipo
+Response de HttpFoundation.
+
+00:06:06.356 --> 00:06:09.786 align:middle
+¡Muy bien! Y mientras
+trabajamos en este método,
+
+00:06:10.186 --> 00:06:14.206 align:middle
+cambia el nombre del argumento
+$providerKey por $firewallName.
+
+00:06:15.146 --> 00:06:19.086 align:middle
+No hace falta que lo hagas, simplemente
+es el nuevo nombre del argumento...
+
+00:06:19.446 --> 00:06:20.686 align:middle
+y es más claro.
+
+00:06:21.546 --> 00:06:27.456 align:middle
+A continuación, abajo, en onAuthenticationFailure(),
+añade allí también el tipo de retorno Response.
+
+00:06:28.166 --> 00:06:30.976 align:middle
+Ah, y para onAuthenticationSuccess(),
+
+00:06:31.476 --> 00:06:35.416 align:middle
+acabo de recordar que esto puede
+devolver un Response anulable.
+
+00:06:36.186 --> 00:06:42.066 align:middle
+En algunos sistemas -como la autenticación con
+token de la API- no devolverá una respuesta.
+
+00:06:42.946 --> 00:06:48.716 align:middle
+Por último, seguimos necesitando un método
+getLoginUrl(), pero en el nuevo sistema,
+
+00:06:48.876 --> 00:06:54.256 align:middle
+éste acepta un argumento Request
+$request y devuelve un string.
+
+00:06:54.976 --> 00:07:01.556 align:middle
+Muy bien, todavía tenemos que rellenar las "tripas",
+pero al menos tenemos todos los métodos que necesitamos.
+
+00:07:02.446 --> 00:07:06.016 align:middle
+Y de hecho, ¡podemos eliminar uno de ellos!
+
+00:07:06.806 --> 00:07:08.586 align:middle
+Elimina el método supports().
+
+00:07:09.376 --> 00:07:13.306 align:middle
+Vale, este método sigue siendo necesario
+para los autentificadores personalizados
+
+00:07:13.696 --> 00:07:15.756 align:middle
+y su función es la misma que antes.
+
+00:07:16.246 --> 00:07:21.116 align:middle
+Pero, si saltas a la clase
+base, en el nuevo sistema,
+
+00:07:21.316 --> 00:07:24.216 align:middle
+el método supports()
+está implementado para ti.
+
+00:07:24.976 --> 00:07:28.226 align:middle
+Comprueba que la petición actual es un POST
+
+00:07:28.816 --> 00:07:33.656 align:middle
+y que la URL actual es la misma
+que la de inicio de sesión.
+
+00:07:34.476 --> 00:07:38.516 align:middle
+Básicamente, dice que admite la
+autenticación de esta petición
+
+00:07:38.776 --> 00:07:42.376 align:middle
+si se trata de una petición POST
+al formulario de inicio de sesión.
+
+00:07:43.236 --> 00:07:48.526 align:middle
+Antes escribimos nuestra lógica de forma un poco diferente,
+pero eso es exactamente lo que estábamos comprobando.
+
+00:07:49.446 --> 00:07:55.796 align:middle
+Bien, es hora de llegar a la carne de nuestro
+autentificador personalizado: el método authenticate().
+
+00:07:56.346 --> 00:07:57.696 align:middle
+Hagámoslo a continuación
