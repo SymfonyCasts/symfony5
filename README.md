@@ -15,8 +15,14 @@ Make sure you have [Composer installed](https://getcomposer.org/download/)
 and then run:
 
 ```
-composer install
+composer install --ignore-platform-reqs
 ```
+
+The `--ignore-platform-reqs` is added because our "old code" contains old
+dependencies that support PHP 8 (which you are probably using). Well, in
+reality, the code *does* work in PHP 8. And so by adding this flag, it tells
+Composer to download those dependencies anyways. It's definitely time to
+upgrade this old code!
 
 You may alternatively need to run `php composer.phar install`, depending
 on how you installed Composer.
