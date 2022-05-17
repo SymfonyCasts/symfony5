@@ -1,8 +1,8 @@
 diff --git a/composer.json b/composer.json
-index 7661dcab..90b4d71b 100755
+index a5f76048..24d70a70 100755
 --- a/composer.json
 +++ b/composer.json
-@@ -25,6 +25,7 @@
+@@ -26,6 +26,7 @@
          "symfony/webpack-encore-bundle": "^1.7",
          "symfony/yaml": "5.3.*",
          "twig/extra-bundle": "^2.12|^3.0",
@@ -11,19 +11,141 @@ index 7661dcab..90b4d71b 100755
      },
      "require-dev": {
 diff --git a/composer.lock b/composer.lock
-index 5937cb51..09c23537 100644
+index 07d2b305..c2a319e4 100644
 --- a/composer.lock
 +++ b/composer.lock
 @@ -4,7 +4,7 @@
          "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
          "This file is @generated automatically"
      ],
--    "content-hash": "5d503411e1ccea740a1e88d02d582855",
-+    "content-hash": "1ae262e2d50c77d5f9dc3030a6d34bbb",
+-    "content-hash": "b468c207e26880bf0d3ba5471944390a",
++    "content-hash": "45a9cc30b7fe4b75a2e3e187802abc3c",
      "packages": [
          {
              "name": "behat/transliterator",
-@@ -5785,6 +5785,78 @@
+@@ -1734,6 +1734,7 @@
+                 "issues": "https://github.com/KnpLabs/KnpMarkdownBundle/issues",
+                 "source": "https://github.com/KnpLabs/KnpMarkdownBundle/tree/1.9.0"
+             },
++            "abandoned": "twig/markdown-extra",
+             "time": "2021-03-03T20:01:32+00:00"
+         },
+         {
+@@ -4171,12 +4172,12 @@
+                 }
+             },
+             "autoload": {
+-                "psr-4": {
+-                    "Symfony\\Polyfill\\Intl\\Grapheme\\": ""
+-                },
+                 "files": [
+                     "bootstrap.php"
+-                ]
++                ],
++                "psr-4": {
++                    "Symfony\\Polyfill\\Intl\\Grapheme\\": ""
++                }
+             },
+             "notification-url": "https://packagist.org/downloads/",
+             "license": [
+@@ -4252,12 +4253,12 @@
+                 }
+             },
+             "autoload": {
+-                "psr-4": {
+-                    "Symfony\\Polyfill\\Intl\\Normalizer\\": ""
+-                },
+                 "files": [
+                     "bootstrap.php"
+                 ],
++                "psr-4": {
++                    "Symfony\\Polyfill\\Intl\\Normalizer\\": ""
++                },
+                 "classmap": [
+                     "Resources/stubs"
+                 ]
+@@ -4336,12 +4337,12 @@
+                 }
+             },
+             "autoload": {
+-                "psr-4": {
+-                    "Symfony\\Polyfill\\Mbstring\\": ""
+-                },
+                 "files": [
+                     "bootstrap.php"
+-                ]
++                ],
++                "psr-4": {
++                    "Symfony\\Polyfill\\Mbstring\\": ""
++                }
+             },
+             "notification-url": "https://packagist.org/downloads/",
+             "license": [
+@@ -4413,12 +4414,12 @@
+                 }
+             },
+             "autoload": {
+-                "psr-4": {
+-                    "Symfony\\Polyfill\\Php73\\": ""
+-                },
+                 "files": [
+                     "bootstrap.php"
+                 ],
++                "psr-4": {
++                    "Symfony\\Polyfill\\Php73\\": ""
++                },
+                 "classmap": [
+                     "Resources/stubs"
+                 ]
+@@ -4492,12 +4493,12 @@
+                 }
+             },
+             "autoload": {
+-                "psr-4": {
+-                    "Symfony\\Polyfill\\Php80\\": ""
+-                },
+                 "files": [
+                     "bootstrap.php"
+                 ],
++                "psr-4": {
++                    "Symfony\\Polyfill\\Php80\\": ""
++                },
+                 "classmap": [
+                     "Resources/stubs"
+                 ]
+@@ -4575,12 +4576,12 @@
+                 }
+             },
+             "autoload": {
+-                "psr-4": {
+-                    "Symfony\\Polyfill\\Php81\\": ""
+-                },
+                 "files": [
+                     "bootstrap.php"
+                 ],
++                "psr-4": {
++                    "Symfony\\Polyfill\\Php81\\": ""
++                },
+                 "classmap": [
+                     "Resources/stubs"
+                 ]
+@@ -4964,12 +4965,12 @@
+             },
+             "type": "library",
+             "autoload": {
+-                "psr-4": {
+-                    "Symfony\\Component\\String\\": ""
+-                },
+                 "files": [
+                     "Resources/functions.php"
+                 ],
++                "psr-4": {
++                    "Symfony\\Component\\String\\": ""
++                },
+                 "exclude-from-classmap": [
+                     "/Tests/"
+                 ]
+@@ -5895,6 +5896,78 @@
              ],
              "time": "2021-05-12T07:47:40+00:00"
          },
@@ -102,11 +224,28 @@ index 5937cb51..09c23537 100644
          {
              "name": "twig/twig",
              "version": "v3.3.2",
+@@ -6764,12 +6837,12 @@
+                 }
+             },
+             "autoload": {
+-                "psr-4": {
+-                    "Zenstruck\\Foundry\\": "src/"
+-                },
+                 "files": [
+                     "src/functions.php"
+-                ]
++                ],
++                "psr-4": {
++                    "Zenstruck\\Foundry\\": "src/"
++                }
+             },
+             "notification-url": "https://packagist.org/downloads/",
+             "license": [
 diff --git a/symfony.lock b/symfony.lock
-index 4f97a49e..c0a2a6b1 100644
+index b0efa44d..045a6388 100644
 --- a/symfony.lock
 +++ b/symfony.lock
-@@ -443,6 +443,9 @@
+@@ -455,6 +455,9 @@
      "twig/extra-bundle": {
          "version": "v3.0.1"
      },
