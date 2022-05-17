@@ -12,7 +12,7 @@ than saying "generate me a controller".
 Let's get it installed. Find your terminal and run:
 
 ```terminal
-composer require maker --dev
+composer require "maker:^1.30" --dev
 ```
 
 We're adding `--dev` because we won't need the `MakerBundle` in production,
