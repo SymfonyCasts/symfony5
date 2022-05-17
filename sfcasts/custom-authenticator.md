@@ -19,6 +19,8 @@ Our job in `authenticate()` is simple: to return a `Passport`. Go ahead and add 
 *automatically* due to a deprecation layer and the fact that the return type changed
 from `PassportInterface` to `Passport` in Symfony 5.4.
 
+[[[ code('224d189c16') ]]]
+
 *Anyways*, this method returns a `Passport`... so do it: `return new Passport()`.
 By the way, if you're new to the custom authenticator system and want to learn
 more, check out our [Symfony 5 Security tutorial](https://symfonycasts.com/screencast/symfony5-security)
@@ -28,6 +30,8 @@ live there.
 Before we fill in the `Passport`, grab all the info from the `Request` that we
 need... paste... then set each of these as variables:
 `$email =`, `$password =`... and let's worry about the CSRF token later.
+
+[[[ code('bf93e07d3e') ]]]
 
 The first argument to the `Passport` is a `new UserBadge()`. What you pass here
 is the *user identifier*. In our system, we're logging in via the email, so pass
@@ -59,12 +63,16 @@ that would be better... but this is fine. Then
 If we did *not* find a user, we need to `throw` a `new UserNotFoundException()`.
 *Then*, `return $user`.
 
+[[[ code('77bc8de249') ]]]
+
 First `Passport` argument is done!
 
 ## PasswordCredentials
 
 For the second argument, down here, change my bad semicolon to a comma - then say
 `new PasswordCredentials()` and pass this the submitted `$password`.
+
+[[[ code('7568ad9eac') ]]]
 
 That's all we need! That's right: we do *not* need to actually *check* the password!
 We pass a `PasswordCredentials()`... and then another system is responsible for
@@ -86,6 +94,8 @@ needs to match the string used when we generate the token in the template:
 For the second argument, pass the submitted CSRF token:
 `$request->request->get('_csrf_token')`, which you can also see in the login form.
 
+[[[ code('a7e461d829') ]]]
+
 And... done! *Just* by passing the badge, the CSRF token will be validated.
 
 Oh, and while we don't *need* to do this, I'm also going to pass a
@@ -94,6 +104,8 @@ pass this badge. It tells the system that you opt "into" having a remember me
 cookie set if the user logs in using this authenticator. But you *still* need to
 have a "Remember Me" checkbox here... for it to work. Or, to *always* enable it,
 add `->enable()` on the badge.
+
+[[[ code('8acb02ab56') ]]]
 
 And, of course, none of this will work unless you activate the `remember_me`
 system under your firewall, which I don't actually have yet. It's still safe
@@ -115,14 +127,20 @@ Oh, and look at the constructor. We no longer need `CsrfTokenManagerInterface`
 or `UserPasswordHasherInterface`: both of those checks are now done somewhere *else*.
 And... that gives us two *more* `use` statements to delete.
 
+[[[ code('4d91137ae4') ]]]
+
 ## Activating the New Security System
 
 At this point, our one custom authenticator *has* been moved to the new authenticator
 system. This mean that, in `security.yaml`, we are ready to switch to the new system!
 Say `enable_authenticator_manager: true`.
 
+[[[ code('d73484c8b8') ]]]
+
 And these custom authenticators aren't under a `guard` key anymore. Instead,
 add `custom_authenticator` and add this directly below that.
+
+[[[ code('7ade8ffdcc') ]]]
 
 Okay, moment of truth! We just *completely* switched to the new system. Will
 it work? Head back to the homepage, reload and... it does! And check out those
