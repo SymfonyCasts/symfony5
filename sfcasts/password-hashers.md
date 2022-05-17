@@ -14,6 +14,8 @@ custom class, we can always just use this config. This says:
 > Any class that that implements `PasswordAuthenticatedUserInterface` should
 > use the `auto` algorithm.
 
+[[[ code('94d72db159') ]]]
+
 And since... *every* user class with a password needs to implement this - including
 our class - that covers us.
 
