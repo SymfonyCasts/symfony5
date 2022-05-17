@@ -1,6 +1,6 @@
 diff --git a/templates/answer/_answer.html.twig b/templates/answer/_answer.html.twig
 new file mode 100644
-index 0000000..1ae379b
+index 00000000..1ae379b3
 --- /dev/null
 +++ b/templates/answer/_answer.html.twig
 @@ -0,0 +1,36 @@
@@ -41,7 +41,7 @@ index 0000000..1ae379b
 +    </div>
 +</li>
 diff --git a/templates/answer/popularAnswers.html.twig b/templates/answer/popularAnswers.html.twig
-index c4e3c27..003fa60 100644
+index c4e3c27f..003fa609 100644
 --- a/templates/answer/popularAnswers.html.twig
 +++ b/templates/answer/popularAnswers.html.twig
 @@ -9,7 +9,7 @@
@@ -54,7 +54,7 @@ index c4e3c27..003fa60 100644
          </ul>
      </div>
 diff --git a/templates/question/show.html.twig b/templates/question/show.html.twig
-index b09809a..287dd55 100644
+index b09809ac..287dd556 100644
 --- a/templates/question/show.html.twig
 +++ b/templates/question/show.html.twig
 @@ -54,42 +54,7 @@

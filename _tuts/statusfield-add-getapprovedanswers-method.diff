@@ -1,5 +1,5 @@
 diff --git a/src/Entity/Answer.php b/src/Entity/Answer.php
-index 21aaa77..019288b 100644
+index 21aaa773..019288bd 100644
 --- a/src/Entity/Answer.php
 +++ b/src/Entity/Answer.php
 @@ -118,4 +118,9 @@ class Answer
@@ -13,7 +13,7 @@ index 21aaa77..019288b 100644
 +    }
  }
 diff --git a/src/Entity/Question.php b/src/Entity/Question.php
-index 078c135..2bcde20 100644
+index 078c1353..2bcde200 100644
 --- a/src/Entity/Question.php
 +++ b/src/Entity/Question.php
 @@ -154,6 +154,13 @@ class Question
@@ -31,7 +31,7 @@ index 078c135..2bcde20 100644
      {
          if (!$this->answers->contains($answer)) {
 diff --git a/templates/question/homepage.html.twig b/templates/question/homepage.html.twig
-index b04b865..6f0c999 100644
+index b04b8653..6f0c9993 100644
 --- a/templates/question/homepage.html.twig
 +++ b/templates/question/homepage.html.twig
 @@ -37,7 +37,7 @@
@@ -44,7 +44,7 @@ index b04b865..6f0c999 100644
                  </a>
              </div>
 diff --git a/templates/question/show.html.twig b/templates/question/show.html.twig
-index 608fa52..b09809a 100644
+index 608fa52e..b09809ac 100644
 --- a/templates/question/show.html.twig
 +++ b/templates/question/show.html.twig
 @@ -46,14 +46,14 @@

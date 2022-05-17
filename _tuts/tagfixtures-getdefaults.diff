@@ -1,5 +1,5 @@
 diff --git a/src/Factory/TagFactory.php b/src/Factory/TagFactory.php
-index db25875..045cb37 100644
+index db258755..045cb375 100644
 --- a/src/Factory/TagFactory.php
 +++ b/src/Factory/TagFactory.php
 @@ -38,10 +38,8 @@ final class TagFactory extends ModelFactory

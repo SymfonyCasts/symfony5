@@ -1,5 +1,5 @@
 diff --git a/src/Factory/AnswerFactory.php b/src/Factory/AnswerFactory.php
-index 4783e71..564aa01 100644
+index 4783e71d..564aa01b 100644
 --- a/src/Factory/AnswerFactory.php
 +++ b/src/Factory/AnswerFactory.php
 @@ -38,11 +38,10 @@ final class AnswerFactory extends ModelFactory

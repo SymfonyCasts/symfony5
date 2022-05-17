@@ -1,5 +1,5 @@
 diff --git a/src/Controller/AnswerController.php b/src/Controller/AnswerController.php
-index 7295cae..53a3c30 100644
+index 7295caea..53a3c301 100644
 --- a/src/Controller/AnswerController.php
 +++ b/src/Controller/AnswerController.php
 @@ -2,6 +2,8 @@
@@ -41,7 +41,7 @@ index 7295cae..53a3c30 100644
      }
  }
 diff --git a/templates/question/show.html.twig b/templates/question/show.html.twig
-index 17e417c..15ba946 100644
+index 17e417ce..15ba9462 100644
 --- a/templates/question/show.html.twig
 +++ b/templates/question/show.html.twig
 @@ -68,7 +68,7 @@

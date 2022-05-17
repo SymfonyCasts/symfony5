@@ -1,5 +1,5 @@
 diff --git a/.env b/.env
-index 9501a4d..bc897b0 100644
+index 9501a4d1..bc897b0f 100644
 --- a/.env
 +++ b/.env
 @@ -19,3 +19,11 @@ APP_SECRET=c28f3d37eba278748f3c0427b313e86a
@@ -15,7 +15,7 @@ index 9501a4d..bc897b0 100644
 +DATABASE_URL=mysql://db_user:db_password@127.0.0.1:3306/db_name?serverVersion=5.7
 +###< doctrine/doctrine-bundle ###
 diff --git a/composer.json b/composer.json
-index b30089b..c34e6e2 100755
+index 7de8d82e..e1e8ed17 100755
 --- a/composer.json
 +++ b/composer.json
 @@ -6,6 +6,9 @@
@@ -29,7 +29,7 @@ index b30089b..c34e6e2 100755
          "sensio/framework-extra-bundle": "^6.0",
          "sentry/sentry-symfony": "^4.0",
 diff --git a/composer.lock b/composer.lock
-index 460e7d7..77a0eb3 100644
+index 460e7d74..77a0eb3f 100644
 --- a/composer.lock
 +++ b/composer.lock
 @@ -4,7 +4,7 @@
@@ -2071,7 +2071,7 @@ index 460e7d7..77a0eb3 100644
              "name": "nikic/php-parser",
              "version": "v4.10.5",
 diff --git a/config/bundles.php b/config/bundles.php
-index af33fbc..d206866 100644
+index af33fbca..d206866c 100644
 --- a/config/bundles.php
 +++ b/config/bundles.php
 @@ -12,4 +12,6 @@ return [
@@ -2083,7 +2083,7 @@ index af33fbc..d206866 100644
  ];
 diff --git a/config/packages/doctrine.yaml b/config/packages/doctrine.yaml
 new file mode 100644
-index 0000000..5e80e77
+index 00000000..5e80e77b
 --- /dev/null
 +++ b/config/packages/doctrine.yaml
 @@ -0,0 +1,18 @@
@@ -2107,7 +2107,7 @@ index 0000000..5e80e77
 +                alias: App
 diff --git a/config/packages/doctrine_migrations.yaml b/config/packages/doctrine_migrations.yaml
 new file mode 100644
-index 0000000..61e6612
+index 00000000..61e66124
 --- /dev/null
 +++ b/config/packages/doctrine_migrations.yaml
 @@ -0,0 +1,5 @@
@@ -2118,7 +2118,7 @@ index 0000000..61e6612
 +        'DoctrineMigrations': '%kernel.project_dir%/migrations'
 diff --git a/config/packages/prod/doctrine.yaml b/config/packages/prod/doctrine.yaml
 new file mode 100644
-index 0000000..084f59a
+index 00000000..084f59a0
 --- /dev/null
 +++ b/config/packages/prod/doctrine.yaml
 @@ -0,0 +1,20 @@
@@ -2144,15 +2144,15 @@ index 0000000..084f59a
 +                adapter: cache.system
 diff --git a/migrations/.gitignore b/migrations/.gitignore
 new file mode 100644
-index 0000000..e69de29
+index 00000000..e69de29b
 diff --git a/src/Entity/.gitignore b/src/Entity/.gitignore
 new file mode 100644
-index 0000000..e69de29
+index 00000000..e69de29b
 diff --git a/src/Repository/.gitignore b/src/Repository/.gitignore
 new file mode 100644
-index 0000000..e69de29
+index 00000000..e69de29b
 diff --git a/symfony.lock b/symfony.lock
-index b744e86..d67492a 100644
+index b744e863..d67492a1 100644
 --- a/symfony.lock
 +++ b/symfony.lock
 @@ -17,12 +17,73 @@

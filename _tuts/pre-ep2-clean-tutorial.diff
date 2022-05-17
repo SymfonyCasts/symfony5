@@ -1,6 +1,6 @@
 diff --git a/tutorial/app.css b/tutorial/app.css
 deleted file mode 100644
-index bf400eb..0000000
+index bf400eb7..00000000
 --- a/tutorial/app.css
 +++ /dev/null
 @@ -1,127 +0,0 @@
@@ -134,7 +134,7 @@ index bf400eb..0000000
 \ No newline at end of file
 diff --git a/tutorial/base.html.twig b/tutorial/base.html.twig
 deleted file mode 100644
-index 9fa8424..0000000
+index 9fa8424c..00000000
 --- a/tutorial/base.html.twig
 +++ /dev/null
 @@ -1,28 +0,0 @@
@@ -168,7 +168,7 @@ index 9fa8424..0000000
 -</html>
 diff --git a/tutorial/homepage.html.twig b/tutorial/homepage.html.twig
 deleted file mode 100644
-index aade45f..0000000
+index aade45fc..00000000
 --- a/tutorial/homepage.html.twig
 +++ /dev/null
 @@ -1,75 +0,0 @@
@@ -9115,7 +9115,7 @@ v!2*K?1`7-p7%VVYV6ebofx!Z2fCc^+jtY#}*3j*700000NkvXXu0mjft4|JK
 
 diff --git a/tutorial/show.html.twig b/tutorial/show.html.twig
 deleted file mode 100644
-index 1b9d9dc..0000000
+index 1b9d9dc9..00000000
 --- a/tutorial/show.html.twig
 +++ /dev/null
 @@ -1,58 +0,0 @@

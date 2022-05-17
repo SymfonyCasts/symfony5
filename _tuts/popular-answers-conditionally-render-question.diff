@@ -1,5 +1,5 @@
 diff --git a/templates/answer/_answer.html.twig b/templates/answer/_answer.html.twig
-index 1ae379b..eb745e4 100644
+index 1ae379b3..eb745e49 100644
 --- a/templates/answer/_answer.html.twig
 +++ b/templates/answer/_answer.html.twig
 @@ -1,4 +1,15 @@
@@ -19,7 +19,7 @@ index 1ae379b..eb745e4 100644
          <div class="col-1">
              <img src="{{ asset('images/tisha.png') }}" width="50" height="50" alt="Tisha avatar">
 diff --git a/templates/answer/popularAnswers.html.twig b/templates/answer/popularAnswers.html.twig
-index 003fa60..235ec64 100644
+index 003fa609..235ec64c 100644
 --- a/templates/answer/popularAnswers.html.twig
 +++ b/templates/answer/popularAnswers.html.twig
 @@ -9,7 +9,9 @@

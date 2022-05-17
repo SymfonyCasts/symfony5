@@ -1,5 +1,5 @@
 diff --git a/src/Controller/QuestionController.php b/src/Controller/QuestionController.php
-index 3243321..4cb3441 100644
+index 3243321e..4cb34417 100644
 --- a/src/Controller/QuestionController.php
 +++ b/src/Controller/QuestionController.php
 @@ -13,7 +13,7 @@ class QuestionController extends AbstractController
@@ -13,7 +13,7 @@ index 3243321..4cb3441 100644
      /**
 diff --git a/templates/question/homepage.html.twig b/templates/question/homepage.html.twig
 new file mode 100644
-index 0000000..3098f1f
+index 00000000..3098f1fa
 --- /dev/null
 +++ b/templates/question/homepage.html.twig
 @@ -0,0 +1,5 @@

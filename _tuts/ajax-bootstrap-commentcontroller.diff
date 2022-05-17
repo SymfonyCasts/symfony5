@@ -1,6 +1,6 @@
 diff --git a/src/Controller/CommentController.php b/src/Controller/CommentController.php
 new file mode 100644
-index 0000000..fc2778d
+index 00000000..fc2778d7
 --- /dev/null
 +++ b/src/Controller/CommentController.php
 @@ -0,0 +1,9 @@

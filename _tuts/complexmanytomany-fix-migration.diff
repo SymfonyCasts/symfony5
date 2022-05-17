@@ -1,5 +1,5 @@
 diff --git a/migrations/Version20210907192236.php b/migrations/Version20210907192236.php
-index 1349762..4469d9c 100644
+index 13497621..4469d9c8 100644
 --- a/migrations/Version20210907192236.php
 +++ b/migrations/Version20210907192236.php
 @@ -22,7 +22,7 @@ final class Version20210907192236 extends AbstractMigration

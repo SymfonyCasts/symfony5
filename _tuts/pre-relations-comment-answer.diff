@@ -2,7 +2,7 @@ diff --git a/src/Controller/CommentController.php b/src/Controller/AnswerControl
 similarity index 75%
 rename from src/Controller/CommentController.php
 rename to src/Controller/AnswerController.php
-index bb48e8f..7295cae 100644
+index bb48e8f0..7295caea 100644
 --- a/src/Controller/CommentController.php
 +++ b/src/Controller/AnswerController.php
 @@ -4,16 +4,15 @@ namespace App\Controller;

@@ -1,5 +1,5 @@
 diff --git a/composer.json b/composer.json
-index 7270d1d..2a417ce 100755
+index bae84473..64f3871d 100755
 --- a/composer.json
 +++ b/composer.json
 @@ -14,25 +14,25 @@
@@ -38,7 +38,7 @@ index 7270d1d..2a417ce 100755
          "zenstruck/foundry": "^1.1"
      },
      "config": {
-@@ -81,7 +81,7 @@
+@@ -84,7 +84,7 @@
      "extra": {
          "symfony": {
              "allow-contrib": false,
@@ -48,7 +48,7 @@ index 7270d1d..2a417ce 100755
      }
  }
 diff --git a/composer.lock b/composer.lock
-index 18f5aae..d66e19b 100644
+index 18f5aae1..d66e19b9 100644
 --- a/composer.lock
 +++ b/composer.lock
 @@ -4,7 +4,7 @@
@@ -5601,7 +5601,7 @@ index 18f5aae..d66e19b 100644
      ],
      "aliases": [],
 diff --git a/symfony.lock b/symfony.lock
-index 6d31a3a..03fb183 100644
+index 6d31a3aa..03fb1839 100644
 --- a/symfony.lock
 +++ b/symfony.lock
 @@ -35,6 +35,9 @@

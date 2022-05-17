@@ -1,5 +1,5 @@
 diff --git a/src/Factory/QuestionFactory.php b/src/Factory/QuestionFactory.php
-index 5d86dd9..aaebaa4 100644
+index 5d86dd91..aaebaa47 100644
 --- a/src/Factory/QuestionFactory.php
 +++ b/src/Factory/QuestionFactory.php
 @@ -36,7 +36,7 @@ opening the front door and walking out! I've been out all afternoon

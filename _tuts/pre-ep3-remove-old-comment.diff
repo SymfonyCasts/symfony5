@@ -1,5 +1,5 @@
 diff --git a/src/Controller/QuestionController.php b/src/Controller/QuestionController.php
-index 1685462..8f9d433 100644
+index 1685462b..8f9d433c 100644
 --- a/src/Controller/QuestionController.php
 +++ b/src/Controller/QuestionController.php
 @@ -7,7 +7,6 @@ use Psr\Log\LoggerInterface;

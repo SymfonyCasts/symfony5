@@ -1,5 +1,5 @@
 diff --git a/composer.json b/composer.json
-index 3ff978a..b30089b 100755
+index b4284f0b..7de8d82e 100755
 --- a/composer.json
 +++ b/composer.json
 @@ -2,7 +2,7 @@
@@ -17,11 +17,11 @@ index 3ff978a..b30089b 100755
          "platform": {
 -            "php": "7.3.0"
 +            "php": "7.4.1"
-         }
-     },
-     "autoload": {
+         },
+         "allow-plugins": {
+             "symfony/flex": true
 diff --git a/composer.lock b/composer.lock
-index 154e944..460e7d7 100644
+index 154e9449..460e7d74 100644
 --- a/composer.lock
 +++ b/composer.lock
 @@ -4,7 +4,7 @@
