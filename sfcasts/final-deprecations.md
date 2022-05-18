@@ -30,8 +30,8 @@ because there's one other spot on this page where we need to do the same thing:
 ## IS_AUTHENTICATED_ANONYMOUSLY -> PUBLIC_ACCESS
 
 While we're talking security, open up `config/packages/security.yaml` and head down
-to `access_control`. I have a few entries - `/logout`, `/admin/login`, and
-`/login` - that I want to make *absolutely* sure are accessible by *everyone*, even
+to `access_control`. I have a few entries - `/logout`, `/admin/login` - that I want
+to make *absolutely* sure are accessible by *everyone*, even
 users that are *not* logged in. To do, we added these rules on top and,
 *previously* used `IS_AUTHENTICATED_ANONYMOUSLY`. So if I go to `/logout`, *only*
 this `access_control` is matched... and since the `role` is
