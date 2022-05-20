@@ -27,6 +27,8 @@ To fix the deprecation, very simply, change this to `IS_IMPERSONATOR`. Copy that
 because there's one other spot on this page where we need to do the same thing:
 `IS_IMPERSONATOR`. Done! One less deprecation!
 
+[[[ code('b15f70c72e') ]]]
+
 ## IS_AUTHENTICATED_ANONYMOUSLY -> PUBLIC_ACCESS
 
 While we're talking security, open up `config/packages/security.yaml` and head down
@@ -39,6 +41,8 @@ this `access_control` is matched... and since the `role` is
 
 In Symfony 6, `IS_AUTHENTICATED_ANONYMOUSLY` has changed to `PUBLIC_ACCESS`. So
 use that in both places.
+
+[[[ code('04e65f6c37') ]]]
 
 If you're wondering why we didn't have a deprecation for this... well... it's
 a rare case where Symfony is unable to *catch* that deprecated path and show it to
@@ -59,9 +63,15 @@ short, the session wasn't ever, really a *true* service. What you're supposed to
 do now is get it from the `Request`.
 
 So, no big deal. Remove the `SessionInterface` constructor argument... and we don't
-need this `use` statement anymore either. Now search for "session". We're using it
-down in `onAuthenticationSuccess()`. Fortunately, this already passes us the
-`$request` object! So we can just say `$request->getSession()`.
+need this `use` statement anymore either. 
+
+[[[ code('2152a23e26') ]]]
+
+Now search for "session". We're using it down in `onAuthenticationSuccess()`. 
+Fortunately, this already passes us the`$request` object! 
+So we can just say `$request->getSession()`.
+
+[[[ code('0bd37f4dab') ]]]
 
 ## Hunting Down the Final Deprecations
 
@@ -121,6 +131,8 @@ list, autowire `EntityManagerInterface $entityManager`. And... then down here,
 delete this line because `$entityManager` is now being injected. Another deprecation
 gone!
 
+[[[ code('cce454fa67') ]]]
+
 ## Logging Deprecations on Production
 
 Are we done *now*? *Probably.* Our project is pretty small, so checking all the pages
@@ -133,6 +145,8 @@ on production. Open `config/packages/monolog.yaml` and go down to `when@prod`. T
 has a number of handlers that will log all errors to `php://stderr`. There's also
 a `deprecation` section. With this config, Symfony will log any deprecation
 messages (that's what this `channels: [deprecation]` means) to `php://stderr`.
+
+[[[ code('d0647f8722') ]]]
 
 This means that you can deploy, wait for an hour, day or week, then... just check
 the log! If you want to log to a file instead, change the path to something like
