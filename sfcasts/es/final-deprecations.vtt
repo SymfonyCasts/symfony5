@@ -1,0 +1,477 @@
+WEBVTT
+
+00:00:01.016 --> 00:00:01.696 align:middle
+¡Muy bien equipo!
+
+00:00:01.826 --> 00:00:04.646 align:middle
+Vamos a arreglar estas últimas depreciaciones.
+
+00:00:05.276 --> 00:00:12.126 align:middle
+Una de las cosas más complicadas de estas es
+que, a veces, provienen de paquetes de terceros.
+
+00:00:12.846 --> 00:00:17.916 align:middle
+No tengo ningún ejemplo aquí, pero a
+veces recibirás una desaprobación y...
+
+00:00:17.916 --> 00:00:22.126 align:middle
+si lo investigas, te darás
+cuenta de que no es culpa tuya.
+
+00:00:22.466 --> 00:00:25.876 align:middle
+Viene de una biblioteca o de un
+paquete que estás utilizando.
+
+00:00:26.576 --> 00:00:30.156 align:middle
+Cuando esto ocurre, tienes
+que actualizar ese paquete
+
+00:00:30.686 --> 00:00:34.386 align:middle
+y esperar que haya una nueva
+versión sin depreciaciones.
+
+00:00:35.076 --> 00:00:40.986 align:middle
+De hecho, ya tuvimos algunos ejemplos
+de esto al principio del tutorial.
+
+00:00:41.386 --> 00:00:47.186 align:middle
+Pero... ya hemos ejecutado composer update
+unas cuantas veces y, aparentemente, hemos
+
+00:00:47.506 --> 00:00:51.886 align:middle
+actualizado todas nuestras dependencias
+a versiones sin depreciaciones.
+
+00:00:52.216 --> 00:00:53.656 align:middle
+Sí, ¡eficiencia!
+
+00:00:54.576 --> 00:00:56.826 align:middle
+Bien, echemos un vistazo a esta lista.
+
+00:00:57.246 --> 00:01:02.156 align:middle
+Dice que, en Symfony 5.1,
+ROLE_PREVIOUS_ADMIN está obsoleto
+
+00:01:02.546 --> 00:01:05.756 align:middle
+y que debemos utilizar
+IS_IMPERSONATOR en su lugar.
+
+00:01:06.616 --> 00:01:13.356 align:middle
+Puedes mostrar el contexto o rastrear para intentar
+obtener más información, como de dónde viene esto.
+
+00:01:14.046 --> 00:01:16.296 align:middle
+No siempre es obvio...
+
+00:01:16.646 --> 00:01:19.946 align:middle
+y esa es una de las cosas más
+complicadas de las desapariciones.
+
+00:01:20.486 --> 00:01:23.996 align:middle
+Pero ésta viene de base.html.twig.
+
+00:01:24.606 --> 00:01:30.956 align:middle
+¡Genial! Abre templates/base.html.twig
+y busca "previous_admin".
+
+00:01:31.676 --> 00:01:38.586 align:middle
+En un tutorial anterior, lo utilizamos para
+comprobar si estamos suplantando a un usuario
+
+00:01:39.006 --> 00:01:41.926 align:middle
+con la función switch_user de Symfony.
+
+00:01:42.576 --> 00:01:47.846 align:middle
+Si lo estamos, cambiamos el fondo a
+rojo para que sea realmente obvio.
+
+00:01:48.636 --> 00:01:53.596 align:middle
+Para arreglar la desaprobación,
+simplemente, cambia esto por IS_IMPERSONATOR.
+
+00:01:54.266 --> 00:01:54.796 align:middle
+Copia eso...
+
+00:01:55.296 --> 00:01:58.806 align:middle
+porque hay otro punto en esta
+página donde tenemos que
+
+00:01:58.806 --> 00:02:01.586 align:middle
+hacer lo mismo: IS_IMPERSONATOR.
+
+00:02:02.506 --> 00:02:04.986 align:middle
+¡Ya está! ¡Una desaprobación menos!
+
+00:02:05.806 --> 00:02:07.756 align:middle
+Mientras hablamos de seguridad,
+
+00:02:08.086 --> 00:02:13.086 align:middle
+abre config/packages/security.yaml
+y baja a access_control.
+
+00:02:13.946 --> 00:02:18.456 align:middle
+Tengo unas cuantas entradas
+- /logout, /admin/login -
+
+00:02:18.956 --> 00:02:24.246 align:middle
+que quiero asegurarme absolutamente de
+que son accesibles para todo el mundo,
+
+00:02:24.686 --> 00:02:27.326 align:middle
+incluso para los usuarios
+que no han iniciado sesión.
+
+00:02:28.116 --> 00:02:35.356 align:middle
+Para ello, añadimos estas reglas en la parte superior
+y, previamente, utilizamos IS_AUTHENTICATED_ANONYMOUSLY.
+
+00:02:35.886 --> 00:02:41.386 align:middle
+Así que si voy a /logout, sólo
+este access_control es coincidente...
+
+00:02:41.946 --> 00:02:46.946 align:middle
+y como el role es
+IS_AUTHENTICATED_ANONYMOUSLY el acceso
+
+00:02:46.986 --> 00:02:47.956 align:middle
+siempre se concede.
+
+00:02:48.846 --> 00:02:54.766 align:middle
+En Symfony 6, IS_AUTHENTICATED_ANONYMOUSLY
+ha cambiado a PUBLIC_ACCESS.
+
+00:02:55.366 --> 00:02:57.526 align:middle
+Así que úsalo en ambos sitios.
+
+00:02:58.436 --> 00:03:02.216 align:middle
+Si te preguntas por qué no tenemos
+una deprecación para esto...
+
+00:03:02.646 --> 00:03:10.076 align:middle
+bueno... es un caso raro en el que Symfony es
+incapaz de captar esa ruta obsoleta y mostrárnosla.
+
+00:03:10.816 --> 00:03:14.636 align:middle
+Esto no ocurre muy a menudo, pero es
+una situación en la que una herramienta
+
+00:03:14.636 --> 00:03:17.456 align:middle
+como SymfonyInsight puede
+ayudar a detectar esta....
+
+00:03:17.856 --> 00:03:19.926 align:middle
+incluso cuando el propio Symfony no puede.
+
+00:03:20.806 --> 00:03:26.696 align:middle
+Bien, la última depreciación de la lista dice:
+los alias de SessionInterface están obsoletos,
+
+00:03:26.906 --> 00:03:30.056 align:middle
+utiliza en su lugar
+$requestStack->getSession().
+
+00:03:30.676 --> 00:03:33.926 align:middle
+Está siendo referenciado por el
+servicio LoginFormAuthenticator.
+
+00:03:34.576 --> 00:03:35.436 align:middle
+¡Vamos a comprobarlo!
+
+00:03:36.116 --> 00:03:40.546 align:middle
+Abre src/Security/LoginFormAuthenticator.php.
+
+00:03:40.546 --> 00:03:44.846 align:middle
+Ahh. Estoy autoconectando el
+servicio SessionInterface.
+
+00:03:45.646 --> 00:03:49.656 align:middle
+En Symfony 6, ese servicio ya no existe.
+
+00:03:50.206 --> 00:03:52.926 align:middle
+Hay algunas razones técnicas para ello...
+
+00:03:52.926 --> 00:03:57.886 align:middle
+pero resumiendo, la sesión nunca
+fue, realmente, un verdadero servicio.
+
+00:03:58.506 --> 00:04:02.226 align:middle
+Lo que se supone que tienes que
+hacer ahora es obtenerla de Request.
+
+00:04:02.706 --> 00:04:04.186 align:middle
+Así que no hay problema.
+
+00:04:04.446 --> 00:04:07.226 align:middle
+Elimina el argumento del
+constructor SessionInterface...
+
+00:04:07.846 --> 00:04:11.106 align:middle
+y tampoco necesitamos ya esta declaración use.
+
+00:04:12.536 --> 00:04:14.026 align:middle
+Ahora busca "sesión".
+
+00:04:14.716 --> 00:04:17.716 align:middle
+La usaremos en onAuthenticationSuccess().
+
+00:04:18.146 --> 00:04:22.326 align:middle
+Afortunadamente, ¡esto ya nos
+pasa el objeto$request! Así que
+
+00:04:22.946 --> 00:04:26.126 align:middle
+podemos decir simplemente
+$request->getSession(). Ya está
+
+00:04:26.866 --> 00:04:28.646 align:middle
+Entonces...
+
+00:04:28.936 --> 00:04:29.736 align:middle
+¿lo hemos conseguido? ¿Hemos
+
+00:04:30.106 --> 00:04:34.756 align:middle
+conseguido cero depreciaciones
+y la iluminación espiritual?
+
+00:04:35.476 --> 00:04:39.056 align:middle
+Vuelve a la página de inicio,
+actualiza y ... ¡lo hemos
+
+00:04:39.416 --> 00:04:42.906 align:middle
+conseguido! Bueno, al menos
+la primera parte... ¡sin
+
+00:04:43.216 --> 00:04:44.586 align:middle
+depreciaciones! Y
+
+00:04:45.246 --> 00:04:47.556 align:middle
+si navegamos un poco por nuestro sitio... ¡no
+
+00:04:48.076 --> 00:04:51.866 align:middle
+veo ninguna deprecación en
+ninguna de estas páginas!
+
+00:04:52.586 --> 00:04:54.556 align:middle
+¿Significa esto que hemos terminado? Bueno,
+
+00:04:55.156 --> 00:04:59.586 align:middle
+hemos comprobado manualmente todas las
+páginas en las que podemos hacer clic. Pero
+
+00:05:00.246 --> 00:05:02.026 align:middle
+¿qué pasa con las
+peticiones de POST... como el
+
+00:05:02.386 --> 00:05:05.256 align:middle
+envío de los formularios de inicio de sesión
+o de registro? ¿Y qué pasa con las rutas
+
+00:05:05.256 --> 00:05:07.686 align:middle
+de la API?
+
+00:05:08.276 --> 00:05:10.826 align:middle
+Tenemos uno llamado /api/me... que
+
+00:05:11.316 --> 00:05:14.186 align:middle
+no funciona porque no estoy conectado.
+
+00:05:14.986 --> 00:05:21.216 align:middle
+Vuelve a entrar como "abraca_admin@example.com"
+con la contraseña "tada" y entonces... sí,
+
+00:05:21.616 --> 00:05:24.436 align:middle
+/api/me funciona.
+
+00:05:25.326 --> 00:05:31.556 align:middle
+No podemos ver la barra de herramientas de depuración de la web
+para esta petición , pero seguro que ya conoces el truco. Ve
+
+00:05:32.076 --> 00:05:37.416 align:middle
+a /_profiler para ver las diez
+últimas peticiones. Aquí está
+
+00:05:38.286 --> 00:05:40.856 align:middle
+la petición de POST a /login.
+
+00:05:41.446 --> 00:05:42.586 align:middle
+Baja a Registros. ¡Genial!
+
+00:05:43.886 --> 00:05:46.456 align:middle
+Eso no tenía depreciaciones.
+
+00:05:47.236 --> 00:05:50.736 align:middle
+Vuelve y comprueba también
+la ruta de la API. Si
+
+00:05:51.566 --> 00:05:55.656 align:middle
+volvemos a mirar los registros, tampoco había
+desaprobaciones. ¡ Estamos de enhorabuena
+
+00:05:56.106 --> 00:05:57.556 align:middle
+! Otra
+
+00:05:58.376 --> 00:06:04.076 align:middle
+opción, en lugar de comprobar el perfilador
+todo el tiempo, es ir a tu terminal y
+
+00:06:04.246 --> 00:06:12.646 align:middle
+seguir el archivo de registro: tail -f var/log/dev.log De este modo,
+se transmitirá constantemente cualquier registro nuevo. En realidad,
+
+00:06:13.146 --> 00:06:20.686 align:middle
+pulsa "ctrl" + "C" y ejecuta eso de nuevo,
+pero grep para deprecation: Perfecto. Ahora,
+
+00:06:21.136 --> 00:06:26.356 align:middle
+si llega algún registro que contenga
+la palabra "deprecación", lo veremos. Y
+
+00:06:27.076 --> 00:06:34.196 align:middle
+como las rutas de código desaprobadas activan un registro
+en el entorno dev, ésta es una herramienta poderosa. Por
+
+00:06:35.116 --> 00:06:38.126 align:middle
+ejemplo, vamos a registrarnos
+como nuevo usuario. Voy a
+
+00:06:38.616 --> 00:06:41.296 align:middle
+cerrar la sesión, y luego a "Registrarme".
+
+00:06:42.106 --> 00:06:46.556 align:middle
+Me pide mi nombre, mi correo electrónico
+y una contraseña. Haz clic en "
+
+00:06:47.356 --> 00:06:51.626 align:middle
+Aceptar" unas condiciones
+inventadas y envíalo. Oh,
+
+00:06:52.526 --> 00:06:58.576 align:middle
+mi contraseña es demasiado corta: ¡mis propias
+reglas de validación vuelven a perseguirme! Arregla
+
+00:06:59.206 --> 00:07:02.266 align:middle
+eso, pulsa "Registrarse" de nuevo y...
+
+00:07:03.156 --> 00:07:06.986 align:middle
+¡funciona! Pero si volvemos
+a nuestro terminal... ¡rut
+
+00:07:07.446 --> 00:07:10.916 align:middle
+roo! Desde symfony/framework-bundle
+5.4, el método
+
+00:07:11.316 --> 00:07:15.066 align:middle
+AbstractController::getDoctrine()
+está obsoleto. Inyecta
+
+00:07:15.776 --> 00:07:19.256 align:middle
+una instancia de ManagerRegistry
+en tu controlador en su lugar.
+
+00:07:20.076 --> 00:07:25.656 align:middle
+No es fácil ver de dónde viene esto en nuestro
+código, pero acabamos de registrarnos... así que
+
+00:07:25.946 --> 00:07:28.176 align:middle
+abramos RegistrationController. Ah,
+
+00:07:30.976 --> 00:07:36.586 align:middle
+aquí se queja de esto: el método
+getDoctrine() está obsoleto. En lugar
+
+00:07:37.446 --> 00:07:40.926 align:middle
+de utilizarlo, podemos inyectar el
+método $entityManager. Al final de
+
+00:07:41.746 --> 00:07:47.156 align:middle
+la lista de argumentos, autoconecta
+EntityManagerInterface $entityManager. Y...
+
+00:07:48.006 --> 00:07:54.556 align:middle
+luego, aquí abajo, borra esta línea porque
+ahora se inyecta $entityManager. ¡ Otra
+
+00:07:55.166 --> 00:07:56.786 align:middle
+desaprobación que desaparece!
+
+00:07:57.586 --> 00:07:59.516 align:middle
+¿Ya hemos terminado? Probablemente.
+
+00:08:00.016 --> 00:08:03.046 align:middle
+Nuestro proyecto es bastante pequeño, así que
+
+00:08:03.406 --> 00:08:07.476 align:middle
+comprobar todas las páginas
+manualmente no es un gran problema. Pero
+
+00:08:08.316 --> 00:08:11.336 align:middle
+para proyectos más grandes,
+podría ser ... ¡un gran problema
+
+00:08:11.336 --> 00:08:13.826 align:middle
+comprobar todo manualmente! Y
+
+00:08:14.476 --> 00:08:18.756 align:middle
+realmente quieres estar seguro de que no
+te has dejado nada antes de actualizar. Una
+
+00:08:19.476 --> 00:08:22.546 align:middle
+gran opción para asegurarte de
+que no se te ha escapado nada es
+
+00:08:22.546 --> 00:08:25.326 align:middle
+registrar tus depreciaciones
+en producción. Abre
+
+00:08:26.046 --> 00:08:31.076 align:middle
+config/packages/monolog.yaml
+y baja a when@prod. Esto
+
+00:08:31.916 --> 00:08:36.716 align:middle
+tiene una serie de manejadores que
+registrarán todos los errores en php://stderr.
+
+00:08:37.546 --> 00:08:39.526 align:middle
+También hay una sección deprecation. Con
+
+00:08:40.036 --> 00:08:45.856 align:middle
+esta configuración, Symfony registrará cualquier mensaje de
+desaprobación (eso es lo que significa este channels: [deprecation]
+
+00:08:45.856 --> 00:08:48.686 align:middle
+) en php://stderr. Esto
+
+00:08:49.586 --> 00:08:55.386 align:middle
+significa que puedes desplegar, esperar
+una hora, un día o una semana, y luego...
+
+00:08:55.586 --> 00:08:56.836 align:middle
+¡consultar el registro! Si
+
+00:08:57.606 --> 00:09:01.166 align:middle
+en cambio quieres registrar en un
+archivo, cambia la ruta a algo como
+
+00:09:01.166 --> 00:09:06.156 align:middle
+%kernel.logs_dir%/deprecations.log. Así que
+
+00:09:07.016 --> 00:09:12.866 align:middle
+eso es lo que más me gusta hacer:
+desplegarlo, y luego ver -en el mundo real - si
+
+00:09:13.306 --> 00:09:17.296 align:middle
+alguien sigue o no dando con las
+rutas de código obsoletas. En
+
+00:09:18.136 --> 00:09:21.066 align:middle
+este momento, no veo más desaprobaciones en
+
+00:09:21.066 --> 00:09:24.716 align:middle
+nuestra barra de herramientas de depuración
+web, así que creo que hemos terminado ¡ Y
+
+00:09:25.186 --> 00:09:28.096 align:middle
+eso significa que estamos
+listos para Symfony 6! ¡
+
+00:09:28.636 --> 00:09:30.456 align:middle
+Hagamos la actualización a continuación!
