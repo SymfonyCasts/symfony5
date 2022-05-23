@@ -10,6 +10,8 @@ earlier. Paste that into our `rector.php` file. Then, just like we did for Symfo
 5.4, change `SymfonySetList` to `SymfonyLevelSetList`, and this time, say
 `UP_TO_SYMFONY_60`.
 
+[[[ code('8ba578b07b') ]]]
+
 In theory, there shouldn't be *any* code differences needed between Symfony 5.4
 and 6.0... though sometimes there are minor cleanups you can do once you *have*
 upgraded.
@@ -24,11 +26,15 @@ And... okay. It made one change. This is to our event subscriber: it added an `a
 return type. This was done because, in the future, this interface may add an
 `array` return type. So now our code is *future* compatible.
 
+[[[ code('469b470d19') ]]]
+
 ## Upgrading via Composer
 
 With that done, let's upgrade! In `composer.json`, we need to find the main Symfony
 libraries and change their version from `5.4.*` to `6.0.*`. Let's take the lazy
 way out and do that with a "Find & Replace".
+
+[[[ code('b20f0683ca') ]]]
 
 Awesome! Like before, we're not touching any Symfony libraries that are *not* part
 of the main package and which follow their *own* versioning scheme. Oh, and at
@@ -63,6 +69,8 @@ to see a list of outdated packages. Oooh! `babdev/pagerfanta-bundle` has a new
 version `3.6.1`. Go into `composer.json` and find that... here it is! Change its
 version to `^3.6`.
 
+[[[ code('2ac1f8804a') ]]]
+
 This *is* a *major* version upgrade. So it *may* contain some backwards compatibility
 breaks. We'll check into that in a minute. Try:
 
@@ -89,6 +97,8 @@ paste, I jump *directly* to the file - and even the *line* - where the problem i
 And... phew! PhpStorm is *not* happy. That's because the `upgradePassword()` method
 changed from requiring a `UserInterface` to requiring a
 `PasswordAuthenticatedUserInterface`. So we just need to change that and... done!
+
+[[[ code('936b7a4e9f') ]]]
 
 Back at our terminal, if we run:
 
