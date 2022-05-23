@@ -1,55 +1,167 @@
-# Enhanced Docker Integration
+# Enhanced Docker Integration & Testing Emails
 
-Symfony has had support for Docker for a while. In particular, to help with local web development. For example, I have PHP installed locally. I'm not using Docker for that, *but* my project has a `docker-compose.yml` file that defines a database service. Remember that the local web server we're using comes from the Symfony binary, and it's *smart*. It *automatically* detects that I have `docker-compose.yml` running with a `database` service, reads the connection parameters to this container, and exposes them as a `DATABASE_URL` environment variable.
+Symfony has had support for Docker for a while, in particular, to help with local
+web development. For example, I have PHP installed locally. I'm not using Docker
+for that, *but* my project has a `docker-compose.yml` file that defines a database
+service. Remember that the local web server we're using comes from the Symfony binary,
+and it's *smart*. It *automatically* detects that I have `docker-compose` running
+with a `database` service... and so it reads the connection parameters from this
+container and exposes them as a `DATABASE_URL` environment variable.
 
-Check this out! On any page, click into the web debug toolbar, make sure you're on "Request/ Response", then go to "Server Parameters". Scroll down to find `DATABASE_URL` set to (in my case) `127.0.0.1` on port `56239`. The way my `docker-compose.yml` is set up, it will create a new random port every time, and the Symfony binary will figure out *which* random port it is and create this environment variable. Then, just like normal, thanks to our `config/packages/doctrine.yaml` configuration, the `DATABASE_URL` environment variable is used to talk to the database. So the Symfony binary *plus* Docker is a nice way to quickly and easily boot up external services like a database, elastic search, or more.
+Check this out! On any page, click into the web debug toolbar. Make sure you're on
+"Request/ Response", then go to "Server Parameters". Scroll down to find
+`DATABASE_URL` set to (in my case) `127.0.0.1` on port `56239`. The way my
+`docker-compose.yml` is set up, it will create a new random port each time it starts,
+and the Symfony binary will figure out *which* random port it is and create the
+environment variable accordingly. Then, just like normal, thanks to our
+`config/packages/doctrine.yaml` configuration, the `DATABASE_URL` environment variable
+is used to talk to the database. So the Symfony binary *plus* Docker is a nice way
+to quickly and easily boot up external services like a database, elastic search,
+or more.
 
-Recently, Symfony took this to the next level. on Symfony.com, you'll find a blog post called "Introducing Docker support", and the idea is pretty simple. When you install a new package - Doctrine, for example - that package's recipe *may* ship with some Docker configuration. And so, just by installing the package, you can get that Docker configuration *automatically*. Let's see this in action! Since we already have Doctrine installed, let's install Mailer, which comes with the `docker-compose.yml` for something called `mailcatcher`. At your terminal, run:
+## New Docker Integration with Flex Recipes
+
+Recently, Symfony took this to the next level. On Symfony.com, you'll find a blog
+post called [Introducing Docker support](https://symfony.com/blog/introducing-docker-support).
+The idea is pretty simple. When you install a new package - Doctrine, for example -
+that package's recipe *may* ship with some Docker configuration. And so, just by
+installing the package, you can get that Docker configuration *automatically*.
+
+Let's see this in action! Since we already have Doctrine installed, let's install
+Mailer, which will come with some `docker-compose` config for a service called
+`mailcatcher`. At your terminal, run:
 
 ```terminal
 composer require mailer
 ```
 
-Awesome! It stops us and says:
+Awesome! It stops us and asks:
 
-`This may create/update docker-compose.yml or
-update Dockerfile (if it exists). Do you want
-to include Docker configuration from recipes?`
+> The recipe for this package contains some Docker configuration.
+> Do you want to include Docker configuration from recipes?
 
-I'm going to say `p` for "Yes permanently". If you *don't* want the Docker stuff, you'll want to say "No", or "No permanently" and will never ask you again. And... done! Now we can run
+I'm going to say `p` for "Yes permanently". If you *don't* want the Docker stuff,
+no worries! Answer no or "No permanently" and will never ask you again.
+
+And... done! Now we can run
 
 ```termional
 git status
 ```
 
-and you'll see that it updated the normal stuff, but it *also* has a new `docker-compose.override.yml`. So I now have a `docker-compose.yml` file (I had this before), and the recipe *also* gave me a new `docker-compose.override.yml` file. If you're not too familiar with the difference between these files, Docker reads both of these, but `docker-compose.override.yml` is meant for service overrides that are specific to your environment.
+to see that it updated the normal stuff, but there is *also* a new
+`docker-compose.override.yml`. If you're not familiar, Docker will first read
+our main `docker-compose.yml` file and *then* will read
+`docker-compose.override.yml`. The purpose of the override file is to change
+configuration that is specific to your machine. In this case, our local machine.
 
-MailCatcher is a tool for local development. When you run it, it spins up an SMTP server that you can send emails to, and that has a nice little web GUI where you can *review* those emails. This is inside of `docker-compose.override.yml` because we only want this service to be running locally when we're doing *local* development. If you were using Docker to actually send your site to production, you would have different configuration for production.
+The new file adds a service called MailCatcher. This is a tool for local development.
+When you run it, it starts an SMTP server that you can send emails *to*... and
+also a web GUI where you can *review* those emails. This service lives inside of
+`docker-compose.override.yml` because we only want this service to be running locally
+when we're doing *local* development. If you were using Docker to *deploy* your
+site, you would have different local configuration for production. If you're
+*not* deploying with Docker, all of this config could live in your main
+`docker-compose.yml` file if you want.
 
-Anyways, before we even start using this service, let's set up a few things in our app to send emails. First, head over to `src/Controller/RegistrationController.php`. We're going to send a proper verification email after we register. Right now, we're using the SymfonyCasts `verify-email-bundle`, but instead of actually *sending* an email, we're just putting the URL directly into a flash message. It was a shortcut we made during the Security tutorial. But *now*, I'm going to go to the bottom of this and paste some code, which you can get on this page. Then, I'll retype the "e" on `MailerInterface` and hit "tab" to add that use statement, and do the same with the "l" on `Email`. Select the one from `Symfony\Component\Mime`. Perfect!
+## Testing MailCatcher
 
-This will send a very simple verification email that just contains a link to, not surprisingly, *verify* our email.
+Anyways, before we even start using this service, let's set up a few things in our
+app to send emails. First, head over to `src/Controller/RegistrationController.php`.
+We're already using `symfonycasts/verify-email-bundle`... but instead of actually
+*sending* an email, we're just putting the verification URL directly into a flash
+message. It was a shortcut we made during the Security tutorial.
 
-*All* the way up on the `register()` method, add a new argument at the end: `MailerInterface $mailer`. Perfect! And then, down here, I'll get rid of this `TODO`... and we'll say `$this->sendVerificationEmail()`. We're going to pass this the `$mailer`, `$user`, and also the `signedUrl` that they need to click. And then, in `success`, we can just change this message a little bit to let the user know they should check their email.
+But *now*, let's send a *real* email. I'll go to the bottom of the class and paste
+some code, which you can get from the code blocks on this page. Retype the "e" on
+`MailerInterface` and hit "tab" to add that `use` statement... and do the same with
+the "l" on `Email`. Select the one from `Symfony\Component\Mime`.
 
-Okay, so we have this new `docker-compose.yml` file with MailCatcher. We've not actually *restarted* `docker-compose` to get this running, so we're going to ignore this for a second and see if we can get the emails going.
+Perfect! This will send a very simple verification email that just contains a link
+to, well, *verify* our email.
 
-If you click back to the Register page... whoops! We get an error: `Environment variable not found: "MAILER_DSN"`. Now that we're finally using the `mailer` for the first time, the mailer service needs `MAILER_DSN` to tell it where to send emails, You can find this environment variable in `.env`. When we install `mailer`, it gives us this. It just comments it out in case, for some reason, we never actually need `mailer`. Let's un-comment that.
+Now, *all* the way up on the `register()` method, add a new argument at the end:
+`MailerInterface $mailer`. Then, down here, remove the `TODO`... and replace it
+with `$this->sendVerificationEmail()`. Pass this the `$mailer`, `$user`, and also
+the `$signedUrl`. And then, in the `success` flash, change the message to tell
+the user that they should check their email.
 
-You can see, by default, it sends us what's called the "null transport", which means that we can send emails, but they will go absolutely nowhere, which is actually a nice setting for development. Check this out! I'll refresh the page - it works now - add a fake email address here, register, and... it worked! Of course, it didn't send an email anywhere, but we can still see, more or less, what the email would look like.
+Okay, so we have this new `docker-compose.override.yml` file with MailCatcher.
+But... that new service isn't actually *running* yet. But, ignore that for a second...
+and let's see if we can get the email working.
 
-Click any link to go into the Profiler and click "Last 10". Find the POST request for `register` and click into that. Down here, we can click "E-mails" and see what our email look like, including an HTML preview. It's pretty ugly, since I didn't actually do any work on it, but this is a great way to debug your emails. This is a new feature from Symfony 5.4.
+Click back to the Register page... whoops! We get an error:
 
-Another cool way to debug your emails is using MailCatcher. Let's spin over and restart `docker-compose`. If you don't *already* have a `docker-compose.yml` file, go ahead and make one. All you need to do is have a `version` on top and that's it. That way we have a `docker-compose.yml` file and a `docker-compose.override.yml` file. Head over to your terminal and run:
+> Environment variable not found: "MAILER_DSN".
+
+Of course! The mailer service needs a `MAILER_DSN` environment variable to tell it
+*where* to send emails. You can find this environment variable in `.env`: the
+mailer recipe gave this to us, but it's commented-out. *Un-comment* that.
+
+By default, it sends emails to what's called the "null transport"... which means
+that when we send emails... they go absolutely nowhere. They're *not* delivered...
+which is a nice setting for development.
+
+Refresh, add a fake email address, register, and... it worked! Of course, it didn't
+*send* the email anywhere... but we can still see, more or less, what the email would
+look like.
+
+How?  Click any link to go into the Profiler, click "Last 10", find the POST
+request for `/register` and click into that. Down here, go to the "E-mails" section
+and... voilà! It shows our email including an HTML preview... and *wow* is it
+ugly... but that's my fault. Btw, the HTML preview is a new feature in Symfony 5.4.
+
+## Starting up the MailCatcher Service
+
+But let's see how MailCatcher can also help us debug emails. First, if you do
+*not* already have a `docker-compose.yml` file, go ahead and make one. All you need
+is the `version` line on top. That way we have a `docker-compose.yml` *and* a
+`docker-compose.override.yml`.
+
+Now, find your terminal and run:
 
 ```terminal
 docker-compose up -d
 ```
 
-I already have `docker-compose` running for my database container, and that will now start my mailer container. This also just started `MailCatcher`, which exposed a new SMTP port we can send emails to, and also a new web GUI that we can check out. So how do we configure `mailer` to point to `MailCatcher`? What port is it running on? The answer is... we *don't know*, and we *don't care*. Watch this. Click back to any page, refresh... and then click back to the Profiler. Go to "Request/Response", then "Server Parameters", and scroll down to `MAILER_URL`. As you can see, the `MAILER_URL` is suddenly set to `smtp://127.0.0.1:65320`. So what happened? When we started the `MailCatcher` service, internally, it exposed the `1025` port of the container, which is the SMTP messages, to a random port on my host. The Symfony binary saw that, read what the random port was, and just like with the database, exposed a `MAILER_URL` environment variable that points to it. In other words, our emails will automatically send to `MailCatcher`.
+I already have `docker-compose` running for my database container, but this will
+now start the `mailer` container, which will start a new mailcatcher SMTP server.
 
-Let's try it. I'll sign up again with some other email address, agree to the terms and... cool! No error! So it seems like that worked. We could go back into the Profiler like we did a second ago and review that message there. But in theory, if that sent to `MailCatcher`, we *should* be able to go to the `MailCatcher` UI and review the message there. The question is, *where is* the `MailCatcher` UI? What port is *that* running on? Because that's *also* running on another random port.
+Ok... so how do we configure `mailer` to *deliver* to `MailCatcher`? What port is
+that SMTP server running on anywaays? The answer is... we *don't know*! And we *don't
+care*.
 
-To help with this, down on this little "Server" thing on the web debug toolbar, you can see some information. It detects `docker-compose` running, it's exposing some environment variables from Docker, and it even detected Webmail. We can click "Open" to head into `MailCatcher`, and *there's* our email! and you can view it in HTML or Plain Text. If you send more messages to this, they're just going to show up here like a nice little inbox. So this is a great tool for helping debug emails locally.
+Watch this. Go back to any page, refresh... and then click into the Profiler. Once
+again, make sure you're on the "Request/Response" section then go to "Server
+Parameters". Scroll down to `MAILER_URL`.
 
-And that's it! Congrats! You've just upgraded your app to Symfony 6! *And* PHP 8! *And* PHP attributes instead of annotations! Cool stuff! There are *a lot* more features that we don't have time to cover, but if you have any questions or encounter any problems during your upgrade that we didn't talk about, we're here for you down in the comments. All right, friends! See you next time!
+Ha! `MAILER_URL` is suddenly set to `smtp://127.0.0.1:65320`!
+
+Here's what happened? When we started the `mailer` service, internally, it
+exposed the `1025` port of that container, which is the SMTP server, to a *random*
+port on my host machine. The Symfony binary *saw* that, *read* the random port,
+and then, just like with the database, exposed a `MAILER_URL` environment variable
+that points to it. In other words, our emails will already, automatically send to
+MailCatcher!
+
+
+Let's try it! I'll sign up again with some other email address, agree to the terms
+and... cool! No error! To see the email, we *could* go back into the Profiler like
+we did a minute ago. But in theory, if that sent to MailCatcher, we *should* be able
+to go to the MailCatcher UI and review the message *there*. The question is,
+*where is* the `MailCatcher` UI? What port is *that* running on? Because that's
+*also* running on a random port.
+
+To help with this, hover over the  "Server" section of the web debug toolbar. You
+can see that it detects that `docker-compose` is running, it *is* exposing some
+environment variables from Docker, and it even detected Webmail! Click "Open"
+to head into MailCatcher... and *there's* our email!
+
+If you send *more* emails, they'll show up here like a little inbox.
+
+And... that's it! Congrats! You've just upgraded your app to Symfony 6! *And* PHP 8!
+*And* PHP attributes! Such cool stuff!
+
+If you have any questions or run into any problems during your upgrade that we didn't
+talk about, we're here for you down in the comments. All right, friends! See you
+next time!
