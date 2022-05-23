@@ -1,0 +1,358 @@
+WEBVTT
+
+00:00:01.016 --> 00:00:04.986 align:middle
+¡Por fin ha llegado el momento
+de actualizar a Symfony 6!
+
+00:00:05.136 --> 00:00:10.616 align:middle
+¡Guau! Pero antes, por si acaso,
+vamos a ejecutar Rector una vez más.
+
+00:00:11.436 --> 00:00:15.936 align:middle
+Vuelve al repositorio de Rector, haz
+clic en el enlace de Symfony y...
+
+00:00:15.936 --> 00:00:18.206 align:middle
+roba el mismo código que teníamos antes.
+
+00:00:18.746 --> 00:00:21.486 align:middle
+Pégalo en nuestro archivo rector.php.
+
+00:00:22.276 --> 00:00:29.606 align:middle
+Luego, al igual que hicimos para Symfony 5.4,
+cambia SymfonySetList por SymfonyLevelSetList,
+
+00:00:30.286 --> 00:00:33.516 align:middle
+y esta vez, di UP_TO_SYMFONY_60.
+
+00:00:34.566 --> 00:00:38.356 align:middle
+En teoría, no debería haber
+ninguna diferencia de código
+
+00:00:38.356 --> 00:00:41.486 align:middle
+entre Symfony 5.4 y 6.0...
+
+00:00:42.246 --> 00:00:46.856 align:middle
+aunque a veces hay pequeñas limpiezas que
+puedes hacer una vez que hayas actualizado.
+
+00:00:47.616 --> 00:00:49.366 align:middle
+Ejecutemos esto y veamos qué ocurre.
+
+00:00:49.676 --> 00:00:55.266 align:middle
+Di: vendor/bin/rector process src/ Y...
+
+00:00:55.986 --> 00:00:58.236 align:middle
+vale. Ha hecho un cambio.
+
+00:00:58.576 --> 00:01:02.806 align:middle
+Se trata de nuestro suscriptor de eventos:
+ha añadido un tipo de retorno array.
+
+00:01:03.676 --> 00:01:09.366 align:middle
+Esto se hizo porque, en el futuro, esta
+interfaz puede añadir un tipo de retorno array.
+
+00:01:09.856 --> 00:01:12.706 align:middle
+Así que ahora nuestro código
+es compatible con el futuro.
+
+00:01:13.416 --> 00:01:16.096 align:middle
+Una vez hecho esto, ¡vamos a actualizar!
+
+00:01:16.776 --> 00:01:20.526 align:middle
+En composer.json, tenemos que encontrar
+las bibliotecas principales de Symfony
+
+00:01:20.646 --> 00:01:23.286 align:middle
+y cambiar su versión de 5.4.*
+
+00:01:23.476 --> 00:01:30.576 align:middle
+a 6.0.*. Tomemos el camino más perezoso y
+hagámoslo con un "Find & Replace". ¡Genial!
+
+00:01:34.536 --> 00:01:40.566 align:middle
+Como antes, no vamos a tocar ninguna
+biblioteca de Symfony que no forme parte
+
+00:01:40.566 --> 00:01:44.686 align:middle
+del paquete principal y que siga
+su propio esquema de versiones. Ah,
+
+00:01:45.476 --> 00:01:52.106 align:middle
+y en el fondo, esto también cambió
+extra.symfony.require a 6.0.*. Así que, ¡estamos
+
+00:01:52.486 --> 00:01:54.756 align:middle
+listos! Como
+
+00:01:55.326 --> 00:02:00.276 align:middle
+antes, podríamos decir: composer
+up 'symfony/*' Pero... No me voy a
+
+00:02:00.276 --> 00:02:04.036 align:middle
+molestar con eso. Actualicemos
+
+00:02:04.516 --> 00:02:09.426 align:middle
+todo con sólo: composer up Y... ¡falla!
+
+00:02:09.706 --> 00:02:11.986 align:middle
+Hmm. Una de
+
+00:02:12.606 --> 00:02:16.496 align:middle
+las librerías que estoy usando es
+babdev/pagerfanta-bundle... y aparentemente
+
+00:02:17.396 --> 00:02:20.436 align:middle
+requiere PHP 7.2... pero nosotros estamos
+
+00:02:20.586 --> 00:02:22.256 align:middle
+usando PHP 8. Si
+
+00:02:22.256 --> 00:02:25.786 align:middle
+miras más allá, hay algunos errores
+sobre pagerfanta-bundle[v2.8.0] que
+
+00:02:25.786 --> 00:02:35.916 align:middle
+requieren symfony/config
+^3.4 || ^4.4 || ^5.1, pero no
+
+00:02:36.216 --> 00:02:38.086 align:middle
+Symfony 6. Entonces, ¿qué está
+
+00:02:38.676 --> 00:02:39.926 align:middle
+pasando aquí? Resulta
+
+00:02:40.716 --> 00:02:46.986 align:middle
+que pagerfanta-bundle[v2.8.0] no es
+compatible con Symfony 6. ¡Ja! Ejecuta
+
+00:02:47.266 --> 00:02:52.626 align:middle
+composer outdated para ver una lista de paquetes
+obsoletos. ¡Oooh! babdev/pagerfanta-bundle
+
+00:02:53.576 --> 00:02:59.426 align:middle
+tiene una nueva versión 3.6.1. Entra en
+
+00:03:00.116 --> 00:03:02.436 align:middle
+composer.json y búscalo... ¡aquí
+
+00:03:03.286 --> 00:03:03.796 align:middle
+está! Cambia su
+
+00:03:04.266 --> 00:03:07.466 align:middle
+versión a ^3.6. Se trata
+
+00:03:08.046 --> 00:03:10.856 align:middle
+de una actualización de
+versión mayor. Así que
+
+00:03:11.016 --> 00:03:14.556 align:middle
+puede contener algunas interrupciones de compatibilidad
+con versiones anteriores. Lo comprobaremos en
+
+00:03:14.786 --> 00:03:16.406 align:middle
+un momento. Prueba: composer
+
+00:03:17.216 --> 00:03:19.496 align:middle
+up de nuevo y... ¡lo hace
+
+00:03:20.126 --> 00:03:21.456 align:middle
+! ¡ Todo se ha
+
+00:03:21.916 --> 00:03:24.886 align:middle
+actualizado a Symfony 6! Y entonces...
+
+00:03:25.836 --> 00:03:26.726 align:middle
+para celebrarlo...
+
+00:03:27.046 --> 00:03:28.136 align:middle
+explotó inmediatamente
+
+00:03:28.386 --> 00:03:31.856 align:middle
+mientras limpiaba la caché. Uh oh...
+
+00:03:32.686 --> 00:03:35.816 align:middle
+Creo que se nos ha escapado una
+deprecación: En UserRepository,
+
+00:03:36.646 --> 00:03:39.446 align:middle
+upgradePassword([...]): void debe
+
+00:03:39.446 --> 00:03:43.496 align:middle
+ser compatible con
+PasswordUpgraderInterface. Si quieres
+
+00:03:44.246 --> 00:03:49.426 align:middle
+ver esto en color, puedes actualizar la página
+de inicio para ver lo mismo. Por cierto,
+
+00:03:50.146 --> 00:03:53.956 align:middle
+en Symfony 5.4, ahora podemos hacer
+clic en este icono para copiar la
+
+00:03:53.956 --> 00:03:56.356 align:middle
+ruta del archivo a nuestro
+portapapeles. Ahora, si
+
+00:03:57.086 --> 00:04:01.716 align:middle
+vuelvo a mi editor, pulso "shift" +
+"shift" y pego, salto directamente
+
+00:04:02.186 --> 00:04:07.576 align:middle
+al archivo -e incluso a la línea- donde
+está el problema. Y... ¡uf! PhpStorm
+
+00:04:08.246 --> 00:04:09.156 align:middle
+no está
+
+00:04:09.496 --> 00:04:11.236 align:middle
+contento. Eso es porque el
+
+00:04:11.816 --> 00:04:16.366 align:middle
+métodoupgradePassword() pasó de
+requerir un UserInterface a requerir un
+
+00:04:16.456 --> 00:04:20.256 align:middle
+PasswordAuthenticatedUserInterface.
+Así que sólo
+
+00:04:21.036 --> 00:04:23.456 align:middle
+tenemos que cambiar eso
+y... ¡listo! De vuelta a
+
+00:04:23.676 --> 00:04:32.586 align:middle
+nuestro terminal, si ejecutamos php bin/console
+cache:clear Ahora está contento. Todavía tenemos
+
+00:04:33.406 --> 00:04:37.276 align:middle
+algunas desaprobaciones aquí abajo de
+una biblioteca diferente... pero voy a
+
+00:04:37.506 --> 00:04:39.186 align:middle
+ignorarlas. Vienen de
+
+00:04:39.746 --> 00:04:42.356 align:middle
+un paquete obsoleto que...
+
+00:04:42.516 --> 00:04:45.846 align:middle
+Necesito eliminar por completo
+de este proyecto. Vamos a
+
+00:04:46.606 --> 00:04:48.426 align:middle
+asegurarnos de que la página de
+inicio funciona. ¿No funciona?
+
+00:04:49.366 --> 00:04:50.636 align:middle
+Obtenemos Intentada
+
+00:04:51.516 --> 00:04:57.256 align:middle
+la carga de la clase QueryAdapter desde el espacio de
+nombres "Pagerfanta\Doctrine\ORM. Esto no debería ser
+
+00:04:57.976 --> 00:05:00.146 align:middle
+una sorpresa ... ya que
+
+00:05:00.296 --> 00:05:05.986 align:middle
+actualizamos pagerfanta-bundle
+de 2.8 a 3.6. Esta es una
+
+00:05:06.776 --> 00:05:11.656 align:middle
+situación en la que tienes que encontrar la página
+de GitHub de la biblioteca y esperar que tengan
+
+00:05:11.686 --> 00:05:13.736 align:middle
+un documento de actualización. Este
+
+00:05:14.276 --> 00:05:16.016 align:middle
+sí lo tiene. Si lo lees
+
+00:05:17.086 --> 00:05:22.886 align:middle
+con atención, descubrirás que un montón de
+clases que antes formaban parte de Pagerfanta
+
+00:05:22.886 --> 00:05:27.776 align:middle
+ahora se han dividido en bibliotecas
+independientes. Así que si
+
+00:05:29.256 --> 00:05:34.336 align:middle
+queremos utilizar este QueryAdapter, tenemos que
+instalar un paquete independiente. Hazlo con:
+
+00:05:35.216 --> 00:05:43.186 align:middle
+composer require
+pagerfanta/doctrine-orm-adapter Genial... y si
+
+00:05:43.506 --> 00:05:45.526 align:middle
+refrescamos ahora... ¿otro error? Este es
+
+00:05:46.456 --> 00:05:47.896 align:middle
+aún
+
+00:05:48.546 --> 00:05:51.896 align:middle
+mejor: Función desconocida
+pagerfanta. ¿Te has olvidado
+
+00:05:52.186 --> 00:05:59.526 align:middle
+de ejecutar composer require pagerfanta/twig en
+question/homepage.html.twig? La integración de Twig
+
+00:06:00.406 --> 00:06:04.326 align:middle
+también se trasladó a su
+propio paquete... así que
+
+00:06:04.816 --> 00:06:08.986 align:middle
+también tenemos que ejecutar ese
+comando: Y... después de hacerlo...
+
+00:06:08.986 --> 00:06:09.856 align:middle
+¡está vivo! ¡
+
+00:06:11.076 --> 00:06:11.886 align:middle
+Tenemos un
+
+00:06:12.176 --> 00:06:14.326 align:middle
+proyecto Symfony 6! ¡Woohoo! Si
+
+00:06:14.546 --> 00:06:19.846 align:middle
+hacemos clic, las cosas parecen
+funcionar bien. ¡Lo hemos conseguido!
+
+00:06:20.076 --> 00:06:21.396 align:middle
+En nuestra
+
+00:06:22.246 --> 00:06:26.466 align:middle
+línea de comandos, ejecuta composer outdated
+para ver todos los paquetes obsoletos que
+
+00:06:26.466 --> 00:06:28.806 align:middle
+nos quedan. La lista es
+
+00:06:29.746 --> 00:06:31.786 align:middle
+ahora muy corta. Un paquete es
+
+00:06:32.286 --> 00:06:38.296 align:middle
+knplabs/knp-markdown-bundle , que está
+totalmente actualizado... pero ha sido
+
+00:06:38.536 --> 00:06:40.366 align:middle
+abandonado. Si
+
+00:06:41.056 --> 00:06:46.486 align:middle
+lo tienes en un proyecto real, refactorízalo
+para utilizar twig/markdown-extra. No me voy a
+
+00:06:47.046 --> 00:06:50.486 align:middle
+molestar, pero por eso está en
+esta lista. ¡Lo más importante
+
+00:06:50.486 --> 00:06:56.896 align:middle
+aquí es que doctrine/dbal tiene una nueva
+versión mayor! Así que ¡eh! Ya que estamos
+
+00:06:57.276 --> 00:07:02.486 align:middle
+aquí actualizando cosas, ¡actualicémoslo
+también! Eso a continuación,
+
+00:07:03.046 --> 00:07:06.256 align:middle
+junto con algunas limpiezas finales
