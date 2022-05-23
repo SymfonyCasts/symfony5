@@ -13,7 +13,7 @@ index 85a473eb..f7b2d25f 100644
 +LOCK_DSN=semaphore
 +###< symfony/lock ###
 diff --git a/composer.json b/composer.json
-index faebbf8b..86e3efac 100644
+index d9772319..8733d749 100644
 --- a/composer.json
 +++ b/composer.json
 @@ -27,6 +27,7 @@
@@ -25,7 +25,7 @@ index faebbf8b..86e3efac 100644
          "symfony/security-bundle": "5.3.*",
          "symfony/serializer": "5.3.*",
 diff --git a/composer.lock b/composer.lock
-index bcf75d90..67b0c7bf 100644
+index 4cc2e9c0..f0f219c9 100644
 --- a/composer.lock
 +++ b/composer.lock
 @@ -4,7 +4,7 @@

@@ -16,7 +16,7 @@ index a1c6e90c..fb0dbf01 100644
      "entrypoints": []
  }
 diff --git a/composer.json b/composer.json
-index 4cf8d18e..6694a524 100644
+index 45df3da5..38aea189 100644
 --- a/composer.json
 +++ b/composer.json
 @@ -25,6 +25,7 @@
@@ -28,7 +28,7 @@ index 4cf8d18e..6694a524 100644
          "symfony/yaml": "5.3.*",
          "twig/extra-bundle": "^2.12|^3.0",
 diff --git a/composer.lock b/composer.lock
-index f4930d3c..b9d29ff0 100644
+index 9ef9fdac..25d423c3 100644
 --- a/composer.lock
 +++ b/composer.lock
 @@ -4,7 +4,7 @@
