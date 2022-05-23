@@ -37,7 +37,7 @@ without it.
 Anyways, I'll copy that, find my terminal, and paste.
 
 ```terminal
-composer require scheb/2fa-qr-code
+composer require "scheb/2fa-qr-code:^5.12.1"
 ```
 
 To use the *new* way of generating QR codes - which I recommend - skip this
