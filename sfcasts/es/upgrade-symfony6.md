@@ -1,4 +1,4 @@
-# Actualización a Symfony 6.0
+# Actualizando a Symfony 6.0
 
 ¡Por fin ha llegado el momento de actualizar a Symfony 6! ¡Woo!
 
@@ -83,7 +83,7 @@ php bin/console cache:clear
 
 Ahora está contento. Todavía tenemos algunas desaprobaciones aquí abajo de una biblioteca diferente... pero voy a ignorarlas. Vienen de un paquete obsoleto que... Realmente necesito eliminar por completo de este proyecto.
 
-## PagerFanta Updaes
+## Actualizando PagerFanta
 
 Vamos a asegurarnos de que la página de inicio funciona. ¿No funciona? Obtenemos
 
