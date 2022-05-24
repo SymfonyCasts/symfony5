@@ -110,7 +110,7 @@ php bin/console cache:clear
 library... but I'm going to ignore those. These come from a deprecated package
 that... I really just need to remove from this project entirely.
 
-## PagerFanta Updaes
+## PagerFanta Updates
 
 Let's go make sure the homepage works. It... doesn't!? We get
 
