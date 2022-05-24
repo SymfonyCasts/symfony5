@@ -28,6 +28,10 @@ Of course! *We're* holding it back. It says that *our* project requires
 Head over to `composer.json` and... sure enough: `^2.13`. Change that
 to the latest `^3.3`. Moment of truth. Run
 
+[[[ code('b11850acb9') ]]]
+
+```
+
 ```terminal
 composer up
 ```
@@ -79,10 +83,16 @@ git status
 ## Moving Route Attribute Loading
 
 The problem is in `config/routes.yaml`. Let's check that out. Ok, so previously,
-*I* commented out this route. The recipe update added the `controllers` and `kernel`
-imports. Let's keep *their* changes. These are actually importing our route
-annotations or attributes from the `../src/Controller` directory... and also allowing
+*I* commented out this route. 
+
+[[[ code('a045dab4ee') ]]]
+
+The recipe update added the `controllers` and `kernel` imports. Let's 
+keep *their* changes. These are actually importing our route annotations 
+or attributes from the `../src/Controller` directory... and also allowing
 you to add routes and controllers directly to your `Kernel.php` file.
+
+[[[ code('06b59dcc73') ]]]
 
 It says `type: annotation`... but that importer is able to load annotations *or*
 PHP 8 attributes. One of the nice things about Symfony 6 is that you can load
@@ -126,6 +136,8 @@ renamed `getUsername()` to `getUserIdentifier()`. In Symfony 5.4, to remove the
 deprecations but keep your code working, we need to have *both* of these methods.
 But as soon as you upgrade to Symfony 6, you don't need the old one anymore! Just
 make sure that you're not calling this directly from *your* code.
+
+[[[ code('1f9ea6bbee') ]]]
 
 Another spot down here... is `getSalt()`. This is an old method related to how you
 hash passwords, and it's no longer needed in Symfony 6. Modern password hashing
