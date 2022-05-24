@@ -30,8 +30,6 @@ to the latest `^3.3`. Moment of truth. Run
 
 [[[ code('b11850acb9') ]]]
 
-```
-
 ```terminal
 composer up
 ```
