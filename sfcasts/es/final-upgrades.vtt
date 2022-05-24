@@ -1,0 +1,354 @@
+WEBVTT
+
+00:00:01.026 --> 00:00:03.096 align:middle
+Mientras hacemos todas estas
+actualizaciones importantes, podemos
+
+00:00:03.206 --> 00:00:05.856 align:middle
+asegurarnos de que todo está actualizado.
+
+00:00:06.576 --> 00:00:13.266 align:middle
+Cuando ejecutamos composer outdated nos da una lista
+de todas las cosas que aún tenemos que actualizar.
+
+00:00:13.976 --> 00:00:18.556 align:middle
+Como he dicho, vamos a ignorar
+knplabs/knp-markdown-bundle.
+
+00:00:19.246 --> 00:00:24.956 align:middle
+Pero si lo tienes en un proyecto real,
+refactorízalo para usar twig/markdown-extra.
+
+00:00:25.906 --> 00:00:33.206 align:middle
+Lo que me interesa es doctrine/dbal, que tiene una
+nueva versión mayor a la que podemos actualizar.
+
+00:00:33.916 --> 00:00:41.006 align:middle
+Pero... esto plantea la pregunta: ¿Por qué no se actualizó
+automáticamente cuando hicimos composer up? Ejecuta
+
+00:00:41.846 --> 00:00:48.726 align:middle
+composer why-not doctrine/dbal
+3 para averiguar qué nos
+
+00:00:48.726 --> 00:00:51.486 align:middle
+impide actualizar a la
+versión 3 de este paquete.
+
+00:00:52.306 --> 00:00:53.116 align:middle
+¡Por supuesto!
+
+00:00:53.436 --> 00:00:54.996 align:middle
+Lo estamos reteniendo.
+
+00:00:55.276 --> 00:01:00.276 align:middle
+Dice que nuestro proyecto
+requiere doctrine/dbal (^2.13).
+
+00:01:00.776 --> 00:01:05.266 align:middle
+Ups... Vamos a composer.json y...
+
+00:01:05.266 --> 00:01:08.016 align:middle
+efectivamente: ^2.13.
+
+00:01:08.676 --> 00:01:12.026 align:middle
+Cámbialo por el último ^3.3.
+
+00:01:12.906 --> 00:01:13.646 align:middle
+Es el momento de la verdad.
+
+00:01:14.046 --> 00:01:19.166 align:middle
+Ejecuta composer up y...
+
+00:01:19.576 --> 00:01:21.426 align:middle
+¡guau! ¡Se ha actualizado!
+
+00:01:22.276 --> 00:01:24.316 align:middle
+Vuelve a hacer composer outdated.
+
+00:01:25.326 --> 00:01:30.206 align:middle
+¡Muy bien! Aparte de
+knp-markdown-bundle, esto está vacío.
+
+00:01:31.116 --> 00:01:34.456 align:middle
+Acabamos de realizar una importante
+actualización de la versión.
+
+00:01:34.776 --> 00:01:38.856 align:middle
+Así que la nueva versión contiene interrupciones
+de compatibilidad con versiones anteriores.
+
+00:01:39.356 --> 00:01:44.396 align:middle
+Tendrás que mirar el CHANGELOG de la biblioteca un
+poco más a fondo para asegurarte de que no te afecta.
+
+00:01:45.116 --> 00:01:49.266 align:middle
+Pero puedo decirte que la
+mayoría de los cambios
+
+00:01:49.266 --> 00:01:56.426 align:middle
+se refieren a si utilizas directamente doctrine/dbal,
+por ejemplo para hacer consultas directamente en DBAL.
+
+00:01:57.116 --> 00:02:02.406 align:middle
+Normalmente, cuando trabajas con
+el ORM de Doctrine y las entidades
+
+00:02:02.946 --> 00:02:06.486 align:middle
+-incluso si haces consultas
+personalizadas- no haces eso.
+
+00:02:07.146 --> 00:02:07.696 align:middle
+En nuestro sitio...
+
+00:02:08.046 --> 00:02:09.556 align:middle
+parece que estamos bien.
+
+00:02:10.276 --> 00:02:13.466 align:middle
+Ahora que hemos actualizado
+de Symfony 5.4 a 6.0, es
+
+00:02:13.876 --> 00:02:18.426 align:middle
+posible que algunas recetas tengan nuevas
+versiones a las que podamos actualizar.
+
+00:02:19.276 --> 00:02:23.116 align:middle
+Ejecuta: composer recipes:update ¡Uy!
+
+00:02:23.276 --> 00:02:30.766 align:middle
+Tengo que confirmar mis cambios: git commit -m
+'upgrading doctrine/dbal from 2 to 3' ¡Perfecto!
+
+00:02:31.306 --> 00:02:34.256 align:middle
+Ahora ejecuta composer recipes:update y...
+
+00:02:34.716 --> 00:02:36.526 align:middle
+¡guay! Hay dos.
+
+00:02:37.276 --> 00:02:39.366 align:middle
+Empieza con symfony/routing.
+
+00:02:40.016 --> 00:02:42.376 align:middle
+Y... ¡tenemos conflictos!
+
+00:02:42.906 --> 00:02:47.386 align:middle
+Ejecuta: git status El problema
+está en config/routes.yaml.
+
+00:02:47.916 --> 00:02:51.006 align:middle
+Vamos a comprobarlo.
+
+00:02:51.006 --> 00:02:54.826 align:middle
+Vale, anteriormente comenté esta ruta.
+
+00:02:55.606 --> 00:02:59.636 align:middle
+La actualización de la receta añadió
+las importaciones controllers y kernel.
+
+00:03:00.416 --> 00:03:02.226 align:middle
+Mantengamos sus cambios.
+
+00:03:03.276 --> 00:03:07.946 align:middle
+En realidad están importando nuestras anotaciones
+o atributos de ruta del directorio ../src/Controller
+
+00:03:07.946 --> 00:03:09.966 align:middle
+... y
+
+00:03:10.446 --> 00:03:15.726 align:middle
+también permiten añadir rutas y controladores
+directamente a tu archivo Kernel.php.
+
+00:03:16.456 --> 00:03:18.356 align:middle
+Dice type: annotation... pero
+
+00:03:18.776 --> 00:03:24.156 align:middle
+ese importador es capaz de cargar
+anotaciones o atributos de PHP 8. Una
+
+00:03:24.876 --> 00:03:27.376 align:middle
+de las cosas buenas de Symfony 6 es que
+
+00:03:27.376 --> 00:03:31.716 align:middle
+puedes cargar atributos de ruta sin
+necesidad de ninguna biblioteca externa. Es
+
+00:03:32.156 --> 00:03:32.746 align:middle
+simplemente ... parte
+
+00:03:32.806 --> 00:03:34.396 align:middle
+del sistema de rutas. Por
+
+00:03:35.156 --> 00:03:38.096 align:middle
+esa razón, estas importaciones
+de rutas se añadieron a
+
+00:03:38.096 --> 00:03:43.286 align:middle
+nuestro archivo principal config/routes.yaml
+cuando instalamos symfony/routing.
+
+00:03:44.126 --> 00:03:45.166 align:middle
+Sigue adelante y confirma eso. Este
+
+00:03:45.706 --> 00:03:50.206 align:middle
+cambio tendrá aún más sentido cuando
+actualicemos la receta final. Ejecuta
+
+00:03:51.676 --> 00:03:54.986 align:middle
+de nuevocomposer recipes:update
+y, esta vez , actualicemos
+
+00:03:55.336 --> 00:03:58.226 align:middle
+la receta doctrine/annotations.
+Es interesante. Se
+
+00:03:59.296 --> 00:04:00.056 align:middle
+ha
+
+00:04:00.546 --> 00:04:04.126 align:middle
+borrado config/routes/annotations.yaml. Si te
+
+00:04:04.826 --> 00:04:09.016 align:middle
+fijas bien, ¡en realidad
+contenía las dos líneas que
+
+00:04:09.016 --> 00:04:11.666 align:middle
+se añadieron con la actualización
+de la receta anterior! Esto es lo que
+
+00:04:12.346 --> 00:04:13.226 align:middle
+pasa.
+
+00:04:13.716 --> 00:04:17.796 align:middle
+Antes de PHP 8 -cuando sólo
+teníamos rutas de anotación- la
+
+00:04:18.146 --> 00:04:24.136 align:middle
+bibliotecadoctrine/annotations debía importar
+las anotaciones de las rutas. Así que
+
+00:04:24.806 --> 00:04:30.486 align:middle
+sólo te dimos estas líneas de importación
+una vez que instalaste esa biblioteca. Pero
+
+00:04:31.246 --> 00:04:35.276 align:middle
+ahora que utilizamos rutas de
+atributos, ¡eso ya no es cierto!
+
+00:04:36.016 --> 00:04:40.096 align:middle
+Ya no necesitamos el paquete
+doctrine/annotations. Por eso
+
+00:04:40.816 --> 00:04:47.136 align:middle
+, ahora te damos inmediatamente estas líneas de
+importación de rutas de atributos en cuanto instalas
+
+00:04:47.136 --> 00:04:48.776 align:middle
+el componente de rutas. Si
+
+00:04:49.596 --> 00:04:53.026 align:middle
+miramos aquí, nada cambia
+en nuestro front end. Todas
+
+00:04:53.346 --> 00:04:55.286 align:middle
+nuestras rutas siguen funcionando. Por último,
+
+00:04:56.076 --> 00:05:01.546 align:middle
+ahora que estamos en Symfony 6, podemos eliminar
+algo de código que sólo era necesario para
+
+00:05:01.546 --> 00:05:03.406 align:middle
+que las cosas siguieran
+funcionando en Symfony 5.
+
+00:05:04.246 --> 00:05:06.036 align:middle
+No hay mucho de esto que yo sepa... lo
+
+00:05:06.546 --> 00:05:09.396 align:middle
+único que se me ocurre es en User.php. Como
+
+00:05:10.286 --> 00:05:14.506 align:middle
+he mencionado antes, en Symfony
+6, UserInterface ... Voy a
+
+00:05:14.976 --> 00:05:16.136 align:middle
+pinchar en eso... renombrado
+
+00:05:16.586 --> 00:05:20.456 align:middle
+getUsername() a getUserIdentifier(). En
+
+00:05:21.146 --> 00:05:27.056 align:middle
+Symfony 5.4, para eliminar las desapariciones
+pero mantener tu código funcionando,
+
+00:05:27.546 --> 00:05:30.006 align:middle
+necesitamos tener estos dos métodos. Pero en
+
+00:05:30.946 --> 00:05:35.196 align:middle
+cuanto actualices a Symfony 6, ¡ya no
+necesitarás el antiguo! Sólo asegúrate
+
+00:05:35.876 --> 00:05:39.466 align:middle
+de que no lo llamas directamente
+desde tu código. Otro
+
+00:05:40.416 --> 00:05:41.486 align:middle
+punto aquí abajo... es
+
+00:05:41.616 --> 00:05:42.776 align:middle
+getSalt(). Este
+
+00:05:43.336 --> 00:05:47.686 align:middle
+es un método antiguo relacionado con
+la forma de hash de las contraseñas, y
+
+00:05:47.906 --> 00:05:50.306 align:middle
+ya no es necesario en Symfony
+6. Los algoritmos modernos
+
+00:05:50.746 --> 00:05:53.936 align:middle
+de hash de contraseñas se encargan
+
+00:05:53.936 --> 00:05:58.536 align:middle
+del salting por sí mismos, así que
+esto es completamente inútil. Y...
+
+00:05:59.416 --> 00:06:00.986 align:middle
+¡eso es todo equipo! ¡ Hemos
+
+00:06:01.176 --> 00:06:02.386 align:middle
+terminado! ¡ Nuestra
+
+00:06:02.766 --> 00:06:05.356 align:middle
+aplicación Symfony 6 está
+totalmente actualizada! Hemos
+
+00:06:06.046 --> 00:06:09.256 align:middle
+actualizado las recetas, actualizado
+el código a PHP 8, estamos
+
+00:06:09.736 --> 00:06:14.496 align:middle
+usando atributos de PHP 8 en lugar
+de anotaciones y mucho más. Eso
+
+00:06:15.216 --> 00:06:16.466 align:middle
+fue una tonelada de cosas... y
+
+00:06:16.676 --> 00:06:19.816 align:middle
+acabamos de modernizar nuestra
+base de código a lo grande.
+
+00:06:20.426 --> 00:06:23.306 align:middle
+Creo que esto merece una pizza
+entera para celebrarlo. Luego
+
+00:06:23.806 --> 00:06:27.396 align:middle
+vuelve, porque quiero hacer
+una prueba rápida de algunas
+
+00:06:27.596 --> 00:06:30.546 align:middle
+nuevas características más de
+las que no hemos hablado. Son las
+
+00:06:30.976 --> 00:06:32.056 align:middle
+siguientes
