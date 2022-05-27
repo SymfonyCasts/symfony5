@@ -13,6 +13,9 @@ Check this out! On any page, click into the web debug toolbar. Make sure you're 
 "Request/ Response", then go to "Server Parameters". Scroll down to find
 `DATABASE_URL` set to (in my case) `127.0.0.1` on port `56239`. The way my
 `docker-compose.yml` is set up, it will create a new random port each time it starts.
+
+[[[ code('9f0635bf6f') ]]]
+
 The Symfony binary will then figure out *which* random port it is and create the
 environment variable accordingly. Finally, just like normal, thanks to our
 `config/packages/doctrine.yaml` configuration, the `DATABASE_URL` environment variable
@@ -56,6 +59,8 @@ to see that it updated the normal stuff, but *also* gave us a new
 of the override file is to *change* configuration that is specific to your machine.
 In this case, our local machine.
 
+[[[ code('6cb0c70f6b') ]]]
+
 The new file adds a service called `mailer`... which boots up something called
 MailCatcher. MailCatcher is a local debugging tool that starts an SMTP server that
 you can send emails *to*. And then it gives you a web GUI where you can *review*
@@ -65,8 +70,7 @@ This service lives inside of `docker-compose.override.yml` because we only want
 this service to be running locally when we're doing *local* development. If you're
 using Docker to *deploy* your site, you'll have a different local configuration for
 production. If you're *not* deploying with Docker, all of this config could live
-in your main
-`docker-compose.yml` file if you want.
+in your main `docker-compose.yml` file if you want.
 
 ## Testing MailCatcher
 
@@ -76,10 +80,14 @@ Open up `src/Controller/RegistrationController.php`. We're already using
 verification email, we're just putting the verification URL directly into a flash
 message. It was a shortcut I made during the Security tutorial.
 
+[[[ code('483b6501dc') ]]]
+
 But *now*, let's send a *real* email. I'll go to the bottom of the class and paste
 a new private function, which you can get from the code blocks on this page. Retype
 the "e" on `MailerInterface` and hit "tab" to add that `use` statement... and do
 the same with the "l" on `Email`. Select the one from `Symfony\Component\Mime`.
+
+[[[ code('d67fab0014') ]]]
 
 Perfect! This will send a very simple verification email that just contains the
 verification link.
@@ -89,6 +97,8 @@ Now, *all* the way up on the `register()` method, add a new argument at the end:
 with `$this->sendVerificationEmail()` passing `$mailer`, `$user`, and `$signedUrl`.
 Finally, in the `success` flash, change the message to tell the user that they
 should check their email.
+
+[[[ code('c69e90aa0b') ]]]
 
 Okay, so we have this new `docker-compose.override.yml` file with MailCatcher.
 However, that container isn't actually *running* yet. But, ignore that for a minute...
@@ -101,6 +111,8 @@ Click back to the Register page... whoops! We get an error:
 Of course! The mailer service needs this environment variable to tell it
 *where* to send emails. You can find this inside `.env`: the mailer recipe gave
 us the `MAILER_DSN` env var, but it's commented-out. *Un-comment* that.
+
+[[[ code('7d546e7ff9') ]]]
 
 By default, it sends emails to what's called the "null transport"... which means
 that when we send emails... they go absolutely nowhere. They're not *actually*
