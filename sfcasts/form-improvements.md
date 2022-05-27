@@ -19,6 +19,8 @@ to the registration page, this renders four fields. Let's open the template for 
 Let's *replace* this with the very lazy `{{ form_widget(registrationForm) }}`...
 which just dumps out all of the fields in whatever order they're added.
 
+[[[ code('a50b830724') ]]]
+
 Unfortunately... now the form... looks *weird*. To fix this, open the form type
 class for this, which is `src/Form/RegistrationFormType.php`. Every single
 field now has an option called `priority`. Let's add that.
@@ -28,6 +30,8 @@ set `priority` to `4`, because I want this to be the first field. `email` should
 be the second field, so pass `null` again and set its `priority` to `3`. Then give
 `plainPassword` a `priority` of `2`... and finally set `agreeTerms` to `priority`
 `1`.
+
+[[[ code('1faae474c8') ]]]
 
 And now... it looks great! So if you want to lazily render your fields, you can do
 that... and not have to worry about them being in a strange order.
@@ -39,6 +43,8 @@ While we're on the topic of forms, open up the controller for this page:
 template and pass in a form, there's a new shortcut! Instead of `render()` say
 `renderForm()`. The only other difference is that you get to *remove* the
 `->createView()` call.
+
+[[[ code('fcdc601d94') ]]]
 
 That's it! this `renderForm()` method is *just like* `render()`. It *still*
 renders this template, and it *still* passes any of these variables *into* the
