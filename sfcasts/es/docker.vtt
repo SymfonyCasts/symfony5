@@ -1,0 +1,560 @@
+WEBVTT
+
+00:00:01.086 --> 00:00:07.626 align:middle
+Symfony ha tenido soporte para Docker durante un tiempo,
+en particular, para ayudar al desarrollo web local.
+
+00:00:08.376 --> 00:00:11.526 align:middle
+Por ejemplo, tengo PHP instalado localmente.
+
+00:00:11.596 --> 00:00:15.146 align:middle
+Así que no estoy utilizando
+Docker para obtener el propio PHP.
+
+00:00:15.736 --> 00:00:22.276 align:middle
+Pero mi proyecto tiene un archivo docker-compose.yml
+que define un servicio de base de datos.
+
+00:00:22.936 --> 00:00:27.916 align:middle
+Recuerda que el servidor web local que estamos
+utilizando proviene del binario Symfony...
+
+00:00:28.216 --> 00:00:29.736 align:middle
+y es inteligente.
+
+00:00:30.496 --> 00:00:34.106 align:middle
+Detecta automáticamente que
+tengo docker-compose funcionando
+
+00:00:34.106 --> 00:00:35.676 align:middle
+con un servicio database...
+
+00:00:36.076 --> 00:00:41.556 align:middle
+y así lee los parámetros de conexión
+de este contenedor y los expone
+
+00:00:41.556 --> 00:00:44.736 align:middle
+como una variable de entorno DATABASE_URL.
+
+00:00:45.536 --> 00:00:46.066 align:middle
+¡Comprueba esto!
+
+00:00:46.486 --> 00:00:49.356 align:middle
+En cualquier página, haz clic en la
+barra de herramientas de depuración web.
+
+00:00:50.076 --> 00:00:54.616 align:middle
+Asegúrate de que estás en "Petición/Respuesta",
+y luego ve a "Parámetros del servidor".
+
+00:00:55.116 --> 00:01:05.386 align:middle
+Desplázate hacia abajo para encontrar DATABASE_URL
+configurado como (en mi caso) 127.0.0.1 en el puerto 56239.
+
+00:01:06.216 --> 00:01:13.276 align:middle
+Tal y como está configurado mi docker-compose.yml,
+creará un nuevo puerto aleatorio cada vez que se inicie.
+
+00:01:14.176 --> 00:01:17.956 align:middle
+El binario de Symfony averiguará
+entonces de qué puerto aleatorio se trata
+
+00:01:18.326 --> 00:01:21.226 align:middle
+y creará la variable de
+entorno en consecuencia.
+
+00:01:22.136 --> 00:01:28.416 align:middle
+Finalmente, como es normal, gracias a nuestra configuración
+de config/packages/doctrine.yaml, la variable de entorno
+
+00:01:28.926 --> 00:01:34.146 align:middle
+DATABASE_URL se utiliza para
+hablar con la base de datos.
+
+00:01:35.066 --> 00:01:42.156 align:middle
+Así que el binario de Symfony más Docker es una buena
+manera de arrancar rápida y fácilmente servicios externos
+
+00:01:42.366 --> 00:01:45.156 align:middle
+como una base de datos, una
+búsqueda elástica, o más.
+
+00:01:46.046 --> 00:01:49.596 align:middle
+Recientemente, Symfony ha
+llevado esto al siguiente nivel.
+
+00:01:50.246 --> 00:01:54.936 align:middle
+En Symfony.com, encontrarás una entrada en
+el blog llamada Introducing Docker support.
+
+00:01:55.616 --> 00:01:57.596 align:middle
+La idea es bastante sencilla.
+
+00:01:58.206 --> 00:02:01.726 align:middle
+Cuando instalas un nuevo
+paquete -Doctrine, por ejemplo-
+
+00:02:02.146 --> 00:02:06.656 align:middle
+la receta de ese paquete puede venir
+con alguna configuración de Docker.
+
+00:02:07.236 --> 00:02:13.416 align:middle
+Y así, con sólo instalar el paquete, obtienes
+la configuración de Docker automáticamente.
+
+00:02:14.206 --> 00:02:15.286 align:middle
+¡Veamos esto en acción!
+
+00:02:15.886 --> 00:02:19.856 align:middle
+Puesto que ya tenemos Doctrine
+instalado, instalemos Mailer,
+
+00:02:20.446 --> 00:02:24.756 align:middle
+que vendrá con docker-compose config
+para un servicio llamado MailCatcher.
+
+00:02:25.506 --> 00:02:33.156 align:middle
+En tu terminal, ejecuta: composer
+require mailer ¡Impresionante!
+
+00:02:33.436 --> 00:02:39.386 align:middle
+Nos detiene y pregunta: La receta de este
+paquete contiene alguna configuración de Docker.
+
+00:02:39.746 --> 00:02:43.696 align:middle
+¿Quieres incluir la configuración
+Docker de las recetas?
+
+00:02:44.216 --> 00:02:47.126 align:middle
+Voy a decir p por "Sí permanentemente".
+
+00:02:47.806 --> 00:02:50.586 align:middle
+Si no quieres las cosas de
+Docker, ¡no te preocupes!
+
+00:02:50.846 --> 00:02:55.286 align:middle
+Responde que no o "No permanentemente"
+y no te lo volverá a preguntar.
+
+00:02:56.086 --> 00:02:57.486 align:middle
+Y... ¡listo!
+
+00:02:58.176 --> 00:03:02.046 align:middle
+Ahora podemos ejecutar para ver que
+ha actualizado las cosas normales,
+
+00:03:02.426 --> 00:03:07.486 align:middle
+pero también nos ha dado un
+nuevo docker-compose.override.yml.
+
+00:03:08.416 --> 00:03:12.756 align:middle
+Si no estás familiarizado, Docker
+leerá primero docker-compose.yml
+
+00:03:13.216 --> 00:03:16.896 align:middle
+y luego leerá docker-compose.override.yml.
+
+00:03:17.736 --> 00:03:23.516 align:middle
+El objetivo del archivo de anulación es cambiar
+la configuración específica de tu máquina.
+
+00:03:23.916 --> 00:03:25.916 align:middle
+En este caso, nuestra máquina local.
+
+00:03:26.786 --> 00:03:29.086 align:middle
+El nuevo archivo añade un
+servicio llamado mailer...
+
+00:03:29.556 --> 00:03:32.356 align:middle
+que arranca algo llamado
+MailCatcher. MailCatcher
+
+00:03:33.146 --> 00:03:35.536 align:middle
+es una herramienta de depuración local
+
+00:03:35.816 --> 00:03:40.846 align:middle
+que inicia un servidor SMTP al que
+puedes enviar correos electrónicos.
+
+00:03:40.846 --> 00:03:46.386 align:middle
+Y luego te ofrece una interfaz gráfica de usuario web
+en la que puedes revisar esos correos electrónicos...
+
+00:03:46.826 --> 00:03:48.876 align:middle
+dentro de una bandeja de entrada ficticia.
+
+00:03:49.866 --> 00:03:53.496 align:middle
+Este servicio vive dentro de
+docker-compose.override.yml
+
+00:03:53.876 --> 00:03:58.746 align:middle
+porque sólo queremos que se ejecute
+localmente cuando hagamos desarrollo local.
+
+00:03:59.746 --> 00:04:02.506 align:middle
+Si utilizas Docker para desplegar tu sitio,
+
+00:04:02.806 --> 00:04:06.056 align:middle
+tendrás una configuración
+local diferente para producción.
+
+00:04:06.796 --> 00:04:10.646 align:middle
+Si no estás desplegando con Docker,
+toda esta configuración puede vivir
+
+00:04:10.646 --> 00:04:13.886 align:middle
+en tu archivo principal
+docker-compose.yml si lo deseas.
+
+00:04:14.706 --> 00:04:20.126 align:middle
+De todos modos, antes de empezar a utilizar este servicio,
+vamos a configurarlo para enviar un correo electrónico.
+
+00:04:20.706 --> 00:04:24.896 align:middle
+Abre src/Controller/RegistrationController.php.
+
+00:04:24.896 --> 00:04:28.526 align:middle
+Ya estamos utilizando
+symfonycasts/verify-email-bundle...
+
+00:04:29.016 --> 00:04:32.516 align:middle
+pero en lugar de enviar realmente el correo
+electrónico de verificación, vamos a
+
+00:04:32.676 --> 00:04:37.626 align:middle
+poner la URL de verificación
+directamente en un mensaje flash.
+
+00:04:38.166 --> 00:04:41.826 align:middle
+Fue un atajo que hice durante
+el tutorial de Seguridad.
+
+00:04:42.516 --> 00:04:45.656 align:middle
+Pero ahora, vamos a enviar
+un correo electrónico real.
+
+00:04:46.446 --> 00:04:50.086 align:middle
+Iré al final de la clase y
+pegaré una nueva función privada,
+
+00:04:50.536 --> 00:04:52.856 align:middle
+que puedes obtener de los bloques
+de código de esta página.
+
+00:04:53.516 --> 00:04:58.366 align:middle
+Vuelve a escribir la "e" en MailerInterface y
+pulsa "tab" para añadir esa declaración use...
+
+00:04:58.916 --> 00:05:01.726 align:middle
+y haz lo mismo con la "l" en Email.
+
+00:05:02.446 --> 00:05:04.976 align:middle
+Selecciona la de Symfony\Component\Mime.
+
+00:05:06.176 --> 00:05:10.156 align:middle
+¡Perfecto! Esto enviará un correo
+electrónico de verificación muy sencillo
+
+00:05:10.476 --> 00:05:13.056 align:middle
+que sólo contiene el enlace de verificación.
+
+00:05:14.026 --> 00:05:18.736 align:middle
+Ahora, en el método register(),
+añade un nuevo argumento al
+
+00:05:18.736 --> 00:05:21.856 align:middle
+final: MailerInterface $mailer.
+
+00:05:22.846 --> 00:05:25.746 align:middle
+Luego, aquí abajo, elimina el TODO...
+
+00:05:26.606 --> 00:05:27.636 align:middle
+y sustitúyelo
+
+00:05:28.546 --> 00:05:34.456 align:middle
+por $this->sendVerificationEmail()
+pasando por $mailer, $user, y $signedUrl.
+
+00:05:35.246 --> 00:05:40.036 align:middle
+Por último, en el flash success, cambia
+el mensaje para decirle al usuario que
+
+00:05:40.036 --> 00:05:41.666 align:middle
+debe comprobar su correo electrónico.
+
+00:05:44.846 --> 00:05:49.186 align:middle
+Bien, ya tenemos este nuevo
+archivo docker-compose.override.yml
+
+00:05:49.246 --> 00:05:50.386 align:middle
+con MailCatcher.
+
+00:05:50.906 --> 00:05:55.306 align:middle
+Sin embargo, ese contenedor
+aún no se está ejecutando.
+
+00:05:55.916 --> 00:05:57.806 align:middle
+Pero, ignora eso por un momento...
+
+00:05:58.246 --> 00:06:00.956 align:middle
+y veamos si podemos hacer
+funcionar el correo electrónico.
+
+00:06:01.586 --> 00:06:03.366 align:middle
+Vuelve a la página de Registro...
+
+00:06:05.506 --> 00:06:11.056 align:middle
+¡Ups! Obtenemos un error: Variable de
+entorno no encontrada: "MAILER_DSN".
+
+00:06:11.666 --> 00:06:12.826 align:middle
+¡Por supuesto!
+
+00:06:13.406 --> 00:06:18.686 align:middle
+El servicio mailer necesita esta variable de entorno
+para indicarle dónde debe enviar los correos.
+
+00:06:19.296 --> 00:06:26.026 align:middle
+Puedes encontrarla dentro de .env: la receta
+del mailer nos dio la env var MAILER_DSN,
+
+00:06:26.346 --> 00:06:27.726 align:middle
+pero está comentada.
+
+00:06:28.256 --> 00:06:29.266 align:middle
+Descomenta eso.
+
+00:06:30.206 --> 00:06:34.526 align:middle
+Por defecto, envía los correos a lo
+que se llama el "transporte nulo"...
+
+00:06:34.936 --> 00:06:37.206 align:middle
+lo que significa que cuando
+enviamos correos electrónicos...
+
+00:06:37.386 --> 00:06:39.456 align:middle
+no van a ninguna parte.
+
+00:06:39.946 --> 00:06:41.656 align:middle
+No se entregan realmente...
+
+00:06:41.786 --> 00:06:43.886 align:middle
+lo cual es una buena
+configuración para el desarrollo.
+
+00:06:44.826 --> 00:06:51.166 align:middle
+Actualiza, añade una dirección de correo
+electrónico falsa, regístrate y...
+
+00:06:51.616 --> 00:06:52.316 align:middle
+¡funcionó!
+
+00:06:52.846 --> 00:06:55.356 align:middle
+Por supuesto, no envió el correo
+electrónico a ninguna parte...
+
+00:06:55.746 --> 00:07:00.356 align:middle
+pero aún podemos ver, más o menos,
+cómo sería el correo electrónico.
+
+00:07:01.036 --> 00:07:07.256 align:middle
+¿Cómo? Haz clic en cualquier enlace para entrar en el
+Perfilador, haz clic en "Últimos 10", busca la petición POST
+
+00:07:07.256 --> 00:07:10.286 align:middle
+de /register y haz clic en ella.
+
+00:07:11.116 --> 00:07:14.446 align:middle
+Aquí abajo, ve a la sección
+"Correos electrónicos" y...
+
+00:07:14.906 --> 00:07:19.906 align:middle
+¡voilà! Muestra nuestro correo electrónico
+incluyendo una vista previa en HTML.
+
+00:07:20.576 --> 00:07:22.586 align:middle
+Y vaya si es feo...
+
+00:07:22.746 --> 00:07:23.736 align:middle
+pero eso es culpa mía.
+
+00:07:24.476 --> 00:07:29.356 align:middle
+Por cierto, la vista previa HTML es una
+nueva característica de Symfony 5.4.
+
+00:07:30.176 --> 00:07:31.566 align:middle
+Vale, eso es genial.
+
+00:07:31.976 --> 00:07:36.496 align:middle
+Pero veamos cómo MailCatcher también puede
+ayudarnos a depurar los correos electrónicos.
+
+00:07:37.346 --> 00:07:42.766 align:middle
+En primer lugar, si aún no tienes un
+archivo docker-compose.yml, crea uno.
+
+00:07:43.416 --> 00:07:46.016 align:middle
+Todo lo que necesitas es la línea
+version en la parte superior.
+
+00:07:46.676 --> 00:07:52.356 align:middle
+Así tendremos un archivo docker-compose.yml
+y un archivo docker-compose.override.yml.
+
+00:07:53.146 --> 00:08:00.316 align:middle
+Ahora, busca tu terminal y ejecuta: docker-compose
+up -d Ya tengo docker-compose ejecutándose
+
+00:08:00.316 --> 00:08:05.056 align:middle
+para mi contenedor de base de datos, pero
+esto iniciará ahora el contenedor mailer,
+
+00:08:05.536 --> 00:08:10.456 align:middle
+que inicializará un nuevo servidor
+SMTP de captación de correo.
+
+00:08:11.206 --> 00:08:18.826 align:middle
+Vale... entonces, ¿cómo configuramos mailer para
+que entregue a este servidor SMTP desde MailCatcher?
+
+00:08:19.456 --> 00:08:23.056 align:middle
+De todas formas, ¿en qué puerto
+está funcionando ese servidor SMTP?
+
+00:08:23.706 --> 00:08:24.726 align:middle
+La respuesta es...
+
+00:08:24.966 --> 00:08:26.186 align:middle
+¡no lo sabemos!
+
+00:08:26.496 --> 00:08:28.196 align:middle
+Y no nos importa.
+
+00:08:28.876 --> 00:08:29.486 align:middle
+Observa esto.
+
+00:08:30.076 --> 00:08:32.786 align:middle
+Vuelve a cualquier página, actualiza...
+
+00:08:33.986 --> 00:08:35.726 align:middle
+y luego haz clic en el Perfilador.
+
+00:08:36.546 --> 00:08:38.376 align:middle
+Una vez más, asegúrate de que estás en la
+
+00:08:38.376 --> 00:08:42.056 align:middle
+sección "Petición/Respuesta" y
+luego ve a "Parámetros del servidor".
+
+00:08:42.676 --> 00:08:44.796 align:middle
+Desplázate hasta MAILER_URL.
+
+00:08:45.616 --> 00:08:56.096 align:middle
+¡Woh! MAILER_URL se ha convertido
+de repente en smtp://127.0.0.1:65320!
+
+00:08:56.846 --> 00:08:58.036 align:middle
+Esto es lo que ha ocurrido.
+
+00:08:58.576 --> 00:09:05.086 align:middle
+Cuando iniciamos el servicio mailer, Docker
+expuso el puerto 1025 de ese contenedor
+
+00:09:05.456 --> 00:09:11.016 align:middle
+-que es el servidor SMTP- a un puerto
+aleatorio de mi máquina anfitriona.
+
+00:09:11.676 --> 00:09:18.026 align:middle
+El binario de Symfony vio eso, leyó el puerto aleatorio
+y luego, al igual que con la base de datos, expuso
+
+00:09:18.456 --> 00:09:23.636 align:middle
+una variable de entorno
+MAILER_URL que apunta a él.
+
+00:09:24.376 --> 00:09:28.256 align:middle
+En otras palabras, ¡nuestros correos
+electrónicos ya se enviarán a MailCatcher!
+
+00:09:28.936 --> 00:09:29.456 align:middle
+¡Vamos a probarlo!
+
+00:09:29.946 --> 00:09:35.826 align:middle
+Me registraré de nuevo con otra dirección de
+correo electrónico, aceptaré las condiciones y...
+
+00:09:36.606 --> 00:09:38.056 align:middle
+¡guay! ¡No hay error!
+
+00:09:38.836 --> 00:09:44.136 align:middle
+Para ver el correo electrónico, podríamos volver a
+entrar en el Perfilador como hemos hecho hace un momento.
+
+00:09:44.676 --> 00:09:49.806 align:middle
+Pero en teoría, si eso se envió
+a MailCatcher, deberíamos poder ir
+
+00:09:49.806 --> 00:09:54.656 align:middle
+a la interfaz de usuario de
+MailCatcher y revisar el mensaje allí.
+
+00:09:55.236 --> 00:09:59.216 align:middle
+La pregunta es: ¿dónde
+está la UI de MailCatcher?
+
+00:09:59.806 --> 00:10:01.886 align:middle
+¿En qué puerto se está ejecutando?
+
+00:10:02.386 --> 00:10:05.026 align:middle
+Porque también se está
+ejecutando en un puerto aleatorio.
+
+00:10:05.886 --> 00:10:10.456 align:middle
+Para ayudarte con esto, pasa el ratón por encima de la sección
+"Servidor" de la barra de herramientas de depuración web.
+
+00:10:11.266 --> 00:10:14.386 align:middle
+Puedes ver que detecta que
+docker-compose se está ejecutando,
+
+00:10:14.936 --> 00:10:21.226 align:middle
+está exponiendo algunas variables de entorno
+de Docker, ¡e incluso ha detectado Webmail!
+
+00:10:21.846 --> 00:10:24.216 align:middle
+Haz clic en "Abrir" para
+entrar en MailCatcher...
+
+00:10:24.816 --> 00:10:27.026 align:middle
+¡y ahí está nuestro correo electrónico!
+
+00:10:27.786 --> 00:10:33.076 align:middle
+Si envías más correos, aparecerán aquí
+como una pequeña bandeja de entrada.
+
+00:10:33.886 --> 00:10:35.436 align:middle
+Y... ¡eso es todo!
+
+00:10:35.736 --> 00:10:39.416 align:middle
+¡Felicidades! ¡Acabas de actualizar
+tu aplicación a Symfony 6!
+
+00:10:39.796 --> 00:10:40.936 align:middle
+¡Y a PHP 8!
+
+00:10:41.246 --> 00:10:43.156 align:middle
+¡Y a los atributos de PHP!
+
+00:10:43.346 --> 00:10:44.786 align:middle
+¡Qué cosas más chulas!
+
+00:10:45.616 --> 00:10:50.096 align:middle
+Si tienes alguna pregunta o te encuentras con algún
+problema durante la actualización del que no hayamos
+
+00:10:50.096 --> 00:10:53.856 align:middle
+hablado, estamos aquí
+para ti en los comentarios.
+
+00:10:54.666 --> 00:10:56.276 align:middle
+Muy bien, amigos, ¡hasta la próxima!
