@@ -1,15 +1,18 @@
 diff --git a/.env b/.env
-index dfd80c19..94f323ae 100644
+index 0e4710f5..1c133eb7 100644
 --- a/.env
 +++ b/.env
-@@ -27,3 +27,7 @@ APP_SECRET=c28f3d37eba278748f3c0427b313e86a
- # DATABASE_URL="postgresql://symfony:ChangeMe@127.0.0.1:5432/app?serverVersion=13&charset=utf8"
+@@ -28,6 +28,10 @@ APP_SECRET=c28f3d37eba278748f3c0427b313e86a
  DATABASE_URL="mysql://root@127.0.0.1:3306/symfony6_upgrade?serverVersion=5.7"
  ###< doctrine/doctrine-bundle ###
-+
+ 
 +###> symfony/mailer ###
 +# MAILER_DSN=null://null
 +###< symfony/mailer ###
++
+ # technically not needed because this lives in the secrets vault
+ # added here to avoid errors with install for php systems without the sodium extension
+ SENTRY_DSN=
 diff --git a/composer.json b/composer.json
 index 420b86e4..49967974 100755
 --- a/composer.json

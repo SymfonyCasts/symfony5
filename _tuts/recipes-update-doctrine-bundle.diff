@@ -1,8 +1,8 @@
 diff --git a/.env b/.env
-index b92f5b76..dfd80c19 100644
+index 872cf1ac..0e4710f5 100644
 --- a/.env
 +++ b/.env
-@@ -23,7 +23,7 @@ APP_SECRET=c28f3d37eba278748f3c0427b313e86a
+@@ -23,8 +23,8 @@ APP_SECRET=c28f3d37eba278748f3c0427b313e86a
  # IMPORTANT: You MUST configure your server version, either here or in config/packages/doctrine.yaml
  #
  # DATABASE_URL="sqlite:///%kernel.project_dir%/var/data.db"
@@ -12,6 +12,7 @@ index b92f5b76..dfd80c19 100644
 +# DATABASE_URL="postgresql://symfony:ChangeMe@127.0.0.1:5432/app?serverVersion=13&charset=utf8"
  DATABASE_URL="mysql://root@127.0.0.1:3306/symfony6_upgrade?serverVersion=5.7"
  ###< doctrine/doctrine-bundle ###
+ 
 diff --git a/config/packages/doctrine.yaml b/config/packages/doctrine.yaml
 index ab3343b1..324705f4 100644
 --- a/config/packages/doctrine.yaml
