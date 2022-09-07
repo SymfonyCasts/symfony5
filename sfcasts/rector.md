@@ -33,7 +33,14 @@ one by running rector with:
 ```
 
 Awesome! That creates the `rector.php` file... which we can see over at the
-root of our project. Inside of this callback function, our job is to configure
+root of our project.
+
+***TIP
+The latest version of Rector will generate config that looks a bit different than this. But don't worry,
+it still works exactly the same.
+***
+
+Inside of this callback function, our job is to configure
 which *types* of upgrades we want to apply. These are called "rules" or sometimes
 "set lists" or rules. We're going to start with a set of Symfony upgrades.
 
@@ -45,6 +52,11 @@ If you look back at the documentation, you'll see a link to a
 [Symfony repository](https://github.com/rectorphp/rector-symfony) where it tells
 you about a bunch of Symfony "rules" - fancy word for "upgrades" - that they've
 already prepared! That was nice of them!
+
+***TIP
+The config on this page will now look different than in the video. But, it still works the same. Copy
+the latest version into your app.
+***
 
 Below, copy the inside of their callback function... and paste it over what we have.
 
