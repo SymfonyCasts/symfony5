@@ -30,7 +30,7 @@ Copy the "composer require" line, spin over to your terminal and get it:
 
 
 ```terminal
-composer require babdev/pagerfanta-bundle:^3.6
+composer require "babdev/pagerfanta-bundle:^3.6"
 ```
 
 Let's see what that did:
