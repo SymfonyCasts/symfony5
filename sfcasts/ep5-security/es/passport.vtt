@@ -1,0 +1,337 @@
+WEBVTT
+
+00:00:01.016 --> 00:00:05.416 align:middle
+En un nivel básico, autenticar a un usuario
+cuando enviamos el formulario de acceso es...
+
+00:00:05.486 --> 00:00:06.356 align:middle
+bastante sencillo.
+
+00:00:06.746 --> 00:00:11.406 align:middle
+Tenemos que leer el email enviado, consultar
+la base de datos para ese objeto User...
+
+00:00:11.716 --> 00:00:14.446 align:middle
+y finalmente comprobar la
+contraseña del usuario.
+
+00:00:15.376 --> 00:00:19.126 align:middle
+Lo raro del sistema de
+seguridad de Symfony es que...
+
+00:00:19.126 --> 00:00:23.186 align:middle
+no vamos a escribir esta
+lógica en el controlador.
+
+00:00:23.576 --> 00:00:29.576 align:middle
+No. Cuando hagamos un POST a /login,
+nuestro autentificador va a interceptar
+
+00:00:29.576 --> 00:00:32.576 align:middle
+esa petición y hará todo
+el trabajo por sí mismo.
+
+00:00:33.376 --> 00:00:39.156 align:middle
+Sí, cuando enviemos el formulario de inicio de sesión,
+nuestro controlador en realidad nunca se ejecutará.
+
+00:00:39.916 --> 00:00:43.776 align:middle
+Ahora que nuestro autentificador está
+activado, al inicio de cada petición,
+
+00:00:43.976 --> 00:00:46.926 align:middle
+Symfony llamará al método
+supports() de nuestra clase.
+
+00:00:47.746 --> 00:00:50.576 align:middle
+Nuestro trabajo es devolver
+true si esta petición
+
+00:00:50.786 --> 00:00:55.046 align:middle
+"contiene información de
+autenticación que sabemos procesar".
+
+00:00:55.756 --> 00:00:57.756 align:middle
+Si no, devolvemos false.
+
+00:00:58.666 --> 00:01:01.656 align:middle
+Si devolvemos false, no
+fallamos la autenticación:
+
+00:01:01.946 --> 00:01:06.446 align:middle
+sólo significa que nuestro autentificador
+no sabe cómo autentificar esta petición...
+
+00:01:06.846 --> 00:01:10.016 align:middle
+y la petición continúa
+procesándose de forma normal...
+
+00:01:10.336 --> 00:01:12.966 align:middle
+ejecutando cualquier
+controlador con el que coincida.
+
+00:01:13.516 --> 00:01:19.966 align:middle
+Así que pensemos: ¿cuándo queremos que
+nuestro autenticador "haga su trabajo"?
+
+00:01:20.886 --> 00:01:26.456 align:middle
+¿Qué peticiones "contienen información
+de autenticación que sabemos procesar"?
+
+00:01:27.246 --> 00:01:31.756 align:middle
+La respuesta es: siempre que el usuario
+envíe el formulario de inicio de sesión.
+
+00:01:32.606 --> 00:01:38.946 align:middle
+Dentro de supports() devuelve true si
+$request->getPathInfo() -es un método elegante
+
+00:01:38.946 --> 00:01:46.296 align:middle
+para obtener la URL actual- es igual a
+/login y si $request->isMethod('POST'):
+
+00:01:47.206 --> 00:01:53.956 align:middle
+Así que si la petición actual es un POST a
+/login, queremos intentar autentificar al usuario.
+
+00:01:54.746 --> 00:01:58.986 align:middle
+Si no, queremos permitir que la
+petición continúe de forma normal.
+
+00:01:59.846 --> 00:02:06.616 align:middle
+Para ver lo que ocurre a continuación, baja en
+authenticate(), dd('authenticate'): ¡Tiempo de prueba!
+
+00:02:07.036 --> 00:02:08.346 align:middle
+Ve a refrescar la página de inicio.
+
+00:02:09.576 --> 00:02:12.066 align:middle
+¡Sí! El método supports() devolvió false...
+
+00:02:12.546 --> 00:02:14.986 align:middle
+y la página siguió
+cargándose como de costumbre.
+
+00:02:15.646 --> 00:02:21.066 align:middle
+En la barra de herramientas de depuración de la web, tenemos
+un nuevo icono de seguridad que dice "Autenticado: no".
+
+00:02:21.936 --> 00:02:23.656 align:middle
+Pero ahora ve al formulario de acceso.
+
+00:02:24.276 --> 00:02:26.456 align:middle
+Esta página sigue
+cargándose como de costumbre.
+
+00:02:27.046 --> 00:02:32.726 align:middle
+Introduce abraca_admin@example.com - que es el correo
+electrónico de un usuario real en la base de datos -
+
+00:02:33.316 --> 00:02:36.126 align:middle
+y una contraseña cualquiera
+- yo utilizaré foobar.
+
+00:02:37.056 --> 00:02:37.986 align:middle
+Envía y...
+
+00:02:38.536 --> 00:02:41.556 align:middle
+¡lo tengo! ¡Ha llegado a
+nuestro dd('authenticate')!
+
+00:02:42.376 --> 00:02:47.106 align:middle
+Así que si supports() devuelve true,
+Symfony llama entonces a authenticate().
+
+00:02:47.946 --> 00:02:51.276 align:middle
+Este es el corazón de
+nuestro autentificador...
+
+00:02:51.906 --> 00:02:55.656 align:middle
+y su trabajo consiste en
+comunicar dos cosas importantes.
+
+00:02:56.336 --> 00:03:01.966 align:middle
+En primer lugar, quién es el usuario que está intentando
+iniciar sesión -en concreto, qué objeto de User es-
+
+00:03:02.586 --> 00:03:06.456 align:middle
+y, en segundo lugar, alguna
+prueba de que es ese usuario.
+
+00:03:07.316 --> 00:03:09.816 align:middle
+En el caso de un formulario de
+acceso, eso sería una contraseña.
+
+00:03:10.616 --> 00:03:13.636 align:middle
+Como nuestros usuarios aún
+no tienen contraseña...
+
+00:03:13.876 --> 00:03:15.546 align:middle
+la falsificaremos temporalmente.
+
+00:03:16.476 --> 00:03:22.786 align:middle
+Comunicamos estas dos cosas devolviendo
+un objeto Passport: return new Passport():
+
+00:03:23.746 --> 00:03:29.376 align:middle
+Este simple objeto es básicamente un
+contenedor de cosas llamadas "insignias"...
+
+00:03:29.776 --> 00:03:34.066 align:middle
+donde una insignia es un pequeño trozo
+de información que va en el pasaporte.
+
+00:03:34.836 --> 00:03:40.466 align:middle
+Las dos insignias más importantes son UserBadge
+y una especie de "insignia de credenciales"
+
+00:03:40.746 --> 00:03:44.486 align:middle
+que ayuda a demostrar que ese
+usuario es quien dice ser.
+
+00:03:45.476 --> 00:03:51.486 align:middle
+Empieza por coger el correo electrónico y la contraseña que
+te han enviado: $email = $request->request->get('email').
+
+00:03:52.186 --> 00:03:53.346 align:middle
+Si no lo has visto antes,
+
+00:03:53.346 --> 00:03:58.496 align:middle
+$request->request->get() es la forma
+de leer los datos de POST en Symfony.
+
+00:03:59.426 --> 00:04:02.426 align:middle
+En la plantilla de inicio de sesión,
+el nombre del campo es email...
+
+00:04:02.796 --> 00:04:05.246 align:middle
+por lo que leemos el campo email POST.
+
+00:04:06.076 --> 00:04:09.216 align:middle
+Copia y pega esta línea para
+crear una variable $password
+
+00:04:09.346 --> 00:04:11.416 align:middle
+que lea el campo password del formulario:
+
+00:04:12.246 --> 00:04:17.046 align:middle
+A continuación, dentro del Passport, el
+primer argumento es siempre el UserBadge.
+
+00:04:17.546 --> 00:04:23.096 align:middle
+Digamos new UserBadge() y pásale
+nuestro "identificador de usuario".
+
+00:04:23.686 --> 00:04:25.526 align:middle
+Para nosotros, ese es el $email:
+
+00:04:26.246 --> 00:04:29.456 align:middle
+Hablaremos muy pronto de cómo se utiliza esto.
+
+00:04:30.406 --> 00:04:34.186 align:middle
+El segundo argumento de Passport
+es una especie de "credencial".
+
+00:04:34.846 --> 00:04:38.376 align:middle
+Al final le pasaremos un
+PasswordCredentials()....
+
+00:04:38.816 --> 00:04:44.116 align:middle
+pero como nuestros usuarios aún no tienen contraseñas, utiliza
+un nuevo CustomCredentials(). Pásale una devolución de llamada
+
+00:04:44.616 --> 00:04:47.556 align:middle
+con un argumento $credentials
+
+00:04:48.196 --> 00:04:52.546 align:middle
+y un argumento $user de
+tipo-indicado con nuestra clase User:
+
+00:04:53.496 --> 00:04:57.286 align:middle
+Symfony ejecutará nuestra llamada de retorno y nos
+permitirá "comprobar las credenciales " manualmente
+
+00:04:57.476 --> 00:04:59.756 align:middle
+para este usuario...
+
+00:04:59.916 --> 00:05:02.096 align:middle
+sea lo que sea que eso signifique
+en nuestra aplicación.
+
+00:05:03.016 --> 00:05:05.656 align:middle
+Para empezar, dd($credentials, $user).
+
+00:05:06.476 --> 00:05:09.536 align:middle
+Ah, y CustomCredentials
+necesita un segundo argumento,
+
+00:05:09.976 --> 00:05:12.586 align:middle
+que es cualquiera de nuestras "credenciales".
+
+00:05:13.176 --> 00:05:14.786 align:middle
+Para nosotros, eso es $password:
+
+00:05:15.816 --> 00:05:19.356 align:middle
+Si esto de CustomCredentials es
+un poco confuso, no te preocupes:
+
+00:05:19.846 --> 00:05:22.616 align:middle
+tenemos que ver esto en acción.
+
+00:05:23.376 --> 00:05:24.936 align:middle
+Pero en un nivel alto...
+
+00:05:24.986 --> 00:05:26.356 align:middle
+es algo genial.
+
+00:05:27.046 --> 00:05:33.096 align:middle
+Devolvemos un objeto Passport, que dice quién
+es el usuario -identificado por su email -
+
+00:05:33.676 --> 00:05:37.476 align:middle
+y una especie de "proceso de
+credenciales" que probará
+
+00:05:37.476 --> 00:05:40.216 align:middle
+que el usuario es quien dice ser.
+
+00:05:41.146 --> 00:05:43.816 align:middle
+Bien: con sólo esto, vamos a probarlo.
+
+00:05:44.346 --> 00:05:46.366 align:middle
+Vuelve al formulario de acceso y
+vuelve a enviarlo. Recuerda que
+
+00:05:47.136 --> 00:05:52.626 align:middle
+hemos rellenado el formulario con una dirección de correo
+electrónico que sí existe en nuestra base de datos. Y...
+
+00:05:53.136 --> 00:05:54.616 align:middle
+¡impresionante! foobar ¡
+
+00:05:55.176 --> 00:05:57.916 align:middle
+es lo que he enviado para mi contraseña y
+
+00:05:58.166 --> 00:06:02.976 align:middle
+también está volcando el objeto de entidad
+User correcto de la base de datos! Así que...
+
+00:06:03.946 --> 00:06:05.216 align:middle
+¡woh! De alguna manera
+
+00:06:05.436 --> 00:06:10.106 align:middle
+supo consultar el objeto User utilizando
+ese correo electrónico. ¿Cómo
+
+00:06:10.646 --> 00:06:11.456 align:middle
+funciona eso? La
+
+00:06:12.346 --> 00:06:14.626 align:middle
+respuesta es el proveedor de usuarios Vamos a
+
+00:06:15.086 --> 00:06:19.846 align:middle
+sumergirnos en eso a continuación, para saber cómo podemos
+hacer una consulta personalizada para nuestro usuario y
+
+00:06:20.146 --> 00:06:22.506 align:middle
+terminar el proceso de autenticación

@@ -1,0 +1,391 @@
+WEBVTT
+
+00:00:01.016 --> 00:00:03.996 align:middle
+Sabemos cómo obtener el objeto
+usuario actual en un controlador.
+
+00:00:04.446 --> 00:00:06.036 align:middle
+¿Y desde Twig?
+
+00:00:06.676 --> 00:00:08.716 align:middle
+Dirígete a base.html.twig.
+
+00:00:09.646 --> 00:00:10.356 align:middle
+Veamos...
+
+00:00:10.776 --> 00:00:14.066 align:middle
+aquí es donde se muestran los enlaces de
+"cierre de sesión" e "inicio de sesión".
+
+00:00:14.586 --> 00:00:17.626 align:middle
+Intentemos renderizar el
+nombre del usuario aquí mismo.
+
+00:00:18.306 --> 00:00:23.986 align:middle
+¿Cómo? En Twig , tenemos acceso a
+una única variable global llamada app,
+
+00:00:24.376 --> 00:00:30.246 align:middle
+que tiene un montón de cosas útiles,
+como app.session y app.request.
+
+00:00:31.146 --> 00:00:37.596 align:middle
+También tiene app.user que será
+el objeto actual User o null.
+
+00:00:38.176 --> 00:00:41.686 align:middle
+Así que podemos decir app.user.firstName:
+
+00:00:42.576 --> 00:00:46.446 align:middle
+Esto es seguro porque estamos dentro
+de la comprobación de is_granted()...
+
+00:00:46.446 --> 00:00:48.456 align:middle
+así que sabemos que ha y un User.
+
+00:00:49.206 --> 00:00:49.766 align:middle
+¡Vamos a probarlo!
+
+00:00:50.246 --> 00:00:52.706 align:middle
+Cierra el perfilador, actualiza la página y...
+
+00:00:53.646 --> 00:00:56.826 align:middle
+¡perfecto! ¡Parece que me llamo Tremayne!
+
+00:00:57.606 --> 00:00:58.726 align:middle
+Ahora que tenemos esto...
+
+00:00:58.986 --> 00:01:00.596 align:middle
+es hora de hacerlo más elegante.
+
+00:01:01.206 --> 00:01:05.826 align:middle
+Dentro de la comprobación de is_granted(),
+voy a pegar un gran menú de usuario:
+
+00:01:06.376 --> 00:01:08.996 align:middle
+en el bloque de código de esta página:
+
+00:01:09.806 --> 00:01:12.806 align:middle
+Esto está completamente
+codificado para empezar...
+
+00:01:13.446 --> 00:01:15.166 align:middle
+¡pero se renderiza muy bien!
+
+00:01:15.876 --> 00:01:17.136 align:middle
+Vamos a hacerlo dinámico...
+
+00:01:17.606 --> 00:01:19.256 align:middle
+hay algunos puntos.
+
+00:01:19.256 --> 00:01:23.106 align:middle
+Para la imagen, estoy
+utilizando una API de avatar.
+
+00:01:23.976 --> 00:01:26.816 align:middle
+Sólo tenemos que quitar la parte "Juan Pérez"
+
+00:01:26.816 --> 00:01:31.856 align:middle
+e imprimir el nombre real del
+usuario: app.user.firstName.
+
+00:01:32.546 --> 00:01:37.756 align:middle
+Y luego canalizar eso en |url_encode
+para que sea seguro poner una URL.
+
+00:01:38.636 --> 00:01:42.466 align:middle
+También renderiza app.user.firstName
+dentro del texto alt:
+
+00:01:42.466 --> 00:01:46.956 align:middle
+Para el enlace de "cierre de sesión",
+roba la función path() de abajo...
+
+00:01:47.446 --> 00:01:48.826 align:middle
+y ponla aquí:
+
+00:01:50.156 --> 00:01:53.616 align:middle
+Elimina lo anterior en la parte
+inferior para terminar con esto:
+
+00:01:54.176 --> 00:01:56.816 align:middle
+¡Genial! Cuando refresquemos..
+
+00:01:57.726 --> 00:02:00.696 align:middle
+¡voilà! Un verdadero menú
+desplegable de usuario.
+
+00:02:01.606 --> 00:02:06.236 align:middle
+He mencionado varias veces que nuestra
+clase User es nuestra clase....
+
+00:02:06.476 --> 00:02:09.936 align:middle
+por lo que somos libres de
+añadirle los métodos que queramos.
+
+00:02:09.936 --> 00:02:17.536 align:middle
+Por ejemplo, imagina que necesitamos obtener la URL del
+avatar del usuario en algunos lugares de nuestro sitio...
+
+00:02:17.946 --> 00:02:20.776 align:middle
+y no queremos repetir esta larga cadena.
+
+00:02:22.406 --> 00:02:28.516 align:middle
+Copia esto y luego ve a abrir la
+clase User: src/Entity/User.php.
+
+00:02:28.516 --> 00:02:33.196 align:middle
+En la parte inferior, crea un nuevo
+public function getAvatarUri().
+
+00:02:34.206 --> 00:02:37.726 align:middle
+Dale a esto un argumento int
+$size que por defecto es 32...
+
+00:02:38.216 --> 00:02:40.066 align:middle
+y un tipo de retorno string:
+
+00:02:40.776 --> 00:02:42.456 align:middle
+Pega la URL como ejemplo.
+
+00:02:43.406 --> 00:02:47.016 align:middle
+Vamos a devolver la primera parte...
+
+00:02:47.016 --> 00:02:52.736 align:middle
+añade un ? -que se me ha olvidado totalmente-
+y luego utiliza http_build_query():
+
+00:02:53.406 --> 00:02:54.336 align:middle
+Pásale un array...
+
+00:02:54.746 --> 00:02:59.956 align:middle
+con el primer parámetro de consulta que necesitamos:
+name ajustado a $this->getFirstName().
+
+00:03:00.706 --> 00:03:02.786 align:middle
+Pero podemos ser aún más inteligentes.
+
+00:03:03.446 --> 00:03:08.796 align:middle
+Si te desplazas hacia arriba, la
+propiedad firstName puede ser null:
+
+00:03:09.186 --> 00:03:12.266 align:middle
+Es algo opcional que el
+usuario puede proporcionar.
+
+00:03:12.706 --> 00:03:17.706 align:middle
+Así que, de vuelta al método, utiliza
+getFirstName() si tiene un valor...
+
+00:03:18.416 --> 00:03:20.836 align:middle
+si no, vuelve al correo
+electrónico del usuario.
+
+00:03:20.836 --> 00:03:26.956 align:middle
+Para size, que es el segundo parámetro
+de consulta, ponlo en $size...
+
+00:03:27.506 --> 00:03:32.826 align:middle
+y también necesitamos que background se establezca en
+random para que las imágenes sean más divertidas: Gracias
+
+00:03:33.806 --> 00:03:35.406 align:middle
+a este pequeño y bonito método,
+
+00:03:35.576 --> 00:03:42.646 align:middle
+en base.html.twig podemos sustituir
+todo esto por app.user.avatarUri:
+
+00:03:43.586 --> 00:03:47.926 align:middle
+También podemos decir
+getAvatarUri(): ambos harán lo mismo.
+
+00:03:48.786 --> 00:03:49.936 align:middle
+Si lo probamos...
+
+00:03:50.506 --> 00:03:51.626 align:middle
+¡imagen rota!
+
+00:03:52.006 --> 00:03:54.206 align:middle
+Ryan: ve a añadir el ?
+
+00:03:54.256 --> 00:03:55.576 align:middle
+que has olvidado, cabeza de chorlito.
+
+00:03:56.346 --> 00:04:00.256 align:middle
+http_build_query añade el &
+entre los parámetros de consulta,
+
+00:04:00.446 --> 00:04:03.926 align:middle
+pero aún necesitamos el primer ?: Ahora...
+
+00:04:04.336 --> 00:04:05.096 align:middle
+¡mucho mejor!
+
+00:04:05.816 --> 00:04:08.836 align:middle
+¡Pero podemos hacerlo aún mejor!
+
+00:04:09.486 --> 00:04:13.896 align:middle
+En base.html.twig, estamos
+utilizando app.user.firstName:
+
+00:04:14.316 --> 00:04:17.426 align:middle
+Como acabamos de ver, esto puede estar vacío.
+
+00:04:18.016 --> 00:04:20.056 align:middle
+Así que vamos a añadir
+un método de ayuda más
+
+00:04:20.056 --> 00:04:24.126 align:middle
+a User llamado getDisplayName(),
+que devolverá un string:
+
+00:04:25.116 --> 00:04:26.996 align:middle
+Robaré algo de lógica de arriba...
+
+00:04:27.706 --> 00:04:28.766 align:middle
+y devolverá eso:
+
+00:04:29.506 --> 00:04:32.156 align:middle
+Así que devolvemos el nombre
+o el correo electrónico.
+
+00:04:32.776 --> 00:04:39.906 align:middle
+Podemos usar esto en getAvatarUri() -
+getDisplayName(): Y también en base.html.twig: Cuando
+
+00:04:42.466 --> 00:04:43.726 align:middle
+actualizamos... ¡sí!
+
+00:04:44.276 --> 00:04:46.066 align:middle
+¡Sigue funcionando! Bien:
+
+00:04:46.946 --> 00:04:52.286 align:middle
+ahora hemos obtenido el objeto User de un
+controlador a través de $this->getUser()... y
+
+00:04:52.816 --> 00:04:55.366 align:middle
+en Twig a través de app.user. El
+
+00:04:55.946 --> 00:05:01.536 align:middle
+único otro lugar donde necesitarás obtener
+el objeto User es desde un servicio. Por
+
+00:05:01.536 --> 00:05:08.236 align:middle
+ejemplo, hace un par de tutoriales,
+creamos este servicio MarkdownHelper:
+
+00:05:09.006 --> 00:05:12.216 align:middle
+Le pasamos markdown, lo convierte en HTML... y
+
+00:05:12.646 --> 00:05:13.326 align:middle
+luego... aprovecha...
+
+00:05:13.486 --> 00:05:14.856 align:middle
+o algo así.
+
+00:05:15.576 --> 00:05:18.936 align:middle
+Imaginemos que necesitamos el objeto
+User dentro de este método: vamos a
+
+00:05:19.616 --> 00:05:21.836 align:middle
+utilizarlo para registrar otro mensaje. Si
+
+00:05:22.526 --> 00:05:26.526 align:middle
+necesitas el objeto User actualmente
+autentificado de un servicio,
+
+00:05:26.886 --> 00:05:30.386 align:middle
+puedes obtenerlo a través de otro
+servicio llamado Security. Añade
+
+00:05:31.016 --> 00:05:33.656 align:middle
+un nuevo argumento de tipo Security -el
+
+00:05:33.946 --> 00:05:36.816 align:middle
+de Symfony\Component - llamado $security. Pulsa
+
+00:05:37.566 --> 00:05:41.766 align:middle
+Alt + Enter y ve a "Inicializar propiedades"
+para crear esa propiedad y establecerla: Como
+
+00:05:42.336 --> 00:05:46.326 align:middle
+estoy usando PHP 7.4, esto
+añadió un tipo a mi propiedad. A
+
+00:05:47.106 --> 00:05:51.026 align:middle
+continuación, vamos a registrar un
+mensaje si el usuario está conectado. Para
+
+00:05:51.606 --> 00:05:55.496 align:middle
+ello, di si
+$this->security->getUser(): Realmente,
+
+00:05:56.406 --> 00:06:00.196 align:middle
+esta es la forma de obtener
+el objeto User... pero
+
+00:06:00.876 --> 00:06:03.916 align:middle
+también podemos utilizarlo para
+ver si el User está conectado,
+
+00:06:03.916 --> 00:06:07.296 align:middle
+porque esto devolverá null si no lo está. Una
+
+00:06:08.146 --> 00:06:13.616 align:middle
+forma más "oficial" de hacer esto sería
+utilizar isGranted() -que es otro método de
+
+00:06:13.616 --> 00:06:17.806 align:middle
+la clase Security - y comprobar
+IS_AUTHENTICATED_REMEMBERED: De todos modos,
+
+00:06:18.576 --> 00:06:24.146 align:middle
+dentro de digamos $this->logger->info()
+con: Renderizando markdown para
+
+00:06:24.146 --> 00:06:32.956 align:middle
+{usuario} Pasa un array de contextos con user establecido
+en $this->security->getUser()->getEmail(): Como
+
+00:06:33.706 --> 00:06:37.776 align:middle
+antes, sabemos que éste será
+nuestro objeto User... pero
+
+00:06:38.346 --> 00:06:42.206 align:middle
+nuestro editor sólo sabe que es
+algún UserInterface. Así que
+
+00:06:42.856 --> 00:06:44.856 align:middle
+podríamos usar getEmail()... pero me
+
+00:06:45.176 --> 00:06:47.796 align:middle
+quedo con getUserIdentifier(): ¡ Vamos a
+
+00:06:48.546 --> 00:06:49.236 align:middle
+probarlo!
+
+00:06:49.646 --> 00:06:51.386 align:middle
+Tenemos markdown en esta página... así que
+
+00:06:51.746 --> 00:06:52.876 align:middle
+actualiza... y luego
+
+00:06:53.916 --> 00:06:58.126 align:middle
+haz clic en cualquier enlace de la barra de herramientas
+de depuración web para saltar al perfilador. Ve
+
+00:06:58.706 --> 00:07:00.806 align:middle
+a los registros y...
+
+00:07:01.336 --> 00:07:07.066 align:middle
+¡lo tienes! Hay un montón de registros porque llamamos a
+este método un montón de veces. A continuación, vamos a
+
+00:07:07.906 --> 00:07:13.026 align:middle
+hablar de una función súper útil
+llamada "jerarquía de roles". Esto te
+
+00:07:13.646 --> 00:07:19.996 align:middle
+da el poder de asignar roles adicionales a
+cualquier usuario que tenga algún otro rol

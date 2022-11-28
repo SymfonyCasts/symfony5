@@ -1,0 +1,430 @@
+WEBVTT
+
+00:00:01.016 --> 00:00:04.356
+Para nuestro último truco
+en este tutorial, vamos a
+
+00:00:04.356 --> 00:00:08.646
+hacer algo divertido: añadir la
+autenticación de dos factores.
+
+00:00:09.416 --> 00:00:16.086
+Esto puede adoptar varias formas, pero el flujo básico
+es el siguiente, probablemente te resulte familiar.
+
+00:00:16.576 --> 00:00:21.326
+Primero, el usuario envía un correo electrónico y una
+contraseña válidos al formulario de inicio de sesión.
+
+00:00:21.806 --> 00:00:27.096
+Pero entonces, en lugar de iniciar la
+sesión, se les redirige a un formulario
+
+00:00:27.096 --> 00:00:30.026
+en el que tienen que
+introducir un código temporal.
+
+00:00:30.686 --> 00:00:35.026
+Este código puede ser algo que les enviemos por correo
+electrónico o por mensaje de texto a su teléfono...
+
+00:00:35.476 --> 00:00:41.156
+o puede ser un código de una aplicación de
+autentificación como Google Authenticator o Authy.
+
+00:00:41.906 --> 00:00:46.786
+Una vez que el usuario rellene el código
+y lo envíe, se conectará finalmente.
+
+00:00:47.626 --> 00:00:50.376
+En el mundo de Symfony, tenemos la gran suerte
+
+00:00:50.376 --> 00:00:54.896
+de contar con una fantástica biblioteca que
+nos ayuda con la autenticación de dos factores.
+
+00:00:55.586 --> 00:01:01.096
+Busca Symfony 2fa para encontrar
+la biblioteca scheb/2fa.
+
+00:01:01.816 --> 00:01:02.496
+Desplázate hacia abajo...
+
+00:01:03.066 --> 00:01:07.426
+y haz clic en la documentación,
+que se encuentra en Symfony.com.
+
+00:01:07.976 --> 00:01:10.146
+Luego dirígete a la página de instalación.
+
+00:01:11.046 --> 00:01:13.296
+¡Genial! ¡Vamos a instalar esta cosa!
+
+00:01:13.786 --> 00:01:17.456
+En tu terminal, ejecuta:
+composer require "2fa:^5.13"
+
+00:01:17.976 --> 00:01:22.166
+Donde 2fa es un alias de Flex
+para el nombre real del paquete.
+
+00:01:25.536 --> 00:01:26.886
+Una vez que esto termine...
+
+00:01:27.746 --> 00:01:31.096
+Ejecutaré: git status para ver
+qué ha hecho la receta del bundle.
+
+00:01:31.646 --> 00:01:34.156
+Genial: ha añadido un nuevo
+archivo de configuración...
+
+00:01:34.526 --> 00:01:36.786
+y también un nuevo archivo de rutas.
+
+00:01:37.676 --> 00:01:39.766
+Ese archivo de rutas, que vive
+
+00:01:39.766 --> 00:01:46.026
+en config/routes/scheb_2fa.yaml,
+añade dos rutas a nuestra aplicación:
+
+00:01:46.816 --> 00:01:51.456
+La primera mostrará el formulario
+de "introducir el código" que vemos
+
+00:01:51.536 --> 00:01:53.756
+después de enviar nuestro correo
+electrónico y contraseña.
+
+00:01:54.556 --> 00:01:59.256
+La segunda ruta es la URL a la
+que se enviará este formulario.
+
+00:02:00.086 --> 00:02:03.186
+De vuelta a la documentación,
+vamos a repasar esto. El
+
+00:02:03.806 --> 00:02:08.046
+paso 2 - habilitar el paquete -
+lo hizo Flex automáticamente...
+
+00:02:08.776 --> 00:02:13.456
+y el paso 3 - definir las rutas -
+se gestionó gracias a la receta.
+
+00:02:13.846 --> 00:02:17.756
+¡Muy bien! El paso 4 consiste
+en configurar el cortafuegos.
+
+00:02:18.136 --> 00:02:20.346
+Esta parte sí tenemos que hacerla.
+
+00:02:21.086 --> 00:02:23.456
+Empieza por copiar el material de two_factor.
+
+00:02:24.516 --> 00:02:28.216
+Luego abre config/packages/security.yaml.
+
+00:02:29.116 --> 00:02:33.156
+Esta nueva configuración puede vivir en
+cualquier lugar bajo nuestro cortafuegos main.
+
+00:02:33.846 --> 00:02:36.056
+La pegaré después de form_login...
+
+00:02:36.746 --> 00:02:44.486
+y podemos eliminar este comentario: destacaba que
+2fa_login debía coincidir con el nombre de la ruta
+
+00:02:44.486 --> 00:02:46.866
+en nuestro archivo de rutas, y así es:
+
+00:02:47.576 --> 00:02:51.746
+Ah, y ¿recuerdas que la función de la mayoría
+de las claves de nuestro corta fuegos es
+
+00:02:51.746 --> 00:02:54.056
+activar otro autentificador? Pues
+
+00:02:54.646 --> 00:03:02.816
+la clave two_factor no es una excepción: activa
+un nuevo autentificador que se encarga del
+
+00:03:03.116 --> 00:03:07.326
+envío del formulario "introduce tu
+código" que veremos en unos minutos.
+
+00:03:08.156 --> 00:03:12.786
+El README también recomienda un par de
+controles de acceso, que son una buena idea.
+
+00:03:13.476 --> 00:03:14.086
+Cópialos...
+
+00:03:14.526 --> 00:03:17.996
+y pégalos en la parte superior
+de nuestro access_control:
+
+00:03:19.186 --> 00:03:25.266
+Este segundo se asegura de que no puedas
+ir a /2fa -esa es la URL que muestra el
+
+00:03:25.676 --> 00:03:32.286
+formulario "introduce tu código"- a menos que ya hayas
+enviado tu correo electrónico y contraseña válidos.
+
+00:03:33.136 --> 00:03:40.246
+Cuando estás en esa especie de estado de
+"entrecruzamiento", el paquete 2fa se asegura
+
+00:03:40.516 --> 00:03:45.566
+de que tengas este atributo
+IS_AUTHENTICATED_2FA_IN_PROGRESS:
+
+00:03:46.376 --> 00:03:53.066
+La primera entrada -para /logout - se asegura
+de que si estás en ese estado "intermedio",
+
+00:03:53.516 --> 00:03:58.226
+todavía puedes cancelar el
+inicio de sesión yendo a /logout.
+
+00:03:59.016 --> 00:04:02.466
+Pero cambia esto por PUBLIC_ACCESS:
+
+00:04:03.546 --> 00:04:08.356
+El último paso del LÉEME es
+configurar este security_tokens config.
+
+00:04:09.106 --> 00:04:10.326
+Me explico.
+
+00:04:11.046 --> 00:04:14.486
+Cuando enviamos un correo electrónico y una contraseña
+válidos en el formulario de inicio de sesión,
+
+00:04:14.806 --> 00:04:20.826
+el sistema de autenticación de dos factores
+-a través de un oyente- va a decidir si
+
+00:04:20.826 --> 00:04:26.966
+debe o no interrumpir la autenticación e iniciar el
+proceso de autenticación de dos factores... donde
+
+00:04:27.516 --> 00:04:31.106
+redirige al usuario al formulario
+de "introducir el código". Si lo
+
+00:04:32.006 --> 00:04:36.186
+pensamos bien, definitivamente
+queremos que esto ocurra cuando
+
+00:04:36.216 --> 00:04:39.096
+un usuario se reg istre a través
+del formulario de acceso. Pero...
+
+00:04:39.846 --> 00:04:44.046
+probablemente no querríamos que esto
+ocurriera si, por ejemplo, un usuario
+
+00:04:44.496 --> 00:04:48.056
+se autentificara a través
+de un token de la API. El
+
+00:04:48.836 --> 00:04:54.346
+paquete necesita una forma de averiguar
+si queremos o no 2fa en función de
+
+00:04:54.346 --> 00:04:57.096
+cómo se acaba de autenticar el usuario.
+
+00:04:57.816 --> 00:05:02.706
+No hemos hablado mucho de ello, pero siempre
+que te conectas, te autentificas con un
+
+00:05:02.706 --> 00:05:05.436
+determinado tipo de objeto
+token. Este objeto token
+
+00:05:06.176 --> 00:05:07.706
+es...
+
+00:05:07.946 --> 00:05:11.016
+una especie de envoltura del objeto User... y
+
+00:05:11.376 --> 00:05:13.696
+casi nunca te preocupas por él. Pero,
+
+00:05:14.446 --> 00:05:19.456
+diferentes sistemas de
+autenticación -como form_login o
+
+00:05:19.576 --> 00:05:24.616
+remember_me - utilizan diferentes
+clases de tokens... lo que
+
+00:05:25.106 --> 00:05:29.986
+significa que puedes averiguar cómo
+se conectó originalmente el usuario,
+
+00:05:30.366 --> 00:05:33.466
+mirando el token actualmente autenticado. Por
+
+00:05:34.316 --> 00:05:39.776
+ejemplo, esta clase de token superior es en
+realidad el token que obtienes si te conectas a
+
+00:05:39.776 --> 00:05:43.096
+través del autentificador form_login. Te
+
+00:05:43.796 --> 00:05:44.456
+lo demostraré. Pulsa
+
+00:05:44.956 --> 00:05:48.596
+Shift+Shift y busca
+FormLoginAuthenticator. Dentro...
+
+00:05:49.516 --> 00:05:57.656
+tiene un método createAuthenticatedToken(), un método que tiene todo
+autentificador. Devuelve un nuevo UsernamePasswordToken. Este es el
+
+00:06:02.676 --> 00:06:03.856
+punto. Si
+
+00:06:04.536 --> 00:06:06.826
+iniciamos la sesión a través
+de este autentificador... y
+
+00:06:07.286 --> 00:06:12.436
+la clase de token correspondiente aparece en
+nuestra configuración de scheb_two_factor, el
+
+00:06:13.036 --> 00:06:16.596
+proceso de autentificación de
+dos factores se hará cargo y
+
+00:06:16.756 --> 00:06:20.526
+redirigirá al usuario al formulario
+de "introducir el código".
+
+00:06:21.416 --> 00:06:26.496
+Vamos a ver qué aspecto tiene nuestro
+archivo: config/packages/scheb_2fa.yaml: Por
+
+00:06:27.516 --> 00:06:34.616
+defecto, la única clase no comentada es
+UsernamePasswordToken, lo cual es perfecto para nosotros. Pero
+
+00:06:35.446 --> 00:06:36.796
+fíjate en el último comentario. Si
+
+00:06:37.376 --> 00:06:40.416
+te estás autentificando mediante un
+autentificador personalizado -como
+
+00:06:40.846 --> 00:06:44.926
+hacíamos antes-, entonces
+debes utilizar esta clase.
+
+00:06:45.716 --> 00:06:48.296
+Veamos exactamente por qué es así. Abre
+
+00:06:48.846 --> 00:06:51.066
+nuestro LoginFormAuthenticator personalizado.
+
+00:06:51.806 --> 00:06:54.526
+Ya no lo usamos, pero haz
+como si lo hiciéramos. Esto
+
+00:06:55.076 --> 00:06:58.166
+extiende AbstractLoginFormAuthenticator:
+Mantén pulsado
+
+00:06:58.776 --> 00:07:00.866
+Cmd o Ctrl para abrirlo... y luego
+
+00:07:01.546 --> 00:07:05.096
+abre su clase base
+AbstractAuthenticator. Desplázate
+
+00:07:05.776 --> 00:07:07.696
+un poco hacia abajo y... ¡hola
+
+00:07:07.846 --> 00:07:10.696
+createAuthenticatedToken() ! Esto
+
+00:07:11.546 --> 00:07:15.096
+devuelve un nuevo PostAuthenticatedToken. Y
+
+00:07:15.706 --> 00:07:21.026
+así, por defecto, esta es la clase token que obtienes
+con un autentificador personalizado. Estas clases de
+
+00:07:21.746 --> 00:07:24.886
+token no son superimportantes...
+
+00:07:25.346 --> 00:07:28.626
+básicamente todas extienden
+el mismo AbstractToken... y
+
+00:07:28.976 --> 00:07:33.126
+en su mayoría sólo ayudan a identificar
+cómo se ha conectado el usuario.
+
+00:07:33.926 --> 00:07:37.556
+Aprovechando este conocimiento,
+junto con la configuración scheb,
+
+00:07:37.946 --> 00:07:39.826
+puedes decirle al paquete de dos factores qué
+
+00:07:39.886 --> 00:07:44.756
+autenticadores requieren la autenticación
+de dos factores y cuáles no. Ah,
+
+00:07:45.506 --> 00:07:48.146
+y si utilizas dos autenticadores
+personalizados... y
+
+00:07:48.426 --> 00:07:51.986
+sólo uno de ellos necesita la
+autenticación de dos factores,
+
+00:07:52.346 --> 00:07:58.556
+tendrás que crear una clase de token personalizada
+y anular el método createAuthenticatedToken() de
+
+00:07:58.786 --> 00:08:01.366
+tu autenticador para que lo devuelva. Entonces
+
+00:08:01.976 --> 00:08:05.426
+podrás apuntar sólo a la
+clase personalizada aquí. ¡Uf!
+
+00:08:06.316 --> 00:08:09.806
+Puede parecer que no hemos
+hecho mucho todavía...
+
+00:08:10.206 --> 00:08:13.016
+aparte de escucharme hablar de tokens... pero
+
+00:08:13.566 --> 00:08:15.586
+el paquete ya está... básicamente
+
+00:08:15.776 --> 00:08:17.006
+configurado. Pero
+
+00:08:17.846 --> 00:08:22.926
+ahora tenemos que elegir cómo
+recibirán los tokens nuestros usuarios.
+
+00:08:23.436 --> 00:08:24.786
+¿Los enviaremos por correo electrónico? ¿O
+
+00:08:25.336 --> 00:08:29.396
+utilizarán una aplicación de
+autentificación con un código QR? Vamos a
+
+00:08:30.046 --> 00:08:31.986
+hacer lo segundo

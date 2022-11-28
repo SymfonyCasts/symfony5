@@ -1,0 +1,296 @@
+WEBVTT
+
+00:00:01.016 --> 00:00:04.766 align:middle
+La mayoría de nuestras páginas hasta
+ahora han sido páginas HTML normales.
+
+00:00:05.386 --> 00:00:09.946 align:middle
+Así que vamos a crear una ruta pura
+de la API que devuelva datos JSON
+
+00:00:09.946 --> 00:00:12.756 align:middle
+sobre el usuario actualmente autentificado.
+
+00:00:13.416 --> 00:00:17.016 align:middle
+Puede ser una ruta que llamemos
+desde nuestro propio JavaScript...
+
+00:00:17.506 --> 00:00:20.916 align:middle
+o quizás estés creando una API
+para que la consuma otra persona.
+
+00:00:21.276 --> 00:00:22.956 align:middle
+Más adelante hablaremos de ello.
+
+00:00:23.516 --> 00:00:27.086 align:middle
+Vamos a crear un nuevo controlador
+para esto llamado UserController...
+
+00:00:28.516 --> 00:00:31.646 align:middle
+y hagamos que extienda
+nuestra clase BaseController:
+
+00:00:33.086 --> 00:00:35.376 align:middle
+Dentro, añade un método llamado apiMe().
+
+00:00:35.376 --> 00:00:40.256 align:middle
+Dale un @Route() - autocompleta el
+
+00:00:40.256 --> 00:00:45.246 align:middle
+del Componente Symfony - y
+establece la URL como /api/me:
+
+00:00:46.216 --> 00:00:52.156 align:middle
+Este no es un endpoint muy restful,
+pero suele ser conveniente tenerlo.
+
+00:00:52.796 --> 00:00:59.716 align:middle
+Para requerir la autenticación para utilizar esta rut
+a , añade @IsGranted("IS_AUTHENTICATED_REMEMBERED"):
+
+00:01:00.646 --> 00:01:05.986 align:middle
+En este proyecto estoy utilizando una mezcla de
+anotaciones y código PHP para denegar el acceso.
+
+00:01:06.466 --> 00:01:09.366 align:middle
+Elige el que más te guste para tu aplicación.
+
+00:01:10.146 --> 00:01:14.126 align:middle
+Dentro del método, podemos decir
+simplemente: devolver $this->json()
+
+00:01:14.286 --> 00:01:17.796 align:middle
+y pasarle el usuario
+actual: $this->getUser():
+
+00:01:18.646 --> 00:01:20.116 align:middle
+¡Qué bonito!
+
+00:01:20.616 --> 00:01:21.236 align:middle
+Vamos a probarlo.
+
+00:01:21.676 --> 00:01:23.546 align:middle
+Ahora mismo estamos conectados...
+
+00:01:23.976 --> 00:01:28.276 align:middle
+así que podemos ir a /api/me y ver...
+
+00:01:28.776 --> 00:01:30.986 align:middle
+¡absolutamente nada!
+
+00:01:31.146 --> 00:01:32.516 align:middle
+¡Sólo corchetes vacíos!
+
+00:01:33.176 --> 00:01:39.856 align:middle
+Por defecto, cuando llamas a $this->json(),
+pasa los datos a la clase JsonResponse de Symfony.
+
+00:01:40.586 --> 00:01:47.126 align:middle
+Y entonces esa clase llama a la función
+json_encode() de PHP en nuestro objeto User.
+
+00:01:47.696 --> 00:01:53.096 align:middle
+En PHP, a menos que hagas un trabajo extra,
+cuando pasas un objeto a json_encode(),
+
+00:01:53.416 --> 00:01:56.646 align:middle
+lo único que hace es incluir
+las propiedades públicas.
+
+00:01:57.116 --> 00:02:00.216 align:middle
+Como nuestra clase User no tiene
+ninguna propiedad públic a:
+
+00:02:00.506 --> 00:02:03.016 align:middle
+Obtenemos de vuelta una respuesta aburrida.
+
+00:02:03.776 --> 00:02:05.596 align:middle
+Esto... no es suficiente.
+
+00:02:06.046 --> 00:02:09.736 align:middle
+Así que en su lugar, vamos a aprovechar
+el componente serializador de Symfony.
+
+00:02:10.316 --> 00:02:12.696 align:middle
+Para instalarlo, en tu terminal, ejecuta:
+
+00:02:12.846 --> 00:02:18.686 align:middle
+composer require "serializer:1.0.4" Esto
+instala el paquete del serializador,
+
+00:02:19.116 --> 00:02:24.686 align:middle
+que incluye el componente Serializer de
+Symfony, así como algunas otras librerías
+
+00:02:24.776 --> 00:02:27.146 align:middle
+que le ayudan a funcionar de
+forma realmente inteligente.
+
+00:02:27.986 --> 00:02:32.256 align:middle
+Pero no tiene una receta que haga nada
+del otro mundo: sólo instala el código.
+
+00:02:33.076 --> 00:02:37.636 align:middle
+Una de las cosas buenas de utilizar
+$this->json() es que , en
+
+00:02:37.636 --> 00:02:43.396 align:middle
+cuanto se instala el serializador de Symfony,
+automáticamente se empieza a utilizar
+
+00:02:43.446 --> 00:02:47.316 align:middle
+para serializar los datos en
+lugar del normal json_encode().
+
+00:02:48.126 --> 00:02:51.966 align:middle
+En otras palabras, cuando
+actualizamos la ruta, ¡funciona!
+
+00:02:52.686 --> 00:02:56.596 align:middle
+No vamos a hablar demasiado de cómo
+funciona el serializador de Symfony, ya que
+
+00:02:57.046 --> 00:03:00.936 align:middle
+hablamos mucho de él en nuestros
+tutoriales de la Plataforma API.
+
+00:03:01.346 --> 00:03:04.236 align:middle
+Pero al menos vamos a conocer
+algunos aspectos básicos. Por
+
+00:03:05.116 --> 00:03:09.116 align:middle
+defecto, el serializador serializará
+cualquier propiedad pública
+
+00:03:09.316 --> 00:03:12.286 align:middle
+o cualquier propiedad que
+tenga un "getter" en ella.
+
+00:03:12.906 --> 00:03:18.206 align:middle
+Incluso serializará displayName
+-que no es una propiedad real-
+
+00:03:18.456 --> 00:03:21.286 align:middle
+porque hay un método getDisplayName().
+
+00:03:21.986 --> 00:03:23.016 align:middle
+En realidad...
+
+00:03:23.176 --> 00:03:26.936 align:middle
+esto es demasiada información
+para incluirla en la ruta.
+
+00:03:27.336 --> 00:03:29.046 align:middle
+Así que tomemos más control.
+
+00:03:29.866 --> 00:03:36.636 align:middle
+Podemos hacerlo diciéndole al serializador que sólo
+serialice los campos que están en un grupo específico.
+
+00:03:37.376 --> 00:03:43.516 align:middle
+Pasa 200 para el código de estado y un array de
+cabeceras vacío -ambos son los valores por defecto-
+
+00:03:43.946 --> 00:03:46.816 align:middle
+para que podamos llegar al
+cuarto argumento de $context:
+
+00:03:47.676 --> 00:03:51.126 align:middle
+Es una especie de "opciones"
+que pasas al serializador.
+
+00:03:51.546 --> 00:03:54.316 align:middle
+Pasa una llamada groups
+establecida en un array.
+
+00:03:55.066 --> 00:03:58.506 align:middle
+Voy a inventar un grupo llamado user:read...
+
+00:03:59.016 --> 00:04:01.486 align:middle
+porque estamos "leyendo" de "usuario":
+
+00:04:02.366 --> 00:04:03.386 align:middle
+Copia ese nombre de grupo.
+
+00:04:03.946 --> 00:04:09.476 align:middle
+Ahora, dentro de la entidad User, tenemos
+que añadir este grupo a cada campo
+
+00:04:09.506 --> 00:04:11.596 align:middle
+que queramos incluir en la API.
+
+00:04:12.646 --> 00:04:14.846 align:middle
+Por ejemplo, vamos a incluir id.
+
+00:04:15.486 --> 00:04:20.636 align:middle
+Sobre la propiedad, añade una anotación
+o atributo PHP: @Groups(). Asegúrate de
+
+00:04:21.446 --> 00:04:23.026 align:middle
+autocompletar el del
+
+00:04:23.026 --> 00:04:26.666 align:middle
+serializador de Symfony para obtener la
+declaración use en la parte superior.
+
+00:04:27.596 --> 00:04:30.766 align:middle
+Dentro, pegaré user:read:
+
+00:04:31.516 --> 00:04:33.096 align:middle
+Copia eso y...
+
+00:04:33.176 --> 00:04:39.306 align:middle
+vamos a exponer email, no queremos
+exponer roles, sí a firstName y...
+
+00:04:39.586 --> 00:04:39.996 align:middle
+eso es todo:
+
+00:04:40.876 --> 00:04:46.616 align:middle
+También podríamos poner el grupo encima de
+getDisplayName() si quisiéramos incluir lo...
+
+00:04:46.986 --> 00:04:48.956 align:middle
+o getAvatarUri()...
+
+00:04:49.836 --> 00:04:54.976 align:middle
+de hecho lo añadiré ahí:
+
+00:04:54.976 --> 00:04:55.746 align:middle
+¡Intentémoslo!
+
+00:04:56.276 --> 00:04:57.366 align:middle
+Refresca y...
+
+00:04:57.746 --> 00:04:59.016 align:middle
+¡superguay!
+
+00:04:59.246 --> 00:05:01.676 align:middle
+¡Tenemos esos 4 campos!
+
+00:05:02.376 --> 00:05:06.336 align:middle
+Y fíjate en una cosa: aunque
+esto es una "ruta de la API"...
+
+00:05:06.666 --> 00:05:13.126 align:middle
+y nuestra ruta de la API requiere que
+estemos conectados, podemos acceder a esto...
+
+00:05:13.496 --> 00:05:18.126 align:middle
+aunque no tengamos un sistema de
+autenticación de tokens de API.
+
+00:05:18.846 --> 00:05:21.896 align:middle
+Tenemos acceso gracias a nuestra
+cookie de sesión normal. Así
+
+00:05:22.816 --> 00:05:29.006 align:middle
+que eso nos lleva a nuestra siguiente
+pregunta: si tienes rutas de API como ésta,
+
+00:05:29.446 --> 00:05:33.686 align:middle
+¿necesitas un sistema de
+autenticación por token de API o no?
+
+00:05:34.106 --> 00:05:36.236 align:middle
+Abordemos ese tema a continuación

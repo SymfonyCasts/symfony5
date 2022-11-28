@@ -1,0 +1,219 @@
+WEBVTT
+
+00:00:01.036 --> 00:00:02.466 align:middle
+Bien, comprobación de estado.
+
+00:00:02.876 --> 00:00:06.166 align:middle
+Cualquier usuario puede ahora activar
+la autenticación de dos factores
+
+00:00:06.166 --> 00:00:08.326 align:middle
+en su cuenta haciendo clic en este enlace.
+
+00:00:09.016 --> 00:00:15.526 align:middle
+Entre bastidores, cuando lo hacen,
+rellenamos el totpSecret en el objeto User,
+
+00:00:15.916 --> 00:00:20.666 align:middle
+lo guardamos en la base de datos y luego mostramos
+un código QR que el usuario puede escanear.
+
+00:00:21.516 --> 00:00:25.486 align:middle
+Este código QR es una imagen
+elegante que contiene dos datos.
+
+00:00:26.146 --> 00:00:28.416 align:middle
+La primera es el correo
+electrónico de nuestro usuario.
+
+00:00:28.916 --> 00:00:34.316 align:middle
+O, más exactamente, si me desplazo
+hasta los "métodos totp" en User,
+
+00:00:34.966 --> 00:00:40.146 align:middle
+contiene lo que devolvemos de
+getTotpAuthenticationUsername():
+
+00:00:40.906 --> 00:00:45.236 align:middle
+Lo segundo que contiene la imagen
+del código QR es el totpSecret.
+
+00:00:45.906 --> 00:00:50.946 align:middle
+En un minuto, voy a escanear este código con una
+aplicación de autenticación, que me permitirá
+
+00:00:50.946 --> 00:00:56.086 align:middle
+generar el código correcto de autenticación de dos
+factores que necesitaré para iniciar la sesión.
+
+00:00:56.626 --> 00:00:59.466 align:middle
+Lo hace aprovechando ese secreto.
+
+00:01:00.346 --> 00:01:05.186 align:middle
+Pero antes, hay algo de información
+extra que podemos añadir al código QR.
+
+00:01:05.746 --> 00:01:09.246 align:middle
+Dirígete a config/packages/scheb_2fa.yaml.
+
+00:01:09.986 --> 00:01:15.656 align:middle
+En totp:, una de las cosas más importantes
+que puedes añadir se llama issuer.
+
+00:01:16.316 --> 00:01:18.936 align:middle
+Voy a ponerlo en Cauldron Overflow:
+
+00:01:19.746 --> 00:01:24.716 align:middle
+Eso, literalmente, acaba de añadir nueva
+información a la imagen del código QR.
+
+00:01:25.416 --> 00:01:27.466 align:middle
+Observa la imagen cuando la actualizamos.
+
+00:01:28.856 --> 00:01:30.726 align:middle
+¿Lo ves? ¡Ha cambiado! Gracias a esto
+
+00:01:31.516 --> 00:01:35.286 align:middle
+, además de email y totpSecret,
+
+00:01:35.576 --> 00:01:38.416 align:middle
+el código contiene ahora
+una clave de "emisor".
+
+00:01:39.266 --> 00:01:42.916 align:middle
+Si quieres conocer toda la información
+extra que puedes poner aquí,
+
+00:01:43.246 --> 00:01:48.826 align:middle
+consulta la documentación o lee sobre
+la autenticación totp en general.
+
+00:01:49.356 --> 00:01:54.086 align:middle
+Porque, por ejemplo, "emisor"
+es sólo un "concepto totp"...
+
+00:01:54.446 --> 00:01:59.886 align:middle
+que ayuda a las aplicaciones de autenticación a generar una
+etiqueta para nuestro sitio cuando escaneamos este código.
+
+00:02:00.826 --> 00:02:06.756 align:middle
+Llegados a este punto, quiero fingir que
+somos un usuario real y probar todo el flujo.
+
+00:02:07.506 --> 00:02:12.356 align:middle
+Si fuéramos un usuario real, sacaríamos nuestro
+teléfono, abriríamos una aplicación autentificadora
+
+00:02:12.596 --> 00:02:16.516 align:middle
+-como Google authenticator o Authy-
+y escanearíamos este código.
+
+00:02:17.376 --> 00:02:20.356 align:middle
+A mí me gusta usar Authy,
+así es como se ve para mí.
+
+00:02:21.026 --> 00:02:24.246 align:middle
+Agrego una nueva cuenta, escaneo y...
+
+00:02:24.786 --> 00:02:31.786 align:middle
+¡ya está! Lee mi correo electrónico y el "emisor"
+del código QR y sugiere un nombre y un logotipo.
+
+00:02:32.496 --> 00:02:36.646 align:middle
+Si tu empresa es conocida, es posible
+que adivine el logotipo correcto,
+
+00:02:37.156 --> 00:02:42.356 align:middle
+pero también puedes añadir un image a tu código
+QR de la misma manera que hemos añadido el "emisor".
+
+00:02:43.246 --> 00:02:46.266 align:middle
+Cuando acepto esto, ¡me da los códigos!
+
+00:02:46.876 --> 00:02:48.686 align:middle
+¡Así que estamos listos!
+
+00:02:49.406 --> 00:02:50.466 align:middle
+¡Vamos a probarlo!
+
+00:02:50.876 --> 00:02:51.576 align:middle
+Cierra la sesión...
+
+00:02:52.516 --> 00:02:57.316 align:middle
+y luego vuelve a entrar con
+abraca_admin@example.com, contraseña tada.
+
+00:02:57.986 --> 00:02:59.136 align:middle
+Envía y...
+
+00:02:59.716 --> 00:03:03.256 align:middle
+¡bueno! En lugar de iniciar la sesión, se nos
+
+00:03:03.476 --> 00:03:06.956 align:middle
+redirige a la página de
+autenticación de dos factores
+
+00:03:07.716 --> 00:03:09.636 align:middle
+Esto ocurre por dos razones.
+
+00:03:10.136 --> 00:03:14.716 align:middle
+En primer lugar, el usuario tiene activada la
+autenticación de dos factores en su cuenta.
+
+00:03:15.376 --> 00:03:20.426 align:middle
+Concretamente, este método isTotpAuthenticationEnabled()
+devolvió true. En segundo lugar
+
+00:03:21.206 --> 00:03:28.356 align:middle
+, el "token" de seguridad -esa cosa interna
+que envuelve a tu objeto User cuando
+
+00:03:28.356 --> 00:03:32.456 align:middle
+te conectas- bien, coincide con uno de
+los tokens de nuestra configuración.
+
+00:03:33.106 --> 00:03:40.226 align:middle
+En concreto, obtenemos el UsernamePasswordToken cuando
+nos conectamos a través del mecanismo form_login.
+
+00:03:41.006 --> 00:03:46.016 align:middle
+Si intentamos ir a cualquier otra
+parte del sitio, nos devuelve aquí.
+
+00:03:46.646 --> 00:03:52.116 align:middle
+El único lugar al que podemos ir es
+/logout si queremos cancelar el proceso.
+
+00:03:52.816 --> 00:03:57.566 align:middle
+Esto se debe a que el paquete de dos factores
+ahora denegará el acceso a cualquier página
+
+00:03:57.566 --> 00:04:03.336 align:middle
+de nuestro sitio a menos que lo hayas permitido
+explícitamente a través de las reglas de access_control,
+
+00:04:03.716 --> 00:04:08.016 align:middle
+como hicimos para /logout y para
+la URL que muestra este formulario.
+
+00:04:08.876 --> 00:04:12.216 align:middle
+Este formulario es feo,
+pero lo arreglaremos pronto.
+
+00:04:13.036 --> 00:04:15.516 align:middle
+Bien, volvamos a fingir
+que soy un usuario real.
+
+00:04:15.986 --> 00:04:22.926 align:middle
+Abriré mi aplicación de autentificación,
+teclearé un código válido: 5, 3, 9, 9, 2, 2 y...
+
+00:04:23.406 --> 00:04:25.796 align:middle
+¡lo tengo! ¡Ya hemos iniciado la sesión!
+
+00:04:25.906 --> 00:04:31.616 align:middle
+¡Qué bien! A continuación, vamos a personalizar
+ese formulario de autenticación de dos factores...
+
+00:04:31.896 --> 00:04:34.266 align:middle
+porque era feo

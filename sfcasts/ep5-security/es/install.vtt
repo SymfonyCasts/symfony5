@@ -1,0 +1,257 @@
+WEBVTT
+
+00:00:00.056 --> 00:00:04.956 align:middle
+¡Bienvenidos de nuevo amigos!
+
+00:00:05.406 --> 00:00:07.296 align:middle
+Estoy muy contento de que te hayas topado
+
+00:00:07.296 --> 00:00:11.196 align:middle
+con mi tutorial de seguridad de
+Symfony 5 por un montón de razones.
+
+00:00:11.836 --> 00:00:13.436 align:middle
+La primera es que, bueno...
+
+00:00:13.656 --> 00:00:17.836 align:middle
+eh... el sitio que hemos estado
+construyendo NO tiene seguridad...
+
+00:00:18.576 --> 00:00:21.806 align:middle
+y los rapaces están empezando a
+sacudir los pomos de las puertas.
+
+00:00:22.736 --> 00:00:27.736 align:middle
+La otra razón es que, una vez que lleguemos al cobertizo
+de mantenimiento en el otro lado del recinto, vamos a
+
+00:00:28.016 --> 00:00:34.426 align:middle
+explorar el nuevo sistema de seguridad de
+Symfony, llamado sistema "autentificador".
+
+00:00:34.586 --> 00:00:39.496 align:middle
+Ooh. Si has utilizado el sistema
+antiguo, te sentirás como en casa.
+
+00:00:40.196 --> 00:00:44.506 align:middle
+Si eres nuevo en la seguridad de Symfony,
+has elegido un buen momento para empezar.
+
+00:00:45.276 --> 00:00:48.026 align:middle
+El nuevo sistema es más fácil
+de aprender y entender...
+
+00:00:48.256 --> 00:00:50.376 align:middle
+pero también es más potente.
+
+00:00:50.996 --> 00:00:56.146 align:middle
+Y como el sistema de seguridad no se va a poner
+en marcha por sí solo, pongámonos a trabajar.
+
+00:00:56.566 --> 00:01:03.496 align:middle
+Para aprender a autenticar, autorizar y hacer otras
+cosas interesantes de seguridad a nivel profesional,
+
+00:01:04.036 --> 00:01:08.336 align:middle
+deberías descargar el código del curso
+desde esta página y codificar conmigo.
+
+00:01:09.246 --> 00:01:11.186 align:middle
+Cometer errores en el mundo real....
+
+00:01:11.346 --> 00:01:13.956 align:middle
+sí, es la mejor manera
+de recordar estas cosas.
+
+00:01:14.606 --> 00:01:19.176 align:middle
+Después de descomprimir el archivo, encontrarás un
+directorio start/ con el mismo código que ves aquí.
+
+00:01:20.036 --> 00:01:23.936 align:middle
+Abre el archivo README.md para obtener
+todas las instrucciones de configuración.
+
+00:01:24.716 --> 00:01:29.606 align:middle
+El último paso será buscar un terminal,
+entrar en el proyecto e iniciar un servidor web.
+
+00:01:30.116 --> 00:01:36.146 align:middle
+Para ello voy a utilizar el binario
+symfony: symfony serve -d Esto inicia
+
+00:01:36.146 --> 00:01:40.746 align:middle
+un nuevo servidor en https://127.0.0.1:8000.
+
+00:01:41.476 --> 00:01:42.696 align:middle
+Ábrelo en tu navegador...
+
+00:01:43.206 --> 00:01:47.516 align:middle
+o sé perezoso y ejecuta:
+symfony open:local para...
+
+00:01:47.636 --> 00:01:49.516 align:middle
+"delegar" el trabajo a otra persona.
+
+00:01:50.236 --> 00:01:53.206 align:middle
+¡Saluda a Cauldron Overflow!
+
+00:01:53.856 --> 00:01:57.566 align:middle
+Un sitio de preguntas y respuestas
+para brujas y magos, que...
+
+00:01:57.636 --> 00:01:58.886 align:middle
+por desgracia...
+
+00:01:58.996 --> 00:02:04.286 align:middle
+siguen lanzando sus hechizos en
+directo en producción sin probarlos...
+
+00:02:04.556 --> 00:02:06.726 align:middle
+y normalmente un viernes por la tarde.
+
+00:02:07.216 --> 00:02:12.146 align:middle
+Por supuesto. Luego vienen aquí a
+preguntar cómo deshacer el daño.
+
+00:02:13.006 --> 00:02:17.016 align:middle
+Como la filosofía de Symfony es empezar
+con algo pequeño y luego permitirte
+
+00:02:17.016 --> 00:02:20.626 align:middle
+instalar las cosas que necesitas más
+tarde, ahora mismo nuestra aplicación...
+
+00:02:20.716 --> 00:02:24.016 align:middle
+no tiene literalmente un sistema de seguridad.
+
+00:02:24.846 --> 00:02:27.986 align:middle
+Eso no es divertido, ¡así
+que vamos a instalar uno!
+
+00:02:28.596 --> 00:02:29.986 align:middle
+Vuelve a tu terminal y ejecuta:
+
+00:02:29.986 --> 00:02:35.036 align:middle
+composer require security Esto instala
+el paquete de seguridad de Symfony.
+
+00:02:36.166 --> 00:02:37.446 align:middle
+Cuando termine...
+
+00:02:37.816 --> 00:02:41.206 align:middle
+ejecuta: git status para
+ver qué ha hecho su receta.
+
+00:02:42.046 --> 00:02:48.316 align:middle
+Además de las cosas normales, ha añadido un
+nuevo archivo de configuración: security.yaml.
+
+00:02:48.316 --> 00:02:57.066 align:middle
+Vamos a comprobarlo:
+config/packages/security.yaml:
+
+00:02:57.066 --> 00:03:01.316 align:middle
+Como habrás adivinado por su nombre, ¡este
+archivo alimenta el sistema de seguridad!
+
+00:03:01.316 --> 00:03:05.306 align:middle
+Cuando hayamos terminado, cada sección de
+aquí te resultará sencilla y aburrida.
+
+00:03:05.976 --> 00:03:08.876 align:middle
+Me encanta cuando las cosas de
+programación son aburridas.
+
+00:03:09.936 --> 00:03:13.506 align:middle
+Ah, pero ¿ves esta tecla
+enable_authenticator_manager?
+
+00:03:14.156 --> 00:03:21.446 align:middle
+En Symfony 5.3 -la versión que estoy utilizando-
+los sistemas de seguridad antiguos y nuevos conviven
+
+00:03:21.636 --> 00:03:25.016 align:middle
+y puedes elegir cuál quieres
+
+00:03:25.776 --> 00:03:31.706 align:middle
+Cuando pones enable_authenticator_manager
+en true, estás activando el nuevo sistema.
+
+00:03:32.186 --> 00:03:33.536 align:middle
+¡Sí! ¡Brillante!
+
+00:03:34.396 --> 00:03:37.956 align:middle
+Si estás trabajando en un proyecto heredado y
+necesitas aprender el sistema antiguo, echa un
+
+00:03:38.086 --> 00:03:40.856 align:middle
+vistazo a nuestro tutorial
+de seguridad de Symfony 4.
+
+00:03:40.856 --> 00:03:41.986 align:middle
+¡También es muy bueno!
+
+00:03:41.986 --> 00:03:48.956 align:middle
+De todos modos, cuando se habla de seguridad, hay dos
+grandes partes: la autenticación y la autorización.
+
+00:03:49.456 --> 00:03:52.926 align:middle
+La autenticación plantea
+la pregunta "¿quién eres?
+
+00:03:53.176 --> 00:03:54.756 align:middle
+Y "¿puedes demostrarlo?"
+
+00:03:55.646 --> 00:04:00.176 align:middle
+Los usuarios, los formularios de inicio de sesión, las
+cookies remember me, las contraseñas, las claves API...
+
+00:04:00.376 --> 00:04:03.696 align:middle
+todo eso está relacionado
+con la autenticación.
+
+00:04:04.416 --> 00:04:10.766 align:middle
+La autorización plantea una pregunta diferente:
+"¿Debes tener acceso a este recurso?"
+
+00:04:11.486 --> 00:04:14.166 align:middle
+A la autorización no le importa
+mucho quién eres... se trata
+
+00:04:14.586 --> 00:04:18.906 align:middle
+de permitir o denegar el
+acceso a diferentes cosas,
+
+00:04:19.616 --> 00:04:22.206 align:middle
+como diferentes URLs o controladores.
+
+00:04:23.046 --> 00:04:28.666 align:middle
+En Symfony, o realmente en cualquier sistema de
+seguridad, la autenticación es la parte complicada.
+
+00:04:29.286 --> 00:04:33.596 align:middle
+Es decir, ¡piensa en la cantidad
+de formas que hay para autenticar!
+
+00:04:33.946 --> 00:04:41.046 align:middle
+Formularios de inicio de sesión, autenticación con tokens de
+la API, autenticación social con OAuth, SSO, LDAP, ponerse un
+
+00:04:41.296 --> 00:04:45.456 align:middle
+bigote falso y pasar con confianza por
+delante de un guardia de seguridad.
+
+00:04:45.666 --> 00:04:48.546 align:middle
+Es decir... las posibilidades son infinitas.
+
+00:04:49.566 --> 00:04:54.216 align:middle
+Pero también creo que la
+autenticación es súper divertida.
+
+00:04:54.816 --> 00:05:00.126 align:middle
+Así que a continuación: vamos a empezar nuestro viaje
+hacia el nuevo y brillante sistema de autenticación
+
+00:05:00.316 --> 00:05:05.026 align:middle
+creando la parte más básica de la
+autenticación: una clase de usuario.

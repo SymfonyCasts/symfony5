@@ -1,0 +1,381 @@
+WEBVTT
+
+00:00:01.036 --> 00:00:02.226 align:middle
+Vuelve al formulario de inicio de sesión.
+
+00:00:02.736 --> 00:00:04.856 align:middle
+¿Qué ocurre si falla el
+inicio de sesión? En este
+
+00:00:05.596 --> 00:00:09.696 align:middle
+momento, hay dos formas de fallar:
+si no podemos encontrar un User
+
+00:00:09.696 --> 00:00:13.366 align:middle
+para el correo electrónico o
+si la contraseña es incorrecta.
+
+00:00:13.986 --> 00:00:16.426 align:middle
+Probemos primero con una
+contraseña incorrecta.
+
+00:00:16.986 --> 00:00:19.176 align:middle
+Introduce un correo electrónico
+real de la base de datos...
+
+00:00:19.536 --> 00:00:22.406 align:middle
+y luego cualquier contraseña
+que no sea "tada".
+
+00:00:22.946 --> 00:00:24.166 align:middle
+Y... ¡sí!
+
+00:00:24.386 --> 00:00:25.786 align:middle
+Nos encontramos con el dd()...
+
+00:00:26.136 --> 00:00:29.156 align:middle
+que viene de onAuthenticationFailure():
+
+00:00:29.736 --> 00:00:36.296 align:middle
+Así que, independientemente de cómo fallemos la autenticación,
+acabamos aquí, y se nos pasa un argumento $exception.
+
+00:00:36.816 --> 00:00:38.266 align:middle
+También vamos a tirar eso:
+
+00:00:39.606 --> 00:00:40.116 align:middle
+Vuelve...
+
+00:00:40.706 --> 00:00:41.836 align:middle
+y refresca.
+
+00:00:42.706 --> 00:00:45.786 align:middle
+¡Genial! Es un BadCredentialsException.
+
+00:00:46.586 --> 00:00:47.656 align:middle
+Esto es genial.
+
+00:00:48.166 --> 00:00:53.756 align:middle
+Si la autenticación falla -no importa
+cómo lo haga- vamos a acabar aquí
+
+00:00:53.886 --> 00:00:56.986 align:middle
+con algún tipo de AuthenticationException.
+
+00:00:57.876 --> 00:01:01.176 align:middle
+BadCredentialsException es
+una subclase de ese ....
+
+00:01:01.716 --> 00:01:07.826 align:middle
+al igual que el UserNotFoundException que estamos
+lanzando desde nuestro callback del cargador de usuarios:
+
+00:01:08.716 --> 00:01:12.486 align:middle
+Todas estas clases de excepción
+tienen algo importante en común.
+
+00:01:12.976 --> 00:01:17.566 align:middle
+Mantén pulsado Command o Ctrl para
+abrir UserNotFoundException y verlo.
+
+00:01:18.496 --> 00:01:23.756 align:middle
+Todas estas excepciones de autenticación
+tienen un método especial getMessageKey()
+
+00:01:23.976 --> 00:01:29.146 align:middle
+que contiene una explicación segura de
+por qué ha fallado la autenticación.
+
+00:01:29.876 --> 00:01:32.726 align:middle
+Podemos utilizarlo para decirle
+al usuario qué ha ido mal. Así
+
+00:01:33.676 --> 00:01:36.916 align:middle
+que este es el panorama general:
+cuando la autenticación falla, es
+
+00:01:37.116 --> 00:01:40.986 align:middle
+porque algo lanzó un AuthenticationException
+
+00:01:41.246 --> 00:01:43.406 align:middle
+o una de sus subclases.
+
+00:01:44.346 --> 00:01:48.286 align:middle
+Y así, como lanzamos un UserNotFoundException
+
+00:01:48.346 --> 00:01:50.286 align:middle
+cuando se introduce un correo
+electrónico desconocido...
+
+00:01:50.846 --> 00:01:53.156 align:middle
+si intentamos iniciar la sesión con
+un correo electrónico incorrecto,
+
+00:01:53.376 --> 00:01:57.456 align:middle
+esa excepción debería pasarse
+a onAuthenticationFailure().
+
+00:01:58.176 --> 00:01:59.986 align:middle
+Vamos a probar esa teoría.
+
+00:02:00.516 --> 00:02:03.556 align:middle
+En el formulario de acceso, introduce
+un correo electrónico inventado...
+
+00:02:04.176 --> 00:02:05.736 align:middle
+y... envía.
+
+00:02:06.646 --> 00:02:09.956 align:middle
+Oh! Todavía obtenemos un
+BadCredentialsException!
+
+00:02:10.556 --> 00:02:16.456 align:middle
+Esperaba que ésta fuera la verdadera
+excepción lanzada: el UserNotFoundException.
+
+00:02:17.376 --> 00:02:18.096 align:middle
+En la mayoría de los casos...
+
+00:02:18.346 --> 00:02:20.826 align:middle
+así es como funciona.
+
+00:02:21.206 --> 00:02:25.876 align:middle
+Si lanzas un AuthenticationException
+durante el proceso de autentificación,
+
+00:02:26.216 --> 00:02:31.256 align:middle
+esa excepción se te pasa a
+onAuthenticationFailure().
+
+00:02:31.876 --> 00:02:35.186 align:middle
+Entonces puedes utilizarla
+para averiguar qué ha ido mal.
+
+00:02:35.846 --> 00:02:40.336 align:middle
+Sin embargo, UserNotFoundException
+es un caso especial.
+
+00:02:41.086 --> 00:02:45.696 align:middle
+En algunos sitios, cuando el usuario introduce una dirección
+de correo electrónico válida pero una contraseña incorrecta,
+
+00:02:46.156 --> 00:02:50.736 align:middle
+puede que no quieras decirle al usuario
+que el correo electrónico fue encontrado.
+
+00:02:51.566 --> 00:02:56.256 align:middle
+Así que dices "Credenciales no válidas"
+tanto si no se encontró el correo electrónico
+
+00:02:56.426 --> 00:02:59.156 align:middle
+como si la contraseña era incorrecta.
+
+00:02:59.906 --> 00:03:07.056 align:middle
+Este problema se llama enumeración de usuarios: es cuando alguien
+puede probar los correos electrónicos en tu formulario de acceso
+
+00:03:07.286 --> 00:03:11.056 align:middle
+para averiguar qué personas
+tienen cuentas y cuáles no.
+
+00:03:11.876 --> 00:03:16.526 align:middle
+Para algunos sitios, definitivamente no
+quieres exponer esa información. Por
+
+00:03:16.976 --> 00:03:21.146 align:middle
+eso, para estar seguro, Symfony
+convierte UserNotFoundException
+
+00:03:21.376 --> 00:03:26.056 align:middle
+en un BadCredentialsException para que introducir un
+correo electrónico o una contraseña no vál idos
+
+00:03:26.056 --> 00:03:29.856 align:middle
+dé el mismo mensaje de error.
+
+00:03:30.376 --> 00:03:35.376 align:middle
+Sin embargo, si quieres poder decir
+"Correo electrónico no válido"
+
+00:03:35.806 --> 00:03:40.296 align:middle
+-lo que es mucho más útil para tus
+usuarios- puedes hacer lo siguiente
+
+00:03:41.016 --> 00:03:43.686 align:middle
+Abre config/packages/security.yaml.
+
+00:03:44.226 --> 00:03:51.786 align:middle
+Y, en cualquier lugar bajo la clave raíz security, añade
+una opción hide_user_not_found establecida como false:
+
+00:03:52.576 --> 00:03:56.146 align:middle
+Esto le dice a Symfony que no
+convierta UserNotFoundException
+
+00:03:56.146 --> 00:03:58.106 align:middle
+en un BadCredentialsException.
+
+00:03:58.986 --> 00:04:00.496 align:middle
+Si refrescamos ahora...
+
+00:04:02.906 --> 00:04:09.726 align:middle
+¡boom! Nuestro UserNotFoundException se pasa
+ahora directamente a onAuthenticationFailure().
+
+00:04:10.606 --> 00:04:12.586 align:middle
+Bien, pensemos.
+
+00:04:13.016 --> 00:04:14.916 align:middle
+En onAuthenticationFailure()...
+
+00:04:15.146 --> 00:04:18.036 align:middle
+¿qué queremos hacer?
+
+00:04:18.036 --> 00:04:23.196 align:middle
+Nuestro trabajo en este método es, como
+puedes ver, devolver un objeto Response.
+
+00:04:24.136 --> 00:04:29.226 align:middle
+Para un formulario de inicio de sesión, lo que probablemente
+queramos hacer es redirigir al usuario de vuelta
+
+00:04:29.226 --> 00:04:31.526 align:middle
+a la página de inicio de
+sesión, pero mostrando un error.
+
+00:04:32.276 --> 00:04:35.416 align:middle
+Para poder hacerlo, vamos
+a guardar esta excepción
+
+00:04:35.696 --> 00:04:38.686 align:middle
+-que contiene el mensaje
+de error- en la sesión.
+
+00:04:39.556 --> 00:04:42.866 align:middle
+Digamos $request->getSession()->set().
+
+00:04:43.576 --> 00:04:46.436 align:middle
+En realidad podemos utilizar
+la clave que queramos...
+
+00:04:46.686 --> 00:04:50.496 align:middle
+pero hay una clave estándar que se utiliza
+para almacenar los errores de autenticación.
+
+00:04:51.206 --> 00:04:53.956 align:middle
+Puedes leerla desde una
+constante: Security - la
+
+00:04:54.166 --> 00:04:58.556 align:middle
+del componente de seguridad de
+Symfony - ::AUTHENTICATION_ERROR.
+
+00:04:59.286 --> 00:05:01.636 align:middle
+Pasa $exception al segundo argumento:
+
+00:05:02.496 --> 00:05:06.676 align:middle
+Ahora que el error está en la sesión, vamos a
+redirigirnos a la página de inicio de sesión.
+
+00:05:07.406 --> 00:05:10.546 align:middle
+Haré trampa y copiaré el
+RedirectResponse de antes...
+
+00:05:11.006 --> 00:05:13.786 align:middle
+y cambiaré la ruta a app_login:
+
+00:05:14.706 --> 00:05:20.266 align:middle
+¡Genial! A continuación, dentro del controlador
+login(), tenemos que leer ese error y renderizarlo.
+
+00:05:21.006 --> 00:05:26.356 align:middle
+La forma más directa de hacerlo
+sería coger la sesión y leer esta
+
+00:05:26.946 --> 00:05:29.606 align:middle
+clave. Pero... ¡es incluso más fácil que
+
+00:05:30.376 --> 00:05:34.956 align:middle
+eso! Symfony proporciona un servicio
+que obtendrá la clave de la sesión
+
+00:05:35.576 --> 00:05:39.616 align:middle
+automáticamente. Añade
+un nuevo argumento de tipo
+
+00:05:40.286 --> 00:05:42.866 align:middle
+AuthenticationUtils: Y luego dale
+a render() un segundo argumento.
+
+00:05:43.646 --> 00:05:45.976 align:middle
+Vamos a pasar una variable error a Tw ig
+
+00:05:45.976 --> 00:05:50.196 align:middle
+configurada como
+$authenticationUtils->getLastAuthenticationError():
+
+00:05:50.886 --> 00:05:54.616 align:middle
+Eso es sólo un atajo para
+leer esa clave de la sesión.
+
+00:05:55.516 --> 00:06:02.456 align:middle
+Esto significa que la variable error va a ser
+literalmente un objeto AuthenticationException.
+
+00:06:03.136 --> 00:06:06.086 align:middle
+Y recuerda, para saber qué ha ido mal,
+
+00:06:06.416 --> 00:06:11.136 align:middle
+todos los objetos AuthenticationException
+tienen un método getMessageKey()
+
+00:06:11.246 --> 00:06:13.056 align:middle
+que devuelve una explicación.
+
+00:06:13.936 --> 00:06:18.846 align:middle
+En templates/security/login.html.twig,
+vamos a devolver eso.
+
+00:06:19.416 --> 00:06:28.076 align:middle
+Justo después del h1, digamos que si error,
+entonces añadimos un div con alert alert-danger.
+
+00:06:28.906 --> 00:06:31.766 align:middle
+Dentro renderiza error.messageKey:
+
+00:06:31.766 --> 00:06:37.766 align:middle
+No quieres usar error.message porque si
+tuvieras algún tipo de error interno
+
+00:06:37.946 --> 00:06:42.746 align:middle
+-como un error de conexión a la base de datos-
+ese mensaje podría contener detalles sensibles.
+
+00:06:43.446 --> 00:06:46.776 align:middle
+Pero error.messageKey está
+garantizado que es seguro.
+
+00:06:47.746 --> 00:06:48.546 align:middle
+¡Hora de probar!
+
+00:06:49.216 --> 00:06:52.586 align:middle
+¡Refrescar! ¡Sí!
+
+00:06:52.736 --> 00:06:59.166 align:middle
+Somos redirigidos de nuevo a /login y vemos No se ha
+podido encontrar el nombre de usuario. Ese es el mensaje
+
+00:06:59.246 --> 00:07:05.456 align:middle
+si no se puede cargar el objeto User: el
+error que aparece en UserNotFoundException.
+
+00:07:06.216 --> 00:07:08.696 align:middle
+No es un gran mensaje...
+
+00:07:08.696 --> 00:07:12.596 align:middle
+ya que nuestros usuarios se conectan con un
+correo electrónico, no con un nombre de usuario.
+
+00:07:12.916 --> 00:07:18.886 align:middle
+Así que, a continuación, vamos a aprender a personalizar estos
+mensajes de error y a añadir una forma de cerrar la sesión

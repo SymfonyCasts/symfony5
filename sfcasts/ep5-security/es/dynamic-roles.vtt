@@ -1,0 +1,217 @@
+WEBVTT
+
+00:00:01.036 --> 00:00:05.976 align:middle
+Anteriormente, hemos hablado de cómo en el momento en que
+un usuario se conecta, Symfony llama al método getRoles()
+
+00:00:05.976 --> 00:00:10.296 align:middle
+en el objeto User para averiguar
+qué roles tendrá ese usuario:
+
+00:00:10.906 --> 00:00:15.586 align:middle
+Este método lee una propiedad del array $roles que
+está almacenada en la base de datos como JSON...
+
+00:00:16.106 --> 00:00:19.436 align:middle
+y luego añade siempre ROLE_USER a la misma.
+
+00:00:20.246 --> 00:00:25.066 align:middle
+Hasta ahora, no hemos dado a ningún usuario
+ningún rol adicional en la base de datos...
+
+00:00:25.466 --> 00:00:29.156 align:middle
+por lo que todos los usuarios
+sólo tienen ROLE_USER.
+
+00:00:29.916 --> 00:00:34.696 align:middle
+Puedes ver esto en la barra de herramientas de
+depuración de la web: haz clic para saltar al perfilador.
+
+00:00:35.546 --> 00:00:38.086 align:middle
+Sí, tenemos ROLE_USER.
+
+00:00:38.876 --> 00:00:41.006 align:middle
+Esto es demasiado aburrido...
+
+00:00:41.066 --> 00:00:44.446 align:middle
+¡así que vamos a añadir algunos
+usuarios administradores de verdad!
+
+00:00:44.916 --> 00:00:48.136 align:middle
+Primero, abre config/packages/security.yaml...
+
+00:00:48.976 --> 00:00:55.086 align:middle
+y, debajo de access_control, cambia
+esto para requerir de nuevo ROLE_ADMIN:
+
+00:00:55.826 --> 00:01:00.016 align:middle
+Recuerda: los roles son sólo
+cadenas que inventamos...
+
+00:01:00.376 --> 00:01:08.816 align:middle
+pueden ser cualquier cosa: ROLE_USER
+ROLE_ADMIN , ROLE_PUPPY, ROLE_ROLLERCOASTER...
+
+00:01:08.916 --> 00:01:12.336 align:middle
+lo que sea. La única regla es
+que deben empezar por ROLE_.
+
+00:01:12.336 --> 00:01:15.976 align:middle
+Gracias a esto, si vamos a /admin...
+
+00:01:17.486 --> 00:01:19.106 align:middle
+¡acceso denegado!
+
+00:01:19.816 --> 00:01:22.426 align:middle
+Vamos a añadir algunos usuarios
+administradores a la base de datos.
+
+00:01:22.996 --> 00:01:28.416 align:middle
+Abre la clase de accesorios:
+src/DataFixtures/AppFixtures.php.
+
+00:01:28.416 --> 00:01:29.186 align:middle
+Veamos...
+
+00:01:29.566 --> 00:01:34.156 align:middle
+aquí abajo, vamos a crear un usuario
+personalizado y luego 10 usuarios aleatorios.
+
+00:01:34.516 --> 00:01:41.496 align:middle
+Haz que este primer usuario sea un administrador:
+pon roles en una matriz con ROLE_ADMIN:
+
+00:01:42.396 --> 00:01:45.686 align:middle
+Vamos a crear también un usuario normal
+que podamos utilizar para iniciar sesión.
+
+00:01:46.316 --> 00:01:51.956 align:middle
+Copia el código de UserFactory,
+pégalo, usa abraca_user@example.com...
+
+00:01:52.486 --> 00:01:54.086 align:middle
+y deja vacío roles:
+
+00:01:54.876 --> 00:01:55.686 align:middle
+¡Hagámoslo!
+
+00:01:55.986 --> 00:02:01.976 align:middle
+En tu terminal, ejecuta: symfony console
+doctrine:fixtures:load Cuando termine...
+
+00:02:02.486 --> 00:02:04.426 align:middle
+gira y refresca.
+
+00:02:05.406 --> 00:02:06.536 align:middle
+¡Hemos salido de la sesión!
+
+00:02:07.286 --> 00:02:12.626 align:middle
+Eso es porque, al cargar el usuario desde la sesión,
+nuestro proveedor de usuarios intentó refrescar
+
+00:02:12.626 --> 00:02:15.626 align:middle
+el usuario desde la base de datos...
+
+00:02:15.986 --> 00:02:21.776 align:middle
+pero el antiguo usuario con su antiguo id
+había desaparecido gracias a las fijaciones.
+
+00:02:22.476 --> 00:02:23.586 align:middle
+Vuelve a entrar en ....
+
+00:02:23.936 --> 00:02:26.386 align:middle
+con la contraseña tada y...
+
+00:02:27.236 --> 00:02:28.556 align:middle
+¡acceso concedido!
+
+00:02:29.046 --> 00:02:33.786 align:middle
+¡Estamos de enhorabuena! Y en el
+perfilador, tenemos los dos roles.
+
+00:02:34.646 --> 00:02:38.526 align:middle
+Además de comprobar o aplicar los
+roles a través de access_control...
+
+00:02:38.856 --> 00:02:43.826 align:middle
+o desde dentro de un controlador, a menudo
+también necesitamos comprobar los roles en Twig.
+
+00:02:44.436 --> 00:02:49.966 align:middle
+Por ejemplo, si el usuario actual tiene ROLE_ADMIN,
+pongamos un enlace a la página del administrador.
+
+00:02:50.546 --> 00:02:53.136 align:middle
+Abre templates/base.html.twig.
+
+00:02:54.186 --> 00:02:55.896 align:middle
+Justo después de este enlace respuestas...
+
+00:02:56.216 --> 00:02:58.146 align:middle
+entonces deja que busque "respuestas"...
+
+00:02:58.506 --> 00:03:07.036 align:middle
+ya está, añade el if, y luego utiliza una
+función especial de is_granted() para comprobar
+
+00:03:07.036 --> 00:03:10.656 align:middle
+si el usuario tiene ROLE_ADMIN:
+
+00:03:11.186 --> 00:03:12.556 align:middle
+¡Es así de fácil!
+
+00:03:13.376 --> 00:03:16.016 align:middle
+Si es así, copia el enlace nav aquí arriba...
+
+00:03:16.546 --> 00:03:23.306 align:middle
+pega... envía al usuario a
+admin_dashboard y di "Admin":
+
+00:03:25.106 --> 00:03:26.466 align:middle
+Cuando refresquemos...
+
+00:03:27.296 --> 00:03:31.896 align:middle
+¡ya está! Hagamos lo mismo con los
+enlaces "iniciar sesión" y "registrarse":
+
+00:03:32.406 --> 00:03:34.956 align:middle
+sólo los necesitamos si no estamos conectados.
+
+00:03:35.776 --> 00:03:42.886 align:middle
+Aquí abajo, para comprobar simplemente si el usuario ha
+iniciado la sesión, utiliza is_granted('ROLE_USER')...
+
+00:03:43.236 --> 00:03:47.556 align:middle
+porque, en nuestra aplicación, todos
+los usuarios tienen al menos ese rol.
+
+00:03:48.346 --> 00:03:53.256 align:middle
+Añade else, endif, y luego haré una sangría.
+
+00:03:53.986 --> 00:04:02.036 align:middle
+Si hemos iniciado la sesión, podemos pegar para añadir
+un enlace "Cerrar sesión" que apunte a la ruta app_logout:
+
+00:04:03.146 --> 00:04:05.956 align:middle
+¡Genial! Actualiza y...
+
+00:04:06.366 --> 00:04:07.456 align:middle
+mucho mejor.
+
+00:04:07.786 --> 00:04:09.136 align:middle
+¡Esto parece un sitio real!
+
+00:04:10.016 --> 00:04:14.986 align:middle
+A continuación, vamos a conocer unas cuantas "cadenas"
+especiales que puedes utilizar con la autorización:
+
+00:04:15.276 --> 00:04:18.896 align:middle
+cadenas que no empiezan por ROLE_.
+
+00:04:19.476 --> 00:04:23.546 align:middle
+Utilizaremos una de ellas para mostrar
+cómo podemos denegar fácilmente el acceso
+
+00:04:23.546 --> 00:04:26.646 align:middle
+a todas las páginas de
+una sección, excepto a una

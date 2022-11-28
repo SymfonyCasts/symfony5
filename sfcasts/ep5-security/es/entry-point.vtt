@@ -1,0 +1,351 @@
+WEBVTT
+
+00:00:01.016 --> 00:00:05.566 align:middle
+Vuelve a entrar usando
+abraca_admin@example.com y la contraseña tada.
+
+00:00:06.286 --> 00:00:11.326 align:middle
+Cuando vamos a /admin, como vimos
+antes, obtenemos "Acceso denegado".
+
+00:00:12.016 --> 00:00:14.566 align:middle
+Esto se debe a la access_control...
+
+00:00:15.016 --> 00:00:19.486 align:middle
+y al hecho de que nuestro
+usuario no tiene ROLE_ADMIN.
+
+00:00:20.076 --> 00:00:28.526 align:middle
+Pero si lo cambiamos por ROLE_USER -un rol
+que sí tenemos-, el acceso está garantizado:
+
+00:00:29.046 --> 00:00:32.296 align:middle
+Y conseguimos ver unos
+gráficos impresionantes.
+
+00:00:33.086 --> 00:00:34.986 align:middle
+Probemos una cosa más.
+
+00:00:35.306 --> 00:00:38.566 align:middle
+Cerremos la sesión, es decir,
+vayamos manualmente a /logout.
+
+00:00:39.516 --> 00:00:45.546 align:middle
+Ahora que no hemos iniciado la sesión, si voy
+directamente a /admin: ¿qué debería pasar?
+
+00:00:46.306 --> 00:00:51.526 align:middle
+Bueno, ahora mismo, obtenemos una gran
+página de error con un código de estado 401.
+
+00:00:52.076 --> 00:00:54.716 align:middle
+Pero... ¡eso no es lo que queremos!
+
+00:00:55.446 --> 00:01:01.856 align:middle
+Si un usuario anónimo intenta acceder a una página
+protegida de nuestro sitio, en lugar de un error,
+
+00:01:02.006 --> 00:01:06.786 align:middle
+queremos ser súper amables e
+invitarle a iniciar sesión.
+
+00:01:07.686 --> 00:01:13.836 align:middle
+Como tenemos un formulario de acceso, queremos
+redirigir al usuario a la página de acceso.
+
+00:01:14.546 --> 00:01:20.166 align:middle
+Para saber qué hacer cuando un usuario
+anónimo accede a una página protegida,
+
+00:01:20.576 --> 00:01:24.526 align:middle
+cada cortafuegos define algo
+llamado "punto de entrada".
+
+00:01:25.316 --> 00:01:31.766 align:middle
+El punto de entrada de un cortafuegos es, literalmente, una función
+que dice: ¡Esto es lo que debemos hacer cuando un usuario anónimo
+
+00:01:31.766 --> 00:01:35.606 align:middle
+intenta acceder a una página protegida
+
+00:01:36.276 --> 00:01:42.216 align:middle
+! Cada autentificador de nuestro cortafuegos
+puede o no "proporcionar" un punto de entrada.
+
+00:01:43.016 --> 00:01:47.506 align:middle
+Ahora mismo, tenemos dos autentificadores:
+nuestro LoginFormAuthenticator personalizado
+
+00:01:47.676 --> 00:01:51.026 align:middle
+y también el autentificador remember_me
+
+00:01:51.776 --> 00:01:55.426 align:middle
+: Pero ninguno de ellos
+proporciona un punto de entrada,
+
+00:01:55.696 --> 00:01:58.326 align:middle
+por lo que, en lugar de redirigir
+al usuario a una página...
+
+00:01:58.326 --> 00:02:03.056 align:middle
+o algo diferente, obtenemos
+este error genérico 401.
+
+00:02:03.986 --> 00:02:08.556 align:middle
+Algunos autentificadores incorporados -como
+
+00:02:08.556 --> 00:02:12.036 align:middle
+form_login , del que hablaremos pronto-
+sí proporcionan un punto de entrada...
+
+00:02:12.146 --> 00:02:13.426 align:middle
+y lo veremos.
+
+00:02:14.246 --> 00:02:17.636 align:middle
+Pero en cualquier caso, ninguno de nuestros aut
+enticadores proporciona un punto de entrada...
+
+00:02:17.706 --> 00:02:19.426 align:middle
+¡así que añadamos
+
+00:02:20.016 --> 00:02:25.596 align:middle
+uno! Abre nuestro autentificador:
+
+00:02:25.596 --> 00:02:29.296 align:middle
+src/Security/LoginFormAuthenticator.php. Si quieres
+que tu autentificador proporcione un punto de entrada
+
+00:02:29.666 --> 00:02:35.476 align:middle
+, lo único que tienes que hacer
+es implementar una nueva interfaz:
+
+00:02:36.376 --> 00:02:39.326 align:middle
+AuthenticationEntryPointInterface: Esto
+requiere que la clase tenga un nuevo
+
+00:02:39.776 --> 00:02:42.256 align:middle
+método... que en realidad ya tenemos
+
+00:02:42.646 --> 00:02:44.156 align:middle
+aquí abajo. Se llama
+
+00:02:44.856 --> 00:02:45.896 align:middle
+start(). Descomenta el
+
+00:02:46.506 --> 00:02:51.456 align:middle
+método. Luego, dentro, muy simplemente, vamos
+a redirigir a la página de inicio de sesión.
+
+00:02:52.016 --> 00:02:54.526 align:middle
+Voy a robar el código de arriba:
+
+00:02:55.106 --> 00:02:59.576 align:middle
+¡Y listo! En cuanto un
+autentificador implemente esta
+
+00:02:59.846 --> 00:03:03.736 align:middle
+interfaz, el sistema de seguridad
+lo notará y empezará a utilizarlo.
+
+00:03:04.346 --> 00:03:08.606 align:middle
+Literalmente, si un usuario anónimo
+intenta acceder a una página protegida
+
+00:03:09.046 --> 00:03:11.486 align:middle
+, ahora llamará a nuestro método start()
+
+00:03:12.026 --> 00:03:15.436 align:middle
+... y le redirigiremos a la
+página de inicio de sesión
+
+00:03:16.046 --> 00:03:17.346 align:middle
+. Observa:
+
+00:03:18.836 --> 00:03:22.176 align:middle
+¡Refrescar! ¡Bum! Nos lleva a
+la página de inicio de sesión.
+
+00:03:22.886 --> 00:03:27.376 align:middle
+Pero hay una cosa importante
+que hay que entender sobre los
+
+00:03:27.766 --> 00:03:31.456 align:middle
+puntos de entrada. Cada cortafuegos
+sólo puede tener uno de
+
+00:03:31.976 --> 00:03:37.756 align:middle
+ellos. Piensa que en el momento
+en que entramos en /admin como
+
+00:03:38.246 --> 00:03:41.886 align:middle
+usuario anónimo.... no estamos
+intentando entrar a través de un
+
+00:03:41.916 --> 00:03:43.956 align:middle
+formulario de acceso... o a
+través de un token de la API.
+
+00:03:44.376 --> 00:03:46.366 align:middle
+Somos verdaderamente
+
+00:03:46.896 --> 00:03:53.036 align:middle
+anónimos. Por eso, si tuviéramos varios autentificadores
+que proporcionaran cada uno un punto de entrada
+
+00:03:53.496 --> 00:03:56.206 align:middle
+, nuestro cortafuegos no sabría cuál
+
+00:03:56.706 --> 00:04:00.336 align:middle
+elegir. Necesita un punto
+de entrada para todos los
+
+00:04:00.956 --> 00:04:02.886 align:middle
+casos. Ahora mismo, como sólo
+
+00:04:02.886 --> 00:04:08.056 align:middle
+uno de nuestros dos autentificadores proporciona
+un punto de entrada, sabe que debe utilizarlo.
+
+00:04:08.806 --> 00:04:11.476 align:middle
+Pero, ¿y si no fuera así
+
+00:04:12.176 --> 00:04:13.846 align:middle
+? Veamos qué
+
+00:04:14.286 --> 00:04:17.526 align:middle
+pasaría. Busca tu terminal y genera un
+segundo autentificador personalizado:
+
+00:04:17.886 --> 00:04:22.526 align:middle
+symfony console make:auth Crea
+un autentificador vacío...
+
+00:04:22.866 --> 00:04:24.926 align:middle
+y llámalo
+
+00:04:25.906 --> 00:04:26.366 align:middle
+DummyAuthenticator.
+
+00:04:26.366 --> 00:04:29.696 align:middle
+¡Qué bonito! Así se creó
+una nueva clase llamada
+
+00:04:30.216 --> 00:04:37.246 align:middle
+DummyAuthenticator: Y también actualizó custom_authenticator
+en security.yaml para utilizar ambas clases personalizadas:
+
+00:04:37.966 --> 00:04:42.186 align:middle
+En la nueva clase, dentro
+de supports(), devuelve
+
+00:04:42.746 --> 00:04:46.086 align:middle
+false: No... vamos a convertir
+esto en un autentificador real.
+
+00:04:46.876 --> 00:04:48.106 align:middle
+Si nos detuviéramos
+
+00:04:48.316 --> 00:04:54.486 align:middle
+ahora mismo... e intentáramos ir a /admin,
+seguiría utilizando el punto de entrada de
+
+00:04:55.136 --> 00:04:59.286 align:middle
+LoginFormAuthenticator. Pero ahora implementa
+
+00:05:00.206 --> 00:05:01.486 align:middle
+AuthenticationEntryPointInterface: Y luego
+
+00:05:01.746 --> 00:05:03.646 align:middle
+baja... y descomenta el método start()
+
+00:05:05.326 --> 00:05:07.826 align:middle
+. Para el cuerpo, sólo dd() un
+
+00:05:08.336 --> 00:05:10.626 align:middle
+mensaje... porque esto no se ejecutará nunca:
+
+00:05:12.086 --> 00:05:18.736 align:middle
+Ahora el cortafuegos se dará cuenta de que tenemos dos
+autentificadores que proporcionan un punto de entrada cada uno.
+
+00:05:19.346 --> 00:05:23.646 align:middle
+Y así, cuando actualizamos cualquier página,
+
+00:05:24.046 --> 00:05:26.256 align:middle
+¡se asusta! El error dice: ¡Ejecuta: por ti
+
+00:05:26.786 --> 00:05:32.026 align:middle
+liiiiiiii! Oh, espera, en realidad dice Como
+tienes varios autentificadores en el cortafuegos
+
+00:05:32.286 --> 00:05:36.586 align:middle
+"principal", tienes que establecer
+la clave entry_point en uno de tus
+
+00:05:37.146 --> 00:05:40.976 align:middle
+autentificadores. Y nos dice, de forma
+muy útil, los dos autentificadores que
+
+00:05:41.846 --> 00:05:44.626 align:middle
+tenemos. En otras palabras: nos hace
+
+00:05:45.436 --> 00:05:46.806 align:middle
+elegir. Copia la clave entry_point..
+
+00:05:47.416 --> 00:05:50.776 align:middle
+. y luego, en cualquier
+lugar del cortafuegos, di
+
+00:05:51.056 --> 00:05:54.676 align:middle
+entry_point: y apunta al
+servicio LoginFormAuthenticator:
+
+00:05:55.586 --> 00:06:01.016 align:middle
+Técnicamente podemos apuntar a
+cualquier servicio que implemente
+
+00:06:01.116 --> 00:06:04.056 align:middle
+AuthenticationEntryPointInterface...
+pero normalmente lo pongo en mi
+
+00:06:04.726 --> 00:06:07.656 align:middle
+autentificador. Ahora... si volvemos a
+
+00:06:08.826 --> 00:06:10.386 align:middle
+/admin .... ¡funciona
+
+00:06:10.986 --> 00:06:14.186 align:middle
+bien! Sabe que debe elegir
+el punto de entrada de
+
+00:06:14.846 --> 00:06:17.086 align:middle
+LoginFormAuthenticator. Hablando de
+
+00:06:17.616 --> 00:06:21.996 align:middle
+LoginFormAuthenticator... um... ¡hemos
+estado haciendo demasiado trabajo dentro de
+
+00:06:22.576 --> 00:06:25.946 align:middle
+él! Eso es culpa mía - estamos haciendo
+las cosas de la manera más difícil
+
+00:06:26.306 --> 00:06:26.796 align:middle
+para...
+
+00:06:26.846 --> 00:06:27.656 align:middle
+ya sabes...
+
+00:06:28.206 --> 00:06:32.366 align:middle
+¡"aprender"! Pero a continuación, vamos a
+eliminar eso y aprovechar una clase base de
+
+00:06:32.676 --> 00:06:35.166 align:middle
+Symfony que nos permitirá
+eliminar un montón de
+
+00:06:35.946 --> 00:06:39.736 align:middle
+código. También vamos a aprender algo llamado
+
+00:06:40.216 --> 00:06:44.136 align:middle
+TargetPathTrait : una forma
+inteligente de redirigir al usuario en

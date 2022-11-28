@@ -1,0 +1,257 @@
+WEBVTT
+
+00:00:01.016 --> 00:00:06.276 align:middle
+Ahora mismo, nuestro sitio tiene dos tipos de usuarios: usuarios
+normales y usuarios administradores. Si eres un usuario normal
+
+00:00:06.936 --> 00:00:10.216 align:middle
+, puedes votar las respuestas
+
+00:00:10.286 --> 00:00:13.986 align:middle
+y probablemente hacer un montón de
+cosas más cuando hayamos terminado.
+
+00:00:14.716 --> 00:00:18.286 align:middle
+Si eres un administrador, también puedes
+ir a la sección de administración.
+
+00:00:18.976 --> 00:00:20.966 align:middle
+Aquí todavía no hay mucho...
+
+00:00:20.966 --> 00:00:28.086 align:middle
+pero en teoría, un usuario administrador podría tener acceso a
+editar preguntas, respuestas o gestionar los datos de los usuarios.
+
+00:00:28.656 --> 00:00:35.286 align:middle
+Y... muchos sitios son así de sencillos: eres
+un usuario normal o un usuario administrador.
+
+00:00:35.946 --> 00:00:40.016 align:middle
+Pero en una empresa más grande, las
+cosas pueden no ser tan sencillas:
+
+00:00:40.546 --> 00:00:43.016 align:middle
+puedes tener muchos tipos
+de usuarios administradores.
+
+00:00:43.546 --> 00:00:47.916 align:middle
+Algunos tendrán acceso a algunas
+secciones y otros a otras.
+
+00:00:48.776 --> 00:00:55.016 align:middle
+La pregunta es: ¿cuál es la mejor manera
+de organizar nuestros roles para lograr esto?
+
+00:00:55.846 --> 00:00:58.676 align:middle
+Bueno, en realidad sólo hay dos posibilidades.
+
+00:00:59.246 --> 00:01:04.966 align:middle
+La primera es asignar funciones a los usuarios
+que se denominan según el tipo de usuario.
+
+00:01:05.886 --> 00:01:13.456 align:middle
+Por ejemplo, asignas funciones a usuarios
+como ROLE_HUMAN_RESOURCES o ROLE_IT
+
+00:01:13.916 --> 00:01:16.596 align:middle
+o ROLE_PERSON_WHO_OWNS_THE_COMPANY.
+
+00:01:17.476 --> 00:01:22.176 align:middle
+Luego, deniegas el acceso a los
+controladores utilizando estas cadenas.
+
+00:01:22.876 --> 00:01:25.326 align:middle
+Pero... Esto no me gusta. Acabas
+
+00:01:26.086 --> 00:01:31.446 align:middle
+en situaciones extrañas en las que, en un
+controlador, te das cuenta de que tienes
+
+00:01:31.446 --> 00:01:38.216 align:middle
+que permitir el acceso a ROLE_HUMAN_RESOURCES
+o ROLE_IT, lo cual es simplemente un lío.
+
+00:01:39.016 --> 00:01:41.356 align:middle
+Bien, ¿cuál es la segunda opción?
+
+00:01:41.876 --> 00:01:47.756 align:middle
+Proteger los controladores con nombres de rol
+que describan el acceso que te da ese rol. Por
+
+00:01:48.646 --> 00:01:51.206 align:middle
+ejemplo, en la parte inferior
+de este controlador, vamos a
+
+00:01:51.546 --> 00:01:55.536 align:middle
+crear una supuesta página de
+administrador para moderar las respuestas.
+
+00:01:56.116 --> 00:01:58.866 align:middle
+Establece la URL como /admin/answers...
+
+00:01:59.616 --> 00:02:01.656 align:middle
+y llámala adminAnswers():
+
+00:02:02.576 --> 00:02:04.906 align:middle
+Imagina que nuestro departamento
+de "recursos humanos "
+
+00:02:05.026 --> 00:02:08.916 align:middle
+y el de informática deben tener acceso a esto.
+
+00:02:09.516 --> 00:02:14.196 align:middle
+Pues bien, como he dicho antes, no
+quiero intentar poner aquí una lógica
+
+00:02:14.306 --> 00:02:18.106 align:middle
+que permita ROLE_HUMAN_RESOURCES o ROLE_IT.
+
+00:02:18.806 --> 00:02:25.756 align:middle
+En su lugar, di $this->denyAccessUnlessGranted()
+y pasa esto ROLE_COMMENT_ADMIN,
+
+00:02:26.316 --> 00:02:31.326 align:middle
+un nombre de rol que acabo de inventar
+que describe lo que se está protegiendo:
+
+00:02:32.116 --> 00:02:33.516 align:middle
+¡Oh, tonto Ryan!
+
+00:02:33.896 --> 00:02:39.496 align:middle
+Debería haber llamado a esto ROLE_ANSWER_ADMIN - sigo
+usando "comentario" cuando quiero decir "respuesta".
+
+00:02:40.116 --> 00:02:44.326 align:middle
+Esto funcionará bien - pero ROLE_ANSWER_ADMIN
+es realmente el mejor nombre.
+
+00:02:45.226 --> 00:02:49.606 align:middle
+De todos modos, lo que me encanta de
+esto es lo claro que es el controlador:
+
+00:02:50.346 --> 00:02:55.186 align:middle
+no puedes acceder a esto a menos que tengas
+un rol específico para este controlador.
+
+00:02:55.886 --> 00:03:03.586 align:middle
+Sólo hay un problema: si vamos a
+/admin/answers, se nos deniega el acceso...
+
+00:03:03.716 --> 00:03:06.056 align:middle
+porque no tenemos ese rol.
+
+00:03:06.926 --> 00:03:09.676 align:middle
+Probablemente puedes ver el
+problema de este enfoque.
+
+00:03:10.316 --> 00:03:16.136 align:middle
+Cada vez que creemos una nueva sección y la protejamos
+con un nuevo nombre de rol, tendremos que añadir
+
+00:03:16.136 --> 00:03:20.886 align:middle
+ese rol a cada usuario de la base
+de datos que deba tener acceso.
+
+00:03:21.576 --> 00:03:24.556 align:middle
+¡Eso parece un dolor de cabeza!
+
+00:03:25.376 --> 00:03:31.046 align:middle
+Afortunadamente, Symfony tiene una función
+justo para esto, llamada jerarquía de roles.
+
+00:03:31.836 --> 00:03:36.636 align:middle
+Abre config/packages/security.yaml
+y, en cualquier lugar de aquí...
+
+00:03:36.816 --> 00:03:40.386 align:middle
+pero lo pondré cerca de la parte
+superior, añade role_hierarchy.
+
+00:03:41.206 --> 00:03:45.516 align:middle
+Debajo de esto, di ROLE_ADMIN
+y ponlo como una matriz.
+
+00:03:46.346 --> 00:03:49.616 align:middle
+Por ahora, sólo incluye ROLE_COMMENT_ADMIN:
+
+00:03:50.546 --> 00:03:53.196 align:middle
+Esto parece tan simple como lo es.
+
+00:03:53.576 --> 00:04:00.416 align:middle
+Dice: Si tienes ROLE_ADMIN, entonces
+automáticamente también tienes ROLE_COMMENT_ADMIN.
+
+00:04:01.116 --> 00:04:01.666 align:middle
+¿El resultado?
+
+00:04:02.156 --> 00:04:05.766 align:middle
+Si refrescamos la página,
+¡acceso concedido! La
+
+00:04:06.446 --> 00:04:12.646 align:middle
+idea es que, para cada "tipo" de usuario -como
+el de "recursos humanos", o el de informática-
+
+00:04:12.646 --> 00:04:19.746 align:middle
+crearías un nuevo elemento en role_hierarchy
+para ellos, como ROLE_HUMAN_RESOURCES configurado
+
+00:04:19.746 --> 00:04:22.876 align:middle
+con una matriz de los roles que deba tener.
+
+00:04:23.816 --> 00:04:28.326 align:middle
+Por ejemplo, supongamos que también
+protegemos otro controlador de administración
+
+00:04:28.326 --> 00:04:30.166 align:middle
+con ROLE_USER_ADMIN:
+
+00:04:30.166 --> 00:04:37.286 align:middle
+En este caso, si tienes ROLE_HUMAN_RESOURCES,
+entonces obtienes automáticamente ROLE_USER_ADMIN...
+
+00:04:37.646 --> 00:04:40.486 align:middle
+que te da acceso a modificar
+los datos del usuario.
+
+00:04:41.206 --> 00:04:45.486 align:middle
+Y si tienes ROLE_ADMIN, quizás
+también puedas acceder a esta sección:
+
+00:04:46.376 --> 00:04:52.086 align:middle
+Con esta configuración, cada vez que añadamos una nueva
+sección a nuestro sitio y la protejamos con un nuevo rol,
+
+00:04:52.586 --> 00:04:58.106 align:middle
+sólo tendremos que ir a role_hierarchy y
+añadirla a los grupos que la necesiten.
+
+00:04:58.716 --> 00:05:02.026 align:middle
+No necesitamos cambiar los roles
+en la base de datos para nadie.
+
+00:05:02.806 --> 00:05:10.476 align:middle
+Y en la base de datos, la mayoría -o todos- los
+usuarios sólo necesitarán un rol: el que representa el
+
+00:05:10.476 --> 00:05:14.786 align:middle
+"tipo" de usuario que son,
+como ROLE_HUMAN_RESOURCES.
+
+00:05:15.606 --> 00:05:20.366 align:middle
+Hablando de usuarios administradores, cuando estamos
+depurando un problema de un cliente en nuestro sitio,
+
+00:05:20.706 --> 00:05:27.376 align:middle
+a veces sería muy útil que pudiéramos entrar
+temporalmente en la cuenta de ese usuario...
+
+00:05:27.746 --> 00:05:30.116 align:middle
+para ver lo que están viendo.
+
+00:05:30.846 --> 00:05:33.056 align:middle
+En Symfony, eso es totalmente posible.
+
+00:05:33.556 --> 00:05:36.246 align:middle
+Ahora vamos a hablar de la
+suplantación de identidad

@@ -1,0 +1,306 @@
+WEBVTT
+
+00:00:00.976 --> 00:00:04.466 align:middle
+Nuestro formulario de registro
+funcionaría si lo probamos.
+
+00:00:04.726 --> 00:00:10.516 align:middle
+Pero, después del registro, quiero también
+autentificar automáticamente al usuario...
+
+00:00:10.786 --> 00:00:14.996 align:middle
+para que no tengan que registrarse y
+luego iniciar la sesión inmediatamente...
+
+00:00:15.346 --> 00:00:16.186 align:middle
+eso sería una tontería.
+
+00:00:16.876 --> 00:00:19.016 align:middle
+Hasta ahora, toda la
+autenticación se ha hecho...
+
+00:00:19.236 --> 00:00:25.456 align:middle
+de forma indirecta: el usuario hace una
+petición, un autentificador la gestiona y...
+
+00:00:25.676 --> 00:00:31.786 align:middle
+¡voilà! Pero en este caso, queremos
+autenticar al usuario directamente,
+
+00:00:32.216 --> 00:00:34.926 align:middle
+escribiendo código dentro de un controlador.
+
+00:00:35.586 --> 00:00:42.236 align:middle
+Y... esto es totalmente posible, autocableando
+un servicio específicamente para esto.
+
+00:00:43.126 --> 00:00:48.026 align:middle
+Añade un nuevo argumento aquí arriba
+con el tipo UserAuthenticatorInterface
+
+00:00:48.696 --> 00:00:51.026 align:middle
+y lo llamaré $userAuthenticator:
+
+00:00:51.886 --> 00:00:53.776 align:middle
+Este objeto te permite simplemente...
+
+00:00:54.046 --> 00:00:56.306 align:middle
+autenticar cualquier objeto de User.
+
+00:00:56.976 --> 00:01:02.746 align:middle
+Justo antes de la redirección, vamos a hacerlo:
+$userAuthenticator->authenticateUser()
+
+00:01:03.506 --> 00:01:06.316 align:middle
+y tenemos que pasarle unos cuantos argumentos.
+
+00:01:06.746 --> 00:01:09.736 align:middle
+El primero es el User que queremos autenticar
+
+00:01:10.086 --> 00:01:15.506 align:middle
+: Fácil. El segundo es un
+"autentificador " que quieres
+
+00:01:16.276 --> 00:01:20.496 align:middle
+utilizar. Este sistema funciona
+básicamente tomando tu objeto User
+
+00:01:20.696 --> 00:01:24.516 align:middle
+y... como "pasándolo por"
+uno de tus autentificadores.
+
+00:01:25.176 --> 00:01:28.356 align:middle
+Si siguiéramos utilizando nuestro
+LoginFormAuthenticator personalizado
+
+00:01:28.596 --> 00:01:31.726 align:middle
+, pasar este argumento sería realmente
+
+00:01:32.246 --> 00:01:35.686 align:middle
+fácil. Podríamos simplemente autoconectar
+el servicio LoginFormAuthenticator
+
+00:01:35.686 --> 00:01:37.686 align:middle
+aquí arriba y pasarlo.
+
+00:01:38.246 --> 00:01:45.816 align:middle
+Pero, en nuestro archivo security.yaml,
+nuestra principal forma de autentificación es
+
+00:01:46.336 --> 00:01:51.186 align:middle
+form_login: Esto activa un servicio
+de autentificación entre bastidores
+
+00:01:51.546 --> 00:01:54.786 align:middle
+, al igual que nuestro
+LoginFormAuthenticator personalizado.
+
+00:01:55.556 --> 00:02:01.926 align:middle
+La parte complicada es averiguar cuál
+es ese servicio e inyectarlo en nuestro
+
+00:02:02.386 --> 00:02:05.486 align:middle
+controlador. Así que tenemos
+que investigar un poco.
+
+00:02:05.996 --> 00:02:12.346 align:middle
+En tu terminal, ejecuta symfony
+console debug:container y busca
+
+00:02:12.346 --> 00:02:19.686 align:middle
+form_login: En esta lista,
+veo un servicio llamado
+
+00:02:20.246 --> 00:02:24.146 align:middle
+security.authenticator.form_login.main ... y
+recuerda que "main" es el nombre de nuestro
+
+00:02:24.776 --> 00:02:27.776 align:middle
+cortafuegos. Este es el id del servicio que
+
+00:02:28.546 --> 00:02:32.616 align:middle
+queremos. Si te preguntas por el servicio
+que está por encima de éste, si
+
+00:02:32.906 --> 00:02:36.516 align:middle
+lo comprobaras, verías que
+es un servicio "abstracto "
+
+00:02:37.076 --> 00:02:42.936 align:middle
+abstracto". Una especie de servicio "falso" que se
+utiliza como plantilla para crear el servicio real
+
+00:02:42.936 --> 00:02:45.976 align:middle
+para cualquier cortafuegos que utilice
+
+00:02:46.796 --> 00:02:49.916 align:middle
+form_login . En cualquier caso,
+voy a pulsar "1" para obtener más
+
+00:02:50.746 --> 00:02:55.226 align:middle
+detalles. Vale, genial: este
+servicio es una instancia de
+
+00:02:55.706 --> 00:02:58.856 align:middle
+FormLoginAuthenticator , que es
+la clase principal que hemos visto
+
+00:02:59.776 --> 00:03:05.506 align:middle
+antes. De vuelta a nuestro controlador,
+añade otro argumento de tipo
+
+00:03:07.606 --> 00:03:11.816 align:middle
+FormLoginAuthenticator: Luego, aquí
+abajo, pasa el nuevo argumento a
+
+00:03:12.646 --> 00:03:15.286 align:middle
+authenticateUser(): Esto no
+funcionará todavía, pero sigue
+
+00:03:16.216 --> 00:03:20.526 align:middle
+conmigo. El último argumento a
+authenticateUser() es el objeto Request
+
+00:03:21.076 --> 00:03:22.646 align:middle
+... que ya
+
+00:03:23.046 --> 00:03:25.036 align:middle
+tenemos... es nuestro primer
+argumento del controlador
+
+00:03:25.816 --> 00:03:30.036 align:middle
+: ¡Listo! ¡ Ah, y una cosa
+genial de authenticateUser()
+
+00:03:30.036 --> 00:03:33.056 align:middle
+es que devuelve un objeto Response
+
+00:03:33.706 --> 00:03:38.786 align:middle
+! Concretamente, el objeto Response
+del método onAuthenticationSuccess()
+
+00:03:39.116 --> 00:03:42.156 align:middle
+de cualquier autentificador que hayamos pasado.
+
+00:03:42.806 --> 00:03:47.856 align:middle
+Esto significa que en lugar de redirigir a
+la página de inicio, podemos devolver esto
+
+00:03:48.136 --> 00:03:53.456 align:middle
+y, dondequiera que ese autentificador
+redirija normalmente, redirigiremos allí
+
+00:03:53.806 --> 00:03:55.786 align:middle
+también, lo que podría
+ser la " ruta de destino
+
+00:03:56.636 --> 00:03:57.386 align:middle
+". ¡Vamos a probar esto
+
+00:03:57.846 --> 00:04:01.016 align:middle
+! Actualiza el formulario de
+registro para ser recibido
+
+00:04:01.306 --> 00:04:02.876 align:middle
+con... ¡un impresionante
+
+00:04:03.226 --> 00:04:06.566 align:middle
+error! No se puede autoconducir el argumento
+
+00:04:07.326 --> 00:04:13.656 align:middle
+$formLoginAuthenticator . Hmm. Sí que hemos
+tecleado ese argumento con la clase correcta:
+
+00:04:14.216 --> 00:04:21.776 align:middle
+FormLoginAuthenticator: ¡ El problema es que éste es un ejemplo
+raro de un servicio que no está disponible para el autocableado
+
+00:04:22.596 --> 00:04:25.616 align:middle
+! Así que tenemos que configurarlo
+
+00:04:26.496 --> 00:04:30.956 align:middle
+manualmente. Afortunadamente, si
+no supiéramos ya qué servicio
+
+00:04:30.956 --> 00:04:33.196 align:middle
+necesitamos, el mensaje
+de error nos da una gran
+
+00:04:33.886 --> 00:04:38.696 align:middle
+pista. Dice: ... no existe tal servicio,
+tal vez debas poner un alias de
+
+00:04:38.696 --> 00:04:44.516 align:middle
+esta clase al servicio existente
+
+00:04:44.946 --> 00:04:49.586 align:middle
+security.authenticator.form_login.main Sí,
+nos dio el id del servicio que necesitamos
+
+00:04:50.316 --> 00:04:53.146 align:middle
+cablear. Ve a copiar el nombre del argumento -
+
+00:04:53.606 --> 00:04:56.716 align:middle
+formLoginAuthenticator - y luego
+
+00:04:58.006 --> 00:05:06.316 align:middle
+abre config/services.yaml. Debajo de _defaults, añade
+un nuevo bind llamado $formLoginAuthenticator ajust ado a
+
+00:05:06.346 --> 00:05:08.446 align:middle
+@ y luego... Iré a copiar ese largo
+
+00:05:09.466 --> 00:05:10.846 align:middle
+id de servicio... y lo pegaré
+
+00:05:11.746 --> 00:05:16.376 align:middle
+aquí: Esto dice: siempre
+que un servicio tenga un
+
+00:05:16.606 --> 00:05:18.586 align:middle
+argumento$formLoginAuthenticator, pásale
+
+00:05:19.316 --> 00:05:21.516 align:middle
+este servicio. Eso... si
+
+00:05:21.846 --> 00:05:23.786 align:middle
+refrescamos... eliminará
+
+00:05:24.646 --> 00:05:27.726 align:middle
+nuestro error. Bien, ¡registremos por fin un
+
+00:05:28.216 --> 00:05:30.316 align:middle
+nuevo usuario! Utilizaré mi
+
+00:05:31.006 --> 00:05:32.456 align:middle
+correo electrónico de la vida real... y luego
+
+00:05:32.746 --> 00:05:39.056 align:middle
+cualquier contraseña... siempre que tenga 6 caracteres:
+nuestro formulario de registro venía preconstruido con esa
+
+00:05:39.676 --> 00:05:41.826 align:middle
+regla de validación. Y...
+
+00:05:42.306 --> 00:05:46.516 align:middle
+lo tenemos. Abajo, en la barra de herramientas
+de depuración de la web, ¡estamos registrados
+
+00:05:47.006 --> 00:05:49.086 align:middle
+como Merlín! Siento el
+
+00:05:50.016 --> 00:05:55.746 align:middle
+poder mágico. Siguiente: a veces denegar
+el acceso no es tan sencillo como comprobar
+
+00:05:56.436 --> 00:06:00.996 align:middle
+un rol. Por ejemplo, ¿qué pasaría si
+tuvieras una página de edición de preguntas y
+
+00:06:00.996 --> 00:06:05.246 align:middle
+ésta tuviera que ser accesible
+sólo para el creador de
+
+00:06:06.186 --> 00:06:11.146 align:middle
+esa pregunta? Es hora de descubrir
+un poderoso sistema dentro de Symfony

@@ -1,0 +1,349 @@
+WEBVTT
+
+00:00:01.036 --> 00:00:05.596 align:middle
+Otra buena característica de un formulario
+de acceso es la casilla "recuérdame". Aquí
+
+00:00:05.976 --> 00:00:12.296 align:middle
+almacenamos una cookie "recuérdame" de larga
+duración en el navegador del usuario, de modo que
+
+00:00:12.296 --> 00:00:16.086 align:middle
+cuando cierre su navegador -y
+por tanto, pierda su sesión-
+
+00:00:16.446 --> 00:00:19.096 align:middle
+esa cookie le mantendrá conectado...
+
+00:00:19.096 --> 00:00:20.706 align:middle
+durante una semana...
+
+00:00:20.706 --> 00:00:21.886 align:middle
+o un año...
+
+00:00:21.886 --> 00:00:23.566 align:middle
+o lo que configuremos.
+
+00:00:24.456 --> 00:00:25.596 align:middle
+Añadamos esto.
+
+00:00:26.246 --> 00:00:27.096 align:middle
+El primer paso es ir
+
+00:00:27.096 --> 00:00:31.256 align:middle
+a config/packages/security.yaml
+y activar el sistema.
+
+00:00:31.716 --> 00:00:38.576 align:middle
+Lo hacemos diciendo remember_me: y, a continuación,
+estableciendo una pieza de configuración necesaria
+
+00:00:38.576 --> 00:00:43.396 align:middle
+: secret: establecer en %kernel.secret%:
+
+00:00:44.276 --> 00:00:48.296 align:middle
+Esto se utiliza para "firmar" el
+valor de la cookie remember me...
+
+00:00:48.656 --> 00:00:53.416 align:middle
+y el parámetro kernel.secret proviene
+en realidad de nuestro archivo .env:
+
+00:00:54.316 --> 00:00:58.896 align:middle
+Sí, este APP_SECRET acaba convirtiéndose
+en el parámetro kernel.secret...
+
+00:00:59.046 --> 00:01:00.726 align:middle
+al que podemos hacer referencia aquí.
+
+00:01:01.556 --> 00:01:06.176 align:middle
+Como es normal, hay un montón de otras
+opciones que puedes poner bajo remember_me...
+
+00:01:06.476 --> 00:01:08.346 align:middle
+y puedes ver muchas de ellas ejecutando:
+
+00:01:08.346 --> 00:01:14.256 align:middle
+symfony console debug:config security
+Busca la sección remember_me:.
+
+00:01:15.076 --> 00:01:21.486 align:middle
+Una importante es lifetime:, que es el
+tiempo de validez de la cookie "Recuérdame".
+
+00:01:22.206 --> 00:01:28.086 align:middle
+Antes he dicho que la mayor parte de la configuración
+que ponemos bajo nuestro cortafuegos sirve
+
+00:01:28.086 --> 00:01:31.426 align:middle
+para activar diferentes autentificadores.
+
+00:01:31.426 --> 00:01:36.736 align:middle
+Por ejemplo, custom_authenticator:
+activa nuestro LoginFormAuthenticator:
+
+00:01:37.346 --> 00:01:41.766 align:middle
+Lo que significa que ahora se llama a
+nuestra clase al inicio de cada petición
+
+00:01:42.246 --> 00:01:44.906 align:middle
+y se busca el envío de
+un formulario de acceso.
+
+00:01:45.746 --> 00:01:49.926 align:middle
+La configuración de remember_me
+también activa un auten tificador
+
+00:01:50.586 --> 00:01:53.866 align:middle
+un autentificador central
+llamado RememberMeAuthenticator.
+
+00:01:54.616 --> 00:02:01.666 align:middle
+En cada petición, éste busca una cookie
+"remember me" -que crearemos en un segundo- y,
+
+00:02:01.866 --> 00:02:05.126 align:middle
+si está ahí, la utiliza
+para autenticar al usuario.
+
+00:02:06.016 --> 00:02:10.586 align:middle
+Ahora que esto está en su sitio, nuestro
+siguiente trabajo es establecer esa cookie
+
+00:02:10.586 --> 00:02:13.456 align:middle
+en el navegador del usuario
+después de que se conecte.
+
+00:02:14.246 --> 00:02:16.546 align:middle
+Abre login.html.twig.
+
+00:02:16.546 --> 00:02:21.126 align:middle
+En lugar de añadir siempre la
+cookie, dejemos que el usuario elija.
+
+00:02:21.786 --> 00:02:32.816 align:middle
+Justo después de la contraseña, añade un div con
+algunas clases, una etiqueta y una entrada type="checkbox",
+
+00:02:32.816 --> 00:02:37.596 align:middle
+name="_remember_me": El nombre
+- _remember_me - es importante
+
+00:02:37.676 --> 00:02:43.076 align:middle
+y tiene que ser ese valor.
+Como veremos en un minuto, el
+
+00:02:43.606 --> 00:02:49.456 align:middle
+sistema busca una casilla de verificación con este nombre exacto. Bien,
+actualiza el formulario. Genial, ¡tenemos una casilla de verificación
+
+00:02:50.336 --> 00:02:52.296 align:middle
+! Aunque ... es un
+
+00:02:53.046 --> 00:02:55.036 align:middle
+poco feo... Creo que se ha
+
+00:02:55.476 --> 00:02:57.566 align:middle
+estropeado algo. Usa form-check
+
+00:02:58.076 --> 00:02:59.636 align:middle
+y démosle a nuestra casilla de verificación
+
+00:03:00.176 --> 00:03:04.576 align:middle
+form-check-input : Ahora...
+¡mejor! Si marcamos la casilla
+
+00:03:08.476 --> 00:03:09.856 align:middle
+y la enviamos...
+
+00:03:10.746 --> 00:03:13.026 align:middle
+no pasaría absolutamente
+nada diferente: Symfony
+
+00:03:13.306 --> 00:03:19.866 align:middle
+no establecería una cookie remember me. Esto se
+debe a que nuestro autentificador necesita anunciar
+
+00:03:20.646 --> 00:03:24.406 align:middle
+que admite el establecimiento
+de cookies remember me.
+
+00:03:24.406 --> 00:03:27.546 align:middle
+Esto es un poco raro, pero
+
+00:03:28.366 --> 00:03:34.816 align:middle
+piénsalo: el hecho de que hayamos activado el sistema remember_me en security.yaml
+no significa que queramos que SIEMPRE se establezcan cookies remember me
+
+00:03:34.816 --> 00:03:40.906 align:middle
+. En un formulario de inicio de
+sesión, definitivamente. Pero si
+
+00:03:41.846 --> 00:03:43.786 align:middle
+tuviéramos algún tipo de
+
+00:03:44.246 --> 00:03:47.916 align:middle
+autenticación con token de la API...
+entonces no querríamos que Symfony intentara
+
+00:03:48.336 --> 00:03:55.456 align:middle
+establecer una cookie remember me en esa petición de la
+API. En cualquier caso, todo lo que necesitamos es añadir
+
+00:03:55.456 --> 00:03:59.206 align:middle
+una pequeña bandera que diga que este mecanismo de
+autenticación sí admite añadir cookies remember me
+
+00:03:59.206 --> 00:04:04.556 align:middle
+. Hazlo con una insignia:
+new RememberMeBadge():
+
+00:04:05.016 --> 00:04:09.896 align:middle
+¡Eso es todo! Pero hay una
+
+00:04:10.636 --> 00:04:11.766 align:middle
+cosa rara. Con el
+
+00:04:12.146 --> 00:04:15.126 align:middle
+CsrfTokenBadge , leemos el token POSTed
+
+00:04:15.946 --> 00:04:21.896 align:middle
+y lo pasamos a la placa. Pero con
+RememberMeBadge... no hacemos eso.
+
+00:04:22.546 --> 00:04:24.206 align:middle
+En su lugar, internamente, el
+
+00:04:24.276 --> 00:04:25.676 align:middle
+sistema "recuérdame" sabe
+
+00:04:26.176 --> 00:04:30.356 align:middle
+que debe buscar una casilla
+llamada, exactamente, _remember_me.
+
+00:04:30.396 --> 00:04:35.426 align:middle
+Todo el proceso funciona así. Después de que
+
+00:04:36.206 --> 00:04:38.526 align:middle
+nos autentifiquemos con éxito,
+el sistema "recuérdame" buscará
+
+00:04:38.526 --> 00:04:45.136 align:middle
+esta insignia y comprobará
+si esta casilla está marcada.
+
+00:04:45.136 --> 00:04:47.766 align:middle
+Si ambas cosas son verdaderas, añadirá
+
+00:04:48.376 --> 00:04:52.246 align:middle
+la cookie "recuérdame". Veamos esto
+en acción. Actualiza la página...
+
+00:04:52.946 --> 00:04:54.416 align:middle
+e introduce nuestro correo electrónico normal
+
+00:04:54.416 --> 00:04:55.846 align:middle
+, la contraseña "tada",
+
+00:04:56.126 --> 00:05:02.606 align:middle
+haz clic en la casilla "Recuérdame"... y pulsa
+"Iniciar sesión". La autenticación es correcta No es
+
+00:05:02.606 --> 00:05:04.356 align:middle
+ninguna sorpresa. Pero ahora abre
+
+00:05:05.146 --> 00:05:07.016 align:middle
+las herramientas de tu navegador
+
+00:05:07.306 --> 00:05:08.266 align:middle
+, ve
+
+00:05:09.016 --> 00:05:15.396 align:middle
+a "Aplicación", busca "Cookies" y... ¡sí!
+Tenemos una nueva cookie REMEMBERME...
+
+00:05:15.646 --> 00:05:19.086 align:middle
+que caduca dentro de mucho tiempo:
+
+00:05:19.376 --> 00:05:24.056 align:middle
+es decir, ¡dentro de 1 año! Para probar
+que el sistema funciona, elimina la
+
+00:05:24.846 --> 00:05:30.756 align:middle
+cookie de sesión que normalmente nos mantiene
+conectados. Observa lo que ocurre cuando actualizamos. ¡
+
+00:05:31.146 --> 00:05:33.626 align:middle
+Seguimos conectados! Eso es
+
+00:05:34.906 --> 00:05:36.496 align:middle
+gracias al autentificador remember_me.
+
+00:05:37.006 --> 00:05:41.256 align:middle
+En la barra de herramientas de
+depuración de la web, puedes
+
+00:05:42.116 --> 00:05:48.636 align:middle
+ver una pequeña diferencia: es esta clase de token.
+Cuando te autentificas, internamente, tu objeto User
+
+00:05:49.306 --> 00:05:55.566 align:middle
+se envuelve en un objeto "token"... que normalmente
+no es demasiado importante. Pero ese token
+
+00:05:56.046 --> 00:05:59.136 align:middle
+muestra cómo te has
+
+00:05:59.616 --> 00:06:03.166 align:middle
+autentificado. Ahora dice
+RememberMeToken... lo que demuestra que
+
+00:06:03.746 --> 00:06:05.796 align:middle
+la cookie "Recuérdame "
+
+00:06:06.116 --> 00:06:11.486 align:middle
+fue la que nos autenticó.
+Ah, y si te preguntas por qué
+
+00:06:11.486 --> 00:06:15.336 align:middle
+Symfony no ha añadido una nueva cookie de sesión...
+eso es sólo porque la sesión de Symfony es perezosa. No
+
+00:06:15.676 --> 00:06:18.926 align:middle
+lo verás hasta que vayas
+
+00:06:19.386 --> 00:06:24.536 align:middle
+a una página que utilice la sesión - como la página de
+inicio de sesión. Ahora está de vuelta. Y... ¡eso es todo!
+
+00:06:25.446 --> 00:06:26.466 align:middle
+Además de
+
+00:06:27.306 --> 00:06:29.146 align:middle
+nuestro LoginFormAuthenticator,
+
+00:06:29.666 --> 00:06:35.156 align:middle
+ahora hay un segundo autentificador que busca información
+de autentificación en una cookie de REMEMBERME.
+
+00:06:35.186 --> 00:06:39.356 align:middle
+Sin embargo, podemos hacer todo esto
+
+00:06:40.236 --> 00:06:43.466 align:middle
+un poco más elegante. A continuación,
+vamos a ver cómo podríamos añadir
+
+00:06:44.046 --> 00:06:49.086 align:middle
+una cookie "recuérdame" para todos los usuarios
+cuando se conecten, sin necesidad de una
+
+00:06:49.086 --> 00:06:52.826 align:middle
+casilla de verificación. También
+vamos a explorar una nueva
+
+00:06:53.616 --> 00:06:59.776 align:middle
+opción del sistema "recuérdame" que permite
+invalidar todas las cookies "recuérdame" existentes
+
+00:06:59.776 --> 00:07:06.116 align:middle
+si el usuario cambia su contraseña

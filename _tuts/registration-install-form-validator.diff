@@ -1,5 +1,5 @@
 diff --git a/composer.json b/composer.json
-index 1f4e6606..6d052f0e 100644
+index adcd3379..2c81cb24 100644
 --- a/composer.json
 +++ b/composer.json
 @@ -22,6 +22,7 @@
@@ -19,7 +19,7 @@ index 1f4e6606..6d052f0e 100644
          "symfony/yaml": "5.3.*",
          "twig/extra-bundle": "^2.12|^3.0",
 diff --git a/composer.lock b/composer.lock
-index 440e5b92..8bf9abcd 100644
+index 3570011c..f69f3fec 100644
 --- a/composer.lock
 +++ b/composer.lock
 @@ -4,7 +4,7 @@

@@ -21,7 +21,7 @@ defaults. But not *all* options are shown here. To see a full list, run
 `config:dump security`.
 
 ```terminal-silent
-symfomy console config:dump security
+symfony console config:dump security
 ```
 
 Instead of showing your *actual* config, this shows a huge list of *example* config.

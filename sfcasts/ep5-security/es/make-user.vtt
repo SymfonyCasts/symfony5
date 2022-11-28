@@ -1,0 +1,313 @@
+WEBVTT
+
+00:00:01.026 --> 00:00:07.446 align:middle
+Independientemente de cómo se autentifiquen tus usuarios -un formulario
+de inicio de sesión, una autenticación social o una clave API-,
+
+00:00:07.816 --> 00:00:11.286 align:middle
+tu sistema de seguridad necesita
+algún concepto de usuario:
+
+00:00:11.876 --> 00:00:15.886 align:middle
+alguna clase que describa la
+"cosa" que ha iniciado la sesión.
+
+00:00:16.716 --> 00:00:20.716 align:middle
+Sí, el paso 1 de la autenticación
+es crear una clase User.
+
+00:00:21.286 --> 00:00:23.386 align:middle
+¡Y hay un comando que puede ayudarnos!
+
+00:00:23.916 --> 00:00:29.296 align:middle
+Busca tu terminal y ejecuta: symfony
+console make:user Como recordatorio,
+
+00:00:29.516 --> 00:00:33.686 align:middle
+symfony console es sólo un
+atajo para bin/console...
+
+00:00:34.076 --> 00:00:37.686 align:middle
+pero como estoy utilizando la integración
+de Docker con el servidor web Symfony,
+
+00:00:37.986 --> 00:00:43.656 align:middle
+llamar a symfony console permite al binario
+symfony inyectar algunas variables de entorno
+
+00:00:43.716 --> 00:00:45.526 align:middle
+que apuntan a la base de datos de Docker.
+
+00:00:46.376 --> 00:00:48.866 align:middle
+No importará para este comando, pero sí
+
+00:00:48.866 --> 00:00:51.176 align:middle
+para cualquier comando que
+hable con la base de datos.
+
+00:00:51.886 --> 00:00:55.986 align:middle
+Bien, primera pregunta: El
+nombre de la clase de usuario
+
+00:00:56.676 --> 00:00:58.986 align:middle
+Normalmente, será User...
+
+00:00:59.416 --> 00:01:03.446 align:middle
+aunque sería mejor utilizar
+algo como HumanoidEntity.
+
+00:01:04.046 --> 00:01:08.626 align:middle
+Si la "cosa" que entra en tu
+sitio se llamaría mejor Company
+
+00:01:08.696 --> 00:01:12.476 align:middle
+o University o Machine,
+utiliza ese nombre aquí.
+
+00:01:13.416 --> 00:01:16.616 align:middle
+¿Quieres almacenar los datos de los usuarios
+en la base de datos a través de Doctrine?
+
+00:01:17.046 --> 00:01:19.386 align:middle
+Para nosotros: es un sí rotundo...
+
+00:01:19.576 --> 00:01:21.336 align:middle
+pero no es un requisito.
+
+00:01:21.846 --> 00:01:24.926 align:middle
+Tus datos de usuario pueden estar
+almacenados en algún otro servidor...
+
+00:01:25.376 --> 00:01:28.726 align:middle
+aunque incluso en ese caso,
+a menudo es conveniente
+
+00:01:28.726 --> 00:01:32.046 align:middle
+almacenar algunos datos adicionales
+en tu base de datos local...
+
+00:01:32.346 --> 00:01:35.016 align:middle
+en cuyo caso también dirías que sí aquí.
+
+00:01:35.846 --> 00:01:40.716 align:middle
+Siguiente: Introduce un nombre de propiedad que será
+el nombre de visualización único para el usuario.
+
+00:01:41.136 --> 00:01:42.586 align:middle
+Yo voy a utilizar email.
+
+00:01:43.316 --> 00:01:47.716 align:middle
+Esto no es tan importante, y explicaré
+cómo se utiliza en unos minutos.
+
+00:01:48.246 --> 00:01:52.976 align:middle
+Por último: ¿Necesitará esta aplicación hacer un
+hash y comprobar las contraseñas de los usuarios?
+
+00:01:53.746 --> 00:01:59.266 align:middle
+Sólo tienes que decir que sí si
+será responsabilidad de tu aplicación
+
+00:01:59.266 --> 00:02:03.116 align:middle
+comprobar la contraseña del
+usuario cuando se conecte.
+
+00:02:03.816 --> 00:02:05.326 align:middle
+Vamos a hacer esto...
+
+00:02:05.686 --> 00:02:07.446 align:middle
+pero voy a decir que no.
+
+00:02:07.846 --> 00:02:10.266 align:middle
+Lo añadiremos manualmente un poco más tarde.
+
+00:02:11.046 --> 00:02:12.386 align:middle
+Pulsa enter y...
+
+00:02:12.606 --> 00:02:14.576 align:middle
+¡listo! Bien.
+
+00:02:14.716 --> 00:02:15.786 align:middle
+¿Qué ha hecho esto?
+
+00:02:16.546 --> 00:02:20.956 align:middle
+Primero, creó una entidad
+User y una UserRepository...
+
+00:02:21.406 --> 00:02:25.806 align:middle
+exactamente lo mismo que obtienes
+normalmente al ejecutar make:entity.
+
+00:02:26.666 --> 00:02:30.336 align:middle
+Vamos a ver esa nueva clase User:
+src/Entity/User.php: En primer
+
+00:02:31.076 --> 00:02:38.716 align:middle
+lugar, se trata de una entidad normal y
+aburrida de Doctrine : tiene anotaciones
+
+00:02:39.006 --> 00:02:42.296 align:middle
+-o quizás atributos de PHP 8 para ti- y un id.
+
+00:02:42.296 --> 00:02:48.576 align:middle
+Es... sólo una entidad:
+no tiene nada de especial.
+
+00:02:48.576 --> 00:02:54.316 align:middle
+Lo único que le importa a Symfony es que su
+clase de usuario implemente UserInterface.
+
+00:02:54.976 --> 00:02:59.336 align:middle
+Mantén pulsado Command o Ctrl y haz clic para
+saltar al código del núcleo para ver esto.
+
+00:03:00.236 --> 00:03:07.246 align:middle
+Esta interfaz realmente sólo tiene 3 métodos:
+getUserIdentifier(), que ves documentado
+
+00:03:07.246 --> 00:03:09.456 align:middle
+encima de la interfaz, getRoles()...
+
+00:03:09.946 --> 00:03:13.856 align:middle
+y otro aquí abajo llamado eraseCredentials().
+
+00:03:14.696 --> 00:03:17.266 align:middle
+Si estás confundido sobre
+por qué estoy omitiendo todos
+
+00:03:17.266 --> 00:03:20.816 align:middle
+estos otros métodos, es
+porque están obsoletos.
+
+00:03:21.466 --> 00:03:26.956 align:middle
+En Symfony 6, esta interfaz sólo
+tendrá esos 3: getUserIdentifier(),
+
+00:03:27.186 --> 00:03:29.576 align:middle
+getRoles() y eraseCredentials().
+
+00:03:30.506 --> 00:03:33.226 align:middle
+En nuestra clase User, si
+te desplazas hacia abajo,
+
+00:03:33.606 --> 00:03:37.466 align:middle
+el comando make:user implementó
+todo esto por nosotros.
+
+00:03:38.276 --> 00:03:44.306 align:middle
+Gracias a cómo hemos respondido a una de sus preguntas,
+getUserIdentier() devuelve el correo electrónico:
+
+00:03:45.146 --> 00:03:52.246 align:middle
+Esto... no es demasiado importante: es sobre todo
+una representación visual de tu objeto Usuario...
+
+00:03:52.886 --> 00:03:55.086 align:middle
+se utiliza en la barra de herramientas
+de depuración de la web...
+
+00:03:55.436 --> 00:03:59.316 align:middle
+y en algunos sistemas opcionales,
+como el sistema "recuérdame".
+
+00:04:00.176 --> 00:04:02.116 align:middle
+Si estás usando Symfony 5 como yo,
+
+00:04:02.386 --> 00:04:05.756 align:middle
+te darás cuenta de que los métodos
+obsoletos se siguen generando. Son
+
+00:04:06.416 --> 00:04:09.326 align:middle
+necesarios sólo por compatibilidad
+con versiones anteriores,
+
+00:04:09.806 --> 00:04:12.916 align:middle
+y puedes eliminarlos una
+vez que estés en Symfony 6.
+
+00:04:13.816 --> 00:04:17.766 align:middle
+El método getRoles() se ocupa de los
+permisos: más adelante hablaremos de ello.
+
+00:04:18.516 --> 00:04:22.256 align:middle
+Además, getPassword() y
+getSalt() están obsoletos:
+
+00:04:23.076 --> 00:04:28.096 align:middle
+Seguirás necesitando el método getPassword()
+si compruebas las contraseñas en tu sitio,
+
+00:04:28.466 --> 00:04:30.656 align:middle
+pero de eso aprenderemos más adelante.
+
+00:04:31.566 --> 00:04:37.096 align:middle
+Por último, eraseCredentials() forma parte
+de UserInterface: pero no es muy importante
+
+00:04:37.416 --> 00:04:39.426 align:middle
+y también hablaremos de él más adelante.
+
+00:04:40.246 --> 00:04:42.356 align:middle
+Así que a alto nivel...
+
+00:04:42.536 --> 00:04:44.946 align:middle
+si ignoras los métodos obsoletos...
+
+00:04:45.176 --> 00:04:50.926 align:middle
+y los no tan importantes eraseCredentials(),
+lo único que debe tener nuestra clase User
+
+00:04:50.926 --> 00:04:55.806 align:middle
+es un identificador y un
+método que devuelva el array
+
+00:04:55.806 --> 00:04:58.466 align:middle
+de roles que debe tener este usuario.
+
+00:04:59.546 --> 00:05:02.456 align:middle
+Sí... es sobre todo una entidad de User.
+
+00:05:03.186 --> 00:05:09.056 align:middle
+El comando make:user también hizo un ajuste a
+nuestro archivo security.yaml: puedes verlo aquí:
+
+00:05:09.786 --> 00:05:14.456 align:middle
+Añadió lo que se llama un "proveedor
+de usuarios", que es un objeto
+
+00:05:14.456 --> 00:05:17.646 align:middle
+que sabe cómo cargar tus objetos de usuario...
+
+00:05:18.116 --> 00:05:21.946 align:middle
+tanto si cargas esos datos desde una
+API como desde una base de datos.
+
+00:05:22.616 --> 00:05:27.256 align:middle
+Como estamos usando Doctrine, podemos
+utilizar el proveedor incorporado entity:
+
+00:05:27.816 --> 00:05:31.646 align:middle
+que sabe cómo obtener nuestros usuarios de la
+base de datos utilizando la propiedad email.
+
+00:05:32.506 --> 00:05:34.186 align:middle
+Quería que vieras este cambio...
+
+00:05:34.506 --> 00:05:37.406 align:middle
+pero el proveedor de usuarios
+no es importante todavía.
+
+00:05:37.896 --> 00:05:42.646 align:middle
+Te mostraré exactamente cómo y dónde
+se utiliza a medida que avancemos.
+
+00:05:43.586 --> 00:05:47.786 align:middle
+A continuación: tenemos un control total
+sobre el aspecto de nuestra clase User.
+
+00:05:48.146 --> 00:05:49.126 align:middle
+¡El poder!
+
+00:05:49.846 --> 00:05:55.886 align:middle
+Así que vamos a añadirle un campo personalizado y a cargar
+nuestra base de datos con un buen conjunto de usuarios ficticios

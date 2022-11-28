@@ -1,0 +1,380 @@
+WEBVTT
+
+00:00:01.006 --> 00:00:05.356 align:middle
+En algunos sitios, tras el registro, tienes
+que verificar tu correo electrónico.
+
+00:00:05.836 --> 00:00:11.396 align:middle
+Seguro que estás familiarizado con el proceso:
+te registras, te envían un enlace especial
+
+00:00:11.396 --> 00:00:14.666 align:middle
+a tu correo electrónico, haces
+clic en ese enlace y ¡voilà!
+
+00:00:15.176 --> 00:00:17.146 align:middle
+Tu correo electrónico está verificado.
+
+00:00:17.146 --> 00:00:20.906 align:middle
+Si no haces clic en ese
+enlace, dependiendo del sitio,
+
+00:00:21.146 --> 00:00:24.286 align:middle
+puede que no tengas acceso
+a ciertas secciones...
+
+00:00:24.286 --> 00:00:27.696 align:middle
+o puede que no puedas acceder en absoluto.
+
+00:00:28.246 --> 00:00:30.016 align:middle
+Eso es lo que vamos a hacer.
+
+00:00:30.846 --> 00:00:34.336 align:middle
+Cuando ejecutamos originalmente
+el comando make:registration-form,
+
+00:00:34.606 --> 00:00:40.066 align:middle
+nos preguntó si queríamos generar un proceso
+de verificación por correo electrónico.
+
+00:00:40.816 --> 00:00:44.706 align:middle
+Si hubiéramos dicho que sí,
+nos habría generado un código.
+
+00:00:45.076 --> 00:00:46.406 align:middle
+Dijimos que no...
+
+00:00:46.876 --> 00:00:50.406 align:middle
+para que pudiéramos construirlo
+a mano, aprender un poco más
+
+00:00:50.406 --> 00:00:53.406 align:middle
+sobre su funcionamiento y
+personalizar un poco las cosas.
+
+00:00:54.066 --> 00:00:58.546 align:middle
+Pero antes de lanzarnos a enviar el correo electrónico
+de verificación, dentro de nuestra clase User,
+
+00:00:59.276 --> 00:01:04.526 align:middle
+necesitamos alguna forma de rastrear si un
+usuario ha verificado o no su correo electrónico.
+
+00:01:05.416 --> 00:01:07.066 align:middle
+Vamos a añadir un nuevo campo para ello.
+
+00:01:07.506 --> 00:01:15.016 align:middle
+Ejecuta: symfony console make:entity Actualiza
+User, añade una propiedad isVerified,
+
+00:01:15.336 --> 00:01:18.036 align:middle
+de tipo booleano, no anulable y...
+
+00:01:18.576 --> 00:01:21.486 align:middle
+¡perfecto! Dirígete a la clase.
+
+00:01:21.486 --> 00:01:22.156 align:middle
+Veamos...
+
+00:01:22.576 --> 00:01:24.466 align:middle
+aquí lo tenemos: $isVerified:
+
+00:01:25.006 --> 00:01:26.996 align:middle
+Pongamos por defecto esto en false:
+
+00:01:27.806 --> 00:01:37.096 align:middle
+Bien, es hora de la migración: symfony
+console make:migration Ve a comprobarlo y...
+
+00:01:38.216 --> 00:01:41.166 align:middle
+impresionante. Se ve
+exactamente como esperamos:
+
+00:01:41.776 --> 00:01:48.576 align:middle
+¡Ejecútalo! symfony console
+doctrine:migrations:migrate ¡Precioso!
+
+00:01:48.576 --> 00:01:51.286 align:middle
+Hagamos una cosa más
+relacionada con la base de datos.
+
+00:01:51.646 --> 00:02:00.576 align:middle
+Dentro de src/Factory/UserFactory.php, para hacer
+la vida más sencilla, pon $isVerified en true:
+
+00:02:00.576 --> 00:02:05.806 align:middle
+Así, por defecto, se verificarán los
+usuarios de nuestras instalaciones.
+
+00:02:06.576 --> 00:02:10.406 align:middle
+Pero no me preocuparé de
+recargar mis accesorios todavía.
+
+00:02:11.316 --> 00:02:14.816 align:middle
+Bien: ¡ahora vamos a añadir el sistema
+de confirmación por correo electrónico!
+
+00:02:15.336 --> 00:02:18.026 align:middle
+¿Cómo? ¡Aprovechando un paquete!
+
+00:02:18.856 --> 00:02:25.406 align:middle
+En tu terminal, ejecuta: composer require
+symfonycasts/verify-email-bundle ¡Eh,
+
+00:02:25.576 --> 00:02:26.316 align:middle
+los conozco!
+
+00:02:27.146 --> 00:02:32.386 align:middle
+Este paquete nos proporciona un par de servicios
+que nos ayudarán a generar una URL firmada
+
+00:02:32.576 --> 00:02:36.816 align:middle
+que incluiremos en el correo
+electrónico y luego validaremos
+
+00:02:36.816 --> 00:02:39.676 align:middle
+esa URL firmada cuando el
+usuario haga clic en ella.
+
+00:02:40.616 --> 00:02:43.656 align:middle
+Para que esto funcione,
+abre RegistrationController.
+
+00:02:44.316 --> 00:02:46.996 align:middle
+Ya tenemos nuestro método
+register() que funciona.
+
+00:02:47.476 --> 00:02:50.226 align:middle
+Ahora necesitamos otro método.
+
+00:02:50.226 --> 00:02:52.986 align:middle
+Añade la función pública verifyUserEmail().
+
+00:02:53.866 --> 00:03:00.886 align:middle
+Sobre ella, dale una ruta: @Route("/verify")
+con name="app_verify_email":
+
+00:03:01.746 --> 00:03:08.046 align:middle
+Cuando el usuario haga clic en el enlace "confirmar correo
+electrónico" en el correo electrónico que le enviamos, esta es la ruta
+
+00:03:08.046 --> 00:03:10.686 align:middle
+y el controlador al que le llevará ese enlace.
+
+00:03:11.386 --> 00:03:13.326 align:middle
+De momento lo dejaré vacío.
+
+00:03:13.806 --> 00:03:17.876 align:middle
+Pero al final, su trabajo
+será validar la URL firmada,
+
+00:03:18.316 --> 00:03:23.186 align:middle
+lo que demostrará que el usuario hizo
+clic en el enlace exacto que le enviamos.
+
+00:03:23.886 --> 00:03:28.106 align:middle
+Arriba, en la acción register(), es donde
+tenemos que enviar ese correo electrónico.
+
+00:03:28.876 --> 00:03:33.756 align:middle
+Como he mencionado antes, puedes hacer
+diferentes cosas en tu sitio en función de si
+
+00:03:33.756 --> 00:03:36.836 align:middle
+el correo electrónico del
+usuario está verificado o no.
+
+00:03:36.836 --> 00:03:41.456 align:middle
+En nuestro sitio, vamos a impedir
+completamente que el usuario se registre
+
+00:03:41.456 --> 00:03:44.056 align:middle
+hasta que su correo
+electrónico esté verificado.
+
+00:03:44.056 --> 00:03:49.066 align:middle
+Así que voy a eliminar lo de
+$userAuthenticator: Y sustituirlo
+
+00:03:49.066 --> 00:03:53.036 align:middle
+por la redirección original a app_homepage:
+
+00:03:53.906 --> 00:03:59.956 align:middle
+Arriba, podemos eliminar
+algunos argumentos. Genial.
+
+00:04:00.376 --> 00:04:05.526 align:middle
+Ahora tenemos que generar el enlace de confirmación
+del correo electrónico firmado y enviarlo al usuario.
+
+00:04:06.276 --> 00:04:12.936 align:middle
+Para ello, autocablea un nuevo servicio
+de tipo VerifyEmailHelperInterface.
+
+00:04:13.306 --> 00:04:15.456 align:middle
+Llámalo $verifyEmailHelper:
+
+00:04:16.416 --> 00:04:20.906 align:middle
+A continuación, después de guardar el
+usuario, vamos a generar esa URL firmada.
+
+00:04:21.706 --> 00:04:24.206 align:middle
+Esto... parece un poco raro al principio.
+
+00:04:24.206 --> 00:04:31.056 align:middle
+Digamos que $signatureComponents es igual a
+$verifyEmailHelper->generateSignature():
+
+00:04:32.046 --> 00:04:35.926 align:middle
+El primer argumento es el nombre
+de la ruta de verificación.
+
+00:04:35.926 --> 00:04:39.476 align:middle
+Para nosotros, será app_verify_email:
+
+00:04:39.476 --> 00:04:41.026 align:middle
+Así que lo pondré aquí.
+
+00:04:41.876 --> 00:04:48.556 align:middle
+A continuación, el identificador del usuario - $user->getId()
+- y el correo electrónico del usuario, $user->getEmail():
+
+00:04:49.346 --> 00:04:53.906 align:middle
+Ambos se utilizan para "firmar" la
+URL, lo que ayudará a demostrar
+
+00:04:54.036 --> 00:04:58.356 align:middle
+que este usuario hizo clic en el enlace
+del correo electrónico que le enviamos:
+
+00:04:58.976 --> 00:05:01.336 align:middle
+Pero ahora tenemos un punto de decisión.
+
+00:05:01.906 --> 00:05:05.326 align:middle
+Hay dos formas diferentes de utilizar
+el VerifyEmailBundle. La primera
+
+00:05:05.876 --> 00:05:09.936 align:middle
+es aquella en la que, cuando el usuario hace clic en este enlace
+de confirmación por correo electrónico, esperas que haya
+
+00:05:10.376 --> 00:05:13.386 align:middle
+iniciado la sesión. En esta
+
+00:05:14.346 --> 00:05:20.826 align:middle
+situación, abajo en verifyUserEmail(), podemos
+utilizar $this->getUser() para averiguar quién
+
+00:05:20.826 --> 00:05:27.256 align:middle
+está intentando verificar su correo electrónico y utilizarlo
+para ayudar a validar la URL firmada. El otro modo, que
+
+00:05:28.116 --> 00:05:34.576 align:middle
+es el que vamos a utilizar, es permitir
+que el usuario no esté conectado cuando
+
+00:05:34.576 --> 00:05:37.626 align:middle
+haga clic en el enlace de confirmación
+de su correo electrónico. Con este modo
+
+00:05:38.346 --> 00:05:44.566 align:middle
+, tenemos que pasar un array como argumento
+final para incluir el id del usuario: El
+
+00:05:45.376 --> 00:05:51.486 align:middle
+objetivo de este método generateSignature()
+es generar una URL firmada. Y gracias
+
+00:05:52.406 --> 00:05:58.686 align:middle
+a este último argumento, esa URL contendrá
+ahora un parámetro de consulta id... que
+
+00:05:59.286 --> 00:06:04.456 align:middle
+podemos utilizar abajo en el método
+verifyUserEmail() para consultar el User. Lo veremos
+
+00:06:05.076 --> 00:06:06.626 align:middle
+pronto. Llegados a este
+
+00:06:07.406 --> 00:06:12.056 align:middle
+punto, en una aplicación real, tomarías esta
+cosa de $signatureComponents, la pasarías
+
+00:06:12.286 --> 00:06:18.086 align:middle
+a una plantilla de correo electrónico, la utilizarías para
+renderizar el enlace y luego enviarías el correo. Pero este
+
+00:06:18.776 --> 00:06:24.656 align:middle
+no es un tutorial sobre el envío de correos
+electrónicos, aunque tenemos ese tutorial. Así que voy a
+
+00:06:24.656 --> 00:06:27.266 align:middle
+tomar un atajo. En lugar de enviar
+
+00:06:27.846 --> 00:06:33.936 align:middle
+un correo electrónico, di $this->addFlash('success')
+con un pequeño mensaje que diga:
+
+00:06:33.936 --> 00:06:38.926 align:middle
+"Confirma tu correo electrónico
+en:" y luego la URL firmada. Puedes
+
+00:06:39.686 --> 00:06:44.296 align:middle
+generar eso diciendo
+$signatureComponents->getSignedUrl(): No hemos
+
+00:06:45.186 --> 00:06:47.796 align:middle
+hablado de los mensajes flash. Son básicamente
+
+00:06:48.476 --> 00:06:52.886 align:middle
+mensajes temporales que puedes
+poner en la sesión... y luego
+
+00:06:53.146 --> 00:06:55.486 align:middle
+renderizarlos una vez. He puesto
+
+00:06:56.086 --> 00:06:59.176 align:middle
+este mensaje en la
+categoría success. Gracias a
+
+00:06:59.176 --> 00:07:03.796 align:middle
+esto, en templates/base.html.twig,
+justo después de
+
+00:07:04.346 --> 00:07:08.046 align:middle
+la navegación -por lo que está en la parte
+superior de la página- podemos renderizar
+
+00:07:08.706 --> 00:07:12.276 align:middle
+cualquier mensaje flash de success. Añade para
+
+00:07:12.916 --> 00:07:19.306 align:middle
+flash in app.flashes() y luego busca
+esa clave success. Dentro, añade
+
+00:07:21.206 --> 00:07:27.266 align:middle
+div con alert, alert-success y
+renderiza el mensaje: Esto del flash
+
+00:07:28.076 --> 00:07:31.796 align:middle
+no tiene nada que ver con la confirmación
+del correo electrónico... es sólo
+
+00:07:32.076 --> 00:07:37.626 align:middle
+una característica de Symfony que se utiliza más
+comúnmente cuando se manejan formularios. Pero es
+
+00:07:38.136 --> 00:07:42.416 align:middle
+un buen atajo para ayudarnos a probar
+esto. A continuación: vamos a...
+
+00:07:42.416 --> 00:07:43.376 align:middle
+¡hacer eso!
+
+00:07:43.476 --> 00:07:49.766 align:middle
+Probemos nuestro formulario de registro y veamos
+qué aspecto tiene esta URL firmada. A continuación,
+
+00:07:50.476 --> 00:07:56.276 align:middle
+rellenaremos la lógica para verificar
+esa URL y confirmar a nuestro usuario
