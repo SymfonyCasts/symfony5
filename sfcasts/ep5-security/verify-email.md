@@ -61,7 +61,7 @@ Okay: *now* let's add the email confirmation system! How? By leveraging a bundle
 At your terminal, run:
 
 ```terminal
-composer require symfonycasts/verify-email-bundle
+composer require "symfonycasts/verify-email-bundle:1.11.0"
 ```
 
 Hey, I know them! This bundle gives us a couple of services that will help
