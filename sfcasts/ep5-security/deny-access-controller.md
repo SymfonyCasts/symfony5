@@ -82,8 +82,8 @@ class QuestionController extends AbstractController
     // ...
     /**
      * ...
-     * #[IsGranted("ROLE_ADMIN")]
      */
+    #[IsGranted("ROLE_ADMIN")]
     public function new()
     {
         return new Response('Sounds like a GREAT feature for V2!');
