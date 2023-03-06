@@ -1,5 +1,5 @@
 diff --git a/composer.json b/composer.json
-index 2c81cb24..d9772319 100644
+index 5ce0946d..285e5b92 100644
 --- a/composer.json
 +++ b/composer.json
 @@ -36,6 +36,7 @@
@@ -11,19 +11,19 @@ index 2c81cb24..d9772319 100644
          "twig/string-extra": "^3.3",
          "twig/twig": "^2.12|^3.0"
 diff --git a/composer.lock b/composer.lock
-index f69f3fec..4cc2e9c0 100644
+index 5c923611..849ad624 100644
 --- a/composer.lock
 +++ b/composer.lock
 @@ -4,7 +4,7 @@
          "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
          "This file is @generated automatically"
      ],
--    "content-hash": "f9157f23c5bdf39c42228efc75dabdd4",
-+    "content-hash": "1e4b875d737d4b26c92a14d946eccbb9",
+-    "content-hash": "75e49a0aea67a4d87c5c0c31a7d7dd7c",
++    "content-hash": "1dc98cfe3b938704aded288149de2b40",
      "packages": [
          {
              "name": "babdev/pagerfanta-bundle",
-@@ -7320,6 +7320,56 @@
+@@ -7322,6 +7322,56 @@
              ],
              "time": "2021-07-29T06:20:01+00:00"
          },

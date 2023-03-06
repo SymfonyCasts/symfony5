@@ -1,5 +1,5 @@
 diff --git a/composer.json b/composer.json
-index 871496fa..d25b9e9f 100644
+index 1abd008d..01269986 100644
 --- a/composer.json
 +++ b/composer.json
 @@ -17,6 +17,7 @@
@@ -11,15 +11,15 @@ index 871496fa..d25b9e9f 100644
          "stof/doctrine-extensions-bundle": "^1.4",
          "symfony/asset": "5.3.*",
 diff --git a/composer.lock b/composer.lock
-index 5aee6cde..886f1dd3 100644
+index 3656934a..b548ef7d 100644
 --- a/composer.lock
 +++ b/composer.lock
 @@ -4,7 +4,7 @@
          "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
          "This file is @generated automatically"
      ],
--    "content-hash": "bf3fef476c9cb7750fbdee6ed7821e95",
-+    "content-hash": "fcb082e11314d896f7d98f58c9ec9271",
+-    "content-hash": "39d0941c46d6c69dbe91aecb6561d4e5",
++    "content-hash": "45fc49a86bd41ca96c32c3f73326d91c",
      "packages": [
          {
              "name": "babdev/pagerfanta-bundle",
@@ -59,12 +59,12 @@ index 5aee6cde..886f1dd3 100644
 +            },
 +            "type": "library",
 +            "autoload": {
-+                "psr-4": {
-+                    "Assert\\": "lib/Assert"
-+                },
 +                "files": [
 +                    "lib/Assert/functions.php"
-+                ]
++                ],
++                "psr-4": {
++                    "Assert\\": "lib/Assert"
++                }
 +            },
 +            "notification-url": "https://packagist.org/downloads/",
 +            "license": [
@@ -97,7 +97,7 @@ index 5aee6cde..886f1dd3 100644
          {
              "name": "behat/transliterator",
              "version": "v1.3.0",
-@@ -2260,6 +2327,73 @@
+@@ -2261,6 +2328,73 @@
              },
              "time": "2021-07-25T22:42:23+00:00"
          },
@@ -171,7 +171,7 @@ index 5aee6cde..886f1dd3 100644
          {
              "name": "phpdocumentor/reflection-common",
              "version": "2.2.0",
-@@ -2684,6 +2818,56 @@
+@@ -2685,6 +2819,56 @@
              },
              "time": "2021-10-11T09:04:22+00:00"
          },
@@ -228,8 +228,8 @@ index 5aee6cde..886f1dd3 100644
          {
              "name": "sensio/framework-extra-bundle",
              "version": "v6.2.0",
-@@ -2762,6 +2946,81 @@
-             },
+@@ -2764,6 +2948,81 @@
+             "abandoned": "Symfony",
              "time": "2021-09-06T13:24:35+00:00"
          },
 +        {
@@ -310,7 +310,7 @@ index 5aee6cde..886f1dd3 100644
          {
              "name": "stof/doctrine-extensions-bundle",
              "version": "v1.6.0",
-@@ -7588,6 +7847,145 @@
+@@ -7590,6 +7849,145 @@
              },
              "time": "2021-05-05T18:08:21+00:00"
          },
@@ -343,13 +343,6 @@ index 5aee6cde..886f1dd3 100644
 +                }
 +            },
 +            "autoload": {
-+                "psr-4": {
-+                    "Safe\\": [
-+                        "lib/",
-+                        "deprecated/",
-+                        "generated/"
-+                    ]
-+                },
 +                "files": [
 +                    "deprecated/apc.php",
 +                    "deprecated/libevent.php",
@@ -440,7 +433,14 @@ index 5aee6cde..886f1dd3 100644
 +                    "generated/yaz.php",
 +                    "generated/zip.php",
 +                    "generated/zlib.php"
-+                ]
++                ],
++                "psr-4": {
++                    "Safe\\": [
++                        "lib/",
++                        "deprecated/",
++                        "generated/"
++                    ]
++                }
 +            },
 +            "notification-url": "https://packagist.org/downloads/",
 +            "license": [

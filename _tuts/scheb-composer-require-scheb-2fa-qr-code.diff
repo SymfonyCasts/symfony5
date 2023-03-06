@@ -1,5 +1,5 @@
 diff --git a/composer.json b/composer.json
-index d25b9e9f..12203ee5 100644
+index 01269986..6596a056 100644
 --- a/composer.json
 +++ b/composer.json
 @@ -17,6 +17,7 @@
@@ -11,15 +11,15 @@ index d25b9e9f..12203ee5 100644
          "sensio/framework-extra-bundle": "^6.0",
          "stof/doctrine-extensions-bundle": "^1.4",
 diff --git a/composer.lock b/composer.lock
-index 886f1dd3..dd197dc4 100644
+index b548ef7d..d301b2ec 100644
 --- a/composer.lock
 +++ b/composer.lock
 @@ -4,7 +4,7 @@
          "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
          "This file is @generated automatically"
      ],
--    "content-hash": "fcb082e11314d896f7d98f58c9ec9271",
-+    "content-hash": "6db617b0ff533dc1ae28a16b55c525c6",
+-    "content-hash": "45fc49a86bd41ca96c32c3f73326d91c",
++    "content-hash": "a23f54559e4df9f2fe51ac7f2f2922b7",
      "packages": [
          {
              "name": "babdev/pagerfanta-bundle",
@@ -245,12 +245,12 @@ index 886f1dd3..dd197dc4 100644
 +            },
 +            "type": "library",
 +            "autoload": {
-+                "psr-4": {
-+                    "Zxing\\": "lib/"
-+                },
 +                "files": [
 +                    "lib/Common/customFunctions.php"
-+                ]
++                ],
++                "psr-4": {
++                    "Zxing\\": "lib/"
++                }
 +            },
 +            "notification-url": "https://packagist.org/downloads/",
 +            "license": [
@@ -281,7 +281,7 @@ index 886f1dd3..dd197dc4 100644
          {
              "name": "knplabs/knp-markdown-bundle",
              "version": "1.9.0",
-@@ -2185,6 +2415,66 @@
+@@ -2186,6 +2416,66 @@
              ],
              "time": "2021-10-01T21:08:31+00:00"
          },
@@ -348,7 +348,7 @@ index 886f1dd3..dd197dc4 100644
          {
              "name": "pagerfanta/core",
              "version": "v3.3.0",
-@@ -2818,6 +3108,55 @@
+@@ -2819,6 +3109,55 @@
              },
              "time": "2021-10-11T09:04:22+00:00"
          },
