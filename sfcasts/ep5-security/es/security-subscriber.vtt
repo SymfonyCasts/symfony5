@@ -1,16 +1,15 @@
 WEBVTT
 
 00:00:01.016 --> 00:00:06.316
-Éste es nuestro objetivo: si un usuario intenta iniciar la
-sesión pero aún no ha verificado su correo electrónico,
+Éste es nuestro objetivo: si un usuario intenta iniciar sesión
+pero aún no ha verificado su correo electrónico, tenemos que hacer
 
 00:00:06.546 --> 00:00:09.296
-tenemos que hacer que
-falle la autenticación. Si
+que falle la autenticación. Si quieres
 
 00:00:09.986 --> 00:00:13.916
-quieres detener la autenticación por
-alguna razón, probablemente quieras
+detener la autenticación por alguna
+razón, entonces probablemente quieras
 
 00:00:13.916 --> 00:00:17.466
 escuchar el CheckPassportEvent:
@@ -47,8 +46,8 @@ generar el que necesitamos:
 getSubscribedEvents(): Dentro,
 
 00:00:52.976 --> 00:00:58.326
-devuelve un array con todos los eventos que
-queremos escuchar, que es uno solo. Digamos que
+devuelve un array de todos los eventos que
+queremos escuchar, que es sólo uno. Digamos que
 
 00:00:59.046 --> 00:01:03.646
 CheckPassportEvent::class establece
@@ -62,7 +61,7 @@ se envíe ese evento. Qué
 tal, onCheckPassport : Arriba
 
 00:01:10.016 --> 00:01:13.536
-, añade esto: public function
+, añade eso: public function
 onCheckPassport()... y
 
 00:01:14.306 --> 00:01:17.156
@@ -72,11 +71,11 @@ esto recibirá este objeto de evento. Así que
 CheckPassportEvent $event. Empieza
 
 00:01:20.626 --> 00:01:23.846
-con dd($event) para que
-podamos ver cómo es: Ahora,
+con dd($event) para que veamos
+qué aspecto tiene: Ahora,
 
 00:01:24.846 --> 00:01:29.496
-sólo con crear esta clase y hacer que
+con sólo crear esta clase y hacer que
 implemente EventSubscriberInterface, gracias
 
 00:01:30.046 --> 00:01:34.386
@@ -92,33 +91,33 @@ nuestro suscriptor escucha
 
 00:01:41.396 --> 00:01:44.826
 el CheckPassportEvent en
-todos los cortafuegos. Para
+todos los cortafuegos. En
 
 00:01:45.486 --> 00:01:49.426
-nosotros, sólo tenemos un cortafuegos
+nuestro caso, sólo tenemos un cortafuegos
 real, así que no importa: Pero si tuvieras
 
 00:01:49.996 --> 00:01:53.326
-varios cortafuegos reales,
+varios corta fuegos reales, nuestro suscriptor
 
 00:01:53.726 --> 00:01:58.416
-se llamaría a nuestro suscriptor siempre que se
-activara el evento para cualquier cortafuegos. Si
+sería llamado cada vez que se activara el
+evento para cualquier cortafuegos. Si lo
 
 00:01:59.176 --> 00:02:04.256
-lo necesitas, puedes añadir una pequeña configuración adicional
-para dirigirte a uno solo de los cortafuegos. En cualquier caso,
+necesitas, puedes añadir un poco de configuración adicional
+para dirigirte sólo a uno de los cortafuegos. En cualquier caso,
 
 00:02:04.926 --> 00:02:06.926
-¡probemos esto!
+¡probemos esto!.
 
 00:02:07.316 --> 00:02:10.426
 Inicia sesión como
 abraca_admin@example.com. Hemos
 
 00:02:11.016 --> 00:02:16.236
-puesto la bandera isVerified en las instalaciones
-como verdadera para todos los usuarios... pero
+puesto la bandera isVerified en las fijaciones
+a true para todos los usuarios... pero
 
 00:02:16.696 --> 00:02:19.306
 aún no hemos recargado
@@ -129,7 +128,7 @@ este usuario no será verificado. Intenta
 
 00:02:23.986 --> 00:02:26.506
 escribir una contraseña
-no válida y enviarla. Sí
+no válida y enviar. ¡Sí!
 
 00:02:28.136 --> 00:02:30.186
 Ha llegado a nuestro dd(). Así que
@@ -143,7 +142,7 @@ nuestro listener no se ejecuta. ¿Por qué?
 
 00:02:41.346 --> 00:02:47.786
 Tanto la carga del usuario como la comprobación
-de la contraseña ocurren a través de oyentes
+de la contraseña ocurren a través de escuchas
 
 00:02:47.786 --> 00:02:52.186
 del CheckPassportEvent: el mismo
@@ -151,18 +150,18 @@ evento que estamos escuchando. La
 
 00:02:53.016 --> 00:02:58.126
 incoherencia en el comportamiento -el hecho de que
-nuestro oyente se haya ejecutado con una contraseña
+nuestro oyente se ejecutara con una contraseña
 
 00:02:58.126 --> 00:03:05.696
-no válida pero no con un correo electrónico no
-válido- se debe a la prioridad de los oy entes.
+inválida pero no con un correo electrónico
+inválido- se debe a la prioridad de los oyentes.
 
 00:03:06.526 --> 00:03:07.396
 Vuelve a tu terminal. Ah,
 
 00:03:08.176 --> 00:03:13.616
 cada evento muestra una prioridad,
-y el valor por defecto es cero.
+y la predeterminada es cero.
 
 00:03:14.306 --> 00:03:16.696
 Déjame hacer esto un poco más pequeño
@@ -172,34 +171,34 @@ para que podamos leerlo. Ya está.
 Fíjate
 
 00:03:18.346 --> 00:03:23.526
-bien: nuestro oyente es llamado antes
-que el CheckCredentialsListener.
+bien: nuestro escuchador es llamado
+antes que el CheckCredentialsListener.
 
 00:03:24.076 --> 00:03:28.526
-Por eso llamó a nuestro oyente antes de que la
+Por eso llamó a nuestro escuchador antes de que la
 comprobación de la contraseña pudiera fallar. Pero
 
 00:03:29.106 --> 00:03:31.106
-eso no es lo que queremos. No
+eso no es lo que queremos. No queremos
 
 00:03:31.746 --> 00:03:37.636
-queremos hacer nuestra comprobación "está verificada"
-hasta que sepamos que la contraseña es válida: no hay
+hacer nuestra comprobación "está verificada" hasta
+que sepamos que la contraseña es válida: no hay
 
 00:03:38.326 --> 00:03:41.386
 razón para exponer si la
 cuenta está verificada o
 
 00:03:41.386 --> 00:03:45.586
-no hasta que sepamos que el usuario real
-está iniciando la sesión. La cuestión
+no hasta que sepamos que el usuario
+real se está conectando. La cuestión
 
 00:03:46.446 --> 00:03:50.596
 es: queremos que nuestro código se ejecute
-después de CheckCredentialsListener. Para
+después de CheckCredentialsListener. Para ello
 
 00:03:51.316 --> 00:03:55.426
-ello, podemos dar a nuestro oyente
+, podemos dar a nuestro oyente
 una prioridad negativa. Modifica
 
 00:03:56.216 --> 00:04:01.106
@@ -207,17 +206,18 @@ la sintaxis: establece el nombre del evento
 en una matriz con el nombre del método como
 
 00:04:01.106 --> 00:04:04.126
-primera clave y la prioridad como segunda. Qué
+primera clave y la prioridad
+como segunda. Qué te
 
 00:04:04.656 --> 00:04:06.116
-tal un 10 negativo: Gracias
+parece 10 negativo : gracias
 
 00:04:06.876 --> 00:04:10.156
 a esto, el usuario tendrá que
-introducir un correo electrónico y
+introducir un correo electrónico y una
 
 00:04:10.286 --> 00:04:13.796
-una contraseña válidos antes de que
+contraseña válidos antes de que
 se llame a nuestro oyente. Pruébalo
 
 00:04:14.656 --> 00:04:20.376
@@ -228,11 +228,11 @@ contraseña tada y... ¡precioso!
 Echa un
 
 00:04:23.236 --> 00:04:27.936
-vistazo al objeto de evento que se nos
-pasa: está lleno de cosas buenas. Contiene
+vistazo al objeto de evento que se
+nos pasa: está lleno de cosas buenas.
 
 00:04:28.736 --> 00:04:31.196
-el autentificador que se utilizó, por
+Contiene el autentificador que se utilizó, por
 
 00:04:31.496 --> 00:04:34.496
 si necesitamos hacer algo
@@ -246,15 +246,14 @@ es enorme porque contiene el objeto
 User y las insignias... porque
 
 00:04:43.146 --> 00:04:47.926
-a veces necesitas hacer cosas diferentes en
-función de las insignias del pasaporte. Dentro
+a veces necesitas hacer cosas diferentes
+basándote en las insignias del pasaporte. Dentro
 
 00:04:48.776 --> 00:04:51.116
-de nuestro suscriptor,
-pongámonos a trabajar. Para
+de nuestro suscriptor, manos a la obra. Para
 
 00:04:51.726 --> 00:04:57.486
-obtener el usuario, primero tenemos que obtener el
+obtener el usuario, primero necesitamos obtener el
 pasaporte: $passport = $event->getPassport(). Ahora,
 
 00:04:58.516 --> 00:05:06.456
@@ -266,7 +265,7 @@ importante y no es necesaria en
 Symfony 6 y superiores. Básicamente,
 
 00:05:12.916 --> 00:05:17.296
-esta comprobación asegura que nuestro
+esta comprobación se asegura de que nuestro
 Passport tiene un método getUser(), que
 
 00:05:17.616 --> 00:05:19.956
@@ -277,8 +276,8 @@ Symfony 6, la comprobación no
 es necesaria en absoluto porque
 
 00:05:24.386 --> 00:05:28.296
-la clase Passport tiene literalmente
-siempre este método. Esto
+la clase Passport literalmente
+siempre tiene este método. Esto
 
 00:05:29.116 --> 00:05:34.396
 significa que, aquí abajo, podemos
@@ -289,11 +288,12 @@ luego añadamos una comprobación de cordura: si
 $user no es una instancia de nuestra clase User, lanza
 
 00:05:42.146 --> 00:05:45.266
-una excepción: "Tipo de usuario inesperado":
+una excepción: "Tipo de
+usuario inesperado": En la
 
 00:05:46.116 --> 00:05:49.456
-En la práctica, en nuestra
-aplicación, esto no es posible. Pero
+práctica, en nuestra aplicación,
+esto no es posible. Pero
 
 00:05:49.976 --> 00:05:52.106
 es una buena forma de indicar a mi editor -o a
@@ -303,18 +303,18 @@ las herramientas de análisis estático-
 que $user es nuestra clase Usuario. Gracias
 
 00:05:57.936 --> 00:05:59.446
-a esto, cuando decimos si
+a esto, cuando decimos if
 
 00:05:59.516 --> 00:06:04.326
-no $user->getIsVerified(), se
+not $user->getIsVerified(), se
 autocompleta ese método: Vale, si no
 
 00:06:05.316 --> 00:06:10.466
 estamos verificados, tenemos que hacer
-que falle la autenticación. ¿Cómo
+que falle la autenticación. ¿Cómo lo
 
 00:06:11.106 --> 00:06:12.066
-lo hacemos? Resulta
+hacemos? Resulta
 
 00:06:12.936 --> 00:06:16.786
 que, en cualquier momento del
@@ -325,7 +325,7 @@ podemos lanzar un
 AuthenticationException -de Seguridad- y
 
 00:06:21.066 --> 00:06:23.926
-eso hará que la autenticación falle: Y
+eso hará que falle la autenticación: Y
 
 00:06:24.636 --> 00:06:30.406
 hay un montón de subclases de esta
@@ -347,17 +347,18 @@ el mensaje de error genérico vinculado
 a la clase AuthenticationException... no
 
 00:06:49.136 --> 00:06:51.506
-es un mensaje de error muy bueno. Pero ha hecho
+es un mensaje de error muy bueno. Pero hizo
 
 00:06:51.886 --> 00:06:53.816
 el trabajo. ¿Cómo
 
 00:06:54.746 --> 00:06:56.426
 podemos personalizarlo? O bien
+lanzando una excepción de
 
 00:06:57.146 --> 00:07:01.936
-lanzando una excepción de autenticación diferente
-que coincida con el mensaje que quieres -como
+autenticación diferente que coincida
+con el mensaje que deseas -como
 
 00:07:02.386 --> 00:07:06.856
 BadCredentialsException - o
@@ -365,14 +366,14 @@ bien tomando el control total
 
 00:07:06.886 --> 00:07:11.386
 lanzando la clase especial
-CustomUserMessageAuthenticationException(). Pásale a
+CustomUserMessageAuthenticationException(). Pásale
 
 00:07:12.306 --> 00:07:18.216
-esto el mensaje que debes mostrar al usuario: Por
-favor, verifica tu cuenta antes de iniciar la sesión.
+este mensaje al usuario: Por favor,
+verifica tu cuenta antes de iniciar sesión.
 
 00:07:19.086 --> 00:07:20.256
-Veamos cómo funciona esto. Mantén
+Veamos cómo funciona esto. Mantén pulsado
 
 00:07:20.736 --> 00:07:23.826
 Cmd o Ctrl y haz clic para abrir esta clase. No
@@ -407,7 +408,7 @@ accidentalmente algún mensaje de excepción interno
 a nuestros usuarios.
 
 00:08:00.636 --> 00:08:05.586
-Por eso, las diferentes subclases de excepción de
+Por eso las distintas subclases de excepción de
 autenticación nos dan mensajes diferentes. Sin embargo,
 
 00:08:06.406 --> 00:08:11.996
@@ -419,29 +420,26 @@ Puedes hacerlo utilizando esta clase. Esto
 
 00:08:15.646 --> 00:08:21.336
 fallará la autenticación igual que antes, pero
-ahora nosotros controlamos el mensaje. Muy bonito. ¡
+ahora nosotros controlamos el mensaje. Precioso. ¡
 
 00:08:21.606 --> 00:08:22.206
 Pero
 
 00:08:23.146 --> 00:08:25.356
-podemos hacerlo aún mejor! En lugar
+podemos hacerlo aún mejor! En
 
 00:08:25.786 --> 00:08:30.976
-de decir simplemente "por favor, verifique
-su cuenta", redirijamos al usuario a
+lugar de decir simplemente "por favor,
+verifique su cuenta", redirijamos al usuario a
 
 00:08:30.976 --> 00:08:35.826
-otra página en la que podamos explicarle
-mejor por qué no puede iniciar la sesión y
+otra página en la que podamos explicarle mejor
+por qué no puede iniciar sesión y darle la
 
 00:08:36.136 --> 00:08:39.556
-darle la oportunidad de volver a
-enviar el correo electrónico. Esto
+oportunidad de volver a enviar
+el correo electrónico. Esto
 
 00:08:40.356 --> 00:08:44.366
-requerirá una segunda escucha y un
-serio trabajo en equipo. Eso es lo
-
-00:08:44.746 --> 00:08:45.756
-siguiente
+requerirá un segundo oyente y un serio
+trabajo en equipo. Eso a continuación.
