@@ -1,27 +1,27 @@
 WEBVTT
 
 00:00:01.016 --> 00:00:02.656 align:middle
-Bien: este es el flujo.
+Bien: éste es el flujo.
 
 00:00:03.176 --> 00:00:09.226 align:middle
 Cuando enviemos un correo electrónico y una contraseña
-válidos, el paquete de dos factores lo interceptará
+válidos, el bundle de dos factores lo interceptará
 
 00:00:09.226 --> 00:00:12.386 align:middle
 y nos redirigirá a un formulario
-de "introducir el código".
+de "introduce el código".
 
 00:00:13.086 --> 00:00:19.096 align:middle
-Para validar el código, leerá el totpSecret
-que está almacenado para ese User:
+Para validar el código, leerá el
+totpSecret almacenado para ese User:
 
 00:00:19.876 --> 00:00:24.486 align:middle
-Pero para saber qué código debe escribir,
-el usuario tiene que activar primero
+Pero para saber qué código
+escribir, el usuario primero tiene
 
 00:00:24.486 --> 00:00:27.966 align:middle
-la autenticación de dos
-factores en su cuenta y
+que activar la autenticación
+de doble factor en su cuenta y
 
 00:00:28.276 --> 00:00:33.206 align:middle
 escanear un código QR que le proporcionamos
@@ -40,7 +40,7 @@ se me olvidó hacer una
 migración para ella. En
 
 00:00:49.646 --> 00:00:55.226 align:middle
-tu terminal, ejecuta: symfony console
+tu terminal, ejec uta: symfony console
 make:migration Vamos a comprobar
 
 00:00:55.226 --> 00:00:58.696 align:middle
@@ -48,21 +48,21 @@ ese archivo: Y... bien.
 
 00:00:59.476 --> 00:01:03.326 align:middle
 Sin sorpresas, añade una
-columna a nuestra tabla. Ejecuta
+columna a nuestra tabla. Ejecuta:
 
 00:01:04.216 --> 00:01:09.796 align:middle
-eso: symfony console
-doctrine:migrations:migrate Este es el plan. Un
+: symfony console doctrine:migrations:migrate
+Éste es el plan. Un
 
 00:01:10.346 --> 00:01:15.296 align:middle
 usuario no tendrá activada la autenticación
-de dos factores por defecto. En cambio,
+de dos factores por defecto. En su lugar,
 
 00:01:15.806 --> 00:01:18.996 align:middle
 la activará haciendo clic en un enlace. Cuando
 
 00:01:19.786 --> 00:01:26.526 align:middle
-lo hagan, generaremos un totpSecret, se lo pondremos
+lo hagan, generaremos un totpSecret , se lo asignaremos
 al usuario, lo guardaremos en la base de datos y
 
 00:01:26.756 --> 00:01:29.986 align:middle
@@ -71,14 +71,13 @@ para que lo escanee. Dirígete
 
 00:01:30.856 --> 00:01:34.746 align:middle
 a src/Controller/SecurityController.php.
-Vamos a
 
 00:01:34.746 --> 00:01:38.316 align:middle
-crear la ruta que activa la autenticación
+Creemos la ruta que activa la autenticación
 de dos factores: public function
 
 00:01:38.746 --> 00:01:41.166 align:middle
-enable2fa(). Dale
+enable2fa(). Dale a esto
 
 00:01:41.796 --> 00:01:42.736 align:middle
 una ruta: qué tal
@@ -89,60 +88,60 @@ name="app_2fa_enable": Sólo ten
 
 00:01:51.646 --> 00:01:56.296 align:middle
 cuidado de no empezar la URL
-con /2fa... eso está como
+con /2fa... eso está algo
 
 00:01:56.886 --> 00:02:00.996 align:middle
-reservado para el proceso de
-autenticación de dos factores: Dentro
+reservado para el proceso de autenticación
+de dos factores: Dentro del método
 
 00:02:01.706 --> 00:02:04.566 align:middle
-del método, necesitamos
-dos servicios. El primero
+, necesitamos dos servicios. El primero
 
 00:02:05.146 --> 00:02:09.046 align:middle
-es un servicio autoconvocable del paquete -
+es un servicio autoinstalable del bundle -
 TotpAuthenticatorInterface $totpAuthenticator.
 
 00:02:09.456 --> 00:02:14.066 align:middle
 Que
 
 00:02:14.646 --> 00:02:16.636 align:middle
-nos ayudará a generar el secreto. El segundo
+nos ayudará a generar
+el secreto. El segundo es
 
 00:02:17.546 --> 00:02:20.726 align:middle
-es EntityManagerInterface $entityManager: Y,
+EntityManagerInterface $entityManager: Y,
 
 00:02:21.546 --> 00:02:26.536 align:middle
 por supuesto, sólo puedes utilizar esta ruta si
-estás autentificado. Añade @IsGranted("ROLE_USER").
+estás autenticado. Añade @IsGranted("ROLE_USER").
 
 00:02:26.976 --> 00:02:30.326 align:middle
-Permíteme
+Déjame
 
 00:02:31.146 --> 00:02:35.096 align:middle
-volver a escribir eso y pulsar el tabulador para que
-aparezca la declaración use en la parte superior: En su
+volver a escribir eso y pulsar el tabulador para
+que aparezca la declaración use encima: En su
 
 00:02:35.706 --> 00:02:40.906 align:middle
 mayor parte, he estado utilizando
-IS_AUTHENTICATED_REMEMBERED por seguridad... para que
+IS_AUTHENTICATED_REMEMBERED por seguridad... de modo que
 
 00:02:41.476 --> 00:02:44.426 align:middle
-sólo tengas que estar conectado... aunque sea
+sólo necesitas estar conectado... aunque sea
 
 00:02:44.926 --> 00:02:47.726 align:middle
 a través de una cookie "recuérdame". Pero
 
 00:02:48.586 --> 00:02:56.616 align:middle
 aquí estoy utilizando ROLE_USER, que es efectivamente
-idéntico a IS_AUTHENTICATED_FULLY. Eso es a
+idéntico a IS_AUTHENTICATED_FULLY. Eso es
 
 00:02:57.406 --> 00:02:58.876 align:middle
-propósito. El resultado
+a propósito. El resultado
 
 00:02:59.506 --> 00:03:03.026 align:middle
 es que si el usuario se
-autentificó... pero sólo gracias a
+autenticó... pero sólo gracias a
 
 00:03:03.286 --> 00:03:08.096 align:middle
 una cookie "recuérdame", Symfony
@@ -154,10 +153,10 @@ llegar aquí. Un poco de
 
 00:03:11.876 --> 00:03:16.056 align:middle
 seguridad extra antes de habilitar la autenticación
-de dos factores. De todos modos, digamos
+de dos factores. De todas formas, digamos
 
 00:03:16.916 --> 00:03:20.126 align:middle
-$user = this->getUser() ... y luego
+$user = this->getUser()... y luego
 
 00:03:20.746 --> 00:03:25.966 align:middle
 si no
@@ -165,23 +164,23 @@ $user->isTotpAuthenticationEnabled(): Hmm,
 
 00:03:26.766 --> 00:03:31.866 align:middle
 quiero ver si la autenticación
-totp no está ya habilitada... pero
+totp no está ya activada... pero
 
 00:03:32.176 --> 00:03:34.926 align:middle
-no me sale el autocompletado
-para esto. Ya sabemos
+no me aparece el autocompletado
+para esto. Sabemos
 
 00:03:35.576 --> 00:03:41.386 align:middle
 por qué: el método getUser() sólo sabe que
-devuelve un UserInterface. Lo hemos arreglado
+devuelve un UserInterface. Ya lo arreglamos
 
 00:03:42.076 --> 00:03:45.826 align:middle
-antes haciendo nuestro propio
+antes creando nuestro propio
 controlador base. Vamos a ampliarlo:
 
 00:03:48.116 --> 00:03:53.066 align:middle
 Aquí abajo, si no es
-$user->isTotpAuthenticationEnabled() -por lo que si
+$user->isTotpAuthenticationEnabled() -así que si
 
 00:03:53.616 --> 00:03:59.006 align:middle
 el usuario no tiene ya un totpSecret - vamos a
@@ -189,18 +188,18 @@ establecer uno: $user->setTotpSecret() pasando por
 
 00:03:59.006 --> 00:04:06.296 align:middle
 $totpAuthentiator->generateSecret().
-Luego, guarda
+Luego, guardamos
 
 00:04:07.116 --> 00:04:10.426 align:middle
 con $entityManager->flush().
 En la parte inferior
 
 00:04:11.346 --> 00:04:16.616 align:middle
-, por ahora, sólo dd($user) para que podamos
-asegurarnos de que esto funciona: ¡Genial! ¡ Vamos a
+, por ahora, sólo dd($user) para que podamos asegurarnos
+de que esto funciona: ¡Genial! ¡ Vamos a enlazar
 
 00:04:17.346 --> 00:04:19.426 align:middle
-enlazar con esto! Copia el
+con esto! Copia el
 
 00:04:19.876 --> 00:04:20.716 align:middle
 nombre de la ruta... y abre
@@ -215,8 +214,8 @@ templates/base.html.twig. Busca
 está. Pegaré
 
 00:04:28.756 --> 00:04:38.486 align:middle
-ese nombre de ruta, duplicaré todo li, limpiaré las
-cosas, pegaré el nuevo nombre de ruta, eliminaré mi
+ese nombre de ruta, duplicaré todo li , limpiaré las
+cosas, pegaré el nuevo nombre de ruta, quitaré mi
 
 00:04:38.846 --> 00:04:43.936 align:middle
 código temporal y diré
@@ -227,28 +226,29 @@ Ah, pero
 
 00:04:46.206 --> 00:04:52.666 align:middle
 antes, en tu terminal, recarga tus instalaciones:
-symfony console doctrine:fixtures:load Eso hará que
+symfony console doctrine:fixtures:load Así te
 
 00:04:53.546 --> 00:05:00.026 align:middle
-todos los usuarios tengan correos electrónicos verificados
-para que podamos iniciar la sesión. Cuando esto
+asegurarás de que todos los usuarios tienen correos
+electrónicos verificados para que podamos iniciar sesión. Cuando
 
 00:05:00.806 --> 00:05:07.766 align:middle
-termine, inicia la sesión con abraca_admin@example.com,
+termine, inicia sesión con abraca_admin@example.com,
 contraseña tada. Precioso. A continuación,
 
 00:05:09.206 --> 00:05:09.686 align:middle
 pulsa
 
 00:05:10.146 --> 00:05:12.896 align:middle
-"Habilitar 2FA" y... ¡ya está!
+"Activar 2FA" y... ¡ya está!
 
 00:05:13.306 --> 00:05:16.166 align:middle
-¡Se da a nuestro volcado de usuarios! Y
+¡Se accede a nuestro
+volcado de usuario! Y lo más
 
 00:05:16.876 --> 00:05:21.626 align:middle
-lo más importante, ¡tenemos un
-conjunto de totpSecret! ¡Eso es genial!
+importante, ¡tenemos un
+conjunto totpSecret! ¡Estupendo!
 
 00:05:22.176 --> 00:05:23.336 align:middle
 Pero el
@@ -258,7 +258,5 @@ Pero el
 código QR que pueda escanear para configurar
 
 00:05:28.476 --> 00:05:31.466 align:middle
-su aplicación de autenticación. Hagamos
-
-00:05:31.856 --> 00:05:33.206 align:middle
-eso a continuación
+su aplicación autenticadora.
+Hagámoslo a continuación.
