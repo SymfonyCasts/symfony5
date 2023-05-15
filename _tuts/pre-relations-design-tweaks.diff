@@ -1,7 +1,16 @@
 diff --git a/composer.json b/composer.json
-index 7661dcab..a5f76048 100755
+index 7661dcab..c99bfd98 100755
 --- a/composer.json
 +++ b/composer.json
+@@ -2,7 +2,7 @@
+     "type": "project",
+     "license": "proprietary",
+     "require": {
+-        "php": "^7.4.1 || ^8.0.0",
++        "php": ">=8.1",
+         "ext-ctype": "*",
+         "ext-iconv": "*",
+         "composer/package-versions-deprecated": "^1.11",
 @@ -22,6 +22,7 @@
          "symfony/runtime": "5.3.*",
          "symfony/stopwatch": "5.3.*",
@@ -10,8 +19,12 @@ index 7661dcab..a5f76048 100755
          "symfony/webpack-encore-bundle": "^1.7",
          "symfony/yaml": "5.3.*",
          "twig/extra-bundle": "^2.12|^3.0",
-@@ -44,7 +45,8 @@
-             "php": "7.4.1"
+@@ -41,10 +42,11 @@
+         },
+         "sort-packages": true,
+         "platform": {
+-            "php": "7.4.1"
++            "php": "8.1.0"
          },
          "allow-plugins": {
 -            "symfony/flex": true
@@ -21,7 +34,7 @@ index 7661dcab..a5f76048 100755
      },
      "autoload": {
 diff --git a/composer.lock b/composer.lock
-index 5937cb51..07d2b305 100644
+index 5937cb51..9418a180 100644
 --- a/composer.lock
 +++ b/composer.lock
 @@ -4,7 +4,7 @@
@@ -29,28 +42,28 @@ index 5937cb51..07d2b305 100644
          "This file is @generated automatically"
      ],
 -    "content-hash": "5d503411e1ccea740a1e88d02d582855",
-+    "content-hash": "b468c207e26880bf0d3ba5471944390a",
++    "content-hash": "23eb45295671c0cb42d684691891e815",
      "packages": [
          {
              "name": "behat/transliterator",
-@@ -1811,40 +1811,39 @@
+@@ -1811,37 +1811,33 @@
          },
          {
              "name": "laminas/laminas-code",
 -            "version": "4.4.2",
-+            "version": "4.5.1",
++            "version": "4.11.0",
              "source": {
                  "type": "git",
                  "url": "https://github.com/laminas/laminas-code.git",
 -                "reference": "54251ab2b16c41c6980387839496b235f5f6e10b"
-+                "reference": "6fd96d4d913571a2cd056a27b123fa28cb90ac4e"
++                "reference": "169123b3ede20a9193480c53de2a8194f8c073ec"
              },
              "dist": {
                  "type": "zip",
 -                "url": "https://api.github.com/repos/laminas/laminas-code/zipball/54251ab2b16c41c6980387839496b235f5f6e10b",
 -                "reference": "54251ab2b16c41c6980387839496b235f5f6e10b",
-+                "url": "https://api.github.com/repos/laminas/laminas-code/zipball/6fd96d4d913571a2cd056a27b123fa28cb90ac4e",
-+                "reference": "6fd96d4d913571a2cd056a27b123fa28cb90ac4e",
++                "url": "https://api.github.com/repos/laminas/laminas-code/zipball/169123b3ede20a9193480c53de2a8194f8c073ec",
++                "reference": "169123b3ede20a9193480c53de2a8194f8c073ec",
                  "shasum": ""
              },
              "require": {
@@ -58,11 +71,11 @@ index 5937cb51..07d2b305 100644
 -            },
 -            "conflict": {
 -                "phpspec/prophecy": "<1.9.0"
-+                "php": ">=7.4, <8.2"
++                "php": "~8.1.0 || ~8.2.0"
              },
              "require-dev": {
 -                "doctrine/annotations": "^1.10.4",
-+                "doctrine/annotations": "^1.13.2",
++                "doctrine/annotations": "^2.0.0",
                  "ext-phar": "*",
 -                "laminas/laminas-coding-standard": "^2.1.4",
 -                "laminas/laminas-stdlib": "^3.3.0",
@@ -71,9 +84,9 @@ index 5937cb51..07d2b305 100644
 -                "vimeo/psalm": "^4.3.1"
 +                "laminas/laminas-coding-standard": "^2.3.0",
 +                "laminas/laminas-stdlib": "^3.6.1",
-+                "phpunit/phpunit": "^9.5.10",
-+                "psalm/plugin-phpunit": "^0.16.1",
-+                "vimeo/psalm": "^4.13.1"
++                "phpunit/phpunit": "^10.0.9",
++                "psalm/plugin-phpunit": "^0.18.4",
++                "vimeo/psalm": "^5.7.1"
              },
              "suggest": {
                  "doctrine/annotations": "Doctrine\\Common\\Annotations >=1.0 for annotation features",
@@ -83,22 +96,16 @@ index 5937cb51..07d2b305 100644
              },
              "type": "library",
              "autoload": {
-+                "files": [
-+                    "polyfill/ReflectionEnumPolyfill.php"
-+                ],
-                 "psr-4": {
-                     "Laminas\\Code\\": "src/"
-                 }
-@@ -1874,7 +1873,7 @@
+@@ -1874,7 +1870,7 @@
                      "type": "community_bridge"
                  }
              ],
 -            "time": "2021-07-09T11:58:40+00:00"
-+            "time": "2021-12-19T18:06:55+00:00"
++            "time": "2023-05-14T12:05:38+00:00"
          },
          {
              "name": "michelf/php-markdown",
-@@ -5400,6 +5399,117 @@
+@@ -5400,6 +5396,117 @@
              ],
              "time": "2021-07-21T12:40:44+00:00"
          },
@@ -216,9 +223,19 @@ index 5937cb51..07d2b305 100644
          {
              "name": "symfony/var-dumper",
              "version": "v5.3.7",
-@@ -6708,5 +6818,5 @@
+@@ -6700,13 +6807,13 @@
+     "prefer-stable": false,
+     "prefer-lowest": false,
+     "platform": {
+-        "php": "^7.4.1 || ^8.0.0",
++        "php": ">=8.1",
+         "ext-ctype": "*",
+         "ext-iconv": "*"
+     },
+     "platform-dev": [],
      "platform-overrides": {
-         "php": "7.4.1"
+-        "php": "7.4.1"
++        "php": "8.1.0"
      },
 -    "plugin-api-version": "2.1.0"
 +    "plugin-api-version": "2.3.0"

@@ -1,9 +1,9 @@
 diff --git a/composer.json b/composer.json
-index 24d70a70..ba87824c 100755
+index 76ebed63..8bae5ccc 100755
 --- a/composer.json
 +++ b/composer.json
 @@ -5,6 +5,7 @@
-         "php": "^7.4.1 || ^8.0.0",
+         "php": ">=8.1",
          "ext-ctype": "*",
          "ext-iconv": "*",
 +        "babdev/pagerfanta-bundle": "^3.3",
@@ -11,15 +11,15 @@ index 24d70a70..ba87824c 100755
          "doctrine/doctrine-bundle": "^2.1",
          "doctrine/doctrine-migrations-bundle": "^3.0",
 diff --git a/composer.lock b/composer.lock
-index c2a319e4..96c7b959 100644
+index 86204bae..7ab9ced5 100644
 --- a/composer.lock
 +++ b/composer.lock
 @@ -4,8 +4,91 @@
          "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
          "This file is @generated automatically"
      ],
--    "content-hash": "45a9cc30b7fe4b75a2e3e187802abc3c",
-+    "content-hash": "b1c4783d7389b0cd457f2de0a14d5afb",
+-    "content-hash": "965f2727d2c08a17f331d753464fe2ac",
++    "content-hash": "74becc752e90228ba82720d11d5a97e1",
      "packages": [
 +        {
 +            "name": "babdev/pagerfanta-bundle",
@@ -107,7 +107,7 @@ index c2a319e4..96c7b959 100644
          {
              "name": "behat/transliterator",
              "version": "v1.3.0",
-@@ -2025,6 +2108,52 @@
+@@ -2022,6 +2105,52 @@
              ],
              "time": "2021-07-23T07:42:52+00:00"
          },
@@ -160,7 +160,7 @@ index c2a319e4..96c7b959 100644
          {
              "name": "psr/cache",
              "version": "1.0.1",
-@@ -4627,6 +4756,177 @@
+@@ -4624,6 +4753,177 @@
              ],
              "time": "2021-05-21T13:25:03+00:00"
          },
@@ -338,7 +338,7 @@ index c2a319e4..96c7b959 100644
          {
              "name": "symfony/routing",
              "version": "v5.3.7",
-@@ -6492,177 +6792,6 @@
+@@ -6489,177 +6789,6 @@
              ],
              "time": "2021-07-01T00:28:30+00:00"
          },
