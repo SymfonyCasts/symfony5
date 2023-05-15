@@ -1,5 +1,5 @@
 diff --git a/composer.json b/composer.json
-index 36aef55c..5ce0946d 100644
+index 7f1454e7..166321eb 100644
 --- a/composer.json
 +++ b/composer.json
 @@ -22,6 +22,7 @@
@@ -19,19 +19,19 @@ index 36aef55c..5ce0946d 100644
          "symfony/yaml": "5.3.*",
          "twig/extra-bundle": "^2.12|^3.0",
 diff --git a/composer.lock b/composer.lock
-index 6d06ad38..5c923611 100644
+index 8f64ebba..41035d21 100644
 --- a/composer.lock
 +++ b/composer.lock
 @@ -4,7 +4,7 @@
          "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
          "This file is @generated automatically"
      ],
--    "content-hash": "b95f99b3934aebc98103612f326e47e4",
-+    "content-hash": "75e49a0aea67a4d87c5c0c31a7d7dd7c",
+-    "content-hash": "8b0b0f1d0bc17ae7a3bbb812d8e26276",
++    "content-hash": "80f1a4d51339bd749fff50dfdb38b4da",
      "packages": [
          {
              "name": "babdev/pagerfanta-bundle",
-@@ -3959,6 +3959,108 @@
+@@ -3956,6 +3956,108 @@
              ],
              "time": "2021-11-23T11:08:47+00:00"
          },
@@ -140,7 +140,7 @@ index 6d06ad38..5c923611 100644
          {
              "name": "symfony/framework-bundle",
              "version": "v5.3.8",
-@@ -4538,6 +4640,75 @@
+@@ -4535,6 +4637,75 @@
              ],
              "time": "2021-03-31T07:20:47+00:00"
          },
@@ -216,7 +216,7 @@ index 6d06ad38..5c923611 100644
          {
              "name": "symfony/password-hasher",
              "version": "v5.3.8",
-@@ -4692,6 +4863,93 @@
+@@ -4689,6 +4860,93 @@
              ],
              "time": "2021-05-27T12:26:48+00:00"
          },
@@ -310,7 +310,7 @@ index 6d06ad38..5c923611 100644
          {
              "name": "symfony/polyfill-intl-normalizer",
              "version": "v1.23.0",
-@@ -6647,6 +6905,116 @@
+@@ -6644,6 +6902,116 @@
              ],
              "time": "2021-05-20T17:58:12+00:00"
          },

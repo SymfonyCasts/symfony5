@@ -1,5 +1,5 @@
 diff --git a/composer.json b/composer.json
-index 1abd008d..01269986 100644
+index f0c747eb..90016f26 100644
 --- a/composer.json
 +++ b/composer.json
 @@ -17,6 +17,7 @@
@@ -11,15 +11,15 @@ index 1abd008d..01269986 100644
          "stof/doctrine-extensions-bundle": "^1.4",
          "symfony/asset": "5.3.*",
 diff --git a/composer.lock b/composer.lock
-index 3656934a..b548ef7d 100644
+index 30df8dff..c8ebe7c8 100644
 --- a/composer.lock
 +++ b/composer.lock
 @@ -4,7 +4,7 @@
          "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
          "This file is @generated automatically"
      ],
--    "content-hash": "39d0941c46d6c69dbe91aecb6561d4e5",
-+    "content-hash": "45fc49a86bd41ca96c32c3f73326d91c",
+-    "content-hash": "f34c4897959677b2a6a7b5e3f9e8cccf",
++    "content-hash": "b546536900bfe599ad9403266da17395",
      "packages": [
          {
              "name": "babdev/pagerfanta-bundle",
@@ -97,7 +97,7 @@ index 3656934a..b548ef7d 100644
          {
              "name": "behat/transliterator",
              "version": "v1.3.0",
-@@ -2261,6 +2328,73 @@
+@@ -2258,6 +2325,73 @@
              },
              "time": "2021-07-25T22:42:23+00:00"
          },
@@ -171,7 +171,7 @@ index 3656934a..b548ef7d 100644
          {
              "name": "phpdocumentor/reflection-common",
              "version": "2.2.0",
-@@ -2685,6 +2819,56 @@
+@@ -2682,6 +2816,56 @@
              },
              "time": "2021-10-11T09:04:22+00:00"
          },
@@ -228,7 +228,7 @@ index 3656934a..b548ef7d 100644
          {
              "name": "sensio/framework-extra-bundle",
              "version": "v6.2.0",
-@@ -2764,6 +2948,81 @@
+@@ -2761,6 +2945,81 @@
              "abandoned": "Symfony",
              "time": "2021-09-06T13:24:35+00:00"
          },
@@ -310,7 +310,7 @@ index 3656934a..b548ef7d 100644
          {
              "name": "stof/doctrine-extensions-bundle",
              "version": "v1.6.0",
-@@ -7590,6 +7849,145 @@
+@@ -7587,6 +7846,145 @@
              },
              "time": "2021-05-05T18:08:21+00:00"
          },

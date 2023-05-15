@@ -16,7 +16,7 @@ index a1c6e90c..fb0dbf01 100644
      "entrypoints": []
  }
 diff --git a/composer.json b/composer.json
-index 45df3da5..38aea189 100644
+index 99e47b9c..06ae082a 100644
 --- a/composer.json
 +++ b/composer.json
 @@ -25,6 +25,7 @@
@@ -28,19 +28,19 @@ index 45df3da5..38aea189 100644
          "symfony/yaml": "5.3.*",
          "twig/extra-bundle": "^2.12|^3.0",
 diff --git a/composer.lock b/composer.lock
-index 9ef9fdac..25d423c3 100644
+index c1f34c6a..2c847dcf 100644
 --- a/composer.lock
 +++ b/composer.lock
 @@ -4,7 +4,7 @@
          "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
          "This file is @generated automatically"
      ],
--    "content-hash": "3d99e62293d52f34e8e4a086049a8988",
-+    "content-hash": "e576169e889194ed24d16b0fe67b39d1",
+-    "content-hash": "475a919e07611400b996e9d74b2e5294",
++    "content-hash": "3643c1d7ab6cb8bc9d8e9619bcab1dd7",
      "packages": [
          {
              "name": "babdev/pagerfanta-bundle",
-@@ -5807,6 +5807,91 @@
+@@ -5804,6 +5804,91 @@
              ],
              "time": "2021-07-21T12:40:44+00:00"
          },
