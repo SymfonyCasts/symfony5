@@ -22,7 +22,7 @@ don't have Composer installed already, go to https://getcomposer.org.
 Once you *do*, run:
 
 ```terminal
-composer require annotations
+composer require "annotations:<6.2.10"
 ```
 
 If you're familiar with composer, that package name might look strange. And
