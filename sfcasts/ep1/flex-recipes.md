@@ -5,6 +5,11 @@ if you look back at https://flex.symfony.com, you can click to view the Recipe f
 any of the packages. This goes to... interesting: a GitHub repository called
 `symfony/recipes`.
 
+***TIP
+The flex.symfony.com server was shut down in favor of a new system. But you can still
+see a list of all of the available recipes at https://bit.ly/flex-recipes!
+***
+
 Go to the homepage of this repository. This is *the* central repository for recipes,
 organized by the name of the package... and then each package can have different
 recipes for different versions. Our recipe lives in `sensiolabs/security-checker/4.0`.
