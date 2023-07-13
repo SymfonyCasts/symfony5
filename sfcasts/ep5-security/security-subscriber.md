@@ -10,7 +10,7 @@ is executed on *any* authenticator and... its job is to do stuff like this.
 ## Creating the Event Susbcriber
 
 In your `src/` directory, it doesn't matter where, but I'm going to create a new
-directory called `EventsSubscriber/`. Inside, add a class called
+directory called `EventSubscriber/`. Inside, add a class called
 `CheckVerifiedUserSubscriber`. Make this implement `EventSubscriberInterface` and
 then go to the "Code"-> "Generate" menu - or `Command` + `N` on a Mac - and hit
 "Implement Methods" to generate the *one* we need: `getSubscribedEvents()`:
