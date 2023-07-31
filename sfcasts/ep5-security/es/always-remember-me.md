@@ -41,7 +41,7 @@ Esto dice:
 
 Hay una cosa con la que debes tener cuidado cuando se trata de las cookies "Recuérdame". Si un usuario malintencionado consiguiera de algún modo acceder a mi cuenta -por ejemplo, si robara mi contraseña-, podría, por supuesto, iniciar la sesión. Normalmente, eso es un asco... pero en cuanto lo descubra, podría cambiar mi contraseña, lo que les desconectaría.
 
-Pero... si ese mal usuario tiene una cookie de `REMEMEBERME`... entonces, aunque cambie mi contraseña, seguirá conectado hasta que esa cookie caduque... lo que podría ser dentro de mucho tiempo. Estas cookies son casi tan buenas como las reales: actúan como "billetes de autentificación gratuitos". Y siguen funcionando -independientemente de lo que hagamos- hasta que caducan.
+Pero... si ese mal usuario tiene una cookie de `REMEMBERME`... entonces, aunque cambie mi contraseña, seguirá conectado hasta que esa cookie caduque... lo que podría ser dentro de mucho tiempo. Estas cookies son casi tan buenas como las reales: actúan como "billetes de autentificación gratuitos". Y siguen funcionando -independientemente de lo que hagamos- hasta que caducan.
 
 Afortunadamente, en el nuevo sistema de autenticación, hay una forma muy interesante de evitar esto. En `security.yaml`, debajo de `remember_me`, añade una nueva opción llamada`signature_properties` configurada en un array con `password` dentro:
 

@@ -55,7 +55,7 @@ me cookies. If a bad user somehow got access to my account - like they stole my
 password - then they could, of course, log in. Normally, that sucks... but as
 soon as I find out, I could change my password, which will log them out.
 
-But... if that bad user has a `REMEMEBERME` cookie... then even if I change
+But... if that bad user has a `REMEMBERME` cookie... then even if I change
 my password, they will *stay* logged in until that cookie expires...
 which could be a long time from now. These cookies are almost as good as the
 real thing: they act like "free authentication tickets". And they keep working - no
