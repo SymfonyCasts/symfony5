@@ -61,6 +61,10 @@ which could be a long time from now. These cookies are almost as good as the
 real thing: they act like "free authentication tickets". And they keep working - no
 matter what we do - until they expire.
 
+***TIP
+You no longer need to add `signature_properties: [password]`: Symfony now adds it automatically!
+***
+
 Fortunately, in the new authenticator system, there's a really cool way to
 avoid this. In `security.yaml`, below `remember_me`, add a new option called
 `signature_properties` set to an array with `password` inside:
