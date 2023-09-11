@@ -26,6 +26,11 @@ terminal and run:
 composer require symfony/rate-limiter
 ```
 
+***TIP
+Starting in Symfony 6.2, when you install `symfony/rate-limiter`, the `symfony/lock` package
+is no longer needed (so you won't see a `lock.yaml` file, and that's ok!).
+***
+
 This package also installs a package called `symfony/lock`, which has a recipe.
 Run:
 
