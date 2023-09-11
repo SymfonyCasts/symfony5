@@ -28,6 +28,11 @@ composer require rector/rector --dev
 Beautiful! In order for rector to work, it needs a config file. And we can bootstrap
 one by running rector with:
 
+***TIP
+In newer versions of rector, instead of `./vendor/bin/rector init`, just run
+`./vendor/bin/rector` to do the same thing.
+***
+
 ```terminal
 ./vendor/bin/rector init
 ```
