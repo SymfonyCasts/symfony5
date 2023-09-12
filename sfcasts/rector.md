@@ -25,11 +25,11 @@ All right, let's get this thing installed! Head over to your terminal and run:
 composer require rector/rector --dev
 ```
 
-Beautiful! In order for rector to work, it needs a config file. And we can bootstrap
+Beautiful! In order for Rector to work, it needs a config file. And we can bootstrap
 one by running rector with:
 
 ***TIP
-In newer versions of rector, instead of `./vendor/bin/rector init`, just run
+In newer versions of Rector, instead of `./vendor/bin/rector init`, just run
 `./vendor/bin/rector` to do the same thing.
 ***
 
@@ -116,7 +116,7 @@ So it didn't make a *ton* of changes, but it *did* fix a few deprecations withou
 us needing to do *anything*.
 
 Though... it's not perfect. One problem is that, sometimes, Rector will mess with
-your coding style. That's because rector doesn't really understand what your coding
+your coding style. That's because Rector doesn't really understand what your coding
 style is... and so it doesn't even try. But that's by design and will be easy
 to fix.
 
