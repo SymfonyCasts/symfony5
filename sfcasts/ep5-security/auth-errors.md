@@ -83,6 +83,11 @@ errors. You can read it from a constant: `Security` - the one from the Symfony
 Security component - `::AUTHENTICATION_ERROR`. Pass `$exception` to the second
 argument:
 
+***TIP
+In Symfony 6.2 and higher, use the `Security` class from `SecurityBundle` instead:
+`Symfony\Bundle\SecurityBundle\Security`.
+***
+
 [[[ code('262638317d') ]]]
 
 Now that the error is in the session, let's redirect back to the login page. I'll
