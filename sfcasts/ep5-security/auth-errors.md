@@ -84,8 +84,9 @@ Security component - `::AUTHENTICATION_ERROR`. Pass `$exception` to the second
 argument:
 
 ***TIP
-In Symfony 6.2 and higher, use the `Security` class from `SecurityBundle` instead:
-`Symfony\Bundle\SecurityBundle\Security`.
+In Symfony 6.2 and higher, use the `SecurityRequestAttributes` class instead:
+`Symfony\Component\Security\Http\SecurityRequestAttributes`, then
+`SecurityRequestAttributes::AUTHENTICATION_ERROR`.
 ***
 
 [[[ code('262638317d') ]]]
