@@ -1,5 +1,5 @@
 diff --git a/composer.json b/composer.json
-index 06ae082a..431ab7d8 100644
+index 06ae082..431ab7d 100644
 --- a/composer.json
 +++ b/composer.json
 @@ -23,6 +23,7 @@
@@ -11,7 +11,7 @@ index 06ae082a..431ab7d8 100644
          "symfony/twig-bundle": "5.3.*",
          "symfony/ux-chartjs": "^1.3",
 diff --git a/composer.lock b/composer.lock
-index 00e22269..03f08479 100644
+index 9099f1d..8555a15 100644
 --- a/composer.lock
 +++ b/composer.lock
 @@ -4,7 +4,7 @@
@@ -530,7 +530,7 @@ index 00e22269..03f08479 100644
              "name": "symfony/service-contracts",
              "version": "v2.4.0",
 diff --git a/config/bundles.php b/config/bundles.php
-index 4bcab33d..4ba3c832 100644
+index 4bcab33..4ba3c83 100644
 --- a/config/bundles.php
 +++ b/config/bundles.php
 @@ -19,4 +19,5 @@ return [
@@ -541,7 +541,7 @@ index 4bcab33d..4ba3c832 100644
  ];
 diff --git a/config/packages/security.yaml b/config/packages/security.yaml
 new file mode 100644
-index 00000000..cafbb2ce
+index 0000000..cafbb2c
 --- /dev/null
 +++ b/config/packages/security.yaml
 @@ -0,0 +1,28 @@
@@ -574,7 +574,7 @@ index 00000000..cafbb2ce
 +        # - { path: ^/admin, roles: ROLE_ADMIN }
 +        # - { path: ^/profile, roles: ROLE_USER }
 diff --git a/symfony.lock b/symfony.lock
-index 87a820fb..43dbe9c3 100644
+index 87a820f..43dbe9c 100644
 --- a/symfony.lock
 +++ b/symfony.lock
 @@ -326,6 +326,9 @@

@@ -1,6 +1,6 @@
 diff --git a/src/Controller/RegistrationController.php b/src/Controller/RegistrationController.php
 new file mode 100644
-index 00000000..2d3843ab
+index 0000000..2d3843a
 --- /dev/null
 +++ b/src/Controller/RegistrationController.php
 @@ -0,0 +1,45 @@
@@ -50,7 +50,7 @@ index 00000000..2d3843ab
 +    }
 +}
 diff --git a/src/Entity/User.php b/src/Entity/User.php
-index 6e8c7df8..d697b8cb 100644
+index 6e8c7df..d697b8c 100644
 --- a/src/Entity/User.php
 +++ b/src/Entity/User.php
 @@ -4,12 +4,14 @@ namespace App\Entity;
@@ -70,7 +70,7 @@ index 6e8c7df8..d697b8cb 100644
  {
 diff --git a/src/Form/RegistrationFormType.php b/src/Form/RegistrationFormType.php
 new file mode 100644
-index 00000000..957e5883
+index 0000000..957e588
 --- /dev/null
 +++ b/src/Form/RegistrationFormType.php
 @@ -0,0 +1,55 @@
@@ -131,7 +131,7 @@ index 00000000..957e5883
 +}
 diff --git a/templates/registration/register.html.twig b/templates/registration/register.html.twig
 new file mode 100644
-index 00000000..61b1b48a
+index 0000000..61b1b48
 --- /dev/null
 +++ b/templates/registration/register.html.twig
 @@ -0,0 +1,17 @@

@@ -1,5 +1,5 @@
 diff --git a/src/Controller/SecurityController.php b/src/Controller/SecurityController.php
-index ee79725e..9968f201 100644
+index ee79725..9968f20 100644
 --- a/src/Controller/SecurityController.php
 +++ b/src/Controller/SecurityController.php
 @@ -16,6 +16,7 @@ class SecurityController extends AbstractController
@@ -11,7 +11,7 @@ index ee79725e..9968f201 100644
      }
  
 diff --git a/templates/security/login.html.twig b/templates/security/login.html.twig
-index cb661355..bf03a19e 100644
+index cb66135..bf03a19 100644
 --- a/templates/security/login.html.twig
 +++ b/templates/security/login.html.twig
 @@ -15,7 +15,7 @@

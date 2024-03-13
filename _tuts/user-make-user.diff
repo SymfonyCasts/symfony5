@@ -1,5 +1,5 @@
 diff --git a/config/packages/security.yaml b/config/packages/security.yaml
-index cafbb2ce..452198e5 100644
+index cafbb2c..452198e 100644
 --- a/config/packages/security.yaml
 +++ b/config/packages/security.yaml
 @@ -6,14 +6,18 @@ security:
@@ -25,7 +25,7 @@ index cafbb2ce..452198e5 100644
              # https://symfony.com/doc/current/security.html#firewalls-authentication
 diff --git a/src/Entity/User.php b/src/Entity/User.php
 new file mode 100644
-index 00000000..0da9d7da
+index 0000000..0da9d7d
 --- /dev/null
 +++ b/src/Entity/User.php
 @@ -0,0 +1,114 @@
@@ -145,7 +145,7 @@ index 00000000..0da9d7da
 +}
 diff --git a/src/Repository/UserRepository.php b/src/Repository/UserRepository.php
 new file mode 100644
-index 00000000..2ebc111e
+index 0000000..2ebc111
 --- /dev/null
 +++ b/src/Repository/UserRepository.php
 @@ -0,0 +1,50 @@

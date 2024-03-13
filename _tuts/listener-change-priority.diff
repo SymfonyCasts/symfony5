@@ -1,5 +1,5 @@
 diff --git a/src/EventSubscriber/CheckVerifiedUserSubscriber.php b/src/EventSubscriber/CheckVerifiedUserSubscriber.php
-index bbf1e1b7..481b28bf 100644
+index bbf1e1b..481b28b 100644
 --- a/src/EventSubscriber/CheckVerifiedUserSubscriber.php
 +++ b/src/EventSubscriber/CheckVerifiedUserSubscriber.php
 @@ -15,7 +15,7 @@ class CheckVerifiedUserSubscriber implements EventSubscriberInterface

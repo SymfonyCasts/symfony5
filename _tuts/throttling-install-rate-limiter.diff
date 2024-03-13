@@ -1,5 +1,5 @@
 diff --git a/.env b/.env
-index 85a473eb..f7b2d25f 100644
+index 85a473e..f7b2d25 100644
 --- a/.env
 +++ b/.env
 @@ -25,3 +25,9 @@ APP_SECRET=c28f3d37eba278748f3c0427b313e86a
@@ -13,7 +13,7 @@ index 85a473eb..f7b2d25f 100644
 +LOCK_DSN=semaphore
 +###< symfony/lock ###
 diff --git a/composer.json b/composer.json
-index da1a4e14..6123909b 100644
+index da1a4e1..6123909 100644
 --- a/composer.json
 +++ b/composer.json
 @@ -27,6 +27,7 @@
@@ -25,7 +25,7 @@ index da1a4e14..6123909b 100644
          "symfony/security-bundle": "5.3.*",
          "symfony/serializer": "5.3.*",
 diff --git a/composer.lock b/composer.lock
-index 444e6007..8a094c5f 100644
+index d1a1b26..ca503d4 100644
 --- a/composer.lock
 +++ b/composer.lock
 @@ -4,7 +4,7 @@
@@ -203,14 +203,14 @@ index 444e6007..8a094c5f 100644
              "version": "v5.3.7",
 diff --git a/config/packages/lock.yaml b/config/packages/lock.yaml
 new file mode 100644
-index 00000000..574879f8
+index 0000000..574879f
 --- /dev/null
 +++ b/config/packages/lock.yaml
 @@ -0,0 +1,2 @@
 +framework:
 +    lock: '%env(LOCK_DSN)%'
 diff --git a/symfony.lock b/symfony.lock
-index dd80dfa2..b344baa1 100644
+index dd80dfa..b344baa 100644
 --- a/symfony.lock
 +++ b/symfony.lock
 @@ -308,6 +308,18 @@
