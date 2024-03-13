@@ -1,5 +1,5 @@
 diff --git a/assets/js/app.js b/assets/js/app.js
-index 1748c149..4b856f19 100644
+index 1748c14..4b856f1 100644
 --- a/assets/js/app.js
 +++ b/assets/js/app.js
 @@ -11,4 +11,18 @@ import '../css/app.css';
@@ -24,7 +24,7 @@ index 1748c149..4b856f19 100644
 +});
 diff --git a/public/js/question_show.js b/public/js/question_show.js
 deleted file mode 100644
-index cb346802..00000000
+index cb34680..0000000
 --- a/public/js/question_show.js
 +++ /dev/null
 @@ -1,15 +0,0 @@
@@ -44,7 +44,7 @@ index cb346802..00000000
 -    });
 -});
 diff --git a/templates/question/show.html.twig b/templates/question/show.html.twig
-index c7440eeb..12e1f4da 100644
+index c7440ee..12e1f4d 100644
 --- a/templates/question/show.html.twig
 +++ b/templates/question/show.html.twig
 @@ -56,9 +56,3 @@

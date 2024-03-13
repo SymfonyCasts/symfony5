@@ -1,5 +1,5 @@
 diff --git a/src/Service/MarkdownHelper.php b/src/Service/MarkdownHelper.php
-index e586f7e1..f5c82577 100644
+index e586f7e..f5c8257 100644
 --- a/src/Service/MarkdownHelper.php
 +++ b/src/Service/MarkdownHelper.php
 @@ -3,6 +3,7 @@

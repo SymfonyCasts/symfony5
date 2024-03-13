@@ -1,5 +1,5 @@
 diff --git a/composer.json b/composer.json
-index 34ccf0ac..47462cb9 100755
+index 34ccf0a..47462cb 100755
 --- a/composer.json
 +++ b/composer.json
 @@ -6,7 +6,6 @@
@@ -21,7 +21,7 @@ index 34ccf0ac..47462cb9 100755
          "post-install-cmd": [
              "@auto-scripts"
 diff --git a/composer.lock b/composer.lock
-index b2193a6b..858f98ed 100644
+index 95d6aa3..5f98e2b 100644
 --- a/composer.lock
 +++ b/composer.lock
 @@ -4,7 +4,7 @@
@@ -266,7 +266,7 @@ index b2193a6b..858f98ed 100644
              "version": "v5.0.11",
 diff --git a/config/packages/security_checker.yaml b/config/packages/security_checker.yaml
 deleted file mode 100644
-index 2e905f7f..00000000
+index 2e905f7..0000000
 --- a/config/packages/security_checker.yaml
 +++ /dev/null
 @@ -1,8 +0,0 @@
@@ -279,7 +279,7 @@ index 2e905f7f..00000000
 -
 -    SensioLabs\Security\Command\SecurityCheckerCommand: null
 diff --git a/symfony.lock b/symfony.lock
-index b6844ba9..55362bca 100644
+index b6844ba..55362bc 100644
 --- a/symfony.lock
 +++ b/symfony.lock
 @@ -41,18 +41,6 @@

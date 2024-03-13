@@ -1,5 +1,5 @@
 diff --git a/templates/question/homepage.html.twig b/templates/question/homepage.html.twig
-index 2e1ed99a..6913519b 100644
+index 2e1ed99..6913519 100644
 --- a/templates/question/homepage.html.twig
 +++ b/templates/question/homepage.html.twig
 @@ -19,7 +19,7 @@
@@ -21,7 +21,7 @@ index 2e1ed99a..6913519b 100644
                              <a class="vote-up" href="#"><i class="far fa-arrow-alt-circle-up"></i></a>
                              <a class="vote-down" href="#"><i class="far fa-arrow-alt-circle-down"></i></a>
 diff --git a/templates/question/show.html.twig b/templates/question/show.html.twig
-index 12e1f4da..dd54e7e8 100644
+index 12e1f4d..dd54e7e 100644
 --- a/templates/question/show.html.twig
 +++ b/templates/question/show.html.twig
 @@ -11,7 +11,7 @@

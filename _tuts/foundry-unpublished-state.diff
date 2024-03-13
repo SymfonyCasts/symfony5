@@ -1,5 +1,5 @@
 diff --git a/src/DataFixtures/AppFixtures.php b/src/DataFixtures/AppFixtures.php
-index 9b87b7f9..69fb8613 100644
+index 9b87b7f..69fb861 100644
 --- a/src/DataFixtures/AppFixtures.php
 +++ b/src/DataFixtures/AppFixtures.php
 @@ -13,6 +13,11 @@ class AppFixtures extends Fixture
@@ -15,7 +15,7 @@ index 9b87b7f9..69fb8613 100644
      }
  }
 diff --git a/src/Factory/QuestionFactory.php b/src/Factory/QuestionFactory.php
-index cf4573ee..a4a0ca47 100644
+index cf4573e..a4a0ca4 100644
 --- a/src/Factory/QuestionFactory.php
 +++ b/src/Factory/QuestionFactory.php
 @@ -20,6 +20,11 @@ use Zenstruck\Foundry\Proxy;

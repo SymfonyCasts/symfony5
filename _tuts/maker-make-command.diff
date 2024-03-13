@@ -1,6 +1,6 @@
 diff --git a/src/Command/RandomSpellCommand.php b/src/Command/RandomSpellCommand.php
 new file mode 100644
-index 00000000..4d1faa23
+index 0000000..4d1faa2
 --- /dev/null
 +++ b/src/Command/RandomSpellCommand.php
 @@ -0,0 +1,42 @@

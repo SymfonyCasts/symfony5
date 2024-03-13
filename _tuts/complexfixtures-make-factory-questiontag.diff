@@ -1,6 +1,6 @@
 diff --git a/src/Factory/QuestionTagFactory.php b/src/Factory/QuestionTagFactory.php
 new file mode 100644
-index 00000000..2af03e1f
+index 0000000..2af03e1
 --- /dev/null
 +++ b/src/Factory/QuestionTagFactory.php
 @@ -0,0 +1,58 @@

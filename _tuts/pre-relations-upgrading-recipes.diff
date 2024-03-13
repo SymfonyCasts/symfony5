@@ -1,5 +1,5 @@
 diff --git a/.env b/.env
-index bc897b0f..85a473eb 100644
+index bc897b0..85a473e 100644
 --- a/.env
 +++ b/.env
 @@ -16,8 +16,6 @@
@@ -15,7 +15,7 @@ diff --git a/assets/js/app.js b/assets/app.js
 similarity index 86%
 rename from assets/js/app.js
 rename to assets/app.js
-index 566bba8c..5849ca62 100644
+index 566bba8..5849ca6 100644
 --- a/assets/js/app.js
 +++ b/assets/app.js
 @@ -6,9 +6,11 @@
@@ -34,7 +34,7 @@ index 566bba8c..5849ca62 100644
  /**
 diff --git a/assets/bootstrap.js b/assets/bootstrap.js
 new file mode 100644
-index 00000000..58308a6b
+index 0000000..58308a6
 --- /dev/null
 +++ b/assets/bootstrap.js
 @@ -0,0 +1,11 @@
@@ -51,7 +51,7 @@ index 00000000..58308a6b
 +// app.register('some_controller_name', SomeImportedController);
 diff --git a/assets/controllers.json b/assets/controllers.json
 new file mode 100644
-index 00000000..a1c6e90c
+index 0000000..a1c6e90
 --- /dev/null
 +++ b/assets/controllers.json
 @@ -0,0 +1,4 @@
@@ -61,7 +61,7 @@ index 00000000..a1c6e90c
 +}
 diff --git a/assets/controllers/hello_controller.js b/assets/controllers/hello_controller.js
 new file mode 100644
-index 00000000..8c79f65a
+index 0000000..8c79f65
 --- /dev/null
 +++ b/assets/controllers/hello_controller.js
 @@ -0,0 +1,16 @@
@@ -86,7 +86,7 @@ similarity index 100%
 rename from assets/css/app.css
 rename to assets/styles/app.css
 diff --git a/bin/console b/bin/console
-index 8fe9d494..c933dc53 100755
+index 8fe9d49..c933dc5 100755
 --- a/bin/console
 +++ b/bin/console
 @@ -3,41 +3,15 @@
@@ -140,7 +140,7 @@ index 8fe9d494..c933dc53 100755
 +};
 diff --git a/config/packages/dev/zenstruck_foundry.yaml b/config/packages/dev/zenstruck_foundry.yaml
 new file mode 100644
-index 00000000..e353187c
+index 0000000..e353187
 --- /dev/null
 +++ b/config/packages/dev/zenstruck_foundry.yaml
 @@ -0,0 +1,4 @@
@@ -149,7 +149,7 @@ index 00000000..e353187c
 +    # Whether to auto-refresh proxies by default (https://github.com/zenstruck/foundry#auto-refresh)
 +    auto_refresh_proxies: true
 diff --git a/config/packages/doctrine_migrations.yaml b/config/packages/doctrine_migrations.yaml
-index 61e66124..a0a17a08 100644
+index 61e6612..a0a17a0 100644
 --- a/config/packages/doctrine_migrations.yaml
 +++ b/config/packages/doctrine_migrations.yaml
 @@ -3,3 +3,4 @@ doctrine_migrations:
@@ -158,7 +158,7 @@ index 61e66124..a0a17a08 100644
          'DoctrineMigrations': '%kernel.project_dir%/migrations'
 +    enable_profiler: '%kernel.debug%'
 diff --git a/config/packages/framework.yaml b/config/packages/framework.yaml
-index cad7f780..7853e9ed 100644
+index cad7f78..7853e9e 100644
 --- a/config/packages/framework.yaml
 +++ b/config/packages/framework.yaml
 @@ -2,7 +2,7 @@
@@ -187,7 +187,7 @@ index cad7f780..7853e9ed 100644
 +        session:
 +            storage_factory_id: session.storage.factory.mock_file
 diff --git a/config/packages/prod/deprecations.yaml b/config/packages/prod/deprecations.yaml
-index 920a0619..60026a1b 100644
+index 920a061..60026a1 100644
 --- a/config/packages/prod/deprecations.yaml
 +++ b/config/packages/prod/deprecations.yaml
 @@ -5,4 +5,4 @@
@@ -197,7 +197,7 @@ index 920a0619..60026a1b 100644
 -#            path: "%kernel.logs_dir%/%kernel.environment%.deprecations.log"
 +#            path: php://stderr
 diff --git a/config/packages/prod/doctrine.yaml b/config/packages/prod/doctrine.yaml
-index 084f59a0..17299e28 100644
+index 084f59a..17299e2 100644
 --- a/config/packages/prod/doctrine.yaml
 +++ b/config/packages/prod/doctrine.yaml
 @@ -1,9 +1,6 @@
@@ -211,7 +211,7 @@ index 084f59a0..17299e28 100644
              type: pool
              pool: doctrine.system_cache_pool
 diff --git a/config/packages/prod/monolog.yaml b/config/packages/prod/monolog.yaml
-index bfe69c01..2c02ad8e 100644
+index bfe69c0..2c02ad8 100644
 --- a/config/packages/prod/monolog.yaml
 +++ b/config/packages/prod/monolog.yaml
 @@ -8,8 +8,9 @@ monolog:
@@ -227,7 +227,7 @@ index bfe69c01..2c02ad8e 100644
              process_psr_3_messages: false
 diff --git a/config/packages/prod/routing.yaml b/config/packages/prod/routing.yaml
 deleted file mode 100644
-index b3e6a0af..00000000
+index b3e6a0a..0000000
 --- a/config/packages/prod/routing.yaml
 +++ /dev/null
 @@ -1,3 +0,0 @@
@@ -235,7 +235,7 @@ index b3e6a0af..00000000
 -    router:
 -        strict_requirements: null
 diff --git a/config/packages/routing.yaml b/config/packages/routing.yaml
-index b45c1cec..4b766ce5 100644
+index b45c1ce..4b766ce 100644
 --- a/config/packages/routing.yaml
 +++ b/config/packages/routing.yaml
 @@ -5,3 +5,8 @@ framework:
@@ -249,7 +249,7 @@ index b45c1cec..4b766ce5 100644
 +            strict_requirements: null
 diff --git a/config/packages/test/doctrine.yaml b/config/packages/test/doctrine.yaml
 new file mode 100644
-index 00000000..34c2ebcc
+index 0000000..34c2ebc
 --- /dev/null
 +++ b/config/packages/test/doctrine.yaml
 @@ -0,0 +1,4 @@
@@ -259,7 +259,7 @@ index 00000000..34c2ebcc
 +        dbname_suffix: '_test%env(default::TEST_TOKEN)%'
 diff --git a/config/packages/test/framework.yaml b/config/packages/test/framework.yaml
 deleted file mode 100644
-index d051c840..00000000
+index d051c84..0000000
 --- a/config/packages/test/framework.yaml
 +++ /dev/null
 @@ -1,4 +0,0 @@
@@ -269,7 +269,7 @@ index d051c840..00000000
 -        storage_id: session.storage.mock_file
 diff --git a/config/packages/test/twig.yaml b/config/packages/test/twig.yaml
 deleted file mode 100644
-index 8c6e0b40..00000000
+index 8c6e0b4..0000000
 --- a/config/packages/test/twig.yaml
 +++ /dev/null
 @@ -1,2 +0,0 @@
@@ -277,7 +277,7 @@ index 8c6e0b40..00000000
 -    strict_variables: true
 diff --git a/config/packages/test/zenstruck_foundry.yaml b/config/packages/test/zenstruck_foundry.yaml
 new file mode 100644
-index 00000000..3bf6547e
+index 0000000..3bf6547
 --- /dev/null
 +++ b/config/packages/test/zenstruck_foundry.yaml
 @@ -0,0 +1,5 @@
@@ -287,7 +287,7 @@ index 00000000..3bf6547e
 +imports:
 +    - { resource: ../dev/zenstruck_foundry.yaml }
 diff --git a/config/packages/translation.yaml b/config/packages/translation.yaml
-index 05a2b3d8..abb76aae 100644
+index 05a2b3d..abb76aa 100644
 --- a/config/packages/translation.yaml
 +++ b/config/packages/translation.yaml
 @@ -4,3 +4,10 @@ framework:
@@ -302,7 +302,7 @@ index 05a2b3d8..abb76aae 100644
 +#            lokalise:
 +#                dsn: '%env(LOKALISE_DSN)%'
 diff --git a/config/packages/twig.yaml b/config/packages/twig.yaml
-index b3cdf306..f9f4cc53 100644
+index b3cdf30..f9f4cc5 100644
 --- a/config/packages/twig.yaml
 +++ b/config/packages/twig.yaml
 @@ -1,2 +1,6 @@
@@ -313,7 +313,7 @@ index b3cdf306..f9f4cc53 100644
 +    twig:
 +        strict_variables: true
 diff --git a/config/packages/webpack_encore.yaml b/config/packages/webpack_encore.yaml
-index 9191f4f4..dee527a0 100644
+index 9191f4f..dee527a 100644
 --- a/config/packages/webpack_encore.yaml
 +++ b/config/packages/webpack_encore.yaml
 @@ -4,16 +4,26 @@ webpack_encore:
@@ -348,7 +348,7 @@ index 9191f4f4..dee527a0 100644
          # {{ encore_entry_script_tags('entry1', null, 'frontend') }}
 diff --git a/config/preload.php b/config/preload.php
 new file mode 100644
-index 00000000..5ebcdb21
+index 0000000..5ebcdb2
 --- /dev/null
 +++ b/config/preload.php
 @@ -0,0 +1,5 @@
@@ -359,7 +359,7 @@ index 00000000..5ebcdb21
 +}
 diff --git a/config/routes/dev/framework.yaml b/config/routes/dev/framework.yaml
 deleted file mode 100644
-index bcbbf13d..00000000
+index bcbbf13..0000000
 --- a/config/routes/dev/framework.yaml
 +++ /dev/null
 @@ -1,3 +0,0 @@
@@ -368,7 +368,7 @@ index bcbbf13d..00000000
 -    prefix: /_error
 diff --git a/config/routes/framework.yaml b/config/routes/framework.yaml
 new file mode 100644
-index 00000000..0fc74bba
+index 0000000..0fc74bb
 --- /dev/null
 +++ b/config/routes/framework.yaml
 @@ -0,0 +1,4 @@
@@ -377,7 +377,7 @@ index 00000000..0fc74bba
 +        resource: '@FrameworkBundle/Resources/config/routing/errors.xml'
 +        prefix: /_error
 diff --git a/config/services.yaml b/config/services.yaml
-index cac7b54a..dd93030b 100644
+index cac7b54..dd93030 100644
 --- a/config/services.yaml
 +++ b/config/services.yaml
 @@ -2,7 +2,7 @@
@@ -411,7 +411,7 @@ index cac7b54a..dd93030b 100644
      # add more service definitions when explicit configuration is needed
      # please note that last definitions always *replace* previous ones
 diff --git a/package.json b/package.json
-index d1e1c367..934c8c68 100644
+index d1e1c36..934c8c6 100644
 --- a/package.json
 +++ b/package.json
 @@ -1,10 +1,12 @@
@@ -429,7 +429,7 @@ index d1e1c367..934c8c68 100644
      },
      "license": "UNLICENSED",
 diff --git a/public/index.php b/public/index.php
-index 3f8b90e5..9982c218 100644
+index 3f8b90e..9982c21 100644
 --- a/public/index.php
 +++ b/public/index.php
 @@ -1,30 +1,9 @@
@@ -468,7 +468,7 @@ index 3f8b90e5..9982c218 100644
 +    return new Kernel($context['APP_ENV'], (bool) $context['APP_DEBUG']);
 +};
 diff --git a/src/Kernel.php b/src/Kernel.php
-index b0168617..8e96873a 100644
+index b016861..8e96873 100644
 --- a/src/Kernel.php
 +++ b/src/Kernel.php
 @@ -17,10 +17,10 @@ class Kernel extends BaseKernel
@@ -499,7 +499,7 @@ index b0168617..8e96873a 100644
      }
  }
 diff --git a/symfony.lock b/symfony.lock
-index aa1bb441..0ef2d5ec 100644
+index aa1bb44..0ef2d5e 100644
 --- a/symfony.lock
 +++ b/symfony.lock
 @@ -39,16 +39,17 @@
@@ -710,7 +710,7 @@ index aa1bb441..0ef2d5ec 100644
      }
  }
 diff --git a/templates/base.html.twig b/templates/base.html.twig
-index d73bdb98..f575aef2 100644
+index d73bdb9..f575aef 100644
 --- a/templates/base.html.twig
 +++ b/templates/base.html.twig
 @@ -8,6 +8,9 @@
@@ -733,7 +733,7 @@ index d73bdb98..f575aef2 100644
      </body>
  </html>
 diff --git a/webpack.config.js b/webpack.config.js
-index e8b42835..056b04aa 100644
+index e8b4283..056b04a 100644
 --- a/webpack.config.js
 +++ b/webpack.config.js
 @@ -1,4 +1,4 @@
@@ -794,7 +794,7 @@ index e8b42835..056b04aa 100644
  
  module.exports = Encore.getWebpackConfig();
 diff --git a/yarn.lock b/yarn.lock
-index 8fa3f595..cdde6afd 100644
+index 8fa3f59..cdde6af 100644
 --- a/yarn.lock
 +++ b/yarn.lock
 @@ -2,52 +2,46 @@
