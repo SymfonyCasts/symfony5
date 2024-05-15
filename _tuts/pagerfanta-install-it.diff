@@ -1,5 +1,5 @@
 diff --git a/composer.json b/composer.json
-index 76ebed6..8bae5cc 100755
+index 76ebed63..8bae5ccc 100755
 --- a/composer.json
 +++ b/composer.json
 @@ -5,6 +5,7 @@
@@ -11,7 +11,7 @@ index 76ebed6..8bae5cc 100755
          "doctrine/doctrine-bundle": "^2.1",
          "doctrine/doctrine-migrations-bundle": "^3.0",
 diff --git a/composer.lock b/composer.lock
-index f36ff6b..fee80f0 100644
+index 8a5557ff..4b456c2d 100644
 --- a/composer.lock
 +++ b/composer.lock
 @@ -4,8 +4,91 @@
@@ -517,7 +517,7 @@ index f36ff6b..fee80f0 100644
              "name": "symfony/web-profiler-bundle",
              "version": "v5.3.5",
 diff --git a/config/bundles.php b/config/bundles.php
-index ac71409..ba85460 100644
+index ac71409d..ba854603 100644
 --- a/config/bundles.php
 +++ b/config/bundles.php
 @@ -17,4 +17,5 @@ return [
@@ -527,7 +527,7 @@ index ac71409..ba85460 100644
 +    BabDev\PagerfantaBundle\BabDevPagerfantaBundle::class => ['all' => true],
  ];
 diff --git a/symfony.lock b/symfony.lock
-index 045a638..6976f9e 100644
+index 045a6388..6976f9ed 100644
 --- a/symfony.lock
 +++ b/symfony.lock
 @@ -1,4 +1,7 @@

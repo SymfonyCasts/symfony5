@@ -1,5 +1,5 @@
 diff --git a/composer.json b/composer.json
-index bae8447..64f3871 100755
+index bae84473..64f3871d 100755
 --- a/composer.json
 +++ b/composer.json
 @@ -14,25 +14,25 @@
@@ -48,7 +48,7 @@ index bae8447..64f3871 100755
      }
  }
 diff --git a/composer.lock b/composer.lock
-index df351eb..1f60809 100644
+index df351ebe..1f608090 100644
 --- a/composer.lock
 +++ b/composer.lock
 @@ -4,7 +4,7 @@
@@ -5601,7 +5601,7 @@ index df351eb..1f60809 100644
      ],
      "aliases": [],
 diff --git a/symfony.lock b/symfony.lock
-index 6d31a3a..03fb183 100644
+index 6d31a3aa..03fb1839 100644
 --- a/symfony.lock
 +++ b/symfony.lock
 @@ -35,6 +35,9 @@

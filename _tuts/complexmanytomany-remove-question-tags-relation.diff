@@ -1,5 +1,5 @@
 diff --git a/src/Entity/Question.php b/src/Entity/Question.php
-index b6262a7..762ca17 100644
+index b6262a76..762ca173 100644
 --- a/src/Entity/Question.php
 +++ b/src/Entity/Question.php
 @@ -57,15 +57,9 @@ class Question
@@ -48,7 +48,7 @@ index b6262a7..762ca17 100644
 -    }
  }
 diff --git a/src/Entity/Tag.php b/src/Entity/Tag.php
-index 49a8a54..8a8aa4b 100644
+index 49a8a543..8a8aa4b4 100644
 --- a/src/Entity/Tag.php
 +++ b/src/Entity/Tag.php
 @@ -27,16 +27,6 @@ class Tag

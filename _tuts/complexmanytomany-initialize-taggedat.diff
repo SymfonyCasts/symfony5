@@ -1,5 +1,5 @@
 diff --git a/src/Entity/QuestionTag.php b/src/Entity/QuestionTag.php
-index 7a46e9e..235669d 100644
+index 7a46e9e6..235669d7 100644
 --- a/src/Entity/QuestionTag.php
 +++ b/src/Entity/QuestionTag.php
 @@ -34,6 +34,11 @@ class QuestionTag

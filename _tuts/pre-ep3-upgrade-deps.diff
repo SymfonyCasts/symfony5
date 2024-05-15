@@ -1,5 +1,5 @@
 diff --git a/composer.json b/composer.json
-index be8f3da..f3439f5 100755
+index be8f3da5..f3439f5f 100755
 --- a/composer.json
 +++ b/composer.json
 @@ -9,23 +9,24 @@
@@ -49,7 +49,7 @@ index be8f3da..f3439f5 100755
      }
  }
 diff --git a/composer.lock b/composer.lock
-index 0478697..85c5ed1 100644
+index 04786979..85c5ed1e 100644
 --- a/composer.lock
 +++ b/composer.lock
 @@ -4,7 +4,7 @@
@@ -2573,7 +2573,7 @@ index 0478697..85c5ed1 100644
          {
              "name": "symfony/maker-bundle",
 diff --git a/symfony.lock b/symfony.lock
-index 79753d2..1fc8670 100644
+index 79753d2e..1fc86700 100644
 --- a/symfony.lock
 +++ b/symfony.lock
 @@ -162,6 +162,9 @@

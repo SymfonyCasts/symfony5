@@ -1,6 +1,6 @@
 diff --git a/migrations/Version20210902182514.php b/migrations/Version20210902182514.php
 new file mode 100644
-index 0000000..c8c8d08
+index 00000000..c8c8d085
 --- /dev/null
 +++ b/migrations/Version20210902182514.php
 @@ -0,0 +1,33 @@
@@ -38,7 +38,7 @@ index 0000000..c8c8d08
 +    }
 +}
 diff --git a/src/Entity/Answer.php b/src/Entity/Answer.php
-index f5e2751..2c80fce 100644
+index f5e2751b..2c80fce3 100644
 --- a/src/Entity/Answer.php
 +++ b/src/Entity/Answer.php
 @@ -41,6 +41,11 @@ class Answer

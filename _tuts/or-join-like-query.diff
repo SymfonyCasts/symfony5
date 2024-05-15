@@ -1,5 +1,5 @@
 diff --git a/src/Controller/AnswerController.php b/src/Controller/AnswerController.php
-index 7521c41..f7932e3 100644
+index 7521c414..f7932e39 100644
 --- a/src/Controller/AnswerController.php
 +++ b/src/Controller/AnswerController.php
 @@ -15,9 +15,11 @@ class AnswerController extends AbstractController
@@ -17,7 +17,7 @@ index 7521c41..f7932e3 100644
          return $this->render('answer/popularAnswers.html.twig', [
              'answers' => $answers
 diff --git a/src/Repository/AnswerRepository.php b/src/Repository/AnswerRepository.php
-index 622e4c7..14c4b6a 100644
+index 622e4c76..14c4b6a9 100644
 --- a/src/Repository/AnswerRepository.php
 +++ b/src/Repository/AnswerRepository.php
 @@ -41,15 +41,22 @@ class AnswerRepository extends ServiceEntityRepository

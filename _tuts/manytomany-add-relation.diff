@@ -1,6 +1,6 @@
 diff --git a/migrations/Version20210907185958.php b/migrations/Version20210907185958.php
 new file mode 100644
-index 0000000..1413995
+index 00000000..14139951
 --- /dev/null
 +++ b/migrations/Version20210907185958.php
 @@ -0,0 +1,33 @@
@@ -38,7 +38,7 @@ index 0000000..1413995
 +    }
 +}
 diff --git a/src/Entity/Question.php b/src/Entity/Question.php
-index 762ca17..b6262a7 100644
+index 762ca173..b6262a76 100644
 --- a/src/Entity/Question.php
 +++ b/src/Entity/Question.php
 @@ -57,9 +57,15 @@ class Question
@@ -87,7 +87,7 @@ index 762ca17..b6262a7 100644
 +    }
  }
 diff --git a/src/Entity/Tag.php b/src/Entity/Tag.php
-index 4471345..49a8a54 100644
+index 4471345f..49a8a543 100644
 --- a/src/Entity/Tag.php
 +++ b/src/Entity/Tag.php
 @@ -3,6 +3,8 @@
