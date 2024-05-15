@@ -1,5 +1,5 @@
 diff --git a/src/Controller/SecurityController.php b/src/Controller/SecurityController.php
-index 9968f20..c448eb4 100644
+index 9968f201..c448eb4f 100644
 --- a/src/Controller/SecurityController.php
 +++ b/src/Controller/SecurityController.php
 @@ -21,7 +21,7 @@ class SecurityController extends AbstractController
@@ -12,7 +12,7 @@ index 9968f20..c448eb4 100644
      public function logout()
      {
 diff --git a/templates/base.html.twig b/templates/base.html.twig
-index ccfe0e6..382493d 100644
+index ccfe0e61..382493d9 100644
 --- a/templates/base.html.twig
 +++ b/templates/base.html.twig
 @@ -36,8 +36,12 @@

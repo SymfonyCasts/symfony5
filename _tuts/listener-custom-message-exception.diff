@@ -1,5 +1,5 @@
 diff --git a/src/EventSubscriber/CheckVerifiedUserSubscriber.php b/src/EventSubscriber/CheckVerifiedUserSubscriber.php
-index f6be6d8..7ac66cb 100644
+index f6be6d8f..7ac66cb0 100644
 --- a/src/EventSubscriber/CheckVerifiedUserSubscriber.php
 +++ b/src/EventSubscriber/CheckVerifiedUserSubscriber.php
 @@ -6,6 +6,7 @@ use App\Entity\User;

@@ -1,6 +1,6 @@
 diff --git a/src/EventSubscriber/CheckVerifiedUserSubscriber.php b/src/EventSubscriber/CheckVerifiedUserSubscriber.php
 new file mode 100644
-index 0000000..6b5e7c7
+index 00000000..6b5e7c7d
 --- /dev/null
 +++ b/src/EventSubscriber/CheckVerifiedUserSubscriber.php
 @@ -0,0 +1,12 @@

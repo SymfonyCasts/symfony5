@@ -1,5 +1,5 @@
 diff --git a/config/packages/webpack_encore.yaml b/config/packages/webpack_encore.yaml
-index dee527a..fa2e39d 100644
+index dee527a0..fa2e39d6 100644
 --- a/config/packages/webpack_encore.yaml
 +++ b/config/packages/webpack_encore.yaml
 @@ -8,7 +8,7 @@ webpack_encore:
@@ -12,7 +12,7 @@ index dee527a..fa2e39d 100644
      # link_attributes:
          # Uncomment if using Turbo Drive
 diff --git a/symfony.lock b/symfony.lock
-index 91d63c8..cbc01a5 100644
+index 91d63c80..cbc01a55 100644
 --- a/symfony.lock
 +++ b/symfony.lock
 @@ -433,7 +433,7 @@

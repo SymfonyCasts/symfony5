@@ -1,5 +1,5 @@
 diff --git a/composer.json b/composer.json
-index 431ab7d..7f1454e 100644
+index 431ab7d8..7f1454e7 100644
 --- a/composer.json
 +++ b/composer.json
 @@ -7,6 +7,7 @@
@@ -31,7 +31,7 @@ index 431ab7d..7f1454e 100644
          "symfony/twig-bundle": "5.3.*",
          "symfony/ux-chartjs": "^1.3",
 diff --git a/composer.lock b/composer.lock
-index 8555a15..b85ea33 100644
+index 2455a68b..e7b58026 100644
 --- a/composer.lock
 +++ b/composer.lock
 @@ -4,7 +4,7 @@
@@ -384,7 +384,7 @@ index 8555a15..b85ea33 100644
      ],
      "packages-dev": [
 diff --git a/symfony.lock b/symfony.lock
-index 43dbe9c..adad432 100644
+index 43dbe9c3..adad4325 100644
 --- a/symfony.lock
 +++ b/symfony.lock
 @@ -151,6 +151,15 @@

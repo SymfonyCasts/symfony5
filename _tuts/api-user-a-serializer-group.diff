@@ -1,5 +1,5 @@
 diff --git a/src/Controller/UserController.php b/src/Controller/UserController.php
-index a5b6cfa..c8eeb58 100644
+index a5b6cfa7..c8eeb58d 100644
 --- a/src/Controller/UserController.php
 +++ b/src/Controller/UserController.php
 @@ -13,6 +13,8 @@ class UserController extends BaseController
@@ -13,7 +13,7 @@ index a5b6cfa..c8eeb58 100644
      }
  }
 diff --git a/src/Entity/User.php b/src/Entity/User.php
-index ca69f23..6e8c7df 100644
+index ca69f230..6e8c7df8 100644
 --- a/src/Entity/User.php
 +++ b/src/Entity/User.php
 @@ -6,6 +6,7 @@ use App\Repository\UserRepository;

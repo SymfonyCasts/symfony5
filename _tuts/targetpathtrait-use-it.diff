@@ -1,5 +1,5 @@
 diff --git a/src/Security/LoginFormAuthenticator.php b/src/Security/LoginFormAuthenticator.php
-index dcfb69f..e962f11 100644
+index dcfb69ff..e962f115 100644
 --- a/src/Security/LoginFormAuthenticator.php
 +++ b/src/Security/LoginFormAuthenticator.php
 @@ -22,9 +22,12 @@ use Symfony\Component\Security\Http\Authenticator\Passport\Credentials\PasswordC

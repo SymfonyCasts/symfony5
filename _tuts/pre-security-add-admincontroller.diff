@@ -1,6 +1,6 @@
 diff --git a/src/Controller/AdminController.php b/src/Controller/AdminController.php
 new file mode 100644
-index 0000000..067084b
+index 00000000..067084b4
 --- /dev/null
 +++ b/src/Controller/AdminController.php
 @@ -0,0 +1,18 @@
@@ -24,7 +24,7 @@ index 0000000..067084b
 +}
 diff --git a/templates/admin/dashboard.html.twig b/templates/admin/dashboard.html.twig
 new file mode 100644
-index 0000000..22e833b
+index 00000000..22e833b5
 --- /dev/null
 +++ b/templates/admin/dashboard.html.twig
 @@ -0,0 +1,11 @@

@@ -1,5 +1,5 @@
 diff --git a/assets/controllers/answer-vote_controller.js b/assets/controllers/answer-vote_controller.js
-index a861ae8..c7333e9 100644
+index a861ae81..c7333e9a 100644
 --- a/assets/controllers/answer-vote_controller.js
 +++ b/assets/controllers/answer-vote_controller.js
 @@ -11,9 +11,9 @@ export default class extends Controller {
