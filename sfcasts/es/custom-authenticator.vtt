@@ -1,0 +1,413 @@
+WEBVTT
+
+00:00:01.006 --> 00:00:06.046 align:middle
+Actualmente estamos convirtiendo nuestro antiguo
+autentificador Guard al nuevo sistema de autentificación.
+
+00:00:06.406 --> 00:00:12.436 align:middle
+Y, muy bien, estos dos sistemas comparten
+algunos métodos, como supports(),
+
+00:00:12.686 --> 00:00:16.886 align:middle
+onAuthenticationSuccess() y
+onAuthenticationFailure().
+
+00:00:17.476 --> 00:00:22.256 align:middle
+La gran diferencia está en el
+nuevo método authenticate().
+
+00:00:22.876 --> 00:00:28.116 align:middle
+En el antiguo sistema Guard, dividimos
+la autenticación en varios métodos.
+
+00:00:28.416 --> 00:00:32.906 align:middle
+Teníamos getCredentials(), donde
+obteníamos cierta información, getUser(),
+
+00:00:32.906 --> 00:00:34.526 align:middle
+donde encontrábamos el objeto User,
+
+00:00:34.876 --> 00:00:38.286 align:middle
+y checkCredentials(), donde
+comprobábamos la contraseña.
+
+00:00:38.976 --> 00:00:43.976 align:middle
+Estas tres cosas se combinan ahora
+en el método authenticate()...
+
+00:00:44.376 --> 00:00:46.886 align:middle
+con algunas bonificaciones.
+
+00:00:47.346 --> 00:00:54.166 align:middle
+Por ejemplo, como verás enseguida, ya no es
+responsabilidad nuestra comprobar la contraseña.
+
+00:00:54.676 --> 00:00:56.646 align:middle
+Ahora se hace automáticamente.
+
+00:00:57.476 --> 00:01:01.566 align:middle
+Nuestro trabajo en authenticate()
+es sencillo: devolver un Passport.
+
+00:01:02.276 --> 00:01:04.736 align:middle
+Sigue adelante y añade un
+tipo de retorno Passport.
+
+00:01:05.446 --> 00:01:07.986 align:middle
+Esto es realmente necesario en Symfony 6. No se
+
+00:01:08.426 --> 00:01:12.896 align:middle
+añadió automáticamente debido a una
+capa de desaprobación y al hecho de
+
+00:01:12.896 --> 00:01:18.086 align:middle
+que el tipo de retorno cambió de
+PassportInterface a Passport en Symfony 5.4.
+
+00:01:18.896 --> 00:01:21.696 align:middle
+De todos modos, este método
+devuelve un Passport...
+
+00:01:22.136 --> 00:01:24.996 align:middle
+así que hazlo: return new Passport(). Por
+
+00:01:25.906 --> 00:01:30.416 align:middle
+cierto, si eres nuevo en el sistema de autenticadores
+personalizados y quieres aprender más, echa un
+
+00:01:30.916 --> 00:01:35.686 align:middle
+vistazo a nuestro tutorial de Seguridad
+de Symfony 5 donde hablamos de todo esto.
+
+00:01:36.386 --> 00:01:40.256 align:middle
+Ahora repasaré lo básico,
+pero los detalles están ahí.
+
+00:01:41.016 --> 00:01:45.756 align:middle
+Antes de rellenar el Passport, coge toda la
+información del Request que necesitemos...
+
+00:01:46.446 --> 00:01:54.066 align:middle
+pega... luego establece cada una de ellas
+como variables: $email =, $password =...
+
+00:01:54.746 --> 00:01:57.496 align:middle
+y preocupémonos del token CSRF más tarde.
+
+00:01:58.346 --> 00:02:02.036 align:middle
+El primer argumento del
+Passport es un new UserBadge().
+
+00:02:02.476 --> 00:02:05.756 align:middle
+Lo que pasas aquí es el
+identificador de usuario.
+
+00:02:06.516 --> 00:02:12.296 align:middle
+¡En nuestro sistema, nos identificamos a través
+del correo electrónico, así que pasa $email!
+
+00:02:12.296 --> 00:02:15.686 align:middle
+Y... si quieres, puedes detenerte aquí.
+
+00:02:16.436 --> 00:02:22.606 align:middle
+Si sólo pasas un argumento a UserBadge,
+Symfony utilizará el "proveedor de usuario"
+
+00:02:22.606 --> 00:02:25.656 align:middle
+de security.yaml para encontrar ese usuario.
+
+00:02:26.376 --> 00:02:32.596 align:middle
+Estamos utilizando un proveedor entity, que le
+dice a Symfony que intente buscar el objeto User
+
+00:02:32.596 --> 00:02:35.416 align:middle
+en la base de datos a través
+de la propiedad email.
+
+00:02:36.316 --> 00:02:42.056 align:middle
+En el sistema antiguo, hacíamos todo esto
+manualmente consultando el UserRepository.
+
+00:02:42.776 --> 00:02:44.676 align:middle
+Eso ya no es necesario.
+
+00:02:45.286 --> 00:02:46.676 align:middle
+Pero a veces...
+
+00:02:47.066 --> 00:02:52.186 align:middle
+si tienes una lógica personalizada, puede que aún
+necesites encontrar al usuario manualmente. Si tienes
+
+00:02:52.846 --> 00:02:56.776 align:middle
+este caso de uso, pasa un
+function() al segundo argumento
+
+00:02:56.976 --> 00:02:59.946 align:middle
+que acepta un argumento $userIdentifier.
+
+00:03:00.886 --> 00:03:07.106 align:middle
+Ahora, cuando el sistema de autenticación necesite
+el objeto Usuario, llamará a nuestra función
+
+00:03:07.346 --> 00:03:09.726 align:middle
+y nos pasará el "identificador de usuario"...
+
+00:03:10.146 --> 00:03:13.706 align:middle
+que será lo que hayamos
+pasado al primer argumento.
+
+00:03:13.806 --> 00:03:14.946 align:middle
+Es decir, el correo electrónico.
+
+00:03:15.746 --> 00:03:18.226 align:middle
+Nuestro trabajo consiste en
+utilizarlo para devolver el usuario.
+
+00:03:18.886 --> 00:03:26.466 align:middle
+Empieza con $user =
+$this->entityManager->getRepository(User::class) Y sí,
+
+00:03:26.746 --> 00:03:31.336 align:middle
+podría haber inyectado UserRepository
+en lugar del gestor de entidades... eso
+
+00:03:31.976 --> 00:03:32.956 align:middle
+sería mejor... pero
+
+00:03:32.956 --> 00:03:34.916 align:middle
+esto está bien. Después
+
+00:03:35.076 --> 00:03:39.026 align:middle
+->findOneBy(['email'
+=> $userIdentifier]). Si
+
+00:03:40.146 --> 00:03:45.956 align:middle
+no encontramos ningún usuario, necesitamos
+throw a new UserNotFoundException(). Luego,
+
+00:03:46.946 --> 00:03:48.886 align:middle
+return $user. ¡El primer argumento
+
+00:03:49.816 --> 00:03:52.586 align:middle
+Passport está hecho! Para
+
+00:03:53.176 --> 00:03:58.626 align:middle
+el segundo argumento, aquí abajo, cambia
+mi mal punto y coma por una coma - entonces
+
+00:03:58.946 --> 00:04:04.416 align:middle
+di new PasswordCredentials() y pasa
+este el enviado $password . ¡ Eso es
+
+00:04:05.046 --> 00:04:07.016 align:middle
+todo lo que necesitamos! Así
+
+00:04:07.676 --> 00:04:12.046 align:middle
+es: ¡no necesitamos comprobar
+realmente la contraseña! Pasamos
+
+00:04:12.686 --> 00:04:14.776 align:middle
+un PasswordCredentials()... ¡y
+
+00:04:15.136 --> 00:04:19.686 align:middle
+luego otro sistema se encarga de
+comprobar la contraseña enviada con
+
+00:04:19.756 --> 00:04:22.936 align:middle
+la contraseña con hash
+de la base de datos! ¿No
+
+00:04:23.276 --> 00:04:24.726 align:middle
+es genial? Por último,
+
+00:04:25.676 --> 00:04:30.776 align:middle
+Passport acepta una matriz
+opcional de "insignias", que
+
+00:04:31.146 --> 00:04:34.456 align:middle
+son "cosas" extra que quieres
+añadir... normalmente
+
+00:04:34.846 --> 00:04:37.146 align:middle
+para activar otras funciones. Nosotros
+
+00:04:37.776 --> 00:04:42.666 align:middle
+sólo necesitamos pasar una:
+una new CsrfTokenBadge(). Esto
+
+00:04:43.276 --> 00:04:47.456 align:middle
+se debe a que nuestro formulario de acceso
+está protegido por un token CSRF. Antes,
+
+00:04:48.176 --> 00:04:51.256 align:middle
+lo comprobábamos manualmente. ¡Lamentable!
+
+00:04:51.546 --> 00:04:53.956 align:middle
+¡Pero ya no! Pasa
+
+00:04:54.686 --> 00:04:58.016 align:middle
+la cadena authenticate al
+primer argumento... que
+
+00:04:58.446 --> 00:05:02.656 align:middle
+sólo tiene que coincidir con la cadena
+utilizada cuando generamos el token en
+
+00:05:02.656 --> 00:05:05.756 align:middle
+la plantilla: login.html.twig. Si
+
+00:05:06.616 --> 00:05:08.806 align:middle
+busco csrf_token... ¡ahí
+
+00:05:09.316 --> 00:05:09.886 align:middle
+está! Para
+
+00:05:10.816 --> 00:05:19.736 align:middle
+el segundo argumento, pasa el token CSRF enviado:
+$request->request->get('_csrf_token') , que
+
+00:05:20.076 --> 00:05:22.286 align:middle
+también puedes ver en el
+formulario de acceso. Y...
+
+00:05:23.066 --> 00:05:24.236 align:middle
+¡listo! Sólo con pasar la insignia
+
+00:05:24.946 --> 00:05:29.786 align:middle
+, se validará el token CSRF. Ah,
+
+00:05:30.486 --> 00:05:36.396 align:middle
+y aunque no necesitamos hacerlo, también
+voy a pasar una new RememberMeBadge(). Si
+
+00:05:37.256 --> 00:05:42.106 align:middle
+utilizas el sistema "Recuérdame",
+entonces necesitas pasar esta insignia.
+
+00:05:42.906 --> 00:05:48.486 align:middle
+Indica al sistema que "aceptas" que se
+establezca una cookie "Recuérdame" si
+
+00:05:48.776 --> 00:05:52.416 align:middle
+el usuario inicia sesión
+utilizando este autenticador. Pero
+
+00:05:53.086 --> 00:05:57.446 align:middle
+aún necesitas tener una casilla de
+verificación "Recuérdame" aquí... para
+
+00:05:57.546 --> 00:05:58.586 align:middle
+que funcione. O,
+
+00:05:59.106 --> 00:06:03.686 align:middle
+para activarlo siempre, añade
+->enable() en la insignia. Y, por
+
+00:06:04.486 --> 00:06:09.836 align:middle
+supuesto, nada de esto funcionará a menos
+que actives el sistema remember_me en
+
+00:06:09.836 --> 00:06:13.366 align:middle
+tu cortafuegos, cosa que aún no tengo.
+
+00:06:14.206 --> 00:06:16.196 align:middle
+Seguirá siendo seguro añadir
+esa insignia... pero no
+
+00:06:16.596 --> 00:06:20.686 align:middle
+habrá ningún sistema que la procese y
+añada la cookie. Por lo tanto, la insignia
+
+00:06:21.036 --> 00:06:23.056 align:middle
+será ignorada. En cualquier caso, ¡ hemos
+
+00:06:24.006 --> 00:06:25.786 align:middle
+terminado! Si
+
+00:06:26.216 --> 00:06:32.496 align:middle
+eso te ha parecido abrumador, retrocede y mira nuestro tutorial
+sobre Seguridad en Symfony para obtener más contexto. Lo
+
+00:06:33.376 --> 00:06:38.446 align:middle
+bueno es que ya no necesitamos
+getCredentials(), getUser(), checkCredentials(),
+
+00:06:38.686 --> 00:06:42.646 align:middle
+ni getPassword(). Todo lo que
+
+00:06:43.266 --> 00:06:46.806 align:middle
+necesitamos es authenticate(),
+onAuthenticationSuccess(), onAuthenticationFailure(),
+
+00:06:47.146 --> 00:06:51.016 align:middle
+y getLoginUrl().
+
+00:06:51.916 --> 00:06:57.326 align:middle
+Incluso podemos celebrarlo aquí eliminando un
+montón de antiguas declaraciones de uso. ¡Sí!
+
+00:06:57.816 --> 00:07:01.326 align:middle
+Ah, y mira el constructor.
+
+00:07:01.806 --> 00:07:08.046 align:middle
+Ya no necesitamos CsrfTokenManagerInterface
+ni UserPasswordHasherInterface: ambas
+
+00:07:08.606 --> 00:07:11.686 align:middle
+comprobaciones se hacen
+ahora en otra parte. Y...
+
+00:07:12.556 --> 00:07:16.466 align:middle
+eso nos da dos sentencias
+use más que eliminar. En
+
+00:07:17.306 --> 00:07:23.386 align:middle
+este punto, nuestro único autentificador personalizado se
+ha trasladado al nuevo sistema de autentificadores. Esto
+
+00:07:24.286 --> 00:07:29.686 align:middle
+significa que, en security.yaml, ¡estamos
+listos para cambiar al nuevo sistema! Di
+
+00:07:30.376 --> 00:07:33.326 align:middle
+enable_authenticator_manager: true. Y
+
+00:07:34.176 --> 00:07:38.556 align:middle
+estos autentificadores personalizados ya no
+están bajo una clave guard. En su lugar,
+
+00:07:39.116 --> 00:07:44.556 align:middle
+añade custom_authenticator y añade
+esto directamente debajo. Vale, ¡llegó
+
+00:07:45.316 --> 00:07:47.846 align:middle
+la hora de la verdad!
+
+00:07:48.486 --> 00:07:51.946 align:middle
+Acabamos de cambiar
+completamente al nuevo sistema.
+
+00:07:52.576 --> 00:07:53.946 align:middle
+¿Funcionará?
+
+00:07:55.046 --> 00:07:58.096 align:middle
+Vuelve a la página de inicio,
+recarga y ... ¡funciona
+
+00:07:58.326 --> 00:08:01.656 align:middle
+! ¡Y echa un vistazo a
+esas depreciaciones! Hemos
+
+00:08:02.276 --> 00:08:05.786 align:middle
+pasado de unas 45 a 4. ¡Woh!
+
+00:08:06.046 --> 00:08:10.956 align:middle
+Algunas de ellas están relacionadas con
+otro cambio de seguridad. A continuación:
+
+00:08:11.916 --> 00:08:17.296 align:middle
+actualicémonos al nuevo password_hasher
+y comprobemos un nuevo comando para
+
+00:08:17.366 --> 00:08:19.716 align:middle
+depurar cortafuegos de seguridad.
