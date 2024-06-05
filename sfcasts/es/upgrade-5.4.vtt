@@ -1,0 +1,267 @@
+WEBVTT
+
+00:00:01.036 --> 00:00:08.626 align:middle
+El primer paso para actualizar nuestra aplicación a Symfony
+6 es actualizar todas las librerías de Symfony a 5.4.
+
+00:00:09.176 --> 00:00:13.096 align:middle
+Y... eso es bastante fácil:
+es sólo cosa de Composer.
+
+00:00:13.836 --> 00:00:19.686 align:middle
+En composer.json, tenemos bastantes
+bibliotecas que empiezan por symfony/. La
+
+00:00:20.616 --> 00:00:24.196 align:middle
+mayoría de ellas forman parte del
+proyecto "principal" de Symfony
+
+00:00:24.496 --> 00:00:27.116 align:middle
+y siguen el conocido versionado de Symfony,
+
+00:00:27.546 --> 00:00:34.916 align:middle
+con versiones como 5.0,
+5.1, hasta 5.4 y luego 6.0.
+
+00:00:35.476 --> 00:00:39.486 align:middle
+Esos son los paquetes en cuya
+actualización nos vamos a centrar.
+
+00:00:40.046 --> 00:00:46.176 align:middle
+Pero algunos de ellos, como symfony/maker-bundle,
+siguen su propio esquema de versionado.
+
+00:00:46.646 --> 00:00:47.476 align:middle
+¡Menuda diva!
+
+00:00:48.446 --> 00:00:53.356 align:middle
+No vamos a preocuparnos de actualizarlos
+ahora, pero nos aseguraremos de que,
+
+00:00:53.646 --> 00:00:56.196 align:middle
+al final, lo hayamos actualizado todo.
+
+00:00:57.006 --> 00:01:01.206 align:middle
+Vale, lo que tenemos que hacer
+es cambiar todos estos 5.0.*
+
+00:01:01.446 --> 00:01:08.486 align:middle
+por 5.4.*. Voy a hacer un "Buscar y
+reemplazar" para sustituir 5.0.* por
+
+00:01:08.846 --> 00:01:10.796 align:middle
+5.4.*. Pulsa "Reemplazar
+
+00:01:11.446 --> 00:01:12.826 align:middle
+todo". ¡Qué bien! Y fíjate
+
+00:01:13.716 --> 00:01:19.026 align:middle
+que, además de los paquetes
+en sí, también hemos tenido
+
+00:01:19.346 --> 00:01:24.126 align:middle
+que cambiar la clave
+extra.symfony.require. Se trata de una
+
+00:01:24.816 --> 00:01:30.206 align:middle
+optimización del rendimiento de Flex:
+básicamente se asegura de que Flex sólo
+
+00:01:30.206 --> 00:01:34.696 align:middle
+tenga en cuenta los paquetes de Symfony que coincidan con
+esta versión. Sólo tienes que asegurarte de que no se
+
+00:01:35.286 --> 00:01:37.696 align:middle
+te olvida actualizarla. Bien... veamos.
+
+00:01:38.406 --> 00:01:39.556 align:middle
+Esto actualizó un
+
+00:01:39.946 --> 00:01:42.556 align:middle
+montón de bibliotecas.
+Para asegurarnos de que no
+
+00:01:43.106 --> 00:01:46.566 align:middle
+nos hemos dejado nada, busca symfony/...
+y desplázate un poco hacia abajo.
+
+00:01:47.686 --> 00:01:50.336 align:middle
+El monolog-bundle tiene
+
+00:01:50.336 --> 00:01:53.826 align:middle
+su propio versionado, así
+que no pasa nada. Pero, ooh...
+
+00:01:54.416 --> 00:01:55.186 align:middle
+me he dejado
+
+00:01:55.396 --> 00:01:58.756 align:middle
+una: symfony/routing . Por alguna razón,
+
+00:01:59.176 --> 00:02:03.426 align:middle
+esto ya estaba en Symfony
+5.1. Así que cambiémoslo
+
+00:02:03.686 --> 00:02:06.856 align:middle
+también a 5.4.*. Y...
+
+00:02:06.976 --> 00:02:07.526 align:middle
+todo lo demás parece estar
+
+00:02:08.486 --> 00:02:13.746 align:middle
+bien: cada uno se cambia a 5.4.* o tiene
+
+00:02:14.266 --> 00:02:16.716 align:middle
+su propia estrategia de
+versionado... y no vamos a
+
+00:02:16.716 --> 00:02:19.526 align:middle
+preocuparnos de ello ahora mismo.
+Para actualizarlos realmente,
+
+00:02:20.486 --> 00:02:23.716 align:middle
+en tu terminal, podríamos intentar actualizar
+
+00:02:24.016 --> 00:02:28.266 align:middle
+sólo los paquetes de Symfony
+con: composer up 'symfony/*' Es
+
+00:02:28.586 --> 00:02:34.556 align:middle
+muy probable que eso falle...
+porque para actualizar
+
+00:02:34.986 --> 00:02:40.906 align:middle
+todos los paquetes de Symfony, habrá que actualizar
+algún otro paquete, como symfony/proxy-manager-bridge.
+
+00:02:40.906 --> 00:02:45.036 align:middle
+Si quisieras,
+
+00:02:45.656 --> 00:02:50.026 align:middle
+podrías añadirlo al comando composer
+up... o añadir la bandera -W,
+
+00:02:50.416 --> 00:02:55.056 align:middle
+que indica a Composer que actualice
+todas las bibliotecas symfony/ y
+
+00:02:55.056 --> 00:02:58.596 align:middle
+sus dependencias. Pero... Yo voy a actualizarlo
+
+00:02:59.126 --> 00:03:07.086 align:middle
+todo con: composer up Mira: en nuestro archivo
+composer.json, ¡las restricciones de versión de todos los
+
+00:03:07.376 --> 00:03:14.136 align:middle
+paquetes (Symfony y otras bibliotecas) son realmente
+buenas! Permiten actualizaciones de versiones menores,
+
+00:03:14.646 --> 00:03:23.926 align:middle
+como de 4.0 a 4.1, pero no permiten actualizaciones
+de versiones mayores. Así que si hubiera una
+
+00:03:24.596 --> 00:03:28.116 align:middle
+nueva versión 5 de esta biblioteca, al
+ejecutar composer up no se actualizaría
+
+00:03:28.676 --> 00:03:33.256 align:middle
+a esa nueva versión mayor. En otras
+palabras, la actualización sólo debería
+
+00:03:33.916 --> 00:03:37.906 align:middle
+actualizar las versiones
+menores... y éstas, en teoría, no
+
+00:03:38.316 --> 00:03:42.156 align:middle
+contendrán ninguna rotura. Así
+que vamos a hacerlo: composer
+
+00:03:42.676 --> 00:03:48.666 align:middle
+up Y... ¡hola actualizaciones!
+¡Vaya! ¡ Mira qué
+
+00:03:51.176 --> 00:03:53.656 align:middle
+lista más grande! Muchas
+cosas de Symfony... pero
+
+00:03:54.206 --> 00:03:55.826 align:middle
+también muchas otras librerías.
+
+00:03:56.176 --> 00:03:58.656 align:middle
+Vale, ha sido una
+
+00:03:59.516 --> 00:04:02.426 align:middle
+gran actualización. ¿Sigue
+funcionando el sitio?
+
+00:04:02.976 --> 00:04:04.866 align:middle
+No lo sé Ve,
+
+00:04:04.926 --> 00:04:06.066 align:middle
+actualiza y ... ¡funciona
+
+00:04:06.646 --> 00:04:08.896 align:middle
+! ¡Symfony es increíble!
+
+00:04:09.336 --> 00:04:12.986 align:middle
+Ahora que estamos en Symfony
+
+00:04:13.656 --> 00:04:19.596 align:middle
+5.4, podemos ver la lista completa de rutas de
+código obsoletas a las que llegamos al renderizar
+
+00:04:19.596 --> 00:04:22.436 align:middle
+esta página. Tu número variará... y
+
+00:04:23.386 --> 00:04:25.056 align:middle
+el número puede incluso
+
+00:04:25.456 --> 00:04:28.916 align:middle
+cambiar cuando actualices la página...
+eso se debe a que algunas páginas
+
+00:04:29.316 --> 00:04:32.176 align:middle
+utilizan caché. Parece que tengo
+
+00:04:32.976 --> 00:04:36.296 align:middle
+unas 71 deprecaciones. Si haces clic en esto,
+
+00:04:36.966 --> 00:04:40.326 align:middle
+genial. Podemos ver cuáles son todas
+
+00:04:40.786 --> 00:04:42.996 align:middle
+ellas. Así que llegados a este punto, nuestro
+
+00:04:43.846 --> 00:04:46.996 align:middle
+trabajo es sencillo... pero no
+necesariamente fácil. Tenemos
+
+00:04:47.386 --> 00:04:49.756 align:middle
+que c azar
+
+00:04:50.376 --> 00:04:56.566 align:middle
+todas y cada una de estas desaprobaciones, averiguar
+qué código hay que cambiar, y luego hacer
+
+00:04:56.566 --> 00:04:59.056 align:middle
+ese cambio. Algunas serán
+
+00:04:59.706 --> 00:05:01.896 align:middle
+bastante obvias... y otras no.
+
+00:05:02.226 --> 00:05:04.126 align:middle
+Así que antes de intentar
+
+00:05:04.816 --> 00:05:09.706 align:middle
+localizarlas manualmente... hagamos
+algo más automático. Somos
+
+00:05:09.846 --> 00:05:11.616 align:middle
+programadores, ¿verdad? Utilicemos
+
+00:05:11.616 --> 00:05:13.366 align:middle
+una herramienta llamada
+
+00:05:13.876 --> 00:05:19.826 align:middle
+Rector para automatizar tantos cambios en nuestro
+código como sea posible. Eso a continuación.
