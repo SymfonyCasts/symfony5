@@ -54,4 +54,4 @@ Si haces clic en esto, genial. Podemos ver cuáles son todas ellas.
 
 Así que en este punto, nuestro trabajo es sencillo... pero no necesariamente fácil. Tenemos que buscar cada una de estas desaprobaciones, averiguar qué código hay que cambiar, y luego hacer ese cambio. Algunas serán bastante obvias... y otras no.
 
-Así que, antes de intentar buscarlas manualmente, vamos a hacer algo más automático. Somos programadores, ¿verdad? Utilicemos una herramienta llamada Rector para automatizar todos los cambios posibles en nuestro código. Eso es lo siguiente.
+Así que, antes de intentar buscarlas manualmente, vamos a hacer algo más automático. Somos programadores, ¿verdad? Utilicemos una herramienta llamada Rector para automatizar tantos cambios en nuestro código como sea posible. Eso a continuación.
