@@ -257,13 +257,13 @@ utilizada cuando generamos el token en
 la plantilla: login.html.twig. Si
 
 00:05:06.616 --> 00:05:08.806 align:middle
-busco csrf_token... ¡ahí
+busco csrf_token... ¡ahí está!
 
 00:05:09.316 --> 00:05:09.886 align:middle
-está! Para
+utiliza la misma cadena que utilizamos aquí.
 
 00:05:10.816 --> 00:05:19.736 align:middle
-el segundo argumento, pasa el token CSRF enviado:
+Para el segundo argumento, pasa el token CSRF enviado:
 $request->request->get('_csrf_token') , que
 
 00:05:20.076 --> 00:05:22.286 align:middle
