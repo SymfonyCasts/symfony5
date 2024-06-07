@@ -48,7 +48,8 @@ Para el segundo argumento, pasa el token CSRF enviado:`$request->request->get('_
 
 Y... ¡listo! Sólo con pasar la insignia, el token CSRF será validado.
 
-Ah, y aunque no es necesario hacerlo, también voy a pasar un`new RememberMeBadge()`. Si utilizas el sistema "Recuérdame", entonces sí necesitas pasar esta insignia. Indica al sistema que optas por tener un conjunto de fichas "Recuérdame". Para que funcione, tienes que tener una casilla de verificación "Recuérdame" o, para habilitarla siempre, añade `->enable()` en la insignia.
+Ah, y aunque no es necesario hacerlo, también voy a pasar un`new RememberMeBadge()`. Si utilizas el sistema "Recuérdame", entonces sí necesitas pasar esta insignia. Indica al sistema que "aceptas" que se
+establezca una cookie "Recuérdame" si el usuario inicia sesión utilizando este autenticador. Pero aún necesitas tener una casilla de verificación "Recuérdame" aquí... para que funcione. O, para activarlo siempre, añade `->enable()` en la insignia.
 
 Y, por supuesto, nada de esto funcionará a menos que actives el sistema `remember_me`en tu cortafuegos, lo cual aún no tengo. Sigue siendo seguro añadir esa placa... pero no habrá ningún sistema que la procese y añada la cookie.
 
