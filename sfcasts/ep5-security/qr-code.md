@@ -40,12 +40,14 @@ Anyways, I'll copy that, find my terminal, and paste.
 composer require "scheb/2fa-qr-code:^5.12.1"
 ```
 
+***TIP
 To use the *new* way of generating QR codes - which I recommend - skip this
 step and instead run:
 
 ```terminal
 composer require "endroid/qr-code:^3.0"
 ```
+***
 
 While that's working. Head back to the docs... and copy this controller from the
 documentation. Over in `SecurityController`, at the bottom, paste.
@@ -58,17 +60,15 @@ I also need to re-type the "R" on `QrCodeGenerator` to get its use statement:
 
 [[[ code('ced3c623d5') ]]]
 
+***TIP
 If you're using the *new* way of generating the QR codes, then your controller
 should like this instead. You can copy this from the code block on this page:
 
 ```php
 namespace App\Controller;
 
-use Endroid\QrCode\Builder\Builder;
-use Scheb\TwoFactorBundle\Security\TwoFactor\Provider\Totp\TotpAuthenticatorInterface;
-use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
-use Symfony\Component\HttpFoundation\Response;
-use Symfony\Component\Routing\Annotation\Route;
+use Endroid\QrCode\QrCode;
+// ...
 
 class SecurityController extends BaseController
 {
@@ -81,11 +81,9 @@ class SecurityController extends BaseController
     public function displayGoogleAuthenticatorQrCode(TotpAuthenticatorInterface $totpAuthenticator)
     {
         $qrCodeContent = $totpAuthenticator->getQRContent($this->getUser());
-        $result = Builder::create()
-            ->data($qrCodeContent)
-            ->build();
+        $qrCode = new QrCode($qrCodeContent);
 
-        return new Response($result->getString(), 200, ['Content-Type' => 'image/png']);
+        return new Response($qrCode->writeString(), 200, ['Content-Type' => 'image/png']);
     }
 }
 ```
