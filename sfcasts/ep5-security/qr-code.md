@@ -87,6 +87,7 @@ class SecurityController extends BaseController
     }
 }
 ```
+***
 
 This special endpoint *literally* returns the QR code *image*, as a png. Oh, and
 I forgot it here, but you should add an `@IsGranted("ROLE_USER")` above this:
