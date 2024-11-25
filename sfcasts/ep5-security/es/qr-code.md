@@ -38,9 +38,7 @@ También tengo que volver a escribir la "R" en `QrCodeGenerator` para obtener su
 
 ***TIP
 Si estás utilizando la nueva forma de generar los códigos QR, entonces tu controlador debería parecerse a esto. Puedes copiarlo del bloque de código de esta página```php namespace App\Controller; use Endroid\QrCode\QrCode; // ... class SecurityController extends BaseController { // ...```terminal /** @Route("/autenticación/2fa/qr-code", name="app_qr_code") @IsGranted("ROLE_USER") */ public function displayGoogleAuthenticatorQrCode(TotpAuthenticatorInterface $totpAuthenticator) { $qrCodeContent = $totpAuthenticator->getQRContent($this->getUser());
-    $qrCode = nuevo QrCode($qrCodeContent);```terminal
-return new Response($qrCode->writeString(), 200, ['Content-Type' => 'image/png']);
-```}```}```
+    $qrCode = nuevo QrCode($qrCodeContent);```terminal return new Response($qrCode->writeString(), 200, ['Content-Type' => 'image/png']);```}```}```
 ***
 
 Esta ruta especial devuelve literalmente la imagen del código QR, como un png. Ah, y lo olvidé aquí, pero deberías añadir un `@IsGranted("ROLE_USER")` encima de esto: sólo los usuarios autentificados deberían poder cargar esta imagen.
