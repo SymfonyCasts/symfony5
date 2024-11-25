@@ -16,7 +16,7 @@ En teoría, podríamos introducir esta URL manualmente en una app autenticadora.
 
 ## Generar el código QR
 
-Afortunadamente, de esto también se encarga la biblioteca Scheb. Si te desplazas un poco hacia abajo, hay un apartado sobre códigos QR. Si quieres generar uno, necesitas una última biblioteca. En realidad, justo después de que grabara esto, ¡el encargado de mantener esta biblioteca `2fa-qr-code` la dejó obsoleta! ¡Dang! Así que aún puedes instalarla, pero también te mostraré cómo generar el código QR sin ella. La librería fue obsoleta porque, bueno, es bastante fácil crear el código QR incluso sin ella.
+Afortunadamente, de esto también se encarga la biblioteca Scheb. Si te desplazas un poco hacia abajo, hay un apartado sobre códigos QR. Si quieres generar uno, necesitas una última biblioteca. En realidad, justo después de que grabara esto, ¡el encargado de mantener esta biblioteca `2fa-qr-code` la dejó obsoleta! ¡Dang! Así que aún puedes instalarla, pero también te mostraré cómo generar el código QR sin ella. La librería fue eliminada porque, bueno, es bastante fácil crear el código QR incluso sin ella.
 
 De todos modos, copiaré esto, buscaré mi terminal y lo pegaré.
 
@@ -39,9 +39,7 @@ También tengo que volver a escribir la "R" en `QrCodeGenerator` para obtener su
 [[[ code('ced3c623d5') ]]]
 
 ***TIP
-Si estás utilizando la nueva forma de generar los códigos QR, entonces tu controlador debería parecerse a esto. Puedes copiarlo del bloque de código de esta página:
-
-```php
+Si estás utilizando la nueva forma de generar los códigos QR, entonces tu controlador debería parecerse a esto. Puedes copiarlo del bloque de código de esta página```php
 namespace App\Controller;
 
 use Endroid\QrCode\QrCode;
