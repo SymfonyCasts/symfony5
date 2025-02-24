@@ -19,7 +19,7 @@ index 7f1454e7..166321eb 100644
          "symfony/yaml": "5.3.*",
          "twig/extra-bundle": "^2.12|^3.0",
 diff --git a/composer.lock b/composer.lock
-index e7b58026..1e26e272 100644
+index fdc14eb0..7be4b270 100644
 --- a/composer.lock
 +++ b/composer.lock
 @@ -4,7 +4,7 @@

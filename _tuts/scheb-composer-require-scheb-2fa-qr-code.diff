@@ -11,7 +11,7 @@ index 90016f26..cdf8a9fc 100644
          "sensio/framework-extra-bundle": "^6.0",
          "stof/doctrine-extensions-bundle": "^1.4",
 diff --git a/composer.lock b/composer.lock
-index 6ba3ce58..1d1e1c06 100644
+index 26e9daf6..cd11cb2c 100644
 --- a/composer.lock
 +++ b/composer.lock
 @@ -4,7 +4,7 @@
