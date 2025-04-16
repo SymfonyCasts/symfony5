@@ -81,7 +81,7 @@ If you are using PostgreSQL, you should modify your migration. Add `DEFAULT ''` 
 the new column can be added without an error:
 
 ```
-$this->addSql('ALTER TABLE product ADD description VARCHAR(255) NOT NULL DEFAULT \'\'');
+$this->addSql('ALTER TABLE user ADD password VARCHAR(255) NOT NULL DEFAULT \'\'');
 ```
 ***
 
