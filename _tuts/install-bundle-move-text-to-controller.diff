@@ -1,5 +1,5 @@
 diff --git a/src/Controller/QuestionController.php b/src/Controller/QuestionController.php
-index 7080cb7a..ade1434b 100644
+index 7080cb7..ade1434 100644
 --- a/src/Controller/QuestionController.php
 +++ b/src/Controller/QuestionController.php
 @@ -34,9 +34,11 @@ class QuestionController extends AbstractController
@@ -15,7 +15,7 @@ index 7080cb7a..ade1434b 100644
          ]);
      }
 diff --git a/templates/question/show.html.twig b/templates/question/show.html.twig
-index dd54e7e8..855702d7 100644
+index dd54e7e..855702d 100644
 --- a/templates/question/show.html.twig
 +++ b/templates/question/show.html.twig
 @@ -17,7 +17,7 @@

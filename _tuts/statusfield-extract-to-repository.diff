@@ -1,5 +1,5 @@
 diff --git a/src/Entity/Question.php b/src/Entity/Question.php
-index d5966f22..762ca173 100644
+index d5966f2..762ca17 100644
 --- a/src/Entity/Question.php
 +++ b/src/Entity/Question.php
 @@ -2,6 +2,7 @@
@@ -23,7 +23,7 @@ index d5966f22..762ca173 100644
  
      public function addAnswer(Answer $answer): self
 diff --git a/src/Repository/AnswerRepository.php b/src/Repository/AnswerRepository.php
-index 14e969b9..a521c861 100644
+index 14e969b..a521c86 100644
 --- a/src/Repository/AnswerRepository.php
 +++ b/src/Repository/AnswerRepository.php
 @@ -4,6 +4,7 @@ namespace App\Repository;

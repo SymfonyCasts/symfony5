@@ -1,5 +1,5 @@
 diff --git a/src/Controller/QuestionController.php b/src/Controller/QuestionController.php
-index 1a5131d6..00a93f5e 100644
+index 1a5131d..00a93f5 100644
 --- a/src/Controller/QuestionController.php
 +++ b/src/Controller/QuestionController.php
 @@ -14,4 +14,12 @@ class QuestionController

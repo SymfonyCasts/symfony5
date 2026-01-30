@@ -1,5 +1,5 @@
 diff --git a/src/Twig/MarkdownExtension.php b/src/Twig/MarkdownExtension.php
-index ca671dc0..746aa0e3 100644
+index ca671dc..746aa0e 100644
 --- a/src/Twig/MarkdownExtension.php
 +++ b/src/Twig/MarkdownExtension.php
 @@ -14,19 +14,12 @@ class MarkdownExtension extends AbstractExtension
@@ -26,7 +26,7 @@ index ca671dc0..746aa0e3 100644
      }
  }
 diff --git a/templates/question/show.html.twig b/templates/question/show.html.twig
-index 1ebf1f05..eebd034b 100644
+index 1ebf1f0..eebd034 100644
 --- a/templates/question/show.html.twig
 +++ b/templates/question/show.html.twig
 @@ -42,7 +42,7 @@

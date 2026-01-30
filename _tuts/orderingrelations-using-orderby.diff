@@ -1,5 +1,5 @@
 diff --git a/src/Entity/Question.php b/src/Entity/Question.php
-index 2e267587..cd74cc52 100644
+index 2e26758..cd74cc5 100644
 --- a/src/Entity/Question.php
 +++ b/src/Entity/Question.php
 @@ -51,6 +51,7 @@ class Question
