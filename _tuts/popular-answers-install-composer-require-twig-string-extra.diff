@@ -11,15 +11,15 @@ index 30834e2..2551cd2 100755
      },
      "require-dev": {
 diff --git a/composer.lock b/composer.lock
-index 91a5f84..e368357 100644
+index 4b614fb..58947d4 100644
 --- a/composer.lock
 +++ b/composer.lock
 @@ -4,7 +4,7 @@
          "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
          "This file is @generated automatically"
      ],
--    "content-hash": "23eb45295671c0cb42d684691891e815",
-+    "content-hash": "965f2727d2c08a17f331d753464fe2ac",
+-    "content-hash": "3c396dfd7921be3d81c479ca8fbf5e62",
++    "content-hash": "a611385a7c92f93228aa5ce1503f29f9",
      "packages": [
          {
              "name": "behat/transliterator",

@@ -11,15 +11,15 @@ index 2551cd2..d8aedf8 100755
          "doctrine/doctrine-bundle": "^2.1",
          "doctrine/doctrine-migrations-bundle": "^3.0",
 diff --git a/composer.lock b/composer.lock
-index e368357..b93062f 100644
+index 58947d4..b46907b 100644
 --- a/composer.lock
 +++ b/composer.lock
 @@ -4,8 +4,91 @@
          "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
          "This file is @generated automatically"
      ],
--    "content-hash": "965f2727d2c08a17f331d753464fe2ac",
-+    "content-hash": "74becc752e90228ba82720d11d5a97e1",
+-    "content-hash": "a611385a7c92f93228aa5ce1503f29f9",
++    "content-hash": "b3d9b456eddb49af5a674324ab64cb04",
      "packages": [
 +        {
 +            "name": "babdev/pagerfanta-bundle",
