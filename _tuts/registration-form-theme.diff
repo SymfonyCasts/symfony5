@@ -1,5 +1,5 @@
 diff --git a/config/packages/twig.yaml b/config/packages/twig.yaml
-index f9f4cc53..7b4de8a2 100644
+index f9f4cc5..7b4de8a 100644
 --- a/config/packages/twig.yaml
 +++ b/config/packages/twig.yaml
 @@ -1,5 +1,7 @@

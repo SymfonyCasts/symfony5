@@ -1,5 +1,5 @@
 diff --git a/src/Controller/SecurityController.php b/src/Controller/SecurityController.php
-index 884942c5..348d8085 100644
+index 884942c..348d808 100644
 --- a/src/Controller/SecurityController.php
 +++ b/src/Controller/SecurityController.php
 @@ -45,7 +45,7 @@ class SecurityController extends BaseController
@@ -13,7 +13,7 @@ index 884942c5..348d8085 100644
      /**
 diff --git a/templates/security/enable2fa.html.twig b/templates/security/enable2fa.html.twig
 new file mode 100644
-index 00000000..7eca7d7a
+index 0000000..7eca7d7
 --- /dev/null
 +++ b/templates/security/enable2fa.html.twig
 @@ -0,0 +1,15 @@

@@ -1,5 +1,5 @@
 diff --git a/composer.json b/composer.json
-index f0c747eb..90016f26 100644
+index f982549..d6917ba 100644
 --- a/composer.json
 +++ b/composer.json
 @@ -17,6 +17,7 @@
@@ -11,15 +11,15 @@ index f0c747eb..90016f26 100644
          "stof/doctrine-extensions-bundle": "^1.4",
          "symfony/asset": "5.3.*",
 diff --git a/composer.lock b/composer.lock
-index 56ea2215..26e9daf6 100644
+index 1e692a9..56fb4df 100644
 --- a/composer.lock
 +++ b/composer.lock
 @@ -4,7 +4,7 @@
          "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
          "This file is @generated automatically"
      ],
--    "content-hash": "f34c4897959677b2a6a7b5e3f9e8cccf",
-+    "content-hash": "b546536900bfe599ad9403266da17395",
+-    "content-hash": "f5a475b4fdfa86049a0cd03c71b8c2d2",
++    "content-hash": "317181b1ed449a059250274dbea2ee1c",
      "packages": [
          {
              "name": "babdev/pagerfanta-bundle",
@@ -457,7 +457,7 @@ index 56ea2215..26e9daf6 100644
              "name": "twig/extra-bundle",
              "version": "v3.3.3",
 diff --git a/symfony.lock b/symfony.lock
-index f405786d..b456ce13 100644
+index f405786..b456ce1 100644
 --- a/symfony.lock
 +++ b/symfony.lock
 @@ -2,6 +2,9 @@

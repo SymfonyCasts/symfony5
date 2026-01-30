@@ -1,5 +1,5 @@
 diff --git a/src/Controller/RegistrationController.php b/src/Controller/RegistrationController.php
-index 186daef2..14f7ffb7 100644
+index 186daef..14f7ffb 100644
 --- a/src/Controller/RegistrationController.php
 +++ b/src/Controller/RegistrationController.php
 @@ -85,4 +85,12 @@ class RegistrationController extends AbstractController
@@ -17,7 +17,7 @@ index 186daef2..14f7ffb7 100644
  }
 diff --git a/templates/registration/resend_verify_email.html.twig b/templates/registration/resend_verify_email.html.twig
 new file mode 100644
-index 00000000..8358e257
+index 0000000..8358e25
 --- /dev/null
 +++ b/templates/registration/resend_verify_email.html.twig
 @@ -0,0 +1,20 @@

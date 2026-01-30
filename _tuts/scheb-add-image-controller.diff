@@ -1,5 +1,5 @@
 diff --git a/src/Controller/SecurityController.php b/src/Controller/SecurityController.php
-index ffadb4a1..884942c5 100644
+index ffadb4a..884942c 100644
 --- a/src/Controller/SecurityController.php
 +++ b/src/Controller/SecurityController.php
 @@ -4,6 +4,7 @@ namespace App\Controller;
