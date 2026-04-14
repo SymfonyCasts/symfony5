@@ -1,6 +1,6 @@
 diff --git a/migrations/Version20210907185803.php b/migrations/Version20210907185803.php
 new file mode 100644
-index 00000000..fcdc6f55
+index 0000000..fcdc6f5
 --- /dev/null
 +++ b/migrations/Version20210907185803.php
 @@ -0,0 +1,31 @@
@@ -36,7 +36,7 @@ index 00000000..fcdc6f55
 +    }
 +}
 diff --git a/src/Entity/Tag.php b/src/Entity/Tag.php
-index 00cdbbaa..4471345f 100644
+index 00cdbba..4471345 100644
 --- a/src/Entity/Tag.php
 +++ b/src/Entity/Tag.php
 @@ -4,12 +4,15 @@ namespace App\Entity;

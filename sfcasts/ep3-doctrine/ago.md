@@ -58,7 +58,7 @@ To convert the `DateTime` into a friendly string, we can install a nice bundle.
 At your terminal, run:
 
 ```terminal
-composer require knplabs/knp-time-bundle
+composer require "knplabs/knp-time-bundle:1.19.0"
 ```
 
 You could find this bundle if you googled for "Symfony ago". As we know, the

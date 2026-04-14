@@ -1,5 +1,5 @@
 diff --git a/README.md b/README.md
-index 39d6ed62..a2f04725 100644
+index 39d6ed6..a2f0472 100644
 --- a/README.md
 +++ b/README.md
 @@ -45,6 +45,21 @@ Now check out the site at `https://localhost:8000`

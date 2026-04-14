@@ -1,5 +1,5 @@
 diff --git a/composer.json b/composer.json
-index ba87824c..04c33f37 100755
+index d8aedf8..c35a74d 100755
 --- a/composer.json
 +++ b/composer.json
 @@ -12,6 +12,7 @@
@@ -11,19 +11,19 @@ index ba87824c..04c33f37 100755
          "stof/doctrine-extensions-bundle": "^1.4",
          "symfony/asset": "5.3.*",
 diff --git a/composer.lock b/composer.lock
-index 96c7b959..d08de12c 100644
+index b46907b..5ac2661 100644
 --- a/composer.lock
 +++ b/composer.lock
 @@ -4,7 +4,7 @@
          "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
          "This file is @generated automatically"
      ],
--    "content-hash": "b1c4783d7389b0cd457f2de0a14d5afb",
-+    "content-hash": "d6b4dd22dc499e7ff10bbce60611a50c",
+-    "content-hash": "b3d9b456eddb49af5a674324ab64cb04",
++    "content-hash": "9fb3ef600c2d2b0ae1f77b1200e7ae4b",
      "packages": [
          {
              "name": "babdev/pagerfanta-bundle",
-@@ -2154,6 +2154,56 @@
+@@ -2151,6 +2151,56 @@
              },
              "time": "2021-07-25T22:37:42+00:00"
          },
@@ -81,7 +81,7 @@ index 96c7b959..d08de12c 100644
              "name": "psr/cache",
              "version": "1.0.1",
 diff --git a/symfony.lock b/symfony.lock
-index 6976f9ed..fa106d74 100644
+index 6976f9e..fa106d7 100644
 --- a/symfony.lock
 +++ b/symfony.lock
 @@ -142,6 +142,9 @@

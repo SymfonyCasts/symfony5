@@ -1,5 +1,5 @@
 diff --git a/templates/question/homepage.html.twig b/templates/question/homepage.html.twig
-index 121b967a..8f163042 100644
+index 121b967..8f16304 100644
 --- a/templates/question/homepage.html.twig
 +++ b/templates/question/homepage.html.twig
 @@ -26,16 +26,16 @@

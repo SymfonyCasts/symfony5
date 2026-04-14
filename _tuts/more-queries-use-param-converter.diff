@@ -1,5 +1,5 @@
 diff --git a/src/Controller/QuestionController.php b/src/Controller/QuestionController.php
-index f2b337ff..f9a6ac1e 100644
+index f2b337f..f9a6ac1 100644
 --- a/src/Controller/QuestionController.php
 +++ b/src/Controller/QuestionController.php
 @@ -73,19 +73,12 @@ EOF

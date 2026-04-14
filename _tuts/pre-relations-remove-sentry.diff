@@ -1,5 +1,5 @@
 diff --git a/composer.json b/composer.json
-index b8d96169..7661dcab 100755
+index b8d9616..7661dca 100755
 --- a/composer.json
 +++ b/composer.json
 @@ -12,7 +12,6 @@
@@ -11,7 +11,7 @@ index b8d96169..7661dcab 100755
          "symfony/asset": "5.3.*",
          "symfony/console": "5.3.*",
 diff --git a/composer.lock b/composer.lock
-index 6fba338e..5937cb51 100644
+index eb27daa..22faeae 100644
 --- a/composer.lock
 +++ b/composer.lock
 @@ -4,7 +4,7 @@
@@ -2178,7 +2178,7 @@ index 6fba338e..5937cb51 100644
              "name": "symfony/service-contracts",
              "version": "v2.4.0",
 diff --git a/config/bundles.php b/config/bundles.php
-index b89ddb31..ac71409d 100644
+index b89ddb3..ac71409 100644
 --- a/config/bundles.php
 +++ b/config/bundles.php
 @@ -10,7 +10,6 @@ return [
@@ -2191,7 +2191,7 @@ index b89ddb31..ac71409d 100644
      Doctrine\Bundle\MigrationsBundle\DoctrineMigrationsBundle::class => ['all' => true],
 diff --git a/config/packages/sentry.yaml b/config/packages/sentry.yaml
 deleted file mode 100644
-index 342036fe..00000000
+index 342036f..0000000
 --- a/config/packages/sentry.yaml
 +++ /dev/null
 @@ -1,2 +0,0 @@
@@ -2199,7 +2199,7 @@ index 342036fe..00000000
 -    dsn: '%env(SENTRY_DSN)%'
 diff --git a/config/secrets/dev/dev.SENTRY_DSN.25b27f.php b/config/secrets/dev/dev.SENTRY_DSN.25b27f.php
 deleted file mode 100644
-index acd9fc3c..00000000
+index acd9fc3..0000000
 --- a/config/secrets/dev/dev.SENTRY_DSN.25b27f.php
 +++ /dev/null
 @@ -1,3 +0,0 @@
@@ -2207,7 +2207,7 @@ index acd9fc3c..00000000
 -
 -return "\xE5I\xD6\xE8\xEF\xE2\xC8\x88\x10\xB7\x9Bs\x1BM\xF0.\x25b\xDF\x3A\xDF\xA9\xFB\x1D\x3EW\xCC\x26\xAF\xF6\x855\xA2\xAF\x5B\x05\x10\x80\x22\x9B\x19\x13\xBF\x10\xA5\x9Ai\x90";
 diff --git a/config/secrets/dev/dev.list.php b/config/secrets/dev/dev.list.php
-index 35a6ff24..0b67a5fe 100644
+index 35a6ff2..0b67a5f 100644
 --- a/config/secrets/dev/dev.list.php
 +++ b/config/secrets/dev/dev.list.php
 @@ -1,5 +1,3 @@
@@ -2219,7 +2219,7 @@ index 35a6ff24..0b67a5fe 100644
 +return [];
 diff --git a/config/secrets/prod/prod.SENTRY_DSN.25b27f.php b/config/secrets/prod/prod.SENTRY_DSN.25b27f.php
 deleted file mode 100644
-index 26b7e305..00000000
+index 26b7e30..0000000
 --- a/config/secrets/prod/prod.SENTRY_DSN.25b27f.php
 +++ /dev/null
 @@ -1,3 +0,0 @@
@@ -2227,7 +2227,7 @@ index 26b7e305..00000000
 -
 -return "Q\x99\xC6\xFAm\xC5\x3C\x0B\x08\x14\x05o\xD38\x89\x06\xA0\xC4\xDBu3~\x8Eu\xD7b\x00\xCF\xA5\x16\xD4\x23H\x8DV\xEF\xF6ZJ\xD3f\x86\x13L\xE7\x16L\x80\x5E\xB1\x93\xE0\xAC\x2B\xFD\x05N\x0D\x8C\xA7\x2F\xB8\x19\xA0\xDB8\xF0\x03\xDA\x29\x28\x13\xBC\xD2\x03\xF7i\xD5\xF9\xD3\xC3\xC8\xE7\xACP\xD9\x8F0\xA6\xD0\xBD\xAC\x95\x8BW\xECh\x07Q\xF7\xD3\x0D\x83\xF8\x9F\x26y\xE0\x98\x3B\xFD\x8D\xAEo\xFA\xB8r\xB3\x2F\x16\x3A";
 diff --git a/config/secrets/prod/prod.list.php b/config/secrets/prod/prod.list.php
-index 35a6ff24..0b67a5fe 100644
+index 35a6ff2..0b67a5f 100644
 --- a/config/secrets/prod/prod.list.php
 +++ b/config/secrets/prod/prod.list.php
 @@ -1,5 +1,3 @@
@@ -2238,7 +2238,7 @@ index 35a6ff24..0b67a5fe 100644
 -);
 +return [];
 diff --git a/symfony.lock b/symfony.lock
-index 0ef2d5ec..4f97a49e 100644
+index 0ef2d5e..4f97a49 100644
 --- a/symfony.lock
 +++ b/symfony.lock
 @@ -2,9 +2,6 @@

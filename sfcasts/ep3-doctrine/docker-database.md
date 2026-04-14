@@ -98,6 +98,11 @@ that are described in it... which is just one - run:
 docker-compose up -d
 ```
 
+***TIP
+In newer versions of Docker (v2 and up), `compose` is a sub-command of docker itself,
+so use `docker compose` instead of `docker-compose`.
+***
+
 The `-d` means "run as a daemon" - it runs in the background instead of holding
 onto my terminal.
 

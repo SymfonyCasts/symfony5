@@ -1,5 +1,5 @@
 diff --git a/src/Repository/AnswerRepository.php b/src/Repository/AnswerRepository.php
-index a521c861..7b3363a6 100644
+index a521c86..7b3363a 100644
 --- a/src/Repository/AnswerRepository.php
 +++ b/src/Repository/AnswerRepository.php
 @@ -25,4 +25,16 @@ class AnswerRepository extends ServiceEntityRepository

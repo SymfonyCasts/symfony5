@@ -38,6 +38,12 @@ This is a composer *plugin* that adds *two* special features to Composer itself.
 The first is called "aliases".
 
 At your browser, go to http://flex.symfony.com to find and big page full of packages.
+
+***TIP
+The flex.symfony.com server was shut down in favor of a new system. But you can still
+see a list of all of the available recipes at https://bit.ly/flex-recipes!
+***
+
 Search for `security`. Better, search for `sec-checker`. Boom! This says that there
 is a package called `sensiolabs/security-checker` and it has aliases of
 `sec-check`, `sec-checker`, `security-checker` and some more.
